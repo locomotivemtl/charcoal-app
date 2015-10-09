@@ -1,0 +1,12 @@
+{
+  "name": "@locomotivemtl/charcoal-config",
+  "license": "MIT",
+  "devDependencies": {
+    "glob": "^5.0.14",
+    "grunt-phpcbf": "^0.1.0",
+    "grunt-phpcs": "^0.4.0",
+    "grunt-phplint": "0.0.5",
+    "grunt-phpunit": "^0.3.6",
+    "load-grunt-tasks": "^3.2.0"
+  }
+}

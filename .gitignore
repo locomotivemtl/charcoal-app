@@ -1,0 +1,4 @@
+vendor/
+www
+tests/tmp
+node_modules/
