@@ -13,10 +13,15 @@ use \Charcoal\Config\ConfigurableTrait;
 use \Charcoal\App\Route\RouteInterface;
 use \Charcoal\App\Route\ScriptRouteConfig;
 
-class ScriptRoute implements RouteInterface, ConfigurableInterface
+class ScriptRoute implements 
+    ConfigurableInterface,
+    RouteInterface
 {
     use ConfigurableTrait;
 
+    /**
+    * @var \Slim\App $app
+    */
     private $app;
 
     /**

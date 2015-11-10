@@ -16,17 +16,17 @@ $ composer require locomotivemtl/charcoal-app
 - [`locomotivemtl/charcoal-view`](https://github.com/locomotivemtl/charcoal-view)
   - Template controllers will typically load a View object and render a template. 
   - This brings a dependency on [`mustache/mustache`](https://github.com/bobthecow/mustache.php).
-- [`slim`](https://github.com/slimphp/Slim)
+- [`slim/slim`](https://github.com/slimphp/Slim)
   - The main app, container and router are provided by Slim.
   - Its dependencies are:
-    -  `pimpl/pimple`
+    -  `pimple/pimple`
     -  `psr/http-message`
     -  `nikic/fast-route`
 
 > 👉 Development dependencies are described in the _Development_ section of this README file.
 
 # Components
-The main components of charcoal-app are _App_, _Module_, _Route_, _RequestController_ and _Middleware_.
+The main components of charcoal-app are _App_, _Module_, _Route_, _RequestController_, _Middleware_ and _Ui_.
 
 ## App
 - The *App* loads the root onfiguration.
@@ -89,6 +89,10 @@ use \Psr\Http\Message\ResponseInterfac as ResponseInterface;
 
 middleware(RequestInterface $request, ResponseInterface $response) : ResponseInterface
 ```
+
+## Ui
+Ui Elements (Dashboards, Layouts, Forms, Menus) are all in the `Charcoal\App\Ui` namespaces.
+
 ## Summary
 - An _App_ is a collection of _Modules_, which are a collection of _Routes_ and _Middlewares_.
 - _Routes_ are just definitions that match a path to a _RequestController_

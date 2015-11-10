@@ -126,6 +126,9 @@ class App implements
 
     /**
     * ConfigurableTrait > create_config()
+    *
+    * @param array $data
+    * @return AppConfig
     */
     public function create_config($data = null)
     {
