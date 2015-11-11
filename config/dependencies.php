@@ -1,4 +1,7 @@
 <?php
+/**
+* Global, custom, project-wide dependencies
+*/
 
 use \Doctrine\Common\Cache\MemcacheCache;
 
@@ -15,15 +18,4 @@ $container['logger'] = function ($c) {
     $logger->pushProcessor(new UidProcessor());
     $logger->pushHandler(new MonologStreamHandler('charcoal.app.log', \Monolog\Logger::DEBUG));
     return $logger;
-};
-
-// Doctrine logger
-$container['cache'] = function ($c) {
-	$memcache = new Memcache();
-	$memcache->connect('localhost', 11211);
-
-	$cache = new MemcacheCache();
-	$cache->setMemcache($memcache);
-
-	return $cache;
 };

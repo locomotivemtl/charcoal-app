@@ -15,11 +15,7 @@ return [
 	'routes' => [
 		'templates' => [
 			'default' => [
-				'ident'=>'default',
-				'controller'=>null,
-				'methods'=>['GET'],
-				'group'=>null,
-				'template'=>'default'
+				'ident'=>'default'
 			],
 			'example' => [
 				'ident'=>'example',
