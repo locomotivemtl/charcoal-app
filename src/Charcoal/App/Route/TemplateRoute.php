@@ -76,20 +76,24 @@ class TemplateRoute implements
         $this->logger->debug('Engine :'.$engine);
         $this->logger->debug('Template: '.$template);
 
+
         $template_loader = new \Charcoal\View\Mustache\MustacheLoader([
             'search_path'=>$app_config['view/path']
         ]);
 
+
         $view_engine = new \Charcoal\View\Mustache\MustacheEngine([
             'logger'=>$this->logger,
-            'cache'=>$container['cache'],
+           // 'cache'=>$container['cache'],
             'loader'=>$template_loader
         ]);
-
-        $view = new \Charcoal\App\Template\TemplateView([
+            
+        $view = new \Charcoal\View\GenericView([
             'engine' => $view_engine,
             'logger' => $this->logger
         ]);
+
+
 
         $content = $view->render($template, $controller);
         $response->write($content);

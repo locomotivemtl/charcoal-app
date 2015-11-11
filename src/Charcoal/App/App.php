@@ -51,6 +51,10 @@ class App implements
         $this->logger->debug('Init logger');
     }
 
+    /**
+    * @param \Slim\App $app
+    * @return App Chainable
+    */
     public function set_app(\Slim\App $app)
     {
         $this->app = $app;
@@ -58,13 +62,14 @@ class App implements
     }
 
     /**
-    * @return void
+    * @return App Chainable
     */
     public function setup()
     {
         $this->setup_middlewares();
         $this->setup_routes();
         $this->setup_modules();
+        return $this;
     }
 
     /**

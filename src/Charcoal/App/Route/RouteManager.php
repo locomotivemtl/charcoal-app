@@ -49,7 +49,8 @@ class RouteManager
     {
         $this->setup_template_routes();
         $this->setup_action_routes();
-        $this->setup_script_routes();
+
+        //$this->setup_script_routes();
     }
 
     /**
@@ -71,6 +72,7 @@ class RouteManager
                      'app' => $this,
                      'config' => $template_config
                 ]);
+
                 return $route($request, $response);
 
             });

@@ -3,8 +3,10 @@ Charcoal App
 
 `Charcoal\App` is a framework to create _Charcoal_ applications with **Slim**. It is actually a small layer on top of Slim to load the proper routes / controllers and middlewares from a configuration file.
 
+[![Build Status](https://travis-ci.org/locomotivemtl/charcoal-app.svg?branch=master)](https://travis-ci.org/locomotivemtl/charcoal-app)
+
 # How to install
-The preferred (and only supported) way of installing charcoal-app is with **composer**:
+The preferred (and only supported) way of installing _charcoal-app_ is with **composer**:
 
 ```shell
 $ composer require locomotivemtl/charcoal-app
@@ -23,7 +25,7 @@ $ composer require locomotivemtl/charcoal-app
     -  `psr/http-message`
     -  `nikic/fast-route`
 
-> 👉 Development dependencies are described in the _Development_ section of this README file.
+> 👉 Development dependencies are described in the [Development](#development) section of this README file.
 
 # Components
 The main components of charcoal-app are _App_, _Module_, _Route_, _RequestController_, _Middleware_ and _Ui_.
@@ -67,6 +69,11 @@ All routes are actually handled by the *Slim* app. Charcoal Routes are just *def
     - This can be `TemplateController` or `ActionController`
   - The `controller` ident
 
+### Route API
+
+
+> 👉 Slim's routing is actually provided by [FastRoute](https://github.com/nikic/FastRoute)
+
 Example of routes configuration:
 ```json
 {
@@ -89,9 +96,6 @@ use \Psr\Http\Message\ResponseInterfac as ResponseInterface;
 
 middleware(RequestInterface $request, ResponseInterface $response) : ResponseInterface
 ```
-
-## Ui
-Ui Elements (Dashboards, Layouts, Forms, Menus) are all in the `Charcoal\App\Ui` namespaces.
 
 ## Summary
 - An _App_ is a collection of _Modules_, which are a collection of _Routes_ and _Middlewares_.
@@ -131,6 +135,7 @@ $container = new \Slim\Container();
 $container['config'] = function() {
     $config = new \Charcoal\App\AppConfig();
     $config->add_file('../config/config.php');
+    return $config;
 };
 
 $slim = new \Slim\App($container);
@@ -196,7 +201,7 @@ $ npm install
 $ composer install
 ```
 
-## Dependencies
+## Development dependencies
 - `npm`
 - `grunt` (install with `npm install grunt-cli`)
 - `composer`
@@ -208,7 +213,7 @@ The Charcoal-App module follows the Charcoal coding-style:
 
 - [_PSR-1_](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-1-basic-coding-standard.md), except for
   - Method names MUST be declared in `snake_case`.
-- [_PSR-2_](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md), except for the PSR-1 requirement.q
+- [_PSR-2_](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md), except for the PSR-1 requirement.
 - [_PSR-4_](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-4-autoloader.md), autoloading is therefore provided by _Composer_
 - [_phpDocumentor_](http://phpdoc.org/)
   - Add DocBlocks for all classes, methods, and functions;

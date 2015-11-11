@@ -13,18 +13,20 @@ class TemplateRouteConfig extends AbstractRouteConfig
     * The template ident (to load)
     * @var string $template
     */
-    protected $template;
+    private $template;
+
     /**
     * The view engine ident to use
     * Ex: "mustache", ""
     * @var string $engine
     */
-    protected $engine;
+    private $engine;
+    
     /**
     * Additional template options
     * @var array $options
     */
-    protected $options;
+    private $options;
 
     /**
     * @param string $template
