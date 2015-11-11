@@ -3,8 +3,6 @@
 * Global, custom, project-wide dependencies
 */
 
-use \Doctrine\Common\Cache\MemcacheCache;
-
 use \Monolog\Logger as MonologLogger;
 use \Monolog\Processor\UidProcessor;
 use \Monolog\Handler\StreamHandler as MonologStreamHandler;

@@ -109,8 +109,6 @@ class RouteManager
     protected function setup_script_routes()
     {
         $routes = $this->config;
-        $logger = $this->logger;
-        $app = $this->app;
 
         $scripts = isset($routes['scripts']) ? $routes['scripts'] : [];
         foreach ($scripts as $script_ident => $script_config) {

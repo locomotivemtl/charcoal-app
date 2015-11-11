@@ -9,7 +9,9 @@ class ModuleManager
     */
     private $modules = [];
 
-    
+    /**
+    * @var \Slim\App $app
+    */
     private $app;
 
     /**

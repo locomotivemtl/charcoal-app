@@ -10,6 +10,7 @@ use \Charcoal\Config\ConfigurableTrait;
 use \Charcoal\App\AppConfig;
 use \Charcoal\App\AppInterface;
 
+use \Charcoal\App\Middleware\MiddlewareManager;
 use \Charcoal\App\Module\ModuleManager;
 use \Charcoal\App\Route\RouteManager;
 

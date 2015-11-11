@@ -8,6 +8,7 @@ use \Charcoal\Config\ConfigurableTrait;
 
 
 // Intra-module (`charcoal-app`) dependencies
+use \Charcoal\App\Middleware\MiddlewareManager;
 use \Charcoal\App\Module\ModuleManager;
 use \Charcoal\App\Route\RouteManager;
 
