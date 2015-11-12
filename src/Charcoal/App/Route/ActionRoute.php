@@ -28,6 +28,8 @@ class ActionRoute implements
     * Dependencies:
     * - `config`
     * - `app`
+    *
+    * @throws InvalidArgumentException
     */
     public function __construct($data)
     {

@@ -9,7 +9,7 @@ class AbstractRouteConfig extends AbstractConfig
 {
 
     /**
-    * The route ident
+    * @var string $ident
     */
     private $ident;
 

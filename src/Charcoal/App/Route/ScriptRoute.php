@@ -13,7 +13,7 @@ use \Charcoal\Config\ConfigurableTrait;
 use \Charcoal\App\Route\RouteInterface;
 use \Charcoal\App\Route\ScriptRouteConfig;
 
-class ScriptRoute implements 
+class ScriptRoute implements
     ConfigurableInterface,
     RouteInterface
 {
@@ -28,6 +28,8 @@ class ScriptRoute implements
     * Dependencies:
     * - `config`
     * - `app`
+    *
+    * @throws InvalidArgumentException
     */
     public function __construct($data)
     {

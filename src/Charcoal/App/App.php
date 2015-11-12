@@ -47,8 +47,7 @@ class App implements
         $this->set_config($config);
         $this->set_app($app);
 
-        $container = $app->getContainer();
-        $this->logger = $container['logger'];
+        $this->logger = $app->logger;
         $this->logger->debug('Init logger');
     }
 

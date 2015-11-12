@@ -7,6 +7,9 @@ use \InvalidArgumentException;
 // Local namespace dependencies
 use \Charcoal\App\Route\AbstractRouteConfig;
 
+/**
+*
+*/
 class TemplateRouteConfig extends AbstractRouteConfig
 {
     /**
@@ -21,7 +24,7 @@ class TemplateRouteConfig extends AbstractRouteConfig
     * @var string $engine
     */
     private $engine;
-    
+
     /**
     * Additional template options
     * @var array $options
@@ -69,6 +72,7 @@ class TemplateRouteConfig extends AbstractRouteConfig
 
     /**
     * @param string $engine
+    * @throws InvalidArgumentException
     * @return TemplateRouteConfig Chainable
     */
     public function set_engine($engine)

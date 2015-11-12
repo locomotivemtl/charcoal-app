@@ -2,7 +2,12 @@
 
 namespace Charcoal\App\Route;
 
+// Dependencies from `PHP`
 use \InvalidArgumentException;
+
+// PSR-3 logger
+use \Psr\Log\LoggerInterface;
+use \Psr\Log\LoggerAwareInterface;
 
 // From `charcoal-config`
 use \Charcoal\Config\ConfigurableInterface;
@@ -13,6 +18,7 @@ use \Charcoal\App\Route\RouteInterface;
 use \Charcoal\App\Route\TemplateRouteConfig;
 
 class TemplateRoute implements
+    LoggerAwareInterface,
     RouteInterface,
     ConfigurableInterface
 {
@@ -23,14 +29,20 @@ class TemplateRoute implements
     */
     private $app;
 
+    /**
+     * @var LoggerInterface $logger
+    */
     private $logger;
 
     /**
     * Dependencies:
     * - `config`
     * - `app`
+    *
+    * @param array $data Dependencies
+    * @throws InvalidArgumentException
     */
-    public function __construct($data)
+    public function __construct(array $data)
     {
         $this->set_config($data['config']);
 
@@ -41,7 +53,40 @@ class TemplateRoute implements
             );
         }
 
-        $this->logger = $this->app->logger;
+        // Reuse app logger, if it's not directly set in data dependencies
+        $logger = isset($data['logger']) ? $data['logger'] : $this->app->logger;
+        $this->set_logger($logger);
+    }
+
+    /**
+    * > LoggerAwareInterface > setLogger()
+    *
+    * Fulfills the PSR-1 style LoggerAwareInterface
+    *
+    * @param LoggerInterface $logger
+    * @return AbstractEngine Chainable
+    */
+    public function setLogger(LoggerInterface $logger)
+    {
+        return $this->set_logger($logger);
+    }
+
+    /**
+    * @param LoggerInterface $logger
+    * @return AbstractEngine Chainable
+    */
+    public function set_logger(LoggerInterface $logger = null)
+    {
+        $this->logger = $logger;
+        return $this;
+    }
+
+    /**
+    * @erturn LoggerInterface
+    */
+    public function logger()
+    {
+        return $this->logger;
     }
 
     /**
@@ -57,6 +102,8 @@ class TemplateRoute implements
     */
     public function __invoke($request, $response)
     {
+        unset($request);
+
         $container = $this->app->getContainer();
         $app_config = $container['config'];
 
@@ -93,12 +140,9 @@ class TemplateRoute implements
             'logger' => $this->logger
         ]);
 
-
-
         $content = $view->render($template, $controller);
         $response->write($content);
 
         return $response;
-
     }
 }
