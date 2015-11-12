@@ -17,3 +17,5 @@ $container['logger'] = function ($c) {
     $logger->pushHandler(new MonologStreamHandler('charcoal.app.log', \Monolog\Logger::DEBUG));
     return $logger;
 };
+
+$container['charcoal/app/logger'] = $container['logger'];

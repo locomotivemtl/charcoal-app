@@ -22,7 +22,7 @@ return [
 				'controller'=>null,
 				'methods'=>['GET'],
 				'group'=>null,
-				'template'=>'default',
+				'template'=>'example',
 				'engine'=>'mustache',
 				'cache'=>[
 					'active'=>true,
@@ -32,6 +32,7 @@ return [
 
 			]
 		],
+		'default_template'=>'default',
 		'actions' => [
 			'default' => [],
 			'example' => [
