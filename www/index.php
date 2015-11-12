@@ -41,23 +41,6 @@ require __DIR__.'/../config/routes.php';
 $charcoal = new CharcoalApp($container['config'], $app);
 $charcoal->setup();
 
-//AdminModule::setup($app);
-//MessagingModule::setup($app);
-//BoilerplateModule::setup($app);
-//AlertModule::setup($app);
 
-$app->get('/help', function($req, $res) {
-    var_dump('HALP');
-});
+$app->run();
 
-// Catch-all
-$app->get('/{request:.*}', function($req, $res, $args) {
-    var_dump('REQUEST: '.$args['request']);
-});
-
-try {
-	$app->run();
-}
-catch (Exception $e) {
-    die();
-}
