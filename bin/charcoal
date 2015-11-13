@@ -1,0 +1,94 @@
+#!/usr/bin/env php
+<?php
+
+use \Charcoal\App\App as CharcoalApp;
+use \Charcoal\App\AppConfig;
+
+// Slim dependencies
+use \Slim\App as SlimApp;
+use \Slim\Container as SlimContainer;
+use \Slim\Http\Environment as SlimEnvironment;
+
+$autoloader_path = [
+	__DIR__. '/../../autoload.php',
+	__DIR__. '/../vendor/autoload.php',
+	__DIR__. '/vendor/autoload.php'
+];
+
+foreach ($autoloader_path as $file) {
+    if (file_exists($file)) {
+        include $file;
+        break;
+    }
+}
+unset($file);
+
+// Ensure CLI mode
+if (PHP_SAPI !== 'cli') {
+    die('This program can only be executed from a terminal / Command Line Interface'."\n");
+}
+
+global $argv;
+// Convert command line arguments into a URL (for Slim)
+$argv = $GLOBALS['argv'];
+if (!isset($argv[1])) {
+    die('This script requires at least one parameter: the script action name / ident.'."\n");
+}
+$path = '/'.$argv[1];
+
+// Create container and configure it (with charcoal-config)
+$container = new SlimContainer();
+
+
+
+$container['environment'] = function($c) use ($path) {
+    return SlimEnvironment::mock([
+        'PATH_INFO' => $path,
+        'REQUEST_URI' => $path
+    ]); 
+};
+
+// Handle "404 Not Found"
+$container['notFoundHandler'] = function ($c) { 
+    return function ($request, $response) use ($c) 
+    { 
+        return $c['response'] 
+            ->withStatus(404) 
+            ->write('Script not found'."\n"); 
+    }; 
+};
+
+// Handle "500 Server Error" 
+$container['errorHandler'] = function ($c) {
+    return function ($request, $response, $exception) use ($c) 
+    {
+        return $c['response']
+        	->withStatus(500)
+			->write(
+				sprintf('Something went wrong! (%s)'."\n", $exception->getMessage())
+			);
+	};
+};
+
+// Main Charcoal Config
+$container['charcoal/app/config'] = function($c) {
+    $config = new AppConfig();
+    var_dump(__DIR__.'/../config/config.php');
+    $config->add_file(__DIR__.'/../config/config.php');
+    return $config;
+};
+
+// Slim is the main app
+$app = new SlimApp($container);
+
+// Set up dependencies
+require __DIR__.'/../config/dependencies.php';
+// Register middlewares
+require __DIR__.'/../config/middlewares.php';
+// Register routes
+require __DIR__.'/../config/routes.php';
+
+$charcoal = new CharcoalApp($container['charcoal/app/config'], $app);
+$charcoal->setup();
+
+$app->run();

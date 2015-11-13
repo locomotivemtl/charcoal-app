@@ -24,5 +24,6 @@
             "Charcoal\\": "src/Charcoal/"
         }
     },
-    "minimum-stability": "dev"
+    "minimum-stability": "dev",
+    "bin":["bin/charcoal"]
 }
