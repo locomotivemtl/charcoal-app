@@ -94,7 +94,6 @@ class TemplateRoute implements
     */
     public function create_config($data = null)
     {
-
         return new TemplateRouteConfig($data);
     }
 
@@ -115,8 +114,8 @@ class TemplateRoute implements
             $controller = $config['ident'];
         }
         $template = $config['template'];
-        $engine = $config['engine'];
-        $options = $config['options'];
+        $engine   = $config['engine'];
+        $options  = $config['options'];
 
         $this->logger()->debug('RESPONDING to '.$config['ident']);
         $this->logger()->debug('Engine :'.$engine);
@@ -124,15 +123,16 @@ class TemplateRoute implements
         $this->logger()->debug('Controller: '.$controller);
 
         $template_loader = new \Charcoal\View\Mustache\MustacheLoader([
-            'search_path' => $app_config['view/path']
+            'search_path'      => $app_config['view/path'],
+            'default_template' => $app_config['view/default_template']
         ]);
 
         $view_engine = new \Charcoal\View\Mustache\MustacheEngine([
             'logger' => $this->logger(),
-           // 'cache' => $container['cache'],
+            // 'cache' => $container['cache'],
             'loader' => $template_loader
         ]);
-            
+
         $view = new \Charcoal\View\GenericView([
             'engine' => $view_engine,
             'logger' => $this->logger()

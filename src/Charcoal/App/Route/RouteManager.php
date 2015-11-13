@@ -40,14 +40,15 @@ class RouteManager implements LoggerAwareInterface
     public function __construct($data)
     {
         $this->config = $data['config'];
-        $this->app = $data['app'];
+        $this->app    = $data['app'];
+
         if (!($this->app instanceof \Slim\App)) {
             throw new InvalidArgumentException(
                 'RouteManager requires a Slim App object in its dependency container.'
             );
         }
 
-        $logger = isset($data['logger']) ? $data['logger'] : $this->app->logger;
+        $logger = ( isset($data['logger']) ? $data['logger'] : $this->app->logger );
         $this->set_logger($data['logger']);
     }
 
@@ -113,15 +114,14 @@ class RouteManager implements LoggerAwareInterface
         $templates = ( isset($routes['templates']) ? $routes['templates'] : [] );
         $this->logger->debug('Templates', (array)$templates);
         foreach ($templates as $template_ident => $template_config) {
-            $template_ident = ltrim($template_ident, '/\\');
             $methods = ( isset($tempate_config['methods']) ? $template_config['methods'] : [ 'GET' ] );
 
-            $this->app->map(
+            $route = $this->app->map(
                 $methods,
-                '/' . $template_ident,
-                function($request, $response, $args) use ($template_ident, $template_config) {
+                $template_ident,
+                function ($request, $response, $args) use ($template_ident, $template_config) {
                     if (!isset($template_config['ident'])) {
-                        $template_config['ident'] = $template_ident;
+                        $template_config['ident'] = ltrim($template_ident, '/');
                     }
 
                     $route = new TemplateRoute([
@@ -133,6 +133,10 @@ class RouteManager implements LoggerAwareInterface
                     return $route($request, $response);
                 }
             );
+
+            if (isset($template_config['ident'])) {
+                $route->setName($template_config['ident']);
+            }
         }
     }
 
@@ -144,15 +148,16 @@ class RouteManager implements LoggerAwareInterface
         $routes = $this->config;
 
         $actions = ( isset($routes['actions']) ? $routes['actions'] : [] );
+        $this->logger->debug('Actions', (array)$actions);
         foreach ($actions as $action_ident => $action_config) {
-            $action_ident = ltrim($action_ident, '/\\');
             $methods = ( isset($action_config['methods']) ? $action_config['methods'] : [ 'POST' ] );
-            $this->app->map(
+
+            $route = $this->app->map(
                 $methods,
-                '/'.$action_ident,
-                function($request, $response, $args) use ($action_ident, $action_config) {
+                $action_ident,
+                function ($request, $response, $args) use ($action_ident, $action_config) {
                     if (!isset($action_config['ident'])) {
-                        $action_config['ident'] = $action_ident;
+                        $action_config['ident'] = ltrim($action_ident, '/');
                     }
 
                     $route = new ActionRoute([
@@ -160,10 +165,13 @@ class RouteManager implements LoggerAwareInterface
                         'config' => $action_config // new ActionRouteConfig($action_config)
                     ]);
 
-                    // Invoke action route
                     return $route($request, $response);
                 }
             );
+
+            if (isset($action_config['ident'])) {
+                $route->setName($action_config['ident']);
+            }
         }
     }
 
@@ -174,24 +182,31 @@ class RouteManager implements LoggerAwareInterface
     {
         $routes = $this->config;
 
-        $scripts = ( isset($routes['scripts']) ? $routes['scripts'] : []) ;
+        $scripts = ( isset($routes['scripts']) ? $routes['scripts'] : [] );
+        $this->logger->debug('Scripts', (array)$scripts);
         foreach ($scripts as $script_ident => $script_config) {
-            $script_ident = ltrim($script_ident, '/\\');
             $methods = ( isset($script_config['methods']) ? $script_config['methods'] : [ 'GET' ] );
-            $this->app->map(
+
+            $route = $this->app->map(
                 $methods,
-                '/'.$script_ident,
-                function($request, $response, $args) use ($script_ident, $script_config) {
+                $script_ident,
+                function ($request, $response, $args) use ($script_ident, $script_config) {
                     if (!isset($script_config['ident'])) {
-                        $script_config['ident'] = $script_ident;
+                        $script_config['ident'] = ltrim($script_ident, '/');
                     }
+
                     $route = new ScriptRoute([
                         'app'    => $this->app,
                         'config' => $script_config // new ScriptRouteConfig($script_config)
                     ]);
+
                     return $route($request, $response);
                 }
             );
+
+            if (isset($script_config['ident'])) {
+                $route->setName($script_config['ident']);
+            }
         }
     }
 }
