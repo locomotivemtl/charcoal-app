@@ -1,6 +1,6 @@
 <?php
 return [
-	
+
 	'logger'=>[
 		'level'=>'debug'
 	],
@@ -9,6 +9,7 @@ return [
 		'path'=>[
 			'../templates/'
 		],
+        'default_template'=>'default',
 		'default_engine'=>'mustache'
 	],
 
@@ -29,10 +30,8 @@ return [
 					'key'=>'route/{{ident}}/{{lang}}/'
 				],
 				'options'=>[]
-
 			]
 		],
-		'default_template'=>'default',
 		'actions' => [
 			'default' => [],
 			'example' => [

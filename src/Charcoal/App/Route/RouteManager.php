@@ -110,52 +110,27 @@ class RouteManager implements LoggerAwareInterface
     {
         $routes = $this->config;
 
-        $templates = isset($routes['templates']) ? $routes['templates'] : [];
+        $templates = ( isset($routes['templates']) ? $routes['templates'] : [] );
         $this->logger->debug('Templates', (array)$templates);
         foreach ($templates as $template_ident => $template_config) {
-            $methods = isset($tempate_config['methods']) ? $template_config['methods'] : ['GET'];
+            $template_ident = ltrim($template_ident, '/\\');
+            $methods = ( isset($tempate_config['methods']) ? $template_config['methods'] : [ 'GET' ] );
+
             $this->app->map(
                 $methods,
-                '/'.$template_ident,
+                '/' . $template_ident,
                 function($request, $response, $args) use ($template_ident, $template_config) {
                     if (!isset($template_config['ident'])) {
                         $template_config['ident'] = $template_ident;
                     }
+
                     $route = new TemplateRoute([
-                         'app' => $this,
-                         'config' => $template_config
+                         'app'    => $this,
+                         'config' => new TemplateRouteConfig($template_config)
                     ]);
 
-                    // Inboke template route
+                    // Invoke template route
                     return $route($request, $response);
-                }
-            );
-        }
-
-        // Set up default template route
-        $default_template = isset($routes['default_template']) ? $routes['default_template'] : null;
-        if ($default_template) {
-            if (!isset($templates[$default_template])) {
-                throw new Exception(
-                    sprintf('Default template "%s" is not defined.', $default_template)
-                );
-            }
-            $default_template_config = $templates[$default_template];
-            $methods = isset($default_template_config['methods']) ? $default_template_config['methods'] : ['GET'];
-            $this->app->map(
-                $methods,
-                '/',
-                function($request, $response, $args) use ($default_template, $default_template_config) {
-                    if (!isset($default_template_config['ident'])) {
-                        $default_template_config['ident'] = $default_template;
-                    }
-                    $default_route = new TemplateRoute([
-                        'app' => $this,
-                        'config' => new TemplateRouteConfig($default_template_config)
-                    ]);
-
-                    // Invoke default template route
-                    return $default_route($request, $response);
                 }
             );
         }
@@ -168,10 +143,10 @@ class RouteManager implements LoggerAwareInterface
     {
         $routes = $this->config;
 
-        $actions = isset($routes['actions']) ? $routes['actions'] : [];
+        $actions = ( isset($routes['actions']) ? $routes['actions'] : [] );
         foreach ($actions as $action_ident => $action_config) {
-            $methods = isset($action_config['methods']) ? $action_config['methods'] : ['POST
-            '];
+            $action_ident = ltrim($action_ident, '/\\');
+            $methods = ( isset($action_config['methods']) ? $action_config['methods'] : [ 'POST' ] );
             $this->app->map(
                 $methods,
                 '/'.$action_ident,
@@ -179,12 +154,13 @@ class RouteManager implements LoggerAwareInterface
                     if (!isset($action_config['ident'])) {
                         $action_config['ident'] = $action_ident;
                     }
+
                     $route = new ActionRoute([
-                        'app' => $this,
-                        'config' => $action_config
+                        'app'    => $this,
+                        'config' => $action_config // new ActionRouteConfig($action_config)
                     ]);
 
-                    // Inoke action route
+                    // Invoke action route
                     return $route($request, $response);
                 }
             );
@@ -198,10 +174,10 @@ class RouteManager implements LoggerAwareInterface
     {
         $routes = $this->config;
 
-        $scripts = isset($routes['scripts']) ? $routes['scripts'] : [];
+        $scripts = ( isset($routes['scripts']) ? $routes['scripts'] : []) ;
         foreach ($scripts as $script_ident => $script_config) {
-            $methods = isset($script_config['methods']) ? $script_config['methods'] : ['GET
-            '];
+            $script_ident = ltrim($script_ident, '/\\');
+            $methods = ( isset($script_config['methods']) ? $script_config['methods'] : [ 'GET' ] );
             $this->app->map(
                 $methods,
                 '/'.$script_ident,
@@ -210,8 +186,8 @@ class RouteManager implements LoggerAwareInterface
                         $script_config['ident'] = $script_ident;
                     }
                     $route = new ScriptRoute([
-                        'app' => $this->app,
-                        'config' => $script_config
+                        'app'    => $this->app,
+                        'config' => $script_config // new ScriptRouteConfig($script_config)
                     ]);
                     return $route($request, $response);
                 }
