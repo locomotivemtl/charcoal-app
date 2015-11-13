@@ -5,7 +5,10 @@ namespace Charcoal\App\Route;
 // From `charcoal-config`
 use \Charcoal\Config\AbstractConfig;
 
-class AbstractRouteConfig extends AbstractConfig
+/**
+* Base "Route" configuration.
+*/
+class RouteConfig extends AbstractConfig
 {
 
     /**
@@ -14,11 +17,11 @@ class AbstractRouteConfig extends AbstractConfig
     private $ident;
 
     /**
-    * The methods to wthich this route resolve to.
+    * The HTTP methods to wthich this route resolve to.
     * Ex: ['GET', 'POST', 'PUT', 'DELETE']
     * @var array $methods
     */
-    private $methods;
+    private $methods = ['GET'];
 
     /**
     * The identifier of the controller class.
@@ -26,6 +29,10 @@ class AbstractRouteConfig extends AbstractConfig
     */
     private $controller;
 
+    /**
+    * @var string $group
+    */
+    private $group;
 
     /**
     * @param string $ident

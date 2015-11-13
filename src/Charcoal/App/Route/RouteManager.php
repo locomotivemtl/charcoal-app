@@ -13,6 +13,7 @@ use \Psr\Log\LoggerAwareInterface;
 use \Charcoal\App\Route\ActionRoute;
 use \Charcoal\App\Route\ScriptRoute;
 use \Charcoal\App\Route\TemplateRoute;
+use \Charcoal\App\Route\TemplateRouteConfig;
 
 class RouteManager implements LoggerAwareInterface
 {
@@ -93,10 +94,12 @@ class RouteManager implements LoggerAwareInterface
     */
     public function setup_routes()
     {
-        $this->setup_template_routes();
-        $this->setup_action_routes();
-
-        //$this->setup_script_routes();
+        if (PHP_SAPI == 'cli') {
+            $this->setup_script_routes();
+        } else {
+            $this->setup_template_routes();
+            $this->setup_action_routes();
+        }
     }
 
     /**
@@ -143,12 +146,12 @@ class RouteManager implements LoggerAwareInterface
                 $methods,
                 '/',
                 function($request, $response, $args) use ($default_template, $default_template_config) {
-                    if (!isset($template_config['ident'])) {
+                    if (!isset($default_template_config['ident'])) {
                         $default_template_config['ident'] = $default_template;
                     }
                     $default_route = new TemplateRoute([
                         'app' => $this,
-                        'config', $default_template_config
+                        'config' => new TemplateRouteConfig($default_template_config)
                     ]);
 
                     // Invoke default template route

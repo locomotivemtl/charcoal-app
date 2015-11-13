@@ -10,7 +10,7 @@ use \Charcoal\App\Route\AbstractRouteConfig;
 /**
 *
 */
-class TemplateRouteConfig extends AbstractRouteConfig
+class TemplateRouteConfig extends RouteConfig
 {
     /**
     * The template ident (to load)
@@ -109,12 +109,19 @@ class TemplateRouteConfig extends AbstractRouteConfig
         return 'mustache';
     }
 
+    /**
+    * @param array $options
+    * @return TemplateRouteConfig Chainable
+    */
     public function set_options($options)
     {
         $this->options = $options;
         return $this;
     }
 
+    /**
+    * @return array
+    */
     public function options()
     {
         return $this->options;

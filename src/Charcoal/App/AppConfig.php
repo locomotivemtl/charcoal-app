@@ -4,6 +4,9 @@ namespace Charcoal\App;
 
 use \Charcoal\Config\AbstractConfig;
 
+/**
+* Charcoal App configuration
+*/
 class AppConfig extends AbstractConfig
 {
     /**
