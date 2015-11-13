@@ -1,7 +1,7 @@
 Charcoal App
 ============
 
-`Charcoal\App` is a framework to create _Charcoal_ applications with **Slim**. It is actually a small layer on top of Slim to load the proper routes / controllers and middlewares from a configuration file.
+`Charcoal\App` is a framework to create _Charcoal_ applications with **Slim 3**. It is actually a small layer on top of Slim to load the proper routes / controllers and middlewares from a configuration file.
 
 [![Build Status](https://travis-ci.org/locomotivemtl/charcoal-app.svg?branch=master)](https://travis-ci.org/locomotivemtl/charcoal-app)
 
@@ -13,24 +13,34 @@ $ composer require locomotivemtl/charcoal-app
 ```
 
 ## Dependencies
-- `PHP 5.5+`
-  - Older versions of PHP are deprecated, therefore not supported.
+- [`PHP 5.5+`](http://php.net)
+	- Older versions of PHP are deprecated, therefore not supported for charcoal-app.
 - [`locomotivemtl/charcoal-view`](https://github.com/locomotivemtl/charcoal-view)
-  - Template controllers will typically load a View object and render a template. 
-  - This brings a dependency on [`mustache/mustache`](https://github.com/bobthecow/mustache.php).
+	- Template controllers will typically load a _View_ object  (or a _Renderer_, for PSR7 / Slim compatibility) and render a template. 
+	- This brings a dependency on [`mustache/mustache`](https://github.com/bobthecow/mustache.php).
 - [`slim/slim`](https://github.com/slimphp/Slim)
-  - The main app, container and router are provided by Slim.
-  - Its dependencies are:
-    -  `pimple/pimple`
-    -  `psr/http-message`
-    -  `nikic/fast-route`
+	- The main app, container and router are provided by Slim.
+ 	- Its dependencies are:
+		-  [`pimple/pimple`](http://pimple.sensiolabs.org/)
+		-  [`psr/http-message`]((http://www.php-fig.org/psr/psr-7/))
+		-  [`nikic/fast-route`](https://github.com/nikic/FastRoute)
 
-> 👉 Development dependencies are described in the [Development](#development) section of this README file.
+> 👉 Development dependencies, which are optional when using charcoal-app, are described in the [Development](#development) section of this README file.
+
+### The PSR-7 standard (http messages)
+
+Just like _Slim_, charcoal-app is built around the [`psr-7`](http://www.php-fig.org/psr/psr-7/) standard.
+
+_Charcoal Actions_ are typically ran either by the `run()` method or by inkoking an action instance (with the `__invoke()` magic method). This method takes a _RequestInterface_ and a _ResponseInterface_ as parameters and returns a _ResponseInterface_.
+
+Similarly, when a `Charcoal\View\Renderer` is used as a renderer (instead of a plain view), the `render()` method accepts (and returns) a _ResponseInterface_ object.
+ 
 
 # Components
-The main components of charcoal-app are _App_, _Module_, _Route_, _RequestController_, _Middleware_ and _Ui_.
+The main components of charcoal-app are _App_, _Module_, _Route_, _RequestController_, _Middleware_ and the _Binary (Charcoal Script)_.
 
 ## App
+
 - The *App* loads the root onfiguration.
   - **App**: _implements_ `\Charcoal\App\App`
   - **Config**: `\Charcoal\App\AppConfig`
@@ -44,7 +54,16 @@ The main components of charcoal-app are _App_, _Module_, _Route_, _RequestContro
     - Loop all `modules` from the `AppConfiguration` and create new *Modules* according to the configuration.
     - (The Module creation is done statically via it's `setup()` abstract method)
 
-> The `App` is entirely optional. Modules could be loaded without going through a `ModuleManager`.
+> 👉 The `App` concept is entirely optional. Modules could be loaded without one.
+
+### App configuration 
+
+`\Charcoal\App\AppConfig` API:
+
+| Key | Type  | Default | Description |
+| --- | ----- | ------- | ----------- |
+| **routes**  | _array_ (of `RouteConfig`) | `[]` | ... |
+| **modules** | _array_ (of `ModuleConfig`) | `[]` | ... |
 
 ## Module
 
@@ -63,33 +82,40 @@ The main components of charcoal-app are _App_, _Module_, _Route_, _RequestContro
 
 ## Routes and RequestController
 All routes are actually handled by the *Slim* app. Charcoal Routes are just *definition* of a route:
+
 - An identifier, which typically matches the controller.
 - A RouteConfig structure, which contains:
-  - The `type` of  `RequestController`
-    - This can be `TemplateController` or `ActionController`
-  - The `controller` ident
+	- The `type` of  `RequestController`. This can be:
+  		- `Action`
+   		- `Script` (_Scripts_ can only be ran from the CLI.)
+   		- `Template`
+	- The `controller` ident
 
 ### Route API
 
-
 > 👉 Slim's routing is actually provided by [FastRoute](https://github.com/nikic/FastRoute)
 
-Example of routes configuration:
-```json
-{
-  
-}
-```
+Example of routes configuration (template):
 
-To manage the module's route.
+| Key             | Type     | Default | Description |
+| --------------- | -------- | ------- | ----------- |
+| **ident**       | _string_ | `null`  | Route identifier. |
+| **controller**  | _string_ | `null`  | Controller identifier. Will be guessed from the _ident_ when `null`. |
+| **methods**     | _array_ of `string` | `['GET']` | The HTTP methods to wthich this route resolve to. Ex: `['GET', 'POST', 'PUT', 'DELETE']` |
+| **group**       | _string_ | `null`  |
+| **template**    | _string_ | `null`  | The template _ident_ to display. 
+| **engine**      | _string_ | `'mustache'` | The template _engine_ type. Default Charcoal view engines are `mustache`, `php` and `php-mustache`. |
+| **options**     | _array_  | `[]` | Extra options. |
 
-There are 3 types of `RequestController`:
-- `ActionController`: typically executes an action (return JSON) from a _POST_ request.
-- `ScriptController`: typically ran from the CLI interface.
-- `TemplateController`: typically  load a template from a _GET_ request.
-- 
+There are 3 types of `Route`:
+
+- `ActionRoute`: typically executes an action (return JSON) from a _POST_ request.
+- `ScriptRoute`: typically ran from the CLI interface.
+- `TemplateRoute`: typically  load a template from a _GET_ request. "A Web page".
+
 ## Middleware
 Middleware is not yet implemented in `Charcoal\App`. The plan is to use the PSR7-middleware system, which is a callable with the signature:
+
 ```
 use \Psr\Http\Message\RequestInterface as RequestInterface;
 use \Psr\Http\Message\ResponseInterfac as ResponseInterface;
@@ -97,14 +123,20 @@ use \Psr\Http\Message\ResponseInterfac as ResponseInterface;
 middleware(RequestInterface $request, ResponseInterface $response) : ResponseInterface
 ```
 
+## Binary (Charcoal script)
+
+As previously mentionned, `Script` routes are only available to run from the CLI. A script loader is provided in `bin/charcoal`. It will be installed, with composer, in `vendor/bin/charcoal`.
+
 ## Summary
+
 - An _App_ is a collection of _Modules_, which are a collection of _Routes_ and _Middlewares_.
-- _Routes_ are just definitions that match a path to a _RequestController_
-  - There are 2 types of _RequestController_: _Templates_ and _Actions_
+- _Routes_ are just (config) definitions that match a path to a _RequestController_
+  - There are 3 types of _RequestController_: _Actions_, _Scripts_ and _Templates_. 
 
 ## Configuration examples
 
 Example of a module configuration:
+
 ```json
 {
     "routes":{
@@ -115,6 +147,7 @@ Example of a module configuration:
                 "methods":["GET", "POST"]
             }
         },
+        "default_template":"foo_bar", 
         "actions":{
             "foo/bar":{}
         }
@@ -126,7 +159,9 @@ Example of a module configuration:
 ```
 
 # Usage
-Typical Front-Controller:
+
+Typical Front-Controller (`index.php`):
+
 ```php
 include '../vendor/autoload.php';
 
@@ -146,7 +181,8 @@ $app->setup();
 $slim->run();
 ```
 
-Without an App / ModuleManager:
+It is also possible to bypass the `Charcoal\App` totally and simply instanciate each modules manually:
+
 ```php
 // ...
 $slim = new \Slim\App($container);
@@ -160,6 +196,7 @@ $slim->run();
 This achieves the same result, excepts the *Modules* were not loaded from the root configuration but hard-coded.
 
 Without Module to handle routes and middlewares:
+
 ```php
 // ...
 $slim = new \Slim\App($container);
@@ -196,12 +233,14 @@ $slim->post('/', function() {
 # Development
 
 To install the development environment:
+
 ```shell
 $ npm install
 $ composer install
 ```
 
 ## Development dependencies
+
 - `npm`
 - `grunt` (install with `npm install grunt-cli`)
 - `composer`
