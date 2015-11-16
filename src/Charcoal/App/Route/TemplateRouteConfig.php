@@ -5,7 +5,7 @@ namespace Charcoal\App\Route;
 use \InvalidArgumentException;
 
 // Local namespace dependencies
-use \Charcoal\App\Route\AbstractRouteConfig;
+use \Charcoal\App\Route\RouteConfig;
 
 /**
 *
