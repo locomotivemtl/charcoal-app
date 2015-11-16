@@ -2,11 +2,10 @@
 
 namespace Charcoal\App\Action;
 
-use \Exception;
+// Dependencies from `PHP`
 use \InvalidArgumentException;
 
-use \Charcoal\Charcoal;
-
+// Local namespace dependencies
 use \Charcoal\Action\ActionInterface;
 
 /**

@@ -1,31 +1,28 @@
 <?php
 
-namespace Charcoal\Template;
+namespace Charcoal\App\Template;
 
-// Module `charcoal-core` dependencies
-use \Charcoal\Core\IdentFactory as IdentFactory;
+// Module `charcoal-factory` dependencies
+use \Charcoal\Factory\ResolverFactory;
 
 /**
-* The TemplateFactory creates Factory objects
+* The TemplateFactory creates Template objects
 */
-class TemplateFactory extends IdentFactory
+class TemplateFactory extends ResolverFactory
 {
     /**
     * @param array $data
     */
-    public function __construct()
+    public function base_class()
     {
-        $this->set_base_class('\Charcoal\Template\TemplateInterface');
+        return '\Charcoal\App\Template\TemplateInterface';
     }
 
     /**
-    * IdentFactory > prepare_classname()
-    *
-    * @param string $class
     * @return string
     */
-    public function prepare_classname($class)
+    public function resolver_suffix()
     {
-        return $class.'Template';
+        return 'Template';
     }
 }

@@ -1,21 +1,21 @@
 <?php
 
-namespace Charcoal\App\Action;
+namespace Charcoal\App\Script;
 
 // Module `charcoal-factory` dependencies
 use \Charcoal\Factory\ResolverFactory;
 
 /**
-* The ActionFactory creates Action objects.
+* The ScriptFactory creates Script (CLI Action) objects
 */
-class ActionFactory extends ResolverFactory
+class ScriptFactory extends ResolverFactory
 {
     /**
     * @param array $data
     */
     public function base_class()
     {
-        return '\Charcoal\App\Action\ActionInterface';
+        return '\Charcoal\App\Script\ScriptInterface';
     }
 
     /**
@@ -23,6 +23,6 @@ class ActionFactory extends ResolverFactory
     */
     public function resolver_suffix()
     {
-        return 'Action';
+        return 'Script';
     }
 }
