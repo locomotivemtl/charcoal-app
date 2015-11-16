@@ -12,12 +12,17 @@ class AppConfig extends AbstractConfig
     /**
     * @var array $routes
     */
-    protected $routes = [];
+    private $routes = [];
+
+    /**
+    * @var array $routables
+    */
+    private $routables = [];
 
     /**
     * @var array $modules
     */
-    protected $modules = [];
+    private $modules = [];
 
     /**
     * @param array $routes
@@ -35,6 +40,24 @@ class AppConfig extends AbstractConfig
     public function routes()
     {
         return $this->routes;
+    }
+
+    /**
+    * @param array $routes
+    * @return AppConfig Chainable
+    */
+    public function set_routables(array $routables)
+    {
+        $this->routables = $routables;
+        return $this;
+    }
+
+    /**
+    * @return array
+    */
+    public function routables()
+    {
+        return $this->routables;
     }
 
     /**

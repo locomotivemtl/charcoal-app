@@ -13,6 +13,7 @@ use \Charcoal\App\AppInterface;
 use \Charcoal\App\Middleware\MiddlewareManager;
 use \Charcoal\App\Module\ModuleManager;
 use \Charcoal\App\Route\RouteManager;
+use \Charcoal\App\Routable\RoutableFactory;
 
 /**
 * ## Dependencies
@@ -48,7 +49,7 @@ class App implements
         $this->set_app($app);
 
         $this->logger = $app->logger;
-        $this->logger->debug('Init logger');
+        $this->logger->debug('Charcoal App Init logger');
     }
 
     /**
@@ -68,8 +69,28 @@ class App implements
     {
         $this->setup_middlewares();
         $this->setup_routes();
+        $this->setup_routables();
         $this->setup_modules();
         return $this;
+    }
+
+    public function handle_routables($slug, $request, $response)
+    {
+        $config = $this->config();
+        $routables = $config['routables'];
+        if($routables === null || count($routables) === 0) {
+            return;
+        }
+        foreach($routables as $routable_type=>$routable_options) {
+            try {
+                var_dump($routable_type);
+                $routable = RoutableFactory::instance()->create($routable_type);
+                $routable->handle_route($slub);
+            }
+            catch(Exception $e) {
+                continue;
+            }
+        }
     }
 
     /**
@@ -79,7 +100,7 @@ class App implements
     {
         $config = $this->config();
         $middlewares = $config['middlewares'];
-        if ($middlewares === null || count($middlewares === 0)) {
+        if ($middlewares === null || count($middlewares) === 0) {
             return;
         }
         $middleware_manager = new MiddlewareManager([
@@ -111,6 +132,21 @@ class App implements
     }
 
     /**
+    * Set up the app's "global" routables.
+    * Routables can only be defined globally (app-level) for now.
+    *
+    * @return void
+    */
+    protected function setup_routables()
+    {
+        $charcoal = $this;
+        // For now, need to rely on a catch-all...
+        $this->app->get('{slug:.*}', function($request, $response, $args) use ($charcoal) {
+            return $charcoal->handle_routables($args['slug'], $request, $response);
+        });
+    }
+
+    /**
     * @return void
     */
     protected function setup_modules()
@@ -128,6 +164,7 @@ class App implements
         ]);
         return $module_manager->setup_modules();
     }
+
 
     /**
     * ConfigurableTrait > create_config()
