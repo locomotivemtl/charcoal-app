@@ -51,7 +51,7 @@ abstract class AbstractWidget implements
     /**
     * > LoggerAwareInterface > setLogger()
     *
-    * Fulfills the PSR-1 style LoggerAwareInterface
+    * Fulfills the PSR-1 / PSR-3 style LoggerAwareInterface
     *
     * @param LoggerInterface $logger
     * @return AbstractEngine Chainable

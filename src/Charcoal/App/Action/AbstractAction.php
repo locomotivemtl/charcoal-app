@@ -29,7 +29,6 @@ abstract class AbstractAction implements ActionInterface
     */
     private $success = false;
 
-
     /**
     * @param array $data
     * @return AbstractAction Chainable
