@@ -2,11 +2,13 @@
 ini_set('error_reporting', E_ALL);
 ini_set('display_errors', true);
 
+use \Charcoal\Charcoal;
 use \Charcoal\App\App as CharcoalApp;
 use \Charcoal\App\AppConfig;
 use \Slim\App as SlimApp;
 use \Slim\Container as SlimContainer;
 
+include '../vendor/locomotivemtl/charcoal-core/src/Charcoal/charcoal.php';
 
 // If using PHP's built-in server, return false for existing files on filesystem
 if (PHP_SAPI === 'cli-server') {
@@ -34,6 +36,11 @@ $container['charcoal/app/config'] = function($c) {
     return $config;
 };
 
+\Charcoal\Charcoal::init([
+    'config'=>new \Charcoal\CharcoalConfig('../config/config.php')
+]);
+
+
 // $container['errorHandler'] = function ($c) {
 //     return function ($request, $response, $exception) use ($c) {
 //     	var_dump($exception);
@@ -53,8 +60,13 @@ require __DIR__.'/../config/middlewares.php';
 // Register routes
 require __DIR__.'/../config/routes.php';
 
-$charcoal = new CharcoalApp($container['charcoal/app/config'], $app);
+$charcoal = new CharcoalApp([
+    'config' => $container['charcoal/app/config'], 
+    'app' =>$app
+]);
 $charcoal->setup();
+
+
 
 $app->run();
 
