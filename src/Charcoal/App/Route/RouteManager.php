@@ -9,6 +9,10 @@ use \InvalidArgumentException;
 use \Psr\Log\LoggerInterface;
 use \Psr\Log\LoggerAwareInterface;
 
+// PSR-7 (http messaging) dependencies
+use \Psr\Http\Message\RequestInterface;
+use \Psr\Http\Message\ResponseInterface;
+
 // Local namespace dependencies
 use \Charcoal\App\Route\ActionRoute;
 use \Charcoal\App\Route\ScriptRoute;
@@ -28,8 +32,8 @@ class RouteManager implements LoggerAwareInterface
     private $app;
 
     /**
-    * PSR-1 Logger
-    * @var \Psr\Log\LoggerInterface $logger
+    * PSR-3 Logger
+    * @var LoggerInterface $logger
     */
     private $logger;
 
@@ -52,10 +56,10 @@ class RouteManager implements LoggerAwareInterface
         $this->set_logger($data['logger']);
     }
 
-        /**
+    /**
     * > LoggerAwareInterface > setLogger()
     *
-    * Fulfills the PSR-1 style LoggerAwareInterface
+    * Fulfills the PSR-1 / PSR-3 style LoggerAwareInterface
     *
     * @param LoggerInterface $logger
     * @return AbstractEngine Chainable
@@ -119,7 +123,7 @@ class RouteManager implements LoggerAwareInterface
             $route = $this->app->map(
                 $methods,
                 $template_ident,
-                function ($request, $response, $args) use ($template_ident, $template_config) {
+                function (RequestInterface $request, ResponseInterface $response, $args) use ($template_ident, $template_config) {
                     if (!isset($template_config['ident'])) {
                         $template_config['ident'] = ltrim($template_ident, '/');
                     }
@@ -155,7 +159,7 @@ class RouteManager implements LoggerAwareInterface
             $route = $this->app->map(
                 $methods,
                 $action_ident,
-                function ($request, $response, $args) use ($action_ident, $action_config) {
+                function (RequestInterface $request, ResponseInterface $response, $args) use ($action_ident, $action_config) {
                     if (!isset($action_config['ident'])) {
                         $action_config['ident'] = ltrim($action_ident, '/');
                     }
@@ -190,7 +194,7 @@ class RouteManager implements LoggerAwareInterface
             $route = $this->app->map(
                 $methods,
                 $script_ident,
-                function ($request, $response, $args) use ($script_ident, $script_config) {
+                function (RequestInterface $request, ResponseInterface $response, $args) use ($script_ident, $script_config) {
                     if (!isset($script_config['ident'])) {
                         $script_config['ident'] = ltrim($script_ident, '/');
                     }

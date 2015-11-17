@@ -4,6 +4,10 @@ namespace Charcoal\App\Route;
 
 use \InvalidArgumentException;
 
+// PSR-7 (http messaging) dependencies
+use \Psr\Http\Message\RequestInterface;
+use \Psr\Http\Message\ResponseInterface;
+
 // From `charcoal-config`
 use \Charcoal\Config\ConfigInterface;
 use \Charcoal\Config\ConfigurableInterface;
@@ -26,7 +30,7 @@ class ActionRoute implements
 
     /**
     * Dependencies:
-    * - `config`
+    * - `config` \Charcoal\Config\ConfigInterface
     * - `app`
     *
     * @throws InvalidArgumentException
@@ -54,7 +58,7 @@ class ActionRoute implements
     /**
     * @return  void
     */
-    public function __invoke($request, $response)
+    public function __invoke(RequestInterface $request, ResponseInterface $response)
     {
         return $response;
     }

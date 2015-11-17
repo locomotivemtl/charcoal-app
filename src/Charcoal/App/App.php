@@ -2,6 +2,17 @@
 
 namespace Charcoal\App;
 
+// slim/slim dependencies
+use \Slim\App as SlimApp;
+
+// PSR-3 Logger
+use \Psr\Log\LoggerInterface;
+use \Psr\Log\LoggerAwareInterface;
+
+// PSR-7 (http messaging) dependencies
+use \Psr\Http\Message\RequestInterface;
+use \Psr\Http\Message\ResponseInterface;
+
 // From `charcoal-config`
 use \Charcoal\Config\ConfigurableInterface;
 use \Charcoal\Config\ConfigurableTrait;
@@ -18,7 +29,7 @@ use \Charcoal\App\Routable\RoutableFactory;
 /**
 * ## Dependencies
 * - **config** (`\Charcoal\App\AppConfig`)
-* - **app** (`\Slim\App`)
+* - **app** (`SlimApp`)
 */
 class App implements
     AppInterface,
@@ -27,12 +38,12 @@ class App implements
     use ConfigurableTrait;
 
     /**
-    * @var \Slim\App $app
+    * @var SlimApp $app
     */
     private $app;
 
     /**
-    * @var \Psr\Log\LoggerInterface
+    * @var LoggerInterface
     */
     private $logger;
 
@@ -40,23 +51,53 @@ class App implements
     * # Required dependencies
     * - `logger` A PSR-3 logger.
     *
-    * @param \Slim\App $app The Slim object to attach events to
-    * @param \Charcoal\App\AppConfig $config
+    * @param array $data
     */
-    public function __construct($config, $app)
+    public function __construct(array $data)
     {
-        $this->set_config($config);
-        $this->set_app($app);
-
-        $this->logger = $app->logger;
+        $this->logger = $data['app']->logger;
         $this->logger->debug('Charcoal App Init logger');
+
+        $this->set_config($data['config']);
+        $this->set_app($data['app']);
     }
 
     /**
-    * @param \Slim\App $app
+    * > LoggerAwareInterface > setLogger()
+    *
+    * Fulfills the PSR-1 / PSR-3 style LoggerAwareInterface
+    *
+    * @param LoggerInterface $logger
+    * @return AbstractEngine Chainable
+    */
+    public function setLogger(LoggerInterface $logger)
+    {
+        return $this->set_logger($logger);
+    }
+
+    /**
+    * @param LoggerInterface $logger
+    * @return AbstractEngine Chainable
+    */
+    public function set_logger(LoggerInterface $logger = null)
+    {
+        $this->logger = $logger;
+        return $this;
+    }
+
+    /**
+    * @erturn LoggerInterface
+    */
+    public function logger()
+    {
+        return $this->logger;
+    }
+
+    /**
+    * @param SlimApp $app
     * @return App Chainable
     */
-    public function set_app(\Slim\App $app)
+    public function set_app(SlimApp $app)
     {
         $this->app = $app;
         return $this;
@@ -72,25 +113,6 @@ class App implements
         $this->setup_routables();
         $this->setup_modules();
         return $this;
-    }
-
-    public function handle_routables($slug, $request, $response)
-    {
-        $config = $this->config();
-        $routables = $config['routables'];
-        if($routables === null || count($routables) === 0) {
-            return;
-        }
-        foreach($routables as $routable_type=>$routable_options) {
-            try {
-                var_dump($routable_type);
-                $routable = RoutableFactory::instance()->create($routable_type);
-                $routable->handle_route($slub);
-            }
-            catch(Exception $e) {
-                continue;
-            }
-        }
     }
 
     /**
@@ -141,9 +163,33 @@ class App implements
     {
         $charcoal = $this;
         // For now, need to rely on a catch-all...
-        $this->app->get('{slug:.*}', function($request, $response, $args) use ($charcoal) {
+        $this->app->get('{slug:.*}', function(RequestInterface $request, ResponseInterface $response, $args) use ($charcoal) {
             return $charcoal->handle_routables($args['slug'], $request, $response);
         });
+    }
+
+    /**
+    * @param string $slug
+    * @param RequestInterface $request
+    * @param ResponseInterface $response
+    * @return void
+    */
+    public function handle_routables($slug, RequestInterface $request, ResponseInterface $response)
+    {
+        $config = $this->config();
+        $routables = $config['routables'];
+        if ($routables === null || count($routables) === 0) {
+            return;
+        }
+        foreach ($routables as $routable_type => $routable_options) {
+            try {
+                $routable = RoutableFactory::instance()->create($routable_type);
+                $routable->handle_route($slug, $request, $response);
+            } catch (Exception $e) {
+                continue;
+            }
+        }
+
     }
 
     /**

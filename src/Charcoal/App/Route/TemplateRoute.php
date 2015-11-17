@@ -9,6 +9,10 @@ use \InvalidArgumentException;
 use \Psr\Log\LoggerInterface;
 use \Psr\Log\LoggerAwareInterface;
 
+// PSR-7 (http messaging) dependencies
+use \Psr\Http\Message\RequestInterface;
+use \Psr\Http\Message\ResponseInterface;
+
 // From `charcoal-config`
 use \Charcoal\Config\ConfigurableInterface;
 use \Charcoal\Config\ConfigurableTrait;
@@ -18,9 +22,9 @@ use \Charcoal\App\Route\RouteInterface;
 use \Charcoal\App\Route\TemplateRouteConfig;
 
 class TemplateRoute implements
+    ConfigurableInterface,
     LoggerAwareInterface,
-    RouteInterface,
-    ConfigurableInterface
+    RouteInterface
 {
     use ConfigurableTrait;
 
@@ -100,7 +104,7 @@ class TemplateRoute implements
     /**
     * @return void
     */
-    public function __invoke($request, $response)
+    public function __invoke(RequestInterface $request, ResponseInterface $response)
     {
         unset($request);
 
@@ -129,7 +133,6 @@ class TemplateRoute implements
 
         $view_engine = new \Charcoal\View\Mustache\MustacheEngine([
             'logger' => $this->logger(),
-            // 'cache' => $container['cache'],
             'loader' => $template_loader
         ]);
 
