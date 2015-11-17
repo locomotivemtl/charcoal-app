@@ -15,6 +15,10 @@ $ composer require locomotivemtl/charcoal-app
 ## Dependencies
 - [`PHP 5.5+`](http://php.net)
 	- Older versions of PHP are deprecated, therefore not supported for charcoal-app.
+- [`locomotivemtl/charcoal-config`](https://github.com/locomotivemtl/charcoal-config)
+	-  The basic configuration container.
+- [`locomotivemtl/charcoal-factory`](https://github.com/locomotivemtl/charcoal-factory)
+	- Dynamic object creation.
 - [`locomotivemtl/charcoal-view`](https://github.com/locomotivemtl/charcoal-view)
 	- Template controllers will typically load a _View_ object  (or a _Renderer_, for PSR7 / Slim compatibility) and render a template. 
 	- This brings a dependency on [`mustache/mustache`](https://github.com/bobthecow/mustache.php).
@@ -25,7 +29,7 @@ $ composer require locomotivemtl/charcoal-app
 		-  [`psr/http-message`]((http://www.php-fig.org/psr/psr-7/))
 		-  [`nikic/fast-route`](https://github.com/nikic/FastRoute)
 
-> 👉 Development dependencies, which are optional when using charcoal-app, are described in the [Development](#development) section of this README file.
+> 👉 Development dependencies, which are optional when using charcoal-app in a project, are described in the [Development](#development) section of this README file.
 
 ### The PSR-7 standard (http messages)
 
@@ -37,7 +41,7 @@ Similarly, when a `Charcoal\View\Renderer` is used as a renderer (instead of a p
  
 
 # Components
-The main components of charcoal-app are _App_, _Module_, _Route_, _RequestController_, _Middleware_ and the _Binary (Charcoal Script)_.
+The main components of charcoal-app are _App_, _Module_, _Route_ (and _Routable_ objects), _RequestController_, _Middleware_ and the _Binary (Charcoal Script)_.
 
 ## App
 
@@ -49,10 +53,10 @@ The main components of charcoal-app are _App_, _Module_, _Route_, _RequestContro
   - **Container**: Dependencies are expected to be in a `Pimple` container
   
 - The *App* has one method: `setup()` wich:
-  - Accepts a `\Slim\App` as a parameter.
-  - Instanciate a `ModuleManager` which:
-    - Loop all `modules` from the `AppConfiguration` and create new *Modules* according to the configuration.
-    - (The Module creation is done statically via it's `setup()` abstract method)
+	- Accepts a `\Slim\App` as a parameter.
+	- Instanciate a `ModuleManager` which:
+		- Loop all `modules` from the `AppConfiguration` and create new *Modules* according to the configuration.
+		- (The Module creation is done statically via it's `setup()` abstract method)
 
 > 👉 The `App` concept is entirely optional. Modules could be loaded without one.
 
@@ -113,6 +117,28 @@ There are 3 types of `Route`:
 - `ScriptRoute`: typically ran from the CLI interface.
 - `TemplateRoute`: typically  load a template from a _GET_ request. "A Web page".
 
+## Routable objects
+Routes are great to match URL path to template controller or action controller, but needs to be defined in the `AppConfig` container.
+
+Routables, on the other hand, are dynamic objects (typically, Charcoal Model objects that implements the `Charcoal\App\Routable\RoutableInterface`) whose _route path_ is typically defined from a dynamic property (and stored in a database).
+
+### The routable callback
+
+The `RoutableInterface` / `RoutableTrait` classes have one abstract method: `handle_route($path, $request, $response)` which must be implemented in the routable class.
+
+This method should:
+
+- Check the path to know if it should respond
+	- Typically, this means checking the _path_ parameter against the database to load a matching object.
+	- But really, it could be anything...
+- Return a `callable` object that will handle the route if it matches
+- Return `null` if no match 
+
+The returned callable signature should be:
+`function(RequestInterface $request, ResponseInterface $response)` and returns a `ResponseInterface`
+
+Routables are called last (only if no explicit routes match fisrt). If no routables return a callable, then a 404 will be sent. (Slim's `NotFoundHandler`).
+
 ## Middleware
 Middleware is not yet implemented in `Charcoal\App`. The plan is to use the PSR7-middleware system, which is a callable with the signature:
 
@@ -152,6 +178,11 @@ Example of a module configuration:
             "foo/bar":{}
         }
     },
+    
+    "routables":{
+    	"charcoal/cms/news":{}
+    },
+    
     "middlewares":{
     
     }
