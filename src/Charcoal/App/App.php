@@ -2,6 +2,9 @@
 
 namespace Charcoal\App;
 
+// PHP Dependencies
+use \Exception;
+
 // slim/slim dependencies
 use \Slim\App as SlimApp;
 
@@ -163,33 +166,24 @@ class App implements
     {
         $charcoal = $this;
         // For now, need to rely on a catch-all...
-        $this->app->get('{slug:.*}', function(RequestInterface $request, ResponseInterface $response, $args) use ($charcoal) {
-            return $charcoal->handle_routables($args['slug'], $request, $response);
-        });
-    }
+        $this->app->get('{catchall:.*}', function(RequestInterface $request, ResponseInterface $response, $args) use ($charcoal) {
 
-    /**
-    * @param string $slug
-    * @param RequestInterface $request
-    * @param ResponseInterface $response
-    * @return void
-    */
-    public function handle_routables($slug, RequestInterface $request, ResponseInterface $response)
-    {
-        $config = $this->config();
-        $routables = $config['routables'];
-        if ($routables === null || count($routables) === 0) {
-            return;
-        }
-        foreach ($routables as $routable_type => $routable_options) {
-            try {
-                $routable = RoutableFactory::instance()->create($routable_type);
-                $routable->handle_route($slug, $request, $response);
-            } catch (Exception $e) {
-                continue;
+            $config = $charcoal->config();
+            $routables = $config['routables'];
+            if ($routables === null || count($routables) === 0) {
+                return;
             }
-        }
+            foreach ($routables as $routable_type => $routable_options) {
+                $routable = RoutableFactory::instance()->create($routable_type);
+                $route = $routable->handle_route($args['catchall'], $request, $response);
+                if ($route) {
+                    return $route($request, $response);
+                }
+            }
 
+            // If this point is reached, no routable has provided a callback. 404.
+            return $this->notFoundHandler($request, $response);
+        });
     }
 
     /**

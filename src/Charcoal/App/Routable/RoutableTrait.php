@@ -2,6 +2,10 @@
 
 namespace Charcoal\App\Routable;
 
+// PSR-7 (http messaging) dependencies
+use \Psr\Http\Message\RequestInterface;
+use \Psr\Http\Message\ResponseInterface;
+
 // Dependencies from `charcoal-view` module
 use \Charcoal\View\Viewable;
 
@@ -105,6 +109,12 @@ trait RoutableTrait
     {
         return $this->slug();
     }
-
-    abstract public function handle_route($slug, $request, $response);
+    
+    /**
+    * @param string $path
+    * @param RequestInterface $request
+    * @param ResponseInterface $response
+    * @return callable|null Route callable
+    */
+    abstract public function handle_route($slug, RequestInterface $request, ResponseInterface $response);
 }
