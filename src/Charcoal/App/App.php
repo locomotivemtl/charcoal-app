@@ -175,7 +175,7 @@ class App implements
             }
             foreach ($routables as $routable_type => $routable_options) {
                 $routable = RoutableFactory::instance()->create($routable_type);
-                $route = $routable->handle_route($args['catchall'], $request, $response);
+                $route = $routable->route_handler($args['catchall'], $request, $response);
                 if ($route) {
                     return $route($request, $response);
                 }

@@ -60,5 +60,5 @@ interface RoutableInterface
     * @param ResponseInterface $response
     * @return callable|null Route callable
     */
-    public function handle_route($path, RequestInterface $request, ResponseInterface $response);
+    public function route_handler($path, RequestInterface $request, ResponseInterface $response);
 }

@@ -109,12 +109,14 @@ trait RoutableTrait
     {
         return $this->slug();
     }
-    
+
     /**
+    * Get the route callback that matches a gien path (or null).
+    *
     * @param string $path
     * @param RequestInterface $request
     * @param ResponseInterface $response
     * @return callable|null Route callable
     */
-    abstract public function handle_route($slug, RequestInterface $request, ResponseInterface $response);
+    abstract public function route_handler($path, RequestInterface $request, ResponseInterface $response);
 }
