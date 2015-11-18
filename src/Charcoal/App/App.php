@@ -51,6 +51,21 @@ class App implements
     private $logger;
 
     /**
+    * @var ModuleManager
+    */
+    private $module_manager;
+
+    /**
+    * @var RouteManager
+    */
+    private $route_manager;
+
+    /**
+    * @var MiddlewareManager
+    */
+    private $middleware_manager;
+
+    /**
     * # Required dependencies
     * - `logger` A PSR-3 logger.
     *
@@ -106,6 +121,57 @@ class App implements
         return $this;
     }
 
+        /**
+    * @return ModuleManager
+    */
+    public function module_manager()
+    {
+        if($this->module_manager == null) {
+            $config = $this->config();
+            $modules = $config['modules'];
+            $this->module_manager = new ModuleManager([
+                'modules' => $modules,
+                'app' => $this->app,
+                'logger' => $this->logger
+            ]);
+        }
+        return $this->module_manager;
+    }
+
+    /**
+    * @return RouteManager
+    */
+    public function route_manager()
+    {
+        if($this->route_manager === null) {
+            $config = $this->config();
+            $routes = $config['routes'];
+            $route_manager = new RouteManager([
+                'config' => $routes,
+                'app' => $this->app,
+                'logger' => $this->logger
+            ]);
+        }
+        return $route_manager;
+    }
+
+    /**
+    * @return MiddlewareManager
+    */
+    public function middleware_manager()
+    {
+        if($this->middleware_manager === null) {
+            $config = $this->config();
+            $middlewares = $config['middlewares'];
+            $middleware_manager = new MiddlewareManager([
+                'config' => $middlewares,
+                'app' => $this->app,
+                'logger' => $this->logger
+            ]);
+        }
+        return $middleware_manager;
+    }
+
     /**
     * @return App Chainable
     */
@@ -123,16 +189,7 @@ class App implements
     */
     protected function setup_middlewares()
     {
-        $config = $this->config();
-        $middlewares = $config['middlewares'];
-        if ($middlewares === null || count($middlewares) === 0) {
-            return;
-        }
-        $middleware_manager = new MiddlewareManager([
-            'config' => $middlewares,
-            'app' => $this->app,
-            'logger' => $this->logger
-        ]);
+        $middleware_manager = $this->middleware_manager();
         return $middleware_manager->setup_middlewares();
     }
 
@@ -143,16 +200,7 @@ class App implements
     */
     protected function setup_routes()
     {
-        $config = $this->config();
-        $routes = $config['routes'];
-        if ($routes === null || count($routes) === 0) {
-            return;
-        }
-        $route_manager = new RouteManager([
-            'config' => $routes,
-            'app' => $this->app,
-            'logger' => $this->logger
-        ]);
+        $route_manager = $this->route_manager();
         return $route_manager->setup_routes();
     }
 
@@ -191,17 +239,7 @@ class App implements
     */
     protected function setup_modules()
     {
-        $config = $this->config();
-        $modules = $config['modules'];
-        if ($modules === null || count($modules) === 0) {
-            return;
-        }
-        
-        $module_manager = new ModuleManager([
-            'modules' => $modules,
-            'app' => $this->app,
-            'logger' => $this->logger
-        ]);
+        $module_manager = $this->module_manager();
         return $module_manager->setup_modules();
     }
 

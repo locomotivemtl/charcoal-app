@@ -46,7 +46,7 @@ class ModuleManager
     */
     public function add_module($module_ident, $module_config)
     {
-        $this->_modules[$module_ident] = $module_config;
+        $this->modules[$module_ident] = $module_config;
         return $this;
     }
 
@@ -55,7 +55,7 @@ class ModuleManager
     */
     public function setup_modules()
     {
-        foreach ($this->_modules as $module_ident => $module_config) {
+        foreach ($this->modules as $module_ident => $module_config) {
             $module = $this->build_module($module_ident, $module_config);
             $module->setup();
         }

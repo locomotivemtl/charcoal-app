@@ -19,6 +19,9 @@ use \Charcoal\App\Route\ScriptRoute;
 use \Charcoal\App\Route\TemplateRoute;
 use \Charcoal\App\Route\TemplateRouteConfig;
 
+/**
+*
+*/
 class RouteManager implements LoggerAwareInterface
 {
     /**
