@@ -1,6 +1,6 @@
 <?php
 
-namespace Charcoal\Template;
+namespace Charcoal\App\Template;
 
 interface TemplateInterface
 {

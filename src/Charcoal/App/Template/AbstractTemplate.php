@@ -1,17 +1,17 @@
 <?php
 
-namespace Charcoal\Template;
+namespace Charcoal\App\Template;
 
 // PSR-3 logger
 use \Psr\Log\LoggerInterface;
 use \Psr\Log\LoggerAwareInterface;
 
 // Module `charcoal-view` dependencies
-use \Charcoal\View\ViewableInterface as ViewableInterface;
-use \Charcoal\View\ViewableTrait as ViewableTrait;
+use \Charcoal\View\ViewableInterface;
+use \Charcoal\View\ViewableTrait;
 
 // Local namespace dependencies
-use \Charcoal\Template\TemplateInterface as TemplateInterface;
+use \Charcoal\App\Template\TemplateInterface;
 
 /**
 *

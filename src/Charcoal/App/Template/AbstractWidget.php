@@ -14,7 +14,7 @@ use \Charcoal\View\ViewableInterface;
 use \Charcoal\View\ViewableTrait;
 
 // Local namespace dependencies
-use \Charcoal\Template\WidgetInterface;
+use \Charcoal\App\Template\WidgetInterface;
 
 /**
 *
