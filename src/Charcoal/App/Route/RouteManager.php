@@ -126,7 +126,14 @@ class RouteManager implements LoggerAwareInterface
             $route = $this->app->map(
                 $methods,
                 $template_ident,
-                function (RequestInterface $request, ResponseInterface $response, $args) use ($template_ident, $template_config) {
+                function (
+                    RequestInterface $request,
+                    ResponseInterface $response,
+                    $args
+                ) use (
+                    $template_ident,
+                    $template_config
+                ) {
                     if (!isset($template_config['ident'])) {
                         $template_config['ident'] = ltrim($template_ident, '/');
                     }
@@ -162,7 +169,14 @@ class RouteManager implements LoggerAwareInterface
             $route = $this->app->map(
                 $methods,
                 $action_ident,
-                function (RequestInterface $request, ResponseInterface $response, $args) use ($action_ident, $action_config) {
+                function (
+                    RequestInterface $request,
+                    ResponseInterface $response,
+                    $args
+                ) use (
+                    $action_ident,
+                    $action_config
+                ) {
                     if (!isset($action_config['ident'])) {
                         $action_config['ident'] = ltrim($action_ident, '/');
                     }
@@ -197,7 +211,14 @@ class RouteManager implements LoggerAwareInterface
             $route = $this->app->map(
                 $methods,
                 $script_ident,
-                function (RequestInterface $request, ResponseInterface $response, $args) use ($script_ident, $script_config) {
+                function (
+                    RequestInterface $request,
+                    ResponseInterface $response,
+                    $args
+                ) use (
+                    $script_ident,
+                    $script_config
+                ) {
                     if (!isset($script_config['ident'])) {
                         $script_config['ident'] = ltrim($script_ident, '/');
                     }

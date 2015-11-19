@@ -1,33 +1,28 @@
 <?php
 
-namespace Charcoal\Template;
+namespace Charcoal\App\Template;
 
-// Module `charcoal-core` dependencies
-use \Charcoal\Core\IdentFactory as IdentFactory;
+// Module `charcoal-factory` dependencies
+use \Charcoal\Factory\ResolverFactory;
 
 /**
-* The WidgetFactory creates Widget objects.
+* The TemplateFactory creates Template objects
 */
-class WidgetFactory extends IdentFactory
+class WidgetFactory extends ResolverFactory
 {
     /**
     * @param array $data
     */
-    public function __construct()
+    public function base_class()
     {
-        $this->set_base_class('\Charcoal\Widget\WidgetInterface');
+        return '\Charcoal\App\Template\WidgetInterface';
     }
 
     /**
-    * IdentFactory > prepare_classname()
-    *
-    * Widgets class names are always suffixed with "Widget".
-    *
-    * @param string $class
     * @return string
     */
-    public function prepare_classname($class)
+    public function resolver_suffix()
     {
-        return $class.'Widget';
+        return 'Widget';
     }
 }

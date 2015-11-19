@@ -1,6 +1,6 @@
 <?php
 
-namespace Charcoal\Template;
+namespace Charcoal\App\Template;
 
 // Dependencies from `PHP`
 use \InvalidArgumentException;

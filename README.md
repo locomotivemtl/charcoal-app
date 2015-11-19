@@ -117,6 +117,19 @@ There are 3 types of `Route`:
 - `ScriptRoute`: typically ran from the CLI interface.
 - `TemplateRoute`: typically  load a template from a _GET_ request. "A Web page".
 
+#### Defining a default route.
+To set the "default" rout, simply map a route to "/".
+
+```json
+{
+  "routes":{
+    "/":{
+      "template":"acme/home"
+    }
+  }
+}
+```
+
 ## Routable objects
 Routes are great to match URL path to template controller or action controller, but needs to be defined in the `AppConfig` container.
 

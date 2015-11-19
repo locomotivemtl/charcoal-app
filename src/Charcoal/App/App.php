@@ -126,7 +126,7 @@ class App implements
     */
     public function module_manager()
     {
-        if($this->module_manager == null) {
+        if ($this->module_manager == null) {
             $config = $this->config();
             $modules = $config['modules'];
             $this->module_manager = new ModuleManager([
@@ -143,7 +143,7 @@ class App implements
     */
     public function route_manager()
     {
-        if($this->route_manager === null) {
+        if ($this->route_manager === null) {
             $config = $this->config();
             $routes = $config['routes'];
             $route_manager = new RouteManager([
@@ -160,7 +160,7 @@ class App implements
     */
     public function middleware_manager()
     {
-        if($this->middleware_manager === null) {
+        if ($this->middleware_manager === null) {
             $config = $this->config();
             $middlewares = $config['middlewares'];
             $middleware_manager = new MiddlewareManager([
@@ -214,24 +214,27 @@ class App implements
     {
         $charcoal = $this;
         // For now, need to rely on a catch-all...
-        $this->app->get('{catchall:.*}', function(RequestInterface $request, ResponseInterface $response, $args) use ($charcoal) {
+        $this->app->get(
+            '{catchall:.*}',
+            function(RequestInterface $request, ResponseInterface $response, $args) use ($charcoal) {
 
-            $config = $charcoal->config();
-            $routables = $config['routables'];
-            if ($routables === null || count($routables) === 0) {
-                return;
-            }
-            foreach ($routables as $routable_type => $routable_options) {
-                $routable = RoutableFactory::instance()->create($routable_type);
-                $route = $routable->route_handler($args['catchall'], $request, $response);
-                if ($route) {
-                    return $route($request, $response);
+                $config = $charcoal->config();
+                $routables = $config['routables'];
+                if ($routables === null || count($routables) === 0) {
+                    return;
                 }
-            }
+                foreach ($routables as $routable_type => $routable_options) {
+                    $routable = RoutableFactory::instance()->create($routable_type);
+                    $route = $routable->route_handler($args['catchall'], $request, $response);
+                    if ($route) {
+                        return $route($request, $response);
+                    }
+                }
 
             // If this point is reached, no routable has provided a callback. 404.
-            return $this->notFoundHandler($request, $response);
-        });
+                return $this->notFoundHandler($request, $response);
+            }
+        );
     }
 
     /**

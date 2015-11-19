@@ -8,13 +8,12 @@ use \InvalidArgumentException;
 use \Psr\Log\LoggerInterface;
 use \Psr\Log\LoggerAwareInterface;
 
-
 /**
 *
 */
 class MiddlewareManager implements LoggerAwareInterface
 {
-	   /**
+       /**
     * @var array $config
     */
     private $config = [];
@@ -30,7 +29,7 @@ class MiddlewareManager implements LoggerAwareInterface
     */
     private $logger;
 
-	/**
+    /**
     * @param array $data The dependencies container
     * @throws InvalidArgumentException
     */
@@ -82,6 +81,6 @@ class MiddlewareManager implements LoggerAwareInterface
 
     public function setup_middlewares()
     {
-    	// ...
+        // ...
     }
 }
