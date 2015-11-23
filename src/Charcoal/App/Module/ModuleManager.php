@@ -2,7 +2,10 @@
 
 namespace Charcoal\App\Module;
 
-class ModuleManager
+// Local namespace dependencies
+use \Charcoal\App\AbstractManager;
+
+class ModuleManager extends AbstractManager
 {
     /**
     * @var array $modules
@@ -13,19 +16,6 @@ class ModuleManager
     * @var \Slim\App $app
     */
     private $app;
-
-    /**
-    * # Required dependencies
-    * - `modules`
-    * - `app`
-    *
-    * @param array Constructore depenencies
-    */
-    public function __construct($data)
-    {
-        $this->modules = $data['modules'];
-        $this->app = $data['app'];
-    }
 
     /**
     * @param array $modules
@@ -55,7 +45,8 @@ class ModuleManager
     */
     public function setup_modules()
     {
-        foreach ($this->modules as $module_ident => $module_config) {
+        $modules = $this->config();
+        foreach ($modules as $module_ident => $module_config) {
             $module = $this->build_module($module_ident, $module_config);
             $module->setup();
         }
@@ -63,6 +54,5 @@ class ModuleManager
 
     public function build_module($module)
     {
-
     }
 }

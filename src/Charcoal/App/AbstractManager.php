@@ -1,0 +1,93 @@
+<?php
+
+namespace Charcoal\App;
+
+use \InvalidArgumentException;
+
+// slim/slim dependencies
+use \Slim\App as SlimApp;
+
+// Local namespace dependencies
+use \Charcoal\App\LoggerAwareInterface;
+use \Charcoal\App\LoggerAwareTrait;
+
+/**
+*
+*/
+abstract class AbstractManager implements LoggerAwareInterface
+{
+    use LoggerAwareTrait;
+
+    /**
+    * @var array
+    */
+    private $config = [];
+
+    /**
+    * @var SlimApp
+    */
+    private $app;
+
+    /**
+    * @param array $data The dependencies container
+    */
+    public function __construct(array $data)
+    {
+        $this->set_config($data['config']);
+        $this->set_app($data['app']);
+
+        if (isset($data['logger'])) {
+            $logger = $data['logger'];
+        } elseif (isset($this->app()->logger)) {
+            $logger = $this->app()->logger;
+        }
+
+        if (isset($logger)) {
+            $this->set_logger($logger);
+        }
+    }
+
+    /**
+     * Get the manager's config
+     *
+     * @param  array $config
+     * @return self
+     */
+    protected function set_config(array $config = [])
+    {
+        $this->config = $config;
+        return $this;
+    }
+
+    /**
+     * Get the manager's config
+     *
+     * @return array
+     */
+    protected function config()
+    {
+        return $this->config;
+    }
+
+    /**
+     * Set the manager's reference to the Slim App
+     *
+     * @param  SlimApp $app
+     * @return self
+     */
+    protected function set_app(SlimApp $app)
+    {
+        $this->app = $app;
+        return $this;
+    }
+
+    /**
+     * Get the manager's reference to the Slim App
+     *
+     * @return SlimApp
+     */
+    protected function app()
+    {
+        return $this->app;
+    }
+}

@@ -5,15 +5,12 @@ namespace Charcoal\App\Route;
 use \Exception;
 use \InvalidArgumentException;
 
-// PSR-3 logger
-use \Psr\Log\LoggerInterface;
-use \Psr\Log\LoggerAwareInterface;
-
 // PSR-7 (http messaging) dependencies
 use \Psr\Http\Message\RequestInterface;
 use \Psr\Http\Message\ResponseInterface;
 
 // Local namespace dependencies
+use \Charcoal\App\AbstractManager;
 use \Charcoal\App\Route\ActionRoute;
 use \Charcoal\App\Route\ScriptRoute;
 use \Charcoal\App\Route\TemplateRoute;
@@ -22,74 +19,8 @@ use \Charcoal\App\Route\TemplateRouteConfig;
 /**
 *
 */
-class RouteManager implements LoggerAwareInterface
+class RouteManager extends AbstractManager
 {
-    /**
-    * @var array $config
-    */
-    private $config = [];
-
-    /**
-    * @var \Slim\App $app
-    */
-    private $app;
-
-    /**
-    * PSR-3 Logger
-    * @var LoggerInterface $logger
-    */
-    private $logger;
-
-    /**
-    * @param array $data The dependencies container
-    * @throws InvalidArgumentException
-    */
-    public function __construct($data)
-    {
-        $this->config = $data['config'];
-        $this->app    = $data['app'];
-
-        if (!($this->app instanceof \Slim\App)) {
-            throw new InvalidArgumentException(
-                'RouteManager requires a Slim App object in its dependency container.'
-            );
-        }
-
-        $logger = ( isset($data['logger']) ? $data['logger'] : $this->app->logger );
-        $this->set_logger($data['logger']);
-    }
-
-    /**
-    * > LoggerAwareInterface > setLogger()
-    *
-    * Fulfills the PSR-1 / PSR-3 style LoggerAwareInterface
-    *
-    * @param LoggerInterface $logger
-    * @return AbstractEngine Chainable
-    */
-    public function setLogger(LoggerInterface $logger)
-    {
-        return $this->set_logger($logger);
-    }
-
-    /**
-    * @param LoggerInterface $logger
-    * @return AbstractEngine Chainable
-    */
-    public function set_logger(LoggerInterface $logger = null)
-    {
-        $this->logger = $logger;
-        return $this;
-    }
-
-    /**
-    * @erturn LoggerInterface
-    */
-    public function logger()
-    {
-        return $this->logger;
-    }
-
     /**
     * Set up the routes
     *
@@ -116,14 +47,14 @@ class RouteManager implements LoggerAwareInterface
     */
     protected function setup_template_routes()
     {
-        $routes = $this->config;
+        $routes = $this->config();
 
         $templates = ( isset($routes['templates']) ? $routes['templates'] : [] );
-        $this->logger->debug('Templates', (array)$templates);
+        $this->logger()->debug('Templates', (array)$templates);
         foreach ($templates as $template_ident => $template_config) {
             $methods = ( isset($tempate_config['methods']) ? $template_config['methods'] : [ 'GET' ] );
 
-            $route = $this->app->map(
+            $route = $this->app()->map(
                 $methods,
                 $template_ident,
                 function (
@@ -159,14 +90,14 @@ class RouteManager implements LoggerAwareInterface
     */
     protected function setup_action_routes()
     {
-        $routes = $this->config;
+        $routes = $this->config();
 
         $actions = ( isset($routes['actions']) ? $routes['actions'] : [] );
-        $this->logger->debug('Actions', (array)$actions);
+        $this->logger()->debug('Actions', (array)$actions);
         foreach ($actions as $action_ident => $action_config) {
             $methods = ( isset($action_config['methods']) ? $action_config['methods'] : [ 'POST' ] );
 
-            $route = $this->app->map(
+            $route = $this->app()->map(
                 $methods,
                 $action_ident,
                 function (
@@ -201,14 +132,14 @@ class RouteManager implements LoggerAwareInterface
     */
     protected function setup_script_routes()
     {
-        $routes = $this->config;
+        $routes = $this->config();
 
         $scripts = ( isset($routes['scripts']) ? $routes['scripts'] : [] );
-        $this->logger->debug('Scripts', (array)$scripts);
+        $this->logger()->debug('Scripts', (array)$scripts);
         foreach ($scripts as $script_ident => $script_config) {
             $methods = ( isset($script_config['methods']) ? $script_config['methods'] : [ 'GET' ] );
 
-            $route = $this->app->map(
+            $route = $this->app()->map(
                 $methods,
                 $script_ident,
                 function (
