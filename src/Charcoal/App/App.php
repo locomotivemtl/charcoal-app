@@ -19,6 +19,8 @@ use \Charcoal\Config\ConfigurableTrait;
 // Local namespace dependencies
 use \Charcoal\App\AppConfig;
 use \Charcoal\App\AppInterface;
+use \Charcoal\App\SingletonInterface;
+use \Charcoal\App\SingletonTrait;
 use \Charcoal\App\LoggerAwareInterface;
 use \Charcoal\App\LoggerAwareTrait;
 
@@ -34,8 +36,10 @@ use \Charcoal\App\Routable\RoutableFactory;
 */
 class App implements
     AppInterface,
+    SingletonInterface,
     ConfigurableInterface
 {
+    use SingletonTrait;
     use LoggerAwareTrait;
     use ConfigurableTrait;
 
