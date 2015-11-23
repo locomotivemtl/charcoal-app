@@ -8,10 +8,6 @@ use \Exception;
 // slim/slim dependencies
 use \Slim\App as SlimApp;
 
-// PSR-3 Logger
-use \Psr\Log\LoggerInterface;
-use \Psr\Log\LoggerAwareInterface;
-
 // PSR-7 (http messaging) dependencies
 use \Psr\Http\Message\RequestInterface;
 use \Psr\Http\Message\ResponseInterface;
@@ -23,6 +19,8 @@ use \Charcoal\Config\ConfigurableTrait;
 // Local namespace dependencies
 use \Charcoal\App\AppConfig;
 use \Charcoal\App\AppInterface;
+use \Charcoal\App\LoggerAwareInterface;
+use \Charcoal\App\LoggerAwareTrait;
 
 use \Charcoal\App\Middleware\MiddlewareManager;
 use \Charcoal\App\Module\ModuleManager;
@@ -38,17 +36,13 @@ class App implements
     AppInterface,
     ConfigurableInterface
 {
+    use LoggerAwareTrait;
     use ConfigurableTrait;
 
     /**
     * @var SlimApp $app
     */
     private $app;
-
-    /**
-    * @var LoggerInterface
-    */
-    private $logger;
 
     /**
     * @var ModuleManager
@@ -73,42 +67,11 @@ class App implements
     */
     public function __construct(array $data)
     {
-        $this->logger = $data['app']->logger;
-        $this->logger->debug('Charcoal App Init logger');
+        $this->set_logger($data['app']->logger);
+        $this->logger()->debug('Charcoal App Init logger');
 
         $this->set_config($data['config']);
         $this->set_app($data['app']);
-    }
-
-    /**
-    * > LoggerAwareInterface > setLogger()
-    *
-    * Fulfills the PSR-1 / PSR-3 style LoggerAwareInterface
-    *
-    * @param LoggerInterface $logger
-    * @return AbstractEngine Chainable
-    */
-    public function setLogger(LoggerInterface $logger)
-    {
-        return $this->set_logger($logger);
-    }
-
-    /**
-    * @param LoggerInterface $logger
-    * @return AbstractEngine Chainable
-    */
-    public function set_logger(LoggerInterface $logger = null)
-    {
-        $this->logger = $logger;
-        return $this;
-    }
-
-    /**
-    * @erturn LoggerInterface
-    */
-    public function logger()
-    {
-        return $this->logger;
     }
 
     /**
@@ -130,9 +93,9 @@ class App implements
             $config = $this->config();
             $modules = $config['modules'];
             $this->module_manager = new ModuleManager([
-                'modules' => $modules,
-                'app' => $this->app,
-                'logger' => $this->logger
+                'config' => ($modules ?: []),
+                'app'    => $this->app,
+                'logger' => $this->logger()
             ]);
         }
         return $this->module_manager;
@@ -147,9 +110,9 @@ class App implements
             $config = $this->config();
             $routes = $config['routes'];
             $route_manager = new RouteManager([
-                'config' => $routes,
-                'app' => $this->app,
-                'logger' => $this->logger
+                'config' => ($routes ?: []),
+                'app'    => $this->app,
+                'logger' => $this->logger()
             ]);
         }
         return $route_manager;
@@ -164,9 +127,9 @@ class App implements
             $config = $this->config();
             $middlewares = $config['middlewares'];
             $middleware_manager = new MiddlewareManager([
-                'config' => $middlewares,
-                'app' => $this->app,
-                'logger' => $this->logger
+                'config' => ($middlewares ?: []),
+                'app'    => $this->app,
+                'logger' => $this->logger()
             ]);
         }
         return $middleware_manager;
@@ -216,8 +179,11 @@ class App implements
         // For now, need to rely on a catch-all...
         $this->app->get(
             '{catchall:.*}',
-            function(RequestInterface $request, ResponseInterface $response, $args) use ($charcoal) {
-
+            function (
+                RequestInterface $request,
+                ResponseInterface $response,
+                $args
+            ) use ($charcoal) {
                 $config = $charcoal->config();
                 $routables = $config['routables'];
                 if ($routables === null || count($routables) === 0) {
@@ -231,7 +197,7 @@ class App implements
                     }
                 }
 
-            // If this point is reached, no routable has provided a callback. 404.
+                // If this point is reached, no routable has provided a callback. 404.
                 return $this->notFoundHandler($request, $response);
             }
         );
@@ -246,14 +212,13 @@ class App implements
         return $module_manager->setup_modules();
     }
 
-
     /**
     * ConfigurableTrait > create_config()
     *
     * @param array $data
     * @return AppConfig
     */
-    public function create_config($data = null)
+    public function create_config(array $data = null)
     {
         return new AppConfig($data);
     }
