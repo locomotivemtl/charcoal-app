@@ -24,6 +24,7 @@ use \Charcoal\App\SingletonTrait;
 use \Charcoal\App\LoggerAwareInterface;
 use \Charcoal\App\LoggerAwareTrait;
 
+use \Charcoal\App\Language\LanguageManager;
 use \Charcoal\App\Middleware\MiddlewareManager;
 use \Charcoal\App\Module\ModuleManager;
 use \Charcoal\App\Route\RouteManager;
@@ -64,6 +65,11 @@ class App implements
     private $middleware_manager;
 
     /**
+    * @var LanguageManager
+    */
+    private $language_manager;
+
+    /**
     * # Required dependencies
     * - `logger` A PSR-3 logger.
     *
@@ -94,10 +100,10 @@ class App implements
     public function module_manager()
     {
         if ($this->module_manager == null) {
-            $config = $this->config();
-            $modules = $config['modules'];
+            $config  = $this->config();
+            $modules = (isset($config['modules']) ? $config['modules'] : [] );
             $this->module_manager = new ModuleManager([
-                'config' => ($modules ?: []),
+                'config' => $modules,
                 'app'    => $this->app,
                 'logger' => $this->logger()
             ]);
@@ -112,9 +118,9 @@ class App implements
     {
         if ($this->route_manager === null) {
             $config = $this->config();
-            $routes = $config['routes'];
+            $routes = (isset($config['routes']) ? $config['routes'] : [] );
             $route_manager = new RouteManager([
-                'config' => ($routes ?: []),
+                'config' => $routes,
                 'app'    => $this->app,
                 'logger' => $this->logger()
             ]);
@@ -129,9 +135,9 @@ class App implements
     {
         if ($this->middleware_manager === null) {
             $config = $this->config();
-            $middlewares = $config['middlewares'];
+            $middlewares = (isset($config['middlewares']) ? $config['middlewares'] : [] );
             $middleware_manager = new MiddlewareManager([
-                'config' => ($middlewares ?: []),
+                'config' => $middlewares,
                 'app'    => $this->app,
                 'logger' => $this->logger()
             ]);
@@ -140,15 +146,53 @@ class App implements
     }
 
     /**
+    * @return LanguageManager
+    */
+    public function language_manager()
+    {
+        if (!isset($this->language_manager)) {
+            $config = $this->config();
+
+            $locales = [];
+            if (isset($config['locales'])) {
+                $locales = $config['locales'];
+            } elseif (isset($config['languages'])) {
+                $locales['languages'] = $config['languages'];
+
+                if (isset($config['default_language'])) {
+                    $locales['default_language'] = $config['default_language'];
+                }
+            }
+
+            $language_manager = new LanguageManager([
+                'config' => $locales,
+                'app'    => $this->app,
+                'logger' => $this->logger()
+            ]);
+        }
+        return $language_manager;
+    }
+
+    /**
     * @return App Chainable
     */
     public function setup()
     {
+        $this->setup_languages();
         $this->setup_middlewares();
         $this->setup_routes();
         $this->setup_routables();
         $this->setup_modules();
         return $this;
+    }
+
+    /**
+    * @return void
+    */
+    protected function setup_languages()
+    {
+        $language_manager = $this->language_manager();
+        return $language_manager->setup();
     }
 
     /**
