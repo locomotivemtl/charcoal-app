@@ -54,7 +54,7 @@ class RouteManager extends AbstractManager
         foreach ($templates as $template_ident => $template_config) {
             $methods = ( isset($tempate_config['methods']) ? $template_config['methods'] : [ 'GET' ] );
 
-            $route = $this->app()->map(
+            $route_handler = $this->app->map(
                 $methods,
                 $template_ident,
                 function (
@@ -73,14 +73,13 @@ class RouteManager extends AbstractManager
                          'app'    => $this,
                          'config' => new TemplateRouteConfig($template_config)
                     ]);
-
                     // Invoke template route
                     return $route($request, $response);
                 }
             );
 
             if (isset($template_config['ident'])) {
-                $route->setName($template_config['ident']);
+                $route_handler->setName($template_config['ident']);
             }
         }
     }

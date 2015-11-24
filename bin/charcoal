@@ -10,7 +10,9 @@ use \Slim\Container as SlimContainer;
 use \Slim\Http\Environment as SlimEnvironment;
 
 $autoloader_path = [
-	__DIR__. '/../../autoload.php',
+	__DIR__. '/../../../../vendor/autoload.php',
+    __DIR__. '/../../../vendor/autoload.php',
+    __DIR__. '/../../vendor/autoload.php',
 	__DIR__. '/../vendor/autoload.php',
 	__DIR__. '/vendor/autoload.php'
 ];
@@ -21,7 +23,7 @@ foreach ($autoloader_path as $file) {
         break;
     }
 }
-unset($file);
+$base_dir = realpath(dirname(dirname($file)));
 
 // Ensure CLI mode
 if (PHP_SAPI !== 'cli') {
@@ -36,11 +38,21 @@ if (!isset($argv[1])) {
 }
 $path = '/'.$argv[1];
 
+\Charcoal\Charcoal::init([
+    'config'=>new \Charcoal\CharcoalConfig($base_dir.'/config/config.php')
+]);
+
 // Create container and configure it (with charcoal-config)
 $container = new SlimContainer();
 
+// Main Charcoal Config
+$container['charcoal/app/config'] = function($c) use ($base_dir) {
+    $config = new AppConfig();
+    $config->add_file($base_dir.'/config/config.php');
+    return $config;
+};
 
-
+// Fake environment (for CLI) with path
 $container['environment'] = function($c) use ($path) {
     return SlimEnvironment::mock([
         'PATH_INFO' => $path,
@@ -49,7 +61,8 @@ $container['environment'] = function($c) use ($path) {
 };
 
 // Handle "404 Not Found"
-$container['notFoundHandler'] = function ($c) { 
+$container['notFoundHandler'] = function ($c) 
+{ 
     return function ($request, $response) use ($c) 
     { 
         return $c['response'] 
@@ -59,7 +72,8 @@ $container['notFoundHandler'] = function ($c) {
 };
 
 // Handle "500 Server Error" 
-$container['errorHandler'] = function ($c) {
+$container['errorHandler'] = function ($c) 
+{
     return function ($request, $response, $exception) use ($c) 
     {
         return $c['response']
@@ -68,14 +82,6 @@ $container['errorHandler'] = function ($c) {
 				sprintf('Something went wrong! (%s)'."\n", $exception->getMessage())
 			);
 	};
-};
-
-// Main Charcoal Config
-$container['charcoal/app/config'] = function($c) {
-    $config = new AppConfig();
-    var_dump(__DIR__.'/../config/config.php');
-    $config->add_file(__DIR__.'/../config/config.php');
-    return $config;
 };
 
 // Slim is the main app
@@ -88,7 +94,10 @@ require __DIR__.'/../config/middlewares.php';
 // Register routes
 require __DIR__.'/../config/routes.php';
 
-$charcoal = new CharcoalApp($container['charcoal/app/config'], $app);
+$charcoal = new CharcoalApp([
+    'config' => $container['charcoal/app/config'], 
+    'app' => $app
+]);
 $charcoal->setup();
 
 $app->run();

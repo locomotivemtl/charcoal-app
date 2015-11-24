@@ -8,8 +8,6 @@ use \Charcoal\App\AppConfig;
 use \Slim\App as SlimApp;
 use \Slim\Container as SlimContainer;
 
-include '../vendor/locomotivemtl/charcoal-core/src/Charcoal/charcoal.php';
-
 // If using PHP's built-in server, return false for existing files on filesystem
 if (PHP_SAPI === 'cli-server') {
     $filename = __DIR__ . preg_replace('#(\?.*)$#', '', $_SERVER['REQUEST_URI']);
@@ -18,17 +16,15 @@ if (PHP_SAPI === 'cli-server') {
     }
 }
 
-/** Require the Charcoal Framework */
+// Require the Charcoal Framework
 include '../vendor/autoload.php';
 
-$configuration = [
-    'settings' => [
-        'displayErrorDetails' => true,
-    ],
-];
+Charcoal::init([
+    'config'=>new \Charcoal\CharcoalConfig('../config/config.php')
+]);
 
 // Create container and configure it (with charcoal-config)
-$container = new SlimContainer($configuration);
+$container = new SlimContainer();
 
 $container['charcoal/app/config'] = function($c) {
     $config = new AppConfig();
@@ -36,19 +32,31 @@ $container['charcoal/app/config'] = function($c) {
     return $config;
 };
 
-\Charcoal\Charcoal::init([
-    'config'=>new \Charcoal\CharcoalConfig('../config/config.php')
-]);
+// Handle "404 Not Found"
+$container['notFoundHandler'] = function ($c) 
+{ 
+    return function ($request, $response) use ($c) 
+    { 
+        return $c['response'] 
+            ->withStatus(404) 
+            ->withHeader('Content-Type', 'text/html')
+            ->write('Page not found'."\n"); 
+    }; 
+};
 
-
-// $container['errorHandler'] = function ($c) {
-//     return function ($request, $response, $exception) use ($c) {
-//     	var_dump($exception);
-//         return $c['response']->withStatus(500)
-// 			->withHeader('Content-Type', 'text/html')
-// 			->write('Something went wrong!');
-// 	};
-// };
+// Handle "500 Server Error" 
+$container['errorHandler'] = function ($c) 
+{
+    return function ($request, $response, $exception) use ($c) 
+    {
+        return $c['response']
+            ->withStatus(500)
+			->withHeader('Content-Type', 'text/html')
+			->write(
+                sprintf('Something went wrong! (%s)'."\n", $exception->getMessage())
+            );
+	};
+};
 
 // Slim is the main app
 $app = new SlimApp($container);
@@ -66,7 +74,4 @@ $charcoal = new CharcoalApp([
 ]);
 $charcoal->setup();
 
-
-
 $app->run();
-

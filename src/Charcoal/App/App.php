@@ -99,7 +99,7 @@ class App implements
     */
     public function module_manager()
     {
-        if ($this->module_manager == null) {
+        if ($this->module_manager === null) {
             $config  = $this->config();
             $modules = (isset($config['modules']) ? $config['modules'] : [] );
             $this->module_manager = new ModuleManager([
@@ -181,8 +181,8 @@ class App implements
         $this->setup_languages();
         $this->setup_middlewares();
         $this->setup_routes();
-        $this->setup_routables();
         $this->setup_modules();
+        $this->setup_routables();
         return $this;
     }
 
@@ -235,7 +235,8 @@ class App implements
                 $config = $charcoal->config();
                 $routables = $config['routables'];
                 if ($routables === null || count($routables) === 0) {
-                    return;
+                    //return $this->notFoundHandler($request, $response);
+                    return $response->write('No routable defined.');
                 }
                 foreach ($routables as $routable_type => $routable_options) {
                     $routable = RoutableFactory::instance()->create($routable_type);
