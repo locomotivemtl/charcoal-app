@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "e55327a293e4cd3f80da99634c790e9b",
-    "content-hash": "a858e24fb57402b21669f4295a1a7c53",
+    "hash": "558eedf3bfe7375f2556e121f6dfbcd1",
+    "content-hash": "458373e82272820caacf4eaf0526bec7",
     "packages": [
         {
             "name": "container-interop/container-interop",
@@ -71,17 +71,56 @@
             "time": "2015-08-25 20:34:48"
         },
         {
+            "name": "locomotivemtl/charcoal-factory",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/locomotivemtl/charcoal-factory.git",
+                "reference": "240e844f0cbcdec97bb8a55b95b97e1b85925738"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/locomotivemtl/charcoal-factory/zipball/240e844f0cbcdec97bb8a55b95b97e1b85925738",
+                "reference": "240e844f0cbcdec97bb8a55b95b97e1b85925738",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.8"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Charcoal\\": "src/Charcoal/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mathieu Ducharme",
+                    "email": "mat@locomotive.ca"
+                }
+            ],
+            "description": "Charcoal object creation (Factory, AbstractFactory, Builder, Class Resolver)",
+            "time": "2015-11-16 05:16:24"
+        },
+        {
             "name": "locomotivemtl/charcoal-view",
             "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/locomotivemtl/charcoal-view.git",
-                "reference": "85a790e9e39e1ac35d9bc7f84baf2f74556a9fd1"
+                "reference": "0c8691441bdcb986b8bcd8dadca806c36ae154a4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/locomotivemtl/charcoal-view/zipball/85a790e9e39e1ac35d9bc7f84baf2f74556a9fd1",
-                "reference": "85a790e9e39e1ac35d9bc7f84baf2f74556a9fd1",
+                "url": "https://api.github.com/repos/locomotivemtl/charcoal-view/zipball/0c8691441bdcb986b8bcd8dadca806c36ae154a4",
+                "reference": "0c8691441bdcb986b8bcd8dadca806c36ae154a4",
                 "shasum": ""
             },
             "require": {
@@ -110,20 +149,20 @@
                 }
             ],
             "description": "Charcoal View (templates)",
-            "time": "2015-11-10 05:21:07"
+            "time": "2015-11-25 13:52:58"
         },
         {
             "name": "monolog/monolog",
-            "version": "1.17.2",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Seldaek/monolog.git",
-                "reference": "bee7f0dc9c3e0b69a6039697533dca1e845c8c24"
+                "reference": "055125a98d92ce5fa8946e5f80cdf52405244120"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/bee7f0dc9c3e0b69a6039697533dca1e845c8c24",
-                "reference": "bee7f0dc9c3e0b69a6039697533dca1e845c8c24",
+                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/055125a98d92ce5fa8946e5f80cdf52405244120",
+                "reference": "055125a98d92ce5fa8946e5f80cdf52405244120",
                 "shasum": ""
             },
             "require": {
@@ -152,6 +191,7 @@
                 "ext-amqp": "Allow sending log messages to an AMQP server (1.0+ required)",
                 "ext-mongo": "Allow sending log messages to a MongoDB server",
                 "graylog2/gelf-php": "Allow sending log messages to a GrayLog2 server",
+                "mongodb/mongodb": "Allow sending log messages to a MongoDB server via PHP Driver",
                 "php-console/php-console": "Allow sending log messages to Google Chrome",
                 "raven/raven": "Allow sending log messages to a Sentry server",
                 "rollbar/rollbar": "Allow sending log messages to Rollbar",
@@ -161,7 +201,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.16.x-dev"
+                    "dev-master": "1.18.x-dev"
                 }
             },
             "autoload": {
@@ -187,7 +227,7 @@
                 "logging",
                 "psr-3"
             ],
-            "time": "2015-10-14 12:51:02"
+            "time": "2015-11-21 00:43:47"
         },
         {
             "name": "mustache/mustache",
@@ -425,12 +465,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/slimphp/Slim.git",
-                "reference": "c181a3a7666677fcf5dee2c03c504d5731262745"
+                "reference": "72438c74ec90852560abbec060a6c0043f29bb4f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/slimphp/Slim/zipball/c181a3a7666677fcf5dee2c03c504d5731262745",
-                "reference": "c181a3a7666677fcf5dee2c03c504d5731262745",
+                "url": "https://api.github.com/repos/slimphp/Slim/zipball/72438c74ec90852560abbec060a6c0043f29bb4f",
+                "reference": "72438c74ec90852560abbec060a6c0043f29bb4f",
                 "shasum": ""
             },
             "require": {
@@ -483,7 +523,7 @@
                 "micro",
                 "router"
             ],
-            "time": "2015-11-09 10:57:43"
+            "time": "2015-11-21 19:56:16"
         }
     ],
     "packages-dev": [
@@ -596,12 +636,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpspec/prophecy.git",
-                "reference": "4f9b1eaf0a7da77c362f8d91cbc68ab1f4718d62"
+                "reference": "826f28f4cd17b31e4d42aa21729e52f88d91bc39"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpspec/prophecy/zipball/4f9b1eaf0a7da77c362f8d91cbc68ab1f4718d62",
-                "reference": "4f9b1eaf0a7da77c362f8d91cbc68ab1f4718d62",
+                "url": "https://api.github.com/repos/phpspec/prophecy/zipball/826f28f4cd17b31e4d42aa21729e52f88d91bc39",
+                "reference": "826f28f4cd17b31e4d42aa21729e52f88d91bc39",
                 "shasum": ""
             },
             "require": {
@@ -648,7 +688,7 @@
                 "spy",
                 "stub"
             ],
-            "time": "2015-09-22 14:49:23"
+            "time": "2015-11-24 09:53:50"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -896,12 +936,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "6f9251d0910483fcbe22ee7a47ed604e43070770"
+                "reference": "d82e69c1b34337eae1628c5e2e3b01d2082c4aa9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/6f9251d0910483fcbe22ee7a47ed604e43070770",
-                "reference": "6f9251d0910483fcbe22ee7a47ed604e43070770",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/d82e69c1b34337eae1628c5e2e3b01d2082c4aa9",
+                "reference": "d82e69c1b34337eae1628c5e2e3b01d2082c4aa9",
                 "shasum": ""
             },
             "require": {
@@ -960,7 +1000,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2015-11-11 12:23:02"
+            "time": "2015-11-17 20:03:40"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -1396,12 +1436,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "3f79752644a5eb87d56a8caafac072f0ecf5d278"
+                "reference": "e594d90fba4e4cddc146bdd3907126b1d74d7316"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/3f79752644a5eb87d56a8caafac072f0ecf5d278",
-                "reference": "3f79752644a5eb87d56a8caafac072f0ecf5d278",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/e594d90fba4e4cddc146bdd3907126b1d74d7316",
+                "reference": "e594d90fba4e4cddc146bdd3907126b1d74d7316",
                 "shasum": ""
             },
             "require": {
@@ -1437,7 +1477,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2015-11-10 10:42:06"
+            "time": "2015-11-18 13:48:51"
         }
     ],
     "aliases": [],
@@ -1445,7 +1485,8 @@
     "stability-flags": {
         "locomotivemtl/charcoal-view": 20,
         "slim/slim": 20,
-        "monolog/monolog": 20
+        "monolog/monolog": 20,
+        "locomotivemtl/charcoal-factory": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
