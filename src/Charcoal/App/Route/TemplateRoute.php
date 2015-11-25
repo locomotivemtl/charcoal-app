@@ -113,7 +113,7 @@ class TemplateRoute implements
 
         $config = $this->config();
 
-        $template_ident = $config['template'] ?: $config['ident'];
+        $template_ident = ($config['template']) ? $config['template'] : $config['ident'];
 
         $template = TemplateFactory::instance()->create($template_ident, [
             'app' => $this->app

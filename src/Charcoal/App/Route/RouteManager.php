@@ -52,7 +52,6 @@ class RouteManager extends AbstractManager
         $templates = ( isset($routes['templates']) ? $routes['templates'] : [] );
         $this->logger()->debug('Templates', (array)$templates);
         foreach ($templates as $template_ident => $template_config) {
-            
             $route_ident = '/'.ltrim($template_ident, '/');
             $methods = ( isset($tempate_config['methods']) ? $template_config['methods'] : [ 'GET' ] );
             $route_handler = $this->app()->map(

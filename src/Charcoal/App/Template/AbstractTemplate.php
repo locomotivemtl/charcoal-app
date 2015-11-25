@@ -33,6 +33,11 @@ abstract class AbstractTemplate implements
     */
     private $logger;
 
+    /**
+    * @var SlimApp $app
+    */
+    private $app;
+
     public function __construct(array $data = null)
     {
         if (isset($data['logger'])) {
@@ -52,7 +57,7 @@ abstract class AbstractTemplate implements
         return $this;
     }
 
-    public function app($app)
+    public function app()
     {
         return $this->app;
     }

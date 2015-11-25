@@ -18,7 +18,10 @@ class AppTest extends \PHPUnit_Framework_TestCase
             return $GLOBALS['logger'];
         };
 
-        $this->obj = new App($config, $app);
+        $this->obj = new App([
+            'config'=>$config,
+            'app'=>$app
+        ]);
     }
 
     public function testConstructor()
