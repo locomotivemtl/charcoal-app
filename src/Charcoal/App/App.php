@@ -248,7 +248,7 @@ class App implements
 
                 $c = $this->getContainer();
                 // If this point is reached, no routable has provided a callback. 404.
-                //return $c['notFoundHandler']($request, $response);
+                return $c['notFoundHandler']($request, $response);
             }
         );
     }
