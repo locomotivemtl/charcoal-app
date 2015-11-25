@@ -17,6 +17,9 @@ use \Psr\Http\Message\ResponseInterface;
 use \Charcoal\Config\ConfigurableInterface;
 use \Charcoal\Config\ConfigurableTrait;
 
+// Intra-module (`charcoal-app`) dependencies
+use \Charcoal\App\Template\TemplateFactory;
+
 // Local namespace dependencies
 use \Charcoal\App\Route\RouteInterface;
 use \Charcoal\App\Route\TemplateRouteConfig;
@@ -108,41 +111,15 @@ class TemplateRoute implements
     {
         unset($request);
 
-        $container = $this->app->getContainer();
-        $app_config = $container['charcoal/app/config'];
-
         $config = $this->config();
 
-        $controller = $config['controller'];
-        if ($controller === null) {
-            $controller = $config['ident'];
-        }
-        $template = $config['template'];
-        $engine   = $config['engine'];
-        $options  = $config['options'];
+        $template_ident = $config['template'] ?: $config['ident'];
 
-        $this->logger()->debug('RESPONDING to '.$config['ident']);
-        $this->logger()->debug('Engine :'.$engine);
-        $this->logger()->debug('Template: '.$template);
-        $this->logger()->debug('Controller: '.$controller);
-
-        $template_loader = new \Charcoal\View\Mustache\MustacheLoader([
-            'search_path'      => $app_config['view/path'],
-            'default_template' => $app_config['view/default_template']
+        $template = TemplateFactory::instance()->create($template_ident, [
+            'app' => $this->app
         ]);
 
-        $view_engine = new \Charcoal\View\Mustache\MustacheEngine([
-            'logger' => $this->logger(),
-            'loader' => $template_loader
-        ]);
-
-        $view = new \Charcoal\View\GenericView([
-            'engine' => $view_engine,
-            'logger' => $this->logger()
-        ]);
-
-        $content = $view->render($template, $controller);
-        $response->write($content);
+        $response->write($template->render($template_ident));
 
         return $response;
     }

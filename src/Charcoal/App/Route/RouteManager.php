@@ -52,11 +52,12 @@ class RouteManager extends AbstractManager
         $templates = ( isset($routes['templates']) ? $routes['templates'] : [] );
         $this->logger()->debug('Templates', (array)$templates);
         foreach ($templates as $template_ident => $template_config) {
+            
+            $route_ident = '/'.ltrim($template_ident, '/');
             $methods = ( isset($tempate_config['methods']) ? $template_config['methods'] : [ 'GET' ] );
-
             $route_handler = $this->app()->map(
                 $methods,
-                $template_ident,
+                $route_ident,
                 function (
                     RequestInterface $request,
                     ResponseInterface $response,
@@ -65,13 +66,17 @@ class RouteManager extends AbstractManager
                     $template_ident,
                     $template_config
                 ) {
+
+                    $this->logger->debug(sprintf('Loaded route: %s', $template_ident), $template_config);
+                    
                     if (!isset($template_config['ident'])) {
                         $template_config['ident'] = ltrim($template_ident, '/');
                     }
 
                     $route = new TemplateRoute([
                          'app'    => $this,
-                         'config' => new TemplateRouteConfig($template_config)
+                         'config' => new TemplateRouteConfig($template_config),
+                         'logger' => $this->logger
                     ]);
                     // Invoke template route
                     return $route($request, $response);
@@ -96,7 +101,7 @@ class RouteManager extends AbstractManager
         foreach ($actions as $action_ident => $action_config) {
             $methods = ( isset($action_config['methods']) ? $action_config['methods'] : [ 'POST' ] );
 
-            $route = $this->app()->map(
+            $route_handler = $this->app()->map(
                 $methods,
                 $action_ident,
                 function (
@@ -121,7 +126,7 @@ class RouteManager extends AbstractManager
             );
 
             if (isset($action_config['ident'])) {
-                $route->setName($action_config['ident']);
+                $route_hanler->setName($action_config['ident']);
             }
         }
     }
@@ -138,7 +143,7 @@ class RouteManager extends AbstractManager
         foreach ($scripts as $script_ident => $script_config) {
             $methods = ( isset($script_config['methods']) ? $script_config['methods'] : [ 'GET' ] );
 
-            $route = $this->app()->map(
+            $route_handler = $this->app()->map(
                 $methods,
                 $script_ident,
                 function (
@@ -163,7 +168,7 @@ class RouteManager extends AbstractManager
             );
 
             if (isset($script_config['ident'])) {
-                $route->setName($script_config['ident']);
+                $route_handler->setName($script_config['ident']);
             }
         }
     }
