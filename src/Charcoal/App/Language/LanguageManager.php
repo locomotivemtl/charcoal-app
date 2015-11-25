@@ -2,15 +2,20 @@
 
 namespace Charcoal\App\Language;
 
+// PHP Dependencies
 use \InvalidArgumentException;
 
-// Local namespace dependencies
+// Module `charcoal-config` dependencies
+use \Charcoal\Config\GenericConfig;
+
+// Module `charcoal-core` dependencies
+use \Charcoal\Translation\TranslationString;
+use \Charcoal\Translation\TranslationConfig;
+
+// Intra-module (`charcoal-app`) dependencies
 use \Charcoal\App\AbstractManager;
 use \Charcoal\App\Language\Language;
 use \Charcoal\App\Language\LanguageInterface;
-use \Charcoal\Config\GenericConfig;
-use \Charcoal\Translation\TranslationString;
-use \Charcoal\Translation\TranslationConfig;
 
 /**
 *
@@ -18,9 +23,9 @@ use \Charcoal\Translation\TranslationConfig;
 class LanguageManager extends AbstractManager
 {
     /**
-    * @var LanguageInterface[]
+    * @var array LanguageInterface
     */
-    private $available_langs;
+    private $languages;
 
     /**
     * @var TranslationConfig

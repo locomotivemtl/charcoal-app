@@ -2,11 +2,15 @@
 
 namespace Charcoal\App\Template;
 
+// slim/slim dependencies
+use \Slim\App as SlimApp;
+
 // PSR-3 logger
 use \Psr\Log\LoggerInterface;
 use \Psr\Log\LoggerAwareInterface;
 
 // Module `charcoal-view` dependencies
+use \Charcoal\View\GenericView;
 use \Charcoal\View\ViewableInterface;
 use \Charcoal\View\ViewableTrait;
 
@@ -35,9 +39,22 @@ abstract class AbstractTemplate implements
             $this->set_logger($data['logger']);
         }
 
-        if ($data !== null) {
-            $this->set_data($data);
-        }
+        $this->set_app($data['app']);
+    }
+
+    /**
+    * @param SlimApp $app
+    * @return App Chainable
+    */
+    public function set_app(SlimApp $app)
+    {
+        $this->app = $app;
+        return $this;
+    }
+
+    public function app($app)
+    {
+        return $this->app;
     }
 
     /**
@@ -71,10 +88,14 @@ abstract class AbstractTemplate implements
         return $this->logger;
     }
 
-
+    /**
+    * The default Template View is a simple GenericView.
+    *
+    * @return \Charcoal\View\ViewInterface
+    */
     public function create_view(array $data = null)
     {
-        $view = new \Charcoal\View\GenericView([
+        $view = new GenericView([
             'logger'=>null
         ]);
         if ($data !== null) {

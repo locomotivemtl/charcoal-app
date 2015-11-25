@@ -178,7 +178,7 @@ class App implements
     */
     public function setup()
     {
-        $this->setup_languages();
+        //$this->setup_languages();
         $this->setup_middlewares();
         $this->setup_routes();
         $this->setup_modules();
