@@ -6,7 +6,7 @@ namespace Charcoal\App\Action;
 use \InvalidArgumentException;
 
 // Local namespace dependencies
-use \Charcoal\Action\ActionInterface;
+use \Charcoal\App\Action\ActionInterface;
 
 /**
  * Default implementation, as abstract class, of `ActionInterface`

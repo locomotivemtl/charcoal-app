@@ -20,6 +20,7 @@ use \Charcoal\Config\ConfigurableTrait;
 // Intra-module (`charcoal-app`) dependencies
 use \Charcoal\App\LoggerAwareInterface;
 use \Charcoal\App\LoggerAwareTrait;
+use \Charcoal\App\Action\ActionFactory;
 
 // Local namespace dependencies
 use \Charcoal\App\Route\RouteInterface;
@@ -102,6 +103,15 @@ class ActionRoute implements
      */
     public function __invoke(RequestInterface $request, ResponseInterface $response)
     {
-        return $response;
+        $config = $this->config();
+
+        $action_ident = $config['ident'];
+
+        $action_factory = new ActionFactory();
+        $action = $action_factory->create($action_ident, [
+            'app' => $this->app()
+        ]);
+
+        return $action($request, $response);
     }
 }

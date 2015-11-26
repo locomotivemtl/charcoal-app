@@ -3,12 +3,12 @@
 namespace Charcoal\App\Route;
 
 // Local namespace dependencies
-use \Charcoal\App\Route\AbstractRouteConfig;
+use \Charcoal\App\Route\RouteConfig;
 
 /**
  *
  */
-class ActionRouteConfig extends AbstractRouteConfig
+class ActionRouteConfig extends RouteConfig
 {
 
 }

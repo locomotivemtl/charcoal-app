@@ -110,7 +110,7 @@ class TemplateRoute implements
 
         $template_factory = new TemplateFactory();
         $template = $template_factory->create($template_ident, [
-            'app' => $this->app
+            'app' => $this->app()
         ]);
 
         $response->write($template->render($template_ident));
