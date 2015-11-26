@@ -66,7 +66,7 @@ class RouteManager extends AbstractManager
                 ) {
 
                     $this->logger->debug(sprintf('Loaded route: %s', $template_ident), $template_config);
-                    
+
                     if (!isset($template_config['ident'])) {
                         $template_config['ident'] = ltrim($template_ident, '/');
                     }
@@ -124,7 +124,7 @@ class RouteManager extends AbstractManager
             );
 
             if (isset($action_config['ident'])) {
-                $route_hanler->setName($action_config['ident']);
+                $route_handler->setName($action_config['ident']);
             }
         }
     }
