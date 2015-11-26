@@ -12,25 +12,27 @@ use \Charcoal\App\LoggerAwareInterface;
 use \Charcoal\App\LoggerAwareTrait;
 
 /**
-*
-*/
+ *
+ */
 abstract class AbstractManager implements LoggerAwareInterface
 {
     use LoggerAwareTrait;
 
     /**
-    * @var array
-    */
+     * @var array
+     */
     private $config = [];
 
     /**
-    * @var SlimApp
-    */
+     * A SlimApp instance is required to know what App the manager is linked to.
+     *
+     * @var SlimApp
+     */
     private $app;
 
     /**
-    * @param array $data The dependencies container
-    */
+     * @param array $data The dependencies container.
+     */
     public function __construct(array $data)
     {
         $this->set_config($data['config']);
@@ -48,9 +50,9 @@ abstract class AbstractManager implements LoggerAwareInterface
     }
 
     /**
-     * Get the manager's config
+     * Set the manager's config
      *
-     * @param  array $config
+     * @param  array $config The manager configuration.
      * @return self
      */
     protected function set_config(array $config = [])
@@ -70,9 +72,9 @@ abstract class AbstractManager implements LoggerAwareInterface
     }
 
     /**
-     * Set the manager's reference to the Slim App
+     * Set the manager's reference to the Slim App.
      *
-     * @param  SlimApp $app
+     * @param  SlimApp $app The Slim Application instance.
      * @return self
      */
     protected function set_app(SlimApp $app)
@@ -82,7 +84,7 @@ abstract class AbstractManager implements LoggerAwareInterface
     }
 
     /**
-     * Get the manager's reference to the Slim App
+     * Get the manager's reference to the Slim App.
      *
      * @return SlimApp
      */

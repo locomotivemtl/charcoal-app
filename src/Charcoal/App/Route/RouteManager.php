@@ -17,20 +17,20 @@ use \Charcoal\App\Route\TemplateRoute;
 use \Charcoal\App\Route\TemplateRouteConfig;
 
 /**
-*
-*/
+ *
+ */
 class RouteManager extends AbstractManager
 {
     /**
-    * Set up the routes
-    *
-    * There are 3 types of routes:
-    * - `templates`
-    * - `actions`
-    * - `scripts
-    *
-    * @return void
-    */
+     * Set up the routes
+     *
+     * There are 3 types of routes:
+     * - `templates`
+     * - `actions`
+     * - `scripts
+     *
+     * @return void
+     */
     public function setup_routes()
     {
         if (PHP_SAPI == 'cli') {
@@ -42,9 +42,8 @@ class RouteManager extends AbstractManager
     }
 
     /**
-    * @throws Exception
-    * @return void
-    */
+     * @return void
+     */
     protected function setup_template_routes()
     {
         $routes = $this->config();
@@ -60,7 +59,7 @@ class RouteManager extends AbstractManager
                 function (
                     RequestInterface $request,
                     ResponseInterface $response,
-                    $args
+                    array $args
                 ) use (
                     $template_ident,
                     $template_config
@@ -89,8 +88,8 @@ class RouteManager extends AbstractManager
     }
 
     /**
-    * @return void
-    */
+     * @return void
+     */
     protected function setup_action_routes()
     {
         $routes = $this->config();
@@ -106,7 +105,7 @@ class RouteManager extends AbstractManager
                 function (
                     RequestInterface $request,
                     ResponseInterface $response,
-                    $args
+                    array $args
                 ) use (
                     $action_ident,
                     $action_config
@@ -117,7 +116,7 @@ class RouteManager extends AbstractManager
 
                     $route = new ActionRoute([
                         'app'    => $this,
-                        'config' => $action_config // new ActionRouteConfig($action_config)
+                        'config' => $action_config
                     ]);
 
                     return $route($request, $response);
@@ -131,8 +130,8 @@ class RouteManager extends AbstractManager
     }
 
     /**
-    * @return void
-    */
+     * @return void
+     */
     protected function setup_script_routes()
     {
         $routes = $this->config();
@@ -148,7 +147,7 @@ class RouteManager extends AbstractManager
                 function (
                     RequestInterface $request,
                     ResponseInterface $response,
-                    $args
+                    array $args
                 ) use (
                     $script_ident,
                     $script_config
@@ -159,7 +158,7 @@ class RouteManager extends AbstractManager
 
                     $route = new ScriptRoute([
                         'app'    => $this->app,
-                        'config' => $script_config // new ScriptRouteConfig($script_config)
+                        'config' => $script_config
                     ]);
 
                     return $route($request, $response);

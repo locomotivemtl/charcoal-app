@@ -2,10 +2,13 @@
 
 namespace Charcoal\App\Module;
 
+/**
+ *
+ */
 interface ModuleInterface
 {
     /**
-    * @return void
-    */
+     * @return void
+     */
     public function setup();
 }

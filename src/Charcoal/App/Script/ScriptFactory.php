@@ -6,21 +6,21 @@ namespace Charcoal\App\Script;
 use \Charcoal\Factory\ResolverFactory;
 
 /**
-* The ScriptFactory creates Script (CLI Action) objects
-*/
+ * The ScriptFactory creates Script (CLI Action) objects
+ */
 class ScriptFactory extends ResolverFactory
 {
     /**
-    * @param array $data
-    */
+     * @return string
+     */
     public function base_class()
     {
         return '\Charcoal\App\Script\ScriptInterface';
     }
 
     /**
-    * @return string
-    */
+     * @return string
+     */
     public function resolver_suffix()
     {
         return 'Script';

@@ -18,8 +18,8 @@ use \Charcoal\View\ViewableTrait;
 use \Charcoal\App\Template\TemplateInterface;
 
 /**
-*
-*/
+ *
+ */
 abstract class AbstractTemplate implements
     LoggerAwareInterface,
     TemplateInterface,
@@ -29,15 +29,18 @@ abstract class AbstractTemplate implements
     use ViewableTrait;
 
     /**
-    * @var LoggerInterface $logger
-    */
+     * @var LoggerInterface $logger
+     */
     private $logger;
 
     /**
-    * @var SlimApp $app
-    */
+     * @var SlimApp $app
+     */
     private $app;
 
+    /**
+     * @param array $data The dependencies (app and logger).
+     */
     public function __construct(array $data = null)
     {
         if (isset($data['logger'])) {
@@ -48,37 +51,40 @@ abstract class AbstractTemplate implements
     }
 
     /**
-    * @param SlimApp $app
-    * @return App Chainable
-    */
+     * @param SlimApp $app The Slim app instance.
+     * @return App Chainable
+     */
     public function set_app(SlimApp $app)
     {
         $this->app = $app;
         return $this;
     }
 
+    /**
+     * @return SlimApp
+     */
     public function app()
     {
         return $this->app;
     }
 
     /**
-    * > LoggerAwareInterface > setLogger()
-    *
-    * Fulfills the PSR-1 style LoggerAwareInterface
-    *
-    * @param LoggerInterface $logger
-    * @return AbstractEngine Chainable
-    */
+     * > LoggerAwareInterface > setLogger()
+     *
+     * Fulfills the PSR-1 style LoggerAwareInterface
+     *
+     * @param LoggerInterface $logger A PSR-3 compatible logger instance.
+     * @return AbstractEngine Chainable
+     */
     public function setLogger(LoggerInterface $logger)
     {
         return $this->set_logger($logger);
     }
 
     /**
-    * @param LoggerInterface $logger
-    * @return AbstractEngine Chainable
-    */
+     * @param LoggerInterface $logger A PSR-3 compatible logger instance.
+     * @return AbstractEngine Chainable
+     */
     public function set_logger(LoggerInterface $logger = null)
     {
         $this->logger = $logger;
@@ -86,18 +92,41 @@ abstract class AbstractTemplate implements
     }
 
     /**
-    * @erturn LoggerInterface
-    */
+     * @return LoggerInterface
+     */
     public function logger()
     {
         return $this->logger;
     }
 
     /**
-    * The default Template View is a simple GenericView.
-    *
-    * @return \Charcoal\View\ViewInterface
-    */
+     * The default Template View is a simple GenericView.
+     *
+     * @param array $data The data array (as [key=>value] pair) to set.
+     * @return AbtractTemplate Chainable
+     */
+    public function set_data(array $data)
+    {
+        foreach ($data as $prop => $val) {
+            $func = [$this, 'set_'.$prop];
+            if (is_callable($func)) {
+                call_user_func($func, $val);
+                unset($data[$prop]);
+            } else {
+                $this->{$prop} = $val;
+            }
+        }
+
+        // Chainable
+        return $this;
+    }
+
+    /**
+     * The default Template View is a simple GenericView.
+     *
+     * @param array $data The optional view data.
+     * @return \Charcoal\View\ViewInterface
+     */
     public function create_view(array $data = null)
     {
         $view = new GenericView([

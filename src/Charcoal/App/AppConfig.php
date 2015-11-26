@@ -12,29 +12,29 @@ use \Charcoal\Translation\TranslationConfig;
 use \Charcoal\App\Language\Language;
 
 /**
-* Charcoal App configuration
-*/
+ * Charcoal App configuration
+ */
 class AppConfig extends AbstractConfig
 {
     /**
-    * @var array $routes
-    */
+     * @var array $routes
+     */
     private $routes = [];
 
     /**
-    * @var array $routables
-    */
+     * @var array $routables
+     */
     private $routables = [];
 
     /**
-    * @var array $modules
-    */
+     * @var array $modules
+     */
     private $modules = [];
 
     /**
-    * @param array $routes
-    * @return AppConfig Chainable
-    */
+     * @param array $routes The route configuration structure to set.
+     * @return AppConfig Chainable
+     */
     public function set_routes(array $routes)
     {
         $this->routes = $routes;
@@ -42,17 +42,17 @@ class AppConfig extends AbstractConfig
     }
 
     /**
-    * @return array
-    */
+     * @return array
+     */
     public function routes()
     {
         return $this->routes;
     }
 
     /**
-    * @param array $routes
-    * @return AppConfig Chainable
-    */
+     * @param array $routables The routable configuration structure to set.
+     * @return AppConfig Chainable
+     */
     public function set_routables(array $routables)
     {
         $this->routables = $routables;
@@ -60,17 +60,17 @@ class AppConfig extends AbstractConfig
     }
 
     /**
-    * @return array
-    */
+     * @return array
+     */
     public function routables()
     {
         return $this->routables;
     }
 
     /**
-    * @param array $modules
-    * @return AppConfig Chainable
-    */
+     * @param array $modules The module configuration structure to set.
+     * @return AppConfig Chainable
+     */
     public function set_modules(array $modules)
     {
         $this->modules = $modules;
@@ -78,53 +78,19 @@ class AppConfig extends AbstractConfig
     }
 
     /**
-    * @return array
-    */
+     * @return array
+     */
     public function modules()
     {
         return $this->modules;
     }
 
     /**
-    * Set the application's available languages
-    *
-    * @param  Language[] $lang
-    * @return self
-    */
-    public function set_languages(array $languages)
-    {
-        $this->languages = $languages;
-        return $this;
-    }
-
-    /**
-    * Add or update an available language to the application
-    *
-    * @param  Language $lang
-    * @return self
-    */
-    public function add_language(Language $lang)
-    {
-        $this->languages[$lang->ident()] = $lang;
-        return $this;
-    }
-
-    /**
-    * Get the application's list of available languages
-    *
-    * @return Language[]
-    */
-    public function languages()
-    {
-        return $this->languages;
-    }
-
-    /**
-    * Set the application's global TranslationConfig
-    *
-    * @param  array|TranslationConfig $translation
-    * @return self
-    */
+     * Set the application's global TranslationConfig
+     *
+     * @param  array|TranslationConfig $translation The Translation Configuration.
+     * @return self
+     */
     public function set_translation($translation)
     {
         if ($translation instanceof TranslationConfig) {
@@ -136,10 +102,10 @@ class AppConfig extends AbstractConfig
     }
 
     /**
-    * Get the application's global TranslationConfig
-    *
-    * @return TranslationConfig
-    */
+     * Get the application's global TranslationConfig
+     *
+     * @return TranslationConfig
+     */
     public function translation()
     {
         return $this->translation_config;

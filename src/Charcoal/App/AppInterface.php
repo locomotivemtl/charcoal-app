@@ -5,7 +5,7 @@ namespace Charcoal\App;
 interface AppInterface
 {
     /**
-    * @return void
-    */
+     * @return void
+     */
     public function setup();
 }

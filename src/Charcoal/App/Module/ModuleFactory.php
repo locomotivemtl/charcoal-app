@@ -6,21 +6,21 @@ namespace Charcoal\App\Module;
 use \Charcoal\Factory\ResolverFactory;
 
 /**
-* The TemplateFactory creates Template objects
-*/
+ * The ModuleFactory creates Module objects
+ */
 class ModuleFactory extends ResolverFactory
 {
     /**
-    * @param array $data
-    */
+     * @return string
+     */
     public function base_class()
     {
         return '\Charcoal\App\Module\ModuleInterface';
     }
 
     /**
-    * @return string
-    */
+     * @return string
+     */
     public function resolver_suffix()
     {
         return 'Module';

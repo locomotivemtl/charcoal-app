@@ -31,10 +31,10 @@ use \Charcoal\App\Route\RouteManager;
 use \Charcoal\App\Routable\RoutableFactory;
 
 /**
-* ## Dependencies
-* - **config** (`\Charcoal\App\AppConfig`)
-* - **app** (`SlimApp`)
-*/
+ * ## Dependencies
+ * - **config** (`\Charcoal\App\AppConfig`)
+ * - **app** (`SlimApp`)
+ */
 class App implements
     AppInterface,
     SingletonInterface,
@@ -45,36 +45,36 @@ class App implements
     use ConfigurableTrait;
 
     /**
-    * @var SlimApp $app
-    */
+     * @var SlimApp $app
+     */
     private $app;
 
     /**
-    * @var ModuleManager
-    */
+     * @var ModuleManager
+     */
     private $module_manager;
 
     /**
-    * @var RouteManager
-    */
+     * @var RouteManager
+     */
     private $route_manager;
 
     /**
-    * @var MiddlewareManager
-    */
+     * @var MiddlewareManager
+     */
     private $middleware_manager;
 
     /**
-    * @var LanguageManager
-    */
+     * @var LanguageManager
+     */
     private $language_manager;
 
     /**
-    * # Required dependencies
-    * - `logger` A PSR-3 logger.
-    *
-    * @param array $data
-    */
+     * # Required dependencies
+     * - `logger` A PSR-3 logger.
+     *
+     * @param array $data Dependencies.
+     */
     public function __construct(array $data)
     {
         $this->set_logger($data['app']->logger);
@@ -85,18 +85,18 @@ class App implements
     }
 
     /**
-    * @param SlimApp $app
-    * @return App Chainable
-    */
+     * @param SlimApp $app The SlimApp.
+     * @return App Chainable
+     */
     public function set_app(SlimApp $app)
     {
         $this->app = $app;
         return $this;
     }
 
-        /**
-    * @return ModuleManager
-    */
+    /**
+     * @return ModuleManager
+     */
     public function module_manager()
     {
         if ($this->module_manager === null) {
@@ -112,8 +112,8 @@ class App implements
     }
 
     /**
-    * @return RouteManager
-    */
+     * @return RouteManager
+     */
     public function route_manager()
     {
         if ($this->route_manager === null) {
@@ -129,8 +129,8 @@ class App implements
     }
 
     /**
-    * @return MiddlewareManager
-    */
+     * @return MiddlewareManager
+     */
     public function middleware_manager()
     {
         if ($this->middleware_manager === null) {
@@ -146,8 +146,8 @@ class App implements
     }
 
     /**
-    * @return LanguageManager
-    */
+     * @return LanguageManager
+     */
     public function language_manager()
     {
         if (!isset($this->language_manager)) {
@@ -174,11 +174,11 @@ class App implements
     }
 
     /**
-    * @return App Chainable
-    */
+     * @return App Chainable
+     */
     public function setup()
     {
-        //$this->setup_languages();
+        $this->setup_languages();
         $this->setup_middlewares();
         $this->setup_routes();
         $this->setup_modules();
@@ -187,40 +187,40 @@ class App implements
     }
 
     /**
-    * @return void
-    */
+     * @return void
+     */
     protected function setup_languages()
     {
         $language_manager = $this->language_manager();
-        return $language_manager->setup();
+        $language_manager->setup();
     }
 
     /**
-    * @return void
-    */
+     * @return void
+     */
     protected function setup_middlewares()
     {
         $middleware_manager = $this->middleware_manager();
-        return $middleware_manager->setup_middlewares();
+        $middleware_manager->setup_middlewares();
     }
 
     /**
-    * Set up the app's "global" routes, via a RouteManager
-    *
-    * @return void
-    */
+     * Set up the app's "global" routes, via a RouteManager
+     *
+     * @return void
+     */
     protected function setup_routes()
     {
         $route_manager = $this->route_manager();
-        return $route_manager->setup_routes();
+        $route_manager->setup_routes();
     }
 
     /**
-    * Set up the app's "global" routables.
-    * Routables can only be defined globally (app-level) for now.
-    *
-    * @return void
-    */
+     * Set up the app's "global" routables.
+     * Routables can only be defined globally (app-level) for now.
+     *
+     * @return void
+     */
     protected function setup_routables()
     {
         $charcoal = $this;
@@ -230,23 +230,24 @@ class App implements
             function (
                 RequestInterface $request,
                 ResponseInterface $response,
-                $args
+                array $args
             ) use ($charcoal) {
+                $c = $this->getContainer();
                 $config = $charcoal->config();
                 $routables = $config['routables'];
                 if ($routables === null || count($routables) === 0) {
-                    //return $this->notFoundHandler($request, $response);
-                    return $response->write('No routable defined.');
+                    return $c['notFoundHandler']($request, $response);
                 }
+                $routable_factory = new RoutableFactory();
                 foreach ($routables as $routable_type => $routable_options) {
-                    $routable = RoutableFactory::instance()->create($routable_type);
+                    $routable = $routable_factory->create($routable_type);
                     $route = $routable->route_handler($args['catchall'], $request, $response);
                     if ($route) {
                         return $route($request, $response);
                     }
                 }
 
-                $c = $this->getContainer();
+    
                 // If this point is reached, no routable has provided a callback. 404.
                 return $c['notFoundHandler']($request, $response);
             }
@@ -254,20 +255,20 @@ class App implements
     }
 
     /**
-    * @return void
-    */
+     * @return void
+     */
     protected function setup_modules()
     {
         $module_manager = $this->module_manager();
-        return $module_manager->setup_modules();
+        $module_manager->setup_modules();
     }
 
     /**
-    * ConfigurableTrait > create_config()
-    *
-    * @param array $data
-    * @return AppConfig
-    */
+     * ConfigurableTrait > create_config()
+     *
+     * @param array $data Optional config data.
+     * @return AppConfig
+     */
     public function create_config(array $data = null)
     {
         return new AppConfig($data);

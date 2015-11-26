@@ -18,30 +18,30 @@ use \Charcoal\App\Language\Language;
 use \Charcoal\App\Language\LanguageInterface;
 
 /**
-*
-*/
+ *
+ */
 class LanguageManager extends AbstractManager
 {
     /**
-    * @var array LanguageInterface
-    */
+     * @var array LanguageInterface
+     */
     private $languages;
 
     /**
-    * @var TranslationConfig
-    */
+     * @var TranslationConfig
+     */
     private $translation_config;
 
     /**
-    * @var GenericConfig
-    */
+     * @var GenericConfig
+     */
     private static $language_index;
 
     /**
-    * Set up the available languages, defaults, and active
-    *
-    * @return void
-    */
+     * Set up the available languages, defaults, and active
+     *
+     * @return void
+     */
     public function setup()
     {
         $this->setup_translations();
@@ -49,14 +49,14 @@ class LanguageManager extends AbstractManager
     }
 
     /**
-    * Set up the available languages, defaults, and active
-    *
-    * Settings:
-    * - languages
-    * - default_lang
-    *
-    * @return void
-    */
+     * Set up the available languages, defaults, and active
+     *
+     * Settings:
+     * - languages
+     * - default_lang
+     *
+     * @return void
+     */
     public function setup_translations()
     {
         $config = $this->config();
@@ -81,10 +81,10 @@ class LanguageManager extends AbstractManager
     }
 
     /**
-    * Set up the available languages, defaults, and active
-    *
-    * @return void
-    */
+     * Set up the available languages, defaults, and active
+     *
+     * @return void
+     */
     public function setup_languages()
     {
         $config = $this->config();
@@ -138,20 +138,20 @@ class LanguageManager extends AbstractManager
     public static function language_index()
     {
         if (!isset(self::$language_index)) {
-            self::$language_index = new GenericConfig(__DIR__ . '/../../../../config/languages.json');
+            self::$language_index = new GenericConfig(__DIR__.'/../../../../config/languages.json');
         }
 
         return self::$language_index;
     }
 
     /**
-    * Resolve a string identifier for a given Language.
-    *
-    * @param  LanguageInterface &$lang  The instance that needs resolution
-    * @param  mixed             $ident  Optional key/index of $config in previous method
-    * @return void
-    * @throws InvalidArgumentException
-    */
+     * Resolve a string identifier for a given Language.
+     *
+     * @param  LanguageInterface $lang  The instance that needs resolution.
+     * @param  mixed             $ident Optional key/index of $config in previous method.
+     * @throws InvalidArgumentException If the language ident is null.
+     * @return void
+     */
     public function resolve_ident(LanguageInterface &$lang, $ident = null)
     {
         if (is_string($ident)) {
@@ -178,13 +178,13 @@ class LanguageManager extends AbstractManager
     }
 
     /**
-    * Set the manager's available languages
-    *
-    * @param  LanguageInterface[] $lang
-    * @return self
-    * @throws InvalidArgumentException if array has a member that isn't an instance of Language
-    */
-    public function set_languages($languages)
+     * Set the manager's available languages
+     *
+     * @param  LanguageInterface[] $languages The list of languages to add.
+     * @throws InvalidArgumentException If array has a member that isn't an instance of Language.
+     * @return self
+     */
+    public function set_languages(array $languages)
     {
         $this->languages = [];
 
@@ -192,18 +192,20 @@ class LanguageManager extends AbstractManager
             if ($lang instanceof LanguageInterface) {
                 $this->add_language($lang);
             } else {
-                throw new InvalidArgumentException('Must be an instance of Language.');
+                throw new InvalidArgumentException(
+                    'Must be an instance of Language.'
+                );
             }
         }
         return $this;
     }
 
     /**
-    * Add or update an available language to the manager
-    *
-    * @param  LanguageInterface $lang
-    * @return self
-    */
+     * Add or update an available language to the manager.
+     *
+     * @param  LanguageInterface $lang The Language object to add.
+     * @return self
+     */
     public function add_language(LanguageInterface $lang)
     {
         $this->languages[$lang->ident()] = $lang;
@@ -211,21 +213,21 @@ class LanguageManager extends AbstractManager
     }
 
     /**
-    * Get the manager's list of available languages
-    *
-    * @return LanguageInterface[]
-    */
+     * Get the manager's list of available languages
+     *
+     * @return LanguageInterface[]
+     */
     public function languages()
     {
         return $this->languages;
     }
 
     /**
-    * Set the manager's translations for TranslationConfig
-    *
-    * @param  array|TranslationConfig $translation
-    * @return self
-    */
+     * Set the manager's translations for TranslationConfig
+     *
+     * @param  array|TranslationConfig $translation The translation configuration.
+     * @return self
+     */
     public function set_translation($translation)
     {
         if ($translation instanceof TranslationConfig) {
@@ -237,10 +239,10 @@ class LanguageManager extends AbstractManager
     }
 
     /**
-    * Get the manager's translations
-    *
-    * @return TranslationConfig
-    */
+     * Get the manager's translations
+     *
+     * @return TranslationConfig
+     */
     public function translation()
     {
         return $this->translation_config;

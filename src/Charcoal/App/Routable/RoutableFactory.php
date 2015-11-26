@@ -6,13 +6,13 @@ namespace Charcoal\App\Routable;
 use \Charcoal\Factory\ResolverFactory;
 
 /**
-* The TemplateFactory creates Factory objects
-*/
+ * The RoutableFactory creates Routable objects
+ */
 class RoutableFactory extends ResolverFactory
 {
     /**
-    * @param array $data
-    */
+     * @return string
+     */
     public function base_class()
     {
         return '\Charcoal\App\Routable\RoutableInterface';

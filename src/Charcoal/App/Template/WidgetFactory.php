@@ -6,21 +6,21 @@ namespace Charcoal\App\Template;
 use \Charcoal\Factory\ResolverFactory;
 
 /**
-* The TemplateFactory creates Template objects
-*/
+ * The TemplateFactory creates Template objects
+ */
 class WidgetFactory extends ResolverFactory
 {
     /**
-    * @param array $data
-    */
+     * @return string
+     */
     public function base_class()
     {
         return '\Charcoal\App\Template\WidgetInterface';
     }
 
     /**
-    * @return string
-    */
+     * @return string
+     */
     public function resolver_suffix()
     {
         return 'Widget';

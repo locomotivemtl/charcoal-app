@@ -3,18 +3,18 @@
 namespace Charcoal\App\Template;
 
 /**
-*
-*/
+ *
+ */
 interface WidgetInterface
 {
     /**
-    * @param boolean $active
-    * @return WidgetInterface Chainable
-    */
+     * @param boolean $active The active flag.
+     * @return WidgetInterface Chainable
+     */
     public function set_active($active);
 
     /**
-    * @return boolean
-    */
+     * @return boolean
+     */
     public function active();
 }

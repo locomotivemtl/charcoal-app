@@ -10,40 +10,40 @@ use \League\CLImate\CLImate;
 use \Charcoal\App\Script\ScriptInterface;
 
 /**
-*
-*/
+ *
+ */
 abstract class AbstractScript implements ScriptInterface
 {
     /**
-    * @var string $ident
-    */
+     * @var string $ident
+     */
     private $ident;
 
     /**
-    * @var string $description
-    */
+     * @var string $description
+     */
     private $description;
 
     /**
-    * @var array $arguments
-    */
+     * @var array $arguments
+     */
     private $arguments;
 
 
     /**
-    * @var CLImate $climate
-    */
+     * @var CLImate $climate
+     */
     private $climate;
 
 
     /**
-    * @var boolean $verbose
-    */
+     * @var boolean $verbose
+     */
     private $verbose;
 
     /**
-    * @return CLImate
-    */
+     * @return CLImate
+     */
     public function climate()
     {
         if ($this->climate === null) {
@@ -53,8 +53,8 @@ abstract class AbstractScript implements ScriptInterface
     }
 
     /**
-    * @return array
-    */
+     * @return array
+     */
     public function default_arguments()
     {
         return [
@@ -73,10 +73,10 @@ abstract class AbstractScript implements ScriptInterface
     }
 
     /**
-    * @param string $ident
-    * @throws InvalidArgumentException
-    * @return ScriptInterface Chainable
-    */
+     * @param string $ident The script identifier string.
+     * @throws InvalidArgumentException If the ident argument is not a string.
+     * @return ScriptInterface Chainable
+     */
     public function set_ident($ident)
     {
         if (!is_string($ident)) {
@@ -89,18 +89,18 @@ abstract class AbstractScript implements ScriptInterface
     }
     
     /**
-    * @return string
-    */
+     * @return string
+     */
     public function ident()
     {
         return $this->ident;
     }
 
     /**
-    * @param string $description
-    * @throws InvalidArgumentException
-    * @return ScriptInterface Chainable
-    */
+     * @param string $description The script description.
+     * @throws InvalidArgumentException If the deescription parameter is not a string.
+     * @return ScriptInterface Chainable
+     */
     public function set_description($description)
     {
         if (!is_string($description)) {
@@ -114,25 +114,19 @@ abstract class AbstractScript implements ScriptInterface
     }
 
     /**
-    * @return string
-    */
+     * @return string
+     */
     public function description()
     {
         return $this->description;
     }
     
     /**
-    * @param array $arguments
-    * @throws InvalidArgumentException
-    * @return ScriptInterface Chainable
-    */
-    public function set_arguments($arguments)
+     * @param array $arguments The scripts argument array, as [key=>value].
+     * @return ScriptInterface Chainable
+     */
+    public function set_arguments(array $arguments)
     {
-        if (!is_array($arguments)) {
-            throw new InvalidArgumentException(
-                'Arguments must be an array'
-            );
-        }
         $this->arguments = [];
         foreach ($arguments as $argument_ident => $argument) {
             $this->add_argument($argument_ident, $argument);
@@ -142,29 +136,35 @@ abstract class AbstractScript implements ScriptInterface
     }
 
     /**
-    * @param string $argument_ident
-    * @param array  $argument
-    * @return ScriptInterface Chainable
-    */
-    public function add_argument($argument_ident, $argument)
+     * @param string $argument_ident The argument identifier.
+     * @param array  $argument       The argument options.
+     * @throws InvalidArgumentException If the argument ident is not a string.
+     * @return ScriptInterface Chainable
+     */
+    public function add_argument($argument_ident, array $argument)
     {
+        if (!is_string($argument_ident)) {
+            throw new InvalidArgumentException(
+                'Argument ident must be a string.'
+            );
+        }
         $this->arguments[$argument_ident] = $argument;
         $this->climate()->arguments->add([$argument_ident=>$argument]);
         return $this;
     }
 
     /**
-    * @return array $arguments
-    */
+     * @return array $arguments
+     */
     public function arguments()
     {
         return $this->arguments;
     }
 
     /**
-    * @param string $argument_ident
-    * @return array
-    */
+     * @param string $argument_ident The argument identifier to retrieve options from.
+     * @return array|null The argument options, or null if it does not exist.
+     */
     public function argument($argument_ident)
     {
         if (!isset($this->arguments[$argument_ident])) {
@@ -174,11 +174,11 @@ abstract class AbstractScript implements ScriptInterface
     }
 
     /**
-    * Get an argument either from argument list (if set) or else from an input prompt.
-    *
-    * @param string $arg_name
-    * @return string The argument value or prompt value
-    */
+     * Get an argument either from argument list (if set) or else from an input prompt.
+     *
+     * @param string $arg_name The argument identifier to read from list or input.
+     * @return string The argument value or prompt value
+     */
     public function arg_or_input($arg_name)
     {
         $climate = $this->climate();
@@ -213,10 +213,10 @@ abstract class AbstractScript implements ScriptInterface
     }
 
     /**
-    * @param boolean $verbose
-    * @throws InvalidArgumentException
-    * @return CliActionTrait Chainable
-    */
+     * @param boolean $verbose The verbose flag.
+     * @throws InvalidArgumentException If the parameter is not a boolean.
+     * @return ScriptInterface Chainable
+     */
     public function set_verbose($verbose)
     {
         if (!is_bool($verbose)) {
@@ -229,16 +229,16 @@ abstract class AbstractScript implements ScriptInterface
     }
 
     /**
-    * @return boolean
-    */
+     * @return boolean
+     */
     public function verbose()
     {
         return $this->verbose;
     }
 
     /**
-    * @return string
-    */
+     * @return string
+     */
     public function help()
     {
         return $this->climate()->usage();

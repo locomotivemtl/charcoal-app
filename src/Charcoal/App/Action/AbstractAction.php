@@ -9,8 +9,8 @@ use \InvalidArgumentException;
 use \Charcoal\Action\ActionInterface;
 
 /**
-* Default implementation, as abstract class, of `ActionInterface`
-*/
+ * Default implementation, as abstract class, of `ActionInterface`
+ */
 abstract class AbstractAction implements ActionInterface
 {
     const MODE_JSON = 'json';
@@ -20,19 +20,19 @@ abstract class AbstractAction implements ActionInterface
     const DEFAULT_MODE = self::MODE_REDIRECT;
 
     /**
-    * @var string $mode
-    */
+     * @var string $mode
+     */
     private $mode = self::DEFAULT_MODE;
 
     /**
-    * @var boolean $success
-    */
+     * @var boolean $success
+     */
     private $success = false;
 
     /**
-    * @param array $data
-    * @return AbstractAction Chainable
-    */
+     * @param array $data The data to set.
+     * @return AbstractAction Chainable
+     */
     public function set_data(array $data)
     {
         foreach ($data as $prop => $val) {
@@ -53,10 +53,10 @@ abstract class AbstractAction implements ActionInterface
     }
 
     /**
-    * @param string $mode
-    * @throws InvalidArgumentException if mode is not a string
-    * @return ActionInterface Chainable
-    */
+     * @param string $mode The action mode.
+     * @throws InvalidArgumentException If the mode argument is not a string.
+     * @return ActionInterface Chainable
+     */
     public function set_mode($mode)
     {
         if (!is_string($mode)) {
@@ -69,18 +69,18 @@ abstract class AbstractAction implements ActionInterface
     }
 
     /**
-    * @return string
-    */
+     * @return string
+     */
     public function mode()
     {
         return $this->mode;
     }
 
     /**
-    * @param bool $success
-    * @throws InvalidArgumentException if success is not a boolean
-    * @return ActionInterface Chainable
-    */
+     * @param boolean $success Success flag (true / false).
+     * @throws InvalidArgumentException If the success argument is not a boolean.
+     * @return ActionInterface Chainable
+     */
     public function set_success($success)
     {
         if (!is_bool($success)) {
@@ -93,15 +93,15 @@ abstract class AbstractAction implements ActionInterface
     }
 
     /**
-    * @return bool
-    */
+     * @return boolean
+     */
     public function success()
     {
         return $this->success;
     }
 
     /**
-    * @return string
-    */
+     * @return string
+     */
     abstract public function response();
 }

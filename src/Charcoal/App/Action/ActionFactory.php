@@ -6,21 +6,21 @@ namespace Charcoal\App\Action;
 use \Charcoal\Factory\ResolverFactory;
 
 /**
-* The ActionFactory creates Action objects.
-*/
+ * The ActionFactory creates Action objects.
+ */
 class ActionFactory extends ResolverFactory
 {
     /**
-    * @param array $data
-    */
+     * @return string
+     */
     public function base_class()
     {
         return '\Charcoal\App\Action\ActionInterface';
     }
 
     /**
-    * @return string
-    */
+     * @return string
+     */
     public function resolver_suffix()
     {
         return 'Action';

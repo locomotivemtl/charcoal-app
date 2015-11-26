@@ -23,7 +23,8 @@ trait SingletonTrait
     protected static $instance = [];
 
     /**
-     * @throws LogicException if trying to clone class
+     * @throws LogicException If trying to clone an instance of a class that implements the Singleton.
+     * @return void
      */
     final private function __clone()
     {
@@ -36,7 +37,8 @@ trait SingletonTrait
     }
 
     /**
-     * @throws LogicException if trying to unserialize class
+     * @throws LogicException If trying to unserialize an instance of a class that implements the Singleton.
+     * @return void
      */
     final private function __wakeup()
     {
@@ -49,9 +51,9 @@ trait SingletonTrait
     }
 
     /**
-     * Getter for creating/returning the unique instance of this class
+     * Getter for creating/returning the unique instance of this class.
      *
-     * @param  mixed $param,...
+     * @param  mixed $param,... Optional Constructor parameters.
      * @return self
      */
     public static function instance()
@@ -62,7 +64,6 @@ trait SingletonTrait
             if (func_num_args()) {
                 $reflected_class = new ReflectionClass($called_class);
                 $class_instance  = $reflected_class->newInstanceArgs(func_get_args());
-                // $class_instance = new $called_class(...func_get_args());
             } else {
                 $class_instance = new $called_class();
             }

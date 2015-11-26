@@ -6,8 +6,8 @@ namespace Charcoal\App\Middleware;
 use \Charcoal\Config\AbstractConfig;
 
 /**
-* Base "Middleware" configuration.
-*/
+ * Base "Middleware" configuration.
+ */
 class MiddlewareConfig extends AbstractConfig
 {
 

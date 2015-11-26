@@ -17,18 +17,17 @@ use \Charcoal\App\AppConfig;
 use \Charcoal\App\AppInterface;
 
 /**
-*
-*/
+ *
+ */
 class AbstractModule implements
     ModuleInterface,
     ConfigurableInterface
 {
     use ConfigurableTrait;
     
-    // ...
     /**
-    * @return void
-    */
+     * @return void
+     */
     public function setup()
     {
         $this->setup_middlewares();
@@ -36,8 +35,8 @@ class AbstractModule implements
     }
 
     /**
-    * @return void
-    */
+     * @return void
+     */
     protected function setup_middlewares()
     {
         $middlewares = $this->config['middlewares'];
@@ -53,10 +52,10 @@ class AbstractModule implements
 
 
     /**
-    * Set up the app's "global" routes, via a RouteManager
-    *
-    * @return void
-    */
+     * Set up the app's "global" routes, via a RouteManager
+     *
+     * @return void
+     */
     protected function setup_routes()
     {
         $routes = $this->config['routes'];

@@ -17,30 +17,28 @@ use \Charcoal\View\ViewableTrait;
 use \Charcoal\App\Template\WidgetInterface;
 
 /**
-*
-*/
+ *
+ */
 abstract class AbstractWidget implements
     WidgetInterface,
-    //DescribableInterface,
     LoggerAwareInterface,
     ViewableInterface
 {
-    //use DescribableTrait;
     use ViewableTrait;
 
     /**
-    * @var LoggerInterface $logger
-    */
+     * @var LoggerInterface $logger
+     */
     private $logger;
 
     /**
-    * @var boolean $active
-    */
+     * @var boolean $active
+     */
     private $active;
 
     /**
-    * @param array $data Optional
-    */
+     * @param array $data Optional dependencies.
+     */
     public function __construct(array $data = null)
     {
         if (isset($data['logger'])) {
@@ -49,22 +47,22 @@ abstract class AbstractWidget implements
     }
 
     /**
-    * > LoggerAwareInterface > setLogger()
-    *
-    * Fulfills the PSR-1 / PSR-3 style LoggerAwareInterface
-    *
-    * @param LoggerInterface $logger
-    * @return AbstractEngine Chainable
-    */
+     * > LoggerAwareInterface > setLogger()
+     *
+     * Fulfills the PSR-1 / PSR-3 style LoggerAwareInterface
+     *
+     * @param LoggerInterface $logger A PSR-3 compatible logger instance.
+     * @return AbstractEngine Chainable
+     */
     public function setLogger(LoggerInterface $logger)
     {
         return $this->set_logger($logger);
     }
 
     /**
-    * @param LoggerInterface $logger
-    * @return AbstractEngine Chainable
-    */
+     * @param LoggerInterface $logger A PSR-3 compatible logger instance.
+     * @return AbstractEngine Chainable
+     */
     public function set_logger(LoggerInterface $logger = null)
     {
         $this->logger = $logger;
@@ -72,17 +70,17 @@ abstract class AbstractWidget implements
     }
 
     /**
-    * @erturn LoggerInterface
-    */
+     * @return LoggerInterface
+     */
     public function logger()
     {
         return $this->logger;
     }
 
     /**
-    * @param array $data
-    * @return AbstractWidget Chainable
-    */
+     * @param array $data The data array (as [key=>value] pair) to set.
+     * @return AbstractWidget Chainable
+     */
     public function set_data(array $data)
     {
         foreach ($data as $prop => $val) {
@@ -103,10 +101,10 @@ abstract class AbstractWidget implements
     }
 
     /**
-    * @param boolean $active
-    * @throws InvalidArgumentException
-    * @return AbstractWidget Chainable
-    */
+     * @param boolean $active The active flag.
+     * @throws InvalidArgumentException If the active parameter is not a boolean.
+     * @return AbstractWidget Chainable
+     */
     public function set_active($active)
     {
         if (!is_bool($active)) {
@@ -119,19 +117,19 @@ abstract class AbstractWidget implements
     }
 
     /**
-    * @return boolean
-    */
+     * @return boolean
+     */
     public function active()
     {
         return $this->active;
     }
 
     /**
-    * ViewableInterface > create_view().
-    *
-    * @param array $data Optional
-    * @return ViewInterface
-    */
+     * ViewableInterface > create_view().
+     *
+     * @param array $data Optional view data.
+     * @return ViewInterface
+     */
     public function create_view(array $data = null)
     {
         $view = new \Charcoal\View\GenericView([

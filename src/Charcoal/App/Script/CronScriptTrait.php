@@ -10,31 +10,21 @@ use \Exception;
 trait CronScriptTrait
 {
     /**
-    * @var boolean $use_lock
-    */
+     * @var boolean $use_lock
+     */
     private $use_lock = false;
 
     /**
-    * Lock file pointer
-    * @var resource $lock_fp
-    */
+     * Lock file pointer
+     * @var resource $lock_fp
+     */
     private $lock_fp;
     
-    /**
-    *
-    */
-    public function set_cron_data(array $data)
-    {
-        if (isset($data['use_lock']) && $data['use_lock']) {
-            $this->set_use_lock($data['use_lock']);
-        }
-        return $this;
-    }
 
     /**
-    * @param boolean $use_lock
-    * @return CronScriptInterface Chainable
-    */
+     * @param boolean $use_lock The boolean flag if a lock should be used.
+     * @return CronScriptInterface Chainable
+     */
     public function set_use_lock($use_lock)
     {
         $this->use_lock = !!$use_lock;
@@ -42,17 +32,17 @@ trait CronScriptTrait
     }
 
     /**
-    * @return boolean
-    */
+     * @return boolean
+     */
     public function use_lock()
     {
         return $this->use_lock;
     }
 
     /**
-    * @throws Exception
-    * @return boolean
-    */
+     * @throws Exception If the lock file can not be opened.
+     * @return boolean
+     */
     public function start_lock()
     {
         $lock_name = str_replace('\\', '-', get_class($this));
@@ -73,8 +63,8 @@ trait CronScriptTrait
     }
 
     /**
-    *
-    */
+     * @return void
+     */
     public function stop_lock()
     {
         if ($this->lock_fp) {

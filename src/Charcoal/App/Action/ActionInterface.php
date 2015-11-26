@@ -6,29 +6,29 @@ interface ActionInterface
 {
 
     /**
-    * @param string $mode
-    * @return ActionInterface Chainable
-    */
+     * @param string $mode The action mode.
+     * @return ActionInterface Chainable
+     */
     public function set_mode($mode);
 
     /**
-    * @return string
-    */
+     * @return string
+     */
     public function mode();
 
     /**
-    * @param boolean $success
-    * @return ActionInterface Chainable
-    */
+     * @param boolean $success Success flag (true / false).
+     * @return ActionInterface Chainable
+     */
     public function set_success($success);
 
     /**
-    * @return boolean
-    */
+     * @return boolean
+     */
     public function success();
 
     /**
-    * @return array
-    */
+     * @return array
+     */
     public function response();
 }

@@ -14,7 +14,7 @@ interface LoggerAwareInterface extends PsrLoggerAwareInterface
     /**
      * Set a logger
      *
-     * @param  LoggerInterface $logger
+     * @param  LoggerInterface $logger The PSR-3 compatible logger instance.
      * @return self
      */
     public function set_logger(LoggerInterface $logger = null);
