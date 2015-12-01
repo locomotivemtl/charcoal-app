@@ -55,7 +55,7 @@ class ActionRoute implements
     {
         $this->set_config($data['config']);
         $this->set_app($data['app']);
-        $this->set_logger($logger);
+        $this->set_logger($data['logger']);
     }
 
     /**
