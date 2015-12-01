@@ -111,7 +111,6 @@ abstract class AbstractTemplate implements
             $func = [$this, 'set_'.$prop];
             if (is_callable($func)) {
                 call_user_func($func, $val);
-                unset($data[$prop]);
             } else {
                 $this->{$prop} = $val;
             }
@@ -130,7 +129,7 @@ abstract class AbstractTemplate implements
     public function create_view(array $data = null)
     {
         $view = new GenericView([
-            'logger'=>null
+            'logger'=>$this->logger()
         ]);
         if ($data !== null) {
             $view->set_data($data);
