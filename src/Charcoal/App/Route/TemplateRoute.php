@@ -5,9 +5,6 @@ namespace Charcoal\App\Route;
 // Dependencies from `PHP`
 use \InvalidArgumentException;
 
-// slim/slim dependencies
-use \Slim\App as SlimApp;
-
 // PSR-7 (http messaging) dependencies
 use \Psr\Http\Message\RequestInterface;
 use \Psr\Http\Message\ResponseInterface;
@@ -17,13 +14,12 @@ use \Charcoal\Config\ConfigurableInterface;
 use \Charcoal\Config\ConfigurableTrait;
 
 // Intra-module (`charcoal-app`) dependencies
+use \Charcoal\App\App;
 use \Charcoal\App\LoggerAwareInterface;
 use \Charcoal\App\LoggerAwareTrait;
-use \Charcoal\App\Template\TemplateFactory;
-
-// Local namespace dependencies
 use \Charcoal\App\Route\RouteInterface;
 use \Charcoal\App\Route\TemplateRouteConfig;
+use \Charcoal\App\Template\TemplateFactory;
 
 /**
  *
@@ -37,7 +33,7 @@ class TemplateRoute implements
     use LoggerAwareTrait;
 
     /**
-     * @var SlimApp $app
+     * @var App $app
      */
     private $app;
 
@@ -45,8 +41,6 @@ class TemplateRoute implements
      * ## Required dependencies
      * - `config`
      * - `app`
-     *
-     * ## Optional dependencies
      * - `logger`
      *
      * @param array $data Dependencies (see above).
@@ -54,30 +48,26 @@ class TemplateRoute implements
     public function __construct(array $data)
     {
         $this->set_config($data['config']);
-
         $this->set_app($data['app']);
-
-        // Reuse app logger, if it's not directly set in data dependencies
-        $logger = isset($data['logger']) ? $data['logger'] : $this->app->logger;
-        $this->set_logger($logger);
+        $this->set_logger($data['logger']);
     }
 
     /**
-     * Set the template route's reference to the Slim App.
+     * Set the template route's reference to the Charcoal App.
      *
-     * @param  SlimApp $app The Slim Application instance.
+     * @param  App $app The Charcoal Application instance.
      * @return TemplateRoute Chainable
      */
-    protected function set_app(SlimApp $app)
+    protected function set_app(App $app)
     {
         $this->app = $app;
         return $this;
     }
 
     /**
-     * Get the template route's reference to the Slim App
+     * Get the template route's reference to the Charcoal App
      *
-     * @return SlimApp
+     * @return App
      */
     protected function app()
     {
@@ -102,6 +92,7 @@ class TemplateRoute implements
      */
     public function __invoke(RequestInterface $request, ResponseInterface $response)
     {
+        // Unused variable
         unset($request);
 
         $config = $this->config();
@@ -110,10 +101,22 @@ class TemplateRoute implements
 
         $template_factory = new TemplateFactory();
         $template = $template_factory->create($template_ident, [
-            'app' => $this->app()
+            'app' => $this->app(),
+            'logger' => $this->app()->logger()
         ]);
 
-        $response->write($template->render($template_ident));
+        $template_view = $template->view();
+        $template_view->set_data([
+            'template_ident' => $template_ident,
+            'engine_type' => $config['engine']
+        ]);
+        $template->set_view($template_view);
+
+        // Set custom data from config.
+        $template->set_data($config['template_data']);
+
+        $template_content = $template->render($template_ident);
+        $response->write($template_content);
 
         return $response;
     }

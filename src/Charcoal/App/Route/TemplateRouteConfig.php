@@ -26,10 +26,10 @@ class TemplateRouteConfig extends RouteConfig
     private $engine;
 
     /**
-     * Additional template options
-     * @var array $options
+     * Additional template data
+     * @var array $template_data
      */
-    private $options;
+    private $template_data = [];
 
     /**
      * @param string|null $template The template identifier.
@@ -110,20 +110,24 @@ class TemplateRouteConfig extends RouteConfig
     }
 
     /**
-     * @param array $options The route options.
+     * Set the template custom data.
+     *
+     * @param array $template_data The route template data.
      * @return TemplateRouteConfig Chainable
      */
-    public function set_options(array $options)
+    public function set_template_data(array $template_data)
     {
-        $this->options = $options;
+        $this->template_data = $template_data;
         return $this;
     }
 
     /**
+     * Get the template custom data.
+     *
      * @return array
      */
-    public function options()
+    public function template_data()
     {
-        return $this->options;
+        return $this->template_data;
     }
 }
