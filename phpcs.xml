@@ -17,10 +17,6 @@
 
     <rule ref="PSR2"/>
 
-    <rule ref="PSR2.Methods.MethodDeclaration.Underscore">
-        <severity>0</severity>
-    </rule>
-
 <!-- Array Sniffs -->
 
     <!-- Ensures short-array notation. -->
