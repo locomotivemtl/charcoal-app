@@ -12,7 +12,6 @@ use \Charcoal\Config\AbstractConfig;
  */
 class RouteConfig extends AbstractConfig
 {
-
     /**
      * @var string $ident
      */
@@ -30,6 +29,11 @@ class RouteConfig extends AbstractConfig
      * @var string $controller
      */
     private $controller;
+
+    /**
+     * @var string $lang
+     */
+    private $lang;
 
     /**
      * @var string $group
@@ -69,7 +73,7 @@ class RouteConfig extends AbstractConfig
     {
         if (!is_string($controller)) {
             throw new InvalidArgumentException(
-                'Route ident must be a string'
+                'Route controller must be a string'
             );
         }
         $this->controller = $controller;
@@ -82,17 +86,33 @@ class RouteConfig extends AbstractConfig
     public function controller()
     {
         if ($this->controller === null) {
-            return $this->default_controller();
+            return $this->ident();
         }
         return $this->controller;
     }
 
     /**
+     * @param string $lang The language code for current route.
+     * @throws InvalidArgumentException If the lang parameter is not a string.
+     * @return ActionInterface Chainable
+     */
+    public function set_lang($lang)
+    {
+        if (!is_string($lang)) {
+            throw new InvalidArgumentException(
+                'Can not set language, lang parameter needs to be a string.'
+            );
+        }
+        $this->lang = $lang;
+        return $this;
+    }
+
+    /**
      * @return string
      */
-    public function default_controller()
+    public function lang()
     {
-        return $this->ident();
+        return $this->lang;
     }
 
     /**
