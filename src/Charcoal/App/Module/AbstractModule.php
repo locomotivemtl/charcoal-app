@@ -8,22 +8,51 @@ use \Charcoal\Config\ConfigurableTrait;
 
 
 // Intra-module (`charcoal-app`) dependencies
+use \Charcoal\App\AppConfig;
+use \Charcoal\App\AppInterface;
 use \Charcoal\App\Middleware\MiddlewareManager;
 use \Charcoal\App\Module\ModuleManager;
 use \Charcoal\App\Route\RouteManager;
 
-// Local namespace dependencies
-use \Charcoal\App\AppConfig;
-use \Charcoal\App\AppInterface;
-
 /**
  *
  */
-class AbstractModule implements
+abstract class AbstractModule implements
     ModuleInterface,
     ConfigurableInterface
 {
     use ConfigurableTrait;
+
+    /**
+     * @var AppInterface
+     */
+    private $app;
+
+    /**
+     * @param array $data Module dependencies.
+     */
+    public function __construct(array $data)
+    {
+        $this->set_app($data['app']);
+    }
+
+    /**
+     * @param AppInterface $app The module parent app.
+     * @return ModuleInterface Chainable
+     */
+    public function set_app(AppInterface $app)
+    {
+        $this->app = $app;
+        return $this;
+    }
+
+    /**
+     * @return AppInterface
+     */
+    public function app()
+    {
+        return $this->app;
+    }
     
     /**
      * @return void
@@ -56,9 +85,10 @@ class AbstractModule implements
      *
      * @return void
      */
-    protected function setup_routes()
+    public function setup_routes()
     {
-        $routes = $this->config['routes'];
+        $config = $this->config();
+        $routes = $config['routes'];
         if ($routes === null || count($routes) === 0) {
             return;
         }
@@ -68,4 +98,10 @@ class AbstractModule implements
         ]);
         return $route_manager->setup_routes();
     }
+
+    /**
+     * @param array $data Optiona configuration data.
+     * @return ConfigInterface
+     */
+    abstract public function create_config(array $data = null);
 }
