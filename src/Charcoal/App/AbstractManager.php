@@ -4,10 +4,8 @@ namespace Charcoal\App;
 
 use \InvalidArgumentException;
 
-// slim/slim dependencies
-use \Slim\App as SlimApp;
-
 // Local namespace dependencies
+use \Charcoal\App\App as CharcoalApp;
 use \Charcoal\App\LoggerAwareInterface;
 use \Charcoal\App\LoggerAwareTrait;
 
@@ -24,9 +22,9 @@ abstract class AbstractManager implements LoggerAwareInterface
     private $config = [];
 
     /**
-     * A SlimApp instance is required to know what App the manager is linked to.
+     * A CharcoalApp instance is required to know what App the manager is linked to.
      *
-     * @var SlimApp
+     * @var CharcoalApp
      */
     private $app;
 
@@ -74,10 +72,10 @@ abstract class AbstractManager implements LoggerAwareInterface
     /**
      * Set the manager's reference to the Slim App.
      *
-     * @param  SlimApp $app The Slim Application instance.
+     * @param  CharcoalApp $app The Charcoal Application instance.
      * @return self
      */
-    protected function set_app(SlimApp $app)
+    protected function set_app(CharcoalApp $app)
     {
         $this->app = $app;
         return $this;
@@ -86,7 +84,7 @@ abstract class AbstractManager implements LoggerAwareInterface
     /**
      * Get the manager's reference to the Slim App.
      *
-     * @return SlimApp
+     * @return CharcoalApp
      */
     protected function app()
     {
