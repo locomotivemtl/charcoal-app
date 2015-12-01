@@ -2,8 +2,10 @@
 
 namespace Charcoal\App\Script;
 
+// Dependencies from `PHP`
 use \InvalidArgumentException;
 
+// `thephpleague/climate` dependencies
 use \League\CLImate\CLImate;
 
 // Local namespace dependencies
@@ -186,30 +188,32 @@ abstract class AbstractScript implements ScriptInterface
 
         if ($arg) {
             return $arg;
-        } else {
-            $arguments = $this->arguments();
-            if (isset($arguments[$arg_name])) {
-                $a = $arguments[$arg_name];
-                $arg_desc = $a['description'];
-                $input_type = isset($a['inputType']) ? $a['inputType'] : 'text';
-                $choices = isset($a['choices']) ? $a['choices'] : null;
-            
-            } else {
-                $arg_desc = $arg_name;
-                $input_type = 'text';
-                $choices = null;
-            }
-            if ($input_type == 'checkbox') {
-                $input = $climate->checkboxes(sprintf('Select %s', $arg_desc), $choices);
-            } else {
-                $input = $climate->input(sprintf('Enter %s:', $arg_desc));
-                if ($choices) {
-                    $input->accept(array_keys($choices), true);
-                }
-            }
-            $arg = $input->prompt();
-            return $arg;
         }
+
+        $arguments = $this->arguments();
+        if (isset($arguments[$arg_name])) {
+            $a = $arguments[$arg_name];
+            $arg_desc = $a['description'];
+            $input_type = isset($a['inputType']) ? $a['inputType'] : 'text';
+            $choices = isset($a['choices']) ? $a['choices'] : null;
+        
+        } else {
+            $arg_desc = $arg_name;
+            $input_type = 'text';
+            $choices = null;
+        }
+
+        if ($input_type == 'checkbox') {
+            $input = $climate->checkboxes(sprintf('Select %s', $arg_desc), $choices);
+        } else {
+            $input = $climate->input(sprintf('Enter %s:', $arg_desc));
+            if ($choices) {
+                $input->accept(array_keys($choices), true);
+            }
+        }
+        $arg = $input->prompt();
+        return $arg;
+        
     }
 
     /**
