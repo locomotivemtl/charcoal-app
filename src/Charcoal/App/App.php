@@ -35,7 +35,7 @@ use \Charcoal\App\Routable\RoutableFactory;
  * - **config** (`\Charcoal\App\AppConfig`)
  * - **app** (`SlimApp`)
  */
-class App implements
+class App extends SlimApp implements
     AppInterface,
     SingletonInterface,
     ConfigurableInterface
@@ -43,11 +43,6 @@ class App implements
     use SingletonTrait;
     use LoggerAwareTrait;
     use ConfigurableTrait;
-
-    /**
-     * @var SlimApp $app
-     */
-    private $app;
 
     /**
      * @var ModuleManager
@@ -71,27 +66,17 @@ class App implements
 
     /**
      * # Required dependencies
-     * - `logger` A PSR-3 logger.
+     * - `container` A
      *
-     * @param array $data Dependencies.
+     * @param mixed $container Dependencies.
      */
-    public function __construct(array $data)
+    public function __construct($container)
     {
-        $this->set_logger($data['app']->logger);
-        $this->logger()->debug('Charcoal App Init logger');
+        // Slim constructor
+        parent::__construct($container);
 
-        $this->set_config($data['config']);
-        $this->set_app($data['app']);
-    }
+        $this->set_config($container['charcoal/app/config']);
 
-    /**
-     * @param SlimApp $app The SlimApp.
-     * @return App Chainable
-     */
-    public function set_app(SlimApp $app)
-    {
-        $this->app = $app;
-        return $this;
     }
 
     /**
@@ -104,7 +89,7 @@ class App implements
             $modules = (isset($config['modules']) ? $config['modules'] : [] );
             $this->module_manager = new ModuleManager([
                 'config' => $modules,
-                'app'    => $this->app,
+                'app'    => $this,
                 'logger' => $this->logger()
             ]);
         }
@@ -121,7 +106,7 @@ class App implements
             $routes = (isset($config['routes']) ? $config['routes'] : [] );
             $route_manager = new RouteManager([
                 'config' => $routes,
-                'app'    => $this->app,
+                'app'    => $this,
                 'logger' => $this->logger()
             ]);
         }
@@ -138,7 +123,7 @@ class App implements
             $middlewares = (isset($config['middlewares']) ? $config['middlewares'] : [] );
             $middleware_manager = new MiddlewareManager([
                 'config' => $middlewares,
-                'app'    => $this->app,
+                'app'    => $this,
                 'logger' => $this->logger()
             ]);
         }
@@ -166,7 +151,7 @@ class App implements
 
             $language_manager = new LanguageManager([
                 'config' => $locales,
-                'app'    => $this->app,
+                'app'    => $this,
                 'logger' => $this->logger()
             ]);
         }
@@ -174,16 +159,20 @@ class App implements
     }
 
     /**
+     * Initialize the Charcoal App before running (with SlimApp).
+     *
+     * @param boolean $silent If true, will run in silent mot (no response).
      * @return App Chainable
      */
-    public function setup()
+    public function run($silent = false)
     {
         $this->setup_languages();
         $this->setup_middlewares();
         $this->setup_routes();
         $this->setup_modules();
         $this->setup_routables();
-        return $this;
+
+        return parent::run($silent);
     }
 
     /**
@@ -225,7 +214,7 @@ class App implements
     {
         $charcoal = $this;
         // For now, need to rely on a catch-all...
-        $this->app->get(
+        $this->get(
             '{catchall:.*}',
             function (
                 RequestInterface $request,
