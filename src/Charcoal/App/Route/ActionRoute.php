@@ -18,11 +18,10 @@ use \Charcoal\Config\ConfigurableInterface;
 use \Charcoal\Config\ConfigurableTrait;
 
 // Intra-module (`charcoal-app`) dependencies
+use \Charcoal\App\App;
+use \Charcoal\App\Action\ActionFactory;
 use \Charcoal\App\LoggerAwareInterface;
 use \Charcoal\App\LoggerAwareTrait;
-use \Charcoal\App\Action\ActionFactory;
-
-// Local namespace dependencies
 use \Charcoal\App\Route\RouteInterface;
 use \Charcoal\App\Route\ActionRouteConfig;
 
@@ -38,7 +37,7 @@ class ActionRoute implements
     use LoggerAwareTrait;
 
     /**
-     * @var SlimApp $app
+     * @var App $app
      */
     private $app;
 
@@ -55,30 +54,26 @@ class ActionRoute implements
     public function __construct(array $data)
     {
         $this->set_config($data['config']);
-
         $this->set_app($data['app']);
-
-        // Reuse app logger, if it's not directly set in data dependencies
-        $logger = isset($data['logger']) ? $data['logger'] : $this->app->logger;
         $this->set_logger($logger);
     }
 
     /**
-     * Set the action route's reference to the Slim App.
+     * Set the action route's reference to the Charcoal App.
      *
-     * @param  SlimApp $app The Slim Application instance.
+     * @param  App $app The Charcoal Application instance.
      * @return TemplateRoute Chainable
      */
-    protected function set_app(SlimApp $app)
+    protected function set_app(App $app)
     {
         $this->app = $app;
         return $this;
     }
 
     /**
-     * Get the action route's reference to the Slim App
+     * Get the action route's reference to the Charcoal App
      *
-     * @return SlimApp
+     * @return App
      */
     protected function app()
     {
@@ -112,6 +107,9 @@ class ActionRoute implements
             'app' => $this->app()
         ]);
 
+        $action->set_data($config['action_data']);
+
+        // Run (invoke) action.
         return $action($request, $response);
     }
 }
