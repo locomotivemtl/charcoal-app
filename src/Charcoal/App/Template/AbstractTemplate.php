@@ -2,19 +2,15 @@
 
 namespace Charcoal\App\Template;
 
-// slim/slim dependencies
-use \Slim\App as SlimApp;
-
-// PSR-3 logger
-use \Psr\Log\LoggerInterface;
-use \Psr\Log\LoggerAwareInterface;
-
 // Module `charcoal-view` dependencies
 use \Charcoal\View\GenericView;
 use \Charcoal\View\ViewableInterface;
 use \Charcoal\View\ViewableTrait;
 
-// Local namespace dependencies
+// Intra-module (`charcoal-app`) dependencies
+use \Charcoal\App\App;
+use \Charcoal\App\LoggerAwareInterface;
+use \Charcoal\App\LoggerAwareTrait;
 use \Charcoal\App\Template\TemplateInterface;
 
 /**
@@ -27,14 +23,10 @@ abstract class AbstractTemplate implements
 {
 
     use ViewableTrait;
+    use LoggerAwareTrait;
 
     /**
-     * @var LoggerInterface $logger
-     */
-    private $logger;
-
-    /**
-     * @var SlimApp $app
+     * @var App $app
      */
     private $app;
 
@@ -43,60 +35,26 @@ abstract class AbstractTemplate implements
      */
     public function __construct(array $data = null)
     {
-        if (isset($data['logger'])) {
-            $this->set_logger($data['logger']);
-        }
-
+        $this->set_logger($data['logger']);
         $this->set_app($data['app']);
     }
 
     /**
-     * @param SlimApp $app The Slim app instance.
+     * @param App $app The template's parent charcoal app instance.
      * @return App Chainable
      */
-    public function set_app(SlimApp $app)
+    public function set_app(App $app)
     {
         $this->app = $app;
         return $this;
     }
 
     /**
-     * @return SlimApp
+     * @return App
      */
     public function app()
     {
         return $this->app;
-    }
-
-    /**
-     * > LoggerAwareInterface > setLogger()
-     *
-     * Fulfills the PSR-1 style LoggerAwareInterface
-     *
-     * @param LoggerInterface $logger A PSR-3 compatible logger instance.
-     * @return AbstractEngine Chainable
-     */
-    public function setLogger(LoggerInterface $logger)
-    {
-        return $this->set_logger($logger);
-    }
-
-    /**
-     * @param LoggerInterface $logger A PSR-3 compatible logger instance.
-     * @return AbstractEngine Chainable
-     */
-    public function set_logger(LoggerInterface $logger = null)
-    {
-        $this->logger = $logger;
-        return $this;
-    }
-
-    /**
-     * @return LoggerInterface
-     */
-    public function logger()
-    {
-        return $this->logger;
     }
 
     /**
