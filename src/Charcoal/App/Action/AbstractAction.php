@@ -30,6 +30,11 @@ abstract class AbstractAction implements
     const MODE_JSON = 'json';
     const MODE_REDIRECT = 'redirect';
     const DEFAULT_MODE = self::MODE_JSON;
+    
+    /**
+     * @var App
+     */
+    private $app;
 
     /**
      * @var string $lang
@@ -220,7 +225,7 @@ abstract class AbstractAction implements
      */
     public function success_url()
     {
-        return $this->succes_url;
+        return $this->success_url;
     }
 
     /**
@@ -238,7 +243,7 @@ abstract class AbstractAction implements
      */
     public function failure_url()
     {
-        return $this->failre_url;
+        return $this->failure_url;
     }
 
     /**
