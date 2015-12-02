@@ -4,29 +4,45 @@ namespace Charcoal\Tests\App\Action;
 
 use \Charcoal\App\App;
 
-class AppTest extends \PHPUnit_Framework_TestCase
+class AbstractActionTest extends \PHPUnit_Framework_TestCase
 {
+    public $app;
     public $obj;
 
     public function setUp()
     {
-        $config = new \Charcoal\App\AppConfig();
-        $app = new \Slim\App();
-
-        $container = $app->getContainer();
-        $container['logger'] = function($c) {
-            return $GLOBALS['logger'];
-        };
-
-        $this->obj = new App([
-            'config'=>$config,
-            'app'=>$app
-        ]);
+        $this->app = $GLOBALS['app'];
+        $this->obj = $this->getMockForAbstractClass('\Charcoal\App\Action\AbstractAction', [[
+            'app'=>$this->app,
+            'logger'=>$this->app->logger()
+        ]]);
     }
 
     public function testConstructor()
     {
         $obj = $this->obj;
-        $this->assertInstanceOf('\Charcoal\App\App', $obj);
+        $this->assertInstanceOf('\Charcoal\App\Action\AbstractAction', $obj);
+    }
+
+    public function testSetLang()
+    {
+        $this->assertNull($this->obj->lang());
+        $ret = $this->obj->set_lang('fr');
+        $this->assertSame($ret, $this->obj);
+        $this->assertEquals('fr', $this->obj->lang());
+
+        $this->setExpectedException('\InvalidArgumentException');
+        $this->obj->set_lang(false);
+    }
+
+    public function testSetMode()
+    {
+        $this->assertEquals('json', $this->obj->mode());
+        $ret = $this->obj->set_mode('redirect');
+        $this->assertSame($ret, $this->obj);
+        $this->assertEquals('redirect', $this->obj->mode());
+
+        $this->setExpectedException('\InvalidArgumentException');
+        $this->obj->set_mode(false);
     }
 }
