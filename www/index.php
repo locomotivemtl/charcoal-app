@@ -3,9 +3,8 @@ ini_set('error_reporting', E_ALL);
 ini_set('display_errors', true);
 
 use \Charcoal\Charcoal;
-use \Charcoal\App\App as CharcoalApp;
+use \Charcoal\App\App;
 use \Charcoal\App\AppConfig;
-use \Slim\App as SlimApp;
 use \Slim\Container as SlimContainer;
 
 // If using PHP's built-in server, return false for existing files on filesystem
@@ -58,8 +57,8 @@ $container['errorHandler'] = function ($c)
 	};
 };
 
-// Slim is the main app
-$app = new SlimApp($container);
+// Charcoal / Slim is the main app
+$app = new App($container);
 
 // Set up dependencies
 require __DIR__.'/../config/dependencies.php';
@@ -68,10 +67,6 @@ require __DIR__.'/../config/middlewares.php';
 // Register routes
 require __DIR__.'/../config/routes.php';
 
-$charcoal = new CharcoalApp([
-    'config' => $container['charcoal/app/config'], 
-    'app' =>$app
-]);
-$charcoal->setup();
+$app->set_logger($container['logger']);
 
 $app->run();
