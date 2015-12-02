@@ -212,7 +212,7 @@ class App extends SlimApp implements
      */
     protected function setup_routables()
     {
-        $charcoal = $this;
+        $app = $this;
         // For now, need to rely on a catch-all...
         $this->get(
             '{catchall:.*}',
@@ -220,9 +220,9 @@ class App extends SlimApp implements
                 RequestInterface $request,
                 ResponseInterface $response,
                 array $args
-            ) use ($charcoal) {
-                $c = $this->getContainer();
-                $config = $charcoal->config();
+            ) use ($app) {
+                $c = $app->getContainer();
+                $config = $app->config();
                 $routables = $config['routables'];
                 if ($routables === null || count($routables) === 0) {
                     return $c['notFoundHandler']($request, $response);
