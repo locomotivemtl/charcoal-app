@@ -63,14 +63,6 @@ class TemplateRouteConfig extends RouteConfig
     }
 
     /**
-     * @return string
-     */
-    public function default_template()
-    {
-        return $this->ident();
-    }
-
-    /**
      * @param string|null $engine The engine identifier (mustache, php, or mustache-php).
      * @throws InvalidArgumentException If the engine is not null or not a string.
      * @return TemplateRouteConfig Chainable
@@ -106,6 +98,7 @@ class TemplateRouteConfig extends RouteConfig
      */
     public function default_engine()
     {
+        // Must load from default config...
         return 'mustache';
     }
 

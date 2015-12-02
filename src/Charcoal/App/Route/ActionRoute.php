@@ -100,10 +100,10 @@ class ActionRoute implements
     {
         $config = $this->config();
 
-        $action_ident = $config['ident'];
+        $action_controller = $config['controller'];
 
         $action_factory = new ActionFactory();
-        $action = $action_factory->create($action_ident, [
+        $action = $action_factory->create($action_controller, [
             'app' => $this->app()
         ]);
 

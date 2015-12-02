@@ -99,17 +99,23 @@ All routes are actually handled by the *Slim* app. Charcoal Routes are just *def
 
 > 👉 Slim's routing is actually provided by [FastRoute](https://github.com/nikic/FastRoute)
 
-Example of routes configuration (template):
+Common route configuration:
 
 | Key             | Type     | Default | Description |
 | --------------- | -------- | ------- | ----------- |
 | **ident**       | _string_ | `null`  | Route identifier. |
-| **controller**  | _string_ | `null`  | Controller identifier. Will be guessed from the _ident_ when `null`. |
 | **methods**     | _array_ of `string` | `['GET']` | The HTTP methods to wthich this route resolve to. Ex: `['GET', 'POST', 'PUT', 'DELETE']` |
+| **controller**  | _string_ | `null`  | Controller identifier. Will be guessed from the _ident_ when `null`. |
+| **lang** | _string_ | `null` | The current language.  |
 | **group**       | _string_ | `null`  |
+
+Template specific configuration:
+
+| Key             | Type     | Default | Description |
+| --------------- | -------- | ------- | ----------- |
 | **template**    | _string_ | `null`  | The template _ident_ to display. 
 | **engine**      | _string_ | `'mustache'` | The template _engine_ type. Default Charcoal view engines are `mustache`, `php` and `php-mustache`. |
-| **options**     | _array_  | `[]` | Extra options. |
+| **template_data** | _array_  | `[]` | Extra / custom template data. |
 
 There are 3 types of `Route`:
 

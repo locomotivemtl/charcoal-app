@@ -97,10 +97,11 @@ class TemplateRoute implements
 
         $config = $this->config();
 
-        $template_ident = ($config['template']) ? $config['template'] : $config['ident'];
+        $template_ident = $config['template'];
+        $template_controller = $config['controller'];
 
         $template_factory = new TemplateFactory();
-        $template = $template_factory->create($template_ident, [
+        $template = $template_factory->create($template_controller, [
             'app' => $this->app(),
             'logger' => $this->app()->logger()
         ]);

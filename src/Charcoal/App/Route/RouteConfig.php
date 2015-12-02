@@ -25,7 +25,7 @@ class RouteConfig extends AbstractConfig
     private $methods = ['GET'];
 
     /**
-     * The identifier of the controller class.
+     * The identifier (type) of the controller class.
      * @var string $controller
      */
     private $controller;
@@ -43,7 +43,7 @@ class RouteConfig extends AbstractConfig
     /**
      * @param string $ident Route identifier.
      * @throws InvalidArgumentException If the ident argument is not a string.
-     * @return AbstractRouteConfig Chainable
+     * @return RouteConfig Chainable
      */
     public function set_ident($ident)
     {
@@ -67,7 +67,7 @@ class RouteConfig extends AbstractConfig
     /**
      * @param string $controller Route controller name.
      * @throws InvalidArgumentException If the controller argument is not a string.
-     * @return AbstractRouteConfig Chainable
+     * @return RouteConfig Chainable
      */
     public function set_controller($controller)
     {
@@ -81,6 +81,8 @@ class RouteConfig extends AbstractConfig
     }
 
     /**
+     * Get the clas controller. If it is not set, the `ident` will be used by default.
+     *
      * @return string
      */
     public function controller()
@@ -117,11 +119,46 @@ class RouteConfig extends AbstractConfig
 
     /**
      * @param array $methods The available methods for this route. (ex: ['GET']).
-     * @return AbstractRouteConfig Chainable
+     * @return RouteConfig Chainable
      */
     public function set_methods(array $methods)
     {
-        $this->methods = $methods;
+        $this->methods = [];
+        foreach ($methods as $method) {
+            $this->add_method($method);
+        }
+        return $this;
+    }
+
+    /**
+     * @param string $method The HTTP method to add support for.
+     * @throws InvalidArgumentException If the method is not a string or a valid HTTP method.
+     * @return RouteConfig Chainable
+     */
+    public function add_method($method)
+    {
+        if (!is_string($method)) {
+            throw new InvalidArgumentException(
+                'Invalid method "%s". Must be a valid HTTP method.'
+            );
+        }
+        $method = strtoupper($method);
+        $valid_http_methods = [
+            'DELETE',
+            'GET',
+            'HEAD',
+            'POST',
+            'PUT',
+            'PATCH',
+            'OPTIONS'
+        ];
+        if (!in_array($method, $valid_http_methods)) {
+            throw new InvalidArgumentException(
+                'Invalid method "%s". Must be a valid HTTP method.'
+            );
+        }
+
+        $this->methods[] = $method;
         return $this;
     }
 
