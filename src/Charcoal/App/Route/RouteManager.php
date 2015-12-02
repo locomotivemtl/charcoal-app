@@ -2,9 +2,6 @@
 
 namespace Charcoal\App\Route;
 
-use \Exception;
-use \InvalidArgumentException;
-
 // PSR-7 (http messaging) dependencies
 use \Psr\Http\Message\RequestInterface;
 use \Psr\Http\Message\ResponseInterface;
@@ -48,6 +45,7 @@ class RouteManager extends AbstractManager
     {
         $routes = $this->config();
 
+        $app = $this->app();
         $templates = ( isset($routes['templates']) ? $routes['templates'] : [] );
         $this->logger()->debug('Templates', (array)$templates);
         foreach ($templates as $template_ident => $template_config) {
@@ -61,6 +59,7 @@ class RouteManager extends AbstractManager
                     ResponseInterface $response,
                     array $args
                 ) use (
+                    $app,
                     $template_ident,
                     $template_config
                 ) {
@@ -72,10 +71,11 @@ class RouteManager extends AbstractManager
                     }
 
                     $route = new TemplateRoute([
-                         'app'    => $this,
+                         'app'    => $app,
                          'config' => new TemplateRouteConfig($template_config),
                          'logger' => $this->logger
                     ]);
+
                     // Invoke template route
                     return $route($request, $response);
                 }
@@ -94,6 +94,7 @@ class RouteManager extends AbstractManager
     {
         $routes = $this->config();
 
+        $app = $this->app();
         $actions = ( isset($routes['actions']) ? $routes['actions'] : [] );
         $this->logger()->debug('Actions', (array)$actions);
         foreach ($actions as $action_ident => $action_config) {
@@ -116,9 +117,11 @@ class RouteManager extends AbstractManager
 
                     $route = new ActionRoute([
                         'app'    => $this,
-                        'config' => $action_config
+                        'config' => $action_config,
+                        'logger' => $this->logger
                     ]);
 
+                    // Invoke action route
                     return $route($request, $response);
                 }
             );
@@ -136,6 +139,7 @@ class RouteManager extends AbstractManager
     {
         $routes = $this->config();
 
+        $app = $this->app();
         $scripts = ( isset($routes['scripts']) ? $routes['scripts'] : [] );
         $this->logger()->debug('Scripts', (array)$scripts);
         foreach ($scripts as $script_ident => $script_config) {
@@ -157,10 +161,12 @@ class RouteManager extends AbstractManager
                     }
 
                     $route = new ScriptRoute([
-                        'app'    => $this->app,
-                        'config' => $script_config
+                        'app'    => $app,
+                        'config' => $script_config,
+                        'logger' => $this->logger
                     ]);
 
+                    // Invoke script route
                     return $route($request, $response);
                 }
             );

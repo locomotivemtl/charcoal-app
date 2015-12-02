@@ -35,16 +35,7 @@ abstract class AbstractManager implements LoggerAwareInterface
     {
         $this->set_config($data['config']);
         $this->set_app($data['app']);
-
-        if (isset($data['logger'])) {
-            $logger = $data['logger'];
-        } elseif (isset($this->app()->logger)) {
-            $logger = $this->app()->logger;
-        }
-
-        if (isset($logger)) {
-            $this->set_logger($logger);
-        }
+        $this->set_logger($data['logger']);
     }
 
     /**

@@ -15,10 +15,9 @@ use \Charcoal\Config\ConfigurableInterface;
 use \Charcoal\Config\ConfigurableTrait;
 
 // Intra-module (`charcoal-app`) dependencies
+use \Charcoal\App\App;
 use \Charcoal\App\LoggerAwareInterface;
 use \Charcoal\App\LoggerAwareTrait;
-
-// Local namespace dependencies
 use \Charcoal\App\Route\RouteInterface;
 use \Charcoal\App\Route\ScriptRouteConfig;
 
@@ -34,17 +33,15 @@ class ScriptRoute implements
     use LoggerAwareTrait;
 
     /**
-     * @var \Slim\App $app
+     * @var App $app
      */
     private $app;
 
     /**
      * ## Required dependencies
      * - `config` ScriptRouteConfig
-     * - `app` SlimApp
-     *
-     * ## Optional dependencies
-     * - `logger`
+     * - `app` App
+     * - `logger` PSR-3 logger
      *
      * @param array $data Dependencies.
      */
@@ -52,28 +49,25 @@ class ScriptRoute implements
     {
         $this->set_config($data['config']);
         $this->set_app($data['app']);
-
-        // Reuse app logger, if it's not directly set in data dependencies
-        $logger = isset($data['logger']) ? $data['logger'] : $this->app->logger;
-        $this->set_logger($logger);
+        $this->set_logger($data['logger']);
     }
 
     /**
-     * Set the manager's reference to the Slim App.
+     * Set the script's reference to the Charcoal App.
      *
-     * @param  SlimApp $app The Slim Application instance.
+     * @param  App $app The Charcoal Application instance.
      * @return TemplateRoute Chainable
      */
-    protected function set_app(SlimApp $app)
+    protected function set_app(App $app)
     {
         $this->app = $app;
         return $this;
     }
 
     /**
-     * Get the manager's reference to the Slim App
+     * Get the script's reference to the Charcoal App
      *
-     * @return SlimApp
+     * @return App
      */
     protected function app()
     {
@@ -99,6 +93,18 @@ class ScriptRoute implements
     public function __invoke(RequestInterface $request, ResponseInterface $response)
     {
         unset($request);
+
+        $config = $this->config();
+
+        $script_ident = $config['ident'];
+
+        $script_factory = new ScriptFactory();
+        $script = $script_factory->create($script_ident, [
+            'app' => $this->app()
+        ]);
+
+        $action->set_data($config['script_data']);
+        
         return $response;
     }
 }

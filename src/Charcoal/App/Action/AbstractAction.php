@@ -9,14 +9,24 @@ use \InvalidArgumentException;
 use \Psr\Http\Message\RequestInterface;
 use \Psr\Http\Message\ResponseInterface;
 
-// Local namespace dependencies
+// Module `charcoal-core` dependencies
+use \Charcoal\Translation\TranslationString;
+
+// Intra-module (`charcoal-app`) dependencies
+use \Charcoal\App\App;
 use \Charcoal\App\Action\ActionInterface;
+use \Charcoal\App\LoggerAwareInterface;
+use \Charcoal\App\LoggerAwareTrait;
 
 /**
  * Default implementation, as abstract class, of `ActionInterface`
  */
-abstract class AbstractAction implements ActionInterface
+abstract class AbstractAction implements 
+    ActionInterface,
+    LoggerAwareInterface
 {
+    use LoggerAwareTrait;
+
     const MODE_JSON = 'json';
     const MODE_REDIRECT = 'redirect';
     const DEFAULT_MODE = self::MODE_JSON;
@@ -47,6 +57,15 @@ abstract class AbstractAction implements ActionInterface
     private $failure_url;
 
     /**
+     * @param array $data The dependencies (app and logger).
+     */
+    public function __construct($data = null)
+    {
+        $this->set_logger($data['logger']);
+        $this->set_app($data['app']);
+    }
+    
+    /**
      * @param RequestInterface  $request  A PSR-7 compatible Request instance.
      * @param ResponseInterface $response A PSR-7 compatible Response instance.
      * @return ResponseInterface
@@ -70,6 +89,24 @@ abstract class AbstractAction implements ActionInterface
         }
 
         return $response;
+    }
+
+    /**
+     * @param App $app The template's parent charcoal app instance.
+     * @return App Chainable
+     */
+    public function set_app(App $app)
+    {
+        $this->app = $app;
+        return $this;
+    }
+
+    /**
+     * @return App
+     */
+    public function app()
+    {
+        return $this->app;
     }
 
     

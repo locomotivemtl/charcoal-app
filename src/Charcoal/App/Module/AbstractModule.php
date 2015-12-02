@@ -10,6 +10,9 @@ use \Charcoal\Config\ConfigurableTrait;
 // Intra-module (`charcoal-app`) dependencies
 use \Charcoal\App\AppConfig;
 use \Charcoal\App\AppInterface;
+use \Charcoal\App\Action\ActionFactory;
+use \Charcoal\App\LoggerAwareInterface;
+use \Charcoal\App\LoggerAwareTrait;
 use \Charcoal\App\Middleware\MiddlewareManager;
 use \Charcoal\App\Module\ModuleManager;
 use \Charcoal\App\Route\RouteManager;
@@ -18,10 +21,13 @@ use \Charcoal\App\Route\RouteManager;
  *
  */
 abstract class AbstractModule implements
-    ModuleInterface,
-    ConfigurableInterface
+    ConfigurableInterface,
+    LoggerAwareInterface,
+    ModuleInterface
+    
 {
     use ConfigurableTrait;
+    use LoggerAwareTrait;
 
     /**
      * @var AppInterface
@@ -34,6 +40,7 @@ abstract class AbstractModule implements
     public function __construct(array $data)
     {
         $this->set_app($data['app']);
+        $this->set_logger($data['logger']);
     }
 
     /**
@@ -73,8 +80,9 @@ abstract class AbstractModule implements
             return;
         }
         $middleware_manager = new MiddlewareManager([
+            'logger' => $this->logger(),
             'config' => $middlewares,
-            'app' => $this->app
+            'app' => $this->app()
         ]);
         return $middleware_manager->setup_middlewares();
     }
@@ -93,8 +101,9 @@ abstract class AbstractModule implements
             return;
         }
         $route_manager = new RouteManager([
+            'logger' => $this->logger(),
             'config' => $routes,
-            'app' => $this->app
+            'app' => $this->app()
         ]);
         return $route_manager->setup_routes();
     }

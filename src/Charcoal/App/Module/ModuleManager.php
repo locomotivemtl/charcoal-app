@@ -47,7 +47,8 @@ class ModuleManager extends AbstractManager
         $module_factory = new ModuleFactory();
         foreach ($modules as $module_ident => $module_config) {
             $module = $module_factory->create($module_ident, [
-                'app' => $this->app()
+                'app' => $this->app(),
+                'logger' => $this->logger()
             ]);
             // Merge custom data to config
             $module->config()->set_data($module_config);
