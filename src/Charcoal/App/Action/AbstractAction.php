@@ -21,7 +21,7 @@ use \Charcoal\App\LoggerAwareTrait;
 /**
  * Default implementation, as abstract class, of `ActionInterface`
  */
-abstract class AbstractAction implements 
+abstract class AbstractAction implements
     ActionInterface,
     LoggerAwareInterface
 {
@@ -59,7 +59,7 @@ abstract class AbstractAction implements
     /**
      * @param array $data The dependencies (app and logger).
      */
-    public function __construct($data = null)
+    public function __construct(array $data = null)
     {
         $this->set_logger($data['logger']);
         $this->set_app($data['app']);

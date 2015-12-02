@@ -24,7 +24,6 @@ abstract class AbstractModule implements
     ConfigurableInterface,
     LoggerAwareInterface,
     ModuleInterface
-    
 {
     use ConfigurableTrait;
     use LoggerAwareTrait;
