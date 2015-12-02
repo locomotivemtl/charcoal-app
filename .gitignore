@@ -1,3 +1,4 @@
+phpdoc/
 vendor/
 tests/tmp
 node_modules/
