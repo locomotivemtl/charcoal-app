@@ -104,7 +104,8 @@ class ActionRoute implements
 
         $action_factory = new ActionFactory();
         $action = $action_factory->create($action_controller, [
-            'app' => $this->app()
+            'app' => $this->app(),
+            'logger' => $this->logger()
         ]);
 
         $action->set_data($config['action_data']);
