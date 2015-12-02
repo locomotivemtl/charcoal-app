@@ -64,7 +64,7 @@ class RouteManager extends AbstractManager
                     $template_config
                 ) {
 
-                    $this->logger->debug(sprintf('Loaded route: %s', $template_ident), $template_config);
+                    $this->logger->debug(sprintf('Loaded template route: %s', $template_ident), $template_config);
 
                     if (!isset($template_config['ident'])) {
                         $template_config['ident'] = ltrim($template_ident, '/');
@@ -72,7 +72,7 @@ class RouteManager extends AbstractManager
 
                     $route = new TemplateRoute([
                          'app'    => $app,
-                         'config' => new TemplateRouteConfig($template_config),
+                         'config' => $template_config,
                          'logger' => $this->logger
                     ]);
 
@@ -98,25 +98,29 @@ class RouteManager extends AbstractManager
         $actions = ( isset($routes['actions']) ? $routes['actions'] : [] );
         $this->logger()->debug('Actions', (array)$actions);
         foreach ($actions as $action_ident => $action_config) {
+            $route_ident = '/'.ltrim($action_ident, '/');
             $methods = ( isset($action_config['methods']) ? $action_config['methods'] : [ 'POST' ] );
-
             $route_handler = $this->app()->map(
                 $methods,
-                $action_ident,
+                $route_ident,
                 function (
                     RequestInterface $request,
                     ResponseInterface $response,
                     array $args
                 ) use (
+                    $app,
                     $action_ident,
                     $action_config
                 ) {
+                    
+                    $this->logger->debug(sprintf('Loaded action route: %s', $action_ident), $action_config);
+
                     if (!isset($action_config['ident'])) {
                         $action_config['ident'] = ltrim($action_ident, '/');
                     }
 
                     $route = new ActionRoute([
-                        'app'    => $this,
+                        'app'    => $app,
                         'config' => $action_config,
                         'logger' => $this->logger
                     ]);
@@ -143,19 +147,23 @@ class RouteManager extends AbstractManager
         $scripts = ( isset($routes['scripts']) ? $routes['scripts'] : [] );
         $this->logger()->debug('Scripts', (array)$scripts);
         foreach ($scripts as $script_ident => $script_config) {
+            $route_ident = '/'.ltrim($script_ident, '/');
             $methods = ( isset($script_config['methods']) ? $script_config['methods'] : [ 'GET' ] );
-
             $route_handler = $this->app()->map(
                 $methods,
-                $script_ident,
+                $route_ident,
                 function (
                     RequestInterface $request,
                     ResponseInterface $response,
                     array $args
                 ) use (
+                    $app,
                     $script_ident,
                     $script_config
                 ) {
+
+                    $this->logger->debug(sprintf('Loaded script route: %s', $script_ident), $script_config);
+
                     if (!isset($script_config['ident'])) {
                         $script_config['ident'] = ltrim($script_ident, '/');
                     }
