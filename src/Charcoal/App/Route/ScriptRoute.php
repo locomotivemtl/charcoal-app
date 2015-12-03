@@ -20,6 +20,7 @@ use \Charcoal\App\LoggerAwareInterface;
 use \Charcoal\App\LoggerAwareTrait;
 use \Charcoal\App\Route\RouteInterface;
 use \Charcoal\App\Route\ScriptRouteConfig;
+use \Charcoal\App\Script\ScriptFactory;
 
 /**
  *

@@ -9,7 +9,6 @@ use \InvalidArgumentException;
 use \Charcoal\Config\GenericConfig;
 
 // Module `charcoal-core` dependencies
-use \Charcoal\Translation\TranslationString;
 use \Charcoal\Translation\TranslationConfig;
 
 // Intra-module (`charcoal-app`) dependencies

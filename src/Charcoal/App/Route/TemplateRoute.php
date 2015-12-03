@@ -116,6 +116,7 @@ class TemplateRoute implements
         // Set custom data from config.
         $template->set_data($config['template_data']);
 
+
         $template_content = $template->render($template_ident);
         $response->write($template_content);
 

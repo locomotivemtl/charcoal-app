@@ -1,13 +1,38 @@
 {
-  "name": "@locomotivemtl/charcoal-config",
+  "name": "@locomotivemtl/charcoal-app",
+  "description": "Charcoal App, based on Slim 3",
   "license": "MIT",
+  "homepage": "http://charcoal.locomotive.ca",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/locomotivemtl/charcoal-app"
+  },
+  "bugs": {
+    "url": "https://github.com/locomotivemtl/charcoal-app/issues"
+  },
+  "author": {
+    "name": "Mathieu Ducharme",
+    "email": "mat@locomotive.ca"
+  },
+  "contributors": [
+    {
+      "name": "Locomotive",
+      "homepage": "http://locomotive.ca"
+    }
+  ],
   "devDependencies": {
-    "glob": "^5.0.14",
+    "glob": "^6.0.1",
+    "grunt": "^0.4.5",
+    "grunt-composer": "^0.4.4",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-githooks": "^0.4.0",
+    "grunt-jsonlint": "^1.0.6",
     "grunt-phpcbf": "^0.1.0",
     "grunt-phpcs": "^0.4.0",
     "grunt-phpdocumentor": "^0.4.1",
-    "grunt-phplint": "0.0.5",
+    "grunt-phplint": "0.0.6",
     "grunt-phpunit": "^0.3.6",
+    "grunt-yaml-validate": "^0.1.1",
     "load-grunt-tasks": "^3.2.0"
   }
 }

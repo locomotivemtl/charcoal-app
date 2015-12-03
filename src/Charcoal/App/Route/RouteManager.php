@@ -11,7 +11,6 @@ use \Charcoal\App\AbstractManager;
 use \Charcoal\App\Route\ActionRoute;
 use \Charcoal\App\Route\ScriptRoute;
 use \Charcoal\App\Route\TemplateRoute;
-use \Charcoal\App\Route\TemplateRouteConfig;
 
 /**
  *
