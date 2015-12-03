@@ -1,30 +1,30 @@
 {
-    "name": "locomotivemtl/charcoal-app",
-    "description": "Charcoal App, based on Slim 3",
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Mathieu Ducharme",
-            "email": "mat@locomotive.ca"
-        }
-    ],
-    "require": {
-        "php": ">=5.5.0",
-        "locomotivemtl/charcoal-config": "~0.1",
-        "locomotivemtl/charcoal-view": "dev-master",
-        "slim/slim": "^3.0@dev",
-        "monolog/monolog": "^1.16@dev",
-        "mustache/mustache": "2.9.0",
-        "locomotivemtl/charcoal-factory": "dev-master"
-    },
-    "require-dev": {
-        "phpunit/phpunit": "^4.8"
-    },
-    "autoload":{
-        "psr-4": {
-            "Charcoal\\": "src/Charcoal/"
-        }
-    },
-    "minimum-stability": "dev",
-    "bin":["bin/charcoal"]
+  "name": "locomotivemtl/charcoal-app",
+  "description": "Charcoal App, based on Slim 3",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Mathieu Ducharme",
+      "email": "mat@locomotive.ca"
+    }
+  ],
+  "require": {
+    "php": ">=5.5.0",
+    "locomotivemtl/charcoal-config": "~0.1",
+    "locomotivemtl/charcoal-view": "dev-master",
+    "slim/slim": "^3.0@dev",
+    "monolog/monolog": "^1.16@dev",
+    "mustache/mustache": "2.9.0",
+    "locomotivemtl/charcoal-factory": "dev-master"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^4.8"
+  },
+  "autoload":{
+    "psr-4": {
+      "Charcoal\\": "src/Charcoal/"
+    }
+  },
+  "minimum-stability": "dev",
+  "bin": [ "bin/charcoal" ]
 }

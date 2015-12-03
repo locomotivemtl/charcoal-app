@@ -31,12 +31,12 @@ module.exports = function(grunt) {
 
     // Register Task(s)
     grunt.registerTask('default', [
-        'phplint',
-        'phpunit'
+        'tests'
     ]);
     grunt.registerTask('tests', [
         'phplint',
-        'phpunit'
+        'phpunit',
+        'phpcs'
     ]);
 
 };
