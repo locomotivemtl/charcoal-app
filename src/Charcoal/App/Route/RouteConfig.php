@@ -20,7 +20,7 @@ class RouteConfig extends AbstractConfig
     /**
      * The HTTP methods to wthich this route resolve to.
      * Ex: ['GET', 'POST', 'PUT', 'DELETE']
-     * @var array $methods
+     * @var string[] $methods
      */
     private $methods = ['GET'];
 
@@ -118,7 +118,7 @@ class RouteConfig extends AbstractConfig
     }
 
     /**
-     * @param array $methods The available methods for this route. (ex: ['GET']).
+     * @param string[] $methods The available methods for this route. (ex: ['GET']).
      * @return RouteConfig Chainable
      */
     public function set_methods(array $methods)

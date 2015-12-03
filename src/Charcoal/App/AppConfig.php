@@ -8,9 +8,6 @@ use \Charcoal\Config\AbstractConfig;
 // Module `charcoal-core` dependencies
 use \Charcoal\Translation\TranslationConfig;
 
-// Intra-module (`charcoal-app`) dependencies
-use \Charcoal\App\Language\Language;
-
 /**
  * Charcoal App configuration
  */

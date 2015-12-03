@@ -14,7 +14,7 @@ class ActionRouteTest extends \PHPUnit_Framework_TestCase
         $route_config = [];
         $this->app = $GLOBALS['app'];
         $this->obj = new \Charcoal\App\Route\ActionRoute([
-            'app'       => $this->app, 
+            'app'       => $this->app,
             'logger'    => $this->app->logger(),
             'config'    => $route_config
         ]);
