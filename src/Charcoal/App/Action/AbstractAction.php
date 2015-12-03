@@ -83,7 +83,7 @@ abstract class AbstractAction implements
             case self::MODE_JSON:
                 $response = $response
                     ->withHeader('Content-Type', 'application/json')
-                    ->write(json_encode($this->response()));
+                    ->write(json_encode($this->results()));
                 break;
 
             case self::MODE_REDIRECT:
@@ -268,7 +268,7 @@ abstract class AbstractAction implements
     /**
      * @return array
      */
-    abstract public function response();
+    abstract public function results();
 
     /**
      * @param RequestInterface  $request  A PSR-7 compatible Request instance.
