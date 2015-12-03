@@ -1,7 +1,20 @@
-phpdoc/
+# Package Managers
+
+composer.phar
 vendor/
-tests/tmp
 node_modules/
-www/mustache_cache
-www/charcoal.app.log
-charcoal.app.log
+bower_components/
+
+# Documentation
+
+phpdoc/
+
+# Logging
+
+*.log
+logs/
+
+# Caches
+
+mustache_cache/
+tmp/

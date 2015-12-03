@@ -10,6 +10,10 @@ insert_final_newline = true
 indent_style = space
 indent_size = 4
 
-[{*.json,*.yml,.bowerrc,.editorconfig,.env,.env.*,.gitattributes,.gitignore,.htaccess,.npmrc,.sassdocrc}]
+[*.md]
+indent_style = tab
+indent_size = 2
+
+[{*.json,*.yml,.bowerrc,.editorconfig,.env,.env.*,.gitattributes,.gitignore,.htaccess,.jscsrc,.jshintignore,.jshintrc,.npmrc,.sassdocrc}]
 insert_final_newline = false
 indent_size = 2

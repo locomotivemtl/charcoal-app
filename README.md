@@ -6,6 +6,7 @@ Charcoal App
 [![Build Status](https://travis-ci.org/locomotivemtl/charcoal-app.svg?branch=master)](https://travis-ci.org/locomotivemtl/charcoal-app)
 
 # How to install
+
 The preferred (and only supported) way of installing _charcoal-app_ is with **composer**:
 
 ```shell
@@ -13,6 +14,7 @@ $ composer require locomotivemtl/charcoal-app
 ```
 
 ## Dependencies
+
 - [`PHP 5.5+`](http://php.net)
 	- Older versions of PHP are deprecated, therefore not supported for charcoal-app.
 - [`locomotivemtl/charcoal-config`](https://github.com/locomotivemtl/charcoal-config)
@@ -20,11 +22,11 @@ $ composer require locomotivemtl/charcoal-app
 - [`locomotivemtl/charcoal-factory`](https://github.com/locomotivemtl/charcoal-factory)
 	- Dynamic object creation.
 - [`locomotivemtl/charcoal-view`](https://github.com/locomotivemtl/charcoal-view)
-	- Template controllers will typically load a _View_ object  (or a _Renderer_, for PSR7 / Slim compatibility) and render a template. 
+	- Template controllers will typically load a _View_ object  (or a _Renderer_, for PSR7 / Slim compatibility) and render a template.
 	- This brings a dependency on [`mustache/mustache`](https://github.com/bobthecow/mustache.php).
 - [`slim/slim`](https://github.com/slimphp/Slim)
 	- The main app, container and router are provided by Slim.
- 	- Its dependencies are:
+	- Its dependencies are:
 		-  [`pimple/pimple`](http://pimple.sensiolabs.org/)
 		-  [`psr/http-message`]((http://www.php-fig.org/psr/psr-7/))
 		-  [`nikic/fast-route`](https://github.com/nikic/FastRoute)
@@ -38,20 +40,20 @@ Just like _Slim_, charcoal-app is built around the [`psr-7`](http://www.php-fig.
 _Charcoal Actions_ are typically ran either by the `run()` method or by inkoking an action instance (with the `__invoke()` magic method). This method takes a _RequestInterface_ and a _ResponseInterface_ as parameters and returns a _ResponseInterface_.
 
 Similarly, when a `Charcoal\View\Renderer` is used as a renderer (instead of a plain view), the `render()` method accepts (and returns) a _ResponseInterface_ object.
- 
 
 # Components
+
 The main components of charcoal-app are _App_, _Module_, _Route_ (and _Routable_ objects), _RequestController_, _Middleware_ and the _Binary (Charcoal Script)_.
 
 ## App
 
 - The *App* loads the root onfiguration.
-  - **App**: _implements_ `\Charcoal\App\App`
-  - **Config**: `\Charcoal\App\AppConfig`
-    - The `AppConfig` expects a key called `modules`
-      - Each modules have an ident and a sub-configuration (`ModuleConfig`)
-  - **Container**: Dependencies are expected to be in a `Pimple` container
-  
+	- **App**: _implements_ `\Charcoal\App\App`
+	- **Config**: `\Charcoal\App\AppConfig`
+		- The `AppConfig` expects a key called `modules`
+			- Each modules have an ident and a sub-configuration (`ModuleConfig`)
+	- **Container**: Dependencies are expected to be in a `Pimple` container
+
 - The *App* has one method: `setup()` wich:
 	- Accepts a `\Slim\App` as a parameter.
 	- Instanciate a `ModuleManager` which:
@@ -60,39 +62,40 @@ The main components of charcoal-app are _App_, _Module_, _Route_ (and _Routable_
 
 > 👉 The `App` concept is entirely optional. Modules could be loaded without one.
 
-### App configuration 
+### App configuration
 
 `\Charcoal\App\AppConfig` API:
 
-| Key | Type  | Default | Description |
-| --- | ----- | ------- | ----------- |
-| **routes**  | _array_ (of `RouteConfig`) | `[]` | ... |
-| **modules** | _array_ (of `ModuleConfig`) | `[]` | ... |
+| Key         | Type             | Default | Description |
+| ----------- | ---------------- | ------- | ----------- |
+| **routes**  | `RouteConfig[]`  | `[]`    | ...         |
+| **modules** | `ModuleConfig[]` | `[]`    | ...         |
 
 ## Module
 
 - A *Module* loads its configuration from the root config
-  - **Module**: _implements_ `Charcoal\App\ModuleInterface` 
-  - **Config**: `\Charcoal\App\ModuleConfig`
-    - The `ModuleConfig 
+	- **Module**: _implements_ `Charcoal\App\ModuleInterface`
+	- **Config**: `\Charcoal\App\ModuleConfig`
+		- The `ModuleConfig
 
 - A *Module* requires:
-  - A parent **Container**
-  - A `\Slim\App`
+	- A parent **Container**
+	- A `\Slim\App`
 
 - A *Module* defines:
-  - **Routes**: which defines a path to load and a `RequestController` configuration.
-  - **Middlewares**: which are TBD.
+	- **Routes**: which defines a path to load and a `RequestController` configuration.
+	- **Middlewares**: which are TBD.
 
 ## Routes and RequestController
+
 All routes are actually handled by the *Slim* app. Charcoal Routes are just *definition* of a route:
 
 - An identifier, which typically matches the controller.
 - A RouteConfig structure, which contains:
 	- The `type` of  `RequestController`. This can be:
-  		- `Action`
-   		- `Script` (_Scripts_ can only be ran from the CLI.)
-   		- `Template`
+		- `Action`
+		- `Script` (_Scripts_ can only be ran from the CLI.)
+		- `Template`
 	- The `controller` ident
 
 ### Route API
@@ -101,21 +104,21 @@ All routes are actually handled by the *Slim* app. Charcoal Routes are just *def
 
 Common route configuration:
 
-| Key             | Type     | Default | Description |
-| --------------- | -------- | ------- | ----------- |
-| **ident**       | _string_ | `null`  | Route identifier. |
-| **methods**     | _array_ of `string` | `['GET']` | The HTTP methods to wthich this route resolve to. Ex: `['GET', 'POST', 'PUT', 'DELETE']` |
-| **controller**  | _string_ | `null`  | Controller identifier. Will be guessed from the _ident_ when `null`. |
-| **lang** | _string_ | `null` | The current language.  |
-| **group**       | _string_ | `null`  |
+| Key             | Type       | Default     | Description |
+| --------------- | ---------- | ----------- | ----------- |
+| **ident**       | `string`   | `null`      | Route identifier. |
+| **methods**     | `string[]` | `[ 'GET' ]` | The HTTP methods to wthich this route resolve to. Ex: `['GET', 'POST', 'PUT', 'DELETE']` |
+| **controller**  | `string`   | `null`      | Controller identifier. Will be guessed from the _ident_ when `null`. |
+| **lang**        | `string`   | `null`      | The current language. |
+| **group**       | `string`   | `null`      | |
 
 Template specific configuration:
 
-| Key             | Type     | Default | Description |
-| --------------- | -------- | ------- | ----------- |
-| **template**    | _string_ | `null`  | The template _ident_ to display. 
-| **engine**      | _string_ | `'mustache'` | The template _engine_ type. Default Charcoal view engines are `mustache`, `php` and `php-mustache`. |
-| **template_data** | _array_  | `[]` | Extra / custom template data. |
+| Key               | Type     | Default      | Description |
+| ----------------- | -------- | ------------ | ----------- |
+| **template**      | `string` | `null`       | The template _ident_ to display. |
+| **engine**        | `string` | `'mustache'` | The template _engine_ type. Default Charcoal view engines are `mustache`, `php` and `php-mustache`. |
+| **template_data** | `array`  | `[]`         | Extra / custom template data. |
 
 There are 3 types of `Route`:
 
@@ -124,19 +127,21 @@ There are 3 types of `Route`:
 - `TemplateRoute`: typically  load a template from a _GET_ request. "A Web page".
 
 #### Defining a default route.
+
 To set the "default" rout, simply map a route to "/".
 
 ```json
 {
-  "routes":{
-    "/":{
-      "template":"acme/home"
-    }
-  }
+	"routes": {
+		"/": {
+			"template": "acme/home"
+		}
+	}
 }
 ```
 
 ## Routable objects
+
 Routes are great to match URL path to template controller or action controller, but needs to be defined in the `AppConfig` container.
 
 Routables, on the other hand, are dynamic objects (typically, Charcoal Model objects that implements the `Charcoal\App\Routable\RoutableInterface`) whose _route path_ is typically defined from a dynamic property (and stored in a database).
@@ -151,7 +156,7 @@ This method should:
 	- Typically, this means checking the _path_ parameter against the database to load a matching object.
 	- But really, it could be anything...
 - Return a `callable` object that will handle the route if it matches
-- Return `null` if no match 
+- Return `null` if no match
 
 The returned callable signature should be:
 `function(RequestInterface $request, ResponseInterface $response)` and returns a `ResponseInterface`
@@ -159,6 +164,7 @@ The returned callable signature should be:
 Routables are called last (only if no explicit routes match fisrt). If no routables return a callable, then a 404 will be sent. (Slim's `NotFoundHandler`).
 
 ## Middleware
+
 Middleware is not yet implemented in `Charcoal\App`. The plan is to use the PSR7-middleware system, which is a callable with the signature:
 
 ```
@@ -176,7 +182,7 @@ As previously mentionned, `Script` routes are only available to run from the CLI
 
 - An _App_ is a collection of _Modules_, which are a collection of _Routes_ and _Middlewares_.
 - _Routes_ are just (config) definitions that match a path to a _RequestController_
-  - There are 3 types of _RequestController_: _Actions_, _Scripts_ and _Templates_. 
+	- There are 3 types of _RequestController_: _Actions_, _Scripts_ and _Templates_.
 
 ## Configuration examples
 
@@ -184,27 +190,25 @@ Example of a module configuration:
 
 ```json
 {
-    "routes":{
-        "templates":{
-            "foo/bar":{},
-            "foo/baz/{:id}":{
-                "controller":"foo/baz",
-                "methods":["GET", "POST"]
-            }
-        },
-        "default_template":"foo_bar", 
-        "actions":{
-            "foo/bar":{}
-        }
-    },
-    
-    "routables":{
-    	"charcoal/cms/news":{}
-    },
-    
-    "middlewares":{
-    
-    }
+	"routes": {
+		"templates": {
+			"foo/bar": {},
+			"foo/baz/{:id}": {
+				"controller": "foo/baz",
+				"methods": [ "GET", "POST" ]
+			}
+		},
+		"default_template": "foo_bar",
+		"actions": {
+			"foo/bar": {}
+		}
+	},
+
+	"routables": {
+		"charcoal/cms/news": {}
+	},
+
+	"middlewares": {}
 }
 ```
 
@@ -218,9 +222,9 @@ include '../vendor/autoload.php';
 $container = new \Slim\Container();
 
 $container['config'] = function() {
-    $config = new \Charcoal\App\AppConfig();
-    $config->add_file('../config/config.php');
-    return $config;
+	$config = new \Charcoal\App\AppConfig();
+	$config->add_file('../config/config.php');
+	return $config;
 };
 
 $slim = new \Slim\App($container);
@@ -252,24 +256,25 @@ Without Module to handle routes and middlewares:
 $slim = new \Slim\App($container);
 
 $container['controller_loader'] = function($c) {
-    
+
 };
 
 // Add middleware manually
 // $slim->add('\Foobar\Middleware\Foo');
 
 $slim->get('/', function($request, $response, $args) {
-    $container = $this->getContainer();
-    $request_controller = $container['controller_loader']->get('/');
-    return $request_controller($request, $response, $args);
+	$container = $this->getContainer();
+	$request_controller = $container['controller_loader']->get('/');
+	return $request_controller($request, $response, $args);
 });
 
 $slim->post('/', function() {
-    
+
 });
 ```
 
 ## Classes
+
 - `\Charcoal\App\AbstractModule`
 - `\Charcoal\App\App`
 - `\Charcoal\App\AppConfig`
@@ -301,15 +306,15 @@ $ composer install
 The Charcoal-App module follows the Charcoal coding-style:
 
 - [_PSR-1_](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-1-basic-coding-standard.md), except for
-  - Method names MUST be declared in `snake_case`.
+	- Method names MUST be declared in `snake_case`.
 - [_PSR-2_](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md), except for the PSR-1 requirement.
 - [_PSR-4_](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-4-autoloader.md), autoloading is therefore provided by _Composer_
 - [_phpDocumentor_](http://phpdoc.org/)
-  - Add DocBlocks for all classes, methods, and functions;
-  - For type-hinting, use `boolean` (instead of `bool`), `integer` (instead of `int`), `float` (instead of `double` or `real`);
-  - Omit the `@return` tag if the method does not return anything.
+	- Add DocBlocks for all classes, methods, and functions;
+	- For type-hinting, use `boolean` (instead of `bool`), `integer` (instead of `int`), `float` (instead of `double` or `real`);
+	- Omit the `@return` tag if the method does not return anything.
 - Naming conventions
-  - Read the [phpcs.xml](phpcs.xml) file for all the details.
+	- Read the [phpcs.xml](phpcs.xml) file for all the details.
 
 > Coding style validation / enforcement can be performed with `grunt phpcs`. An auto-fixer is also available with `grunt phpcbf`.
 
@@ -320,6 +325,6 @@ The Charcoal-App module follows the Charcoal coding-style:
 ## Changelog
 
 ### 0.1
+
 _Unreleased_
 - Initial release
-
