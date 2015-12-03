@@ -30,7 +30,7 @@ abstract class AbstractAction implements
     const MODE_JSON = 'json';
     const MODE_REDIRECT = 'redirect';
     const DEFAULT_MODE = self::MODE_JSON;
-    
+
     /**
      * @var App
      */
@@ -69,7 +69,7 @@ abstract class AbstractAction implements
         $this->set_logger($data['logger']);
         $this->set_app($data['app']);
     }
-    
+
     /**
      * @param RequestInterface  $request  A PSR-7 compatible Request instance.
      * @param ResponseInterface $response A PSR-7 compatible Response instance.
@@ -114,7 +114,7 @@ abstract class AbstractAction implements
         return $this->app;
     }
 
-    
+
     /**
      * @param array $data The data to set.
      * @return AbstractAction Chainable
@@ -193,12 +193,7 @@ abstract class AbstractAction implements
      */
     public function set_success($success)
     {
-        if (!is_bool($success)) {
-            throw new InvalidArgumentException(
-                'Success needs to be a boolean'
-            );
-        }
-        $this->success = $success;
+        $this->success = !!$success;
         return $this;
     }
 
