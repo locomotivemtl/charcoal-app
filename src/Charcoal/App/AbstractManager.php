@@ -41,10 +41,10 @@ abstract class AbstractManager implements LoggerAwareInterface
     /**
      * Set the manager's config
      *
-     * @param  array $config The manager configuration.
+     * @param  ConfigInterface|array $config The manager configuration.
      * @return self
      */
-    protected function set_config(array $config = [])
+    public function set_config($config = [])
     {
         $this->config = $config;
         return $this;
@@ -55,7 +55,7 @@ abstract class AbstractManager implements LoggerAwareInterface
      *
      * @return array
      */
-    protected function config()
+    public function config()
     {
         return $this->config;
     }
@@ -66,7 +66,7 @@ abstract class AbstractManager implements LoggerAwareInterface
      * @param  CharcoalApp $app The Charcoal Application instance.
      * @return self
      */
-    protected function set_app(CharcoalApp $app)
+    public function set_app(CharcoalApp $app)
     {
         $this->app = $app;
         return $this;
@@ -77,7 +77,7 @@ abstract class AbstractManager implements LoggerAwareInterface
      *
      * @return CharcoalApp
      */
-    protected function app()
+    public function app()
     {
         return $this->app;
     }
