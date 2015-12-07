@@ -97,35 +97,45 @@ class TemplateRoute implements
      * @param RequestInterface  $request  A PSR-7 compatible Request instance.
      * @param ResponseInterface $response A PSR-7 compatible Response instance.
      * @return ResponseInterface
+     * @todo Implement "view/default_engine" and "view/default_template".
      */
     public function __invoke(RequestInterface $request, ResponseInterface $response)
     {
         // Unused variable
         unset($request);
 
-        $config = $this->config();
+        $tpl_config = $this->config();
+        $app_config = $this->app()->config();
 
-        $template_ident = $config['template'];
-        $template_controller = $config['controller'];
+        $template_ident = $tpl_config['template'];
+        $template_controller = $tpl_config['controller'];
+
+        $fallback_controller = $app_config->get('view/default_controller');
 
         $template_factory = new TemplateFactory();
+
+        if ($fallback_controller) {
+            $template_factory->set_default_class($fallback_controller);
+        }
+
         $template = $template_factory->create($template_controller, [
-            'app' => $this->app(),
-            'logger' => $this->app()->logger()
+            'app'    => $this->app(),
+            'logger' => $this->logger()
         ]);
 
         $template_view = $template->view();
         $template_view->set_data([
             'template_ident' => $template_ident,
-            'engine_type' => $config['engine']
+            'engine_type'    => $tpl_config['engine']
         ]);
+
         $template->set_view($template_view);
 
         // Set custom data from config.
-        $template->set_data($config['template_data']);
+        $template->set_data($tpl_config['template_data']);
 
+        $template_content = $template->render_template($template_ident);
 
-        $template_content = $template->render($template_ident);
         $response->write($template_content);
 
         return $response;
