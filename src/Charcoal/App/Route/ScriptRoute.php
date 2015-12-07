@@ -39,10 +39,18 @@ class ScriptRoute implements
     private $app;
 
     /**
-     * ## Required dependencies
-     * - `config` ScriptRouteConfig
-     * - `app` AppInterface
-     * - `logger` PSR-3 logger
+     * Create new script route (CLI)
+     *
+     * ### Dependencies
+     *
+     * **Required**
+     *
+     * - `config` — ScriptRouteConfig
+     * - `app`    — AppInterface
+     *
+     * **Optional**
+     *
+     * - `logger` — PSR-3 Logger
      *
      * @param array $data Dependencies.
      */

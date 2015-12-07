@@ -38,12 +38,20 @@ class TemplateRoute implements
     private $app;
 
     /**
-     * ## Required dependencies
-     * - `config`
-     * - `app`
-     * - `logger`
+     * Create new template route
      *
-     * @param array $data Dependencies (see above).
+     * ### Dependencies
+     *
+     * **Required**
+     *
+     * - `config` — ScriptRouteConfig
+     * - `app`    — AppInterface
+     *
+     * **Optional**
+     *
+     * - `logger` — PSR-3 Logger
+     *
+     * @param array $data Dependencies.
      */
     public function __construct(array $data)
     {

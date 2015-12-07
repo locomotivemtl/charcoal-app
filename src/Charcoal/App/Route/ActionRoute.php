@@ -39,14 +39,20 @@ class ActionRoute implements
     private $app;
 
     /**
-     * ## Required dependencies
-     * - `config`
-     * - `app`
+     * Create new action route
      *
-     * ## Optional dependencies
-     * - `logger`
+     * ### Dependencies
      *
-     * @param array $data Dependencies (see above).
+     * **Required**
+     *
+     * - `config` — ScriptRouteConfig
+     * - `app`    — AppInterface
+     *
+     * **Optional**
+     *
+     * - `logger` — PSR-3 Logger
+     *
+     * @param array $data Dependencies.
      */
     public function __construct(array $data)
     {

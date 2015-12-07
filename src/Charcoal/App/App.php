@@ -5,10 +5,10 @@ namespace Charcoal\App;
 // PHP Dependencies
 use \Exception;
 
-// slim/slim dependencies
+// Slim Dependencies
 use \Slim\App as SlimApp;
 
-// PSR-7 (http messaging) dependencies
+// PSR-7 (HTTP Messaging) Dependencies
 use \Psr\Http\Message\RequestInterface;
 use \Psr\Http\Message\ResponseInterface;
 
@@ -29,12 +29,14 @@ use \Charcoal\App\Route\RouteManager;
 use \Charcoal\App\Routable\RoutableFactory;
 
 /**
- * ## Dependencies
- * - **config** (`\Charcoal\App\AppConfig`)
- * - **app** (`SlimApp`)
+ * Charcoal App
+ *
+ * This is the primary class with which you instantiate, configure,
+ * and run a Slim Framework application within Charcoal.
  */
 class App extends SlimApp implements
     AppInterface,
+    LoggerAwareInterface,
     ConfigurableInterface
 {
     use LoggerAwareTrait;
@@ -61,72 +63,96 @@ class App extends SlimApp implements
     private $language_manager;
 
     /**
-     * # Required dependencies
-     * - `container` A
+     * Create new Charcoal application (and SlimApp).
      *
-     * @param mixed $container Dependencies.
+     * ### Dependencies
+     *
+     * **Required**
+     *
+     * - `charcoal/app/config` — AppConfig
+     *
+     * **Optional**
+     *
+     * - `logger` — PSR-3 Logger
+     *
+     * @uses  SlimApp::__construct()
+     * @param ContainerInterface|array $container The application's settings.
+     * @todo  Document required dependencies.
      */
     public function __construct($container)
     {
-        // Slim constructor
+        // SlimApp constructor
         parent::__construct($container);
 
         $this->set_config($container['charcoal/app/config']);
-
     }
 
     /**
+     * Retrieve the application's module manager.
+     *
      * @return ModuleManager
      */
     public function module_manager()
     {
-        if ($this->module_manager === null) {
+        if (!isset($this->module_manager)) {
             $config  = $this->config();
             $modules = (isset($config['modules']) ? $config['modules'] : [] );
+
             $this->module_manager = new ModuleManager([
                 'config' => $modules,
                 'app'    => $this,
                 'logger' => $this->logger()
             ]);
         }
+
         return $this->module_manager;
     }
 
     /**
+     * Retrieve the application's route manager.
+     *
      * @return RouteManager
      */
     public function route_manager()
     {
-        if ($this->route_manager === null) {
+        if (!isset($this->route_manager)) {
             $config = $this->config();
             $routes = (isset($config['routes']) ? $config['routes'] : [] );
-            $route_manager = new RouteManager([
+
+            $this->route_manager = new RouteManager([
                 'config' => $routes,
                 'app'    => $this,
                 'logger' => $this->logger()
             ]);
         }
-        return $route_manager;
+
+        return $this->route_manager;
     }
 
     /**
+     * Retrieve the application's middleware manager.
+     *
      * @return MiddlewareManager
      */
     public function middleware_manager()
     {
-        if ($this->middleware_manager === null) {
+        if (!isset($this->middleware_manager)) {
             $config = $this->config();
             $middlewares = (isset($config['middlewares']) ? $config['middlewares'] : [] );
-            $middleware_manager = new MiddlewareManager([
+
+            $this->middleware_manager = new MiddlewareManager([
                 'config' => $middlewares,
                 'app'    => $this,
                 'logger' => $this->logger()
             ]);
         }
-        return $middleware_manager;
+
+        return $this->middleware_manager;
     }
 
     /**
+     * Retrieve the application's language manager.
+     *
      * @return LanguageManager
      */
     public function language_manager()
@@ -145,33 +171,65 @@ class App extends SlimApp implements
                 }
             }
 
-            $language_manager = new LanguageManager([
+            $this->language_manager = new LanguageManager([
                 'config' => $locales,
                 'app'    => $this,
                 'logger' => $this->logger()
             ]);
         }
-        return $language_manager;
+
+        return $this->language_manager;
     }
 
     /**
-     * Initialize the Charcoal App before running (with SlimApp).
+     * Registers the default services and features that Charcoal needs to work.
      *
-     * @param boolean $silent If true, will run in silent mot (no response).
-     * @return App Chainable
+     * @return self
      */
-    public function run($silent = false)
+    private function setup()
     {
+        $this->setup_logger();
         $this->setup_languages();
         $this->setup_middlewares();
         $this->setup_routes();
         $this->setup_modules();
         $this->setup_routables();
 
+        return $this;
+    }
+
+    /**
+     * Run application
+     *
+     * Initialize the Charcoal application before running (with SlimApp).
+     *
+     * @uses   self::setup()
+     * @param  boolean $silent If TRUE, will run in silent mode (no response).
+     * @return self
+     */
+    public function run($silent = false)
+    {
+        $this->setup();
+
         return parent::run($silent);
     }
 
     /**
+     * Setup the application's logging interface.
+     *
+     * @return void
+     */
+    protected function setup_logger()
+    {
+        if (!$this->logger() && isset($this['logger'])) {
+            $this->set_logger($this['logger']);
+            $this->logger()->debug('Charcoal App Init Logger');
+        }
+    }
+
+    /**
+     * Setup the application's "global" linguistic features, via a LanguageManager
+     *
      * @return void
      */
     protected function setup_languages()
@@ -181,6 +239,8 @@ class App extends SlimApp implements
     }
 
     /**
+     * Setup the middleware for SlimApp, via a MiddlewareManager
+     *
      * @return void
      */
     protected function setup_middlewares()
@@ -190,7 +250,7 @@ class App extends SlimApp implements
     }
 
     /**
-     * Set up the app's "global" routes, via a RouteManager
+     * Setup the application's "global" routes, via a RouteManager
      *
      * @return void
      */
@@ -201,7 +261,8 @@ class App extends SlimApp implements
     }
 
     /**
-     * Set up the app's "global" routables.
+     * Setup the application's "global" routables.
+     *
      * Routables can only be defined globally (app-level) for now.
      *
      * @return void
@@ -232,7 +293,7 @@ class App extends SlimApp implements
                     }
                 }
 
-    
+
                 // If this point is reached, no routable has provided a callback. 404.
                 return $c['notFoundHandler']($request, $response);
             }
@@ -240,6 +301,8 @@ class App extends SlimApp implements
     }
 
     /**
+     * Setup the application's modules, via a ModuleManager
+     *
      * @return void
      */
     protected function setup_modules()
@@ -249,12 +312,13 @@ class App extends SlimApp implements
     }
 
     /**
-     * ConfigurableTrait > create_config()
+     * Retrieve a new ConfigInterface instance for the object.
      *
-     * @param array $data Optional config data.
+     * @see    ConfigurableTrait::create_config() For abstract definition of this method.
+     * @param  array|string|null $data Optional configuration data.
      * @return AppConfig
      */
-    public function create_config(array $data = null)
+    public function create_config($data = null)
     {
         return new AppConfig($data);
     }

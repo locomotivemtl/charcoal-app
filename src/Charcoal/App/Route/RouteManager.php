@@ -21,9 +21,10 @@ class RouteManager extends AbstractManager
      * Set up the routes
      *
      * There are 3 types of routes:
-     * - `templates`
-     * - `actions`
-     * - `scripts
+     *
+     * - Templates
+     * - Actions
+     * - Scripts
      *
      * @return void
      */
@@ -42,15 +43,15 @@ class RouteManager extends AbstractManager
      */
     protected function setup_template_routes()
     {
-        $routes = $this->config();
-
-        $app = $this->app();
+        $app       = $this->app();
+        $routes    = $this->config();
         $templates = ( isset($routes['templates']) ? $routes['templates'] : [] );
+
         $this->logger()->debug('Templates', (array)$templates);
         foreach ($templates as $template_ident => $template_config) {
             $route_ident = '/'.ltrim($template_ident, '/');
             $methods = ( isset($tempate_config['methods']) ? $template_config['methods'] : [ 'GET' ] );
-            $route_handler = $this->app()->map(
+            $route_handler = $app->map(
                 $methods,
                 $route_ident,
                 function (
@@ -62,7 +63,6 @@ class RouteManager extends AbstractManager
                     $template_ident,
                     $template_config
                 ) {
-
                     $this->logger->debug(sprintf('Loaded template route: %s', $template_ident), $template_config);
 
                     if (!isset($template_config['ident'])) {
@@ -70,9 +70,9 @@ class RouteManager extends AbstractManager
                     }
 
                     $route = new TemplateRoute([
-                         'app'    => $app,
-                         'config' => $template_config,
-                         'logger' => $this->logger
+                        'app'    => $app,
+                        'config' => $template_config,
+                        'logger' => $this->logger
                     ]);
 
                     // Invoke template route
@@ -91,15 +91,15 @@ class RouteManager extends AbstractManager
      */
     protected function setup_action_routes()
     {
-        $routes = $this->config();
-
-        $app = $this->app();
+        $app     = $this->app();
+        $routes  = $this->config();
         $actions = ( isset($routes['actions']) ? $routes['actions'] : [] );
+
         $this->logger()->debug('Actions', (array)$actions);
         foreach ($actions as $action_ident => $action_config) {
             $route_ident = '/'.ltrim($action_ident, '/');
             $methods = ( isset($action_config['methods']) ? $action_config['methods'] : [ 'POST' ] );
-            $route_handler = $this->app()->map(
+            $route_handler = $app->map(
                 $methods,
                 $route_ident,
                 function (
@@ -111,7 +111,6 @@ class RouteManager extends AbstractManager
                     $action_ident,
                     $action_config
                 ) {
-                    
                     $this->logger->debug(sprintf('Loaded action route: %s', $action_ident), $action_config);
 
                     if (!isset($action_config['ident'])) {
@@ -140,15 +139,15 @@ class RouteManager extends AbstractManager
      */
     protected function setup_script_routes()
     {
-        $routes = $this->config();
-
-        $app = $this->app();
+        $app     = $this->app();
+        $routes  = $this->config();
         $scripts = ( isset($routes['scripts']) ? $routes['scripts'] : [] );
+
         $this->logger()->debug('Scripts', (array)$scripts);
         foreach ($scripts as $script_ident => $script_config) {
             $route_ident = '/'.ltrim($script_ident, '/');
             $methods = ( isset($script_config['methods']) ? $script_config['methods'] : [ 'GET' ] );
-            $route_handler = $this->app()->map(
+            $route_handler = $app->map(
                 $methods,
                 $route_ident,
                 function (
@@ -160,7 +159,6 @@ class RouteManager extends AbstractManager
                     $script_ident,
                     $script_config
                 ) {
-
                     $this->logger->debug(sprintf('Loaded script route: %s', $script_ident), $script_config);
 
                     if (!isset($script_config['ident'])) {
