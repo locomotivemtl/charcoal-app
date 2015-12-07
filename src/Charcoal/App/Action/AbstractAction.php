@@ -251,6 +251,10 @@ abstract class AbstractAction implements
             $url = $this->failure_url();
         }
 
+        if ($url === null) {
+            return '';
+        }
+
         // Get the translated URL
         $url = $url->val($this->lang());
         if (!$url) {
