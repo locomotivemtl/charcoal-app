@@ -29,7 +29,7 @@
         "ab": "аҧсуа бызшәа, аҧсшәа",
         "fr": "Abkhaze"
       },
-      "code": {
+      "codes": {
         "639-6": "abks",
         "639-3": "abk",
         "639-2B": "abk",
@@ -45,7 +45,7 @@
         "aa": "Afaraf",
         "fr": "Afar"
       },
-      "code": {
+      "codes": {
         "639-6": "aars",
         "639-3": "aar",
         "639-2B": "aar",
@@ -61,7 +61,7 @@
         "af": "Afrikaans",
         "fr": "Afrikaans"
       },
-      "code": {
+      "codes": {
         "639-6": "afrs",
         "639-3": "afr",
         "639-2B": "afr",
@@ -77,7 +77,7 @@
         "ak": "Akan",
         "fr": "Akan"
       },
-      "code": {
+      "codes": {
         "639-3": "aka+2",
         "639-2B": "aka",
         "639-2T": "aka",
@@ -92,7 +92,7 @@
         "sq": "Shqip",
         "fr": "Albanais"
       },
-      "code": {
+      "codes": {
         "639-3": "sqi+4",
         "639-2B": "alb",
         "639-2T": "sqi",
@@ -107,7 +107,7 @@
         "am": "አማርኛ",
         "fr": "Amharique"
       },
-      "code": {
+      "codes": {
         "639-3": "amh",
         "639-2B": "amh",
         "639-2T": "amh",
@@ -122,7 +122,7 @@
         "ar": "العربية",
         "fr": "Arabe"
       },
-      "code": {
+      "codes": {
         "639-3": "ara+30",
         "639-2B": "ara",
         "639-2T": "ara",
@@ -137,7 +137,7 @@
         "an": "aragonés",
         "fr": "Aragonais"
       },
-      "code": {
+      "codes": {
         "639-3": "arg",
         "639-2B": "arg",
         "639-2T": "arg",
@@ -152,7 +152,7 @@
         "hy": "Հայերեն",
         "fr": "Arménien"
       },
-      "code": {
+      "codes": {
         "639-3": "hye",
         "639-2B": "arm",
         "639-2T": "hye",
@@ -167,7 +167,7 @@
         "as": "অসমীয়া",
         "fr": "Assamais"
       },
-      "code": {
+      "codes": {
         "639-3": "asm",
         "639-2B": "asm",
         "639-2T": "asm",
@@ -182,7 +182,7 @@
         "av": "авар мацӀ, магӀарул мацӀ",
         "fr": "Avar"
       },
-      "code": {
+      "codes": {
         "639-3": "ava",
         "639-2B": "ava",
         "639-2T": "ava",
@@ -197,7 +197,7 @@
         "ae": "avesta",
         "fr": "Avestique"
       },
-      "code": {
+      "codes": {
         "639-3": "ave",
         "639-2B": "ave",
         "639-2T": "ave",
@@ -212,7 +212,7 @@
         "ay": "aymar aru",
         "fr": "Aymara"
       },
-      "code": {
+      "codes": {
         "639-3": "aym+2",
         "639-2B": "aym",
         "639-2T": "aym",
@@ -227,7 +227,7 @@
         "az": "azərbaycan dili",
         "fr": "Azéri"
       },
-      "code": {
+      "codes": {
         "639-3": "aze+2",
         "639-2B": "aze",
         "639-2T": "aze",
@@ -242,7 +242,7 @@
         "bm": "bamanankan",
         "fr": "Bambara"
       },
-      "code": {
+      "codes": {
         "639-3": "bam",
         "639-2B": "bam",
         "639-2T": "bam",
@@ -257,7 +257,7 @@
         "ba": "башҡорт теле",
         "fr": "Bachkir"
       },
-      "code": {
+      "codes": {
         "639-3": "bak",
         "639-2B": "bak",
         "639-2T": "bak",
@@ -272,7 +272,7 @@
         "eu": "euskara, euskera",
         "fr": "Basque"
       },
-      "code": {
+      "codes": {
         "639-3": "eus",
         "639-2B": "baq",
         "639-2T": "eus",
@@ -287,7 +287,7 @@
         "be": "беларуская мова",
         "fr": "Biélorusse"
       },
-      "code": {
+      "codes": {
         "639-3": "bel",
         "639-2B": "bel",
         "639-2T": "bel",
@@ -302,7 +302,7 @@
         "bn": "বাংলা",
         "fr": "Bengali"
       },
-      "code": {
+      "codes": {
         "639-3": "ben",
         "639-2B": "ben",
         "639-2T": "ben",
@@ -317,7 +317,7 @@
         "bh": "भोजपुरी",
         "fr": "Langues biharis"
       },
-      "code": {
+      "codes": {
         "639-2B": "bih ||",
         "639-2T": "bih",
         "639-1": "bh"
@@ -331,7 +331,7 @@
         "bi": "Bislama",
         "fr": "Bichlamar"
       },
-      "code": {
+      "codes": {
         "639-3": "bis",
         "639-2B": "bis",
         "639-2T": "bis",
@@ -346,7 +346,7 @@
         "bs": "bosanski jezik",
         "fr": "Bosniaque"
       },
-      "code": {
+      "codes": {
         "639-6": "boss",
         "639-3": "bos",
         "639-2B": "bos",
@@ -362,7 +362,7 @@
         "br": "brezhoneg",
         "fr": "Breton"
       },
-      "code": {
+      "codes": {
         "639-3": "bre",
         "639-2B": "bre",
         "639-2T": "bre",
@@ -377,7 +377,7 @@
         "bg": "български език",
         "fr": "Bulgare"
       },
-      "code": {
+      "codes": {
         "639-6": "buls",
         "639-3": "bul",
         "639-2B": "bul",
@@ -393,7 +393,7 @@
         "my": "ဗမာစာ",
         "fr": "Birman"
       },
-      "code": {
+      "codes": {
         "639-3": "mya",
         "639-2B": "bur",
         "639-2T": "mya",
@@ -408,7 +408,7 @@
         "ca": "català",
         "fr": "Catalan; valencien"
       },
-      "code": {
+      "codes": {
         "639-3": "cat",
         "639-2B": "cat",
         "639-2T": "cat",
@@ -423,7 +423,7 @@
         "ch": "Chamoru",
         "fr": "Chamorro"
       },
-      "code": {
+      "codes": {
         "639-3": "cha",
         "639-2B": "cha",
         "639-2T": "cha",
@@ -438,7 +438,7 @@
         "ce": "нохчийн мотт",
         "fr": "Tchétchène"
       },
-      "code": {
+      "codes": {
         "639-3": "che",
         "639-2B": "che",
         "639-2T": "che",
@@ -453,7 +453,7 @@
         "ny": "chiCheŵa, chinyanja",
         "fr": "Chichewa; chewa; nyanja"
       },
-      "code": {
+      "codes": {
         "639-3": "nya",
         "639-2B": "nya",
         "639-2T": "nya",
@@ -468,7 +468,7 @@
         "zh": "{{lang|zh-Hani|中文}} (Zhōngwén), {{lang|zh-Hans|汉语}}, {{lang|zh-Hant|漢語}}",
         "fr": "Chinois"
       },
-      "code": {
+      "codes": {
         "639-3": "zho+13",
         "639-2B": "chi",
         "639-2T": "zho",
@@ -483,7 +483,7 @@
         "cv": "чӑваш чӗлхи",
         "fr": "Tchouvache"
       },
-      "code": {
+      "codes": {
         "639-3": "chv",
         "639-2B": "chv",
         "639-2T": "chv",
@@ -498,7 +498,7 @@
         "kw": "Kernewek",
         "fr": "Cornique"
       },
-      "code": {
+      "codes": {
         "639-3": "cor",
         "639-2B": "cor",
         "639-2T": "cor",
@@ -513,7 +513,7 @@
         "co": "corsu, lingua corsa",
         "fr": "Corse"
       },
-      "code": {
+      "codes": {
         "639-3": "cos",
         "639-2B": "cos",
         "639-2T": "cos",
@@ -528,7 +528,7 @@
         "cr": "ᓀᐦᐃᔭᐍᐏᐣ",
         "fr": "Cree"
       },
-      "code": {
+      "codes": {
         "639-3": "cre+6",
         "639-2B": "cre",
         "639-2T": "cre",
@@ -543,7 +543,7 @@
         "hr": "hrvatski jezik",
         "fr": "Croate"
       },
-      "code": {
+      "codes": {
         "639-3": "hrv",
         "639-2B": "hrv",
         "639-2T": "hrv",
@@ -558,7 +558,7 @@
         "cs": "čeština, český jazyk",
         "fr": "Tchèque"
       },
-      "code": {
+      "codes": {
         "639-3": "ces",
         "639-2B": "cze",
         "639-2T": "ces",
@@ -573,7 +573,7 @@
         "da": "dansk",
         "fr": "Danois"
       },
-      "code": {
+      "codes": {
         "639-3": "dan",
         "639-2B": "dan",
         "639-2T": "dan",
@@ -588,7 +588,7 @@
         "dv": "ދިވެހި",
         "fr": "Maldivien"
       },
-      "code": {
+      "codes": {
         "639-3": "div",
         "639-2B": "div",
         "639-2T": "div",
@@ -603,7 +603,7 @@
         "nl": "Nederlands, Vlaams",
         "fr": "Néerlandais; flamand"
       },
-      "code": {
+      "codes": {
         "639-3": "nld",
         "639-2B": "dut",
         "639-2T": "nld",
@@ -618,7 +618,7 @@
         "dz": "རྫོང་ཁ",
         "fr": "Dzongkha"
       },
-      "code": {
+      "codes": {
         "639-3": "dzo",
         "639-2B": "dzo",
         "639-2T": "dzo",
@@ -637,7 +637,7 @@
         "it": "Inglese",
         "ja": "英語"
       },
-      "code": {
+      "codes": {
         "639-6": "engs",
         "639-3": "eng",
         "639-2B": "eng",
@@ -653,7 +653,7 @@
         "eo": "Esperanto",
         "fr": "Espéranto"
       },
-      "code": {
+      "codes": {
         "639-3": "epo",
         "639-2B": "epo",
         "639-2T": "epo",
@@ -668,7 +668,7 @@
         "et": "eesti, eesti keel",
         "fr": "Estonien"
       },
-      "code": {
+      "codes": {
         "639-3": "est+2",
         "639-2B": "est",
         "639-2T": "est",
@@ -683,7 +683,7 @@
         "ee": "Eʋegbe",
         "fr": "éwé"
       },
-      "code": {
+      "codes": {
         "639-3": "ewe",
         "639-2B": "ewe",
         "639-2T": "ewe",
@@ -698,7 +698,7 @@
         "fo": "føroyskt",
         "fr": "Féroïen"
       },
-      "code": {
+      "codes": {
         "639-3": "fao",
         "639-2B": "fao",
         "639-2T": "fao",
@@ -713,7 +713,7 @@
         "fj": "vosa Vakaviti",
         "fr": "Fidjien"
       },
-      "code": {
+      "codes": {
         "639-3": "fij",
         "639-2B": "fij",
         "639-2T": "fij",
@@ -728,7 +728,7 @@
         "fi": "suomi, suomen kieli",
         "fr": "Finnois"
       },
-      "code": {
+      "codes": {
         "639-3": "fin",
         "639-2B": "fin",
         "639-2T": "fin",
@@ -747,7 +747,7 @@
         "it": "Francese",
         "ja": "フランス語"
       },
-      "code": {
+      "codes": {
         "639-6": "fras",
         "639-3": "fra",
         "639-2B": "fre",
@@ -763,7 +763,7 @@
         "ff": "Fulfulde, Pulaar, Pular",
         "fr": "Peul"
       },
-      "code": {
+      "codes": {
         "639-3": "ful+9",
         "639-2B": "ful",
         "639-2T": "ful",
@@ -778,7 +778,7 @@
         "gl": "galego",
         "fr": "Galicien"
       },
-      "code": {
+      "codes": {
         "639-3": "glg",
         "639-2B": "glg",
         "639-2T": "glg",
@@ -793,7 +793,7 @@
         "ka": "ქართული",
         "fr": "Géorgien"
       },
-      "code": {
+      "codes": {
         "639-3": "kat",
         "639-2B": "geo",
         "639-2T": "kat",
@@ -808,7 +808,7 @@
         "de": "Deutsch",
         "fr": "Allemand"
       },
-      "code": {
+      "codes": {
         "639-6": "deus",
         "639-3": "deu",
         "639-2B": "ger",
@@ -824,7 +824,7 @@
         "el": "ελληνικά",
         "fr": "Grec moderne (après 1453)"
       },
-      "code": {
+      "codes": {
         "639-6": "ells",
         "639-3": "ell",
         "639-2B": "gre",
@@ -840,7 +840,7 @@
         "gn": "Avañe'ẽ",
         "fr": "Guarani"
       },
-      "code": {
+      "codes": {
         "639-3": "grn+5",
         "639-2B": "grn",
         "639-2T": "grn",
@@ -855,7 +855,7 @@
         "gu": "ગુજરાતી",
         "fr": "Goudjrati"
       },
-      "code": {
+      "codes": {
         "639-3": "guj",
         "639-2B": "guj",
         "639-2T": "guj",
@@ -870,7 +870,7 @@
         "ht": "Kreyòl ayisyen",
         "fr": "Haïtien; créole haïtien"
       },
-      "code": {
+      "codes": {
         "639-3": "hat",
         "639-2B": "hat",
         "639-2T": "hat",
@@ -885,7 +885,7 @@
         "ha": "هَوُسَ",
         "fr": "Haoussa"
       },
-      "code": {
+      "codes": {
         "639-3": "hau",
         "639-2B": "hau",
         "639-2T": "hau",
@@ -900,7 +900,7 @@
         "he": "עברית",
         "fr": "Hébreu"
       },
-      "code": {
+      "codes": {
         "639-3": "heb",
         "639-2B": "heb",
         "639-2T": "heb",
@@ -915,7 +915,7 @@
         "hz": "Otjiherero",
         "fr": "Herero"
       },
-      "code": {
+      "codes": {
         "639-3": "her",
         "639-2B": "her",
         "639-2T": "her",
@@ -930,7 +930,7 @@
         "hi": "हिन्दी, हिंदी",
         "fr": "Hindi"
       },
-      "code": {
+      "codes": {
         "639-6": "hins",
         "639-3": "hin",
         "639-2B": "hin",
@@ -946,7 +946,7 @@
         "ho": "Hiri Motu",
         "fr": "Hiri motu"
       },
-      "code": {
+      "codes": {
         "639-3": "hmo",
         "639-2B": "hmo",
         "639-2T": "hmo",
@@ -961,7 +961,7 @@
         "hu": "magyar",
         "fr": "Hongrois"
       },
-      "code": {
+      "codes": {
         "639-3": "hun",
         "639-2B": "hun",
         "639-2T": "hun",
@@ -976,7 +976,7 @@
         "ia": "Interlingua",
         "fr": "Interlingua (langue auxiliaire internationale)"
       },
-      "code": {
+      "codes": {
         "639-3": "ina",
         "639-2B": "ina",
         "639-2T": "ina",
@@ -991,7 +991,7 @@
         "id": "Bahasa Indonesia",
         "fr": "Indonésien"
       },
-      "code": {
+      "codes": {
         "639-3": "ind",
         "639-2B": "ind",
         "639-2T": "ind",
@@ -1006,7 +1006,7 @@
         "ie": "Interlingue",
         "fr": "Interlingue"
       },
-      "code": {
+      "codes": {
         "639-3": "ile",
         "639-2B": "ile",
         "639-2T": "ile",
@@ -1021,7 +1021,7 @@
         "ga": "Gaeilge",
         "fr": "Irlandais"
       },
-      "code": {
+      "codes": {
         "639-3": "gle",
         "639-2B": "gle",
         "639-2T": "gle",
@@ -1036,7 +1036,7 @@
         "ig": "Asụsụ Igbo",
         "fr": "Igbo"
       },
-      "code": {
+      "codes": {
         "639-3": "ibo",
         "639-2B": "ibo",
         "639-2T": "ibo",
@@ -1051,7 +1051,7 @@
         "ik": "Iñupiaq, Iñupiatun",
         "fr": "Inupiaq"
       },
-      "code": {
+      "codes": {
         "639-3": "ipk+2",
         "639-2B": "ipk",
         "639-2T": "ipk",
@@ -1066,7 +1066,7 @@
         "io": "Ido",
         "fr": "Ido"
       },
-      "code": {
+      "codes": {
         "639-6": "idos",
         "639-3": "ido",
         "639-2B": "ido",
@@ -1082,7 +1082,7 @@
         "is": "Íslenska",
         "fr": "Islandais"
       },
-      "code": {
+      "codes": {
         "639-3": "isl",
         "639-2B": "ice",
         "639-2T": "isl",
@@ -1097,7 +1097,7 @@
         "it": "italiano",
         "fr": "Italien"
       },
-      "code": {
+      "codes": {
         "639-6": "itas",
         "639-3": "ita",
         "639-2B": "ita",
@@ -1113,7 +1113,7 @@
         "iu": "ᐃᓄᒃᑎᑐᑦ",
         "fr": "Inuktitut"
       },
-      "code": {
+      "codes": {
         "639-3": "iku+2",
         "639-2B": "iku",
         "639-2T": "iku",
@@ -1128,7 +1128,7 @@
         "ja": "{{lang|ja-Hani|日本語}} ({{lang|ja-Hira|にほんご}})",
         "fr": "Japonais"
       },
-      "code": {
+      "codes": {
         "639-3": "jpn",
         "639-2B": "jpn",
         "639-2T": "jpn",
@@ -1143,7 +1143,7 @@
         "jv": "basa Jawa",
         "fr": "Javanais"
       },
-      "code": {
+      "codes": {
         "639-3": "jav",
         "639-2B": "jav",
         "639-2T": "jav",
@@ -1158,7 +1158,7 @@
         "kl": "kalaallisut, kalaallit oqaasii",
         "fr": "Groenlandais"
       },
-      "code": {
+      "codes": {
         "639-3": "kal",
         "639-2B": "kal",
         "639-2T": "kal",
@@ -1173,7 +1173,7 @@
         "kn": "ಕನ್ನಡ",
         "fr": "Kannada"
       },
-      "code": {
+      "codes": {
         "639-3": "kan",
         "639-2B": "kan",
         "639-2T": "kan",
@@ -1188,7 +1188,7 @@
         "kr": "Kanuri",
         "fr": "Kanouri"
       },
-      "code": {
+      "codes": {
         "639-3": "kau+3",
         "639-2B": "kau",
         "639-2T": "kau",
@@ -1203,7 +1203,7 @@
         "ks": "{{lang|ks-Deva|कश्मीरी}}, {{rtl-lang|ks-Arb|كشميري}}",
         "fr": "Kashmiri"
       },
-      "code": {
+      "codes": {
         "639-3": "kas",
         "639-2B": "kas",
         "639-2T": "kas",
@@ -1218,7 +1218,7 @@
         "kk": "қазақ тілі",
         "fr": "Kazakh"
       },
-      "code": {
+      "codes": {
         "639-3": "kaz",
         "639-2B": "kaz",
         "639-2T": "kaz",
@@ -1233,7 +1233,7 @@
         "km": "ខ្មែរ, ខេមរភាសា, ភាសាខ្មែរ",
         "fr": "Khmer central"
       },
-      "code": {
+      "codes": {
         "639-3": "khm",
         "639-2B": "khm",
         "639-2T": "khm",
@@ -1248,7 +1248,7 @@
         "ki": "Gĩkũyũ",
         "fr": "Kikuyu"
       },
-      "code": {
+      "codes": {
         "639-3": "kik",
         "639-2B": "kik",
         "639-2T": "kik",
@@ -1263,7 +1263,7 @@
         "rw": "Ikinyarwanda",
         "fr": "Rwanda"
       },
-      "code": {
+      "codes": {
         "639-3": "kin",
         "639-2B": "kin",
         "639-2T": "kin",
@@ -1278,7 +1278,7 @@
         "ky": "Кыргызча, Кыргыз тили",
         "fr": "Kirghiz"
       },
-      "code": {
+      "codes": {
         "639-3": "kir",
         "639-2B": "kir",
         "639-2T": "kir",
@@ -1293,7 +1293,7 @@
         "kv": "коми кыв",
         "fr": "Kom"
       },
-      "code": {
+      "codes": {
         "639-3": "kom+2",
         "639-2B": "kom",
         "639-2T": "kom",
@@ -1308,7 +1308,7 @@
         "kg": "Kikongo",
         "fr": "Kongo"
       },
-      "code": {
+      "codes": {
         "639-3": "kon+3",
         "639-2B": "kon",
         "639-2T": "kon",
@@ -1323,7 +1323,7 @@
         "ko": "{{lang|ko-Hang|한국어}}, {{lang|ko-Hang|조선어}} ",
         "fr": "Coréen"
       },
-      "code": {
+      "codes": {
         "639-3": "kor",
         "639-2B": "kor",
         "639-2T": "kor",
@@ -1338,7 +1338,7 @@
         "ku": "{{lang|ku-Latn|Kurdî}}, {{rtl-lang|ku-Arab|كوردی}}",
         "fr": "Kurde"
       },
-      "code": {
+      "codes": {
         "639-3": "kur+3",
         "639-2B": "kur",
         "639-2T": "kur",
@@ -1353,7 +1353,7 @@
         "kj": "Kuanyama",
         "fr": "Kuanyama; kwanyama"
       },
-      "code": {
+      "codes": {
         "639-3": "kua",
         "639-2B": "kua",
         "639-2T": "kua",
@@ -1368,7 +1368,7 @@
         "la": "latine, lingua latina",
         "fr": "Latin"
       },
-      "code": {
+      "codes": {
         "639-6": "lats",
         "639-3": "lat",
         "639-2B": "lat",
@@ -1384,7 +1384,7 @@
         "lb": "Lëtzebuergesch",
         "fr": "Luxembourgeois"
       },
-      "code": {
+      "codes": {
         "639-3": "ltz",
         "639-2B": "ltz",
         "639-2T": "ltz",
@@ -1399,7 +1399,7 @@
         "lg": "Luganda",
         "fr": "Ganda"
       },
-      "code": {
+      "codes": {
         "639-3": "lug",
         "639-2B": "lug",
         "639-2T": "lug",
@@ -1414,7 +1414,7 @@
         "li": "Limburgs",
         "fr": "Limbourgeois"
       },
-      "code": {
+      "codes": {
         "639-3": "lim",
         "639-2B": "lim",
         "639-2T": "lim",
@@ -1429,7 +1429,7 @@
         "ln": "Lingála",
         "fr": "Lingala"
       },
-      "code": {
+      "codes": {
         "639-3": "lin",
         "639-2B": "lin",
         "639-2T": "lin",
@@ -1444,7 +1444,7 @@
         "lo": "ພາສາລາວ",
         "fr": "Lao"
       },
-      "code": {
+      "codes": {
         "639-3": "lao",
         "639-2B": "lao",
         "639-2T": "lao",
@@ -1459,7 +1459,7 @@
         "lt": "lietuvių kalba",
         "fr": "Lituanien"
       },
-      "code": {
+      "codes": {
         "639-3": "lit",
         "639-2B": "lit",
         "639-2T": "lit",
@@ -1474,7 +1474,7 @@
         "lu": "Tshiluba",
         "fr": "Luba-katanga"
       },
-      "code": {
+      "codes": {
         "639-3": "lub",
         "639-2B": "lub",
         "639-2T": "lub",
@@ -1489,7 +1489,7 @@
         "lv": "latviešu valoda",
         "fr": "Letton"
       },
-      "code": {
+      "codes": {
         "639-3": "lav+2",
         "639-2B": "lav",
         "639-2T": "lav",
@@ -1504,7 +1504,7 @@
         "gv": "Gaelg, Gailck",
         "fr": "Manx; mannois"
       },
-      "code": {
+      "codes": {
         "639-3": "glv",
         "639-2B": "glv",
         "639-2T": "glv",
@@ -1519,7 +1519,7 @@
         "mk": "македонски јазик",
         "fr": "Macédonien"
       },
-      "code": {
+      "codes": {
         "639-3": "mkd",
         "639-2B": "mac",
         "639-2T": "mkd",
@@ -1534,7 +1534,7 @@
         "mg": "fiteny malagasy",
         "fr": "Malgache"
       },
-      "code": {
+      "codes": {
         "639-3": "mlg+10",
         "639-2B": "mlg",
         "639-2T": "mlg",
@@ -1549,7 +1549,7 @@
         "ms": "{{lang|ms|bahasa Melayu}}, {{rtl-lang|ms-Arab|بهاس ملايو}}",
         "fr": "Malais"
       },
-      "code": {
+      "codes": {
         "639-3": "msa+13",
         "639-2B": "may",
         "639-2T": "msa",
@@ -1564,7 +1564,7 @@
         "ml": "മലയാളം",
         "fr": "Malayalam"
       },
-      "code": {
+      "codes": {
         "639-3": "mal",
         "639-2B": "mal",
         "639-2T": "mal",
@@ -1579,7 +1579,7 @@
         "mt": "Malti",
         "fr": "Maltais"
       },
-      "code": {
+      "codes": {
         "639-3": "mlt",
         "639-2B": "mlt",
         "639-2T": "mlt",
@@ -1594,7 +1594,7 @@
         "mi": "te reo Māori",
         "fr": "Maori"
       },
-      "code": {
+      "codes": {
         "639-3": "mri",
         "639-2B": "mao",
         "639-2T": "mri",
@@ -1609,7 +1609,7 @@
         "mr": "मराठी",
         "fr": "Marathe"
       },
-      "code": {
+      "codes": {
         "639-3": "mar",
         "639-2B": "mar",
         "639-2T": "mar",
@@ -1624,7 +1624,7 @@
         "mh": "Kajin M̧ajeļ",
         "fr": "Marshall"
       },
-      "code": {
+      "codes": {
         "639-3": "mah",
         "639-2B": "mah",
         "639-2T": "mah",
@@ -1639,7 +1639,7 @@
         "mn": "Монгол хэл",
         "fr": "Mongol"
       },
-      "code": {
+      "codes": {
         "639-3": "mon+2",
         "639-2B": "mon",
         "639-2T": "mon",
@@ -1654,7 +1654,7 @@
         "na": "Ekakairũ Naoero",
         "fr": "Nauruan"
       },
-      "code": {
+      "codes": {
         "639-3": "nau",
         "639-2B": "nau",
         "639-2T": "nau",
@@ -1669,7 +1669,7 @@
         "nv": "Diné bizaad",
         "fr": "Navaho"
       },
-      "code": {
+      "codes": {
         "639-3": "nav",
         "639-2B": "nav",
         "639-2T": "nav",
@@ -1684,7 +1684,7 @@
         "nd": "isiNdebele",
         "fr": "Ndébélé du Nord"
       },
-      "code": {
+      "codes": {
         "639-3": "nde",
         "639-2B": "nde",
         "639-2T": "nde",
@@ -1699,7 +1699,7 @@
         "ne": "नेपाली",
         "fr": "Népalais"
       },
-      "code": {
+      "codes": {
         "639-3": "nep",
         "639-2B": "nep",
         "639-2T": "nep",
@@ -1714,7 +1714,7 @@
         "ng": "Owambo",
         "fr": "Ndonga"
       },
-      "code": {
+      "codes": {
         "639-3": "ndo",
         "639-2B": "ndo",
         "639-2T": "ndo",
@@ -1729,7 +1729,7 @@
         "nb": "Norsk bokmål",
         "fr": "Norvégien bokmål"
       },
-      "code": {
+      "codes": {
         "639-3": "nob",
         "639-2B": "nob",
         "639-2T": "nob",
@@ -1744,7 +1744,7 @@
         "nn": "Norsk nynorsk",
         "fr": "Norvégien nynorsk; nynorsk, norvégien"
       },
-      "code": {
+      "codes": {
         "639-3": "nno",
         "639-2B": "nno",
         "639-2T": "nno",
@@ -1759,7 +1759,7 @@
         "no": "Norsk",
         "fr": "Norvégien"
       },
-      "code": {
+      "codes": {
         "639-3": "nor+2",
         "639-2B": "nor",
         "639-2T": "nor",
@@ -1774,7 +1774,7 @@
         "ii": "ꆈꌠ꒿ Nuosuhxop",
         "fr": "Yi de Sichuan"
       },
-      "code": {
+      "codes": {
         "639-3": "iii",
         "639-2B": "iii",
         "639-2T": "iii",
@@ -1789,7 +1789,7 @@
         "nr": "isiNdebele",
         "fr": "Ndébélé du Sud"
       },
-      "code": {
+      "codes": {
         "639-3": "nbl",
         "639-2B": "nbl",
         "639-2T": "nbl",
@@ -1804,7 +1804,7 @@
         "oc": "occitan, lenga d'òc",
         "fr": "Occitan (après 1500); provençal"
       },
-      "code": {
+      "codes": {
         "639-3": "oci",
         "639-2B": "oci",
         "639-2T": "oci",
@@ -1819,7 +1819,7 @@
         "oj": "ᐊᓂᔑᓈᐯᒧᐎᓐ",
         "fr": "Ojibwa"
       },
-      "code": {
+      "codes": {
         "639-3": "oji+7",
         "639-2B": "oji",
         "639-2T": "oji",
@@ -1834,7 +1834,7 @@
         "cu": "ѩзыкъ словѣньскъ",
         "fr": "Slavon d'église; vieux slave; slavon liturgique; vieux bulgare"
       },
-      "code": {
+      "codes": {
         "639-3": "chu",
         "639-2B": "chu",
         "639-2T": "chu",
@@ -1849,7 +1849,7 @@
         "om": "Afaan Oromoo",
         "fr": "Galla"
       },
-      "code": {
+      "codes": {
         "639-3": "orm+4",
         "639-2B": "orm",
         "639-2T": "orm",
@@ -1864,7 +1864,7 @@
         "or": "ଓଡ଼ିଆ",
         "fr": "Oriya"
       },
-      "code": {
+      "codes": {
         "639-3": "ori",
         "639-2B": "ori",
         "639-2T": "ori",
@@ -1879,7 +1879,7 @@
         "os": "ирон æвзаг",
         "fr": "Ossète"
       },
-      "code": {
+      "codes": {
         "639-3": "oss",
         "639-2B": "oss",
         "639-2T": "oss",
@@ -1894,7 +1894,7 @@
         "pa": "{{lang|pa|ਪੰਜਾਬੀ}}, {{rtl-lang|pa-Arab|پنجابی}}",
         "fr": "Pendjabi"
       },
-      "code": {
+      "codes": {
         "639-3": "pan",
         "639-2B": "pan",
         "639-2T": "pan",
@@ -1909,7 +1909,7 @@
         "pi": "पाऴि",
         "fr": "Pali"
       },
-      "code": {
+      "codes": {
         "639-3": "pli",
         "639-2B": "pli",
         "639-2T": "pli",
@@ -1924,7 +1924,7 @@
         "fa": "فارسی",
         "fr": "Persan"
       },
-      "code": {
+      "codes": {
         "639-3": "fas+2",
         "639-2B": "per",
         "639-2T": "fas",
@@ -1939,7 +1939,7 @@
         "pl": "język polski, polszczyzna",
         "fr": "Polonais"
       },
-      "code": {
+      "codes": {
         "639-6": "pols",
         "639-3": "pol",
         "639-2B": "pol",
@@ -1955,7 +1955,7 @@
         "ps": "پښتو",
         "fr": "Pachto"
       },
-      "code": {
+      "codes": {
         "639-3": "pus+3",
         "639-2B": "pus",
         "639-2T": "pus",
@@ -1970,7 +1970,7 @@
         "pt": "português",
         "fr": "Portugais"
       },
-      "code": {
+      "codes": {
         "639-3": "por",
         "639-2B": "por",
         "639-2T": "por",
@@ -1985,7 +1985,7 @@
         "qu": "Runa Simi, Kichwa",
         "fr": "Quechua"
       },
-      "code": {
+      "codes": {
         "639-3": "que+44",
         "639-2B": "que",
         "639-2T": "que",
@@ -2000,7 +2000,7 @@
         "rm": "rumantsch grischun",
         "fr": "Romanche"
       },
-      "code": {
+      "codes": {
         "639-3": "roh",
         "639-2B": "roh",
         "639-2T": "roh",
@@ -2015,7 +2015,7 @@
         "rn": "Ikirundi",
         "fr": "Rundi"
       },
-      "code": {
+      "codes": {
         "639-3": "run",
         "639-2B": "run",
         "639-2T": "run",
@@ -2030,7 +2030,7 @@
         "ro": "limba română",
         "fr": "Roumain; moldave"
       },
-      "code": {
+      "codes": {
         "639-3": "ron",
         "639-2B": "rum",
         "639-2T": "ron",
@@ -2044,7 +2044,7 @@
         "en": "Rothongua",
         "rh": "荣同话"
       },
-      "code": {
+      "codes": {
         "639-6": "zhrt",
         "639-3": "zhr",
         "639-2B": "zhr",
@@ -2060,7 +2060,7 @@
         "ru": "Русский",
         "fr": "Russe"
       },
-      "code": {
+      "codes": {
         "639-3": "rus",
         "639-2B": "rus",
         "639-2T": "rus",
@@ -2075,7 +2075,7 @@
         "sa": "संस्कृतम्",
         "fr": "Sanskrit"
       },
-      "code": {
+      "codes": {
         "639-3": "san",
         "639-2B": "san",
         "639-2T": "san",
@@ -2090,7 +2090,7 @@
         "sc": "sardu",
         "fr": "Sarde"
       },
-      "code": {
+      "codes": {
         "639-3": "srd+4",
         "639-2B": "srd",
         "639-2T": "srd",
@@ -2105,7 +2105,7 @@
         "sd": "{{lang|sd-Deva|सिन्धी}}, {{rtl-lang|sd-Arab|سنڌي، سندھی}}",
         "fr": "Sindhi"
       },
-      "code": {
+      "codes": {
         "639-3": "snd",
         "639-2B": "snd",
         "639-2T": "snd",
@@ -2120,7 +2120,7 @@
         "se": "Davvisámegiella",
         "fr": "Sami du Nord"
       },
-      "code": {
+      "codes": {
         "639-3": "sme",
         "639-2B": "sme",
         "639-2T": "sme",
@@ -2135,7 +2135,7 @@
         "sm": "gagana fa'a Samoa",
         "fr": "Samoan"
       },
-      "code": {
+      "codes": {
         "639-3": "smo",
         "639-2B": "smo",
         "639-2T": "smo",
@@ -2150,7 +2150,7 @@
         "sg": "yângâ tî sängö",
         "fr": "Sango"
       },
-      "code": {
+      "codes": {
         "639-3": "sag",
         "639-2B": "sag",
         "639-2T": "sag",
@@ -2165,7 +2165,7 @@
         "sr": "српски језик",
         "fr": "Serbe"
       },
-      "code": {
+      "codes": {
         "639-3": "srp ||",
         "639-2B": "srp",
         "639-2T": "srp",
@@ -2180,7 +2180,7 @@
         "gd": "Gàidhlig",
         "fr": "Gaélique; gaélique écossais"
       },
-      "code": {
+      "codes": {
         "639-3": "gla",
         "639-2B": "gla",
         "639-2T": "gla",
@@ -2195,7 +2195,7 @@
         "sn": "chiShona",
         "fr": "Shona"
       },
-      "code": {
+      "codes": {
         "639-3": "sna",
         "639-2B": "sna",
         "639-2T": "sna",
@@ -2210,7 +2210,7 @@
         "si": "සිංහල",
         "fr": "Singhalais"
       },
-      "code": {
+      "codes": {
         "639-3": "sin",
         "639-2B": "sin",
         "639-2T": "sin",
@@ -2225,7 +2225,7 @@
         "sk": "slovenčina, slovenský jazyk",
         "fr": "Slovaque"
       },
-      "code": {
+      "codes": {
         "639-3": "slk",
         "639-2B": "slo",
         "639-2T": "slk",
@@ -2240,7 +2240,7 @@
         "sl": "slovenski jezik, slovenščina",
         "fr": "Slovène"
       },
-      "code": {
+      "codes": {
         "639-3": "slv",
         "639-2B": "slv",
         "639-2T": "slv",
@@ -2255,7 +2255,7 @@
         "so": "Soomaaliga, af Soomaali",
         "fr": "Somali"
       },
-      "code": {
+      "codes": {
         "639-3": "som",
         "639-2B": "som",
         "639-2T": "som",
@@ -2270,7 +2270,7 @@
         "st": "Sesotho",
         "fr": "Sotho du Sud"
       },
-      "code": {
+      "codes": {
         "639-3": "sot",
         "639-2B": "sot",
         "639-2T": "sot",
@@ -2285,7 +2285,7 @@
         "es": "español",
         "fr": "Espagnol; castillan"
       },
-      "code": {
+      "codes": {
         "639-3": "spa",
         "639-2B": "spa",
         "639-2T": "spa",
@@ -2300,7 +2300,7 @@
         "su": "Basa Sunda",
         "fr": "Soundanais"
       },
-      "code": {
+      "codes": {
         "639-3": "sun",
         "639-2B": "sun",
         "639-2T": "sun",
@@ -2315,7 +2315,7 @@
         "sw": "Kiswahili",
         "fr": "Swahili"
       },
-      "code": {
+      "codes": {
         "639-3": "swa+2",
         "639-2B": "swa",
         "639-2T": "swa",
@@ -2330,7 +2330,7 @@
         "ss": "SiSwati",
         "fr": "Swati"
       },
-      "code": {
+      "codes": {
         "639-3": "ssw",
         "639-2B": "ssw",
         "639-2T": "ssw",
@@ -2345,7 +2345,7 @@
         "sv": "svenska",
         "fr": "Suédois"
       },
-      "code": {
+      "codes": {
         "639-3": "swe",
         "639-2B": "swe",
         "639-2T": "swe",
@@ -2360,7 +2360,7 @@
         "ta": "தமிழ்",
         "fr": "Tamoul"
       },
-      "code": {
+      "codes": {
         "639-3": "tam",
         "639-2B": "tam",
         "639-2T": "tam",
@@ -2375,7 +2375,7 @@
         "te": "తెలుగు",
         "fr": "Télougou"
       },
-      "code": {
+      "codes": {
         "639-3": "tel",
         "639-2B": "tel",
         "639-2T": "tel",
@@ -2390,7 +2390,7 @@
         "tg": "{{lang|tg-Cyrl|тоҷикӣ}}, {{lang|tg-Latn|toçikī}}, {{rtl-lang|tg-Arab|تاجیکی}}",
         "fr": "Tadjik"
       },
-      "code": {
+      "codes": {
         "639-3": "tgk",
         "639-2B": "tgk",
         "639-2T": "tgk",
@@ -2405,7 +2405,7 @@
         "th": "ไทย",
         "fr": "Thaï"
       },
-      "code": {
+      "codes": {
         "639-3": "tha",
         "639-2B": "tha",
         "639-2T": "tha",
@@ -2420,7 +2420,7 @@
         "ti": "ትግርኛ",
         "fr": "Tigrigna"
       },
-      "code": {
+      "codes": {
         "639-3": "tir",
         "639-2B": "tir",
         "639-2T": "tir",
@@ -2435,7 +2435,7 @@
         "bo": "བོད་ཡིག",
         "fr": "Tibétain"
       },
-      "code": {
+      "codes": {
         "639-3": "bod",
         "639-2B": "tib",
         "639-2T": "bod",
@@ -2450,7 +2450,7 @@
         "tk": "Türkmen, Түркмен",
         "fr": "Turkmène"
       },
-      "code": {
+      "codes": {
         "639-3": "tuk",
         "639-2B": "tuk",
         "639-2T": "tuk",
@@ -2465,7 +2465,7 @@
         "tl": "Wikang Tagalog, ᜏᜒᜃᜅ᜔ ᜆᜄᜎᜓᜄ᜔",
         "fr": "Tagalog"
       },
-      "code": {
+      "codes": {
         "639-3": "tgl",
         "639-2B": "tgl",
         "639-2T": "tgl",
@@ -2480,7 +2480,7 @@
         "tn": "Setswana",
         "fr": "Tswana"
       },
-      "code": {
+      "codes": {
         "639-3": "tsn",
         "639-2B": "tsn",
         "639-2T": "tsn",
@@ -2495,7 +2495,7 @@
         "to": "faka Tonga",
         "fr": "Tongan (Îles Tonga)"
       },
-      "code": {
+      "codes": {
         "639-3": "ton",
         "639-2B": "ton",
         "639-2T": "ton",
@@ -2510,7 +2510,7 @@
         "tr": "Türkçe",
         "fr": "Turc"
       },
-      "code": {
+      "codes": {
         "639-3": "tur",
         "639-2B": "tur",
         "639-2T": "tur",
@@ -2525,7 +2525,7 @@
         "ts": "Xitsonga",
         "fr": "Tsonga"
       },
-      "code": {
+      "codes": {
         "639-3": "tso",
         "639-2B": "tso",
         "639-2T": "tso",
@@ -2540,7 +2540,7 @@
         "tt": "{{lang|tt-Cyrl|татар теле}}, {{lang|tt-Latn|tatar tele}}",
         "fr": "Tatar"
       },
-      "code": {
+      "codes": {
         "639-3": "tat",
         "639-2B": "tat",
         "639-2T": "tat",
@@ -2555,7 +2555,7 @@
         "tw": "Twi",
         "fr": "Twi"
       },
-      "code": {
+      "codes": {
         "639-3": "twi ||",
         "639-2B": "twi",
         "639-2T": "twi",
@@ -2570,7 +2570,7 @@
         "ty": "Reo Tahiti",
         "fr": "Tahitien"
       },
-      "code": {
+      "codes": {
         "639-3": "tah",
         "639-2B": "tah",
         "639-2T": "tah",
@@ -2585,7 +2585,7 @@
         "ug": "{{rtl-lang|ug-Arab|ئۇيغۇرچە}}, {{lang|ug-Latn|Uyghurche}}",
         "fr": "Ouïgour"
       },
-      "code": {
+      "codes": {
         "639-3": "uig",
         "639-2B": "uig",
         "639-2T": "uig",
@@ -2600,7 +2600,7 @@
         "uk": "українська мова",
         "fr": "Ukrainien"
       },
-      "code": {
+      "codes": {
         "639-3": "ukr",
         "639-2B": "ukr",
         "639-2T": "ukr",
@@ -2615,7 +2615,7 @@
         "ur": "اردو",
         "fr": "Ourdou"
       },
-      "code": {
+      "codes": {
         "639-3": "urd",
         "639-2B": "urd",
         "639-2T": "urd",
@@ -2630,7 +2630,7 @@
         "uz": "{{lang|uz-Latn|Oʻzbek}}, {{lang|uz-Cyrl|Ўзбек}}, {{rtl-lang|uz-Arab|أۇزبېك}}",
         "fr": "Ouszbek"
       },
-      "code": {
+      "codes": {
         "639-3": "uzb+2",
         "639-2B": "uzb",
         "639-2T": "uzb",
@@ -2645,7 +2645,7 @@
         "ve": "Tshivenḓa",
         "fr": "Venda"
       },
-      "code": {
+      "codes": {
         "639-3": "ven",
         "639-2B": "ven",
         "639-2T": "ven",
@@ -2660,7 +2660,7 @@
         "vi": "Tiếng Việt",
         "fr": "Vietnamien"
       },
-      "code": {
+      "codes": {
         "639-3": "vie",
         "639-2B": "vie",
         "639-2T": "vie",
@@ -2675,7 +2675,7 @@
         "vo": "Volapük",
         "fr": "Volapük"
       },
-      "code": {
+      "codes": {
         "639-3": "vol",
         "639-2B": "vol",
         "639-2T": "vol",
@@ -2690,7 +2690,7 @@
         "wa": "walon",
         "fr": "Wallon"
       },
-      "code": {
+      "codes": {
         "639-3": "wln",
         "639-2B": "wln",
         "639-2T": "wln",
@@ -2705,7 +2705,7 @@
         "cy": "Cymraeg",
         "fr": "Gallois"
       },
-      "code": {
+      "codes": {
         "639-3": "cym",
         "639-2B": "wel",
         "639-2T": "cym",
@@ -2720,7 +2720,7 @@
         "wo": "Wollof",
         "fr": "Wolof"
       },
-      "code": {
+      "codes": {
         "639-3": "wol",
         "639-2B": "wol",
         "639-2T": "wol",
@@ -2735,7 +2735,7 @@
         "fy": "Frysk",
         "fr": "Frison occidental"
       },
-      "code": {
+      "codes": {
         "639-3": "fry",
         "639-2B": "fry",
         "639-2T": "fry",
@@ -2750,7 +2750,7 @@
         "xh": "isiXhosa",
         "fr": "Xhosa"
       },
-      "code": {
+      "codes": {
         "639-3": "xho",
         "639-2B": "xho",
         "639-2T": "xho",
@@ -2765,7 +2765,7 @@
         "yi": "ייִדיש",
         "fr": "Yiddish"
       },
-      "code": {
+      "codes": {
         "639-3": "yid+2",
         "639-2B": "yid",
         "639-2T": "yid",
@@ -2780,7 +2780,7 @@
         "yo": "Yorùbá",
         "fr": "Yoruba"
       },
-      "code": {
+      "codes": {
         "639-3": "yor",
         "639-2B": "yor",
         "639-2T": "yor",
@@ -2795,7 +2795,7 @@
         "za": "Saɯ cueŋƅ, Saw cuengh",
         "fr": "Zhuang; chuang"
       },
-      "code": {
+      "codes": {
         "639-3": "zha+16",
         "639-2B": "zha",
         "639-2T": "zha",
@@ -2810,7 +2810,7 @@
         "zu": "isiZulu",
         "fr": "Zoulou"
       },
-      "code": {
+      "codes": {
         "639-3": "zul",
         "639-2B": "zul",
         "639-2T": "zul",
