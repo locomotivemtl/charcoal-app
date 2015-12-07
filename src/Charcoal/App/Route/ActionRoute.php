@@ -5,9 +5,6 @@ namespace Charcoal\App\Route;
 // Dependencies from `PHP`
 use \InvalidArgumentException;
 
-// slim/slim dependencies
-use \Slim\App as SlimApp;
-
 // PSR-7 (http messaging) dependencies
 use \Psr\Http\Message\RequestInterface;
 use \Psr\Http\Message\ResponseInterface;
@@ -18,7 +15,7 @@ use \Charcoal\Config\ConfigurableInterface;
 use \Charcoal\Config\ConfigurableTrait;
 
 // Intra-module (`charcoal-app`) dependencies
-use \Charcoal\App\App;
+use \Charcoal\App\AppInterface;
 use \Charcoal\App\Action\ActionFactory;
 use \Charcoal\App\LoggerAwareInterface;
 use \Charcoal\App\LoggerAwareTrait;
@@ -37,7 +34,7 @@ class ActionRoute implements
     use LoggerAwareTrait;
 
     /**
-     * @var App $app
+     * @var AppInterface $app
      */
     private $app;
 
@@ -61,10 +58,10 @@ class ActionRoute implements
     /**
      * Set the action route's reference to the Charcoal App.
      *
-     * @param  App $app The Charcoal Application instance.
+     * @param  AppInterface $app The Charcoal Application instance.
      * @return TemplateRoute Chainable
      */
-    protected function set_app(App $app)
+    protected function set_app(AppInterface $app)
     {
         $this->app = $app;
         return $this;
@@ -73,7 +70,7 @@ class ActionRoute implements
     /**
      * Get the action route's reference to the Charcoal App
      *
-     * @return App
+     * @return AppInterface
      */
     protected function app()
     {

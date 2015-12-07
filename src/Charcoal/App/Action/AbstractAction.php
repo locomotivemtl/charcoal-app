@@ -13,7 +13,7 @@ use \Psr\Http\Message\ResponseInterface;
 use \Charcoal\Translation\TranslationString;
 
 // Intra-module (`charcoal-app`) dependencies
-use \Charcoal\App\App;
+use \Charcoal\App\AppInterface;
 use \Charcoal\App\Action\ActionInterface;
 use \Charcoal\App\LoggerAwareInterface;
 use \Charcoal\App\LoggerAwareTrait;
@@ -32,7 +32,7 @@ abstract class AbstractAction implements
     const DEFAULT_MODE = self::MODE_JSON;
 
     /**
-     * @var App
+     * @var AppInterface
      */
     private $app;
 
@@ -97,23 +97,22 @@ abstract class AbstractAction implements
     }
 
     /**
-     * @param App $app The template's parent charcoal app instance.
-     * @return App Chainable
+     * @param AppInterface $app The template's parent charcoal app instance.
+     * @return AbstractAction Chainable
      */
-    public function set_app(App $app)
+    public function set_app(AppInterface $app)
     {
         $this->app = $app;
         return $this;
     }
 
     /**
-     * @return App
+     * @return AppInterface
      */
     public function app()
     {
         return $this->app;
     }
-
 
     /**
      * @param array $data The data to set.

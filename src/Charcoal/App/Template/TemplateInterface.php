@@ -3,7 +3,7 @@
 namespace Charcoal\App\Template;
 
 // Intra-module (`charcoal-app`) dependencies
-use \Charcoal\App\App;
+use \Charcoal\App\AppInterface;
 
 /**
  *
@@ -18,13 +18,13 @@ interface TemplateInterface
     public function set_data(array $data);
 
     /**
-     * @param SlimApp $app The Slim app instance.
-     * @return App Chainable
+     * @param AppInterface $app The Charcoal Application instance.
+     * @return TemplateInterface Chainable
      */
-    public function set_app(App $app);
+    public function set_app(AppInterface $app);
 
     /**
-     * @return SlimApp
+     * @return AppInterface
      */
     public function app();
 }

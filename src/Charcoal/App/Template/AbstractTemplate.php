@@ -8,7 +8,7 @@ use \Charcoal\View\ViewableInterface;
 use \Charcoal\View\ViewableTrait;
 
 // Intra-module (`charcoal-app`) dependencies
-use \Charcoal\App\App;
+use \Charcoal\App\AppInterface;
 use \Charcoal\App\LoggerAwareInterface;
 use \Charcoal\App\LoggerAwareTrait;
 use \Charcoal\App\Template\TemplateInterface;
@@ -26,7 +26,7 @@ abstract class AbstractTemplate implements
     use LoggerAwareTrait;
 
     /**
-     * @var App $app
+     * @var AppInterface $app
      */
     private $app;
 
@@ -40,17 +40,17 @@ abstract class AbstractTemplate implements
     }
 
     /**
-     * @param App $app The template's parent charcoal app instance.
-     * @return App Chainable
+     * @param AppInterface $app The template's parent charcoal app instance.
+     * @return AbstractTemplate Chainable
      */
-    public function set_app(App $app)
+    public function set_app(AppInterface $app)
     {
         $this->app = $app;
         return $this;
     }
 
     /**
-     * @return App
+     * @return AppInterface
      */
     public function app()
     {
@@ -87,7 +87,7 @@ abstract class AbstractTemplate implements
     public function create_view(array $data = null)
     {
         $view = new GenericView([
-            'logger'=>$this->logger()
+            'logger' => $this->logger()
         ]);
         if ($data !== null) {
             $view->set_data($data);
