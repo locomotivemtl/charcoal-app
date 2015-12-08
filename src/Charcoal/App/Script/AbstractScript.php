@@ -5,17 +5,28 @@ namespace Charcoal\App\Script;
 // Dependencies from `PHP`
 use \InvalidArgumentException;
 
+// PSR-7 (http messaging) dependencies
+use \Psr\Http\Message\RequestInterface;
+use \Psr\Http\Message\ResponseInterface;
+
 // `thephpleague/climate` dependencies
 use \League\CLImate\CLImate;
 
-// Local namespace dependencies
+// Intra-module (`charcoal-app`) dependencies
+use \Charcoal\App\AppInterface;
+use \Charcoal\App\LoggerAwareInterface;
+use \Charcoal\App\LoggerAwareTrait;
 use \Charcoal\App\Script\ScriptInterface;
 
 /**
  *
  */
-abstract class AbstractScript implements ScriptInterface
+abstract class AbstractScript implements
+    LoggerAwareInterface,
+    ScriptInterface
 {
+    use LoggerAwareTrait;
+
     /**
      * @var string $ident
      */
@@ -31,17 +42,102 @@ abstract class AbstractScript implements ScriptInterface
      */
     private $arguments;
 
-
     /**
      * @var CLImate $climate
      */
     private $climate;
 
+    /**
+     * @var boolean $quiet
+     */
+    private $quiet;
 
     /**
      * @var boolean $verbose
      */
     private $verbose;
+
+    /**
+     * @param array $data The dependencies (app and logger).
+     */
+    final public function __construct(array $data = null)
+    {
+        $this->set_logger($data['logger']);
+        $this->set_app($data['app']);
+
+        $this->init();
+    }
+
+    /**
+     * @return void
+     */
+    public function init()
+    {
+        $arguments = $this->default_arguments();
+        $this->set_arguments($arguments);
+    }
+
+    /**
+     * @param RequestInterface  $request  A PSR-7 compatible Request instance.
+     * @param ResponseInterface $response A PSR-7 compatible Response instance.
+     * @return ResponseInterface
+     */
+    final public function __invoke(RequestInterface $request, ResponseInterface $response)
+    {
+        $climate = $this->climate();
+
+        if ($climate->arguments->defined('help')) {
+            $climate->usage();
+            die();
+        }
+
+        $climate->arguments->parse();
+        $this->set_quiet($climate->arguments->get('quiet'));
+        $this->set_verbose($climate->arguments->get('verbose'));
+
+        return $this->run($request, $response);
+    }
+
+    /**
+     * @param AppInterface $app The template's parent charcoal app instance.
+     * @return AbstractAction Chainable
+     */
+    public function set_app(AppInterface $app)
+    {
+        $this->app = $app;
+        return $this;
+    }
+
+    /**
+     * @return AppInterface
+     */
+    public function app()
+    {
+        return $this->app;
+    }
+
+    /**
+     * @param array $data The data to set.
+     * @return AbstractAction Chainable
+     */
+    public function set_data(array $data)
+    {
+        foreach ($data as $prop => $val) {
+            $func = [$this, 'set_'.$prop];
+
+            if ($val === null) {
+                continue;
+            }
+
+            if (is_callable($func)) {
+                call_user_func($func, $val);
+                unset($data[$prop]);
+            } else {
+                $this->{$prop} = $val;
+            }
+        }
+        return $this;
+    }
 
     /**
      * @return CLImate
@@ -62,14 +158,19 @@ abstract class AbstractScript implements ScriptInterface
         return [
             'help' => [
                 'longPrefix'   => 'help',
-                'description'  => 'Prints a usage statement',
+                'description'  => 'Prints a usage statement.',
                 'noValue'      => true
             ],
             'quiet' => [
                 'prefix'       => 'q',
                 'longPrefix'   => 'quiet',
-                'description'  => 'Disable Output additional information on operations',
+                'description'  => 'Disable output as much as possible.',
                 'noValue'      => false
+            ],
+            'verbose' => [
+                'prefix'        => 'v',
+                'longPrefix'    => 'verbose',
+                'description'   => ''
             ]
         ];
     }
@@ -89,7 +190,7 @@ abstract class AbstractScript implements ScriptInterface
         $this->ident = $ident;
         return $this;
     }
-    
+
     /**
      * @return string
      */
@@ -122,7 +223,43 @@ abstract class AbstractScript implements ScriptInterface
     {
         return $this->description;
     }
-    
+
+        /**
+         * @param boolean $quiet The quiet flag.
+         * @return ScriptInterface Chainable
+         */
+    public function set_quiet($quiet)
+    {
+        $this->quiet = !!$quiet;
+        return $this;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function quiet()
+    {
+        return $this->quiet;
+    }
+
+    /**
+     * @param boolean $verbose The verbose flag.
+     * @return ScriptInterface Chainable
+     */
+    public function set_verbose($verbose)
+    {
+        $this->verbose = !!$verbose;
+        return $this;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function verbose()
+    {
+        return $this->verbose;
+    }
+
     /**
      * @param array $arguments The scripts argument array, as [key=>value].
      * @return ScriptInterface Chainable
@@ -196,7 +333,7 @@ abstract class AbstractScript implements ScriptInterface
             $arg_desc = $a['description'];
             $input_type = isset($a['inputType']) ? $a['inputType'] : 'text';
             $choices = isset($a['choices']) ? $a['choices'] : null;
-        
+
         } else {
             $arg_desc = $arg_name;
             $input_type = 'text';
@@ -213,38 +350,6 @@ abstract class AbstractScript implements ScriptInterface
         }
         $arg = $input->prompt();
         return $arg;
-        
-    }
 
-    /**
-     * @param boolean $verbose The verbose flag.
-     * @throws InvalidArgumentException If the parameter is not a boolean.
-     * @return ScriptInterface Chainable
-     */
-    public function set_verbose($verbose)
-    {
-        if (!is_bool($verbose)) {
-            throw new InvalidArgumentException(
-                'Verbose flag must be a boolean'
-            );
-        }
-        $this->verbose = $verbose;
-        return $this;
-    }
-
-    /**
-     * @return boolean
-     */
-    public function verbose()
-    {
-        return $this->verbose;
-    }
-
-    /**
-     * @return string
-     */
-    public function help()
-    {
-        return $this->climate()->usage();
     }
 }

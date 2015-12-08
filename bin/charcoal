@@ -1,20 +1,17 @@
 #!/usr/bin/env php
 <?php
 
-use \Charcoal\App\App as CharcoalApp;
+use \Charcoal\Charcoal;
+use \Charcoal\App\App;
 use \Charcoal\App\AppConfig;
 
-// Slim dependencies
 use \Slim\App as SlimApp;
 use \Slim\Container as SlimContainer;
 use \Slim\Http\Environment as SlimEnvironment;
 
 $autoloader_path = [
 	__DIR__. '/../../../../vendor/autoload.php',
-    __DIR__. '/../../../vendor/autoload.php',
-    __DIR__. '/../../vendor/autoload.php',
-	__DIR__. '/../vendor/autoload.php',
-	__DIR__. '/vendor/autoload.php'
+	__DIR__. '/../vendor/autoload.php'
 ];
 
 foreach ($autoloader_path as $file) {
@@ -36,7 +33,7 @@ $argv = $GLOBALS['argv'];
 if (!isset($argv[1])) {
     die('This script requires at least one parameter: the script action name / ident.'."\n");
 }
-$path = '/'.$argv[1];
+$path = '/'.ltrim($argv[1], '/');
 
 \Charcoal\Charcoal::init([
     'config'=>new \Charcoal\CharcoalConfig($base_dir.'/config/config.php')
@@ -45,7 +42,39 @@ $path = '/'.$argv[1];
 // Create container and configure it (with charcoal-config)
 $container = new SlimContainer();
 
-// Main Charcoal Config
+// Handle "404 Not Found"
+$container['notFoundHandler'] = function ($c)
+{
+    return function ($request, $response) use ($c)
+    {
+        return $c['response']
+            ->withStatus(404)
+            ->write('Script not found'."\n");
+    };
+};
+
+// Handle "500 Server Error"
+$container['errorHandler'] = function ($c)
+{
+    return function ($request, $response, $exception) use ($c)
+    {
+        return $c['response']
+        	->withStatus(500)
+			->write(
+				sprintf('Something went wrong! (%s)'."\n", $exception->getMessage())
+			);
+	};
+};
+
+// Remove me. This is for backward compatibility.
+$container['config'] = function($c) use ($base_dir) {
+    $config = new \Charcoal\CharcoalConfig();
+    $config->add_file($base_dir.'/config/config.php');
+    return $config;
+};
+// Remove me. This is for backward compatibility.
+$container['charcoal/config'] = $container['config'];
+
 $container['charcoal/app/config'] = function($c) use ($base_dir) {
     $config = new AppConfig();
     $config->add_file($base_dir.'/config/config.php');
@@ -57,35 +86,11 @@ $container['environment'] = function($c) use ($path) {
     return SlimEnvironment::mock([
         'PATH_INFO' => $path,
         'REQUEST_URI' => $path
-    ]); 
+    ]);
 };
 
-// Handle "404 Not Found"
-$container['notFoundHandler'] = function ($c) 
-{ 
-    return function ($request, $response) use ($c) 
-    { 
-        return $c['response'] 
-            ->withStatus(404) 
-            ->write('Script not found'."\n"); 
-    }; 
-};
-
-// Handle "500 Server Error" 
-$container['errorHandler'] = function ($c) 
-{
-    return function ($request, $response, $exception) use ($c) 
-    {
-        return $c['response']
-        	->withStatus(500)
-			->write(
-				sprintf('Something went wrong! (%s)'."\n", $exception->getMessage())
-			);
-	};
-};
-
-// Slim is the main app
-$app = new SlimApp($container);
+// Charcoal / Slim is the main app
+$app = new App($container);
 
 // Set up dependencies
 require __DIR__.'/../config/dependencies.php';
@@ -94,10 +99,12 @@ require __DIR__.'/../config/middlewares.php';
 // Register routes
 require __DIR__.'/../config/routes.php';
 
-$charcoal = new CharcoalApp([
-    'config' => $container['charcoal/app/config'], 
-    'app' => $app
+$app->set_logger($container['logger']);
+
+// @todo: This is needed for backward-compatibility and should be fixed / removed.
+\Charcoal\Charcoal::init([
+    'config'=>new \Charcoal\CharcoalConfig($base_dir.'/config/config.php'),
+    'logger'=>$container['logger']
 ]);
-$charcoal->setup();
 
 $app->run();

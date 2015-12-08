@@ -101,19 +101,20 @@ class ScriptRoute implements
      */
     public function __invoke(RequestInterface $request, ResponseInterface $response)
     {
-        unset($request);
-
         $config = $this->config();
 
         $script_ident = $config['ident'];
+        $script_controller = $config['controller'];
 
         $script_factory = new ScriptFactory();
         $script = $script_factory->create($script_ident, [
-            'app' => $this->app()
+            'app' => $this->app(),
+            'logger' => $this->logger()
         ]);
 
-        $action->set_data($config['script_data']);
+        $script->set_data($config['script_data']);
 
-        return $response;
+        // Run (invoke) script.
+        return $script($request, $response);
     }
 }

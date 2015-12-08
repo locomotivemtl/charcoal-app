@@ -2,6 +2,10 @@
 
 namespace Charcoal\App\Script;
 
+// PSR-7 (http messaging) dependencies
+use \Psr\Http\Message\RequestInterface;
+use \Psr\Http\Message\ResponseInterface;
+
 /**
  * Script are actions called from the CLI.
  *
@@ -15,7 +19,7 @@ interface ScriptInterface
      * @return ScriptInterface Chainable
      */
     public function set_ident($ident);
-    
+
     /**
      * @return string
      */
@@ -31,7 +35,7 @@ interface ScriptInterface
      * @return string
      */
     public function description();
-    
+
     /**
      * @param array $arguments The script arguments array, as [key=>value].
      * @return ScriptInterface Chainable
@@ -65,7 +69,9 @@ interface ScriptInterface
     public function arg_or_input($arg_name);
 
     /**
-     * @return string
+     * @param RequestInterface  $request  A PSR-7 compatible Request instance.
+     * @param ResponseInterface $response A PSR-7 compatible Response instance.
+     * @return ResponseInterface
      */
-    public function help();
+    public function run(RequestInterface $request, ResponseInterface $response);
 }

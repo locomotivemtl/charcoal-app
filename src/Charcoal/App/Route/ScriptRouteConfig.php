@@ -3,12 +3,12 @@
 namespace Charcoal\App\Route;
 
 // Local namespace dependencies
-use \Charcoal\App\Route\AbstractRouteConfig;
+use \Charcoal\App\Route\RouteConfig;
 
 /**
  *
  */
-class ScriptRouteConfig extends AbstractRouteConfig
+class ScriptRouteConfig extends RouteConfig
 {
     /**
      * @var array $script_data
