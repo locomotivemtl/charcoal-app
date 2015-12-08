@@ -4,6 +4,7 @@ namespace Charcoal\App;
 
 // PHP Dependencies
 use \Exception;
+use \LogicException;
 
 // Slim Dependencies
 use \Slim\App as SlimApp;
@@ -43,6 +44,13 @@ class App extends SlimApp implements
     use ConfigurableTrait;
 
     /**
+     * Store the unique instance
+     *
+     * @var App $instance
+     */
+    protected static $instance;
+
+    /**
      * @var ModuleManager
      */
     private $module_manager;
@@ -77,14 +85,68 @@ class App extends SlimApp implements
      *
      * @uses  SlimApp::__construct()
      * @param ContainerInterface|array $container The application's settings.
-     * @todo  Document required dependencies.
+     * @throws LogicException If trying to create a new instance of a singleton.
      */
     public function __construct($container)
     {
+        if (isset(static::$instance)) {
+            throw new LogicException(
+                sprintf(
+                    '"%s" is a singleton. Use static instance() method.',
+                    get_called_class()
+                )
+            );
+        }
+
         // SlimApp constructor
         parent::__construct($container);
 
         $this->set_config($container['charcoal/app/config']);
+    }
+
+    /**
+     * @throws LogicException If trying to clone an instance of a singleton.
+     * @return void
+     */
+    final private function __clone()
+    {
+        throw new LogicException(
+            sprintf(
+                'Cloning "%s" is not allowed.',
+                get_called_class()
+            )
+        );
+    }
+
+    /**
+     * @throws LogicException If trying to unserialize an instance of a singleton.
+     * @return void
+     */
+    final private function __wakeup()
+    {
+        throw new LogicException(
+            sprintf(
+                'Unserializing "%s" is not allowed.',
+                get_called_class()
+            )
+        );
+    }
+
+    /**
+     * Getter for creating/returning the unique instance of this class.
+     *
+     * @param ContainerInterface|array|null $container The application's settings.
+     * @return self
+     */
+    public static function instance($container = null)
+    {
+        if (!isset(static::$instance)) {
+            $called_class = get_called_class();
+
+            static::$instance = new $called_class($container);
+        }
+
+        return static::$instance;
     }
 
     /**
