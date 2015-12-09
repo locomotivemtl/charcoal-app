@@ -15,6 +15,8 @@ use \Charcoal\Config\ConfigurableInterface;
 use \Charcoal\Config\ConfigurableTrait;
 
 // Intra-module (`charcoal-app`) dependencies
+use \Charcoal\App\AppAwareInterface;
+use \Charcoal\App\AppAwareTrait;
 use \Charcoal\App\AppInterface;
 use \Charcoal\App\LoggerAwareInterface;
 use \Charcoal\App\LoggerAwareTrait;
@@ -26,17 +28,14 @@ use \Charcoal\App\Script\ScriptFactory;
  *
  */
 class ScriptRoute implements
+    AppAwareInterface,
     ConfigurableInterface,
     LoggerAwareInterface,
     RouteInterface
 {
+    use AppAwareTrait;
     use ConfigurableTrait;
     use LoggerAwareTrait;
-
-    /**
-     * @var AppInterface $app
-     */
-    private $app;
 
     /**
      * Create new script route (CLI)
