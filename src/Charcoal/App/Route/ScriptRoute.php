@@ -62,28 +62,6 @@ class ScriptRoute implements
     }
 
     /**
-     * Set the script's reference to the Charcoal App.
-     *
-     * @param  AppInterface $app The Charcoal Application instance.
-     * @return TemplateRoute Chainable
-     */
-    protected function set_app(AppInterface $app)
-    {
-        $this->app = $app;
-        return $this;
-    }
-
-    /**
-     * Get the script's reference to the Charcoal App
-     *
-     * @return AppInterface
-     */
-    protected function app()
-    {
-        return $this->app;
-    }
-
-    /**
      * ConfigurableTrait > create_config()
      *
      * @param mixed|null $data Optional config data.

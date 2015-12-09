@@ -8,6 +8,8 @@ use \Charcoal\Config\ConfigurableTrait;
 
 
 // Intra-module (`charcoal-app`) dependencies
+use \Charcoal\App\AppAwareInterface;
+use \Charcoal\App\AppAwareTrait;
 use \Charcoal\App\AppConfig;
 use \Charcoal\App\AppInterface;
 use \Charcoal\App\Action\ActionFactory;
@@ -21,17 +23,14 @@ use \Charcoal\App\Route\RouteManager;
  *
  */
 abstract class AbstractModule implements
+    AppAwareInterface,
     ConfigurableInterface,
     LoggerAwareInterface,
     ModuleInterface
 {
+    use AppAwareTrait;
     use ConfigurableTrait;
     use LoggerAwareTrait;
-
-    /**
-     * @var AppInterface
-     */
-    private $app;
 
     /**
      * @param array $data Module dependencies.
@@ -42,24 +41,6 @@ abstract class AbstractModule implements
         $this->set_logger($data['logger']);
     }
 
-    /**
-     * @param AppInterface $app The module parent app.
-     * @return ModuleInterface Chainable
-     */
-    public function set_app(AppInterface $app)
-    {
-        $this->app = $app;
-        return $this;
-    }
-
-    /**
-     * @return AppInterface
-     */
-    public function app()
-    {
-        return $this->app;
-    }
-    
     /**
      * @return void
      */

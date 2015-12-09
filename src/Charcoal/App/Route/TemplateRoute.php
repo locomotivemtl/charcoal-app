@@ -14,6 +14,8 @@ use \Charcoal\Config\ConfigurableInterface;
 use \Charcoal\Config\ConfigurableTrait;
 
 // Intra-module (`charcoal-app`) dependencies
+use \Charcoal\App\AppAwareInterface;
+use \Charcoal\App\AppAwareTrait;
 use \Charcoal\App\AppInterface;
 use \Charcoal\App\LoggerAwareInterface;
 use \Charcoal\App\LoggerAwareTrait;
@@ -25,17 +27,15 @@ use \Charcoal\App\Template\TemplateFactory;
  *
  */
 class TemplateRoute implements
+    AppAwareInterface,
     ConfigurableInterface,
     LoggerAwareInterface,
     RouteInterface
 {
+    use AppAwareTrait;
     use ConfigurableTrait;
     use LoggerAwareTrait;
 
-    /**
-     * @var AppInterface $app
-     */
-    private $app;
 
     /**
      * Create new template route
@@ -58,28 +58,6 @@ class TemplateRoute implements
         $this->set_config($data['config']);
         $this->set_app($data['app']);
         $this->set_logger($data['logger']);
-    }
-
-    /**
-     * Set the template route's reference to the Charcoal App.
-     *
-     * @param  AppInterface $app The Charcoal Application instance.
-     * @return TemplateRoute Chainable
-     */
-    protected function set_app(AppInterface $app)
-    {
-        $this->app = $app;
-        return $this;
-    }
-
-    /**
-     * Get the template route's reference to the Charcoal App
-     *
-     * @return AppInterface
-     */
-    protected function app()
-    {
-        return $this->app;
     }
 
     /**

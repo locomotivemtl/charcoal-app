@@ -8,6 +8,8 @@ use \Charcoal\View\ViewableInterface;
 use \Charcoal\View\ViewableTrait;
 
 // Intra-module (`charcoal-app`) dependencies
+use \Charcoal\App\AppAwareInterface;
+use \Charcoal\App\AppAwareTrait;
 use \Charcoal\App\AppInterface;
 use \Charcoal\App\LoggerAwareInterface;
 use \Charcoal\App\LoggerAwareTrait;
@@ -17,18 +19,15 @@ use \Charcoal\App\Template\TemplateInterface;
  *
  */
 abstract class AbstractTemplate implements
+    AppAwareInterface,
     LoggerAwareInterface,
     TemplateInterface,
     ViewableInterface
 {
-
+    use AppAwareTrait;
     use ViewableTrait;
     use LoggerAwareTrait;
 
-    /**
-     * @var AppInterface $app
-     */
-    private $app;
 
     /**
      * @param array $data The dependencies (app and logger).
@@ -40,26 +39,6 @@ abstract class AbstractTemplate implements
     }
 
     /**
-     * @param AppInterface $app The template's parent charcoal app instance.
-     * @return AbstractTemplate Chainable
-     */
-    public function set_app(AppInterface $app)
-    {
-        $this->app = $app;
-        return $this;
-    }
-
-    /**
-     * @return AppInterface
-     */
-    public function app()
-    {
-        return $this->app;
-    }
-
-    /**
-     * The default Template View is a simple GenericView.
-     *
      * @param array $data The data array (as [key=>value] pair) to set.
      * @return AbtractTemplate Chainable
      */
@@ -67,6 +46,11 @@ abstract class AbstractTemplate implements
     {
         foreach ($data as $prop => $val) {
             $func = [$this, 'set_'.$prop];
+
+            if ($val === null) {
+                continue;
+            }
+
             if (is_callable($func)) {
                 call_user_func($func, $val);
             } else {

@@ -13,6 +13,8 @@ use \Psr\Http\Message\ResponseInterface;
 use \Charcoal\Translation\TranslationString;
 
 // Intra-module (`charcoal-app`) dependencies
+use \Charcoal\App\AppAwareInterface;
+use \Charcoal\App\AppAwareTrait;
 use \Charcoal\App\AppInterface;
 use \Charcoal\App\Action\ActionInterface;
 use \Charcoal\App\LoggerAwareInterface;
@@ -23,18 +25,15 @@ use \Charcoal\App\LoggerAwareTrait;
  */
 abstract class AbstractAction implements
     ActionInterface,
+    AppAwareInterface,
     LoggerAwareInterface
 {
+    use AppAwareTrait;
     use LoggerAwareTrait;
 
     const MODE_JSON = 'json';
     const MODE_REDIRECT = 'redirect';
     const DEFAULT_MODE = self::MODE_JSON;
-
-    /**
-     * @var AppInterface
-     */
-    private $app;
 
     /**
      * @var string $lang
@@ -94,24 +93,6 @@ abstract class AbstractAction implements
         }
 
         return $response;
-    }
-
-    /**
-     * @param AppInterface $app The template's parent charcoal app instance.
-     * @return AbstractAction Chainable
-     */
-    public function set_app(AppInterface $app)
-    {
-        $this->app = $app;
-        return $this;
-    }
-
-    /**
-     * @return AppInterface
-     */
-    public function app()
-    {
-        return $this->app;
     }
 
     /**
