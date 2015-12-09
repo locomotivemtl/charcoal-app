@@ -101,7 +101,9 @@ class App extends SlimApp implements
         // SlimApp constructor
         parent::__construct($container);
 
-        $this->set_config($container['charcoal/app/config']);
+        if (isset($container['charcoal/app/config'])) {
+            $this->set_config($container['charcoal/app/config']);
+        }
     }
 
     /**
@@ -135,10 +137,10 @@ class App extends SlimApp implements
     /**
      * Getter for creating/returning the unique instance of this class.
      *
-     * @param ContainerInterface|array|null $container The application's settings.
+     * @param ContainerInterface|array $container The application's settings.
      * @return self
      */
-    public static function instance($container = null)
+    public static function instance($container = [])
     {
         if (!isset(static::$instance)) {
             $called_class = get_called_class();
@@ -283,8 +285,10 @@ class App extends SlimApp implements
      */
     protected function setup_logger()
     {
-        if (!$this->logger() && isset($this['logger'])) {
-            $this->set_logger($this['logger']);
+        $container = $this->getContainer();
+
+        if (!$this->logger() && isset($container['logger'])) {
+            $this->set_logger($container['logger']);
             $this->logger()->debug('Charcoal App Init Logger');
         }
     }
