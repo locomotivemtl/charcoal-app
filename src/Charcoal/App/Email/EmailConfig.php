@@ -225,7 +225,7 @@ class EmailConfig extends AbstractConfig
     public function set_smtp_security($smtp_security)
     {
         $valid_security = ['', 'tls', 'ssl'];
-        if (in_array($smtp_security, $valid_security)) {
+        if (!in_array($smtp_security, $valid_security)) {
             throw new InvalidArgumentException(
                 'SMTP Security is not valid. Must be "", "tls" or "ssl".'
             );
