@@ -645,6 +645,10 @@ class Email implements
             return;
         }
 
+        $this->logger()->debug(
+            sprintf('Using SMTP %s server to send email', $config['smtp_hostname'])
+        );
+
         $mail->IsSMTP();
         $mail->Host       = $config['smtp_hostname'];
         $mail->Port       = $config['smtp_port'];
