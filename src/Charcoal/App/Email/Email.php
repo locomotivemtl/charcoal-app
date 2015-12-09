@@ -585,7 +585,12 @@ class Email implements
      */
     public function send()
     {
-        $mail = new PHPMailer;
+        $this->logger()->debug(
+            'Attempting to send an email',
+            $this->to()
+        );
+
+        $mail = new PHPMailer();
 
         $this->set_smtp_options($mail);
 
@@ -620,6 +625,10 @@ class Email implements
         $mail->AltBody = $this->msg_txt();
 
         $ret = $mail->send();
+
+        if (!$ret) {
+            $this->logger()->error('Email could not be sent.');
+        }
 
         $this->send_log();
         return $ret;

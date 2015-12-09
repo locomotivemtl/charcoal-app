@@ -5,8 +5,8 @@ namespace Charcoal\Tests\App\Email;
 use \Charcoal\App\Email\Email as Email;
 
 /**
-* Test the AbstractEmail methods, through concrete `Email` class.
-*/
+ * Test the AbstractEmail methods, through concrete `Email` class.
+ */
 class EmailTest extends \PHPUnit_Framework_Testcase
 {
     public $obj;
@@ -76,13 +76,13 @@ class EmailTest extends \PHPUnit_Framework_Testcase
     }
 
     /**
-    * Asserts that the `set_to()` method:
-    * - Sets the "to" recipient when using an array of string
-    * - Sets the "to" recipient properly when using an email structure (array)
-    * - Sets the "to" recipient to an array when setting a single email string
-    * - Resets the "to" value before setting it, at every call.
-    * - Throws an exception if the to argument is not a string.
-    */
+     * Asserts that the `set_to()` method:
+     * - Sets the "to" recipient when using an array of string
+     * - Sets the "to" recipient properly when using an email structure (array)
+     * - Sets the "to" recipient to an array when setting a single email string
+     * - Resets the "to" value before setting it, at every call.
+     * - Throws an exception if the to argument is not a string.
+     */
     public function testSetTo()
     {
         $obj = $this->obj;
