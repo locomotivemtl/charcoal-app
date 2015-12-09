@@ -10,8 +10,8 @@
     verbose="true"
 >
     <testsuites>
-        <testsuite name="Charcoal Config Test Suite">
-            <directory>Charcoal/Config</directory>
+        <testsuite name="Charcoal App Test Suite">
+            <directory>Charcoal/App</directory>
         </testsuite>
     </testsuites>
     <filter>

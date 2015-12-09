@@ -5,19 +5,31 @@ php:
   - hhvm
   - nightly
 
+env:
+  global:
+    - secure: "m51ay1rZpv3EyRNyrk/irXjJezB0oTsC/LhvVOERmeiapKvshv0roCAzW16Zeh3Z5VfqAK0n1GU7ZlPtyASW1r7rU4+YRWz/2kwMvmPVGYinXfuOhcK8AVGb+WME7ObduwNXLr76N2OAifL2t2F/l0mdCshHhzxficjKlschrxHvX+kl7IUlDn9YK1IQi7UntVRkfgr9LBcbKo4D562vXauX2IVexOw7aRisdyOhWI8FVZXgoWwQvgEehOFNgmWGOOhGOORLvCNxOrHoKEYecdy5pPRVKl/+TEacLC9Z4svr5jM6+/MwE03XSnSy08UlwMVdJmmr47hbVY4DvFMiExjGAOnczFgDLB8gWpXjmHjtihQWoJbA5pF1DWdWEgX7iw/zNqgQ9SszDLlCrBYi4enXqZzvTgU71Zu51Dhxv/858poD2pnOmk/TYKHY2eD+Rp5sWM98n5WXxeVXC70Q0N1l3wYQ+RRlvXzc3B0GMfr/q+xzjqSnkzij16cNC+4tM4aHRC78p8ufenBX89YZ3XOP30K2jA0gCnEsk0j2egSzqpGuK/hTBZaAPAIHgShFcpuQ5UjcqZ0xcHy+cssasxEGzW1aEnjiFW564TmXMGdftBtxEBbPZcXOYh0KI/Mj2Vic4WBE5HJJRIcHxAag8VEskm48pUNy5VBK+JBhTW4="
+    - GH_REF: github.com/locomotivemtl/charcoal-app.git
+
 matrix:
   allow_failures:
     - php: hhvm
     - php: nightly
 
-before_install:
-  - sh -c "if [ $TRAVIS_PHP_VERSION != 'hhvm' ]; then pear install pear/PHP_CodeSniffer && phpenv rehash; fi"
-  - mkdir -p ./tests/tmp/images
-
 before_script:
   - wget http://getcomposer.org/composer.phar
   - php composer.phar install
+  - mkdir -p build/logs
+  - mkdir -p build/docs
 
 script:
-  - sh -c "if [ $TRAVIS_PHP_VERSION != 'hhvm' ]; then phpcs -ps --colors --standard=phpcs.xml src/; fi"
-  - phpunit --bootstrap ./tests/bootstrap.php --configuration ./tests/phpunit.xml --coverage-text
+  - find {src,tests} -name '*.php' -print0 | xargs -0 -n1 -P8 php -l | grep -v '^No syntax errors detected'; test $? -eq 1
+  - sh -c "if [ $TRAVIS_PHP_VERSION != 'hhvm' ]; then ./vendor/bin/phpcs -ps --colors --standard=phpcs.xml src/; fi"
+  - phpunit --configuration ./tests/phpunit.xml --coverage-text --coverage-clover build/logs/clover.xml
+  - sh -c "if [ $TRAVIS_PHP_VERSION == '5.6' ]; then ./vendor/bin/phpdoc.php -d ./src -t ./build/docs; fi;
+
+after_script:
+  - php vendor/bin/coveralls -v
+
+notifications:
+  slack: locomotivemtl:d9h8ZWwTZ6b3WUsSP9s26nb1
+  email: charcoal@locomotive.ca
