@@ -15,6 +15,7 @@ phpdoc/
 logs/
 
 # Caches
-build/
+build/docs/
+build/logs
 mustache_cache/
 tmp/
