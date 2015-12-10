@@ -1,0 +1,2684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>API Documentation</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+    <link href="../css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="../css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/prism.css" rel="stylesheet" media="all"/>
+    <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+    <!--[if lt IE 9]>
+    <script src="../js/html5.js"></script>
+    <![endif]-->
+    <script src="../js/jquery-1.11.0.min.js"></script>
+    <script src="../js/ui/1.10.4/jquery-ui.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/jquery.smooth-scroll.js"></script>
+    <script src="../js/prism.min.js"></script>
+    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
+    <script type="text/javascript">
+    function loadExternalCodeSnippets() {
+        Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
+            var src = pre.getAttribute('data-src');
+            var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
+            var language = 'php';
+
+            var code = document.createElement('code');
+            code.className = 'language-' + language;
+
+            pre.textContent = '';
+
+            code.textContent = 'Loading…';
+
+            pre.appendChild(code);
+
+            var xhr = new XMLHttpRequest();
+
+            xhr.open('GET', src, true);
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+
+                    if (xhr.status < 400 && xhr.responseText) {
+                        code.textContent = xhr.responseText;
+
+                        Prism.highlightElement(code);
+                    }
+                    else if (xhr.status >= 400) {
+                        code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                    }
+                    else {
+                        code.textContent = '✖ Error: File does not exist or is empty';
+                    }
+                }
+            };
+
+            xhr.send(null);
+        });
+    }
+
+    $(document).ready(function(){
+        loadExternalCodeSnippets();
+    });
+    $('#source-view').on('shown', function () {
+        loadExternalCodeSnippets();
+    })
+</script>
+
+    <link rel="shortcut icon" href="../images/favicon.ico"/>
+    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png"/>
+</head>
+<body>
+
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <i class="icon-ellipsis-vertical"></i>
+            </a>
+            <a class="brand" href="../index.html">API Documentation</a>
+
+            <div class="nav-collapse">
+                <ul class="nav pull-right">
+                                        <li class="dropdown">
+                        <a href="../index.html" class="dropdown-toggle" data-toggle="dropdown">
+                            API Documentation <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                                                        <li><a href="../namespaces/Charcoal.html">\Charcoal</a></li>
+                                                    </ul>
+                    </li>
+                                        <li class="dropdown" id="charts-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Charts <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../graphs/class.html">
+                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" id="reports-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Reports <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../reports/errors.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">359</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/markers.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">2</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/deprecated.html">
+                                                                                                            <i class="icon-list-alt"></i>&#160;Deprecated <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--<div class="go_to_top">-->
+    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
+    <!--</div>-->
+</div>
+
+<div id="___" class="container-fluid">
+        <section class="row-fluid">
+        <div class="span2 sidebar">
+                                <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-837442261"></a>
+                                <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
+            </div>
+            <div id="namespace-837442261" class="accordion-body collapse in">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1459266322"></a>
+                                <a href="../namespaces/Charcoal.html" style="margin-left: 30px; padding-left: 0">Charcoal</a>
+            </div>
+            <div id="namespace-1459266322" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1754810205"></a>
+                                <a href="../namespaces/Charcoal.App.html" style="margin-left: 30px; padding-left: 0">App</a>
+            </div>
+            <div id="namespace-1754810205" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1707223435"></a>
+                                <a href="../namespaces/Charcoal.App.Action.html" style="margin-left: 30px; padding-left: 0">Action</a>
+            </div>
+            <div id="namespace-1707223435" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/Charcoal.App.Action.ActionInterface.html">ActionInterface</a></li>
+                                                                                                    <li class="class"><a href="../classes/Charcoal.App.Action.AbstractAction.html">AbstractAction</a></li>
+                                                    <li class="class"><a href="../classes/Charcoal.App.Action.ActionFactory.html">ActionFactory</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-730243242"></a>
+                                <a href="../namespaces/Charcoal.App.Email.html" style="margin-left: 30px; padding-left: 0">Email</a>
+            </div>
+            <div id="namespace-730243242" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/Charcoal.App.Email.EmailInterface.html">EmailInterface</a></li>
+                                                                                                    <li class="class"><a href="../classes/Charcoal.App.Email.Email.html">Email</a></li>
+                                                    <li class="class"><a href="../classes/Charcoal.App.Email.EmailConfig.html">EmailConfig</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-733055521"></a>
+                                <a href="../namespaces/Charcoal.App.Language.html" style="margin-left: 30px; padding-left: 0">Language</a>
+            </div>
+            <div id="namespace-733055521" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/Charcoal.App.Language.LanguageInterface.html">LanguageInterface</a></li>
+                                                                                                    <li class="class"><a href="../classes/Charcoal.App.Language.Language.html">Language</a></li>
+                                                    <li class="class"><a href="../classes/Charcoal.App.Language.LanguageManager.html">LanguageManager</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-936752844"></a>
+                                <a href="../namespaces/Charcoal.App.Middleware.html" style="margin-left: 30px; padding-left: 0">Middleware</a>
+            </div>
+            <div id="namespace-936752844" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Charcoal.App.Middleware.MiddlewareConfig.html">MiddlewareConfig</a></li>
+                                                    <li class="class"><a href="../classes/Charcoal.App.Middleware.MiddlewareManager.html">MiddlewareManager</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1471694163"></a>
+                                <a href="../namespaces/Charcoal.App.Module.html" style="margin-left: 30px; padding-left: 0">Module</a>
+            </div>
+            <div id="namespace-1471694163" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/Charcoal.App.Module.ModuleInterface.html">ModuleInterface</a></li>
+                                                                                                    <li class="class"><a href="../classes/Charcoal.App.Module.AbstractModule.html">AbstractModule</a></li>
+                                                    <li class="class"><a href="../classes/Charcoal.App.Module.ModuleConfig.html">ModuleConfig</a></li>
+                                                    <li class="class"><a href="../classes/Charcoal.App.Module.ModuleFactory.html">ModuleFactory</a></li>
+                                                    <li class="class"><a href="../classes/Charcoal.App.Module.ModuleManager.html">ModuleManager</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1935024266"></a>
+                                <a href="../namespaces/Charcoal.App.Routable.html" style="margin-left: 30px; padding-left: 0">Routable</a>
+            </div>
+            <div id="namespace-1935024266" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/Charcoal.App.Routable.RoutableInterface.html">RoutableInterface</a></li>
+                                                                            <li class="trait"><a href="../classes/Charcoal.App.Routable.RoutableTrait.html">RoutableTrait</a></li>
+                                                                            <li class="class"><a href="../classes/Charcoal.App.Routable.RoutableFactory.html">RoutableFactory</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1474655458"></a>
+                                <a href="../namespaces/Charcoal.App.Route.html" style="margin-left: 30px; padding-left: 0">Route</a>
+            </div>
+            <div id="namespace-1474655458" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/Charcoal.App.Route.RouteInterface.html">RouteInterface</a></li>
+                                                                                                    <li class="class"><a href="../classes/Charcoal.App.Route.ActionRoute.html">ActionRoute</a></li>
+                                                    <li class="class"><a href="../classes/Charcoal.App.Route.ActionRouteConfig.html">ActionRouteConfig</a></li>
+                                                    <li class="class"><a href="../classes/Charcoal.App.Route.RouteConfig.html">RouteConfig</a></li>
+                                                    <li class="class"><a href="../classes/Charcoal.App.Route.RouteManager.html">RouteManager</a></li>
+                                                    <li class="class"><a href="../classes/Charcoal.App.Route.ScriptRoute.html">ScriptRoute</a></li>
+                                                    <li class="class"><a href="../classes/Charcoal.App.Route.ScriptRouteConfig.html">ScriptRouteConfig</a></li>
+                                                    <li class="class"><a href="../classes/Charcoal.App.Route.TemplateRoute.html">TemplateRoute</a></li>
+                                                    <li class="class"><a href="../classes/Charcoal.App.Route.TemplateRouteConfig.html">TemplateRouteConfig</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-406170147"></a>
+                                <a href="../namespaces/Charcoal.App.Script.html" style="margin-left: 30px; padding-left: 0">Script</a>
+            </div>
+            <div id="namespace-406170147" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/Charcoal.App.Script.CronScriptInterface.html">CronScriptInterface</a></li>
+                                                    <li class="interface"><a href="../classes/Charcoal.App.Script.ScriptInterface.html">ScriptInterface</a></li>
+                                                                            <li class="trait"><a href="../classes/Charcoal.App.Script.CronScriptTrait.html">CronScriptTrait</a></li>
+                                                                            <li class="class"><a href="../classes/Charcoal.App.Script.AbstractScript.html">AbstractScript</a></li>
+                                                    <li class="class"><a href="../classes/Charcoal.App.Script.ScriptFactory.html">ScriptFactory</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-550917561"></a>
+                                <a href="../namespaces/Charcoal.App.Template.html" style="margin-left: 30px; padding-left: 0">Template</a>
+            </div>
+            <div id="namespace-550917561" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/Charcoal.App.Template.TemplateInterface.html">TemplateInterface</a></li>
+                                                    <li class="interface"><a href="../classes/Charcoal.App.Template.WidgetInterface.html">WidgetInterface</a></li>
+                                                                                                    <li class="class"><a href="../classes/Charcoal.App.Template.AbstractTemplate.html">AbstractTemplate</a></li>
+                                                    <li class="class"><a href="../classes/Charcoal.App.Template.AbstractWidget.html">AbstractWidget</a></li>
+                                                    <li class="class"><a href="../classes/Charcoal.App.Template.TemplateFactory.html">TemplateFactory</a></li>
+                                                    <li class="class"><a href="../classes/Charcoal.App.Template.WidgetFactory.html">WidgetFactory</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/Charcoal.App.AppAwareInterface.html">AppAwareInterface</a></li>
+                                                    <li class="interface"><a href="../classes/Charcoal.App.AppInterface.html">AppInterface</a></li>
+                                                    <li class="interface"><a href="../classes/Charcoal.App.LoggerAwareInterface.html">LoggerAwareInterface</a></li>
+                                                                            <li class="trait"><a href="../classes/Charcoal.App.AppAwareTrait.html">AppAwareTrait</a></li>
+                                                    <li class="trait"><a href="../classes/Charcoal.App.LoggerAwareTrait.html">LoggerAwareTrait</a></li>
+                                                                            <li class="class"><a href="../classes/Charcoal.App.AbstractManager.html">AbstractManager</a></li>
+                                                    <li class="class"><a href="../classes/Charcoal.App.App.html">App</a></li>
+                                                    <li class="class"><a href="../classes/Charcoal.App.AppConfig.html">AppConfig</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        </div>
+    </section>
+    <section class="row-fluid">
+        <div class="span10 offset2">
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <nav>
+                                                <a href="../namespaces/Charcoal.App.Email.html">\Charcoal\App\Email</a> <i class="icon-level-up"></i>
+                                            </nav>
+                    <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
+
+                    <h1><small>\Charcoal\App\Email</small>Email</h1>
+                    <p><em>Default implementation of the `EmailInterface`.</em></p>
+                    
+                    
+                                        
+                    <section id="summary">
+                        <h2>Summary</h2>
+                        <section class="row-fluid heading">
+                            <section class="span4">
+                                <a href="#methods">Methods</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#properties">Properties</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#constants">Constants</a>
+                            </section>
+                        </section>
+                        <section class="row-fluid public">
+                            <section class="span4">
+                                                                    <a href="../classes/Charcoal.App.AppAwareTrait.html#method_set_app" class="">set_app()</a><br />
+                                                                    <a href="../classes/Charcoal.App.AppAwareTrait.html#method_app" class="">app()</a><br />
+                                                                    <a href="../classes/Charcoal.App.LoggerAwareTrait.html#method_setLogger" class="">setLogger()</a><br />
+                                                                    <a href="../classes/Charcoal.App.LoggerAwareTrait.html#method_set_logger" class="">set_logger()</a><br />
+                                                                    <a href="../classes/Charcoal.App.LoggerAwareTrait.html#method_logger" class="">logger()</a><br />
+                                                                    <a href="../classes/Charcoal.App.Email.Email.html#method___construct" class="">__construct()</a><br />
+                                                                    <a href="../classes/Charcoal.App.Email.Email.html#method_set_data" class="">set_data()</a><br />
+                                                                    <a href="../classes/Charcoal.App.Email.Email.html#method_set_campaign" class="">set_campaign()</a><br />
+                                                                    <a href="../classes/Charcoal.App.Email.Email.html#method_campaign" class="">campaign()</a><br />
+                                                                    <a href="../classes/Charcoal.App.Email.Email.html#method_set_to" class="">set_to()</a><br />
+                                                                    <a href="../classes/Charcoal.App.Email.Email.html#method_add_to" class="">add_to()</a><br />
+                                                                    <a href="../classes/Charcoal.App.Email.Email.html#method_to" class="">to()</a><br />
+                                                                    <a href="../classes/Charcoal.App.Email.Email.html#method_set_cc" class="">set_cc()</a><br />
+                                                                    <a href="../classes/Charcoal.App.Email.Email.html#method_add_cc" class="">add_cc()</a><br />
+                                                                    <a href="../classes/Charcoal.App.Email.Email.html#method_cc" class="">cc()</a><br />
+                                                                    <a href="../classes/Charcoal.App.Email.Email.html#method_set_bcc" class="">set_bcc()</a><br />
+                                                                    <a href="../classes/Charcoal.App.Email.Email.html#method_add_bcc" class="">add_bcc()</a><br />
+                                                                    <a href="../classes/Charcoal.App.Email.Email.html#method_bcc" class="">bcc()</a><br />
+                                                                    <a href="../classes/Charcoal.App.Email.Email.html#method_set_from" class="">set_from()</a><br />
+                                                                    <a href="../classes/Charcoal.App.Email.Email.html#method_from" class="">from()</a><br />
+                                                                    <a href="../classes/Charcoal.App.Email.Email.html#method_set_reply_to" class="">set_reply_to()</a><br />
+                                                                    <a href="../classes/Charcoal.App.Email.Email.html#method_reply_to" class="">reply_to()</a><br />
+                                                                    <a href="../classes/Charcoal.App.Email.Email.html#method_set_subject" class="">set_subject()</a><br />
+                                                                    <a href="../classes/Charcoal.App.Email.Email.html#method_subject" class="">subject()</a><br />
+                                                                    <a href="../classes/Charcoal.App.Email.Email.html#method_set_msg_html" class="">set_msg_html()</a><br />
+                                                                    <a href="../classes/Charcoal.App.Email.Email.html#method_msg_html" class="">msg_html()</a><br />
+                                                                    <a href="../classes/Charcoal.App.Email.Email.html#method_set_msg_txt" class="">set_msg_txt()</a><br />
+                                                                    <a href="../classes/Charcoal.App.Email.Email.html#method_msg_txt" class="">msg_txt()</a><br />
+                                                                    <a href="../classes/Charcoal.App.Email.Email.html#method_set_attachments" class="">set_attachments()</a><br />
+                                                                    <a href="../classes/Charcoal.App.Email.Email.html#method_add_attachment" class="">add_attachment()</a><br />
+                                                                    <a href="../classes/Charcoal.App.Email.Email.html#method_attachments" class="">attachments()</a><br />
+                                                                    <a href="../classes/Charcoal.App.Email.Email.html#method_set_log" class="">set_log()</a><br />
+                                                                    <a href="../classes/Charcoal.App.Email.Email.html#method_log" class="">log()</a><br />
+                                                                    <a href="../classes/Charcoal.App.Email.Email.html#method_set_track" class="">set_track()</a><br />
+                                                                    <a href="../classes/Charcoal.App.Email.Email.html#method_track" class="">track()</a><br />
+                                                                    <a href="../classes/Charcoal.App.Email.Email.html#method_send" class="">send()</a><br />
+                                                                    <a href="../classes/Charcoal.App.Email.Email.html#method_set_smtp_options" class="">set_smtp_options()</a><br />
+                                                                    <a href="../classes/Charcoal.App.Email.Email.html#method_queue" class="">queue()</a><br />
+                                                                    <a href="../classes/Charcoal.App.Email.Email.html#method_create_config" class="">create_config()</a><br />
+                                                                    <a href="../classes/Charcoal.App.Email.Email.html#method_create_view" class="">create_view()</a><br />
+                                                                    <a href="../classes/Charcoal.App.Email.Email.html#method_set_template_data" class="">set_template_data()</a><br />
+                                                                    <a href="../classes/Charcoal.App.Email.Email.html#method_template_data" class="">template_data()</a><br />
+                                                                    <a href="../classes/Charcoal.App.Email.Email.html#method_view_controller" class="">view_controller()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No public properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No constants found</em>
+                                                            </section>
+                        </section>
+                        <section class="row-fluid protected">
+                            <section class="span4">
+                                                                    <a href="../classes/Charcoal.App.Email.Email.html#method_generate_campaign" class="">generate_campaign()</a><br />
+                                                                    <a href="../classes/Charcoal.App.Email.Email.html#method_generate_msg_html" class="">generate_msg_html()</a><br />
+                                                                    <a href="../classes/Charcoal.App.Email.Email.html#method_generate_msg_txt" class="">generate_msg_txt()</a><br />
+                                                                    <a href="../classes/Charcoal.App.Email.Email.html#method_send_log" class="">send_log()</a><br />
+                                                                    <a href="../classes/Charcoal.App.Email.Email.html#method_queue_log" class="">queue_log()</a><br />
+                                                                    <a href="../classes/Charcoal.App.Email.Email.html#method_email_from_array" class="">email_from_array()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No protected properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                        <section class="row-fluid private">
+                            <section class="span4">
+                                                                    <em>No private methods found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <a href="../classes/Charcoal.App.AppAwareTrait.html#property_app" class="">$app</a><br />
+                                                                    <a href="../classes/Charcoal.App.LoggerAwareTrait.html#property_logger" class="">$logger</a><br />
+                                                                    <a href="../classes/Charcoal.App.Email.Email.html#property_campaign" class="">$campaign</a><br />
+                                                                    <a href="../classes/Charcoal.App.Email.Email.html#property_to" class="">$to</a><br />
+                                                                    <a href="../classes/Charcoal.App.Email.Email.html#property_cc" class="">$cc</a><br />
+                                                                    <a href="../classes/Charcoal.App.Email.Email.html#property_bcc" class="">$bcc</a><br />
+                                                                    <a href="../classes/Charcoal.App.Email.Email.html#property_from" class="">$from</a><br />
+                                                                    <a href="../classes/Charcoal.App.Email.Email.html#property_reply_to" class="">$reply_to</a><br />
+                                                                    <a href="../classes/Charcoal.App.Email.Email.html#property_subject" class="">$subject</a><br />
+                                                                    <a href="../classes/Charcoal.App.Email.Email.html#property_msg_html" class="">$msg_html</a><br />
+                                                                    <a href="../classes/Charcoal.App.Email.Email.html#property_msg_txt" class="">$msg_txt</a><br />
+                                                                    <a href="../classes/Charcoal.App.Email.Email.html#property_attachments" class="">$attachments</a><br />
+                                                                    <a href="../classes/Charcoal.App.Email.Email.html#property_log" class="">$log</a><br />
+                                                                    <a href="../classes/Charcoal.App.Email.Email.html#property_track" class="">$track</a><br />
+                                                                    <a href="../classes/Charcoal.App.Email.Email.html#property_template_data" class="">$template_data</a><br />
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                    </section>
+                </div>
+                <aside class="span4 detailsbar">
+                                        
+                    
+                    <dl>
+                        <dt>File</dt>
+                            <dd><a href="../files/Email.Email.html"><div class="path-wrapper">Email/Email.php</div></a></dd>
+                                                <dt>Package</dt>
+                            <dd><div class="namespace-wrapper">Default</div></dd>
+                                                <dt>Class hierarchy</dt>
+                            <dd class="hierarchy">
+                                                                                                                                                                    <div class="namespace-wrapper">\Charcoal\App\Email\Email</div>
+                            </dd>
+
+                                                                            <dt>Implements</dt>
+                                                        <dd><a href="../classes/Charcoal.App.AppAwareInterface.html"><div class="namespace-wrapper">\Charcoal\App\AppAwareInterface</div></a></dd>
+                                                                                <dd><a href=""><div class="namespace-wrapper"></div></a></dd>
+                                                                                <dd><a href="../classes/Charcoal.App.Email.EmailInterface.html"><div class="namespace-wrapper">\Charcoal\App\Email\EmailInterface</div></a></dd>
+                                                                                <dd><a href="../classes/Charcoal.App.LoggerAwareInterface.html"><div class="namespace-wrapper">\Charcoal\App\LoggerAwareInterface</div></a></dd>
+                                                                                <dd><a href=""><div class="namespace-wrapper"></div></a></dd>
+                        
+                                                                                    <dt>Uses traits</dt>
+                                                        <dd>
+                                <a href="../classes/Charcoal.App.AppAwareTrait.html">                                    <div class="namespace-wrapper">\Charcoal\App\AppAwareTrait</div>
+                                </a>                            </dd>
+                                                                                <dd>
+                                                                    <div class="namespace-wrapper">\Charcoal\Config\ConfigurableTrait</div>
+                                                            </dd>
+                                                                                <dd>
+                                <a href="../classes/Charcoal.App.LoggerAwareTrait.html">                                    <div class="namespace-wrapper">\Charcoal\App\LoggerAwareTrait</div>
+                                </a>                            </dd>
+                                                                                <dd>
+                                                                    <div class="namespace-wrapper">\Charcoal\View\ViewableTrait</div>
+                                                            </dd>
+                        
+                        
+                        
+                                                                        </dl>
+                    <h2>Tags</h2>
+                    <table class="table table-condensed">
+                                            <tr><td colspan="2"><em>None found</em></td></tr>
+                                        </table>
+                </aside>
+            </div>
+
+                        
+                                    <a id="properties" name="properties"></a>
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <h2>Properties</h2>
+                </div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_app" name="property_app" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$app</h3>
+                <pre class="signature">$app : \Charcoal\App\AppInterface</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                <a href="../classes/Charcoal.App.AppInterface.html">\Charcoal\App\AppInterface</a>
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/Charcoal.App.AppAwareTrait.html"><div class="path-wrapper">\Charcoal\App\AppAwareTrait</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_logger" name="property_logger" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$logger</h3>
+                <pre class="signature">$logger : \Psr\Log\LoggerInterface</pre>
+                <p><em>The PSR-3 logger instance</em></p>
+                
+
+                                <h4>Type</h4>
+                \Psr\Log\LoggerInterface
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/Charcoal.App.LoggerAwareTrait.html"><div class="path-wrapper">\Charcoal\App\LoggerAwareTrait</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_campaign" name="property_campaign" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$campaign</h3>
+                <pre class="signature">$campaign : string</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_to" name="property_to" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$to</h3>
+                <pre class="signature">$to : array</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                array
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_cc" name="property_cc" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$cc</h3>
+                <pre class="signature">$cc : array</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                array
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_bcc" name="property_bcc" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$bcc</h3>
+                <pre class="signature">$bcc : array</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                array
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_from" name="property_from" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$from</h3>
+                <pre class="signature">$from : string</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_reply_to" name="property_reply_to" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$reply_to</h3>
+                <pre class="signature">$reply_to : string</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_subject" name="property_subject" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$subject</h3>
+                <pre class="signature">$subject : string</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_msg_html" name="property_msg_html" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$msg_html</h3>
+                <pre class="signature">$msg_html : string</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_msg_txt" name="property_msg_txt" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$msg_txt</h3>
+                <pre class="signature">$msg_txt : string</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_attachments" name="property_attachments" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$attachments</h3>
+                <pre class="signature">$attachments : array</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                array
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_log" name="property_log" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$log</h3>
+                <pre class="signature">$log : boolean</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                boolean
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_track" name="property_track" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$track</h3>
+                <pre class="signature">$track : boolean</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                boolean
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_template_data" name="property_template_data" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$template_data</h3>
+                <pre class="signature">$template_data : array</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                array
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                            
+                                    <a id="methods" name="methods"></a>
+            <div class="row-fluid">
+                <div class="span8 content class"><h2>Methods</h2></div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_set_app" name="method_set_app" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">set_app()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">set_app(\Charcoal\App\AppInterface  <span class="argument">$app</span>) : \Charcoal\App\AppAwareInterface</pre>
+                <p><em></em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td><a href="../classes/Charcoal.App.AppInterface.html">\Charcoal\App\AppInterface</a></td>
+                                <td>$app </td>
+                                <td><p>The app instance this object depends on.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Charcoal.App.AppAwareInterface.html">\Charcoal\App\AppAwareInterface</a>
+                                            &mdash; <p>Chainable</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/Charcoal.App.AppAwareTrait.html"><div class="path-wrapper">\Charcoal\App\AppAwareTrait</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_app" name="method_app" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">app()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">app() : \Charcoal\App\AppInterface</pre>
+                <p><em></em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Charcoal.App.AppInterface.html">\Charcoal\App\AppInterface</a>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/Charcoal.App.AppAwareTrait.html"><div class="path-wrapper">\Charcoal\App\AppAwareTrait</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setLogger" name="method_setLogger" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setLogger()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setLogger(\Psr\Log\LoggerInterface  <span class="argument">$logger</span>) : self</pre>
+                <p><em>Alias of {@see self::set_logger()}</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\Psr\Log\LoggerInterface</td>
+                                <td>$logger </td>
+                                <td><p>The PSR-3 compatible logger instance.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    self
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/Charcoal.App.LoggerAwareTrait.html"><div class="path-wrapper">\Charcoal\App\LoggerAwareTrait</div></a></dd>
+                                                                            <dt>See also</dt>
+                                                                <dd><a href=""><span class="namespace-wrapper">Fulfills the PSR-1 / PSR-3 style</span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_set_logger" name="method_set_logger" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">set_logger()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">set_logger(\Psr\Log\LoggerInterface  <span class="argument">$logger = null</span>) : self</pre>
+                <p><em>Set a logger</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\Psr\Log\LoggerInterface</td>
+                                <td>$logger </td>
+                                <td><p>The PSR-3 compatible logger instance.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    self
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/Charcoal.App.LoggerAwareTrait.html"><div class="path-wrapper">\Charcoal\App\LoggerAwareTrait</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_logger" name="method_logger" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">logger()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">logger() : \Psr\Log\LoggerInterface</pre>
+                <p><em>Get the logger</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    \Psr\Log\LoggerInterface
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/Charcoal.App.LoggerAwareTrait.html"><div class="path-wrapper">\Charcoal\App\LoggerAwareTrait</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method___construct" name="method___construct" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">__construct()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">__construct(array  <span class="argument">$data</span>) </pre>
+                <p><em></em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$data </td>
+                                <td><p>Dependencies.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_set_data" name="method_set_data" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">set_data()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">set_data(array  <span class="argument">$data</span>) : \Charcoal\App\Email\Email</pre>
+                <p><em></em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$data </td>
+                                <td><p>The data to set.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Charcoal.App.Email.Email.html">\Charcoal\App\Email\Email</a>
+                                            &mdash; <p>Chainable</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_set_campaign" name="method_set_campaign" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">set_campaign()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">set_campaign(string  <span class="argument">$campaign</span>) : \Charcoal\App\Email\EmailInterface</pre>
+                <p><em></em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$campaign </td>
+                                <td><p>The campaign identifier.</p></td>
+                            </tr>
+                                            </table>
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\InvalidArgumentException</dt>
+                            <dd><p>If the campaign parameter is invalid.</p></dd>
+                                                                    </dl>
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Charcoal.App.Email.EmailInterface.html">\Charcoal\App\Email\EmailInterface</a>
+                                            &mdash; <p>Chainable</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_campaign" name="method_campaign" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">campaign()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">campaign() : string</pre>
+                <p><em>Get the campaign identifier.</em></p>
+                <p>If it has not been explicitely set, it will be aut-generated (with uniqid).</p>
+
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_set_to" name="method_set_to" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">set_to()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">set_to(string|array  <span class="argument">$to</span>) : \Charcoal\App\Email\EmailInterface</pre>
+                <p><em></em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string|array</td>
+                                <td>$to </td>
+                                <td><p>The email's main recipient(s).</p></td>
+                            </tr>
+                                            </table>
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\InvalidArgumentException</dt>
+                            <dd><p>If parameter is invalid.</p></dd>
+                                                                    </dl>
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Charcoal.App.Email.EmailInterface.html">\Charcoal\App\Email\EmailInterface</a>
+                                            &mdash; <p>Chainable</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_add_to" name="method_add_to" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">add_to()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">add_to(mixed  <span class="argument">$to</span>) : \Charcoal\App\Email\EmailInterface</pre>
+                <p><em></em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$to </td>
+                                <td><p>The email's recipient to add, either as a string or an &quot;email&quot; array.</p></td>
+                            </tr>
+                                            </table>
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\InvalidArgumentException</dt>
+                            <dd><p>If the to parameter is invalid.</p></dd>
+                                                                    </dl>
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Charcoal.App.Email.EmailInterface.html">\Charcoal\App\Email\EmailInterface</a>
+                                            &mdash; <p>Chainable</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_to" name="method_to" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">to()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">to() : array&lt;mixed,string&gt;</pre>
+                <p><em></em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    array&lt;mixed,string&gt;
+                                            &mdash; <p>The email's recipients.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_set_cc" name="method_set_cc" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">set_cc()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">set_cc(string|array  <span class="argument">$cc</span>) : \Charcoal\App\Email\EmailInterface</pre>
+                <p><em></em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string|array</td>
+                                <td>$cc </td>
+                                <td><p>The emails' carbon-copy (CC) recipient(s).</p></td>
+                            </tr>
+                                            </table>
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\InvalidArgumentException</dt>
+                            <dd><p>If the CC parameter is invalid.</p></dd>
+                                                                    </dl>
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Charcoal.App.Email.EmailInterface.html">\Charcoal\App\Email\EmailInterface</a>
+                                            &mdash; <p>Chainable</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_add_cc" name="method_add_cc" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">add_cc()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">add_cc(mixed  <span class="argument">$cc</span>) : \Charcoal\App\Email\EmailInterface</pre>
+                <p><em></em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$cc </td>
+                                <td><p>The emails' carbon-copy (CC) recipient to add.</p></td>
+                            </tr>
+                                            </table>
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\InvalidArgumentException</dt>
+                            <dd><p>If the CC parameter is invalid.</p></dd>
+                                                                    </dl>
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Charcoal.App.Email.EmailInterface.html">\Charcoal\App\Email\EmailInterface</a>
+                                            &mdash; <p>Chainable</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_cc" name="method_cc" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">cc()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">cc() : array&lt;mixed,string&gt;</pre>
+                <p><em></em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    array&lt;mixed,string&gt;
+                                            &mdash; <p>The emails' carbon-copy (CC) recipient(s).</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_set_bcc" name="method_set_bcc" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">set_bcc()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">set_bcc(string|array  <span class="argument">$bcc</span>) : \Charcoal\App\Email\EmailInterface</pre>
+                <p><em></em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string|array</td>
+                                <td>$bcc </td>
+                                <td><p>The emails' black-carbon-copy (BCC) recipient(s).</p></td>
+                            </tr>
+                                            </table>
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\InvalidArgumentException</dt>
+                            <dd><p>If the BCC parameter is invalid.</p></dd>
+                                                                    </dl>
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Charcoal.App.Email.EmailInterface.html">\Charcoal\App\Email\EmailInterface</a>
+                                            &mdash; <p>Chainable</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_add_bcc" name="method_add_bcc" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">add_bcc()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">add_bcc(mixed  <span class="argument">$bcc</span>) : \Charcoal\App\Email\EmailInterface</pre>
+                <p><em></em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$bcc </td>
+                                <td><p>The emails' black-carbon-copy (BCC) recipient to add.</p></td>
+                            </tr>
+                                            </table>
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\InvalidArgumentException</dt>
+                            <dd><p>If the BCC parameter is invalid.</p></dd>
+                                                                    </dl>
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Charcoal.App.Email.EmailInterface.html">\Charcoal\App\Email\EmailInterface</a>
+                                            &mdash; <p>Chainable</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_bcc" name="method_bcc" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">bcc()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">bcc() : array&lt;mixed,string&gt;</pre>
+                <p><em></em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    array&lt;mixed,string&gt;
+                                            &mdash; <p>The emails' black-carbon-copy (BCC) recipient(s).</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_set_from" name="method_set_from" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">set_from()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">set_from(mixed  <span class="argument">$from</span>) : \Charcoal\App\Email\EmailInterface</pre>
+                <p><em></em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$from </td>
+                                <td><p>The message's sender email address.</p></td>
+                            </tr>
+                                            </table>
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\InvalidArgumentException</dt>
+                            <dd><p>If the from parameter is invalid.</p></dd>
+                                                                    </dl>
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Charcoal.App.Email.EmailInterface.html">\Charcoal\App\Email\EmailInterface</a>
+                                            &mdash; <p>Chainable</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_from" name="method_from" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">from()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">from() : string</pre>
+                <p><em></em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>The message's sender email address.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_set_reply_to" name="method_set_reply_to" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">set_reply_to()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">set_reply_to(mixed  <span class="argument">$reply_to</span>) : \Charcoal\App\Email\EmailInterface</pre>
+                <p><em>Set the &quot;reply-to&quot; header field.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$reply_to </td>
+                                <td><p>The sender's reply-to email address.</p></td>
+                            </tr>
+                                            </table>
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\InvalidArgumentException</dt>
+                            <dd><p>If the reply_to parameter is invalid.</p></dd>
+                                                                    </dl>
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Charcoal.App.Email.EmailInterface.html">\Charcoal\App\Email\EmailInterface</a>
+                                            &mdash; <p>Chainable</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_reply_to" name="method_reply_to" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">reply_to()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">reply_to() : string</pre>
+                <p><em></em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>The sender's reply-to email address.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_set_subject" name="method_set_subject" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">set_subject()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">set_subject(string  <span class="argument">$subject</span>) : \Charcoal\App\Email\EmailInterface</pre>
+                <p><em></em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$subject </td>
+                                <td><p>The emails' subject.</p></td>
+                            </tr>
+                                            </table>
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\InvalidArgumentException</dt>
+                            <dd><p>If the subject parameter is invalid.</p></dd>
+                                                                    </dl>
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Charcoal.App.Email.EmailInterface.html">\Charcoal\App\Email\EmailInterface</a>
+                                            &mdash; <p>Chainable</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_subject" name="method_subject" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">subject()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">subject() : string</pre>
+                <p><em></em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>The emails' subject.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_set_msg_html" name="method_set_msg_html" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">set_msg_html()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">set_msg_html(string  <span class="argument">$msg_html</span>) : \Charcoal\App\Email\EmailInterface</pre>
+                <p><em>Explicitely set the HTML message body.</em></p>
+                <p>If the HTML message is not explitely set here, it will be auto-generated.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$msg_html </td>
+                                <td><p>The HTML body string.</p></td>
+                            </tr>
+                                            </table>
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\InvalidArgumentException</dt>
+                            <dd><p>If the parameter is invalid.</p></dd>
+                                                                    </dl>
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Charcoal.App.Email.EmailInterface.html">\Charcoal\App\Email\EmailInterface</a>
+                                            &mdash; <p>Chainable</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_msg_html" name="method_msg_html" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">msg_html()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">msg_html() : string</pre>
+                <p><em>Get the email&#039;s HTML message body.</em></p>
+                <p>If it has not been explitely set, it will be aut-generated from a template view.</p>
+
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>The HTML body string.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_set_msg_txt" name="method_set_msg_txt" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">set_msg_txt()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">set_msg_txt(string  <span class="argument">$msg_txt</span>) : \Charcoal\App\Email\EmailInterface</pre>
+                <p><em>Explicitely set the message&#039;s text body.</em></p>
+                <p>If the text message is not explicitely set here, it will be auto-generated from the HTML.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$msg_txt </td>
+                                <td><p>The message's text body.</p></td>
+                            </tr>
+                                            </table>
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\InvalidArgumentException</dt>
+                            <dd><p>If the parameter is invalid.</p></dd>
+                                                                    </dl>
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Charcoal.App.Email.EmailInterface.html">\Charcoal\App\Email\EmailInterface</a>
+                                            &mdash; <p>Chainable</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_msg_txt" name="method_msg_txt" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">msg_txt()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">msg_txt() : string</pre>
+                <p><em></em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_set_attachments" name="method_set_attachments" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">set_attachments()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">set_attachments(array  <span class="argument">$attachments</span>) : \Charcoal\App\Email\EmailInterface</pre>
+                <p><em></em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$attachments </td>
+                                <td><p>The file attachments.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Charcoal.App.Email.EmailInterface.html">\Charcoal\App\Email\EmailInterface</a>
+                                            &mdash; <p>Chainable</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_add_attachment" name="method_add_attachment" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">add_attachment()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">add_attachment(mixed  <span class="argument">$attachment</span>) : \Charcoal\App\Email\EmailInterface</pre>
+                <p><em></em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$attachment </td>
+                                <td><p>The attachments.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Charcoal.App.Email.EmailInterface.html">\Charcoal\App\Email\EmailInterface</a>
+                                            &mdash; <p>Chainable</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_attachments" name="method_attachments" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">attachments()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">attachments() : array</pre>
+                <p><em></em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_set_log" name="method_set_log" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">set_log()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">set_log(boolean  <span class="argument">$log</span>) : \Charcoal\App\Email\EmailInterface</pre>
+                <p><em>Enable or disable logging for this particular email.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>boolean</td>
+                                <td>$log </td>
+                                <td><p>The log flag.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Charcoal.App.Email.EmailInterface.html">\Charcoal\App\Email\EmailInterface</a>
+                                            &mdash; <p>Chainable</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_log" name="method_log" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">log()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">log() : boolean</pre>
+                <p><em></em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    boolean
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_set_track" name="method_set_track" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">set_track()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">set_track(boolean  <span class="argument">$track</span>) : \Charcoal\App\Email\EmailInterface</pre>
+                <p><em>Enable or disable tracking for this particular email.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>boolean</td>
+                                <td>$track </td>
+                                <td><p>The track flag.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Charcoal.App.Email.EmailInterface.html">\Charcoal\App\Email\EmailInterface</a>
+                                            &mdash; <p>Chainable</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_track" name="method_track" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">track()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">track() : boolean</pre>
+                <p><em></em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    boolean
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_send" name="method_send" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">send()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">send() : boolean</pre>
+                <p><em>Send the email to all recipients</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    boolean
+                                            &mdash; <p>Success / Failure.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_set_smtp_options" name="method_set_smtp_options" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">set_smtp_options()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">set_smtp_options(\PHPMailer  <span class="argument">$mail</span>) : void</pre>
+                <p><em></em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\PHPMailer</td>
+                                <td>$mail </td>
+                                <td><p>The PHPMailer to setup.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_queue" name="method_queue" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">queue()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">queue() : boolean</pre>
+                <p><em>Add the email to the queue pool.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    boolean
+                                            &mdash; <p>Success / Failure.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_create_config" name="method_create_config" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">create_config()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">create_config(array  <span class="argument">$data = null</span>) : \Charcoal\App\Email\EmailConfig</pre>
+                <p><em>ConfigurableInterface &gt; create_config()</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$data </td>
+                                <td><p>Optional config data.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Charcoal.App.Email.EmailConfig.html">\Charcoal\App\Email\EmailConfig</a>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_create_view" name="method_create_view" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">create_view()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">create_view(array  <span class="argument">$data = null</span>) : \Charcoal\App\Email\EmailView</pre>
+                <p><em>ViewableInterface &gt; create_view()</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$data </td>
+                                <td><p>Optional view data.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    \Charcoal\App\Email\EmailView
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_set_template_data" name="method_set_template_data" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">set_template_data()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">set_template_data(array  <span class="argument">$data</span>) : \Charcoal\App\Email\Email</pre>
+                <p><em></em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$data </td>
+                                <td><p>The template data.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Charcoal.App.Email.Email.html">\Charcoal\App\Email\Email</a>
+                                            &mdash; <p>Chainable</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_template_data" name="method_template_data" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">template_data()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">template_data() : array</pre>
+                <p><em></em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_view_controller" name="method_view_controller" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">view_controller()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">view_controller() : \Charcoal\App\Email\TemplateInterface|array</pre>
+                <p><em>Custom view controller for email.</em></p>
+                <p>Unlike typical <code>Viewable</code> objects, the view controller is not the email itself
+but an external &quot;email&quot; template.</p>
+
+                
+                
+                                    <h4>Returns</h4>
+                    \Charcoal\App\Email\TemplateInterface|array
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href=""><span class="namespace-wrapper"></span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_generate_campaign" name="method_generate_campaign" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">generate_campaign()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">generate_campaign() : string</pre>
+                <p><em></em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_generate_msg_html" name="method_generate_msg_html" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">generate_msg_html()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">generate_msg_html() : string</pre>
+                <p><em>Get the message&#039;s HTML content from the template, if applicable.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href=""><span class="namespace-wrapper"></span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_generate_msg_txt" name="method_generate_msg_txt" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">generate_msg_txt()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">generate_msg_txt() : string</pre>
+                <p><em></em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_send_log" name="method_send_log" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">send_log()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">send_log() : void</pre>
+                <p><em></em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_queue_log" name="method_queue_log" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">queue_log()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">queue_log() : void</pre>
+                <p><em></em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_email_from_array" name="method_email_from_array" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">email_from_array()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">email_from_array(array  <span class="argument">$email_array</span>) : string</pre>
+                <p><em></em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$email_array </td>
+                                <td><p>An email array (containing an &quot;email&quot; key and optionally a &quot;name&quot; key).</p></td>
+                            </tr>
+                                            </table>
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\InvalidArgumentException</dt>
+                            <dd><p>If parameter is not an array or invalid array.</p></dd>
+                                                                    </dl>
+                
+                                    <h4>Returns</h4>
+                    string
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                    </div>
+    </section>
+
+    <div id="source-view" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="source-view-label" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="source-view-label">Email.php</h3>
+        </div>
+        <div class="modal-body">
+            <pre data-src="../files/Email/Email.php.txt" class="language-php line-numbers"></pre>
+        </div>
+    </div>
+
+    <footer class="row-fluid">
+        <section class="span10 offset2">
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <section class="row-fluid footer-sections">
+                        <section class="span4">
+                                                        <h1><i class="icon-code"></i></h1>
+                            <div>
+                                <ul>
+                                                                            <li><a href="../namespaces/Charcoal.html">\Charcoal</a></li>
+                                                                    </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-bar-chart"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../graphs/class.html">Class Hierarchy Diagram</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-pushpin"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../reports/errors.html">Errors</a></li>
+                                    <li><a href="../reports/markers.html">Markers</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <hr />
+                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
+                    on December 10th, 2015 at 01:03.
+                </section>
+            </section>
+        </section>
+    </footer>
+</div>
+
+</body>
+</html>
