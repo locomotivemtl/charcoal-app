@@ -8,7 +8,7 @@ php:
 env:
   global:
     - secure: "m51ay1rZpv3EyRNyrk/irXjJezB0oTsC/LhvVOERmeiapKvshv0roCAzW16Zeh3Z5VfqAK0n1GU7ZlPtyASW1r7rU4+YRWz/2kwMvmPVGYinXfuOhcK8AVGb+WME7ObduwNXLr76N2OAifL2t2F/l0mdCshHhzxficjKlschrxHvX+kl7IUlDn9YK1IQi7UntVRkfgr9LBcbKo4D562vXauX2IVexOw7aRisdyOhWI8FVZXgoWwQvgEehOFNgmWGOOhGOORLvCNxOrHoKEYecdy5pPRVKl/+TEacLC9Z4svr5jM6+/MwE03XSnSy08UlwMVdJmmr47hbVY4DvFMiExjGAOnczFgDLB8gWpXjmHjtihQWoJbA5pF1DWdWEgX7iw/zNqgQ9SszDLlCrBYi4enXqZzvTgU71Zu51Dhxv/858poD2pnOmk/TYKHY2eD+Rp5sWM98n5WXxeVXC70Q0N1l3wYQ+RRlvXzc3B0GMfr/q+xzjqSnkzij16cNC+4tM4aHRC78p8ufenBX89YZ3XOP30K2jA0gCnEsk0j2egSzqpGuK/hTBZaAPAIHgShFcpuQ5UjcqZ0xcHy+cssasxEGzW1aEnjiFW564TmXMGdftBtxEBbPZcXOYh0KI/Mj2Vic4WBE5HJJRIcHxAag8VEskm48pUNy5VBK+JBhTW4="
-    - GH_REF: github.com/locomotivemtl/charcoal-app.git
+    - GH_REPO: github.com/locomotivemtl/charcoal-app.git
 
 matrix:
   allow_failures:
@@ -16,10 +16,13 @@ matrix:
     - php: nightly
 
 before_script:
-  - composer install
+  - composer selfupdate --quiet
+  - composer install -n --dev
+  ## Install the PHPdoc binary
   - pear channel-discover pear.phpdoc.org
   - pear install phpdoc/phpDocumentor
   - phpenv rehash
+  ## Create
   - mkdir -p build/logs
   - mkdir -p build/docs
 
@@ -31,6 +34,7 @@ script:
 
 after_script:
   - php vendor/bin/coveralls -v
+  - bash build/travis/phpdoc_ghpages.sh
 
 notifications:
   slack: locomotivemtl:d9h8ZWwTZ6b3WUsSP9s26nb1
