@@ -29,6 +29,24 @@ class AppConfig extends AbstractConfig
     private $modules = [];
 
     /**
+     * @param string $path The absolute path to the application's root directory.
+     * @return AppConfig Chainable
+     */
+    public function set_ROOT($path)
+    {
+        $this->ROOT = rtrim(realpath($path), '/').'/';
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function ROOT()
+    {
+        return $this->ROOT;
+    }
+
+    /**
      * @param array $routes The route configuration structure to set.
      * @return AppConfig Chainable
      */
