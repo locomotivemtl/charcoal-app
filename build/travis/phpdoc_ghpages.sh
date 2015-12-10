@@ -19,7 +19,7 @@ if [ "$TRAVIS_REPO_SLUG" == "locomotivemtl/charcoal-app" ] && [ "$TRAVIS_PULL_RE
   ## Initialisation et recuperation de la branche gh-pages du depot Git
   git config --global user.email "travis@travis-ci.org"
   git config --global user.name "travvis-ci"
-  git clone --quiet --branch=gh-pages https://${GH_TOKEN}@$P{GH_REPO} gh-pages > /dev/null
+  git clone --quiet --branch=gh-pages https://${GH_TOKEN}@${GH_REPO} gh-pages > /dev/null
 
   cd gh-pages
 
