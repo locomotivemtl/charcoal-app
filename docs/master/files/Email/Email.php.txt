@@ -198,8 +198,14 @@ class Email implements
             );
         }
         $this->to = [];
-        foreach ($to as $t) {
-            $this->add_to($t);
+
+        if (isset($to['email'])) {
+            // Means we're not dealing with multiple emails
+            $this->add_to($to);
+        } else {
+            foreach ($to as $t) {
+                $this->add_to($t);
+            }
         }
         return $this;
     }
@@ -211,15 +217,27 @@ class Email implements
      */
     public function add_to($to)
     {
-        if (is_string($to)) {
-            $this->to[] = $to;
-        } elseif (is_array($to)) {
-            $this->to[] = $this->email_from_array($to);
-        } else {
+        if (!is_string($to) && !is_array($to)) {
             throw new InvalidArgumentException(
                 'Email address must be an array or a string'
             );
         }
+
+        // Assuming nobody's gonna set a from which is only a name
+        if (is_string($to)) {
+            // @todo Validation
+            $to = [
+                'email' => $to,
+                'name' => ''
+            ];
+        }
+
+        if (!isset($to['name'])) {
+            $to['name'] = '';
+        }
+
+        $this->to[] = $to;
+
         return $this;
     }
 
@@ -247,9 +265,16 @@ class Email implements
             );
         }
         $this->cc = [];
-        foreach ($cc as $t) {
-            $this->add_cc($t);
+
+        if (isset($cc['email'])) {
+            // Means we're not dealing with multiple emails
+            $this->add_cc($cc);
+        } else {
+            foreach ($cc as $t) {
+                $this->add_cc($t);
+            }
         }
+
         return $this;
     }
 
@@ -260,15 +285,27 @@ class Email implements
      */
     public function add_cc($cc)
     {
-        if (is_string($cc)) {
-            $this->cc[] = $cc;
-        } elseif (is_array($cc)) {
-            $this->cc[] = $this->email_from_array($cc);
-        } else {
+        if (!is_string($cc) && !is_array($cc)) {
             throw new InvalidArgumentException(
                 'CC email address must be an array or a string'
             );
         }
+
+        // Assuming nobody's gonna set a from which is only a name
+        if (is_string($cc)) {
+            // @todo Validation
+            $cc = [
+                'email' => $cc,
+                'name' => ''
+            ];
+        }
+
+        if (!isset($cc['name'])) {
+            $cc['name'] = '';
+        }
+
+        $this->cc[] = $cc;
+
         return $this;
     }
 
@@ -288,6 +325,7 @@ class Email implements
     public function set_bcc($bcc)
     {
         if (is_string($bcc)) {
+            // Means we have a straight email
             $bcc = [$bcc];
         }
         if (!is_array($bcc)) {
@@ -296,9 +334,16 @@ class Email implements
             );
         }
         $this->bcc = [];
-        foreach ($bcc as $t) {
-            $this->add_bcc($t);
+
+        if (isset($bcc['email'])) {
+            // Means we're not dealing with multiple emails
+            $this->add_bcc($bcc);
+        } else {
+            foreach ($bcc as $t) {
+                $this->add_bcc($t);
+            }
         }
+
         return $this;
     }
 
@@ -309,15 +354,27 @@ class Email implements
      */
     public function add_bcc($bcc)
     {
-        if (is_string($bcc)) {
-            $this->bcc[] = $bcc;
-        } elseif (is_array($bcc)) {
-            $this->bcc[] = $this->email_from_array($bcc);
-        } else {
+        if (!is_string($bcc) && !is_array($bcc)) {
             throw new InvalidArgumentException(
                 'BCC email address must be an array or a string'
             );
         }
+
+        // Assuming nobody's gonna set a from which is only a name
+        if (is_string($bcc)) {
+            // @todo Validation
+            $bcc = [
+                'email' => $bcc,
+                'name' => ''
+            ];
+        }
+
+        if (!isset($bcc['name'])) {
+            $bcc['name'] = '';
+        }
+
+        $this->bcc[] = $bcc;
+
         return $this;
     }
 
@@ -336,16 +393,27 @@ class Email implements
      */
     public function set_from($from)
     {
-        if (is_string($from)) {
-            // @todo Validation
-            $this->from = $from;
-        } elseif (is_array($from)) {
-            $this->from = $this->email_from_array($from);
-        } else {
+        if (!is_string($from) && !is_array($from)) {
             throw new InvalidArgumentException(
                 'From email address must be an array or a string'
             );
         }
+
+        // Assuming nobody's gonna set a from which is only a name
+        if (is_string($from)) {
+            // @todo Validation
+            $from = [
+                'email' => $from,
+                'name' => ''
+            ];
+        }
+
+        if (!isset($from['name'])) {
+            $from['name'] = '';
+        }
+
+        $this->from = $from;
+
         return $this;
     }
 
@@ -369,15 +437,25 @@ class Email implements
      */
     public function set_reply_to($reply_to)
     {
-        if (is_string($reply_to)) {
-            $this->reply_to = $reply_to;
-        } elseif (is_array($reply_to)) {
-            $this->reply_to = $this->email_from_array($reply_to);
-        } else {
+        if (!is_string($reply_to) && !is_array($reply_to)) {
             throw new InvalidArgumentException(
-                'Reply-to email address must be an array or a string'
+                'Reply to email address must be an array or a string'
             );
         }
+
+        if (is_string($reply_to)) {
+            $reply_to = [
+                'email' => $reply_to,
+                'name' => ''
+            ];
+        }
+
+        if (!isset($reply_to['name'])) {
+            $reply_to['name'] = '';
+        }
+
+        $this->reply_to = $reply_to;
+
         return $this;
     }
 
@@ -597,27 +675,38 @@ class Email implements
         $mail = new PHPMailer(true);
 
         try {
-
             $this->set_smtp_options($mail);
 
             $mail->CharSet = 'UTF-8';
-            $mail->setFrom($this->from());
+
+            // Setting FROM
+            $from = $this->from();
+
+            // From DOC, $name = ''
+            // Set from defines the default vars
+            $mail->setFrom($from['email'], $from['name']);
 
             $to = $this->to();
+
             foreach ($to as $recipient) {
-                $mail->addAddress($recipient);
+                // Default name set in set_to
+                $mail->addAddress($recipient['email'], $recipient['name']);
             }
+
             $reply_to = $this->reply_to();
             if ($reply_to) {
-                $mail->addReplyTo($reply_to);
+                // Default name set in set_reply_to
+                $mail->addReplyTo($reply_to['email'], $reply_to['name']);
             }
             $cc = $this->bcc();
             foreach ($cc as $cc_recipient) {
-                $mail->addCC($cc_recipient);
+                // Default name set in add_cc
+                $mail->addCC($cc_recipient['email'], $cc_recipient['name']);
             }
             $bcc = $this->bcc();
             foreach ($bcc as $bcc_recipient) {
-                $mail->addBCC($bcc_recipient);
+                // Default name set in add_bcc
+                $mail->addBCC($bcc_recipient['email'], $bcc_recipient['name']);
             }
 
             $attachments = $this->attachments();
@@ -707,7 +796,7 @@ class Email implements
             $log->set_send_ts('now');
 
             $log->set_from($mailer->From);
-            $log->set_to($to);
+            $log->set_to($to['email']);
             $log->set_subject($this->subject());
 
             $log->save();
