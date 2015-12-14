@@ -83,6 +83,10 @@ class RouteManager extends AbstractManager
             if (isset($template_config['ident'])) {
                 $route_handler->setName($template_config['ident']);
             }
+
+            if (isset($template_config['arguments'])) {
+                $route_handler->setArguments($template_config['arguments']);
+            }
         }
     }
 
