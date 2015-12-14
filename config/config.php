@@ -5,6 +5,8 @@ return [
 		'level'=>'debug'
 	],
 
+    'timezone'=>'UTC',
+
 	'view'=>[
 		'path'=>[
 			'../templates/'
