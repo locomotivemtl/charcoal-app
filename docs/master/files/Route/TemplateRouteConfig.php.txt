@@ -32,6 +32,32 @@ class TemplateRouteConfig extends RouteConfig
     private $template_data = [];
 
     /**
+     * Redirect URL
+     * @var string $redirect
+     */
+    private $redirect;
+
+
+    /**
+     * @param string $redirect Points to a route.
+     * @return TemplateRouteConfig $this
+     */
+    public function set_redirect($redirect)
+    {
+        $this->redirect = $redirect;
+
+        return $this;
+    }
+
+    /**
+     * @return string redirect route
+     */
+    public function redirect()
+    {
+        return $this->redirect;
+    }
+
+    /**
      * @param string|null $template The template identifier.
      * @throws InvalidArgumentException If the tempalte parameter is not null or not a string.
      * @return TemplateRouteConfig Chainable
