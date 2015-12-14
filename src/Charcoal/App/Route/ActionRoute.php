@@ -60,7 +60,6 @@ class ActionRoute implements
         $this->set_logger($data['logger']);
     }
 
-
     /**
      * ConfigurableTrait > create_config()
      *
