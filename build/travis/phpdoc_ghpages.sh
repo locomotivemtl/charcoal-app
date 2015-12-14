@@ -2,11 +2,11 @@
 
 ## From http://rootslabs.net/blog/511-publier-automatiquement-phpdoc-github-travis-ci
 
-echo "TRAVIS_REPO_SLUG: $TRAVIS_REPO_SLUG"
-echo "TRAVIS_PHP_VERSION: $TRAVIS_PHP_VERSION"
-echo "TRAVIS_PULL_REQUEST: $TRAVIS_PULL_REQUEST"
-echo "TRAVIS_BRANCH: $TRAVIS_BRANCH"
-echo "TRAVIS_BUILD_NUMBER: $TRAVIS_BUILD_NUMBER"
+# echo "TRAVIS_REPO_SLUG: $TRAVIS_REPO_SLUG"
+# echo "TRAVIS_PHP_VERSION: $TRAVIS_PHP_VERSION"
+# echo "TRAVIS_PULL_REQUEST: $TRAVIS_PULL_REQUEST"
+# echo "TRAVIS_BRANCH: $TRAVIS_BRANCH"
+# echo "TRAVIS_BUILD_NUMBER: $TRAVIS_BUILD_NUMBER"
 
 if [ "$TRAVIS_REPO_SLUG" == "locomotivemtl/charcoal-app" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_PHP_VERSION" == "5.6" ]; then
 
@@ -33,6 +33,7 @@ if [ "$TRAVIS_REPO_SLUG" == "locomotivemtl/charcoal-app" ] && [ "$TRAVIS_PULL_RE
 
   ## Copie de la nouvelle version
   cp -Rf $HOME/docs-latest/* ./$TRAVIS_BRANCH/
+  rm -rf ./$TRAVIS_BRANCH/phpdoc-cache-*
 
   ## On ajoute tout
   git add -f .
