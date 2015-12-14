@@ -252,12 +252,16 @@ class App extends SlimApp implements
      */
     private function setup()
     {
+        $config = $this->config();
+
         $this->setup_logger();
         $this->setup_languages();
         $this->setup_middlewares();
         $this->setup_routes();
         $this->setup_modules();
         $this->setup_routables();
+
+        date_default_timezone_set($config['timezone']);
 
         return $this;
     }

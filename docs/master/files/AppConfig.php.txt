@@ -29,6 +29,8 @@ class AppConfig extends AbstractConfig
     private $modules = [];
 
     /**
+     * Set the application's absolute root path.
+     *
      * @param string $path The absolute path to the application's root directory.
      * @return AppConfig Chainable
      */
@@ -39,11 +41,29 @@ class AppConfig extends AbstractConfig
     }
 
     /**
-     * @return array
+     * Retrieve the application's absolute root path.
+     *
+     * @return string The absolute path to the application's root directory.
      */
     public function ROOT()
     {
         return $this->ROOT;
+    }
+
+    /**
+     * Retrieve the application's default timezone.
+     *
+     * Will be used by the PHP date and date-time functions.
+     *
+     * @return string
+     */
+    public function timezone()
+    {
+        if (isset($this->timezone)) {
+            return $this->timezone;
+        } else {
+            return 'UTC';
+        }
     }
 
     /**
