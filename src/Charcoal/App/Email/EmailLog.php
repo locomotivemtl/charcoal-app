@@ -247,6 +247,8 @@ class EmailLog extends AbstractModel implements IndexableInterface
      */
     public function set_to($to)
     {
+        // @todo
+        // Correct format is [ 'email' => $email, 'name' => $name ]
         if (!is_string($to)) {
             throw new InvalidArgumentException(
                 'To (recipient email) must be a string.'
