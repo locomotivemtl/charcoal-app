@@ -3,6 +3,7 @@
 namespace Charcoal\App\Email;
 
 // Dependencies from `PHP`
+use \Exception;
 use \InvalidArgumentException;
 
 // From `phpmailer/phpmailer`
@@ -633,10 +634,11 @@ class Email implements
             $ret = $mail->send();
 
             $this->log_send($ret, $mail);
+
+            return $ret;
         } catch (Exception $e) {
             $this->logger()->error('Error sending email: '.$e->getMessage());
         }
-        return $ret;
     }
 
     /**
