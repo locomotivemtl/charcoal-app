@@ -20,11 +20,14 @@ use \Charcoal\View\ViewableTrait;
 // Intra-module (`charcoal-app`) dependencies
 use \Charcoal\App\AppAwareInterface;
 use \Charcoal\App\AppAwareTrait;
-use \Charcoal\App\Email\EmailInterface;
-use \Charcoal\App\Email\EmailConfig;
 use \Charcoal\App\LoggerAwareInterface;
 use \Charcoal\App\LoggerAwareTrait;
 use \Charcoal\App\Template\TemplateFactory;
+
+// Local namespace dependencies
+use \Charcoal\App\Email\EmailInterface;
+use \Charcoal\App\Email\EmailConfig;
+use \Charcoal\App\Email\EmailLog;
 
 /**
  * Default implementation of the `EmailInterface`.
@@ -590,47 +593,49 @@ class Email implements
             $this->to()
         );
 
-        $mail = new PHPMailer();
+        $mail = new PHPMailer(true);
 
-        $this->set_smtp_options($mail);
+        try {
 
-        $mail->setFrom($this->from());
+            $this->set_smtp_options($mail);
 
-        $to = $this->to();
-        foreach ($to as $recipient) {
-            $mail->addAddress($recipient);
+            $mail->CharSet = 'UTF-8';
+            $mail->setFrom($this->from());
+
+            $to = $this->to();
+            foreach ($to as $recipient) {
+                $mail->addAddress($recipient);
+            }
+            $reply_to = $this->reply_to();
+            if ($reply_to) {
+                $mail->addReplyTo($reply_to);
+            }
+            $cc = $this->bcc();
+            foreach ($cc as $cc_recipient) {
+                $mail->addCC($cc_recipient);
+            }
+            $bcc = $this->bcc();
+            foreach ($bcc as $bcc_recipient) {
+                $mail->addBCC($bcc_recipient);
+            }
+
+            $attachments = $this->attachments();
+            foreach ($attachments as $att) {
+                $mail->addAttachment($att);
+            }
+
+            $mail->isHTML(true);
+
+            $mail->Subject = $this->subject();
+            $mail->Body    = $this->msg_html();
+            $mail->AltBody = $this->msg_txt();
+
+            $ret = $mail->send();
+
+            $this->log_send($ret, $mail);
+        } catch (Exception $e) {
+            $this->logger()->error('Error sending email: '.$e->getMessage());
         }
-        $reply_to = $this->reply_to();
-        if ($reply_to) {
-            $mail->addReplyTo($reply_to);
-        }
-        $cc = $this->bcc();
-        foreach ($cc as $cc_recipient) {
-            $mail->addCC($cc_recipient);
-        }
-        $bcc = $this->bcc();
-        foreach ($bcc as $bcc_recipient) {
-            $mail->addBCC($bcc_recipient);
-        }
-
-        $attachments = $this->attachments();
-        foreach ($attachments as $att) {
-            $mail->addAttachment($att);
-        }
-
-        $mail->isHTML(true);
-
-        $mail->Subject = $this->subject();
-        $mail->Body    = $this->msg_html();
-        $mail->AltBody = $this->msg_txt();
-
-        $ret = $mail->send();
-
-        if (!$ret) {
-            $this->logger()->error('Email could not be sent.');
-        }
-
-        $this->send_log();
         return $ret;
     }
 
@@ -667,17 +672,51 @@ class Email implements
     }
 
     /**
+     * @param boolean $result Success or failure.
+     * @param mixed   $mailer The raw mailer.
      * @return void
      */
-    protected function send_log()
+    protected function log_send($result, $mailer)
     {
+        if (!$result) {
+            $this->logger()->error('Email could not be sent.');
+        } else {
+            $this->logger()->debug(sprintf('Email "%s" sent successfully.', $this->subject()), $this->to());
+        }
+
+        $recipients = array_merge(
+            $this->to(),
+            $this->cc(),
+            $this->bcc()
+        );
+        foreach ($recipients as $to) {
+            $log = new EmailLog([
+                'logger'=>$this->logger()
+            ]);
+
+            $log->set_type('email');
+            $log->set_action('send');
+
+            $log->set_raw_response($mailer);
+
+            $log->set_message_id($mailer->getLastMessageId());
+            $log->set_campaign($this->campaign());
+
+            $log->set_send_ts('now');
+
+            $log->set_from($mailer->From);
+            $log->set_to($to);
+            $log->set_subject($this->subject());
+
+            $log->save();
+        }
 
     }
 
     /**
      * @return void
      */
-    protected function queue_log()
+    protected function log_queue()
     {
 
 
@@ -716,6 +755,9 @@ class Email implements
         $config = new EmailConfig();
         if ($data !== null) {
             $config->set_data($data);
+        } else {
+            // Use default app config
+            $config->set_data($this->app()->config()->get('email'));
         }
         return $config;
     }

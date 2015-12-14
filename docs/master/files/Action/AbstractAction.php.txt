@@ -21,7 +21,19 @@ use \Charcoal\App\LoggerAwareInterface;
 use \Charcoal\App\LoggerAwareTrait;
 
 /**
- * Default implementation, as abstract class, of `ActionInterface`
+ * Default implementation, as abstract class, of  the `ActionInterface`.
+ *
+ * Actions respond to a (PSR7-style) request and response and returns back the response.
+ *
+ * Typical implementations only need to implement the following 2 _abstract_ methods:
+ *
+ * ``` php
+ * // Returns an associative array of results
+ * public function results();
+ * // Gets a psr7 request and response and returns a response
+ * public function run(RequestInterface $request, ResponseInterface $response);
+ * ```
+ * Actions can be invoked (with the magic `__invoke()` method) which automatically call the:
  */
 abstract class AbstractAction implements
     ActionInterface,
@@ -245,11 +257,19 @@ abstract class AbstractAction implements
     }
 
     /**
+     * Returns an associative array of results (set after being  invoked / run).
+     *
+     * The raw array of results will be called from `__invoke()`.
+     *
      * @return array
      */
     abstract public function results();
 
     /**
+     * Gets a psr7 request and response and returns a response.
+     *
+     * Called from `__invoke()` as the first thing.
+     *
      * @param RequestInterface  $request  A PSR-7 compatible Request instance.
      * @param ResponseInterface $response A PSR-7 compatible Response instance.
      * @return ResponseInterface

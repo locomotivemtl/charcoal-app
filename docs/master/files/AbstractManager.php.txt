@@ -12,7 +12,9 @@ use \Charcoal\App\LoggerAwareInterface;
 use \Charcoal\App\LoggerAwareTrait;
 
 /**
+ * Managers handle various instances of App-related objects.
  *
+ * Examples of managers are `LanguageManager`, `MiddlewareManager`, `ModuleManager` and `RouteManager`.
  */
 abstract class AbstractManager implements
     AppAwareInterface,
@@ -27,9 +29,11 @@ abstract class AbstractManager implements
     private $config = [];
 
     /**
+     * Manager constructor
+     *
      * @param array $data The dependencies container.
      */
-    public function __construct(array $data)
+    final public function __construct(array $data)
     {
         $this->set_config($data['config']);
         $this->set_app($data['app']);
