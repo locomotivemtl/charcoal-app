@@ -57,16 +57,30 @@ class RouteManager extends AbstractManager
                 function (
                     RequestInterface $request,
                     ResponseInterface $response,
-                    array $args
+                    array $args = []
                 ) use (
                     $app,
                     $template_ident,
                     $template_config
                 ) {
-                    $this->logger->debug(sprintf('Loaded template route: %s', $template_ident), $template_config);
+                    $this->logger->debug(
+                        sprintf('Loaded template route: %s', $template_ident),
+                        $template_config
+                    );
 
                     if (!isset($template_config['ident'])) {
                         $template_config['ident'] = ltrim($template_ident, '/');
+                    }
+
+                    if (!isset($template_config['template_data'])) {
+                        $template_config['template_data'] = [];
+                    }
+
+                    if (count($args)) {
+                        $template_config['template_data'] = array_merge(
+                            $template_config['template_data'],
+                            $args
+                        );
                     }
 
                     $route = new TemplateRoute([
@@ -75,7 +89,6 @@ class RouteManager extends AbstractManager
                         'logger' => $this->logger
                     ]);
 
-                    // Invoke template route
                     return $route($request, $response);
                 }
             );
@@ -84,8 +97,8 @@ class RouteManager extends AbstractManager
                 $route_handler->setName($template_config['ident']);
             }
 
-            if (isset($template_config['arguments'])) {
-                $route_handler->setArguments($template_config['arguments']);
+            if (isset($template_config['template_data'])) {
+                $route_handler->setArguments($template_config['template_data']);
             }
         }
     }
@@ -109,16 +122,30 @@ class RouteManager extends AbstractManager
                 function (
                     RequestInterface $request,
                     ResponseInterface $response,
-                    array $args
+                    array $args = []
                 ) use (
                     $app,
                     $action_ident,
                     $action_config
                 ) {
-                    $this->logger->debug(sprintf('Loaded action route: %s', $action_ident), $action_config);
+                    $this->logger->debug(
+                        sprintf('Loaded action route: %s', $action_ident),
+                        $action_config
+                    );
 
                     if (!isset($action_config['ident'])) {
                         $action_config['ident'] = ltrim($action_ident, '/');
+                    }
+
+                    if (!isset($action_config['template_data'])) {
+                        $action_config['action_data'] = [];
+                    }
+
+                    if (count($args)) {
+                        $action_config['action_data'] = array_merge(
+                            $action_config['action_data'],
+                            $args
+                        );
                     }
 
                     $route = new ActionRoute([
@@ -127,13 +154,16 @@ class RouteManager extends AbstractManager
                         'logger' => $this->logger
                     ]);
 
-                    // Invoke action route
                     return $route($request, $response);
                 }
             );
 
             if (isset($action_config['ident'])) {
                 $route_handler->setName($action_config['ident']);
+            }
+
+            if (isset($action_config['action_data'])) {
+                $route_handler->setArguments($action_config['action_data']);
             }
         }
     }
@@ -157,16 +187,30 @@ class RouteManager extends AbstractManager
                 function (
                     RequestInterface $request,
                     ResponseInterface $response,
-                    array $args
+                    array $args = []
                 ) use (
                     $app,
                     $script_ident,
                     $script_config
                 ) {
-                    $this->logger->debug(sprintf('Loaded script route: %s', $script_ident), $script_config);
+                    $this->logger->debug(
+                        sprintf('Loaded script route: %s', $script_ident),
+                        $script_config
+                    );
 
                     if (!isset($script_config['ident'])) {
                         $script_config['ident'] = ltrim($script_ident, '/');
+                    }
+
+                    if (!isset($script_config['script_data'])) {
+                        $script_config['script_data'] = [];
+                    }
+
+                    if (count($args)) {
+                        $script_config['script_data'] = array_merge(
+                            $script_config['script_data'],
+                            $args
+                        );
                     }
 
                     $route = new ScriptRoute([
@@ -175,13 +219,16 @@ class RouteManager extends AbstractManager
                         'logger' => $this->logger
                     ]);
 
-                    // Invoke script route
                     return $route($request, $response);
                 }
             );
 
             if (isset($script_config['ident'])) {
                 $route_handler->setName($script_config['ident']);
+            }
+
+            if (isset($script_config['script_data'])) {
+                $route_handler->setArguments($script_config['script_data']);
             }
         }
     }
