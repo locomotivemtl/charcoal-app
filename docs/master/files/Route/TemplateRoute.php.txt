@@ -79,25 +79,19 @@ class TemplateRoute implements
      */
     public function __invoke(RequestInterface $request, ResponseInterface $response)
     {
-        // Unused variable
-        unset($request);
-
         $tpl_config = $this->config();
         $app_config = $this->app()->config();
 
-
-        // Redirect
         if (isset($tpl_config['redirect'])) {
-            // Redirect to FULL path
-            $url = $this->app()->config()->get('URL').$tpl_config['redirect'];
+            if (!isset($tpl_config['redirect_mode'])) {
+                $tpl_config['redirect_mode'] = 301;
+            }
 
-            // Redirect status can be custom, if needed
-            // Default to 301
-            $redirect_mode = isset($tpl_config['redirect_mode']) ? (int)$tpl_config['redirect_mode'] : 301;
-            $response = $response->withStatus($redirect_mode);
-            return $response->withRedirect($url);
+            return $response->withRedirect(
+                $request->getUri()->withPath($tpl_config['redirect']),
+                $tpl_config['redirect_mode']
+            );
         }
-
 
         $template_ident = $tpl_config['template'];
         $template_controller = $tpl_config['controller'];
