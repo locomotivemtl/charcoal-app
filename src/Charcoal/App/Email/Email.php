@@ -18,6 +18,10 @@ use \Charcoal\View\GenericView;
 use \Charcoal\View\ViewableInterface;
 use \Charcoal\View\ViewableTrait;
 
+// Module `charcoal-queue` dependencies
+use \Charcoal\Queue\QueueableInterface;
+use \Charcoal\Queue\QueueableTrait;
+
 // Intra-module (`charcoal-app`) dependencies
 use \Charcoal\App\AppAwareInterface;
 use \Charcoal\App\AppAwareTrait;
@@ -39,11 +43,13 @@ class Email implements
     ConfigurableInterface,
     EmailInterface,
     LoggerAwareInterface,
+    QueueableInterface,
     ViewableInterface
 {
     use AppAwareTrait;
     use ConfigurableTrait;
     use LoggerAwareTrait;
+    use QueueableTrait;
     use ViewableTrait;
 
     /**
@@ -755,11 +761,35 @@ class Email implements
     }
 
     /**
+     * @param mixed $ts The queue processing date/time.
      * @return boolean Success / Failure.
      */
-    public function queue()
+    public function queue($ts = null)
     {
-        return false;
+        $recipients = $this->to();
+        $from = $this->from();
+        $subject = $this->subject();
+        $msg_html = $this->msg_html();
+        $msg_txt = $this->msg_txt();
+        $campaign = $this->campaign();
+        $queue_id = $this->queue_id();
+
+        foreach ($recipients as $to) {
+            $queue_item = new EmailQueueItem();
+
+            $queue_item->set_to($to['email']);
+            $queue_item->set_from($from['email']);
+            $queue_item->set_subject($subject);
+            $queue_item->set_msg_html($msg_html);
+            $queue_item->set_msg_txt($msg_txt);
+            $queue_item->set_campaign($campaign);
+            $queue_item->set_processing_date($ts);
+            $queue_item->set_queue_id($queue_id);
+
+            $res = $queue_item->save();
+        }
+
+        return true;
     }
 
     /**
