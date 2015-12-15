@@ -273,7 +273,7 @@ class App extends SlimApp implements
      *
      * @uses   self::setup()
      * @param  boolean $silent If TRUE, will run in silent mode (no response).
-     * @return self
+     * @return ResponseInterface The PSR7 HTTP response.
      */
     public function run($silent = false)
     {
