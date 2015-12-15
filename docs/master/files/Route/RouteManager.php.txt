@@ -48,9 +48,26 @@ class RouteManager extends AbstractManager
         $templates = ( isset($routes['templates']) ? $routes['templates'] : [] );
 
         $this->logger()->debug('Templates', (array)$templates);
+
         foreach ($templates as $template_ident => $template_config) {
-            $route_ident = '/'.ltrim($template_ident, '/');
-            $methods = ( isset($tempate_config['methods']) ? $template_config['methods'] : [ 'GET' ] );
+            $template_ident = ltrim($template_ident, '/');
+
+            if (!isset($template_config['ident'])) {
+                $template_config['ident'] = $template_ident;
+            }
+
+            if (isset($template_config['route'])) {
+                $route_ident = '/'.ltrim($template_config['route'], '/');
+            } else {
+                $route_ident = '/'.$template_ident;
+            }
+
+            if (isset($template_config['methods'])) {
+                $methods = $template_config['methods'];
+            } else {
+                $methods = [ 'GET' ];
+            }
+
             $route_handler = $app->map(
                 $methods,
                 $route_ident,
@@ -67,10 +84,6 @@ class RouteManager extends AbstractManager
                         sprintf('Loaded template route: %s', $template_ident),
                         $template_config
                     );
-
-                    if (!isset($template_config['ident'])) {
-                        $template_config['ident'] = ltrim($template_ident, '/');
-                    }
 
                     if (!isset($template_config['template_data'])) {
                         $template_config['template_data'] = [];
@@ -113,9 +126,26 @@ class RouteManager extends AbstractManager
         $actions = ( isset($routes['actions']) ? $routes['actions'] : [] );
 
         $this->logger()->debug('Actions', (array)$actions);
+
         foreach ($actions as $action_ident => $action_config) {
-            $route_ident = '/'.ltrim($action_ident, '/');
-            $methods = ( isset($action_config['methods']) ? $action_config['methods'] : [ 'POST' ] );
+            $action_ident = ltrim($action_ident, '/');
+
+            if (!isset($action_config['ident'])) {
+                $action_config['ident'] = $action_ident;
+            }
+
+            if (isset($action_config['route'])) {
+                $route_ident = '/'.ltrim($action_config['route'], '/');
+            } else {
+                $route_ident = '/'.$action_ident;
+            }
+
+            if (isset($action_config['methods'])) {
+                $methods = $action_config['methods'];
+            } else {
+                $methods = [ 'POST' ];
+            }
+
             $route_handler = $app->map(
                 $methods,
                 $route_ident,
@@ -133,11 +163,7 @@ class RouteManager extends AbstractManager
                         $action_config
                     );
 
-                    if (!isset($action_config['ident'])) {
-                        $action_config['ident'] = ltrim($action_ident, '/');
-                    }
-
-                    if (!isset($action_config['template_data'])) {
+                    if (!isset($action_config['action_data'])) {
                         $action_config['action_data'] = [];
                     }
 
@@ -178,9 +204,26 @@ class RouteManager extends AbstractManager
         $scripts = ( isset($routes['scripts']) ? $routes['scripts'] : [] );
 
         $this->logger()->debug('Scripts', (array)$scripts);
+
         foreach ($scripts as $script_ident => $script_config) {
-            $route_ident = '/'.ltrim($script_ident, '/');
-            $methods = ( isset($script_config['methods']) ? $script_config['methods'] : [ 'GET' ] );
+            $script_ident = ltrim($script_ident, '/');
+
+            if (!isset($script_config['ident'])) {
+                $script_config['ident'] = $script_ident;
+            }
+
+            if (isset($script_config['route'])) {
+                $route_ident = '/'.ltrim($script_config['route'], '/');
+            } else {
+                $route_ident = '/'.$script_ident;
+            }
+
+            if (isset($script_config['methods'])) {
+                $methods = $script_config['methods'];
+            } else {
+                $methods = [ 'GET' ];
+            }
+
             $route_handler = $app->map(
                 $methods,
                 $route_ident,
@@ -197,10 +240,6 @@ class RouteManager extends AbstractManager
                         sprintf('Loaded script route: %s', $script_ident),
                         $script_config
                     );
-
-                    if (!isset($script_config['ident'])) {
-                        $script_config['ident'] = ltrim($script_ident, '/');
-                    }
 
                     if (!isset($script_config['script_data'])) {
                         $script_config['script_data'] = [];
