@@ -10,8 +10,8 @@ use \Slim\Container as SlimContainer;
 use \Slim\Http\Environment as SlimEnvironment;
 
 $autoloader_path = [
-	__DIR__. '/../../../../vendor/autoload.php',
-	__DIR__. '/../vendor/autoload.php'
+    __DIR__. '/../../../../vendor/autoload.php',
+    __DIR__. '/../vendor/autoload.php'
 ];
 
 foreach ($autoloader_path as $file) {
@@ -59,11 +59,11 @@ $container['errorHandler'] = function ($c)
     return function ($request, $response, $exception) use ($c)
     {
         return $c['response']
-        	->withStatus(500)
-			->write(
-				sprintf('Something went wrong! (%s)'."\n", $exception->getMessage())
-			);
-	};
+            ->withStatus(500)
+            ->write(
+                sprintf('Something went wrong! (%s)'."\n", $exception->getMessage())
+            );
+    };
 };
 
 // Remove me. This is for backward compatibility.
@@ -90,19 +90,18 @@ $container['environment'] = function($c) use ($path) {
 };
 
 // Charcoal / Slim is the main app
-$app = new App($container);
+$app = App::instance($container);
 
 // Set up dependencies
-require __DIR__.'/../config/dependencies.php';
+require $base_dir.'/config/dependencies.php';
 // Register middlewares
-require __DIR__.'/../config/middlewares.php';
-// Register routes
-require __DIR__.'/../config/routes.php';
+require $base_dir.'/config/middlewares.php';
 
 $app->set_logger($container['logger']);
 
 // @todo: This is needed for backward-compatibility and should be fixed / removed.
 \Charcoal\Charcoal::init([
+    'app'    => $app,
     'config'=>new \Charcoal\CharcoalConfig($base_dir.'/config/config.php'),
     'logger'=>$container['logger']
 ]);
