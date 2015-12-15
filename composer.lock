@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "08b7bf4c475fd95a516a959578f67753",
-    "content-hash": "36ecd23d3757536caa4dc456f66bbbea",
+    "hash": "36767ee4917413c5affc5ed1e31c50bb",
+    "content-hash": "eaf39df743f6414f36333ca868278b08",
     "packages": [
         {
             "name": "container-interop/container-interop",
@@ -85,7 +85,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/locomotivemtl/charcoal-core/zipball/04ac9d7c2aace593981150cfaab8d2ea98d4aeb9",
+                "url": "https://api.github.com/repos/locomotivemtl/charcoal-core/zipball/88736f3e15478a550cadf6b9c3f379e77530c835",
                 "reference": "04ac9d7c2aace593981150cfaab8d2ea98d4aeb9",
                 "shasum": ""
             },
@@ -145,7 +145,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/locomotivemtl/charcoal-factory/zipball/cd4a323a8b6ed5d6ed93c71f09788fa3191d3b0f",
+                "url": "https://api.github.com/repos/locomotivemtl/charcoal-factory/zipball/d290e6ffa8bf8e4f104479b10bf8cc7d98b2e4c1",
                 "reference": "cd4a323a8b6ed5d6ed93c71f09788fa3191d3b0f",
                 "shasum": ""
             },
@@ -181,6 +181,60 @@
             "time": "2015-12-08 17:32:25"
         },
         {
+            "name": "locomotivemtl/charcoal-queue",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/locomotivemtl/charcoal-queue.git",
+                "reference": "580133c3d9076a3e90cd1f592093b3a9bb96bc23"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/locomotivemtl/charcoal-queue/zipball/580133c3d9076a3e90cd1f592093b3a9bb96bc23",
+                "reference": "580133c3d9076a3e90cd1f592093b3a9bb96bc23",
+                "shasum": ""
+            },
+            "require": {
+                "locomotivemtl/charcoal-core": "@dev",
+                "php": ">=5.5.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.8",
+                "squizlabs/php_codesniffer": "^2.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Charcoal\\": "src/Charcoal"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mathieu Ducharme",
+                    "email": "mat@locomotive.ca"
+                },
+                {
+                    "name": "Locomotive",
+                    "homepage": "https://locomotive.ca"
+                }
+            ],
+            "description": "Queue, Queue items and Queueable objects for Charcoal",
+            "homepage": "https://charcoal.locomotive.ca",
+            "keywords": [
+                "charcoal",
+                "cms",
+                "framework",
+                "locomotive",
+                "php",
+                "queue"
+            ],
+            "time": "2015-12-04 16:56:55"
+        },
+        {
             "name": "locomotivemtl/charcoal-view",
             "version": "dev-master",
             "source": {
@@ -190,7 +244,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/locomotivemtl/charcoal-view/zipball/d43c69e967d7e9b483dadc5cd84a769aec15726c",
+                "url": "https://api.github.com/repos/locomotivemtl/charcoal-view/zipball/c35cb8433edc0318727e2c631f148746d9fb232b",
                 "reference": "d43c69e967d7e9b483dadc5cd84a769aec15726c",
                 "shasum": ""
             },
@@ -553,7 +607,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/slimphp/Slim/zipball/fb0e176a2ff6cea2fce0a946d3c60683e6d834c1",
+                "url": "https://api.github.com/repos/slimphp/Slim/zipball/48fb2ce25255ad73f0c322f8914d289d8e55e923",
                 "reference": "fb0e176a2ff6cea2fce0a946d3c60683e6d834c1",
                 "shasum": ""
             },
@@ -819,7 +873,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpspec/prophecy/zipball/826f28f4cd17b31e4d42aa21729e52f88d91bc39",
+                "url": "https://api.github.com/repos/phpspec/prophecy/zipball/53e967bf312c21f78ec3a19c530d98e1bdb5b26f",
                 "reference": "826f28f4cd17b31e4d42aa21729e52f88d91bc39",
                 "shasum": ""
             },
@@ -1119,7 +1173,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/83498fee4d9272cc5c59630cc2be939accdcc74b",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/ea76b17bced0500a28098626b84eda12dbcf119c",
                 "reference": "83498fee4d9272cc5c59630cc2be939accdcc74b",
                 "shasum": ""
             },
@@ -1247,7 +1301,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/satooshi/php-coveralls/zipball/c1eb3b6c25740897e35afee80780308be2e5197b",
+                "url": "https://api.github.com/repos/satooshi/php-coveralls/zipball/51703dffb55f878e57f5673cd8c837f5f89f3096",
                 "reference": "c1eb3b6c25740897e35afee80780308be2e5197b",
                 "shasum": ""
             },
@@ -1817,7 +1871,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/8b7b23b8d6e46a83abd34ea489535c416ccc6d59",
+                "url": "https://api.github.com/repos/symfony/console/zipball/ff96711b696b2f6ee7cb8a0f0348084709207138",
                 "reference": "8b7b23b8d6e46a83abd34ea489535c416ccc6d59",
                 "shasum": ""
             },
@@ -2139,6 +2193,7 @@
     "stability-flags": {
         "locomotivemtl/charcoal-view": 20,
         "locomotivemtl/charcoal-factory": 20,
+        "locomotivemtl/charcoal-queue": 20,
         "satooshi/php-coveralls": 20
     },
     "prefer-stable": false,
