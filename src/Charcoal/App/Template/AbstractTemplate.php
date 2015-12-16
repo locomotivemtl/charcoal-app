@@ -7,12 +7,14 @@ use \Charcoal\View\GenericView;
 use \Charcoal\View\ViewableInterface;
 use \Charcoal\View\ViewableTrait;
 
+// Module `charcoal-core` dependencies
+use \Charcoal\Log\LoggerAwareInterface;
+use \Charcoal\Log\LoggerAwareTrait;
+
 // Intra-module (`charcoal-app`) dependencies
 use \Charcoal\App\AppAwareInterface;
 use \Charcoal\App\AppAwareTrait;
 use \Charcoal\App\AppInterface;
-use \Charcoal\App\LoggerAwareInterface;
-use \Charcoal\App\LoggerAwareTrait;
 use \Charcoal\App\Template\TemplateInterface;
 
 /**
@@ -28,13 +30,15 @@ abstract class AbstractTemplate implements
     use ViewableTrait;
     use LoggerAwareTrait;
 
-
     /**
      * @param array $data The dependencies (app and logger).
      */
     public function __construct(array $data = null)
     {
-        $this->set_logger($data['logger']);
+        if (isset($data['logger'])) {
+            $this->set_logger($data['logger']);
+        }
+
         $this->set_app($data['app']);
     }
 

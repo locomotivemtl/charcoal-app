@@ -2,10 +2,13 @@
 
 namespace Charcoal\App\Module;
 
+// Module `charcoal-core` dependencies
+use \Charcoal\Log\LoggerAwareInterface;
+use \Charcoal\Log\LoggerAwareTrait;
+
 // From `charcoal-config`
 use \Charcoal\Config\ConfigurableInterface;
 use \Charcoal\Config\ConfigurableTrait;
-
 
 // Intra-module (`charcoal-app`) dependencies
 use \Charcoal\App\AppAwareInterface;
@@ -13,8 +16,6 @@ use \Charcoal\App\AppAwareTrait;
 use \Charcoal\App\AppConfig;
 use \Charcoal\App\AppInterface;
 use \Charcoal\App\Action\ActionFactory;
-use \Charcoal\App\LoggerAwareInterface;
-use \Charcoal\App\LoggerAwareTrait;
 use \Charcoal\App\Middleware\MiddlewareManager;
 use \Charcoal\App\Module\ModuleManager;
 use \Charcoal\App\Route\RouteManager;
@@ -37,8 +38,11 @@ abstract class AbstractModule implements
      */
     public function __construct(array $data)
     {
+        if (isset($data['logger'])) {
+            $this->set_logger($data['logger']);
+        }
+
         $this->set_app($data['app']);
-        $this->set_logger($data['logger']);
     }
 
     /**

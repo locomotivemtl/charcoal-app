@@ -4,12 +4,14 @@ namespace Charcoal\App;
 
 use \InvalidArgumentException;
 
+// Module `charcoal-core` dependencies
+use \Charcoal\Log\LoggerAwareInterface;
+use \Charcoal\Log\LoggerAwareTrait;
+
 // Local namespace dependencies
 use \Charcoal\App\AppAwareInterface;
 use \Charcoal\App\AppAwareTrait;
 use \Charcoal\App\AppInterface;
-use \Charcoal\App\LoggerAwareInterface;
-use \Charcoal\App\LoggerAwareTrait;
 
 /**
  * Managers handle various instances of App-related objects.
@@ -35,9 +37,12 @@ abstract class AbstractManager implements
      */
     final public function __construct(array $data)
     {
+        if (isset($data['logger'])) {
+            $this->set_logger($data['logger']);
+        }
+
         $this->set_config($data['config']);
         $this->set_app($data['app']);
-        $this->set_logger($data['logger']);
     }
 
     /**

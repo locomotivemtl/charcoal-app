@@ -89,12 +89,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/locomotivemtl/charcoal-core.git",
-                "reference": "df0f57396d6ffdce046c69707e89c28d1b6365ec"
+                "reference": "b96a378364ce453976c076cb995127aee66283c3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/locomotivemtl/charcoal-core/zipball/df0f57396d6ffdce046c69707e89c28d1b6365ec",
-                "reference": "df0f57396d6ffdce046c69707e89c28d1b6365ec",
+                "url": "https://api.github.com/repos/locomotivemtl/charcoal-core/zipball/b96a378364ce453976c076cb995127aee66283c3",
+                "reference": "b96a378364ce453976c076cb995127aee66283c3",
                 "shasum": ""
             },
             "require": {
@@ -141,7 +141,7 @@
                 "locomotive",
                 "php"
             ],
-            "time": "2015-12-16 17:28:50"
+            "time": "2015-12-16 18:22:44"
         },
         {
             "name": "locomotivemtl/charcoal-factory",

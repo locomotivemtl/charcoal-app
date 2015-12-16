@@ -5,9 +5,9 @@ namespace Charcoal\App\Template;
 // Dependencies from `PHP`
 use \InvalidArgumentException;
 
-// PSR-3 logger
-use \Psr\Log\LoggerInterface;
-use \Psr\Log\LoggerAwareInterface;
+// Module `charcoal-core` dependencies
+use \Charcoal\Log\LoggerAwareInterface;
+use \Charcoal\Log\LoggerAwareTrait;
 
 // Module `charcoal-view` dependencies
 use \Charcoal\View\ViewableInterface;
@@ -27,11 +27,6 @@ abstract class AbstractWidget implements
     use ViewableTrait;
 
     /**
-     * @var LoggerInterface $logger
-     */
-    private $logger;
-
-    /**
      * @var boolean $active
      */
     private $active;
@@ -44,37 +39,6 @@ abstract class AbstractWidget implements
         if (isset($data['logger'])) {
             $this->set_logger($data['logger']);
         }
-    }
-
-    /**
-     * > LoggerAwareInterface > setLogger()
-     *
-     * Fulfills the PSR-1 / PSR-3 style LoggerAwareInterface
-     *
-     * @param LoggerInterface $logger A PSR-3 compatible logger instance.
-     * @return AbstractEngine Chainable
-     */
-    public function setLogger(LoggerInterface $logger)
-    {
-        return $this->set_logger($logger);
-    }
-
-    /**
-     * @param LoggerInterface $logger A PSR-3 compatible logger instance.
-     * @return AbstractEngine Chainable
-     */
-    public function set_logger(LoggerInterface $logger = null)
-    {
-        $this->logger = $logger;
-        return $this;
-    }
-
-    /**
-     * @return LoggerInterface
-     */
-    public function logger()
-    {
-        return $this->logger;
     }
 
     /**

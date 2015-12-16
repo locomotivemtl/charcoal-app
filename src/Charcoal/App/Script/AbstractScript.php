@@ -12,10 +12,12 @@ use \Psr\Http\Message\ResponseInterface;
 // `thephpleague/climate` dependencies
 use \League\CLImate\CLImate;
 
+// Module `charcoal-core` dependencies
+use \Charcoal\Log\LoggerAwareInterface;
+use \Charcoal\Log\LoggerAwareTrait;
+
 // Intra-module (`charcoal-app`) dependencies
 use \Charcoal\App\AppInterface;
-use \Charcoal\App\LoggerAwareInterface;
-use \Charcoal\App\LoggerAwareTrait;
 use \Charcoal\App\Script\ScriptInterface;
 
 /**
@@ -62,7 +64,10 @@ abstract class AbstractScript implements
      */
     final public function __construct(array $data = null)
     {
-        $this->set_logger($data['logger']);
+        if (isset($data['logger'])) {
+            $this->set_logger($data['logger']);
+        }
+
         $this->set_app($data['app']);
 
         $this->init();
