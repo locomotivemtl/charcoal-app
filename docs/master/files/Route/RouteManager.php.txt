@@ -60,6 +60,7 @@ class RouteManager extends AbstractManager
                 $route_ident = '/'.ltrim($template_config['route'], '/');
             } else {
                 $route_ident = '/'.$template_ident;
+                $template_config['route'] = $route_ident;
             }
 
             if (isset($template_config['methods'])) {
@@ -138,6 +139,7 @@ class RouteManager extends AbstractManager
                 $route_ident = '/'.ltrim($action_config['route'], '/');
             } else {
                 $route_ident = '/'.$action_ident;
+                $action_config['route'] = $route_ident;
             }
 
             if (isset($action_config['methods'])) {
@@ -216,6 +218,7 @@ class RouteManager extends AbstractManager
                 $route_ident = '/'.ltrim($script_config['route'], '/');
             } else {
                 $route_ident = '/'.$script_ident;
+                $script_config['route'] = $route_ident;
             }
 
             if (isset($script_config['methods'])) {
