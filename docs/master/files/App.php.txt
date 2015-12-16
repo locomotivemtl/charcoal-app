@@ -13,6 +13,10 @@ use \Slim\App as SlimApp;
 use \Psr\Http\Message\RequestInterface;
 use \Psr\Http\Message\ResponseInterface;
 
+// Module `charcoal-core` dependencies
+use \Charcoal\Log\LoggerAwareInterface;
+use \Charcoal\Log\LoggerAwareTrait;
+
 // From `charcoal-config`
 use \Charcoal\Config\ConfigurableInterface;
 use \Charcoal\Config\ConfigurableTrait;
@@ -20,8 +24,6 @@ use \Charcoal\Config\ConfigurableTrait;
 // Local namespace dependencies
 use \Charcoal\App\AppConfig;
 use \Charcoal\App\AppInterface;
-use \Charcoal\App\LoggerAwareInterface;
-use \Charcoal\App\LoggerAwareTrait;
 
 use \Charcoal\App\Language\LanguageManager;
 use \Charcoal\App\Middleware\MiddlewareManager;
@@ -291,7 +293,7 @@ class App extends SlimApp implements
     {
         $container = $this->getContainer();
 
-        if (!$this->logger() && isset($container['logger'])) {
+        if (isset($container['logger'])) {
             $this->set_logger($container['logger']);
             $this->logger()->debug('Charcoal App Init Logger');
         }

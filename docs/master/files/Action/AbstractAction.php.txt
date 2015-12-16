@@ -10,6 +10,8 @@ use \Psr\Http\Message\RequestInterface;
 use \Psr\Http\Message\ResponseInterface;
 
 // Module `charcoal-core` dependencies
+use \Charcoal\Log\LoggerAwareInterface;
+use \Charcoal\Log\LoggerAwareTrait;
 use \Charcoal\Translation\LanguageAwareInterface;
 use \Charcoal\Translation\LanguageAwareTrait;
 use \Charcoal\Translation\TranslationString;
@@ -19,8 +21,6 @@ use \Charcoal\App\AppAwareInterface;
 use \Charcoal\App\AppAwareTrait;
 use \Charcoal\App\AppInterface;
 use \Charcoal\App\Action\ActionInterface;
-use \Charcoal\App\LoggerAwareInterface;
-use \Charcoal\App\LoggerAwareTrait;
 
 /**
  * Default implementation, as abstract class, of  the `ActionInterface`.
@@ -76,7 +76,10 @@ abstract class AbstractAction implements
      */
     public function __construct(array $data = null)
     {
-        $this->set_logger($data['logger']);
+        if (isset($data['logger'])) {
+            $this->set_logger($data['logger']);
+        }
+
         $this->set_app($data['app']);
     }
 

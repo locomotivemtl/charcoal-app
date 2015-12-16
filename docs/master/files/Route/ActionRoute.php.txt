@@ -9,6 +9,10 @@ use \InvalidArgumentException;
 use \Psr\Http\Message\RequestInterface;
 use \Psr\Http\Message\ResponseInterface;
 
+// Module `charcoal-core` dependencies
+use \Charcoal\Log\LoggerAwareInterface;
+use \Charcoal\Log\LoggerAwareTrait;
+
 // From `charcoal-config`
 use \Charcoal\Config\ConfigInterface;
 use \Charcoal\Config\ConfigurableInterface;
@@ -19,8 +23,6 @@ use \Charcoal\App\AppAwareInterface;
 use \Charcoal\App\AppAwareTrait;
 use \Charcoal\App\AppInterface;
 use \Charcoal\App\Action\ActionFactory;
-use \Charcoal\App\LoggerAwareInterface;
-use \Charcoal\App\LoggerAwareTrait;
 use \Charcoal\App\Route\RouteInterface;
 use \Charcoal\App\Route\ActionRouteConfig;
 
@@ -55,9 +57,12 @@ class ActionRoute implements
      */
     public function __construct(array $data)
     {
+        if (isset($data['logger'])) {
+            $this->set_logger($data['logger']);
+        }
+
         $this->set_config($data['config']);
         $this->set_app($data['app']);
-        $this->set_logger($data['logger']);
     }
 
     /**

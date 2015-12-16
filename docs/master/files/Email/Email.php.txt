@@ -9,6 +9,10 @@ use \InvalidArgumentException;
 // From `phpmailer/phpmailer`
 use \PHPMailer;
 
+// Module `charcoal-core` dependencies
+use \Charcoal\Log\LoggerAwareInterface;
+use \Charcoal\Log\LoggerAwareTrait;
+
 // Module `charcoal-config` dependencies
 use \Charcoal\Config\ConfigurableInterface;
 use \Charcoal\Config\ConfigurableTrait;
@@ -25,8 +29,6 @@ use \Charcoal\Queue\QueueableTrait;
 // Intra-module (`charcoal-app`) dependencies
 use \Charcoal\App\AppAwareInterface;
 use \Charcoal\App\AppAwareTrait;
-use \Charcoal\App\LoggerAwareInterface;
-use \Charcoal\App\LoggerAwareTrait;
 use \Charcoal\App\Template\TemplateFactory;
 
 // Local namespace dependencies
@@ -122,8 +124,11 @@ class Email implements
      */
     public function __construct(array $data)
     {
+        if (isset($data['logger'])) {
+            $this->set_logger($data['logger']);
+        }
+
         $this->set_app($data['app']);
-        $this->set_logger($data['logger']);
     }
 
     /**
