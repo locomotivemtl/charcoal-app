@@ -10,6 +10,8 @@ use \Psr\Http\Message\RequestInterface;
 use \Psr\Http\Message\ResponseInterface;
 
 // Module `charcoal-core` dependencies
+use \Charcoal\Translation\LanguageAwareInterface;
+use \Charcoal\Translation\LanguageAwareTrait;
 use \Charcoal\Translation\TranslationString;
 
 // Intra-module (`charcoal-app`) dependencies
@@ -38,19 +40,16 @@ use \Charcoal\App\LoggerAwareTrait;
 abstract class AbstractAction implements
     ActionInterface,
     AppAwareInterface,
-    LoggerAwareInterface
+    LoggerAwareInterface,
+    LanguageAwareInterface
 {
     use AppAwareTrait;
     use LoggerAwareTrait;
+    use LanguageAwareTrait;
 
     const MODE_JSON = 'json';
     const MODE_REDIRECT = 'redirect';
     const DEFAULT_MODE = self::MODE_JSON;
-
-    /**
-     * @var string $lang
-     */
-    private $lang;
 
     /**
      * @var string $mode
@@ -128,30 +127,6 @@ abstract class AbstractAction implements
             }
         }
         return $this;
-    }
-
-    /**
-     * @param string $lang The langauge code for current action.
-     * @throws InvalidArgumentException If the lang parameter is not a string.
-     * @return ActionInterface Chainable
-     */
-    public function set_lang($lang)
-    {
-        if (!is_string($lang)) {
-            throw new InvalidArgumentException(
-                'Can not set language, lang parameter needs to be a string.'
-            );
-        }
-        $this->lang = $lang;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function lang()
-    {
-        return $this->lang;
     }
 
     /**
@@ -249,7 +224,7 @@ abstract class AbstractAction implements
         }
 
         // Get the translated URL
-        $url = $url->val($this->lang());
+        $url = $url->val($this->language());
         if (!$url) {
             $url = '';
         }

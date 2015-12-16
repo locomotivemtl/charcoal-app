@@ -11,7 +11,6 @@ use \Psr\Http\Message\ResponseInterface;
  */
 interface ActionInterface
 {
-
     /**
      * Actions are callable, with http request and response as parameters.
      *
@@ -26,17 +25,6 @@ interface ActionInterface
      * @return AbstractAction Chainable
      */
     public function set_data(array $data);
-
-    /**
-     * @param string $lang The langauge code for current action.
-     * @return ActionInterface Chainable
-     */
-    public function set_lang($lang);
-
-    /**
-     * @return string
-     */
-    public function lang();
 
     /**
      * @param string $mode The action mode.
