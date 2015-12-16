@@ -26,13 +26,13 @@ class AbstractActionTest extends \PHPUnit_Framework_TestCase
 
     public function testSetLang()
     {
-        $this->assertNull($this->obj->lang());
-        $ret = $this->obj->set_lang('fr');
+        $this->assertNull($this->obj->language());
+        $ret = $this->obj->set_language('fr');
         $this->assertSame($ret, $this->obj);
-        $this->assertEquals('fr', $this->obj->lang());
+        $this->assertEquals('fr', $this->obj->language());
 
         $this->setExpectedException('\InvalidArgumentException');
-        $this->obj->set_lang(false);
+        $this->obj->set_language(false);
     }
 
     public function testSetMode()
