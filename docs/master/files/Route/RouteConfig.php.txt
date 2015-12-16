@@ -7,11 +7,17 @@ use \InvalidArgumentException;
 // From `charcoal-config`
 use \Charcoal\Config\AbstractConfig;
 
+// From `charcoal-core`
+use \Charcoal\Translation\LanguageAwareInterface;
+use \Charcoal\Translation\LanguageAwareTrait;
+
 /**
  * Base "Route" configuration.
  */
-class RouteConfig extends AbstractConfig
+class RouteConfig extends AbstractConfig implements LanguageAwareInterface
 {
+    use LanguageAwareTrait;
+
     /**
      * @var string $ident
      */
@@ -29,11 +35,6 @@ class RouteConfig extends AbstractConfig
      * @var string $controller
      */
     private $controller;
-
-    /**
-     * @var string $lang
-     */
-    private $lang;
 
     /**
      * @var string $group
@@ -91,30 +92,6 @@ class RouteConfig extends AbstractConfig
             return $this->ident();
         }
         return $this->controller;
-    }
-
-    /**
-     * @param string $lang The language code for current route.
-     * @throws InvalidArgumentException If the lang parameter is not a string.
-     * @return ActionInterface Chainable
-     */
-    public function set_lang($lang)
-    {
-        if (!is_string($lang)) {
-            throw new InvalidArgumentException(
-                'Can not set language, lang parameter needs to be a string.'
-            );
-        }
-        $this->lang = $lang;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function lang()
-    {
-        return $this->lang;
     }
 
     /**
