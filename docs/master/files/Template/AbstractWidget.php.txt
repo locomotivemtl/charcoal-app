@@ -25,6 +25,7 @@ abstract class AbstractWidget implements
     ViewableInterface
 {
     use ViewableTrait;
+    use LoggerAwareTrait;
 
     /**
      * @var boolean $active
