@@ -9,13 +9,13 @@ use \LogicException;
 // Slim Dependencies
 use \Slim\App as SlimApp;
 
+// PSR-3 (logger) dependencies
+use \Psr\Log\LoggerAwareInterface;
+use \Psr\Log\LoggerAwareTrait;
+
 // PSR-7 (HTTP Messaging) Dependencies
 use \Psr\Http\Message\RequestInterface;
 use \Psr\Http\Message\ResponseInterface;
-
-// Module `charcoal-core` dependencies
-use \Charcoal\Log\LoggerAwareInterface;
-use \Charcoal\Log\LoggerAwareTrait;
 
 // From `charcoal-config`
 use \Charcoal\Config\ConfigurableInterface;
@@ -24,7 +24,6 @@ use \Charcoal\Config\ConfigurableTrait;
 // Local namespace dependencies
 use \Charcoal\App\AppConfig;
 use \Charcoal\App\AppInterface;
-
 use \Charcoal\App\Language\LanguageManager;
 use \Charcoal\App\Middleware\MiddlewareManager;
 use \Charcoal\App\Module\ModuleManager;
@@ -167,7 +166,7 @@ class App extends SlimApp implements
             $this->module_manager = new ModuleManager([
                 'config' => $modules,
                 'app'    => $this,
-                'logger' => $this->logger()
+                'logger' => $this->logger
             ]);
         }
 
@@ -188,7 +187,7 @@ class App extends SlimApp implements
             $this->route_manager = new RouteManager([
                 'config' => $routes,
                 'app'    => $this,
-                'logger' => $this->logger()
+                'logger' => $this->logger
             ]);
         }
 
@@ -209,7 +208,7 @@ class App extends SlimApp implements
             $this->middleware_manager = new MiddlewareManager([
                 'config' => $middlewares,
                 'app'    => $this,
-                'logger' => $this->logger()
+                'logger' => $this->logger
             ]);
         }
 
@@ -240,7 +239,7 @@ class App extends SlimApp implements
             $this->language_manager = new LanguageManager([
                 'config' => $locales,
                 'app'    => $this,
-                'logger' => $this->logger()
+                'logger' => $this->logger
             ]);
         }
 
@@ -294,8 +293,8 @@ class App extends SlimApp implements
         $container = $this->getContainer();
 
         if (isset($container['logger'])) {
-            $this->set_logger($container['logger']);
-            $this->logger()->debug('Charcoal App Init Logger');
+            $this->setLogger($container['logger']);
+            $this->logger->debug('Charcoal App Init Logger');
         }
     }
 

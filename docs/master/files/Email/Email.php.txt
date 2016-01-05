@@ -9,9 +9,10 @@ use \InvalidArgumentException;
 // From `phpmailer/phpmailer`
 use \PHPMailer;
 
-// Module `charcoal-core` dependencies
-use \Charcoal\Log\LoggerAwareInterface;
-use \Charcoal\Log\LoggerAwareTrait;
+// PSR-3 (logger) dependencies
+use \Psr\Log\LoggerAwareInterface;
+use \Psr\Log\LoggerAwareTrait;
+
 
 // Module `charcoal-config` dependencies
 use \Charcoal\Config\ConfigurableInterface;
@@ -125,7 +126,7 @@ class Email implements
     public function __construct(array $data)
     {
         if (isset($data['logger'])) {
-            $this->set_logger($data['logger']);
+            $this->setLogger($data['logger']);
         }
 
         $this->set_app($data['app']);
@@ -678,7 +679,7 @@ class Email implements
      */
     public function send()
     {
-        $this->logger()->debug(
+        $this->logger->debug(
             'Attempting to send an email',
             $this->to()
         );
@@ -737,7 +738,7 @@ class Email implements
 
             return $ret;
         } catch (Exception $e) {
-            $this->logger()->error('Error sending email: '.$e->getMessage());
+            $this->logger->error('Error sending email: '.$e->getMessage());
         }
     }
 
@@ -752,7 +753,7 @@ class Email implements
             return;
         }
 
-        $this->logger()->debug(
+        $this->logger->debug(
             sprintf('Using SMTP %s server to send email', $config['smtp_hostname'])
         );
 
@@ -805,9 +806,9 @@ class Email implements
     protected function log_send($result, $mailer)
     {
         if (!$result) {
-            $this->logger()->error('Email could not be sent.');
+            $this->logger->error('Email could not be sent.');
         } else {
-            $this->logger()->debug(sprintf('Email "%s" sent successfully.', $this->subject()), $this->to());
+            $this->logger->debug(sprintf('Email "%s" sent successfully.', $this->subject()), $this->to());
         }
 
         $recipients = array_merge(
@@ -817,7 +818,7 @@ class Email implements
         );
         foreach ($recipients as $to) {
             $log = new EmailLog([
-                'logger'=>$this->logger()
+                'logger'=>$this->logger
             ]);
 
             $log->set_type('email');

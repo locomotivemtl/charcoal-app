@@ -37,25 +37,11 @@ class TemplateRouteConfig extends RouteConfig
      */
     private $redirect;
 
-
     /**
-     * @param string $redirect Points to a route.
-     * @return TemplateRouteConfig $this
+     * Redirect Mode (HTTP status code)
+     * @var integer $redirect_mode
      */
-    public function set_redirect($redirect)
-    {
-        $this->redirect = $redirect;
-
-        return $this;
-    }
-
-    /**
-     * @return string redirect route
-     */
-    public function redirect()
-    {
-        return $this->redirect;
-    }
+    private $redirect_mode = 301;
 
     /**
      * @param string|null $template The template identifier.
@@ -148,6 +134,53 @@ class TemplateRouteConfig extends RouteConfig
     public function template_data()
     {
         return $this->template_data;
+    }
+
+    /**
+     * @param string $redirect Points to a route.
+     * @return TemplateRouteConfig Chainable
+     */
+    public function set_redirect($redirect)
+    {
+        $this->redirect = $redirect;
+
+        return $this;
+    }
+
+    /**
+     * @return string redirect route
+     */
+    public function redirect()
+    {
+        return $this->redirect;
+    }
+
+    /**
+     * Set the redirect HTTP status mode. (Must be 3xx)
+     *
+     * @param mixed $redirect_mode The HTTP status code.
+     * @throws InvalidArgumentException If the redirect mode is not 3xx.
+     * @return TemplateRouteConfig Chainable
+     */
+    public function set_redirect_mode($redirect_mode)
+    {
+        $redirect_mode = (int)$redirect_mode;
+        if ($redirect_mode < 300 || $redirect_mode  >= 400) {
+            throw new InvalidArgumentException(
+                'Invalid HTTP status for redirect mode'
+            );
+        }
+
+        $this->redirect_mode = $redirect_mode;
+        return $this;
+    }
+
+    /**
+     * @return integer
+     */
+    public function redirect_mode()
+    {
+        return $this->redirect_mode;
     }
 }
 

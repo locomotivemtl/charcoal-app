@@ -6,15 +6,10 @@ namespace Charcoal\App\Email\Script;
 use \Psr\Http\Message\RequestInterface;
 use \Psr\Http\Message\ResponseInterface;
 
-use \Charcoal\Charcoal;
-use \Charcoal\Loader\CollectionLoader;
-
-// Module `charcoal-app` dependencies
+// Intra-module (`charcoal-app`) dependencies
 use \Charcoal\App\Script\AbstractScript;
-
 use \Charcoal\App\Script\CronScriptInterface;
 use \Charcoal\App\Script\CronScriptTrait;
-
 use \Charcoal\App\Email\EmailQueueManager;
 
 /**
@@ -61,7 +56,6 @@ class ProcessQueueScript extends AbstractScript implements CronScriptInterface
         $queue_manager = new EmailQueueManager();
         $queue_manager->set_processed_callback($processed_callback);
         $queue_manager->process_queue();
-
 
         $this->stop_lock();
         return $response;

@@ -2,9 +2,9 @@
 
 namespace Charcoal\App\Module;
 
-// Module `charcoal-core` dependencies
-use \Charcoal\Log\LoggerAwareInterface;
-use \Charcoal\Log\LoggerAwareTrait;
+// PSR-3 (logger) dependencies
+use \Psr\Log\LoggerAwareInterface;
+use \Psr\Log\LoggerAwareTrait;
 
 // From `charcoal-config`
 use \Charcoal\Config\ConfigurableInterface;
@@ -39,7 +39,7 @@ abstract class AbstractModule implements
     public function __construct(array $data)
     {
         if (isset($data['logger'])) {
-            $this->set_logger($data['logger']);
+            $this->setLogger($data['logger']);
         }
 
         $this->set_app($data['app']);
@@ -64,7 +64,7 @@ abstract class AbstractModule implements
             return;
         }
         $middleware_manager = new MiddlewareManager([
-            'logger' => $this->logger(),
+            'logger' => $this->logger,
             'config' => $middlewares,
             'app' => $this->app()
         ]);
@@ -85,7 +85,7 @@ abstract class AbstractModule implements
             return;
         }
         $route_manager = new RouteManager([
-            'logger' => $this->logger(),
+            'logger' => $this->logger,
             'config' => $routes,
             'app' => $this->app()
         ]);

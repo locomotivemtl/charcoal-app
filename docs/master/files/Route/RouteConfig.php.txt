@@ -248,7 +248,11 @@ class RouteConfig extends AbstractConfig implements LanguageAwareInterface
 
         if (!in_array($method, $valid_http_methods)) {
             throw new InvalidArgumentException(
-                sprintf('Unsupported HTTP method "%s" provided', $method)
+                sprintf(
+                    'Invalid method "%s". Must be a valid HTTP method (%s).',
+                    $method,
+                    implode(',', $valid_http_methods)
+                )
             );
         }
 

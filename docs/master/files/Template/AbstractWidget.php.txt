@@ -5,9 +5,9 @@ namespace Charcoal\App\Template;
 // Dependencies from `PHP`
 use \InvalidArgumentException;
 
-// Module `charcoal-core` dependencies
-use \Charcoal\Log\LoggerAwareInterface;
-use \Charcoal\Log\LoggerAwareTrait;
+// PSR-3 (logger) dependencies
+use \Psr\Log\LoggerAwareInterface;
+use \Psr\Log\LoggerAwareTrait;
 
 // Module `charcoal-view` dependencies
 use \Charcoal\View\ViewableInterface;
@@ -24,6 +24,7 @@ abstract class AbstractWidget implements
     LoggerAwareInterface,
     ViewableInterface
 {
+    use LoggerAwareTrait;
     use ViewableTrait;
     use LoggerAwareTrait;
 
@@ -38,7 +39,7 @@ abstract class AbstractWidget implements
     public function __construct(array $data = null)
     {
         if (isset($data['logger'])) {
-            $this->set_logger($data['logger']);
+            $this->setLogger($data['logger']);
         }
     }
 
@@ -98,7 +99,7 @@ abstract class AbstractWidget implements
     public function create_view(array $data = null)
     {
         $view = new \Charcoal\View\GenericView([
-            'logger'=>null
+            'logger'=>$this->logger
         ]);
         if ($data !== null) {
             $view->set_data($data);
