@@ -47,7 +47,7 @@ class RouteManager extends AbstractManager
         $routes    = $this->config();
         $templates = ( isset($routes['templates']) ? $routes['templates'] : [] );
 
-        $this->logger()->debug('Templates', (array)$templates);
+        $this->logger->debug('Templates', (array)$templates);
 
         foreach ($templates as $template_ident => $template_config) {
             $template_ident = ltrim($template_ident, '/');
@@ -126,7 +126,7 @@ class RouteManager extends AbstractManager
         $routes  = $this->config();
         $actions = ( isset($routes['actions']) ? $routes['actions'] : [] );
 
-        $this->logger()->debug('Actions', (array)$actions);
+        $this->logger->debug('Actions', (array)$actions);
 
         foreach ($actions as $action_ident => $action_config) {
             $action_ident = ltrim($action_ident, '/');
@@ -205,7 +205,7 @@ class RouteManager extends AbstractManager
         $routes  = $this->config();
         $scripts = ( isset($routes['scripts']) ? $routes['scripts'] : [] );
 
-        $this->logger()->debug('Scripts', (array)$scripts);
+        $this->logger->debug('Scripts', (array)$scripts);
 
         foreach ($scripts as $script_ident => $script_config) {
             $script_ident = ltrim($script_ident, '/');
