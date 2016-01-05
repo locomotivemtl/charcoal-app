@@ -24,6 +24,7 @@ abstract class AbstractWidget implements
     LoggerAwareInterface,
     ViewableInterface
 {
+    use LoggerAwareTrait;
     use ViewableTrait;
     use LoggerAwareTrait;
 

@@ -87,11 +87,8 @@ class TemplateRoute implements
         $tpl_config = $this->config();
         $app_config = $this->app()->config();
 
-        if (isset($tpl_config['redirect'])) {
-            if (!isset($tpl_config['redirect_mode'])) {
-                $tpl_config['redirect_mode'] = 301;
-            }
-
+        // Handle explicit redirects
+        if ($tpl_config['redirect'] !== null) {
             return $response->withRedirect(
                 $request->getUri()->withPath($tpl_config['redirect']),
                 $tpl_config['redirect_mode']
