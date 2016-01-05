@@ -5,16 +5,14 @@ namespace Charcoal\App\Action;
 // Dependencies from `PHP`
 use \InvalidArgumentException;
 
+// PSR-3 (logger) dependencies
+use \Psr\Log\LoggerAwareInterface;
+use \Psr\Log\LoggerAwareTrait;
+
 // PSR-7 (http messaging) dependencies
 use \Psr\Http\Message\RequestInterface;
 use \Psr\Http\Message\ResponseInterface;
 
-// Module `charcoal-core` dependencies
-use \Charcoal\Log\LoggerAwareInterface;
-use \Charcoal\Log\LoggerAwareTrait;
-use \Charcoal\Translation\LanguageAwareInterface;
-use \Charcoal\Translation\LanguageAwareTrait;
-use \Charcoal\Translation\TranslationString;
 
 // Intra-module (`charcoal-app`) dependencies
 use \Charcoal\App\AppAwareInterface;
@@ -40,12 +38,10 @@ use \Charcoal\App\Action\ActionInterface;
 abstract class AbstractAction implements
     ActionInterface,
     AppAwareInterface,
-    LoggerAwareInterface,
-    LanguageAwareInterface
+    LoggerAwareInterface
 {
     use AppAwareTrait;
     use LoggerAwareTrait;
-    use LanguageAwareTrait;
 
     const MODE_JSON = 'json';
     const MODE_REDIRECT = 'redirect';
@@ -62,12 +58,12 @@ abstract class AbstractAction implements
     private $success = false;
 
     /**
-     * @var TranslationString $success_url
+     * @var string $success_url
      */
     private $success_url;
 
     /**
-     * @var TranslationString $failure_url
+     * @var string $failure_url
      */
     private $failure_url;
 
@@ -77,7 +73,7 @@ abstract class AbstractAction implements
     public function __construct(array $data = null)
     {
         if (isset($data['logger'])) {
-            $this->set_logger($data['logger']);
+            $this->setLogger($data['logger']);
         }
 
         $this->set_app($data['app']);
@@ -181,12 +177,12 @@ abstract class AbstractAction implements
      */
     public function set_success_url($url)
     {
-        $this->success_url = new TranslationString($url);
+        $this->success_url = $url;
         return $this;
     }
 
     /**
-     * @return TranslationString
+     * @return string
      */
     public function success_url()
     {
@@ -199,12 +195,12 @@ abstract class AbstractAction implements
      */
     public function set_failure_url($url)
     {
-        $this->failure_url = new TranslationString($url);
+        $this->failure_url = $url;
         return $this;
     }
 
     /**
-     * @return TranslationString
+     * @return string
      */
     public function failure_url()
     {

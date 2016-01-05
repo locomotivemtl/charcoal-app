@@ -4,9 +4,9 @@ namespace Charcoal\App;
 
 use \InvalidArgumentException;
 
-// Module `charcoal-core` dependencies
-use \Charcoal\Log\LoggerAwareInterface;
-use \Charcoal\Log\LoggerAwareTrait;
+// PSR-3 (logger) dependencies
+use \Psr\Log\LoggerAwareInterface;
+use \Psr\Log\LoggerAwareTrait;
 
 // Local namespace dependencies
 use \Charcoal\App\AppAwareInterface;
@@ -38,7 +38,7 @@ abstract class AbstractManager implements
     final public function __construct(array $data)
     {
         if (isset($data['logger'])) {
-            $this->set_logger($data['logger']);
+            $this->setLogger($data['logger']);
         }
 
         $this->set_config($data['config']);

@@ -5,16 +5,16 @@ namespace Charcoal\App\Script;
 // Dependencies from `PHP`
 use \InvalidArgumentException;
 
+// PSR-3 (logger) dependencies
+use \Psr\Log\LoggerAwareInterface;
+use \Psr\Log\LoggerAwareTrait;
+
 // PSR-7 (http messaging) dependencies
 use \Psr\Http\Message\RequestInterface;
 use \Psr\Http\Message\ResponseInterface;
 
 // `thephpleague/climate` dependencies
 use \League\CLImate\CLImate;
-
-// Module `charcoal-core` dependencies
-use \Charcoal\Log\LoggerAwareInterface;
-use \Charcoal\Log\LoggerAwareTrait;
 
 // Intra-module (`charcoal-app`) dependencies
 use \Charcoal\App\AppInterface;
@@ -65,7 +65,7 @@ abstract class AbstractScript implements
     final public function __construct(array $data = null)
     {
         if (isset($data['logger'])) {
-            $this->set_logger($data['logger']);
+            $this->setLogger($data['logger']);
         }
 
         $this->set_app($data['app']);

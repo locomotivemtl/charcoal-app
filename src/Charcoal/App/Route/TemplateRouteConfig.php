@@ -156,16 +156,16 @@ class TemplateRouteConfig extends RouteConfig
     }
 
     /**
-    * Set the redirect HTTP status mode. (Must be 3xx)
-    *
-    * @param mixed $redirect_mode The HTTP status code
-    * @throws InvalidArgumentException If the redirect mode is not 3xx.
-    * @return TemplateRouteConfig Chainable
-    */
+     * Set the redirect HTTP status mode. (Must be 3xx)
+     *
+     * @param mixed $redirect_mode The HTTP status code.
+     * @throws InvalidArgumentException If the redirect mode is not 3xx.
+     * @return TemplateRouteConfig Chainable
+     */
     public function set_redirect_mode($redirect_mode)
     {
         $redirect_mode = (int)$redirect_mode;
-        if($redirect_mode < 300 || $redirect_mode  >= 400) {
+        if ($redirect_mode < 300 || $redirect_mode  >= 400) {
             throw new InvalidArgumentException(
                 'Invalid HTTP status for redirect mode'
             );
@@ -176,8 +176,8 @@ class TemplateRouteConfig extends RouteConfig
     }
 
     /**
-    * @return integer
-    */
+     * @return integer
+     */
     public function redirect_mode()
     {
         return $this->redirect_mode;

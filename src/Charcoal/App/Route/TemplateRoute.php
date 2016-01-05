@@ -5,13 +5,13 @@ namespace Charcoal\App\Route;
 // Dependencies from `PHP`
 use \InvalidArgumentException;
 
+// PSR-3 (logger) dependencies
+use \Psr\Log\LoggerAwareInterface;
+use \Psr\Log\LoggerAwareTrait;
+
 // PSR-7 (http messaging) dependencies
 use \Psr\Http\Message\RequestInterface;
 use \Psr\Http\Message\ResponseInterface;
-
-// Module `charcoal-core` dependencies
-use \Charcoal\Log\LoggerAwareInterface;
-use \Charcoal\Log\LoggerAwareTrait;
 
 // From `charcoal-config`
 use \Charcoal\Config\ConfigurableInterface;
@@ -58,7 +58,7 @@ class TemplateRoute implements
     public function __construct(array $data)
     {
         if (isset($data['logger'])) {
-            $this->set_logger($data['logger']);
+            $this->setLogger($data['logger']);
         }
 
         $this->set_config($data['config']);
@@ -108,7 +108,7 @@ class TemplateRoute implements
 
         $template = $template_factory->create($template_controller, [
             'app'    => $this->app(),
-            'logger' => $this->logger()
+            'logger' => $this->logger
         ]);
 
         $template_view = $template->view();

@@ -2,14 +2,14 @@
 
 namespace Charcoal\App\Template;
 
+// PSR-3 (logger) dependencies
+use \Psr\Log\LoggerAwareInterface;
+use \Psr\Log\LoggerAwareTrait;
+
 // Module `charcoal-view` dependencies
 use \Charcoal\View\GenericView;
 use \Charcoal\View\ViewableInterface;
 use \Charcoal\View\ViewableTrait;
-
-// Module `charcoal-core` dependencies
-use \Charcoal\Log\LoggerAwareInterface;
-use \Charcoal\Log\LoggerAwareTrait;
 
 // Intra-module (`charcoal-app`) dependencies
 use \Charcoal\App\AppAwareInterface;
@@ -36,7 +36,7 @@ abstract class AbstractTemplate implements
     public function __construct(array $data = null)
     {
         if (isset($data['logger'])) {
-            $this->set_logger($data['logger']);
+            $this->setLogger($data['logger']);
         }
 
         $this->set_app($data['app']);
@@ -75,7 +75,7 @@ abstract class AbstractTemplate implements
     public function create_view(array $data = null)
     {
         $view = new GenericView([
-            'logger' => $this->logger()
+            'logger' => $this->logger
         ]);
         if ($data !== null) {
             $view->set_data($data);

@@ -24,17 +24,6 @@ class AbstractActionTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('\Charcoal\App\Action\AbstractAction', $obj);
     }
 
-    public function testSetLang()
-    {
-        $this->assertNull($this->obj->language());
-        $ret = $this->obj->set_language('fr');
-        $this->assertSame($ret, $this->obj);
-        $this->assertEquals('fr', $this->obj->language());
-
-        $this->setExpectedException('\InvalidArgumentException');
-        $this->obj->set_language(false);
-    }
-
     public function testSetMode()
     {
         $this->assertEquals('json', $this->obj->mode());
