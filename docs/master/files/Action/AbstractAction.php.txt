@@ -83,6 +83,7 @@ abstract class AbstractAction implements
      * @param RequestInterface  $request  A PSR-7 compatible Request instance.
      * @param ResponseInterface $response A PSR-7 compatible Response instance.
      * @return ResponseInterface
+     * @see self::run()
      */
     final public function __invoke(RequestInterface $request, ResponseInterface $response)
     {
@@ -172,11 +173,21 @@ abstract class AbstractAction implements
     }
 
     /**
-     * @param mixed $url The success URL (translation string).
+     * @param string|null $url The success URL.
+     * @throws InvalidArgumentException If the URL parameter is not a string.
      * @return ActionInterface Chainable
      */
     public function set_success_url($url)
     {
+        if ($url === null) {
+            $this->success_url = null;
+            return $this;
+        }
+        if (!is_string($url)) {
+            throw new InvalidArgumentException(
+                'Success URL must be a string'
+            );
+        }
         $this->success_url = $url;
         return $this;
     }
@@ -186,15 +197,28 @@ abstract class AbstractAction implements
      */
     public function success_url()
     {
+        if ($this->success_url === null) {
+            return '';
+        }
         return $this->success_url;
     }
 
     /**
-     * @param mixed $url The success URL (translation string).
+     * @param string|null $url The success URL.
+     * @throws InvalidArgumentException If the URL parameter is not a string.
      * @return ActionInterface Chainable
      */
     public function set_failure_url($url)
     {
+        if ($url === null) {
+            $this->failure_url = null;
+            return $this;
+        }
+        if (!is_string($url)) {
+            throw new InvalidArgumentException(
+                'Failure URL must be a string'
+            );
+        }
         $this->failure_url = $url;
         return $this;
     }
@@ -204,6 +228,9 @@ abstract class AbstractAction implements
      */
     public function failure_url()
     {
+        if ($this->failure_url === null) {
+            return '';
+        }
         return $this->failure_url;
     }
 
@@ -218,15 +245,6 @@ abstract class AbstractAction implements
             $url = $this->failure_url();
         }
 
-        if ($url === null) {
-            return '';
-        }
-
-        // Get the translated URL
-        $url = $url->val($this->language());
-        if (!$url) {
-            $url = '';
-        }
         return $url;
     }
 

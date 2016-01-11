@@ -22,7 +22,7 @@ interface ActionInterface
 
     /**
      * @param array $data The data to set.
-     * @return AbstractAction Chainable
+     * @return ActionInterface Chainable
      */
     public function set_data(array $data);
 
@@ -49,24 +49,24 @@ interface ActionInterface
     public function success();
 
     /**
-     * @param mixed $url The success URL (translation string).
+     * @param string $url The success URL.
      * @return ActionInterface Chainable
      */
     public function set_success_url($url);
 
     /**
-     * @return TranslationString
+     * @return string
      */
     public function success_url();
 
     /**
-     * @param mixed $url The success URL (translation string).
+     * @param string $url The success URL.
      * @return ActionInterface Chainable
      */
     public function set_failure_url($url);
 
     /**
-     * @return TranslationString
+     * @return string
      */
     public function failure_url();
 
