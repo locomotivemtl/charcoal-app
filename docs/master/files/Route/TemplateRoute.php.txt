@@ -85,7 +85,6 @@ class TemplateRoute implements
     public function __invoke(RequestInterface $request, ResponseInterface $response)
     {
         $tpl_config = $this->config();
-        $app_config = $this->app()->config();
 
         // Handle explicit redirects
         if ($tpl_config['redirect'] !== null) {
@@ -94,6 +93,39 @@ class TemplateRoute implements
                 $tpl_config['redirect_mode']
             );
         }
+
+        $template_ident = $tpl_config['template'];
+
+        if ($tpl_config['cache']) {
+            $container = $this->app()->getContainer();
+            $cache_pool = $container['cache'];
+            $cache_item = $cache_pool->getItem('template', $template_ident);
+
+            $template_content = $cache_item->get();
+            if ($cache_item->isMiss()) {
+                $cache_item->lock();
+                $template_content = $this->template_content($tpl_config);
+
+                $cache_item->set($template_content, $tpl_config['cache_ttl']);
+            }
+        } else {
+            $template_content = $this->template_content($tpl_config);
+        }
+
+
+
+        $response->write($template_content);
+
+        return $response;
+    }
+
+    /**
+     * @param TemplateRouteConfig $tpl_config The template route configuration.
+     * @return string
+     */
+    protected function template_content(TemplateRouteConfig $tpl_config)
+    {
+        $app_config = $this->app()->config();
 
         $template_ident = $tpl_config['template'];
         $template_controller = $tpl_config['controller'];
@@ -124,9 +156,7 @@ class TemplateRoute implements
 
         $template_content = $template->render_template($template_ident);
 
-        $response->write($template_content);
-
-        return $response;
+        return $template_content;
     }
 }
 

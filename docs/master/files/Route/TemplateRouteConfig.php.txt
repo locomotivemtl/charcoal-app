@@ -13,35 +13,47 @@ use \Charcoal\App\Route\RouteConfig;
 class TemplateRouteConfig extends RouteConfig
 {
     /**
-     * The template ident (to load)
+     * The template ident (to load).
      * @var string $template
      */
     private $template;
 
     /**
-     * The view engine ident to use
+     * The view engine ident to use.
      * Ex: "mustache", ""
      * @var string $engine
      */
     private $engine;
 
     /**
-     * Additional template data
+     * Additional template data.
      * @var array $template_data
      */
     private $template_data = [];
 
     /**
-     * Redirect URL
+     * Redirect URL.
      * @var string $redirect
      */
     private $redirect;
 
     /**
-     * Redirect Mode (HTTP status code)
+     * Redirect Mode (HTTP status code).
      * @var integer $redirect_mode
      */
     private $redirect_mode = 301;
+
+    /**
+     * Enable route-level caching for this template.
+     * @var boolean $cache
+     */
+    private $cache = false;
+
+    /**
+     * If using cache, the time-to-live, in seconds, of the cache. (0 = no limit).
+     * @var integer $cache_ttl
+     */
+    private $cache_ttl = 0;
 
     /**
      * @param string|null $template The template identifier.
@@ -181,6 +193,42 @@ class TemplateRouteConfig extends RouteConfig
     public function redirect_mode()
     {
         return $this->redirect_mode;
+    }
+
+    /**
+     * @param boolean $cache The cache enabled flag.
+     * @return TemplateRouteConfig Chainable
+     */
+    public function set_cache($cache)
+    {
+        $this->cache = !!$cache;
+        return $this;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function cache()
+    {
+        return $this->cache;
+    }
+
+    /**
+     * @param integer $ttl The cache Time-To-Live, in seconds.
+     * @return TemplateRouteConfig Chainable
+     */
+    public function set_cache_ttl($ttl)
+    {
+        $this->cache_ttl = (int)$ttl;
+        return $this;
+    }
+
+    /**
+     * @return integer
+     */
+    public function cache_ttl()
+    {
+        return $this->cache_ttl;
     }
 }
 
