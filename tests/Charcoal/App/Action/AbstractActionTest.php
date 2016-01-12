@@ -12,9 +12,10 @@ class AbstractActionTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->app = $GLOBALS['app'];
+        $container = $this->app->getContainer();
         $this->obj = $this->getMockForAbstractClass('\Charcoal\App\Action\AbstractAction', [[
             'app'=>$this->app,
-            'logger'=>$this->app->logger()
+            'logger'=>$container['logger']
         ]]);
     }
 
