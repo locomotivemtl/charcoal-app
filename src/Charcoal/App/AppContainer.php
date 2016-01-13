@@ -27,10 +27,10 @@ class AppContainer extends SlimContainer
      */
     public function __construct(array $values = [])
     {
-        parent::__construct($values);
-
         $config = isset($values['config']) ? $values['config'] : [];
         $this->register_defaults($config);
+
+        parent::__construct($values);
     }
 
     /**
@@ -114,6 +114,7 @@ class AppContainer extends SlimContainer
                         'servers' => $servers,
                         'prefix_key' => $prefix
                     ]);
+
                 } else {
                     $driver = new Ephemeral();
                 }
