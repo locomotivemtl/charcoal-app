@@ -11,7 +11,7 @@ interface WidgetInterface
      * @param boolean $active The active flag.
      * @return WidgetInterface Chainable
      */
-    public function set_active($active);
+    public function setActive($active);
 
     /**
      * @return boolean

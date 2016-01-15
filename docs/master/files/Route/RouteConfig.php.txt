@@ -60,7 +60,7 @@ class RouteConfig extends AbstractConfig implements LanguageAwareInterface
      * @throws InvalidArgumentException If the identifier is not a string.
      * @return RouteConfig Chainable
      */
-    public function set_ident($ident)
+    public function setIdent($ident)
     {
         if (!is_string($ident)) {
             throw new InvalidArgumentException(
@@ -90,7 +90,7 @@ class RouteConfig extends AbstractConfig implements LanguageAwareInterface
      * @throws InvalidArgumentException If the pattern argument is not a string.
      * @return RouteConfig Chainable
      */
-    public function set_route($pattern)
+    public function setRoute($pattern)
     {
         if (!is_string($pattern)) {
             throw new InvalidArgumentException(
@@ -119,12 +119,12 @@ class RouteConfig extends AbstractConfig implements LanguageAwareInterface
      * @param string[]|RouteGroup[] $groups The parent route groups.
      * @return RouteConfig Chainable
      */
-    public function set_groups(array $groups)
+    public function setGroups(array $groups)
     {
         $this->groups = [];
 
         foreach ($groups as $group) {
-            $this->add_group($group);
+            $this->addGroup($group);
         }
 
         return $this;
@@ -137,7 +137,7 @@ class RouteConfig extends AbstractConfig implements LanguageAwareInterface
      * @throws InvalidArgumentException If the group is invalid.
      * @return RouteConfig Chainable
      */
-    public function add_group($group)
+    public function addGroup($group)
     {
         if (!is_string($group)) {
             throw new InvalidArgumentException(
@@ -167,7 +167,7 @@ class RouteConfig extends AbstractConfig implements LanguageAwareInterface
      * @throws InvalidArgumentException If the route view controller is not a string.
      * @return RouteConfig Chainable
      */
-    public function set_controller($controller)
+    public function setController($controller)
     {
         if (!is_string($controller)) {
             throw new InvalidArgumentException(
@@ -202,12 +202,12 @@ class RouteConfig extends AbstractConfig implements LanguageAwareInterface
      * @param string[] $methods The route's supported HTTP methods.
      * @return RouteConfig Chainable
      */
-    public function set_methods(array $methods)
+    public function setMethods(array $methods)
     {
         $this->methods = [];
 
         foreach ($methods as $method) {
-            $this->add_method($method);
+            $this->addMethod($method);
         }
 
         return $this;
@@ -220,7 +220,7 @@ class RouteConfig extends AbstractConfig implements LanguageAwareInterface
      * @throws InvalidArgumentException If the HTTP method is invalid.
      * @return RouteConfig Chainable
      */
-    public function add_method($method)
+    public function addMethod($method)
     {
         if (!is_string($method)) {
             throw new InvalidArgumentException(

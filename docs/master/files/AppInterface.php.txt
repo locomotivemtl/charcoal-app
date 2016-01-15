@@ -12,28 +12,28 @@ interface AppInterface
      *
      * @return \Charcoal\App\Module\ModuleManager
      */
-    public function module_manager();
+    public function moduleManager();
 
     /**
      * Retrieve the application's route manager.
      *
      * @return \Charcoal\App\Route\RouteManager
      */
-    public function route_manager();
+    public function routeManager();
 
     /**
      * Retrieve the application's middleware manager.
      *
      * @return \Charcoal\App\Middleware\MiddlewareManager
      */
-    public function middleware_manager();
+    public function middlewareManager();
 
     /**
      * Retrieve the application's language manager.
      *
      * @return \Charcoal\App\Language\LanguageManager
      */
-    public function language_manager();
+    public function languageManager();
 
     /**
      * Run application

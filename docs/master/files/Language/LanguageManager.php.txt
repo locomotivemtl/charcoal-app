@@ -41,7 +41,7 @@ class LanguageManager extends AbstractManager implements
      *
      * @var GenericConfig
      */
-    private static $language_index;
+    private static $languageIndex;
 
     /**
      * Set up the available languages, defaults, and active
@@ -53,8 +53,8 @@ class LanguageManager extends AbstractManager implements
         $config = $this->config();
 
         if (!($config instanceof TranslationConfig)) {
-            $this->setup_languages($config);
-            $this->setup_translations($config);
+            $this->setupLanguages($config);
+            $this->setupTranslations($config);
         }
 
         return $this;
@@ -65,25 +65,25 @@ class LanguageManager extends AbstractManager implements
      *
      * Settings:
      * - languages
-     * - default_language
-     * - current_language
+     * - defaultLanguage
+     * - currentLanguage
      *
      * @param  array $config The raw configuration array provided upon instantiation.
      * @return void
      * @throws RuntimeException If the languages passed to the manager isn't an associative array.
      * @todo   Implement cache get/set of JSON data based on languages.
      */
-    public function setup_languages(array $config)
+    public function setupLanguages(array $config)
     {
         $langs = [];
 
-        if (isset($config['default_language'])) {
-            $langs['default_language'] = $config['default_language'];
+        if (isset($config['defaultLanguage'])) {
+            $langs['defaultLanguage'] = $config['defaultLanguage'];
         }
 
         /** Not recommended; allow the current language to be determined by the client. */
-        if (isset($config['current_language'])) {
-            $langs['current_language'] = $config['current_language'];
+        if (isset($config['currentLanguage'])) {
+            $langs['currentLanguage'] = $config['currentLanguage'];
         }
 
         /**
@@ -97,7 +97,7 @@ class LanguageManager extends AbstractManager implements
                 });
 
                 if (count($config['languages'])) {
-                    $index = self::language_index(array_keys($config['languages']));
+                    $index = self::languageIndex(arrayKeys($config['languages']));
 
                     $langs['languages'] = [];
                     foreach ($config['languages'] as $ident => $data) {
@@ -115,7 +115,7 @@ class LanguageManager extends AbstractManager implements
                             $lang->set_ident($ident);
                         }
 
-                        $lang->set_data($data);
+                        $lang->setData($data);
 
                         $langs['languages'][$lang->ident()] = $lang;
                     }
@@ -126,7 +126,7 @@ class LanguageManager extends AbstractManager implements
         }
 
         $translator = new TranslationConfig($langs);
-        $this->set_config($translator);
+        $this->setConfig($translator);
     }
 
     /**
@@ -139,7 +139,7 @@ class LanguageManager extends AbstractManager implements
      * @return void
      * @throws RuntimeException If the translations passed to the manager isn't an associative array.
      */
-    private function setup_translations(array $config)
+    private function setupTranslations(array $config)
     {
         $trans = [];
 
@@ -158,7 +158,7 @@ class LanguageManager extends AbstractManager implements
         }
 
         $catalog = new Catalog($trans);
-        $this->set_catalog($catalog);
+        $this->setCatalog($catalog);
     }
 
     /**
@@ -167,7 +167,7 @@ class LanguageManager extends AbstractManager implements
      * @param  CatalogInterface $catalog A catalog to hold translations for the manager.
      * @return self
      */
-    protected function set_catalog(CatalogInterface $catalog)
+    protected function setCatalog(CatalogInterface $catalog)
     {
         $this->catalog = $catalog;
         return $this;
@@ -204,21 +204,21 @@ class LanguageManager extends AbstractManager implements
      * Get a list of all existing languages, their names and translations,
      * codes in various standards, and directionality.
      *
-     * @param  string $cache_key If provided, returns a subset of language information.
+     * @param  string $cacheKey If provided, returns a subset of language information.
      *     Defaults to returning all language data.
      * @return GenericConfig
      *
      * @todo Implement cache get/set of JSON data based on languages.
      */
-    public static function language_index($cache_key = null)
+    public static function languageIndex($cacheKey = null)
     {
-        if (!isset(self::$language_index)) {
-            if ($cache_key || !$cache_key) {
-                self::$language_index = new GenericConfig(__DIR__.'/../../../../config/languages.json');
+        if (!isset(self::$languageIndex)) {
+            if ($cacheKey || !$cacheKey) {
+                self::$languageIndex = new GenericConfig(__DIR__.'/../../../../config/languages.json');
             }
         }
 
-        return self::$language_index;
+        return self::$languageIndex;
     }
 }
 

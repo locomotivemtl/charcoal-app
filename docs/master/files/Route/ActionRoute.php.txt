@@ -61,17 +61,17 @@ class ActionRoute implements
             $this->setLogger($data['logger']);
         }
 
-        $this->set_config($data['config']);
-        $this->set_app($data['app']);
+        $this->setConfig($data['config']);
+        $this->setApp($data['app']);
     }
 
     /**
-     * ConfigurableTrait > create_config()
+     * ConfigurableTrait > createConfig()
      *
      * @param mixed|null $data Optional config data.
      * @return ConfigInterface
      */
-    public function create_config($data = null)
+    public function createConfig($data = null)
     {
         return new ActionRouteConfig($data);
     }
@@ -85,15 +85,15 @@ class ActionRoute implements
     {
         $config = $this->config();
 
-        $action_controller = $config['controller'];
+        $actionController = $config['controller'];
 
-        $action_factory = new ActionFactory();
-        $action = $action_factory->create($action_controller, [
+        $actionFactory = new ActionFactory();
+        $action = $actionFactory->create($actionController, [
             'app' => $this->app(),
             'logger' => $this->logger
         ]);
 
-        $action->set_data($config['action_data']);
+        $action->setData($config['action_data']);
 
         // Run (invoke) action.
         return $action($request, $response);

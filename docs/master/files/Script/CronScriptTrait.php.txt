@@ -10,50 +10,50 @@ use \Exception;
 trait CronScriptTrait
 {
     /**
-     * @var boolean $use_lock
+     * @var boolean $useLock
      */
-    private $use_lock = false;
+    private $useLock = false;
 
     /**
      * Lock file pointer
-     * @var resource $lock_fp
+     * @var resource $lockFilePointer
      */
-    private $lock_fp;
-    
+    private $lockFilePointer;
+
 
     /**
-     * @param boolean $use_lock The boolean flag if a lock should be used.
+     * @param boolean $useLock The boolean flag if a lock should be used.
      * @return CronScriptInterface Chainable
      */
-    public function set_use_lock($use_lock)
+    public function setUseLock($useLock)
     {
-        $this->use_lock = !!$use_lock;
+        $this->useLock = !!$useLock;
         return $this;
     }
 
     /**
      * @return boolean
      */
-    public function use_lock()
+    public function useLock()
     {
-        return $this->use_lock;
+        return $this->useLock;
     }
 
     /**
      * @throws Exception If the lock file can not be opened.
      * @return boolean
      */
-    public function start_lock()
+    public function startLock()
     {
-        $lock_name = str_replace('\\', '-', get_class($this));
-        $lock_file = sys_get_temp_dir().'/'.$lock_name;
-        $this->lock_fp = fopen($lock_file, 'w');
-        if (!$this->lock_fp) {
+        $lockName = str_replace('\\', '-', get_class($this));
+        $lockFile = sys_get_temp_dir().'/'.$lockName;
+        $this->lockFilePointer = fopen($lockFile, 'w');
+        if (!$this->lockFilePointer) {
              throw new Exception(
                  'Can not run action. Lock file not available.'
              );
         }
-        if (flock($this->lock_fp, LOCK_EX)) {
+        if (flock($this->lockFilePointer, LOCK_EX)) {
             return true;
         } else {
             throw new Exception(
@@ -65,11 +65,11 @@ trait CronScriptTrait
     /**
      * @return void
      */
-    public function stop_lock()
+    public function stopLock()
     {
-        if ($this->lock_fp) {
-            flock($this->lock_fp, LOCK_UN);
-            fclose($this->lock_fp);
+        if ($this->lockFilePointer) {
+            flock($this->lockFilePointer, LOCK_UN);
+            fclose($this->lockFilePointer);
         }
     }
 }

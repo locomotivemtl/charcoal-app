@@ -21,7 +21,55 @@
     <script src="../js/jquery.smooth-scroll.js"></script>
     <script src="../js/prism.min.js"></script>
     <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
-    
+        <script type="text/javascript">
+        function loadExternalCodeSnippets() {
+            Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
+                var src = pre.getAttribute('data-src');
+                var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
+                var language = 'php';
+
+                var code = document.createElement('code');
+                code.className = 'language-' + language;
+
+                pre.textContent = '';
+
+                code.textContent = 'Loading…';
+
+                pre.appendChild(code);
+
+                var xhr = new XMLHttpRequest();
+
+                xhr.open('GET', src, true);
+
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState == 4) {
+
+                        if (xhr.status < 400 && xhr.responseText) {
+                            code.textContent = xhr.responseText;
+
+                            Prism.highlightElement(code);
+                        }
+                        else if (xhr.status >= 400) {
+                            code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                        }
+                        else {
+                            code.textContent = '✖ Error: File does not exist or is empty';
+                        }
+                    }
+                };
+
+                xhr.send(null);
+            });
+        }
+
+        $(document).ready(function(){
+            loadExternalCodeSnippets();
+        });
+        $('#source-view').on('shown', function () {
+            loadExternalCodeSnippets();
+        })
+    </script>
+
     <link rel="shortcut icon" href="../images/favicon.ico"/>
     <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
     <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
@@ -66,12 +114,12 @@
                         <ul class="dropdown-menu">
                             <li>
                                 <a href="../reports/errors.html">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">403</span>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">287</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="../reports/markers.html">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">2</span>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">2</span>
                                 </a>
                             </li>
                             <li>
@@ -96,37 +144,37 @@
                                 <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-17378430"></a>
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-2067933770"></a>
                                 <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
             </div>
-            <div id="namespace-17378430" class="accordion-body collapse in">
+            <div id="namespace-2067933770" class="accordion-body collapse in">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-22632683"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1201302949"></a>
                                 <a href="../namespaces/Charcoal.html" style="margin-left: 30px; padding-left: 0">Charcoal</a>
             </div>
-            <div id="namespace-22632683" class="accordion-body collapse ">
+            <div id="namespace-1201302949" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-374649536"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-10824969"></a>
                                 <a href="../namespaces/Charcoal.App.html" style="margin-left: 30px; padding-left: 0">App</a>
             </div>
-            <div id="namespace-374649536" class="accordion-body collapse ">
+            <div id="namespace-10824969" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1348783889"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1135681792"></a>
                                 <a href="../namespaces/Charcoal.App.Action.html" style="margin-left: 30px; padding-left: 0">Action</a>
             </div>
-            <div id="namespace-1348783889" class="accordion-body collapse ">
+            <div id="namespace-1135681792" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -143,38 +191,16 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-935761579"></a>
-                                <a href="../namespaces/Charcoal.App.Email.html" style="margin-left: 30px; padding-left: 0">Email</a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2011968001"></a>
+                                <a href="../namespaces/Charcoal.App.Config.html" style="margin-left: 30px; padding-left: 0">Config</a>
             </div>
-            <div id="namespace-935761579" class="accordion-body collapse ">
-                <div class="accordion-inner">
-
-                                                    <div class="accordion" style="margin-bottom: 0">
-        <div class="accordion-group">
-            <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1840326246"></a>
-                                <a href="../namespaces/Charcoal.App.Email.Script.html" style="margin-left: 30px; padding-left: 0">Script</a>
-            </div>
-            <div id="namespace-1840326246" class="accordion-body collapse ">
+            <div id="namespace-2011968001" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
                     <ul>
-                                                                                                    <li class="class"><a href="../classes/Charcoal.App.Email.Script.ProcessQueueScript.html">ProcessQueueScript</a></li>
-                                            </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-
-                    
-                    <ul>
-                                                    <li class="interface"><a href="../classes/Charcoal.App.Email.EmailInterface.html">EmailInterface</a></li>
-                                                                                                    <li class="class"><a href="../classes/Charcoal.App.Email.Email.html">Email</a></li>
-                                                    <li class="class"><a href="../classes/Charcoal.App.Email.EmailConfig.html">EmailConfig</a></li>
-                                                    <li class="class"><a href="../classes/Charcoal.App.Email.EmailLog.html">EmailLog</a></li>
-                                                    <li class="class"><a href="../classes/Charcoal.App.Email.EmailQueueItem.html">EmailQueueItem</a></li>
-                                                    <li class="class"><a href="../classes/Charcoal.App.Email.EmailQueueManager.html">EmailQueueManager</a></li>
+                                                                                                    <li class="class"><a href="../classes/Charcoal.App.Config.CacheConfig.html">CacheConfig</a></li>
+                                                    <li class="class"><a href="../classes/Charcoal.App.Config.LoggerConfig.html">LoggerConfig</a></li>
                                             </ul>
                 </div>
             </div>
@@ -184,10 +210,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1985554143"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1211164565"></a>
                                 <a href="../namespaces/Charcoal.App.Language.html" style="margin-left: 30px; padding-left: 0">Language</a>
             </div>
-            <div id="namespace-1985554143" class="accordion-body collapse ">
+            <div id="namespace-1211164565" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -204,10 +230,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1041774140"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1996530475"></a>
                                 <a href="../namespaces/Charcoal.App.Middleware.html" style="margin-left: 30px; padding-left: 0">Middleware</a>
             </div>
-            <div id="namespace-1041774140" class="accordion-body collapse ">
+            <div id="namespace-1996530475" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -223,10 +249,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-350984688"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-333231477"></a>
                                 <a href="../namespaces/Charcoal.App.Module.html" style="margin-left: 30px; padding-left: 0">Module</a>
             </div>
-            <div id="namespace-350984688" class="accordion-body collapse ">
+            <div id="namespace-333231477" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -245,10 +271,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1008078591"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1688503070"></a>
                                 <a href="../namespaces/Charcoal.App.Routable.html" style="margin-left: 30px; padding-left: 0">Routable</a>
             </div>
-            <div id="namespace-1008078591" class="accordion-body collapse ">
+            <div id="namespace-1688503070" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -265,10 +291,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1321442446"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1134093223"></a>
                                 <a href="../namespaces/Charcoal.App.Route.html" style="margin-left: 30px; padding-left: 0">Route</a>
             </div>
-            <div id="namespace-1321442446" class="accordion-body collapse ">
+            <div id="namespace-1134093223" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -291,10 +317,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2064636640"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-264717787"></a>
                                 <a href="../namespaces/Charcoal.App.Script.html" style="margin-left: 30px; padding-left: 0">Script</a>
             </div>
-            <div id="namespace-2064636640" class="accordion-body collapse ">
+            <div id="namespace-264717787" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -313,10 +339,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-583022165"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-893605660"></a>
                                 <a href="../namespaces/Charcoal.App.Template.html" style="margin-left: 30px; padding-left: 0">Template</a>
             </div>
-            <div id="namespace-583022165" class="accordion-body collapse ">
+            <div id="namespace-893605660" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -348,6 +374,42 @@
         </div>
     </div>
 
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1288035102"></a>
+                                <a href="../namespaces/Charcoal.Cache.html" style="margin-left: 30px; padding-left: 0">Cache</a>
+            </div>
+            <div id="namespace-1288035102" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1271206956"></a>
+                                <a href="../namespaces/Charcoal.Cache.Memcache.html" style="margin-left: 30px; padding-left: 0">Memcache</a>
+            </div>
+            <div id="namespace-1271206956" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Charcoal.Cache.Memcache.MemcacheCacheConfig.html">MemcacheCacheConfig</a></li>
+                                                    <li class="class"><a href="../classes/Charcoal.Cache.Memcache.MemcacheCacheServerConfig.html">MemcacheCacheServerConfig</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
                     
                     <ul>
                                                                                             </ul>
@@ -369,39 +431,38 @@
     <section class="row-fluid">
         <div class="span10 offset2">
             <div class="row-fluid">
-                <div class="span8 content namespace">
+                <div class="span8 content file">
                     <nav>
-                                                <a href="../namespaces/Charcoal.App.Email.html">\Charcoal\App\Email</a>
-                                            </nav>
-                    <h1><small>\Charcoal\App\Email</small>Script</h1>
+                                                                    </nav>
 
+                    <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
+                    <h1><small>Config</small>MemcacheCacheServerConfig.php</h1>
+                    <p><em></em></p>
                     
+
                     
                     
                                         <h2>Classes</h2>
                     <table class="table table-hover">
                                             <tr>
-                            <td><a href="../classes/Charcoal.App.Email.Script.ProcessQueueScript.html">ProcessQueueScript</a></td>
-                            <td><em></em></td>
+                            <td><a href="../classes/Charcoal.Cache.Memcache.MemcacheCacheServerConfig.html">MemcacheCacheServerConfig</a></td>
+                            <td><em>Memcache Cache Server Config</em></td>
                         </tr>
                                         </table>
                                     </div>
 
                 <aside class="span4 detailsbar">
                     <dl>
-                        <dt>Namespace hierarchy</dt>
-                        <dd class="hierarchy">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
-                                    <div class="namespace-wrapper"><a href="../namespaces/default.html">\</a></div>
-                                                            
-                                    <div class="namespace-wrapper"><a href="../namespaces/Charcoal.html">\Charcoal</a></div>
-                                                            
-                                    <div class="namespace-wrapper"><a href="../namespaces/Charcoal.App.html">\Charcoal\App</a></div>
-                                                            
-                                    <div class="namespace-wrapper"><a href="../namespaces/Charcoal.App.Email.html">\Charcoal\App\Email</a></div>
-                                                                                        <div class="namespace-wrapper">\Charcoal\App\Email\Script</div>
-                        </dd>
+                                                    <dt>Package</dt>
+                            <dd><div class="namespace-wrapper">\Default</div></dd>
+                        
+                        
                     </dl>
+                    <h2>Tags</h2>
+                    <table class="table table-condensed">
+                                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                                            </table>
+
                 </aside>
             </div>
 
@@ -409,6 +470,16 @@
             
         </div>
     </section>
+
+    <div id="source-view" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="source-view-label" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="source-view-label"></h3>
+        </div>
+        <div class="modal-body">
+            <pre data-src="../files/Config/MemcacheCacheServerConfig.php.txt" class="language-php line-numbers"></pre>
+        </div>
+    </div>
 
     <footer class="row-fluid">
         <section class="span10 offset2">
@@ -447,7 +518,7 @@
                 <section class="span10 offset1">
                     <hr />
                     Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
-                    on January 13th, 2016 at 18:49.
+                    on January 15th, 2016 at 22:39.
                 </section>
             </section>
         </section>

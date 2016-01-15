@@ -13,7 +13,7 @@ class ModuleFactory extends ResolverFactory
     /**
      * @return string
      */
-    public function base_class()
+    public function baseClass()
     {
         return '\Charcoal\App\Module\ModuleInterface';
     }
@@ -21,7 +21,7 @@ class ModuleFactory extends ResolverFactory
     /**
      * @return string
      */
-    public function resolver_suffix()
+    public function resolverSuffix()
     {
         return 'Module';
     }

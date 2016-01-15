@@ -19,10 +19,10 @@ class ModuleManager extends AbstractManager
      * @param array $modules The list of modules to add.
      * @return ModuleManager Chainable
      */
-    public function set_modules(array $modules)
+    public function setModules(array $modules)
     {
         foreach ($modules as $module_ident => $module_config) {
-            $this->add_module($module_ident, $module_config);
+            $this->addModule($module_ident, $module_config);
         }
         return $this;
     }
@@ -32,7 +32,7 @@ class ModuleManager extends AbstractManager
      * @param array|ConfigInterface $module_config The module configuration data.
      * @return ModuleManager Chainable
      */
-    public function add_module($module_ident, array $module_config)
+    public function addModule($module_ident, array $module_config)
     {
         $this->modules[$module_ident] = $module_config;
         return $this;
@@ -41,7 +41,7 @@ class ModuleManager extends AbstractManager
     /**
      * @return void
      */
-    public function setup_modules()
+    public function setupModules()
     {
         $modules = $this->config();
         $module_factory = new ModuleFactory();
@@ -51,7 +51,7 @@ class ModuleManager extends AbstractManager
                 'logger' => $this->logger
             ]);
             // Merge custom data to config
-            $module->config()->set_data($module_config);
+            $module->config()->merge($module_config);
             $module->setup();
         }
     }

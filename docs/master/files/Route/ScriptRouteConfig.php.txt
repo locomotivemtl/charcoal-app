@@ -11,19 +11,19 @@ use \Charcoal\App\Route\RouteConfig;
 class ScriptRouteConfig extends RouteConfig
 {
     /**
-     * @var array $script_data
+     * @var array $scriptData
      */
-    private $script_data = [];
+    private $scriptData = [];
 
     /**
      * Set the action data.
      *
-     * @param array $script_data The route data.
+     * @param array $scriptData The route data.
      * @return ActionRouteConfig Chainable
      */
-    public function set_script_data(array $script_data)
+    public function setScriptData(array $scriptData)
     {
-        $this->script_data = $script_data;
+        $this->scriptData = $scriptData;
         return $this;
     }
 
@@ -32,9 +32,9 @@ class ScriptRouteConfig extends RouteConfig
      *
      * @return array
      */
-    public function script_data()
+    public function scriptData()
     {
-        return $this->script_data;
+        return $this->scriptData;
     }
 }
 

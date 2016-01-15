@@ -13,7 +13,7 @@ class ScriptFactory extends ResolverFactory
     /**
      * @return string
      */
-    public function base_class()
+    public function baseClass()
     {
         return '\Charcoal\App\Script\ScriptInterface';
     }
@@ -21,7 +21,7 @@ class ScriptFactory extends ResolverFactory
     /**
      * @return string
      */
-    public function resolver_suffix()
+    public function resolverSuffix()
     {
         return 'Script';
     }

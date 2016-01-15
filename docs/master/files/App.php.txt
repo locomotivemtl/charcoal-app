@@ -54,22 +54,22 @@ class App extends SlimApp implements
     /**
      * @var ModuleManager
      */
-    private $module_manager;
+    private $moduleManager;
 
     /**
      * @var RouteManager
      */
-    private $route_manager;
+    private $routeManager;
 
     /**
      * @var MiddlewareManager
      */
-    private $middleware_manager;
+    private $middlewareManager;
 
     /**
      * @var LanguageManager
      */
-    private $language_manager;
+    private $languageManager;
 
     /**
      * Create new Charcoal application (and SlimApp).
@@ -103,7 +103,7 @@ class App extends SlimApp implements
         parent::__construct($container);
 
         if (isset($container['charcoal/app/config'])) {
-            $this->set_config($container['charcoal/app/config']);
+            $this->setConfig($container['charcoal/app/config']);
         }
     }
 
@@ -157,20 +157,20 @@ class App extends SlimApp implements
      *
      * @return ModuleManager
      */
-    public function module_manager()
+    public function moduleManager()
     {
-        if (!isset($this->module_manager)) {
+        if (!isset($this->moduleManager)) {
             $config  = $this->config();
             $modules = (isset($config['modules']) ? $config['modules'] : [] );
 
-            $this->module_manager = new ModuleManager([
+            $this->moduleManager = new ModuleManager([
                 'config' => $modules,
                 'app'    => $this,
                 'logger' => $this->logger
             ]);
         }
 
-        return $this->module_manager;
+        return $this->moduleManager;
     }
 
     /**
@@ -178,20 +178,20 @@ class App extends SlimApp implements
      *
      * @return RouteManager
      */
-    public function route_manager()
+    public function routeManager()
     {
-        if (!isset($this->route_manager)) {
+        if (!isset($this->routeManager)) {
             $config = $this->config();
             $routes = (isset($config['routes']) ? $config['routes'] : [] );
 
-            $this->route_manager = new RouteManager([
+            $this->routeManager = new RouteManager([
                 'config' => $routes,
                 'app'    => $this,
                 'logger' => $this->logger
             ]);
         }
 
-        return $this->route_manager;
+        return $this->routeManager;
     }
 
     /**
@@ -199,20 +199,20 @@ class App extends SlimApp implements
      *
      * @return MiddlewareManager
      */
-    public function middleware_manager()
+    public function middlewareManager()
     {
-        if (!isset($this->middleware_manager)) {
+        if (!isset($this->middlewareManager)) {
             $config = $this->config();
             $middlewares = (isset($config['middlewares']) ? $config['middlewares'] : [] );
 
-            $this->middleware_manager = new MiddlewareManager([
+            $this->middlewareManager = new MiddlewareManager([
                 'config' => $middlewares,
                 'app'    => $this,
                 'logger' => $this->logger
             ]);
         }
 
-        return $this->middleware_manager;
+        return $this->middlewareManager;
     }
 
     /**
@@ -220,9 +220,9 @@ class App extends SlimApp implements
      *
      * @return LanguageManager
      */
-    public function language_manager()
+    public function languageManager()
     {
-        if (!isset($this->language_manager)) {
+        if (!isset($this->languageManager)) {
             $config = $this->config();
 
             $locales = [];
@@ -236,14 +236,14 @@ class App extends SlimApp implements
                 }
             }
 
-            $this->language_manager = new LanguageManager([
+            $this->languageManager = new LanguageManager([
                 'config' => $locales,
                 'app'    => $this,
                 'logger' => $this->logger
             ]);
         }
 
-        return $this->language_manager;
+        return $this->languageManager;
     }
 
     /**
@@ -255,12 +255,12 @@ class App extends SlimApp implements
     {
         $config = $this->config();
 
-        $this->setup_logger();
-        $this->setup_languages();
-        $this->setup_middlewares();
-        $this->setup_routes();
-        $this->setup_modules();
-        $this->setup_routables();
+        $this->setupLogger();
+        $this->setupLanguages();
+        $this->setupMiddlewares();
+        $this->setupRoutes();
+        $this->setupModules();
+        $this->setupRoutables();
 
         date_default_timezone_set($config['timezone']);
 
@@ -288,7 +288,7 @@ class App extends SlimApp implements
      *
      * @return void
      */
-    protected function setup_logger()
+    protected function setupLogger()
     {
         $container = $this->getContainer();
 
@@ -303,10 +303,10 @@ class App extends SlimApp implements
      *
      * @return void
      */
-    protected function setup_languages()
+    protected function setupLanguages()
     {
-        $language_manager = $this->language_manager();
-        $language_manager->setup();
+        $languageManager = $this->languageManager();
+        $languageManager->setup();
     }
 
     /**
@@ -314,10 +314,10 @@ class App extends SlimApp implements
      *
      * @return void
      */
-    protected function setup_middlewares()
+    protected function setupMiddlewares()
     {
-        $middleware_manager = $this->middleware_manager();
-        $middleware_manager->setup_middlewares();
+        $middlewareManager = $this->middlewareManager();
+        $middlewareManager->setupMiddlewares();
     }
 
     /**
@@ -325,10 +325,10 @@ class App extends SlimApp implements
      *
      * @return void
      */
-    protected function setup_routes()
+    protected function setupRoutes()
     {
-        $route_manager = $this->route_manager();
-        $route_manager->setup_routes();
+        $routeManager = $this->routeManager();
+        $routeManager->setupRoutes();
     }
 
     /**
@@ -338,7 +338,7 @@ class App extends SlimApp implements
      *
      * @return void
      */
-    protected function setup_routables()
+    protected function setupRoutables()
     {
         $app = $this;
         // For now, need to rely on a catch-all...
@@ -376,10 +376,10 @@ class App extends SlimApp implements
      *
      * @return void
      */
-    protected function setup_modules()
+    protected function setupModules()
     {
-        $module_manager = $this->module_manager();
-        $module_manager->setup_modules();
+        $moduleManager = $this->moduleManager();
+        $moduleManager->setupModules();
     }
 
     /**
@@ -389,7 +389,7 @@ class App extends SlimApp implements
      * @param  array|string|null $data Optional configuration data.
      * @return AppConfig
      */
-    public function create_config($data = null)
+    public function createConfig($data = null)
     {
         return new AppConfig($data);
     }

@@ -28,76 +28,76 @@ class RouteManager extends AbstractManager
      *
      * @return void
      */
-    public function setup_routes()
+    public function setupRoutes()
     {
         if (PHP_SAPI == 'cli') {
-            $this->setup_script_routes();
+            $this->setupScriptRoutes();
         } else {
-            $this->setup_template_routes();
-            $this->setup_action_routes();
+            $this->setupTemplateRoutes();
+            $this->setupActionRoutes();
         }
     }
 
     /**
      * @return void
      */
-    protected function setup_template_routes()
+    protected function setupTemplateRoutes()
     {
         $app       = $this->app();
         $routes    = $this->config();
         $templates = ( isset($routes['templates']) ? $routes['templates'] : [] );
 
-        foreach ($templates as $template_ident => $template_config) {
-            $template_ident = ltrim($template_ident, '/');
+        foreach ($templates as $templateIdent => $templateConfig) {
+            $templateIdent = ltrim($templateIdent, '/');
 
-            if (!isset($template_config['ident'])) {
-                $template_config['ident'] = $template_ident;
+            if (!isset($templateConfig['ident'])) {
+                $templateConfig['ident'] = $templateIdent;
             }
 
-            if (isset($template_config['route'])) {
-                $route_ident = '/'.ltrim($template_config['route'], '/');
+            if (isset($templateConfig['route'])) {
+                $routeIdent = '/'.ltrim($templateConfig['route'], '/');
             } else {
-                $route_ident = '/'.$template_ident;
-                $template_config['route'] = $route_ident;
+                $routeIdent = '/'.$templateIdent;
+                $templateConfig['route'] = $routeIdent;
             }
 
-            if (isset($template_config['methods'])) {
-                $methods = $template_config['methods'];
+            if (isset($templateConfig['methods'])) {
+                $methods = $templateConfig['methods'];
             } else {
                 $methods = [ 'GET' ];
             }
 
-            $route_handler = $app->map(
+            $routeHandler = $app->map(
                 $methods,
-                $route_ident,
+                $routeIdent,
                 function (
                     RequestInterface $request,
                     ResponseInterface $response,
                     array $args = []
                 ) use (
                     $app,
-                    $template_ident,
-                    $template_config
+                    $templateIdent,
+                    $templateConfig
                 ) {
                     $this->logger->debug(
-                        sprintf('Loaded template route: %s', $template_ident),
-                        $template_config
+                        sprintf('Loaded template route: %s', $templateIdent),
+                        $templateConfig
                     );
 
-                    if (!isset($template_config['template_data'])) {
-                        $template_config['template_data'] = [];
+                    if (!isset($templateConfig['template_data'])) {
+                        $templateConfig['template_data'] = [];
                     }
 
                     if (count($args)) {
-                        $template_config['template_data'] = array_merge(
-                            $template_config['template_data'],
+                        $templateConfig['template_data'] = array_merge(
+                            $templateConfig['template_data'],
                             $args
                         );
                     }
 
                     $route = new TemplateRoute([
                         'app'    => $app,
-                        'config' => $template_config,
+                        'config' => $templateConfig,
                         'logger' => $this->logger
                     ]);
 
@@ -105,12 +105,12 @@ class RouteManager extends AbstractManager
                 }
             );
 
-            if (isset($template_config['ident'])) {
-                $route_handler->setName($template_config['ident']);
+            if (isset($templateConfig['ident'])) {
+                $routeHandler->setName($templateConfig['ident']);
             }
 
-            if (isset($template_config['template_data'])) {
-                $route_handler->setArguments($template_config['template_data']);
+            if (isset($templateConfig['template_data'])) {
+                $routeHandler->setArguments($templateConfig['template_data']);
             }
         }
     }
@@ -118,63 +118,63 @@ class RouteManager extends AbstractManager
     /**
      * @return void
      */
-    protected function setup_action_routes()
+    protected function setupActionRoutes()
     {
         $app     = $this->app();
         $routes  = $this->config();
         $actions = ( isset($routes['actions']) ? $routes['actions'] : [] );
 
-        foreach ($actions as $action_ident => $action_config) {
-            $action_ident = ltrim($action_ident, '/');
+        foreach ($actions as $actionIdent => $actionConfig) {
+            $actionIdent = ltrim($actionIdent, '/');
 
-            if (!isset($action_config['ident'])) {
-                $action_config['ident'] = $action_ident;
+            if (!isset($actionConfig['ident'])) {
+                $actionConfig['ident'] = $actionIdent;
             }
 
-            if (isset($action_config['route'])) {
-                $route_ident = '/'.ltrim($action_config['route'], '/');
+            if (isset($actionConfig['route'])) {
+                $routeIdent = '/'.ltrim($actionConfig['route'], '/');
             } else {
-                $route_ident = '/'.$action_ident;
-                $action_config['route'] = $route_ident;
+                $routeIdent = '/'.$actionIdent;
+                $actionConfig['route'] = $routeIdent;
             }
 
-            if (isset($action_config['methods'])) {
-                $methods = $action_config['methods'];
+            if (isset($actionConfig['methods'])) {
+                $methods = $actionConfig['methods'];
             } else {
                 $methods = [ 'POST' ];
             }
 
-            $route_handler = $app->map(
+            $routeHandler = $app->map(
                 $methods,
-                $route_ident,
+                $routeIdent,
                 function (
                     RequestInterface $request,
                     ResponseInterface $response,
                     array $args = []
                 ) use (
                     $app,
-                    $action_ident,
-                    $action_config
+                    $actionIdent,
+                    $actionConfig
                 ) {
                     $this->logger->debug(
-                        sprintf('Loaded action route: %s', $action_ident),
-                        $action_config
+                        sprintf('Loaded action route: %s', $actionIdent),
+                        $actionConfig
                     );
 
-                    if (!isset($action_config['action_data'])) {
-                        $action_config['action_data'] = [];
+                    if (!isset($actionConfig['action_data'])) {
+                        $actionConfig['action_data'] = [];
                     }
 
                     if (count($args)) {
-                        $action_config['action_data'] = array_merge(
-                            $action_config['action_data'],
+                        $actionConfig['action_data'] = array_merge(
+                            $actionConfig['action_data'],
                             $args
                         );
                     }
 
                     $route = new ActionRoute([
                         'app'    => $app,
-                        'config' => $action_config,
+                        'config' => $actionConfig,
                         'logger' => $this->logger
                     ]);
 
@@ -182,12 +182,12 @@ class RouteManager extends AbstractManager
                 }
             );
 
-            if (isset($action_config['ident'])) {
-                $route_handler->setName($action_config['ident']);
+            if (isset($actionConfig['ident'])) {
+                $routeHandler->setName($actionConfig['ident']);
             }
 
-            if (isset($action_config['action_data'])) {
-                $route_handler->setArguments($action_config['action_data']);
+            if (isset($actionConfig['action_data'])) {
+                $routeHandler->setArguments($actionConfig['action_data']);
             }
         }
     }
@@ -195,63 +195,63 @@ class RouteManager extends AbstractManager
     /**
      * @return void
      */
-    protected function setup_script_routes()
+    protected function setupScriptRoutes()
     {
         $app     = $this->app();
         $routes  = $this->config();
         $scripts = ( isset($routes['scripts']) ? $routes['scripts'] : [] );
 
-        foreach ($scripts as $script_ident => $script_config) {
-            $script_ident = ltrim($script_ident, '/');
+        foreach ($scripts as $scriptIdent => $scriptConfig) {
+            $scriptIdent = ltrim($scriptIdent, '/');
 
-            if (!isset($script_config['ident'])) {
-                $script_config['ident'] = $script_ident;
+            if (!isset($scriptConfig['ident'])) {
+                $scriptConfig['ident'] = $scriptIdent;
             }
 
-            if (isset($script_config['route'])) {
-                $route_ident = '/'.ltrim($script_config['route'], '/');
+            if (isset($scriptConfig['route'])) {
+                $routeIdent = '/'.ltrim($scriptConfig['route'], '/');
             } else {
-                $route_ident = '/'.$script_ident;
-                $script_config['route'] = $route_ident;
+                $routeIdent = '/'.$scriptIdent;
+                $scriptConfig['route'] = $routeIdent;
             }
 
-            if (isset($script_config['methods'])) {
-                $methods = $script_config['methods'];
+            if (isset($scriptConfig['methods'])) {
+                $methods = $scriptConfig['methods'];
             } else {
                 $methods = [ 'GET' ];
             }
 
-            $route_handler = $app->map(
+            $routeHandler = $app->map(
                 $methods,
-                $route_ident,
+                $routeIdent,
                 function (
                     RequestInterface $request,
                     ResponseInterface $response,
                     array $args = []
                 ) use (
                     $app,
-                    $script_ident,
-                    $script_config
+                    $scriptIdent,
+                    $scriptConfig
                 ) {
                     $this->logger->debug(
-                        sprintf('Loaded script route: %s', $script_ident),
-                        $script_config
+                        sprintf('Loaded script route: %s', $scriptIdent),
+                        $scriptConfig
                     );
 
-                    if (!isset($script_config['script_data'])) {
-                        $script_config['script_data'] = [];
+                    if (!isset($scriptConfig['script_data'])) {
+                        $scriptConfig['script_data'] = [];
                     }
 
                     if (count($args)) {
-                        $script_config['script_data'] = array_merge(
-                            $script_config['script_data'],
+                        $scriptConfig['script_data'] = array_merge(
+                            $scriptConfig['script_data'],
                             $args
                         );
                     }
 
                     $route = new ScriptRoute([
                         'app'    => $app,
-                        'config' => $script_config,
+                        'config' => $scriptConfig,
                         'logger' => $this->logger
                     ]);
 
@@ -259,12 +259,12 @@ class RouteManager extends AbstractManager
                 }
             );
 
-            if (isset($script_config['ident'])) {
-                $route_handler->setName($script_config['ident']);
+            if (isset($scriptConfig['ident'])) {
+                $routeHandler->setName($scriptConfig['ident']);
             }
 
-            if (isset($script_config['script_data'])) {
-                $route_handler->setArguments($script_config['script_data']);
+            if (isset($scriptConfig['script_data'])) {
+                $routeHandler->setArguments($scriptConfig['script_data']);
             }
         }
     }

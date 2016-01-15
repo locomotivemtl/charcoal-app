@@ -13,7 +13,7 @@ class RoutableFactory extends ResolverFactory
     /**
      * @return string
      */
-    public function base_class()
+    public function baseClass()
     {
         return '\Charcoal\App\Routable\RoutableInterface';
     }

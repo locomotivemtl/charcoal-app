@@ -13,7 +13,6 @@ use \Psr\Log\LoggerAwareTrait;
 use \Psr\Http\Message\RequestInterface;
 use \Psr\Http\Message\ResponseInterface;
 
-
 // Intra-module (`charcoal-app`) dependencies
 use \Charcoal\App\AppAwareInterface;
 use \Charcoal\App\AppAwareTrait;
@@ -58,14 +57,14 @@ abstract class AbstractAction implements
     private $success = false;
 
     /**
-     * @var string $success_url
+     * @var string $successUrl
      */
-    private $success_url;
+    private $successUrl;
 
     /**
-     * @var string $failure_url
+     * @var string $failureUrl
      */
-    private $failure_url;
+    private $failureUrl;
 
     /**
      * @param array $data The dependencies (app and logger).
@@ -76,7 +75,7 @@ abstract class AbstractAction implements
             $this->setLogger($data['logger']);
         }
 
-        $this->set_app($data['app']);
+        $this->setApp($data['app']);
     }
 
     /**
@@ -99,7 +98,7 @@ abstract class AbstractAction implements
             case self::MODE_REDIRECT:
                 $response = $response
                     ->withStatus(301)
-                    ->withHeader('Location', $this->redirect_url());
+                    ->withHeader('Location', $this->redirectUrl());
                 break;
         }
 
@@ -110,7 +109,7 @@ abstract class AbstractAction implements
      * @param array $data The data to set.
      * @return AbstractAction Chainable
      */
-    public function set_data(array $data)
+    public function setData(array $data)
     {
         foreach ($data as $prop => $val) {
             $func = [$this, 'set_'.$prop];
@@ -134,7 +133,7 @@ abstract class AbstractAction implements
      * @throws InvalidArgumentException If the mode argument is not a string.
      * @return ActionInterface Chainable
      */
-    public function set_mode($mode)
+    public function setMode($mode)
     {
         if (!is_string($mode)) {
             throw new InvalidArgumentException(
@@ -158,7 +157,7 @@ abstract class AbstractAction implements
      * @throws InvalidArgumentException If the success argument is not a boolean.
      * @return ActionInterface Chainable
      */
-    public function set_success($success)
+    public function setSuccess($success)
     {
         $this->success = !!$success;
         return $this;
@@ -177,10 +176,10 @@ abstract class AbstractAction implements
      * @throws InvalidArgumentException If the URL parameter is not a string.
      * @return ActionInterface Chainable
      */
-    public function set_success_url($url)
+    public function setSuccessUrl($url)
     {
         if ($url === null) {
-            $this->success_url = null;
+            $this->successUrl = null;
             return $this;
         }
         if (!is_string($url)) {
@@ -188,19 +187,19 @@ abstract class AbstractAction implements
                 'Success URL must be a string'
             );
         }
-        $this->success_url = $url;
+        $this->successUrl = $url;
         return $this;
     }
 
     /**
      * @return string
      */
-    public function success_url()
+    public function successUrl()
     {
-        if ($this->success_url === null) {
+        if ($this->successUrl === null) {
             return '';
         }
-        return $this->success_url;
+        return $this->successUrl;
     }
 
     /**
@@ -208,10 +207,10 @@ abstract class AbstractAction implements
      * @throws InvalidArgumentException If the URL parameter is not a string.
      * @return ActionInterface Chainable
      */
-    public function set_failure_url($url)
+    public function setFailureUrl($url)
     {
         if ($url === null) {
-            $this->failure_url = null;
+            $this->failureUrl = null;
             return $this;
         }
         if (!is_string($url)) {
@@ -219,30 +218,30 @@ abstract class AbstractAction implements
                 'Failure URL must be a string'
             );
         }
-        $this->failure_url = $url;
+        $this->failureUrl = $url;
         return $this;
     }
 
     /**
      * @return string
      */
-    public function failure_url()
+    public function failureUrl()
     {
-        if ($this->failure_url === null) {
+        if ($this->failureUrl === null) {
             return '';
         }
-        return $this->failure_url;
+        return $this->failureUrl;
     }
 
     /**
      * @return string
      */
-    public function redirect_url()
+    public function redirectUrl()
     {
         if ($this->success() === true) {
-            $url = $this->success_url();
+            $url = $this->successUrl();
         } else {
-            $url = $this->failure_url();
+            $url = $this->failureUrl();
         }
 
         return $url;
