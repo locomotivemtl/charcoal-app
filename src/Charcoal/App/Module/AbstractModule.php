@@ -42,7 +42,7 @@ abstract class AbstractModule implements
             $this->setLogger($data['logger']);
         }
 
-        $this->set_app($data['app']);
+        $this->setApp($data['app']);
     }
 
     /**
@@ -50,14 +50,14 @@ abstract class AbstractModule implements
      */
     public function setup()
     {
-        $this->setup_middlewares();
-        $this->setup_routes();
+        $this->setupMiddlewares();
+        $this->setupRoutes();
     }
 
     /**
      * @return void
      */
-    protected function setup_middlewares()
+    protected function setupMiddlewares()
     {
         $middlewares = $this->config['middlewares'];
         if ($middlewares === null || count($middlewares === 0)) {
@@ -77,7 +77,7 @@ abstract class AbstractModule implements
      *
      * @return void
      */
-    public function setup_routes()
+    public function setupRoutes()
     {
         $config = $this->config();
         $routes = $config['routes'];
@@ -89,12 +89,12 @@ abstract class AbstractModule implements
             'config' => $routes,
             'app' => $this->app()
         ]);
-        return $route_manager->setup_routes();
+        return $route_manager->setupRoutes();
     }
 
     /**
      * @param array $data Optiona configuration data.
      * @return ConfigInterface
      */
-    abstract public function create_config(array $data = null);
+    abstract public function createConfig(array $data = null);
 }

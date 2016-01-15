@@ -7,7 +7,8 @@ module.exports = {
         options: {
             config: 'phpdoc.dist.xml',
             directory: ['src/'],
-            target : 'phpdoc/'
+            target : 'build/phpdoc/',
+            template : 'responsive-twig'
         }
     }
 };

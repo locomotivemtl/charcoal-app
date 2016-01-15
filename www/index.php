@@ -1,7 +1,11 @@
 <?php
-
-ini_set('error_reporting', E_ALL);
-ini_set('display_errors', true);
+/**
+* An example of a default Front-Controller for Charcoal.
+*
+* The basic "charcoal-app" dependencies are defined in the custom Charcoal App Container.
+*
+* @see \Charcoal\App\AppContainer
+*/
 
 use \Charcoal\Charcoal;
 use \Charcoal\App\App;
@@ -16,22 +20,22 @@ if (PHP_SAPI === 'cli-server') {
     }
 }
 
-// Require the Charcoal Framework
+// This project requires composer.
 include '../vendor/autoload.php';
 
-$settings = [];
+// Main charcoal app configuration object.
 $config = new AppConfig();
 $config->add_file(__DIR__.'/../config/config.php');
 $config->set('ROOT', dirname(__DIR__) . '/');
 
 // Create container and configure it (with charcoal-config)
 $container = new AppContainer([
-    'settings'=>$settings,
-    'config'=>$config
+    'settings'  => [],
+    'config'    => $config
 ]);
 
 // Charcoal / Slim is the main app
-$app = new App($container);
+$app = App::instance($container);
 
 // Set up dependencies
 require __DIR__.'/../config/dependencies.php';

@@ -28,11 +28,11 @@ class AbstractActionTest extends \PHPUnit_Framework_TestCase
     public function testSetMode()
     {
         $this->assertEquals('json', $this->obj->mode());
-        $ret = $this->obj->set_mode('redirect');
+        $ret = $this->obj->setMode('redirect');
         $this->assertSame($ret, $this->obj);
         $this->assertEquals('redirect', $this->obj->mode());
 
         $this->setExpectedException('\InvalidArgumentException');
-        $this->obj->set_mode(false);
+        $this->obj->setMode(false);
     }
 }

@@ -27,9 +27,9 @@ class TemplateRouteConfig extends RouteConfig
 
     /**
      * Additional template data.
-     * @var array $template_data
+     * @var array $templateData
      */
-    private $template_data = [];
+    private $templateData = [];
 
     /**
      * Redirect URL.
@@ -39,9 +39,9 @@ class TemplateRouteConfig extends RouteConfig
 
     /**
      * Redirect Mode (HTTP status code).
-     * @var integer $redirect_mode
+     * @var integer $redirectMode
      */
-    private $redirect_mode = 301;
+    private $redirectMode = 301;
 
     /**
      * Enable route-level caching for this template.
@@ -60,7 +60,7 @@ class TemplateRouteConfig extends RouteConfig
      * @throws InvalidArgumentException If the tempalte parameter is not null or not a string.
      * @return TemplateRouteConfig Chainable
      */
-    public function set_template($template)
+    public function setTemplate($template)
     {
         if ($template === null) {
             $this->template = null;
@@ -91,7 +91,7 @@ class TemplateRouteConfig extends RouteConfig
      * @throws InvalidArgumentException If the engine is not null or not a string.
      * @return TemplateRouteConfig Chainable
      */
-    public function set_engine($engine)
+    public function setEngine($engine)
     {
         if ($engine === null) {
             $this->engine = null;
@@ -112,7 +112,7 @@ class TemplateRouteConfig extends RouteConfig
     public function engine()
     {
         if ($this->engine === null) {
-            return $this->default_engine();
+            return $this->defaultEngine();
         }
         return $this->engine;
     }
@@ -120,7 +120,7 @@ class TemplateRouteConfig extends RouteConfig
     /**
      * @return string
      */
-    public function default_engine()
+    public function defaultEngine()
     {
         // Must load from default config...
         return 'mustache';
@@ -129,12 +129,12 @@ class TemplateRouteConfig extends RouteConfig
     /**
      * Set the template custom data.
      *
-     * @param array $template_data The route template data.
+     * @param array $templateData The route template data.
      * @return TemplateRouteConfig Chainable
      */
-    public function set_template_data(array $template_data)
+    public function setTemplateData(array $templateData)
     {
-        $this->template_data = $template_data;
+        $this->templateData = $templateData;
         return $this;
     }
 
@@ -143,16 +143,16 @@ class TemplateRouteConfig extends RouteConfig
      *
      * @return array
      */
-    public function template_data()
+    public function templateData()
     {
-        return $this->template_data;
+        return $this->templateData;
     }
 
     /**
      * @param string $redirect Points to a route.
      * @return TemplateRouteConfig Chainable
      */
-    public function set_redirect($redirect)
+    public function setRedirect($redirect)
     {
         $this->redirect = $redirect;
 
@@ -170,36 +170,36 @@ class TemplateRouteConfig extends RouteConfig
     /**
      * Set the redirect HTTP status mode. (Must be 3xx)
      *
-     * @param mixed $redirect_mode The HTTP status code.
+     * @param mixed $redirectMode The HTTP status code.
      * @throws InvalidArgumentException If the redirect mode is not 3xx.
      * @return TemplateRouteConfig Chainable
      */
-    public function set_redirect_mode($redirect_mode)
+    public function setRedirectMode($redirectMode)
     {
-        $redirect_mode = (int)$redirect_mode;
-        if ($redirect_mode < 300 || $redirect_mode  >= 400) {
+        $redirectMode = (int)$redirectMode;
+        if ($redirectMode < 300 || $redirectMode  >= 400) {
             throw new InvalidArgumentException(
                 'Invalid HTTP status for redirect mode'
             );
         }
 
-        $this->redirect_mode = $redirect_mode;
+        $this->redirectMode = $redirectMode;
         return $this;
     }
 
     /**
      * @return integer
      */
-    public function redirect_mode()
+    public function redirectMode()
     {
-        return $this->redirect_mode;
+        return $this->redirectMode;
     }
 
     /**
      * @param boolean $cache The cache enabled flag.
      * @return TemplateRouteConfig Chainable
      */
-    public function set_cache($cache)
+    public function setCache($cache)
     {
         $this->cache = !!$cache;
         return $this;
@@ -217,7 +217,7 @@ class TemplateRouteConfig extends RouteConfig
      * @param integer $ttl The cache Time-To-Live, in seconds.
      * @return TemplateRouteConfig Chainable
      */
-    public function set_cache_ttl($ttl)
+    public function setCacheTtl($ttl)
     {
         $this->cache_ttl = (int)$ttl;
         return $this;
@@ -226,7 +226,7 @@ class TemplateRouteConfig extends RouteConfig
     /**
      * @return integer
      */
-    public function cache_ttl()
+    public function cacheTtl()
     {
         return $this->cache_ttl;
     }

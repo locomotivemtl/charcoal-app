@@ -24,13 +24,13 @@ interface ActionInterface
      * @param array $data The data to set.
      * @return ActionInterface Chainable
      */
-    public function set_data(array $data);
+    public function setData(array $data);
 
     /**
      * @param string $mode The action mode.
      * @return ActionInterface Chainable
      */
-    public function set_mode($mode);
+    public function setMode($mode);
 
     /**
      * @return string
@@ -41,7 +41,7 @@ interface ActionInterface
      * @param boolean $success Success flag (true / false).
      * @return ActionInterface Chainable
      */
-    public function set_success($success);
+    public function setSuccess($success);
 
     /**
      * @return boolean
@@ -52,28 +52,28 @@ interface ActionInterface
      * @param string $url The success URL.
      * @return ActionInterface Chainable
      */
-    public function set_success_url($url);
+    public function setSuccessUrl($url);
 
     /**
      * @return string
      */
-    public function success_url();
+    public function successUrl();
 
     /**
      * @param string $url The success URL.
      * @return ActionInterface Chainable
      */
-    public function set_failure_url($url);
+    public function setFailureUrl($url);
 
     /**
      * @return string
      */
-    public function failure_url();
+    public function failureUrl();
 
     /**
      * @return string
      */
-    public function redirect_url();
+    public function redirectUrl();
 
     /**
      * @return array

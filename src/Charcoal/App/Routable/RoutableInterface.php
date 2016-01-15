@@ -15,7 +15,7 @@ interface RoutableInterface
      * @param boolean $routable Routable flag, if the object is routable or not.
      * @return RoutableInterface Chainable
      */
-    public function set_routable($routable);
+    public function setRoutable($routable);
 
     /**
      * @return boolean
@@ -26,18 +26,18 @@ interface RoutableInterface
      * @param mixed $pattern The slug / URL / route pattern (translation string).
      * @return RoutableInterface Chainable
      */
-    public function set_slug_pattern($pattern);
+    public function setSlugPattern($pattern);
 
     /**
      * @return string
      */
-    public function slug_pattern();
+    public function slugPattern();
 
     /**
      * @param mixed $slug The slug value (translation string).
      * @return RoutableInterface Chainable
      */
-    public function set_slug($slug);
+    public function setSlug($slug);
 
     /**
      * @return string
@@ -49,7 +49,7 @@ interface RoutableInterface
      *
      * @return string
      */
-    public function generate_slug();
+    public function generateSlug();
 
     /**
      * @return string
@@ -64,5 +64,5 @@ interface RoutableInterface
      * @param ResponseInterface $response The PSR-7 compatible Response instance.
      * @return callable|null Route callable
      */
-    public function route_handler($path, RequestInterface $request, ResponseInterface $response);
+    public function routeHandler($path, RequestInterface $request, ResponseInterface $response);
 }

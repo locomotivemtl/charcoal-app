@@ -57,26 +57,26 @@ class Language implements LanguageInterface
      * @param array $data The data to set.
      * @return self
      */
-    public function set_data(array $data)
+    public function setData(array $data)
     {
         if (isset($data['ident'])) {
-            $this->set_ident($data['ident']);
+            $this->setIdent($data['ident']);
         }
 
         if (isset($data['codes'])) {
-            $this->set_codes($data['codes']);
+            $this->setCodes($data['codes']);
         }
 
         if (isset($data['name'])) {
-            $this->set_name($data['name']);
+            $this->setName($data['name']);
         }
 
         if (isset($data['direction'])) {
-            $this->set_direction($data['direction']);
+            $this->setDirection($data['direction']);
         }
 
         if (isset($data['locale'])) {
-            $this->set_locale($data['locale']);
+            $this->setLocale($data['locale']);
         }
 
         return $this;
@@ -92,7 +92,7 @@ class Language implements LanguageInterface
      * @param  string $ident Language identifier.
      * @return self
      */
-    public function set_ident($ident)
+    public function setIdent($ident)
     {
         $this->ident = $ident;
 
@@ -123,7 +123,7 @@ class Language implements LanguageInterface
      * @param TranslationString|array|string $name Language's name in one or more languages.
      * @return self
      */
-    public function set_name($name)
+    public function setName($name)
     {
         if ($name instanceof TranslationStringInterface) {
             $config = $name->languages();
@@ -171,7 +171,7 @@ class Language implements LanguageInterface
      * @param  string $dir Language's directionality.
      * @return self
      */
-    public function set_direction($dir)
+    public function setDirection($dir)
     {
         $this->direction = $dir;
 
@@ -197,7 +197,7 @@ class Language implements LanguageInterface
      * @param  LocaleInterface|string $locale Regional identifier.
      * @return self
      */
-    public function set_locale($locale)
+    public function setLocale($locale)
     {
         $this->locale = $locale;
 
@@ -223,7 +223,7 @@ class Language implements LanguageInterface
      * @param  string[] $codes An associative array of standards and codes.
      * @return self
      */
-    public function set_codes(array $codes)
+    public function setCodes(array $codes)
     {
         $this->codes = $codes;
 
@@ -248,7 +248,7 @@ class Language implements LanguageInterface
      * @return self
      * @throws InvalidArgumentException If the $standard or $code are invalid.
      */
-    public function add_code($standard, $code)
+    public function addCode($standard, $code)
     {
         if (!is_string($standard)) {
             throw new InvalidArgumentException('Language registry ID must be a string.');
@@ -285,7 +285,7 @@ class Language implements LanguageInterface
             throw new InvalidArgumentException('Language registry ID must be a string or NULL.');
         }
 
-        $this->resolve_code($standard, '639-1');
+        $this->resolveCode($standard, '639-1');
 
         if ($standard && isset($this->codes[$standard])) {
             return $this->codes[$standard];
@@ -305,7 +305,7 @@ class Language implements LanguageInterface
      * @param  string $fallback Optional fallback to use if none can be found.
      * @return void
      */
-    protected function resolve_code(&$standard, $fallback = null)
+    protected function resolveCode(&$standard, $fallback = null)
     {
         if (isset($standard)) {
             if (!array_key_exists($standard, $this->codes)) {

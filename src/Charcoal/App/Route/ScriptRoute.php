@@ -61,8 +61,8 @@ class ScriptRoute implements
             $this->setLogger($data['logger']);
         }
 
-        $this->set_config($data['config']);
-        $this->set_app($data['app']);
+        $this->setConfig($data['config']);
+        $this->setApp($data['app']);
     }
 
     /**
@@ -71,7 +71,7 @@ class ScriptRoute implements
      * @param mixed|null $data Optional config data.
      * @return ConfigInterface
      */
-    public function create_config($data = null)
+    public function createConfig($data = null)
     {
         return new ScriptRouteConfig($data);
     }
@@ -85,16 +85,16 @@ class ScriptRoute implements
     {
         $config = $this->config();
 
-        $script_ident = $config['ident'];
-        $script_controller = $config['controller'];
+        $scriptIdent = $config['ident'];
+        $scriptController = $config['controller'];
 
-        $script_factory = new ScriptFactory();
-        $script = $script_factory->create($script_ident, [
+        $scriptFactory = new ScriptFactory();
+        $script = $scriptFactory->create($scriptIdent, [
             'app' => $this->app(),
             'logger' => $this->logger
         ]);
 
-        $script->set_data($config['script_data']);
+        $script->setData($config['script_data']);
 
         // Run (invoke) script.
         return $script($request, $response);

@@ -13,7 +13,7 @@ class TemplateFactory extends ResolverFactory
     /**
      * @return string
      */
-    public function base_class()
+    public function baseClass()
     {
         return '\Charcoal\App\Template\TemplateInterface';
     }
@@ -21,7 +21,7 @@ class TemplateFactory extends ResolverFactory
     /**
      * @return string
      */
-    public function resolver_suffix()
+    public function resolverSuffix()
     {
         return 'Template';
     }

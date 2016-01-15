@@ -14,7 +14,7 @@ $autoloader->add('Charcoal\\Tests\\', __DIR__);
 // Create container and configure it (with charcoal-config)
 
 $config = new AppConfig();
-$config->add_file(__DIR__.'/../config/config.php');
+$config->addFile(__DIR__.'/../config/config.php');
 
 $GLOBALS['container'] = new AppContainer([
     'config'=>$config

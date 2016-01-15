@@ -44,7 +44,7 @@ interface LanguageInterface
      * @param array $data The data to set.
      * @return LanguageInterface Chainable
      */
-    public function set_data(array $data);
+    public function setData(array $data);
 
     /**
      * Set the language identifier (language code)
@@ -52,7 +52,7 @@ interface LanguageInterface
      * @param  string $ident Language identifier.
      * @return LanguageInterface Chainable
      */
-    public function set_ident($ident);
+    public function setIdent($ident);
 
     /**
      * Get the language identifier (language code)
@@ -69,7 +69,7 @@ interface LanguageInterface
      * @param  TranslationString|array|string $name Language's name in one or more languages.
      * @return LanguageInterface Chainable
      */
-    public function set_name($name);
+    public function setName($name);
 
     /**
      * Get the name of the language
@@ -86,7 +86,7 @@ interface LanguageInterface
      * @param  string $dir Language's directionality.
      * @return LanguageInterface Chainable
      */
-    public function set_direction($dir);
+    public function setDirection($dir);
 
     /**
      * Get the text direction
@@ -101,7 +101,7 @@ interface LanguageInterface
      * @param  LocaleInterface|string $locale Regional identifier.
      * @return LanguageInterface Chainable
      */
-    public function set_locale($locale);
+    public function setLocale($locale);
 
     /**
      * Get the language's locale

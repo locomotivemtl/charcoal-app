@@ -22,9 +22,9 @@ trait RoutableTrait
     private $routable = true;
 
     /**
-     * @var TranslationString $slug_pattern
+     * @var TranslationString $slugPattern
      */
-    private $slug_pattern;
+    private $slugPattern;
 
     /**
      * @var TranslationString $slug
@@ -35,7 +35,7 @@ trait RoutableTrait
      * @param boolean $routable Routable flag, if the object is routable or not.
      * @return RoutableInterface Chainable
      */
-    public function set_routable($routable)
+    public function setRoutable($routable)
     {
         $this->routable = !!$routable;
         return $this;
@@ -53,25 +53,25 @@ trait RoutableTrait
      * @param mixed $pattern The slug / URL / route pattern (translation string).
      * @return RoutableInterface Chainable
      */
-    public function set_slug_pattern($pattern)
+    public function setSlugPattern($pattern)
     {
-        $this->slug_pattern = new TranslationString($pattern);
+        $this->slugPattern = new TranslationString($pattern);
         return $this;
     }
 
     /**
      * @return TranslationString
      */
-    public function slug_pattern()
+    public function slugPattern()
     {
-        return $this->slug_pattern;
+        return $this->slugPattern;
     }
 
     /**
      * @param mixed $slug The slug value (translation string).
      * @return RoutableInterface Chainable
      */
-    public function set_slug($slug)
+    public function setSlug($slug)
     {
         $this->slug = new TranslationString($slug);
         return $this;
@@ -83,7 +83,7 @@ trait RoutableTrait
     public function slug()
     {
         if ($this->slug === null) {
-            $this->slug = $this->generate_slug();
+            $this->slug = $this->generateSlug();
         }
         return $this->slug;
     }
@@ -93,11 +93,11 @@ trait RoutableTrait
      *
      * @return string
      */
-    public function generate_slug()
+    public function generateSlug()
     {
-        $pattern = $this->slug_pattern();
+        $pattern = $this->slugPattern();
         if ($this instanceof Viewable) {
-            $slug = $this->render($pattern);
+            $slug = $this->renderTemplate($pattern);
         } else {
             $slug = $pattern;
         }
@@ -120,5 +120,5 @@ trait RoutableTrait
      * @param ResponseInterface $response The PSR-7 compatible Response instance.
      * @return callable|null Route callable
      */
-    abstract public function route_handler($path, RequestInterface $request, ResponseInterface $response);
+    abstract public function routeHandler($path, RequestInterface $request, ResponseInterface $response);
 }

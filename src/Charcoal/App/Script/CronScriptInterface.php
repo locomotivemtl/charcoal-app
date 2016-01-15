@@ -8,23 +8,23 @@ namespace Charcoal\App\Script;
 interface CronScriptInterface
 {
     /**
-     * @param boolean $use_lock The boolean flag if a lock should be used.
+     * @param boolean $useLock The boolean flag if a lock should be used.
      * @return CronScriptInterface Chainable
      */
-    public function set_use_lock($use_lock);
+    public function setUseLock($useLock);
 
     /**
      * @return boolean
      */
-    public function use_lock();
+    public function useLock();
 
     /**
      * @return boolean
      */
-    public function start_lock();
+    public function startLock();
 
     /**
      * @return void
      */
-    public function stop_lock();
+    public function stopLock();
 }

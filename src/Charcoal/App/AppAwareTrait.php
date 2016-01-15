@@ -18,7 +18,7 @@ trait AppAwareTrait
      * @param AppInterface $app The app instance this object depends on.
      * @return AppAwareInterface Chainable
      */
-    public function set_app(AppInterface $app)
+    public function setApp(AppInterface $app)
     {
         $this->app = $app;
         return $this;

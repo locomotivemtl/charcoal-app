@@ -19,8 +19,8 @@ class MiddlewareManager extends AbstractManager
      *
      * @return void
      */
-    public function setup_middlewares()
+    public function setupMiddlewares()
     {
-        
+
     }
 }

@@ -13,7 +13,7 @@ class ActionFactory extends ResolverFactory
     /**
      * @return string
      */
-    public function base_class()
+    public function baseClass()
     {
         return '\Charcoal\App\Action\ActionInterface';
     }
@@ -21,7 +21,7 @@ class ActionFactory extends ResolverFactory
     /**
      * @return string
      */
-    public function resolver_suffix()
+    public function resolverSuffix()
     {
         return 'Action';
     }

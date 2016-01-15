@@ -61,8 +61,8 @@ class TemplateRoute implements
             $this->setLogger($data['logger']);
         }
 
-        $this->set_config($data['config']);
-        $this->set_app($data['app']);
+        $this->setConfig($data['config']);
+        $this->setApp($data['app']);
     }
 
     /**
@@ -71,7 +71,7 @@ class TemplateRoute implements
      * @param mixed|null $data Optional config data.
      * @return ConfigInterface
      */
-    public function create_config($data = null)
+    public function createConfig($data = null)
     {
         return new TemplateRouteConfig($data);
     }
@@ -104,12 +104,12 @@ class TemplateRoute implements
             $template_content = $cache_item->get();
             if ($cache_item->isMiss()) {
                 $cache_item->lock();
-                $template_content = $this->template_content($tpl_config);
+                $template_content = $this->templateContent($tpl_config);
 
                 $cache_item->set($template_content, $tpl_config['cache_ttl']);
             }
         } else {
-            $template_content = $this->template_content($tpl_config);
+            $template_content = $this->templateContent($tpl_config);
         }
 
 
@@ -123,7 +123,7 @@ class TemplateRoute implements
      * @param TemplateRouteConfig $tpl_config The template route configuration.
      * @return string
      */
-    protected function template_content(TemplateRouteConfig $tpl_config)
+    protected function templateContent(TemplateRouteConfig $tpl_config)
     {
         $app_config = $this->app()->config();
 
@@ -135,7 +135,7 @@ class TemplateRoute implements
         $template_factory = new TemplateFactory();
 
         if ($fallback_controller) {
-            $template_factory->set_default_class($fallback_controller);
+            $template_factory->setDefaultClass($fallback_controller);
         }
 
         $template = $template_factory->create($template_controller, [
@@ -144,17 +144,17 @@ class TemplateRoute implements
         ]);
 
         $template_view = $template->view();
-        $template_view->set_data([
+        $template_view->setData([
             'template_ident' => $template_ident,
             'engine_type'    => $tpl_config['engine']
         ]);
 
-        $template->set_view($template_view);
+        $template->setView($template_view);
 
         // Set custom data from config.
-        $template->set_data($tpl_config['template_data']);
+        $template->setData($tpl_config['template_data']);
 
-        $template_content = $template->render_template($template_ident);
+        $template_content = $template->renderTemplate($template_ident);
 
         return $template_content;
     }

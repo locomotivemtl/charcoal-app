@@ -68,7 +68,7 @@ abstract class AbstractScript implements
             $this->setLogger($data['logger']);
         }
 
-        $this->set_app($data['app']);
+        $this->setApp($data['app']);
 
         $this->init();
     }
@@ -107,7 +107,7 @@ abstract class AbstractScript implements
      * @param AppInterface $app The template's parent charcoal app instance.
      * @return AbstractAction Chainable
      */
-    public function set_app(AppInterface $app)
+    public function setApp(AppInterface $app)
     {
         $this->app = $app;
         return $this;
@@ -125,7 +125,7 @@ abstract class AbstractScript implements
      * @param array $data The data to set.
      * @return AbstractAction Chainable
      */
-    public function set_data(array $data)
+    public function setData(array $data)
     {
         foreach ($data as $prop => $val) {
             $func = [$this, 'set_'.$prop];
@@ -158,7 +158,7 @@ abstract class AbstractScript implements
     /**
      * @return array
      */
-    public function default_arguments()
+    public function defaultArguments()
     {
         return [
             'help' => [
@@ -185,7 +185,7 @@ abstract class AbstractScript implements
      * @throws InvalidArgumentException If the ident argument is not a string.
      * @return ScriptInterface Chainable
      */
-    public function set_ident($ident)
+    public function setIdent($ident)
     {
         if (!is_string($ident)) {
             throw new InvalidArgumentException(
@@ -209,7 +209,7 @@ abstract class AbstractScript implements
      * @throws InvalidArgumentException If the deescription parameter is not a string.
      * @return ScriptInterface Chainable
      */
-    public function set_description($description)
+    public function setDescription($description)
     {
         if (!is_string($description)) {
             throw new InvalidArgumentException(
@@ -233,7 +233,7 @@ abstract class AbstractScript implements
          * @param boolean $quiet The quiet flag.
          * @return ScriptInterface Chainable
          */
-    public function set_quiet($quiet)
+    public function setQuiet($quiet)
     {
         $this->quiet = !!$quiet;
         return $this;
@@ -251,7 +251,7 @@ abstract class AbstractScript implements
      * @param boolean $verbose The verbose flag.
      * @return ScriptInterface Chainable
      */
-    public function set_verbose($verbose)
+    public function setVerbose($verbose)
     {
         $this->verbose = !!$verbose;
         return $this;
@@ -269,31 +269,31 @@ abstract class AbstractScript implements
      * @param array $arguments The scripts argument array, as [key=>value].
      * @return ScriptInterface Chainable
      */
-    public function set_arguments(array $arguments)
+    public function setArguments(array $arguments)
     {
         $this->arguments = [];
-        foreach ($arguments as $argument_ident => $argument) {
-            $this->add_argument($argument_ident, $argument);
+        foreach ($arguments as $argumentIdent => $argument) {
+            $this->add_argument($argumentIdent, $argument);
         }
 
         return $this;
     }
 
     /**
-     * @param string $argument_ident The argument identifier.
-     * @param array  $argument       The argument options.
+     * @param string $argumentIdent The argument identifier.
+     * @param array  $argument      The argument options.
      * @throws InvalidArgumentException If the argument ident is not a string.
      * @return ScriptInterface Chainable
      */
-    public function add_argument($argument_ident, array $argument)
+    public function addArgument($argumentIdent, array $argument)
     {
-        if (!is_string($argument_ident)) {
+        if (!is_string($argumentIdent)) {
             throw new InvalidArgumentException(
                 'Argument ident must be a string.'
             );
         }
-        $this->arguments[$argument_ident] = $argument;
-        $this->climate()->arguments->add([$argument_ident=>$argument]);
+        $this->arguments[$argumentIdent] = $argument;
+        $this->climate()->arguments->add([$argumentIdent=>$argument]);
         return $this;
     }
 
@@ -306,41 +306,41 @@ abstract class AbstractScript implements
     }
 
     /**
-     * @param string $argument_ident The argument identifier to retrieve options from.
+     * @param string $argumentIdent The argument identifier to retrieve options from.
      * @return array|null The argument options, or null if it does not exist.
      */
-    public function argument($argument_ident)
+    public function argument($argumentIdent)
     {
-        if (!isset($this->arguments[$argument_ident])) {
+        if (!isset($this->arguments[$argumentIdent])) {
             return null;
         }
-        return $this->arguments[$argument_ident];
+        return $this->arguments[$argumentIdent];
     }
 
     /**
      * Get an argument either from argument list (if set) or else from an input prompt.
      *
-     * @param string $arg_name The argument identifier to read from list or input.
+     * @param string $argName The argument identifier to read from list or input.
      * @return string The argument value or prompt value
      */
-    public function arg_or_input($arg_name)
+    public function argOrInput($argName)
     {
         $climate = $this->climate();
-        $arg = $climate->arguments->get($arg_name);
+        $arg = $climate->arguments->get($argName);
 
         if ($arg) {
             return $arg;
         }
 
         $arguments = $this->arguments();
-        if (isset($arguments[$arg_name])) {
-            $a = $arguments[$arg_name];
+        if (isset($arguments[$argName])) {
+            $a = $arguments[$argName];
             $arg_desc = $a['description'];
             $input_type = isset($a['inputType']) ? $a['inputType'] : 'text';
             $choices = isset($a['choices']) ? $a['choices'] : null;
 
         } else {
-            $arg_desc = $arg_name;
+            $arg_desc = $argName;
             $input_type = 'text';
             $choices = null;
         }

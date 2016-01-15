@@ -25,7 +25,8 @@
     "locomotivemtl/charcoal-config": "~0.1",
     "locomotivemtl/charcoal-view": "dev-master",
     "locomotivemtl/charcoal-factory": "dev-master",
-    "tedivm/stash": "dev-master"
+    "tedivm/stash": "dev-master",
+    "locomotivemtl/charcoal-core": "dev-master"
   },
   "require-dev": {
     "phpunit/phpunit": "^4.8",

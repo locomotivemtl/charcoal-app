@@ -41,8 +41,8 @@ abstract class AbstractManager implements
             $this->setLogger($data['logger']);
         }
 
-        $this->set_config($data['config']);
-        $this->set_app($data['app']);
+        $this->setConfig($data['config']);
+        $this->setApp($data['app']);
     }
 
     /**
@@ -51,7 +51,7 @@ abstract class AbstractManager implements
      * @param  ConfigInterface|array $config The manager configuration.
      * @return self
      */
-    public function set_config($config = [])
+    public function setConfig($config = [])
     {
         $this->config = $config;
         return $this;

@@ -35,26 +35,23 @@ abstract class AbstractTemplate implements
      */
     public function __construct(array $data = null)
     {
-        if (isset($data['logger'])) {
-            $this->setLogger($data['logger']);
-        }
-
-        $this->set_app($data['app']);
+        $this->setLogger($data['logger']);
+        $this->setApp($data['app']);
     }
 
     /**
      * @param array $data The data array (as [key=>value] pair) to set.
      * @return AbtractTemplate Chainable
      */
-    public function set_data(array $data)
+    public function setData(array $data)
     {
         foreach ($data as $prop => $val) {
-            $func = [$this, 'set_'.$prop];
 
             if ($val === null) {
                 continue;
             }
 
+            $func = [$this, $this->setter($prop)];
             if (is_callable($func)) {
                 call_user_func($func, $val);
             } else {
@@ -72,14 +69,50 @@ abstract class AbstractTemplate implements
      * @param array $data The optional view data.
      * @return \Charcoal\View\ViewInterface
      */
-    public function create_view(array $data = null)
+    public function createView(array $data = null)
     {
         $view = new GenericView([
             'logger' => $this->logger
         ]);
         if ($data !== null) {
-            $view->set_data($data);
+            $view->setData($data);
         }
         return $view;
+    }
+
+        /**
+         * Allow an object to define how the key getter are called.
+         *
+         * @param string $key The key to get the getter from.
+         * @return string The getter method name, for a given key.
+         */
+    private function getter($key)
+    {
+        $getter = $key;
+        return $this->camelize($getter);
+    }
+
+    /**
+     * Allow an object to define how the key setter are called.
+     *
+     * @param string $key The key to get the setter from.
+     * @return string The setter method name, for a given key.
+     */
+    private function setter($key)
+    {
+        $setter = 'set_'.$key;
+        return $this->camelize($setter);
+
+    }
+
+    /**
+     * Transform a snake_case string to camelCase.
+     *
+     * @param string $str The snake_case string to camelize.
+     * @return string The camelCase string.
+     */
+    private function camelize($str)
+    {
+        return lcfirst(implode('', array_map('ucfirst', explode('_', $str))));
     }
 }
