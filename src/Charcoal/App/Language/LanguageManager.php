@@ -97,7 +97,7 @@ class LanguageManager extends AbstractManager implements
                 });
 
                 if (count($config['languages'])) {
-                    $index = self::languageIndex(arrayKeys($config['languages']));
+                    $index = self::languageIndex(array_keys($config['languages']));
 
                     $langs['languages'] = [];
                     foreach ($config['languages'] as $ident => $data) {
