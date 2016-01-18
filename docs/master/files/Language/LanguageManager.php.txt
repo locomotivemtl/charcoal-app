@@ -112,7 +112,7 @@ class LanguageManager extends AbstractManager implements
                         }
 
                         if (!isset($data['ident'])) {
-                            $lang->set_ident($ident);
+                            $lang->setIdent($ident);
                         }
 
                         $lang->setData($data);
