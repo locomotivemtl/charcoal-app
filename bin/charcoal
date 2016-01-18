@@ -1,12 +1,10 @@
 #!/usr/bin/env php
 <?php
 
-use \Charcoal\Charcoal;
 use \Charcoal\App\App;
 use \Charcoal\App\AppConfig;
+use \Charcoal\App\AppContainer;
 
-use \Slim\App as SlimApp;
-use \Slim\Container as SlimContainer;
 use \Slim\Http\Environment as SlimEnvironment;
 
 $autoloader_path = [
@@ -35,12 +33,16 @@ if (!isset($argv[1])) {
 }
 $path = '/'.ltrim($argv[1], '/');
 
-\Charcoal\Charcoal::init([
-    'config'=>new \Charcoal\CharcoalConfig($base_dir.'/config/config.php')
-]);
+
+$config = new AppConfig();
+$config->addFile($base_dir.'/config/config.php');
+$config->set('ROOT', dirname(__DIR__) . '/');
 
 // Create container and configure it (with charcoal-config)
-$container = new SlimContainer();
+$container = new AppContainer([
+    'settings'  => [],
+    'config'    => $config
+]);
 
 // Handle "404 Not Found"
 $container['notFoundHandler'] = function ($c)
@@ -66,21 +68,6 @@ $container['errorHandler'] = function ($c)
     };
 };
 
-// Remove me. This is for backward compatibility.
-$container['config'] = function($c) use ($base_dir) {
-    $config = new \Charcoal\CharcoalConfig();
-    $config->add_file($base_dir.'/config/config.php');
-    return $config;
-};
-// Remove me. This is for backward compatibility.
-$container['charcoal/config'] = $container['config'];
-
-$container['charcoal/app/config'] = function($c) use ($base_dir) {
-    $config = new AppConfig();
-    $config->add_file($base_dir.'/config/config.php');
-    return $config;
-};
-
 // Fake environment (for CLI) with path
 $container['environment'] = function($c) use ($path) {
     return SlimEnvironment::mock([
@@ -96,14 +83,5 @@ $app = App::instance($container);
 require $base_dir.'/config/dependencies.php';
 // Register middlewares
 require $base_dir.'/config/middlewares.php';
-
-$app->set_logger($container['logger']);
-
-// @todo: This is needed for backward-compatibility and should be fixed / removed.
-\Charcoal\Charcoal::init([
-    'app'    => $app,
-    'config'=>new \Charcoal\CharcoalConfig($base_dir.'/config/config.php'),
-    'logger'=>$container['logger']
-]);
 
 $app->run();
