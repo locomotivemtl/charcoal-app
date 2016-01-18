@@ -78,8 +78,8 @@ abstract class AbstractScript implements
      */
     public function init()
     {
-        $arguments = $this->default_arguments();
-        $this->set_arguments($arguments);
+        $arguments = $this->defaultArguments();
+        $this->setArguments($arguments);
     }
 
     /**
@@ -97,8 +97,8 @@ abstract class AbstractScript implements
         }
 
         $climate->arguments->parse();
-        $this->set_quiet($climate->arguments->get('quiet'));
-        $this->set_verbose($climate->arguments->get('verbose'));
+        $this->setQuiet($climate->arguments->get('quiet'));
+        $this->setVerbose($climate->arguments->get('verbose'));
 
         return $this->run($request, $response);
     }
@@ -273,7 +273,7 @@ abstract class AbstractScript implements
     {
         $this->arguments = [];
         foreach ($arguments as $argumentIdent => $argument) {
-            $this->add_argument($argumentIdent, $argument);
+            $this->addArgument($argumentIdent, $argument);
         }
 
         return $this;
