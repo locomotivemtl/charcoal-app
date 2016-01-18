@@ -56,7 +56,7 @@ class AppContainer extends SlimContainer
     private function registerHandlers()
     {
         // 404 Not found Handler
-        if (!isset($this['notFoundHandler]'])) {
+        if (!isset($this['notFoundHandler'])) {
             $this['notFoundHandler'] = function (AppContainer $c) {
 
                 return function ($request, $response) use ($c) {
