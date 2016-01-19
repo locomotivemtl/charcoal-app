@@ -97,7 +97,7 @@ class LanguageManager extends AbstractManager implements
                 });
 
                 if (count($config['languages'])) {
-                    $index = self::languageIndex(array_keys($config['languages']));
+                    $index = $this->getLanguageIndex(array_keys($config['languages']));
 
                     $langs['languages'] = [];
                     foreach ($config['languages'] as $ident => $data) {
@@ -201,23 +201,58 @@ class LanguageManager extends AbstractManager implements
     }
 
     /**
+     * Get a list of existing languages, their names and translations,
+     * codes in various standards, and directionality.
+     *
+     * @param  string $subset If provided, returns a subset of language information.
+     *     Defaults to returning all language data.
+     * @return GenericConfig
+     */
+    public function getLanguageIndex(array $subset = [])
+    {
+        $container = $this->app()->getContainer();
+        $index     = [];
+
+        if ($container['cache']) {
+            if (count($subset)) {
+                sort($subset);
+                $subset = implode(',', $subset);
+            } else {
+                $sunset = 'all';
+            }
+
+            $cache_item = $container['cache']->getItem('languages', $subset, 'index');
+
+            if ($cache_item->isMiss()) {
+                $cache_item->lock();
+
+                $index = self::getCompleteLanguageIndex();
+
+                $cache_item->set($index, $this->app()->config()['cache/ttl']);
+            } else {
+                return $cache_item->get();
+            }
+        } else {
+            $index = self::getCompleteLanguageIndex();
+        }
+
+        return $index;
+    }
+
+    /**
      * Get a list of all existing languages, their names and translations,
      * codes in various standards, and directionality.
      *
-     * @param  string $cacheKey If provided, returns a subset of language information.
-     *     Defaults to returning all language data.
      * @return GenericConfig
-     *
-     * @todo Implement cache get/set of JSON data based on languages.
      */
-    public static function languageIndex($cacheKey = null)
+    public function getCompleteLanguageIndex()
     {
-        if (!isset(self::$languageIndex)) {
-            if ($cacheKey || !$cacheKey) {
-                self::$languageIndex = new GenericConfig(__DIR__.'/../../../../config/languages.json');
-            }
+        $index = new GenericConfig(__DIR__.'/../../../../config/languages.json');
+
+        if ( isset($index['languages']) ) {
+            return new GenericConfig($index['languages']);
         }
 
-        return self::$languageIndex;
+        return [];
     }
 }
