@@ -23,6 +23,7 @@ use \Charcoal\Config\ConfigurableTrait;
 
 // Local namespace dependencies
 use \Charcoal\App\AppConfig;
+use \Charcoal\App\AppContainer;
 use \Charcoal\App\AppInterface;
 use \Charcoal\App\Language\LanguageManager;
 use \Charcoal\App\Middleware\MiddlewareManager;
@@ -88,7 +89,7 @@ class App extends SlimApp implements
      * @param ContainerInterface|array $container The application's settings.
      * @throws LogicException If trying to create a new instance of a singleton.
      */
-    public function __construct($container)
+    public function __construct($container = [])
     {
         if (isset(static::$instance)) {
             throw new LogicException(
@@ -97,6 +98,11 @@ class App extends SlimApp implements
                     get_called_class()
                 )
             );
+        }
+
+        // Guarantee the use of Charcoal's DI container
+        if (is_array($container)) {
+            $container = new AppContainer($container);
         }
 
         // SlimApp constructor
