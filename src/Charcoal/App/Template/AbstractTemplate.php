@@ -80,12 +80,12 @@ abstract class AbstractTemplate implements
         return $view;
     }
 
-        /**
-         * Allow an object to define how the key getter are called.
-         *
-         * @param string $key The key to get the getter from.
-         * @return string The getter method name, for a given key.
-         */
+    /**
+     * Allow an object to define how the key getter are called.
+     *
+     * @param string $key The key to get the getter from.
+     * @return string The getter method name, for a given key.
+     */
     private function getter($key)
     {
         $getter = $key;
