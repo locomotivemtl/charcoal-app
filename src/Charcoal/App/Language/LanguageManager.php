@@ -77,13 +77,13 @@ class LanguageManager extends AbstractManager implements
     {
         $langs = [];
 
-        if (isset($config['defaultLanguage'])) {
-            $langs['defaultLanguage'] = $config['defaultLanguage'];
+        if (isset($config['default_language'])) {
+            $langs['default_language'] = $config['default_language'];
         }
 
         /** Not recommended; allow the current language to be determined by the client. */
-        if (isset($config['currentLanguage'])) {
-            $langs['currentLanguage'] = $config['currentLanguage'];
+        if (isset($config['current_language'])) {
+            $langs['current_language'] = $config['current_language'];
         }
 
         /**
