@@ -15,9 +15,9 @@ use \PDO;
 use \Charcoal\Property\AbstractProperty;
 
 /**
- * Datetime Property
+ * DateTime Property
  */
-class DatetimeProperty extends AbstractProperty
+class DateTimeProperty extends AbstractProperty
 {
     const DEFAULT_MIN = null;
     const DEFAULT_MAX = null;
@@ -41,24 +41,24 @@ class DatetimeProperty extends AbstractProperty
      */
     public function type()
     {
-        return 'datetime';
+        return 'date-time';
     }
 
     /**
      * AbstractProperty > set_multiple()
      *
-     * Ensure multiple can not be true for Datetime property.
+     * Ensure multiple can not be true for DateTime property.
      *
      * @param boolean $multiple Multiple flag.
      * @throws InvalidArgumentException If the multiple argument is true (must be false).
-     * @return DatetimeProperty Chainable
+     * @return DateTimeProperty Chainable
      */
     public function setMultiple($multiple)
     {
         $multiple = !!$multiple;
         if ($multiple === true) {
             throw new InvalidArgumentException(
-                'Multiple can not be true for datetime property.'
+                'Multiple can not be TRUE for date/time property.'
             );
         }
         return $this;
@@ -95,15 +95,19 @@ class DatetimeProperty extends AbstractProperty
                 );
             }
         }
+
         if (is_string($val)) {
             $val = new DateTime($val);
         }
+
         if (!($val instanceof DateTimeInterface)) {
             throw new InvalidArgumentException(
                 'Val must be a valid date'
             );
         }
+
         $this->val = $val;
+
         return $this;
     }
 
@@ -111,7 +115,7 @@ class DatetimeProperty extends AbstractProperty
      * AbstractProperty > storageVal(). Convert `DateTime` to SQL-friendly string.
      *
      * @param string|DateTime $val Optional. Value to convert to storage format.
-     * @throws Exception If the datetime is invalid.
+     * @throws Exception If the date/time is invalid.
      * @return string|null
      */
     public function storageVal($val = null)
@@ -125,7 +129,7 @@ class DatetimeProperty extends AbstractProperty
             if ($this->allowNull()) {
                 return null;
             } else {
-                throw new Exception('Invalid datetime value');
+                throw new Exception('Invalid date/time value');
             }
         }
     }
@@ -141,20 +145,21 @@ class DatetimeProperty extends AbstractProperty
      */
     public function displayVal($val = null)
     {
-        if ($val !== null) {
-            $this->setVal($val);
+        if ($val === null) {
+            $val = $this->val();
         }
 
-        if ($this->val()) {
-            return $this->val()->format($this->format());
+        if ($val === null) {
+            return '';
         }
-        return '';
+
+        return $val->format($this->format());
     }
 
     /**
-     * @param string|Datetime|null $min The minimum allowed value.
-     * @throws InvalidArgumentException If the datetime is invalid.
-     * @return DatetimeProperty Chainable
+     * @param string|DateTime|null $min The minimum allowed value.
+     * @throws InvalidArgumentException If the date/time is invalid.
+     * @return DateTimeProperty Chainable
      */
     public function setMin($min)
     {
@@ -192,9 +197,9 @@ class DatetimeProperty extends AbstractProperty
     }
 
     /**
-     * @param string|Datetime|null $max The maximum allowed value.
-     * @throws InvalidArgumentException If the datetime is invalid.
-     * @return DatetimeProperty Chainable
+     * @param string|DateTime|null $max The maximum allowed value.
+     * @throws InvalidArgumentException If the date/time is invalid.
+     * @return DateTimeProperty Chainable
      */
     public function setMax($max)
     {
@@ -221,7 +226,7 @@ class DatetimeProperty extends AbstractProperty
     }
 
     /**
-     * @return Datetime
+     * @return DateTime
      */
     public function max()
     {
@@ -234,7 +239,7 @@ class DatetimeProperty extends AbstractProperty
     /**
      * @param string $format The date format.
      * @throws InvalidArgumentException If the format is not a string.
-     * @return DatetimeProperty Chainable
+     * @return DateTimeProperty Chainable
      */
     public function setFormat($format)
     {
