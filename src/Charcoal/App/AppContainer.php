@@ -55,37 +55,6 @@ class AppContainer extends SlimContainer
      */
     private function registerHandlers()
     {
-        // 404 Not found Handler
-        if (!isset($this['notFoundHandler'])) {
-            $this['notFoundHandler'] = function (AppContainer $c) {
-
-                return function ($request, $response) use ($c) {
-
-                    return $c['response']
-                        ->withStatus(404)
-                        ->withHeader('Content-Type', 'text/html')
-                        ->write('Page not found'."\n");
-                };
-            };
-        }
-
-        // 500 Error Handler
-        if (!isset($this['errorHandler'])) {
-            $this['errorHandler'] = function (AppContainer $c) {
-
-                return function ($request, $response, $exception) use ($c) {
-
-                    $c['logger']->critical('500 Error', (array)$exception);
-
-                    return $c['response']
-                        ->withStatus(500)
-                        ->withHeader('Content-Type', 'text/html')
-                        ->write(
-                            sprintf('Something went wrong! (%s)'."\n", $exception->getMessage())
-                        );
-                };
-            };
-        }
     }
 
     /**
@@ -130,7 +99,7 @@ class AppContainer extends SlimContainer
      */
     private function registerCache()
     {
-                // CacheConfig object
+        // CacheConfig object
         if (!isset($this['cache/config'])) {
             $this['cache/config'] = function (AppContainer $c) {
                 $app_config = $c->get('charcoal/app/config');
