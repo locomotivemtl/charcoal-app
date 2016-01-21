@@ -27,7 +27,7 @@
       "type":"string"
     },
     "send_ts":{
-      "type":"datetime"
+      "type": "date-time"
     },
     "ip":{
       "type":"ip"

@@ -10,13 +10,13 @@
           "type":"boolean"
         },
         "queued_date":{
-          "type":"datetime"
+          "type": "date-time"
         },
         "processed_date":{
-          "type":"datetime"
+          "type": "date-time"
         },
         "processing_date":{
-          "type":"datetime"
+          "type": "date-time"
         },
         "to":{
             "type":"string"
