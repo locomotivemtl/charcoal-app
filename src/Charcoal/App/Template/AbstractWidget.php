@@ -105,7 +105,7 @@ abstract class AbstractWidget implements
      * @param string $key The key to get the getter from.
      * @return string The getter method name, for a given key.
      */
-    private function getter($key)
+    protected function getter($key)
     {
         $getter = $key;
         return $this->camelize($getter);
@@ -117,7 +117,7 @@ abstract class AbstractWidget implements
      * @param string $key The key to get the setter from.
      * @return string The setter method name, for a given key.
      */
-    private function setter($key)
+    protected function setter($key)
     {
         $setter = 'set_'.$key;
         return $this->camelize($setter);
