@@ -7,18 +7,18 @@ use \Charcoal\App\AppContainer;
 
 use \Slim\Http\Environment as SlimEnvironment;
 
-$autoloader_path = [
+$autoloaderPath = [
     __DIR__. '/../../../../vendor/autoload.php',
     __DIR__. '/../vendor/autoload.php'
 ];
 
-foreach ($autoloader_path as $file) {
+foreach ($autoloaderPath as $file) {
     if (file_exists($file)) {
         include $file;
         break;
     }
 }
-$base_dir = realpath(dirname(dirname($file)));
+$baseDir = realpath(dirname(dirname($file)));
 
 // Ensure CLI mode
 if (PHP_SAPI !== 'cli') {
@@ -35,7 +35,7 @@ $path = '/'.ltrim($argv[1], '/');
 
 
 $config = new AppConfig();
-$config->addFile($base_dir.'/config/config.php');
+$config->addFile($baseDir.'/config/config.php');
 $config->set('ROOT', dirname(__DIR__) . '/');
 
 // Create container and configure it (with charcoal-config)
@@ -80,8 +80,8 @@ $container['environment'] = function($c) use ($path) {
 $app = App::instance($container);
 
 // Set up dependencies
-require $base_dir.'/config/dependencies.php';
+require $baseDir.'/config/dependencies.php';
 // Register middlewares
-require $base_dir.'/config/middlewares.php';
+require $baseDir.'/config/middlewares.php';
 
 $app->run();
