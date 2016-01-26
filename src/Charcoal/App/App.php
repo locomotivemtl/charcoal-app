@@ -108,8 +108,8 @@ class App extends SlimApp implements
         // SlimApp constructor
         parent::__construct($container);
 
-        if (isset($container['charcoal/app/config'])) {
-            $this->setConfig($container['charcoal/app/config']);
+        if (isset($container['config'])) {
+            $this->setConfig($container['config']);
         }
     }
 
@@ -361,10 +361,10 @@ class App extends SlimApp implements
                 if ($routables === null || count($routables) === 0) {
                     return $c['notFoundHandler']($request, $response);
                 }
-                $routable_factory = new RoutableFactory();
-                foreach ($routables as $routable_type => $routable_options) {
-                    $routable = $routable_factory->create($routable_type);
-                    $route = $routable->route_handler($args['catchall'], $request, $response);
+                $routableFactory = new RoutableFactory();
+                foreach ($routables as $routableType => $routableOptions) {
+                    $routable = $routableFactory->create($routableType);
+                    $route = $routable->routeHandler($args['catchall'], $request, $response);
                     if ($route) {
                         return $route($request, $response);
                     }
@@ -391,7 +391,7 @@ class App extends SlimApp implements
     /**
      * Retrieve a new ConfigInterface instance for the object.
      *
-     * @see    ConfigurableTrait::create_config() For abstract definition of this method.
+     * @see    ConfigurableTrait::createConfig() For abstract definition of this method.
      * @param  array|string|null $data Optional configuration data.
      * @return AppConfig
      */
