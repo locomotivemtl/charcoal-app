@@ -13,6 +13,9 @@ use \Psr\Log\LoggerAwareTrait;
 use \Psr\Http\Message\RequestInterface;
 use \Psr\Http\Message\ResponseInterface;
 
+// Dependencies from `Pimple`
+use \Pimple\Container;
+
 // `thephpleague/climate` dependencies
 use \League\CLImate\CLImate;
 
@@ -64,13 +67,26 @@ abstract class AbstractScript implements
      */
     final public function __construct(array $data = null)
     {
-        if (isset($data['logger'])) {
-            $this->setLogger($data['logger']);
-        }
-
+        $this->setLogger($data['logger']);
         $this->setApp($data['app']);
 
         $this->init();
+    }
+
+    /**
+     * Give an opportunity to children classes to inject dependencies from a Pimple Container.
+     *
+     * Does nothing by default, reimplement in children classes.
+     *
+     * The `$container` DI-container (from `Pimple`) should not be saved or passed around, only to be used to
+     * inject dependencies (typically via setters).
+     *
+     * @param Container $container A dependencies container instance.
+     * @return void
+     */
+    public function setDependencies(Container $container)
+    {
+        // Nothing to do.
     }
 
     /**

@@ -6,6 +6,9 @@ namespace Charcoal\App\Action;
 use \Psr\Http\Message\RequestInterface;
 use \Psr\Http\Message\ResponseInterface;
 
+// Dependencies from `Pimple`
+use \Pimple\Container;
+
 /**
  *
  */
@@ -19,6 +22,19 @@ interface ActionInterface
      * @return ResponseInterface
      */
     public function __invoke(RequestInterface $request, ResponseInterface $response);
+
+    /**
+     * Give an opportunity to children classes to inject dependencies from a Pimple Container.
+     *
+     * Does nothing by default, reimplement in children classes.
+     *
+     * The `$container` DI-container (from `Pimple`) should not be saved or passed around, only to be used to
+     * inject dependencies (typically via setters).
+     *
+     * @param Container $container A dependencies container instance.
+     * @return void
+     */
+    public function setDependencies(Container $container);
 
     /**
      * @param array $data The data to set.

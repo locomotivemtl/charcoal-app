@@ -9,6 +9,9 @@ use \InvalidArgumentException;
 use \Psr\Log\LoggerAwareInterface;
 use \Psr\Log\LoggerAwareTrait;
 
+// Dependencies from `Pimple`
+use \Pimple\Container;
+
 // PSR-7 (http messaging) dependencies
 use \Psr\Http\Message\RequestInterface;
 use \Psr\Http\Message\ResponseInterface;
@@ -71,11 +74,24 @@ abstract class AbstractAction implements
      */
     public function __construct(array $data = null)
     {
-        if (isset($data['logger'])) {
-            $this->setLogger($data['logger']);
-        }
-
+        $this->setLogger($data['logger']);
         $this->setApp($data['app']);
+    }
+
+    /**
+     * Give an opportunity to children classes to inject dependencies from a Pimple Container.
+     *
+     * Does nothing by default, reimplement in children classes.
+     *
+     * The `$container` DI-container (from `Pimple`) should not be saved or passed around, only to be used to
+     * inject dependencies (typically via setters).
+     *
+     * @param Container $container A dependencies container instance.
+     * @return void
+     */
+    public function setDependencies(Container $container)
+    {
+        // Nothing to do.
     }
 
     /**
