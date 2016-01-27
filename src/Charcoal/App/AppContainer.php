@@ -3,26 +3,20 @@
 namespace Charcoal\App;
 
 // Slim Dependencies
-use \Slim\Container as SlimContainer;
+use \Slim\Container;
 
-// Monolog Dependencies
-use \Monolog\Logger;
-use \Monolog\Processor\UidProcessor;
-use \Monolog\Handler\StreamHandler;
-
-// Stash Dependencies
-use \Stash\DriverList;
-use \Stash\Driver\Ephemeral;
-use \Stash\Pool;
-
-use \Charcoal\App\Config\LoggerConfig;
-use \Charcoal\App\Config\CacheConfig;
-use \Charcoal\App\Config\MemcacheCacheConfig;
+// Intra-Module `charcoal-app` dependencies
+use \Charcoal\App\Provider\AppServiceProvider;
+use \Charcoal\App\Provider\CacheServiceProvider;
+use \Charcoal\App\Provider\DatabaseServiceProvider;
+use \Charcoal\App\Provider\LoggerServiceProvider;
+use \Charcoal\App\Provider\TranslatorServiceProvider;
+use \Charcoal\App\Provider\ViewServiceProvider;
 
 /**
  * Charcoal App Container
  */
-class AppContainer extends SlimContainer
+class AppContainer extends Container
 {
     /**
      * Create new container
@@ -32,150 +26,19 @@ class AppContainer extends SlimContainer
     public function __construct(array $values = [])
     {
         $config = isset($values['config']) ? $values['config'] : [];
-        $this->registerDefaults($config);
 
-        parent::__construct($values);
-    }
-
-    /**
-     * @param AppConfig $config The Charcoal App configuration.
-     * @return void
-     */
-    private function registerDefaults(AppConfig $config)
-    {
         $this['charcoal/app/config'] = $config;
+        $this['config'] = $this['charcoal/app/config'];
 
-        $this->registerHandlers();
-        $this->registerLogger();
-        $this->registerCache();
-    }
+        // Default Services
+        $this->register(new AppServiceProvider());
+        $this->register(new CacheServiceProvider());
+        $this->register(new DatabaseServiceProvider());
+        $this->register(new LoggerServiceProvider());
+        $this->register(new TranslatorServiceProvider());
+        $this->register(new ViewServiceProvider());
 
-    /**
-     * @return void
-     */
-    private function registerHandlers()
-    {
-    }
-
-    /**
-     * @return void
-     */
-    private function registerLogger()
-    {
-        // LoggerConfig object
-        if (!isset($this['logger/config'])) {
-            $this['logger/config'] = function (AppContainer $c) {
-                $app_config = $c->get('charcoal/app/config');
-
-                $logger_config = new LoggerConfig($app_config->get('logger'));
-                return $logger_config;
-            };
-        }
-
-        // PSR-3 logger, with Monolog.
-        if (!isset($this['logger'])) {
-            $this['logger'] = function (AppContainer $c) {
-
-                $app_config = $c->get('charcoal/app/config');
-
-                $logger_config = $c->get('logger/config');
-
-                $uid_processor = new UidProcessor();
-                $handler = new StreamHandler('charcoal.app.log', Logger::DEBUG);
-
-                $logger = new Logger('Charcoal');
-                $logger->pushProcessor($uid_processor);
-                $logger->pushHandler($handler);
-                return $logger;
-            };
-        }
-
-    }
-
-    /**
-     * Set up required caching system dependencies, if it was not previously set.
-     *
-     * @return void
-     */
-    private function registerCache()
-    {
-        // CacheConfig object
-        if (!isset($this['cache/config'])) {
-            $this['cache/config'] = function (AppContainer $c) {
-                $app_config = $c->get('charcoal/app/config');
-
-                $cache_config =  new CacheConfig($app_config->get('cache'));
-                return $cache_config;
-            };
-        }
-
-        // Stash cache driver
-        if (!isset($this['cache/driver'])) {
-            $this['cache/driver'] = function (AppContainer $c) {
-
-                $cache_config = $c->get('cache/config');
-
-                $types = $cache_config->get('types');
-
-                $stash_types = [
-                    'apc'       => 'Apc',
-                    'file'      => 'FileSystem',
-                    'db'        => 'SQLite',
-                    'memcache'  => 'Memcache',
-                    'memory'    => 'Ephemeral',
-                    'noop'      => 'BlackHole',
-                    'redis'     => 'Redis'
-                ];
-
-                $available_drivers = \Stash\DriverList::getAvailableDrivers();
-                foreach ($types as $type) {
-                    $stash_type = $stash_types[$type];
-                    if (!isset($available_drivers[$stash_type])) {
-                        continue;
-                    }
-                    $class = $available_drivers[$stash_type];
-                    $driver = new $class();
-                    if ($type == 'memcache') {
-                        if (isset($cache_config['servers'])) {
-                            $servers = [];
-                            foreach ($cache_config['servers'] as $server) {
-                                $servers[] = array_values($server);
-                            }
-                        } else {
-                            $servers = [['127.0.0.1', 11211]];
-                        }
-                        $driver->setOptions([
-                            'servers'=>$servers
-                        ]);
-                    }
-                    break;
-                }
-
-                // If no working drivers were available, fallback to an Ephemeral (memory) driver.
-                if (!isset($driver)) {
-                    $driver = new Ephemeral();
-                }
-
-
-                return $driver;
-            };
-        }
-
-        // PSR-6 caching, with Stash
-        // (note: stash 0.13 is not yet 100% psr-6 compliant, but as of 2016-01-12 v1.0 is not released)
-        if (!isset($this['cache'])) {
-            $this['cache'] = function (AppContainer $c) {
-
-                $cache_config = $c->get('cache/config');
-                $driver = $c->get('cache/driver');
-
-                $pool = new Pool($driver);
-                $pool->setLogger($c->get('logger'));
-                $pool->setNamespace($cache_config['prefix']);
-
-                return $pool;
-            };
-
-        }
+        // Slim container
+        parent::__construct($values);
     }
 }

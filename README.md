@@ -24,12 +24,21 @@ $ composer require locomotivemtl/charcoal-app
 - [`locomotivemtl/charcoal-view`](https://github.com/locomotivemtl/charcoal-view)
 	- Template controllers will typically load a _View_ object  (or a _Renderer_, for PSR7 / Slim compatibility) and render a template.
 	- This brings a dependency on [`mustache/mustache`](https://github.com/bobthecow/mustache.php).
+
 - [`slim/slim`](https://github.com/slimphp/Slim)
 	- The main app, container and router are provided by Slim.
 	- Its dependencies are:
 		-  [`pimple/pimple`](http://pimple.sensiolabs.org/)
 		-  [`psr/http-message`]((http://www.php-fig.org/psr/psr-7/))
 		-  [`nikic/fast-route`](https://github.com/nikic/FastRoute)
+- `pimple/pimple`
+  - Dependency injection container.
+  - Actually provided by `slim/slim`.
+- `monolog/monolog`
+	- Monolog is used as main logger to fulfills PSR3 dependencies all-around.
+- `tedivm/stash`
+  - Stash is a cache system.
+  - As of _2016-01-26_, is not yet PSR6 compliant (released versions).
 
 > 👉 Development dependencies, which are optional when using charcoal-app in a project, are described in the [Development](#development) section of this README file.
 
@@ -211,28 +220,112 @@ Example of a module configuration:
 	"middlewares": {}
 }
 ```
+# Basic services
+
+Dependencies are handled with a `Pimple` dependency Container.
+
+Basic "App" services are:
+
+- `config`
+- `logger`
+- `cache`
+- `view`
+- `database`
+- `translator`
+
+The next section, service providers, explain in more details the various available services.
+
+# Service Providers
+
+Dependencies are handled with a `Pimple` dependency Container. There are various _Service Providers_ available inside `charcoal-app`:
+
+- `AppServiceProvider`
+- `CacheServiceProvider`
+- `DatabaseServicePovider`
+- `LoggerServiceProvider`
+- `TranslatorServiceProvider`
+- `ViewServiceProvider`
+
+All providers expect the DI Container to provider `config` object, which should hold the main project configuration in a `ConfigInterface` instance.
+
+## App Service Provider
+
+The `AppServiceProvider` provides the following services:
+- `notFoundHandler`
+  - A `callback` for 404 (not found) URLs.
+- `errorHandler`
+  - A `callback` for 500 (error) URLs.
+
+## Cache Service Provider
+
+The `CacheServiceProvider` provides the following servicers:
+
+- `cache`
+  - A `\Stash\Pool` (cache) instance.
+
+Also available are the following helpers:
+
+- `cache/config`
+	- A `\Charcoal\App\Config\CacheConfig` instance holding all configuration keys related to caching.
+- `cache/available-drivers`
+  - An `array` of all the available Stash drivers on the system.
+- `cache/drivers`
+  - A `\Pimple\Container` of all the avaialble `Stash\Driver` instances.
+- `cache/driver`
+  - The default `\Stash\Driver`.
+
+> 👉 Stash 1.0 will support PSR-6. For now, `charcoal` is dependent on stash, not the psr6 standard.
+
+## Database Service Provider
+
+The `DatabaseServiceProvider` provides the following services:
+
+- `database`
+	- The default database, as a `\PDO` instance.
+- `databases`
+  - A `\Pimple\Container` of all the available `\PDO` database instances.
+
+## Logger Service Provider
+
+The `LoggerServiceProvider` provides the following services:
+
+- `logger`
+
+Also available are the following helpers:
+
+- `logger/config`
+
+
+## Translator Service Provider
+
+## View Service Provider
 
 # Usage
 
 Typical Front-Controller (`index.php`):
 
 ```php
+use \Charcoal\App\App;
+use \Charcoal\App\AppConfig;
+use \Charcoal\App\AppContainer;
+
 include '../vendor/autoload.php';
 
-$container = new \Slim\Container();
+$config = new AppConfig();
+$config->addFile(__DIR__.'/../config/config.php');
+$config->set('ROOT', dirname(__DIR__) . '/');
 
-$container['config'] = function() {
-	$config = new \Charcoal\App\AppConfig();
-	$config->add_file('../config/config.php');
-	return $config;
-};
+// Create container and configure it (with charcoal-config)
+$container = new AppContainer([
+    'settings' => [
+        'displayErrorDetails' => true
+    ],
+    'config' => $config
+]);
 
-$slim = new \Slim\App($container);
-
-$app = new \Charcoal\App($slim);
-$app->setup();
-
-$slim->run();
+// Charcoal / Slim is the main app
+$app = App::instance($container);
+$app->run();
 ```
 
 It is also possible to bypass the `Charcoal\App` totally and simply instanciate each modules manually:
@@ -273,18 +366,6 @@ $slim->post('/', function() {
 });
 ```
 
-## Classes
-
-- `\Charcoal\App\AbstractModule`
-- `\Charcoal\App\App`
-- `\Charcoal\App\AppConfig`
-- `\Charcoal\App\GenericModule`
-- `\Charcoal\App\ModuleInterface`
-- `\Charcoal\App\ModuleManager`
-- `\Charcoal\App\RequestController`
-- `\Charcoal\App\RouteConfig`
-- `\Charcoal\App\RouteManager`
-
 # Development
 
 To install the development environment:
@@ -305,15 +386,10 @@ $ composer install
 
 The Charcoal-App module follows the Charcoal coding-style:
 
-- [_PSR-1_](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-1-basic-coding-standard.md), except for
-	- Method names MUST be declared in `snake_case`.
-- [_PSR-2_](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md), except for the PSR-1 requirement.
+- [_PSR-1_](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-1-basic-coding-standard.md)
+- [_PSR-2_](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md)
 - [_PSR-4_](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-4-autoloader.md), autoloading is therefore provided by _Composer_
 - [_phpDocumentor_](http://phpdoc.org/)
-	- Add DocBlocks for all classes, methods, and functions;
-	- For type-hinting, use `boolean` (instead of `bool`), `integer` (instead of `int`), `float` (instead of `double` or `real`);
-	- Omit the `@return` tag if the method does not return anything.
-- Naming conventions
 	- Read the [phpcs.xml](phpcs.xml) file for all the details.
 
 > Coding style validation / enforcement can be performed with `grunt phpcs`. An auto-fixer is also available with `grunt phpcbf`.

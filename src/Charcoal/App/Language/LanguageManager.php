@@ -204,7 +204,7 @@ class LanguageManager extends AbstractManager implements
      * Get a list of existing languages, their names and translations,
      * codes in various standards, and directionality.
      *
-     * @param  string $subset If provided, returns a subset of language information.
+     * @param  string[] $subset If provided, returns a subset of language information.
      *     Defaults to returning all language data.
      * @return GenericConfig
      */
@@ -249,7 +249,7 @@ class LanguageManager extends AbstractManager implements
     {
         $index = new GenericConfig(__DIR__.'/../../../../config/languages.json');
 
-        if ( isset($index['languages']) ) {
+        if (isset($index['languages'])) {
             return new GenericConfig($index['languages']);
         }
 
