@@ -93,8 +93,8 @@ class ScriptRoute implements
         $script = $scriptFactory->create($scriptIdent, [
             'app' => $this->app(),
             'logger' => $container['logger']
-        ], function (TemplateInterface $template) use ($container) {
-            $template->setDependencies($container);
+        ], function (ScriptInterface $script) use ($container) {
+            $script->setDependencies($container);
         });
 
         $script->setData($config['script_data']);

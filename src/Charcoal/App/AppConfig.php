@@ -51,6 +51,8 @@ class AppConfig extends AbstractConfig
      */
     private $logger = null;
 
+
+
     /**
      * Default app-config values.
      *
@@ -59,15 +61,17 @@ class AppConfig extends AbstractConfig
     public function defaults()
     {
         return [
-            'timezone'=>'UTC',
-            'routes'=>[],
-            'routables'=>[],
-            'modules'=>[],
-            'translation'=>[],
-            'cache'=>[],
-            'logger'=>[],
-            'dev_mode'=>false,
-
+            'timezone'      => 'UTC',
+            'routes'        => [],
+            'routables'     => [],
+            'modules'       => [],
+            'translation'   => [],
+            'cache'         => [],
+            'logger'        => [],
+            'view'          => [],
+            'databases'     => [],
+            'default_database' => 'default',
+            'dev_mode'      => false
         ];
     }
 
@@ -374,18 +378,18 @@ class AppConfig extends AbstractConfig
     }
 
     /**
-     * @param string $default_database The default database ident.
+     * @param string $defaultDatabase The default database ident.
      * @throws InvalidArgumentException If the argument is not a string.
      * @return CharcoalConfig Chainable
      */
-    public function setDefaultDatabase($default_database)
+    public function setDefaultDatabase($defaultDatabase)
     {
-        if (!is_string($default_database)) {
+        if (!is_string($defaultDatabase)) {
             throw new InvalidArgumentException(
                 'Default database must be a string.'
             );
         }
-        $this->default_database = $default_database;
+        $this->defaultDatabase = $defaultDatabase;
         return $this;
     }
 
@@ -416,11 +420,11 @@ class AppConfig extends AbstractConfig
      */
     public function defaultDatabase()
     {
-        if ($this->default_database === null) {
+        if ($this->defaultDatabase === null) {
             throw new Exception(
                 'Default database is not set.'
             );
         }
-        return $this->default_database;
+        return $this->defaultDatabase;
     }
 }

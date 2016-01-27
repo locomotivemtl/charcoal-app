@@ -74,17 +74,17 @@ class DatabaseServiceProvider implements ServiceProviderInterface
                     $password = $dbConfig['password'];
 
                     // Set UTf-8 compatibility by default. Disable it if it is set as such in config
-                    $extra_opts = null;
+                    $extraOptions = null;
                     if (!isset($dbConfig['disable_utf8']) || !$dbConfig['disable_utf8']) {
-                        $extra_opts = [PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'];
+                        $extraOptions = [PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'];
                     }
 
-                    $dsn = $db_type.':host='.$db_hostname.';dbname='.$database;
-                    $db = new PDO($dsn, $username, $password, $extra_opts);
+                    $dsn = $type.':host='.$host.';dbname='.$database;
+                    $db = new PDO($dsn, $username, $password, $extraOptions);
 
                     // Set PDO options
                     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                    if ($db_type == 'mysql') {
+                    if ($type == 'mysql') {
                         $db->setAttribute(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, true);
                     }
                     return $db;

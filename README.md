@@ -5,6 +5,36 @@ Charcoal App
 
 [![Build Status](https://travis-ci.org/locomotivemtl/charcoal-app.svg?branch=master)](https://travis-ci.org/locomotivemtl/charcoal-app)
 
+# Table of contents
+
+- How to install
+	- Dependencies
+- Components
+  - Config
+  - App
+    - App Configuration
+  - Module
+  - Route and RequestController
+    - Route API
+  - Routable objects
+    - The routable callback
+  - Middleware
+  - Charcoal Binary
+- Basic Services
+- Service Providers
+  - App Service Provider
+  - Cache Service Provider
+  - Database Service Provider
+  - Logger Service Provider
+  - Translator Service Provider
+  - View Service Provider
+- Usage
+- Development
+  - Development dependencies
+  - Coding Style
+  - Authors
+  - Changelog
+
 # How to install
 
 The preferred (and only supported) way of installing _charcoal-app_ is with **composer**:
@@ -52,7 +82,17 @@ Similarly, when a `Charcoal\View\Renderer` is used as a renderer (instead of a p
 
 # Components
 
-The main components of charcoal-app are _App_, _Module_, _Route_ (and _Routable_ objects), _RequestController_, _Middleware_ and the _Binary (Charcoal Script)_.
+The main components of charcoal-app are:
+
+- _Config_
+- _App_
+- _Module_
+- _Route_ (and _Routable_ objects)
+- _RequestController_
+- _Middleware_
+- _Binary (Charcoal Script)_.
+
+## Config
 
 ## App
 
@@ -75,10 +115,19 @@ The main components of charcoal-app are _App_, _Module_, _Route_ (and _Routable_
 
 `\Charcoal\App\AppConfig` API:
 
-| Key         | Type             | Default | Description |
-| ----------- | ---------------- | ------- | ----------- |
-| **routes**  | `RouteConfig[]`  | `[]`    | ...         |
-| **modules** | `ModuleConfig[]` | `[]`    | ...         |
+| Key                  | Type      | Default | Description |
+| -------------------- | --------- | ------- | ----------- |
+| **routes**           | `array`   | `[]`    | ...         |
+| **routables**        | `array`   | `[]`    | ...
+| **modules**          | `array`   | `[]`    | ...         |
+| **translator**       | `array`   | `null`  |
+| **cache**            | `array`   | `null`  |
+| **logger**           | `array`   | `null`  |
+| **view**             | `array`   | `null`  |
+| **databases**        | `array`   | `[]`    |
+| **default_database** | `string`  | `""`    |
+| **timezone**         | `string`  | `"UTC"` |
+| **dev_mode**         | `boolean` | `false` |
 
 ## Module
 
@@ -227,11 +276,25 @@ Dependencies are handled with a `Pimple` dependency Container.
 Basic "App" services are:
 
 - `config`
+  - A `\Charcoal\App\AppConfig` instance.
 - `logger`
+  - A `\Psr\Log\Logger` instance.
+  - Provided by _Monolog_.
+  - - Configured by `config['logger']`
 - `cache`
+  - A `\Stash\Pool` instance.
+  - Not yet PSR6.
+  - - Configured by `config['cache']`
 - `view`
+	- A `Charcoal\View\ViewInterface` instance
+	- Typically a `\Charcoal\View\GenericView` object.
+	- Configured by `config['view']`
 - `database`
+  - The default _PDO_ database.
+  - From a pool of database, available through `databases`.
+  - Configured by `config['databases']` and `config['default_database']`.
 - `translator`
+  - To do.
 
 The next section, service providers, explain in more details the various available services.
 

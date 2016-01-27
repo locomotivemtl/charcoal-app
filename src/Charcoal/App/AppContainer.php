@@ -38,7 +38,7 @@ class AppContainer extends Container
         $this->register(new TranslatorServiceProvider());
         $this->register(new ViewServiceProvider());
 
-        // Slim container
+        // Initialize lim container
         parent::__construct($values);
     }
 }

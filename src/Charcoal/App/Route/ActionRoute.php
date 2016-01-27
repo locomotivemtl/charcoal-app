@@ -88,8 +88,8 @@ class ActionRoute implements
         $action = $actionFactory->create($actionController, [
             'app' => $this->app(),
             'logger' => $container['logger']
-        ], function (ActionInterface $obj) use ($container) {
-            $obj->setDependencies($container);
+        ], function (ActionInterface $action) use ($container) {
+            $action->setDependencies($container);
         });
 
         $action->setData($config['action_data']);

@@ -2,6 +2,8 @@
 
 namespace Charcoal\App\Provider;
 
+use \Exception;
+
 // PSR-7 (http messaging) dependencies
 use \Psr\Http\Message\RequestInterface;
 use \Psr\Http\Message\ResponseInterface;
@@ -66,7 +68,11 @@ class AppServiceProvider implements ServiceProviderInterface
         */
         $container['errorHandler'] = function (Container $container) {
 
-            return function (RequestInterface $request, ResponseInterface $response, $exception) use ($container) {
+            return function (
+                RequestInterface $request,
+                ResponseInterface $response,
+                Exception $exception
+            ) use ($container) {
 
                 $container['logger']->critical('500 Error', (array)$exception);
 

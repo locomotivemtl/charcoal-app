@@ -6,6 +6,9 @@ namespace Charcoal\App\Provider;
 use \Pimple\ServiceProviderInterface;
 use \Pimple\Container;
 
+// PSR-3 (log) dependencies
+use \Psr\Log\NullLogger;
+
 // Monolog Dependencies
 use \Monolog\Logger;
 use \Monolog\Processor\MemoryUsageProcessor;
@@ -107,7 +110,7 @@ class LoggerServiceProvider implements ServiceProviderInterface
 
             $loggerConfig = $container['logger/config'];
 
-            if ($loggerConfig['active'] != true) {
+            if ($loggerConfig['active'] !== true) {
                 return new NullLogger();
             }
 
