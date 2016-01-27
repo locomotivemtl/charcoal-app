@@ -37,10 +37,12 @@ class RouteConfig extends AbstractConfig implements LanguageAwareInterface
      *
      * @var string[]
      */
-    private $methods = [ 'GET' ];
+    private $methods = ['GET'];
 
     /**
-     * Route view controller classname
+     * Response controller classname
+     *
+     * Should be the class-ident of an action, a script or a template controller.
      *
      * @var string
      */
@@ -214,7 +216,7 @@ class RouteConfig extends AbstractConfig implements LanguageAwareInterface
     }
 
     /**
-     * Add route method
+     * Add route HTTP method.
      *
      * @param string $method The route's supported HTTP method.
      * @throws InvalidArgumentException If the HTTP method is invalid.

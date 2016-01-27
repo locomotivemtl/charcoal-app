@@ -13,6 +13,8 @@ use \Psr\Log\LoggerAwareTrait;
 use \Psr\Http\Message\RequestInterface;
 use \Psr\Http\Message\ResponseInterface;
 
+use \Pimple\Container;
+
 // From `charcoal-config`
 use \Charcoal\Config\ConfigurableInterface;
 use \Charcoal\Config\ConfigurableTrait;
@@ -21,9 +23,12 @@ use \Charcoal\Config\ConfigurableTrait;
 use \Charcoal\App\AppAwareInterface;
 use \Charcoal\App\AppAwareTrait;
 use \Charcoal\App\AppInterface;
+use \Charcoal\App\Template\TemplateInterface;
+use \Charcoal\App\Template\TemplateFactory;
+
+// Local namespace dependencies
 use \Charcoal\App\Route\RouteInterface;
 use \Charcoal\App\Route\TemplateRouteConfig;
-use \Charcoal\App\Template\TemplateFactory;
 
 /**
  *
@@ -31,12 +36,10 @@ use \Charcoal\App\Template\TemplateFactory;
 class TemplateRoute implements
     AppAwareInterface,
     ConfigurableInterface,
-    LoggerAwareInterface,
     RouteInterface
 {
     use AppAwareTrait;
     use ConfigurableTrait;
-    use LoggerAwareTrait;
 
 
     /**
@@ -57,16 +60,12 @@ class TemplateRoute implements
      */
     public function __construct(array $data)
     {
-        if (isset($data['logger'])) {
-            $this->setLogger($data['logger']);
-        }
-
         $this->setConfig($data['config']);
         $this->setApp($data['app']);
     }
 
     /**
-     * ConfigurableTrait > create_config()
+     * ConfigurableTrait > createConfig()
      *
      * @param mixed|null $data Optional config data.
      * @return ConfigInterface
@@ -77,85 +76,81 @@ class TemplateRoute implements
     }
 
     /**
-     * @param RequestInterface  $request  A PSR-7 compatible Request instance.
-     * @param ResponseInterface $response A PSR-7 compatible Response instance.
+     * @param Container         $container A DI (Pimple) container.
+     * @param RequestInterface  $request   A PSR-7 compatible Request instance.
+     * @param ResponseInterface $response  A PSR-7 compatible Response instance.
      * @return ResponseInterface
      * @todo Implement "view/default_engine" and "view/default_template".
      */
-    public function __invoke(RequestInterface $request, ResponseInterface $response)
+    public function __invoke(Container $container, RequestInterface $request, ResponseInterface $response)
     {
-        $tpl_config = $this->config();
+        $tplConfig = $this->config();
 
         // Handle explicit redirects
-        if ($tpl_config['redirect'] !== null) {
+        if ($tplConfig['redirect'] !== null) {
             return $response->withRedirect(
-                $request->getUri()->withPath($tpl_config['redirect']),
-                $tpl_config['redirect_mode']
+                $request->getUri()->withPath($tplConfig['redirect']),
+                $tplConfig['redirect_mode']
             );
         }
 
-        $template_ident = $tpl_config['template'];
+        $templateIdent = $tplConfig['template'];
 
-        if ($tpl_config['cache']) {
-            $container = $this->app()->getContainer();
-            $cache_pool = $container['cache'];
-            $cache_item = $cache_pool->getItem('template', $template_ident);
+        if ($tplConfig['cache']) {
+            $cachePool = $container['cache'];
+            $cacheItem = $cachePool->getItem('template', $templateIdent);
 
-            $template_content = $cache_item->get();
-            if ($cache_item->isMiss()) {
-                $cache_item->lock();
-                $template_content = $this->templateContent($tpl_config);
+            $templateContent = $cacheItem->get();
+            if ($cacheItem->isMiss()) {
+                $cacheItem->lock();
+                $templateContent = $this->templateContent($container);
 
-                $cache_item->set($template_content, $tpl_config['cache_ttl']);
+                $cacheItem->set($templateContent, $tplConfig['cache_ttl']);
             }
         } else {
-            $template_content = $this->templateContent($tpl_config);
+            $templateContent = $this->templateContent($container);
         }
 
 
-
-        $response->write($template_content);
+        $response->write($templateContent);
 
         return $response;
     }
 
     /**
-     * @param TemplateRouteConfig $tpl_config The template route configuration.
+     * @param Container $container A DI (Pimple) container.
      * @return string
      */
-    protected function templateContent(TemplateRouteConfig $tpl_config)
+    protected function templateContent(Container $container)
     {
-        $app_config = $this->app()->config();
+        $appConfig = $container['config'];
+        $tplConfig = $this->config();
 
-        $template_ident = $tpl_config['template'];
-        $template_controller = $tpl_config['controller'];
+        $templateIdent = $tplConfig['template'];
+        $templateController = $tplConfig['controller'];
 
-        $fallback_controller = $app_config->get('view/default_controller');
+        $fallbackController = $appConfig->get('view/default_controller');
 
-        $template_factory = new TemplateFactory();
+        $templateFactory = $container['template/factory'];
 
-        if ($fallback_controller) {
-            $template_factory->setDefaultClass($fallback_controller);
+        if ($fallbackController) {
+            $templateFactory->setDefaultClass($fallbackController);
         }
 
-        $template = $template_factory->create($template_controller, [
+        $template = $templateFactory->create($templateController, [
             'app'    => $this->app(),
-            'logger' => $this->logger
-        ]);
+            'logger' => $container['logger']
+        ], function (TemplateInterface $template) use ($container) {
+            $template->setDependencies($container);
+        });
 
-        $template_view = $template->view();
-        $template_view->setData([
-            'template_ident' => $template_ident,
-            'engine_type'    => $tpl_config['engine']
-        ]);
-
-        $template->setView($template_view);
+        $template->setView($container['view']);
 
         // Set custom data from config.
-        $template->setData($tpl_config['template_data']);
+        $template->setData($tplConfig['template_data']);
 
-        $template_content = $template->renderTemplate($template_ident);
+        $templateContent = $template->renderTemplate($templateIdent);
 
-        return $template_content;
+        return $templateContent;
     }
 }

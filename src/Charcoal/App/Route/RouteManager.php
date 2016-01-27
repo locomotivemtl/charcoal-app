@@ -8,9 +8,6 @@ use \Psr\Http\Message\ResponseInterface;
 
 // Local namespace dependencies
 use \Charcoal\App\AbstractManager;
-use \Charcoal\App\Route\ActionRoute;
-use \Charcoal\App\Route\ScriptRoute;
-use \Charcoal\App\Route\TemplateRoute;
 
 /**
  *
@@ -47,24 +44,24 @@ class RouteManager extends AbstractManager
         $routes    = $this->config();
         $templates = ( isset($routes['templates']) ? $routes['templates'] : [] );
 
-        foreach ($templates as $templateIdent => $templateConfig) {
+        foreach ($templates as $templateIdent => $tplConfig) {
             $templateIdent = ltrim($templateIdent, '/');
 
-            if (!isset($templateConfig['ident'])) {
-                $templateConfig['ident'] = $templateIdent;
+            if (!isset($tplConfig['ident'])) {
+                $tplConfig['ident'] = $templateIdent;
             }
 
-            if (isset($templateConfig['route'])) {
-                $routeIdent = '/'.ltrim($templateConfig['route'], '/');
+            if (isset($tplConfig['route'])) {
+                $routeIdent = '/'.ltrim($tplConfig['route'], '/');
             } else {
                 $routeIdent = '/'.$templateIdent;
-                $templateConfig['route'] = $routeIdent;
+                $tplConfig['route'] = $routeIdent;
             }
 
-            if (isset($templateConfig['methods'])) {
-                $methods = $templateConfig['methods'];
+            if (isset($tplConfig['methods'])) {
+                $methods = $tplConfig['methods'];
             } else {
-                $methods = [ 'GET' ];
+                $methods = ['GET'];
             }
 
             $routeHandler = $app->map(
@@ -77,40 +74,46 @@ class RouteManager extends AbstractManager
                 ) use (
                     $app,
                     $templateIdent,
-                    $templateConfig
+                    $tplConfig
                 ) {
-                    $this->logger->debug(
+                    $this['logger']->debug(
                         sprintf('Loaded template route: %s', $templateIdent),
-                        $templateConfig
+                        $tplConfig
                     );
 
-                    if (!isset($templateConfig['template_data'])) {
-                        $templateConfig['template_data'] = [];
+                    if (!isset($tplConfig['template_data'])) {
+                        $tplConfig['template_data'] = [];
                     }
 
                     if (count($args)) {
-                        $templateConfig['template_data'] = array_merge(
-                            $templateConfig['template_data'],
+                        $tplConfig['template_data'] = array_merge(
+                            $tplConfig['template_data'],
                             $args
                         );
                     }
 
-                    $route = new TemplateRoute([
+                    $routeFactory = $this['route/factory'];
+                    $defaultRoute = 'charcoal/app/route/template';
+                    $routeController = isset($tplConfig['route_controller'])
+                        ? $tplConfig['route_controller']
+                        : $defaultRoute;
+
+                    $route = $routeFactory->create($routeController, [
                         'app'    => $app,
-                        'config' => $templateConfig,
-                        'logger' => $this->logger
+                        'config' => $tplConfig,
+                        'logger' => $this['logger']
                     ]);
 
-                    return $route($request, $response);
+                    return $route($this, $request, $response);
                 }
             );
 
-            if (isset($templateConfig['ident'])) {
-                $routeHandler->setName($templateConfig['ident']);
+            if (isset($tplConfig['ident'])) {
+                $routeHandler->setName($tplConfig['ident']);
             }
 
-            if (isset($templateConfig['template_data'])) {
-                $routeHandler->setArguments($templateConfig['template_data']);
+            if (isset($tplConfig['template_data'])) {
+                $routeHandler->setArguments($tplConfig['template_data']);
             }
         }
     }
@@ -141,7 +144,7 @@ class RouteManager extends AbstractManager
             if (isset($actionConfig['methods'])) {
                 $methods = $actionConfig['methods'];
             } else {
-                $methods = [ 'POST' ];
+                $methods = ['POST'];
             }
 
             $routeHandler = $app->map(
@@ -156,7 +159,7 @@ class RouteManager extends AbstractManager
                     $actionIdent,
                     $actionConfig
                 ) {
-                    $this->logger->debug(
+                    $this['logger']->debug(
                         sprintf('Loaded action route: %s', $actionIdent),
                         $actionConfig
                     );
@@ -172,13 +175,19 @@ class RouteManager extends AbstractManager
                         );
                     }
 
-                    $route = new ActionRoute([
+                    $routeFactory = $this['route/factory'];
+                    $defaultRoute = 'charcoal/app/route/action';
+                    $routeController = isset($actionConfig['route_controller'])
+                        ? $actionConfig['route_controller']
+                        : $defaultRoute;
+
+                    $route = $routeFactory->create($routeController, [
                         'app'    => $app,
                         'config' => $actionConfig,
-                        'logger' => $this->logger
+                        'logger' => $this['logger']
                     ]);
 
-                    return $route($request, $response);
+                    return $route($this, $request, $response);
                 }
             );
 
@@ -218,7 +227,7 @@ class RouteManager extends AbstractManager
             if (isset($scriptConfig['methods'])) {
                 $methods = $scriptConfig['methods'];
             } else {
-                $methods = [ 'GET' ];
+                $methods = ['GET'];
             }
 
             $routeHandler = $app->map(
@@ -249,13 +258,19 @@ class RouteManager extends AbstractManager
                         );
                     }
 
-                    $route = new ScriptRoute([
+                    $routeFactory = $this['route/factory'];
+                    $defaultRoute = 'charcoal/app/route/script';
+                    $routeController = isset($scriptConfig['route_controller'])
+                        ? $scriptConfig['route_controller']
+                        : $defaultRoute;
+
+                    $route = $routeFactory->create($routeController, [
                         'app'    => $app,
                         'config' => $scriptConfig,
-                        'logger' => $this->logger
+                        'logger' => $this['logger']
                     ]);
 
-                    return $route($request, $response);
+                    return $route($this, $request, $response);
                 }
             );
 

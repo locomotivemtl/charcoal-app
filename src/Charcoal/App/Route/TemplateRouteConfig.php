@@ -132,9 +132,9 @@ class TemplateRouteConfig extends RouteConfig
      * @param array $templateData The route template data.
      * @return TemplateRouteConfig Chainable
      */
-    public function setTemplateData(array $data)
+    public function setTemplateData(array $templateData)
     {
-        $this->templateData = $data;
+        $this->templateData = $templateData;
         return $this;
     }
 

@@ -13,6 +13,9 @@ use \Psr\Log\LoggerAwareTrait;
 use \Psr\Http\Message\RequestInterface;
 use \Psr\Http\Message\ResponseInterface;
 
+// Dependencies from `Pimple`
+use \Pimple\Container;
+
 // From `charcoal-config`
 use \Charcoal\Config\ConfigInterface;
 use \Charcoal\Config\ConfigurableInterface;
@@ -57,10 +60,7 @@ class ScriptRoute implements
      */
     public function __construct(array $data)
     {
-        if (isset($data['logger'])) {
-            $this->setLogger($data['logger']);
-        }
-
+        $this->setLogger($data['logger']);
         $this->setConfig($data['config']);
         $this->setApp($data['app']);
     }
@@ -77,22 +77,25 @@ class ScriptRoute implements
     }
 
     /**
-     * @param RequestInterface  $request  A PSR-7 compatible Request instance.
-     * @param ResponseInterface $response A PSR-7 compatible Response instance.
+     * @param Container         $container A dependencies container.
+     * @param RequestInterface  $request   A PSR-7 compatible Request instance.
+     * @param ResponseInterface $response  A PSR-7 compatible Response instance.
      * @return ResponseInterface
      */
-    public function __invoke(RequestInterface $request, ResponseInterface $response)
+    public function __invoke(Container $container, RequestInterface $request, ResponseInterface $response)
     {
         $config = $this->config();
 
         $scriptIdent = $config['ident'];
         $scriptController = $config['controller'];
 
-        $scriptFactory = new ScriptFactory();
+        $scriptFactory = $container['script/factory'];
         $script = $scriptFactory->create($scriptIdent, [
             'app' => $this->app(),
-            'logger' => $this->logger
-        ]);
+            'logger' => $container['logger']
+        ], function (TemplateInterface $template) use ($container) {
+            $template->setDependencies($container);
+        });
 
         $script->setData($config['script_data']);
 

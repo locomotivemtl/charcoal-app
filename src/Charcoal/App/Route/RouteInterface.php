@@ -6,15 +6,19 @@ namespace Charcoal\App\Route;
 use \Psr\Http\Message\RequestInterface;
 use \Psr\Http\Message\ResponseInterface;
 
+// Dependencies from `Pimple`
+use \Pimple\Container;
+
 /**
- *
+ * Base Route Interface
  */
 interface RouteInterface
 {
     /**
-     * @param RequestInterface  $request  A PSR-7 compatible Request instance.
-     * @param ResponseInterface $response A PSR-7 compatible Response instance.
+     * @param Container         $container A DI container (pimple) instance.
+     * @param RequestInterface  $request   A PSR-7 compatible Request instance.
+     * @param ResponseInterface $response  A PSR-7 compatible Response instance.
      * @return ResponseInterface
      */
-    public function __invoke(RequestInterface $request, ResponseInterface $response);
+    public function __invoke(Container $container, RequestInterface $request, ResponseInterface $response);
 }
