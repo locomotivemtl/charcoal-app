@@ -152,15 +152,15 @@ class Language implements LanguageInterface
     }
 
     /**
-     * Alias of {@see self::name()}
+     * Alias of {@see self::ident()}
      *
-     * Returns the human-readable name in the current language.
+     * Returns the language's identifier.
      *
      * @return string
      */
     public function __toString()
     {
-        return (string)$this->name();
+        return $this->ident();
     }
 
     /**
