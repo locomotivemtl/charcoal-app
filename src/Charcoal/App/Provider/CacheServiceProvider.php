@@ -111,7 +111,7 @@ class CacheServiceProvider implements ServiceProviderInterface
             * @param Container $container A container instance.
             * @return \Stash\Driver\Ephemeral
             */
-            $drivers['memory'] = function (Container $container) {
+            $drivers['memory'] = function (Container $container) use ($parentContainer) {
                 return new $parentContainer['cache/available-drivers']['Ephemeral']();
             };
 
@@ -119,7 +119,7 @@ class CacheServiceProvider implements ServiceProviderInterface
             * @param Container $container A container instance.
             * @return \Stash\Driver\BlackHole
             */
-            $drivers['noop'] = function (Container $container) {
+            $drivers['noop'] = function (Container $container) use ($parentContainer) {
                 return new $parentContainer['cache/available-drivers']['BlackHole']();
             };
 
@@ -127,7 +127,7 @@ class CacheServiceProvider implements ServiceProviderInterface
             * @param Container $container A container instance.
             * @return \Stash\Driver\Redis
             */
-            $drivers['redis'] = function (Container $container) {
+            $drivers['redis'] = function (Container $container) use ($parentContainer) {
                 return new $parentContainer['cache/available-drivers']['Redis']();
             };
 
