@@ -5,9 +5,6 @@ namespace Charcoal\App\Config;
 // Module `charcoal-config` dependencies
 use \Charcoal\Config\AbstractConfig;
 
-// Monolog Dependencies
-use \Monolog\Logger;
-
 /**
  *
  */

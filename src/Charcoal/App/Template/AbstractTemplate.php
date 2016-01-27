@@ -39,7 +39,11 @@ abstract class AbstractTemplate implements
     public function __construct(array $data = null)
     {
         $this->setLogger($data['logger']);
-        $this->setApp($data['app']);
+
+        // @todo: Remove this dependency.
+        if (isset($data['app'])) {
+            $this->setApp($data['app']);
+        }
     }
 
     /**

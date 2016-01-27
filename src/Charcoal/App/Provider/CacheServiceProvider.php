@@ -8,7 +8,6 @@ use \Pimple\Container;
 
 // Dependencies from `tedivm/stash`
 use \Stash\DriverList;
-use \Stash\Driver\Ephemeral;
 use \Stash\Pool;
 
 // Intra-Module `charcoal-app` dependencies

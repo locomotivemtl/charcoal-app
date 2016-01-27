@@ -80,7 +80,6 @@ class TemplateRoute implements
      * @param RequestInterface  $request   A PSR-7 compatible Request instance.
      * @param ResponseInterface $response  A PSR-7 compatible Response instance.
      * @return ResponseInterface
-     * @todo Implement "view/default_engine" and "view/default_template".
      */
     public function __invoke(Container $container, RequestInterface $request, ResponseInterface $response)
     {

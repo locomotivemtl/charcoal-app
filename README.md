@@ -3,6 +3,10 @@ Charcoal App
 
 `Charcoal\App` is a framework to create _Charcoal_ applications with **Slim 3**. It is actually a small layer on top of Slim to load the proper routes / controllers and middlewares from a configuration file.
 
+The request is then handled by one of the 3 types of route (or _request controller_): `Action`, `Script` or `Template`.
+
+Default services, for a typical app, are also provided with a Pimple container.
+
 [![Build Status](https://travis-ci.org/locomotivemtl/charcoal-app.svg?branch=master)](https://travis-ci.org/locomotivemtl/charcoal-app)
 
 # Table of contents
@@ -16,6 +20,9 @@ Charcoal App
   - Module
   - Route and RequestController
     - Route API
+    - Action
+    - Script
+    - Template
   - Routable objects
     - The routable callback
   - Middleware
@@ -58,10 +65,11 @@ $ composer require locomotivemtl/charcoal-app
 - [`slim/slim`](https://github.com/slimphp/Slim)
 	- The main app, container and router are provided by Slim.
 	- Its dependencies are:
-		-  [`pimple/pimple`](http://pimple.sensiolabs.org/)
-		-  [`psr/http-message`]((http://www.php-fig.org/psr/psr-7/))
 		-  [`nikic/fast-route`](https://github.com/nikic/FastRoute)
-- `pimple/pimple`
+		-  `pimple/pimple`
+		-  [`psr/http-message`]((http://www.php-fig.org/psr/psr-7/))
+
+- [`pimple/pimple`](http://pimple.sensiolabs.org/)
   - Dependency injection container.
   - Actually provided by `slim/slim`.
 - `monolog/monolog`
@@ -89,6 +97,9 @@ The main components of charcoal-app are:
 - _Module_
 - _Route_ (and _Routable_ objects)
 - _RequestController_
+  - _Action_
+  - _Script_
+  - _Template_
 - _Middleware_
 - _Binary (Charcoal Script)_.
 

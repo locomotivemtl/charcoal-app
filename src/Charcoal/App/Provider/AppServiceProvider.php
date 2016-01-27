@@ -74,8 +74,6 @@ class AppServiceProvider implements ServiceProviderInterface
                 Exception $exception
             ) use ($container) {
 
-                $container['logger']->critical('500 Error', (array)$exception);
-
                 return $container['response']
                     ->withStatus(500)
                     ->withHeader('Content-Type', 'text/html')

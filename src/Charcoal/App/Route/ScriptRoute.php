@@ -28,6 +28,7 @@ use \Charcoal\App\AppInterface;
 use \Charcoal\App\Route\RouteInterface;
 use \Charcoal\App\Route\ScriptRouteConfig;
 use \Charcoal\App\Script\ScriptFactory;
+use \Charcoal\App\Script\ScriptInterface;
 
 /**
  *
