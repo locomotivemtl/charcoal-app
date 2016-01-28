@@ -81,14 +81,17 @@ abstract class AbstractModule implements
     {
         $config = $this->config();
         $routes = $config['routes'];
+
         if ($routes === null || count($routes) === 0) {
             return;
         }
+
         $route_manager = new RouteManager([
             'logger' => $this->logger,
             'config' => $routes,
-            'app' => $this->app()
+            'app'    => $this->app()
         ]);
+
         return $route_manager->setupRoutes();
     }
 

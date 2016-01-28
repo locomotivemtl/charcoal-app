@@ -39,19 +39,42 @@ class AppConfig extends AbstractConfig
     /**
      * @var TranslationConfig $translation
      */
-    private $translation = null;
+    private $translation;
 
     /**
      * @var CacheConfig $cache
      */
-    private $cache = null;
+    private $cache;
 
     /**
      * @var LoggerConfig $logger
      */
-    private $logger = null;
+    private $logger;
 
+    /**
+     * @var ViewConfig $view
+     */
+    # private $view;
 
+    /**
+     * @var array $databases
+     */
+    private $databases = [];
+
+    /**
+     * @var string $defaultDatabase
+     */
+    private $defaultDatabase;
+
+    /**
+     * @var boolean $devMode
+     */
+    private $devMode = false;
+
+    /**
+     * @var string $timezone
+     */
+    private $timezone;
 
     /**
      * Default app-config values.
@@ -61,17 +84,17 @@ class AppConfig extends AbstractConfig
     public function defaults()
     {
         return [
-            'timezone'      => 'UTC',
-            'routes'        => [],
-            'routables'     => [],
-            'modules'       => [],
-            'translation'   => [],
-            'cache'         => [],
-            'logger'        => [],
-            'view'          => [],
-            'databases'     => [],
+            'timezone'         => 'UTC',
+            'routes'           => [],
+            'routables'        => [],
+            'modules'          => [],
+            'translation'      => [],
+            'cache'            => [],
+            'logger'           => [],
+            'view'             => [],
+            'databases'        => [],
             'default_database' => 'default',
-            'dev_mode'      => false
+            'dev_mode'         => false
         ];
     }
 
@@ -307,14 +330,14 @@ class AppConfig extends AbstractConfig
      */
     public function setLogger($logger)
     {
-        if ($logger instanceof CacheConfig) {
+        if ($logger instanceof LoggerConfig) {
             $this->logger = $logger;
             $this->logger->addDelegate($this);
         } elseif (is_array($logger)) {
-            $this->logger = new CacheConfig($logger, [$this]);
+            $this->logger = new LoggerConfig($logger, [$this]);
         } else {
             throw new InvalidArgumentException(
-                'Cache must be an array of config options or a CacheConfig object.'
+                'Logger must be an array of config options or a LoggerConfig object.'
             );
         }
         return $this;
@@ -336,7 +359,6 @@ class AppConfig extends AbstractConfig
      */
     public function setDatabases(array $databases)
     {
-
         $this->databases = $databases;
         return $this;
     }
