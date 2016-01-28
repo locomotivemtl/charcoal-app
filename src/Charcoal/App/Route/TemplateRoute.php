@@ -15,6 +15,8 @@ use \Psr\Http\Message\ResponseInterface;
 
 use \Pimple\Container;
 
+use \Slim\Http\Uri;
+
 // From `charcoal-config`
 use \Charcoal\Config\ConfigurableInterface;
 use \Charcoal\Config\ConfigurableTrait;
@@ -86,11 +88,34 @@ class TemplateRoute implements
         $tplConfig = $this->config();
 
         // Handle explicit redirects
-        if ($tplConfig['redirect'] !== null) {
-            return $response->withRedirect(
-                $request->getUri()->withPath($tplConfig['redirect']),
-                $tplConfig['redirect_mode']
-            );
+        if (!empty($tplConfig['redirect'])) {
+            $uri   = $request->getUri();
+            $parts = parse_url($tplConfig['redirect']);
+
+            if (!empty($parts)) {
+                if (isset($parts['host'])) {
+                    $uri = Uri::createFromString($tplConfig['redirect']);
+                } else {
+                    if (isset($parts['path'])) {
+                        $uri = $uri->withPath($parts['path']);
+                    }
+
+                    if (isset($parts['query'])) {
+                        $uri = $uri->withQuery($parts['query']);
+                    }
+
+                    if (isset($parts['fragment'])) {
+                        $uri = $uri->withFragment($parts['fragment']);
+                    }
+                }
+
+                if ( (string)$uri !== (string)$request->getUri() ) {
+                    return $response->withRedirect(
+                        $uri,
+                        $tplConfig['redirect_mode']
+                    );
+                }
+            }
         }
 
         $templateIdent = $tplConfig['template'];
