@@ -85,12 +85,18 @@ class ActionRoute implements
         $actionController = $config['controller'];
 
         $actionFactory = $container['action/factory'];
-        $action = $actionFactory->create($actionController, [
-            'app' => $this->app(),
-            'logger' => $container['logger']
-        ], function (ActionInterface $action) use ($container) {
-            $action->setDependencies($container);
-        });
+        $actionFactory->setDefaultClass($config['defaultController']);
+
+        $action = $actionFactory->create(
+            $actionController,
+            [
+                'app'    => $this->app(),
+                'logger' => $container['logger']
+            ],
+            function (ActionInterface $action) use ($container) {
+                $action->setDependencies($container);
+            }
+        );
 
         $action->setData($config['action_data']);
 

@@ -4,6 +4,9 @@ namespace Charcoal\App\Route;
 
 use \InvalidArgumentException;
 
+// Dependency from 'charcoal-app'
+use \Charcoal\App\App;
+
 // Local namespace dependencies
 use \Charcoal\App\Route\RouteConfig;
 
@@ -81,9 +84,23 @@ class TemplateRouteConfig extends RouteConfig
     public function template()
     {
         if ($this->template === null) {
-            return $this->ident();
+            return $this->defaultTemplate();
         }
         return $this->template;
+    }
+
+    /**
+     * @return string
+     */
+    public function defaultTemplate()
+    {
+        $config = App::instance()->config();
+
+        if ( $config->has('view.default_template') ) {
+            return $config->get('view.default_template');
+        } else {
+            return $this->ident();
+        }
     }
 
     /**
@@ -122,8 +139,13 @@ class TemplateRouteConfig extends RouteConfig
      */
     public function defaultEngine()
     {
-        // Must load from default config...
-        return 'mustache';
+        $config = App::instance()->config();
+
+        if ( $config->has('view.default_engine') ) {
+            return $config->get('view.default_engine');
+        } else {
+            return 'mustache';
+        }
     }
 
     /**

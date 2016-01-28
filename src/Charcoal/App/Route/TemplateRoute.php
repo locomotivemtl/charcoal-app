@@ -85,16 +85,16 @@ class TemplateRoute implements
      */
     public function __invoke(Container $container, RequestInterface $request, ResponseInterface $response)
     {
-        $tplConfig = $this->config();
+        $config = $this->config();
 
         // Handle explicit redirects
-        if (!empty($tplConfig['redirect'])) {
+        if (!empty($config['redirect'])) {
             $uri   = $request->getUri();
-            $parts = parse_url($tplConfig['redirect']);
+            $parts = parse_url($config['redirect']);
 
             if (!empty($parts)) {
                 if (isset($parts['host'])) {
-                    $uri = Uri::createFromString($tplConfig['redirect']);
+                    $uri = Uri::createFromString($config['redirect']);
                 } else {
                     if (isset($parts['path'])) {
                         $uri = $uri->withPath($parts['path']);
@@ -112,15 +112,15 @@ class TemplateRoute implements
                 if ( (string)$uri !== (string)$request->getUri() ) {
                     return $response->withRedirect(
                         $uri,
-                        $tplConfig['redirect_mode']
+                        $config['redirect_mode']
                     );
                 }
             }
         }
 
-        $templateIdent = $tplConfig['template'];
+        $templateIdent = $config['template'];
 
-        if ($tplConfig['cache']) {
+        if ($config['cache']) {
             $cachePool = $container['cache'];
             $cacheItem = $cachePool->getItem('template', $templateIdent);
 
@@ -129,12 +129,11 @@ class TemplateRoute implements
                 $cacheItem->lock();
                 $templateContent = $this->templateContent($container);
 
-                $cacheItem->set($templateContent, $tplConfig['cache_ttl']);
+                $cacheItem->set($templateContent, $config['cache_ttl']);
             }
         } else {
             $templateContent = $this->templateContent($container);
         }
-
 
         $response->write($templateContent);
 
@@ -147,33 +146,31 @@ class TemplateRoute implements
      */
     protected function templateContent(Container $container)
     {
-        $appConfig = $container['config'];
-        $tplConfig = $this->config();
+        $config = $this->config();
 
-        $templateIdent = $tplConfig['template'];
-        $templateController = $tplConfig['controller'];
-
-        $fallbackController = $appConfig->get('view/default_controller');
+        $templateIdent      = $config['template'];
+        $templateController = $config['controller'];
 
         $templateFactory = $container['template/factory'];
+        $templateFactory->setDefaultClass($config['defaultController']);
 
-        if ($fallbackController) {
-            $templateFactory->setDefaultClass($fallbackController);
-        }
-
-        $template = $templateFactory->create($templateController, [
-            'app'    => $this->app(),
-            'logger' => $container['logger']
-        ], function (TemplateInterface $template) use ($container) {
-            $template->setDependencies($container);
-        });
+        $template = $templateFactory->create(
+            $templateController,
+            [
+                'app'    => $this->app(),
+                'logger' => $container['logger']
+            ],
+            function (TemplateInterface $template) use ($container) {
+                $template->setDependencies($container);
+            }
+        );
 
         $template->setView($container['view']);
 
         // Set custom data from config.
-        $template->setData($tplConfig['template_data']);
+        $template->setData($config['template_data']);
 
-        $templateContent = $template->renderTemplate($templateIdent);
+        $templateContent = $template->render($templateIdent);
 
         return $templateContent;
     }

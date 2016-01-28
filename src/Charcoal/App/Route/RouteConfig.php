@@ -4,10 +4,13 @@ namespace Charcoal\App\Route;
 
 use \InvalidArgumentException;
 
-// From `charcoal-config`
+// Dependency from 'charcoal-app'
+use \Charcoal\App\App;
+
+// Dependency from 'charcoal-config'
 use \Charcoal\Config\AbstractConfig;
 
-// From `charcoal-core`
+// Dependencies from 'charcoal-core'
 use \Charcoal\Translation\LanguageAwareInterface;
 use \Charcoal\Translation\LanguageAwareTrait;
 
@@ -37,7 +40,7 @@ class RouteConfig extends AbstractConfig implements LanguageAwareInterface
      *
      * @var string[]
      */
-    private $methods = ['GET'];
+    private $methods = [ 'GET' ];
 
     /**
      * Response controller classname
@@ -192,10 +195,24 @@ class RouteConfig extends AbstractConfig implements LanguageAwareInterface
     public function controller()
     {
         if (!isset($this->controller)) {
-            return $this->ident();
+            return $this->defaultController();
         }
 
         return $this->controller;
+    }
+
+    /**
+     * @return string
+     */
+    public function defaultController()
+    {
+        $config = App::instance()->config();
+
+        if ( $config->has('view.default_controller') ) {
+            return $config->get('view.default_controller');
+        } else {
+            return $this->ident();
+        }
     }
 
     /**
