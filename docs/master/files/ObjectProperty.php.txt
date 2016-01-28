@@ -175,6 +175,7 @@ class ObjectProperty extends AbstractProperty implements SelectablePropertyInter
         foreach ($propertyValue as $p) {
             $proto = $this->proto();
             $proto->load($p);
+            var_dump($proto->name());
             $names[] = (string)$proto->name();
         }
         return implode(', ', $names);
@@ -215,11 +216,13 @@ class ObjectProperty extends AbstractProperty implements SelectablePropertyInter
     public function choices()
     {
         $proto = $this->proto();
-        $loader = new CollectionLoader();
-        $loader->set_model($this->proto());
+        $loader = new CollectionLoader([
+            'logger' => $this->logger
+        ]);
+        $loader->setModel($this->proto());
 
-        if ($proto->has_property('active')) {
-            $loader->add_filter('active', true);
+        if ($proto->hasProperty('active')) {
+            $loader->addFilter('active', true);
         }
         $ret = [];
         $choices = $loader->load();
@@ -228,9 +231,12 @@ class ObjectProperty extends AbstractProperty implements SelectablePropertyInter
                 'value'=>$c->id(),
                 'label'=>$c->name(),
                 'title'=>$c->name(),
-                'subtext'=>'',
-                'icon'=>$c->icon()
+                'subtext'=>''
             ];
+
+            if (is_callable([ $c, 'icon' ])) {
+                $choice['icon'] = $c->icon();
+            }
 
             $ret[$c->id()] = $choice;
         }
