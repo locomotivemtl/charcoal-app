@@ -84,23 +84,9 @@ class TemplateRouteConfig extends RouteConfig
     public function template()
     {
         if ($this->template === null) {
-            return $this->defaultTemplate();
-        }
-        return $this->template;
-    }
-
-    /**
-     * @return string
-     */
-    public function defaultTemplate()
-    {
-        $config = App::instance()->config();
-
-        if ( $config->has('view.default_template') ) {
-            return $config->get('view.default_template');
-        } else {
             return $this->ident();
         }
+        return $this->template;
     }
 
     /**

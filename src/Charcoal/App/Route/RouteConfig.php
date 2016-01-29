@@ -195,7 +195,7 @@ class RouteConfig extends AbstractConfig implements LanguageAwareInterface
     public function controller()
     {
         if (!isset($this->controller)) {
-            return $this->defaultController();
+            return $this->ident();
         }
 
         return $this->controller;
@@ -210,8 +210,6 @@ class RouteConfig extends AbstractConfig implements LanguageAwareInterface
 
         if ( $config->has('view.default_controller') ) {
             return $config->get('view.default_controller');
-        } else {
-            return $this->ident();
         }
     }
 
