@@ -224,7 +224,6 @@ class LanguageManager extends AbstractManager implements
             $cache_item = $container['cache']->getItem('languages', $key, 'index');
 
             if ($cache_item->isMiss()) {
-                error_log('All!');
                 $cache_item->lock();
 
                 $index = self::getCompleteLanguageIndex();
@@ -241,12 +240,8 @@ class LanguageManager extends AbstractManager implements
                     $index = $languages;
                 }
 
-                # error_log(count($languages));
-                # error_log(var_export($languages,true));
-
                 $cache_item->set($index);
             } else {
-                error_log('Subsetted!');
                 return $cache_item->get();
             }
         } else {
