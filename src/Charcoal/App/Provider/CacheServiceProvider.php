@@ -105,6 +105,8 @@ class CacheServiceProvider implements ServiceProviderInterface
                 $driver->setOptions([
                     'servers'=>$servers
                 ]);
+
+                return $driver;
             };
             /**
             * @param Container $container A container instance.
