@@ -91,7 +91,6 @@ class ScriptRoute implements
         $scriptController = $config['controller'];
 
         $scriptFactory = $container['script/factory'];
-        $scriptFactory->setDefaultClass($config['defaultController']);
 
         $script = $scriptFactory->create(
             $scriptIdent,

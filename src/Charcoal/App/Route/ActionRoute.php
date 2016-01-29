@@ -85,7 +85,6 @@ class ActionRoute implements
         $actionController = $config['controller'];
 
         $actionFactory = $container['action/factory'];
-        $actionFactory->setDefaultClass($config['defaultController']);
 
         $action = $actionFactory->create(
             $actionController,

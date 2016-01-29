@@ -90,6 +90,18 @@ class TemplateRouteConfig extends RouteConfig
     }
 
     /**
+     * @return string
+     */
+    public function defaultController()
+    {
+        $config = App::instance()->config();
+
+        if ( $config->has('view.default_controller') ) {
+            return $config->get('view.default_controller');
+        }
+    }
+
+    /**
      * @param string|null $engine The engine identifier (mustache, php, or mustache-php).
      * @throws InvalidArgumentException If the engine is not null or not a string.
      * @return TemplateRouteConfig Chainable

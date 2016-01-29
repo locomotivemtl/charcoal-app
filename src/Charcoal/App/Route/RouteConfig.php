@@ -202,18 +202,6 @@ class RouteConfig extends AbstractConfig implements LanguageAwareInterface
     }
 
     /**
-     * @return string
-     */
-    public function defaultController()
-    {
-        $config = App::instance()->config();
-
-        if ( $config->has('view.default_controller') ) {
-            return $config->get('view.default_controller');
-        }
-    }
-
-    /**
      * Set route methods
      *
      * @param string[] $methods The route's supported HTTP methods.
