@@ -318,19 +318,61 @@ class FileProperty extends AbstractProperty
      */
     public function save()
     {
+        // Current ident
         $i = $this->ident();
+
+        // Current val
+        // IF multiple, val is an array
+        // Same if l10n, but by lang @todo (if necessary...)
+        $val = $this->val();
 
         if (isset($_FILES[$i])
             && (isset($_FILES[$i]['name']) && $_FILES[$i]['name'])
             && (isset($_FILES[$i]['tmp_name']) && $_FILES[$i]['tmp_name'])) {
-            $f = $this->fileUpload($_FILES[$i]);
-            $this->set_val($f);
-            return $f;
-        } elseif (preg_match('/^data:/', $this->val())) {
-            $f = $this->dataUpload($this->val());
-            $this->set_val($f);
+
+            $file = $_FILES[$i];
+
+            if (is_array($file['name']) && $this->multiple()) {
+                $f = [];
+                $k = 0;
+                $total = count($file['name']);
+                for (; $k< $total; $k++) {
+                    $data = [];
+                    $data['name']       = $file['name'][$k];
+                    $data['tmp_name']   = $file['tmp_name'][$k];
+                    $data['error']      = $file['error'][$k];
+                    $data['type']       = $file['type'][$k];
+                    $data['size']       = $file['size'][$k];
+                    $f[] = $this->fileUpload($data);
+                }
+            } else {
+                $f = $this->fileUpload($file);
+            }
+            $this->setVal($f);
             return $f;
         }
+
+        // Check in vals for data: base64 images
+        // val should be an array if multiple...
+        if ($this->multiple()) {
+            $k = 0;
+            $total = count($val);
+            $f = [];
+            for (; $k<$total; $k++) {
+                if (preg_match('/^data:/', $val[$k])) {
+                    $f[] = $this->dataUpload($val[$k]);
+                    $this->setVal($f);
+                    return $f;
+                }
+            }
+        }
+        // @todo add L10n if necessary
+        elseif (preg_match('/^data:/', $val)) {
+            $f = $this->dataUpload($val);
+            $this->setVal($f);
+            return $f;
+        }
+
         return $this->val();
     }
 
