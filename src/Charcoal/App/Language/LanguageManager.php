@@ -216,20 +216,37 @@ class LanguageManager extends AbstractManager implements
         if ($container['cache']) {
             if (count($subset)) {
                 sort($subset);
-                $subset = implode(',', $subset);
+                $key = implode(',', $subset);
             } else {
-                $sunset = 'all';
+                $key = 'all';
             }
 
-            $cache_item = $container['cache']->getItem('languages', $subset, 'index');
+            $cache_item = $container['cache']->getItem('languages', $key, 'index');
 
             if ($cache_item->isMiss()) {
+                error_log('All!');
                 $cache_item->lock();
 
                 $index = self::getCompleteLanguageIndex();
 
-                $cache_item->set($index, $this->app()->config()['cache/ttl']);
+                if ('all' !== $key) {
+                    $languages = [];
+
+                    foreach ($subset as $langCode) {
+                        if (isset($index[$langCode])) {
+                            $languages[$langCode] = $index[$langCode];
+                        }
+                    }
+
+                    $index = $languages;
+                }
+
+                # error_log(count($languages));
+                # error_log(var_export($languages,true));
+
+                $cache_item->set($index);
             } else {
+                error_log('Subsetted!');
                 return $cache_item->get();
             }
         } else {
