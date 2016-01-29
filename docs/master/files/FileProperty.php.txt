@@ -442,7 +442,7 @@ class FileProperty extends AbstractProperty
 
         $target = $this->uploadTarget($fileData['name']);
 
-        $ret = moveUploadedFile($fileData['tmp_name'], $target);
+        $ret = move_uploaded_file($fileData['tmp_name'], $target);
         if ($ret === false) {
             return '';
         } else {
@@ -473,8 +473,8 @@ class FileProperty extends AbstractProperty
 
         if (!file_exists($dir)) {
             // @todo: Feedback
-            $this->logger()->debug(
-                'Path does not exist. Attempting to create path.',
+            $this->logger->debug(
+                'Path does not exist. Attempting to create path ' .$dir .'.',
                 [get_called_class().'::'.__FUNCTION__]
             );
             mkdir($dir, 0777, true);

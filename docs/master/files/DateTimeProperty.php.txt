@@ -152,7 +152,6 @@ class DateTimeProperty extends AbstractProperty
         if ($val === null) {
             return '';
         }
-
         return $val->format($this->format());
     }
 
