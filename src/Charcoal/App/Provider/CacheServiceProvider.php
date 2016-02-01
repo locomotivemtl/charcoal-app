@@ -93,20 +93,22 @@ class CacheServiceProvider implements ServiceProviderInterface
              */
             $drivers['memcache'] = function (Container $container) use ($parentContainer) {
 
-                $cacheConfig = $parentContainer['cache/config'];
-                $driver = new $parentContainer['cache/available-drivers']['Memcache']();
+                $cacheConfig   = $parentContainer['cache/config'];
+                $driverOptions = [
+                    'servers' => []
+                ];
 
                 if (isset($cacheConfig['servers'])) {
                     $servers = [];
                     foreach ($cacheConfig['servers'] as $server) {
                         $servers[] = array_values($server);
                     }
+                    $driverOptions['servers'] = $servers;
                 } else {
-                    $servers = [['127.0.0.1', 11211]];
+                    $driverOptions['servers'][] = [ '127.0.0.1', 11211 ];
                 }
-                $driver->setOptions([
-                    'servers'=>$servers
-                ]);
+
+                $driver = new $parentContainer['cache/available-drivers']['Memcache']($driverOptions);
 
                 return $driver;
             };
