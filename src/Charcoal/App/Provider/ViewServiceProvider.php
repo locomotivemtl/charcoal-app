@@ -31,9 +31,9 @@ class ViewServiceProvider implements ServiceProviderInterface
     public function register(Container $container)
     {
         /**
-        * @param Container $containe A container instance.
-        * @return ViewConfig
-        */
+         * @param Container $containe A container instance.
+         * @return ViewConfig
+         */
         $container['view/config'] = function (Container $container) {
             $config = $container['config'];
 
@@ -42,9 +42,9 @@ class ViewServiceProvider implements ServiceProviderInterface
         };
 
         /**
-        * @param Container $containe A container instance.
-        * @return array The engine dependencies array.
-        */
+         * @param Container $containe A container instance.
+         * @return array The engine dependencies array.
+         */
         $container['view/engine/args'] = function (Container $container) {
             return [
                 'logger' => $container['logger'],
@@ -52,44 +52,45 @@ class ViewServiceProvider implements ServiceProviderInterface
                 'loader' => null
             ];
         };
+
         /**
-        * @param Container $containe A container instance.
-        * @return MustacheEngine
-        */
+         * @param Container $containe A container instance.
+         * @return MustacheEngine
+         */
         $container['view/engine/mustache'] = function (Container $container) {
             return new MustacheEngine($container['view/engine/args']);
         };
 
         /**
-        * @param Container $containe A container instance.
-        * @return PhpEngine
-        */
+         * @param Container $containe A container instance.
+         * @return PhpEngine
+         */
         $container['view/engine/php'] = function (Container $container) {
             return new PhpEngine($container['view/engine/args']);
         };
 
         /**
-        * @param Container $containe A container instance.
-        * @return PhpMustacheEngine
-        */
+         * @param Container $containe A container instance.
+         * @return PhpMustacheEngine
+         */
         $container['view/engine/php-mustache'] = function (Container $container) {
             return new PhpMustacheEngine($container['view/engine/args']);
         };
 
         /**
-        * @param Container $containe A container instance.
-        * @return TwigEngine
-        */
+         * @param Container $containe A container instance.
+         * @return TwigEngine
+         */
         $container['view/engine/twig'] = function (Container $container) {
             return new TwigEngine($container['view/engine/args']);
         };
 
         /**
-        * The default view engine.
-        *
-        * @param Container $containe A container instance.
-        * @return \Charcoal\View\EngineInterface
-        */
+         * The default view engine.
+         *
+         * @param Container $containe A container instance.
+         * @return \Charcoal\View\EngineInterface
+         */
         $container['view/engine'] = function (Container $container) {
             $viewConfig = $container['view/config'];
             $type = $viewConfig['default_engine'];
@@ -97,11 +98,11 @@ class ViewServiceProvider implements ServiceProviderInterface
         };
 
         /**
-        * The default view instance.
-        *
-        * @param Container $containe A container instance.
-        * @return ViewInterface
-        */
+         * The default view instance.
+         *
+         * @param Container $containe A container instance.
+         * @return ViewInterface
+         */
         $container['view'] = function (Container $container) {
             $viewConfig = $container['view/config'];
             $engine = $container['view/engine'];
@@ -121,6 +122,5 @@ class ViewServiceProvider implements ServiceProviderInterface
             ]);
             return $renderer;
         };
-
     }
 }

@@ -19,13 +19,15 @@ use \Charcoal\App\Script\ScriptFactory;
 use \Charcoal\App\Template\TemplateFactory;
 
 /**
- * Logger Service Provider. Configures and provides a Monolog service to a container.
+ * Application Service Provider
+ *
+ * Configures Charcoal and Slim and provides various Charcoal services to a container.
  *
  * ## Services
  * - `logger` `\Psr\Log\Logger`
  *
  * ## Helpers
- * - `logger/config` `\Charcoal\A[p\Config\LoggerConfig`
+ * - `logger/config` `\Charcoal\App\Config\LoggerConfig`
  *
  * ## Requirements / Dependencies
  * - `config` A `ConfigInterface` must have been previously registered on the container.
@@ -44,11 +46,11 @@ class AppServiceProvider implements ServiceProviderInterface
     public function register(Container $container)
     {
         /**
-        * HTTP 404 (Not found) handler.
-        *
-        * @param Container $container A container instance.
-        * @return callable
-        */
+         * HTTP 404 (Not found) handler.
+         *
+         * @param Container $container A container instance.
+         * @return callable
+         */
         $container['notFoundHandler'] = function (Container $container) {
 
             return function (RequestInterface $request, ResponseInterface $response) use ($container) {
@@ -61,11 +63,11 @@ class AppServiceProvider implements ServiceProviderInterface
         };
 
         /**
-        * HTTP 500 (Error) handler.
-        *
-        * @param Container $container A container instance.
-        * @return callable
-        */
+         * HTTP 500 (Error) handler.
+         *
+         * @param Container $container A container instance.
+         * @return callable
+         */
         $container['errorHandler'] = function (Container $container) {
 
             return function (
@@ -84,36 +86,36 @@ class AppServiceProvider implements ServiceProviderInterface
         };
 
         /**
-        * @param Container $container A container instance.
-        * @return RouteFactory
-        */
+         * @param Container $container A container instance.
+         * @return RouteFactory
+         */
         $container['route/factory'] = function (Container $container) {
             $routeFactory = new RouteFactory();
             return $routeFactory;
         };
 
         /**
-        * @param Container $container A container instance.
-        * @return ActionFactory
-        */
+         * @param Container $container A container instance.
+         * @return ActionFactory
+         */
         $container['action/factory'] = function (Container $container) {
             $actionFactory = new ActionFactory();
             return $actionFactory;
         };
 
         /**
-        * @param Container $container A container instance.
-        * @return ScriptFactory
-        */
+         * @param Container $container A container instance.
+         * @return ScriptFactory
+         */
         $container['script/factory'] = function (Container $container) {
             $scriptFactory = new ScriptFactory();
             return $scriptFactory;
         };
 
         /**
-        * @param Container $container A container instance.
-        * @return TemplateFactory
-        */
+         * @param Container $container A container instance.
+         * @return TemplateFactory
+         */
         $container['template/factory'] = function (Container $container) {
             $templateFactory = new TemplateFactory();
             return $templateFactory;

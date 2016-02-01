@@ -23,13 +23,15 @@ use \Charcoal\Factory\MapFactory;
 use \Charcoal\App\Config\LoggerConfig;
 
 /**
- * Logger Service Provider. Provider a Monolog service to a container.
+ * Logger Service Provider
+ *
+ * Provides a Monolog service to a container.
  *
  * ## Services
  * - `logger` `\Psr\Log\Logger`
  *
  * ## Helpers
- * - `logger/config` `\Charcoal\A[p\Config\LoggerConfig`
+ * - `logger/config` `\Charcoal\App\Config\LoggerConfig`
  */
 class LoggerServiceProvider implements ServiceProviderInterface
 {
@@ -45,9 +47,9 @@ class LoggerServiceProvider implements ServiceProviderInterface
     public function register(Container $container)
     {
         /**
-        * @param Container $container A container instance.
-        * @return LoggerConfig
-        */
+         * @param Container $container A container instance.
+         * @return LoggerConfig
+         */
         $container['logger/config'] = function (Container $container) {
             $config = $container['config'];
 
@@ -56,8 +58,8 @@ class LoggerServiceProvider implements ServiceProviderInterface
         };
 
         /**
-        * @return MapFactory
-        */
+         * @return MapFactory
+         */
         $container['logger/processor/factory'] = function (Container $contianer) {
             $mapFactory = new MapFactory();
             $mapFactory->setMap([
@@ -68,8 +70,8 @@ class LoggerServiceProvider implements ServiceProviderInterface
         };
 
         /**
-        * @return MapFactory
-        */
+         * @return MapFactory
+         */
         $container['logger/handler/factory'] = function (Container $contianer) {
             $mapFactory = new MapFactory();
             $mapFactory->setBaseClass('\Monolog\Handler\HandlerInterface');
@@ -81,8 +83,8 @@ class LoggerServiceProvider implements ServiceProviderInterface
         };
 
         /**
-        * @return Container
-        */
+         * @return Container
+         */
         $container['logger/handlers'] = function (Container $container) {
             $loggerConfig = $container['logger/config'];
 
@@ -101,11 +103,11 @@ class LoggerServiceProvider implements ServiceProviderInterface
         };
 
         /**
-        * Fulfills the PSR-3 dependency with a Monolog logger.
-        *
-        * @param Container $container A container instance.
-        * @return \Psr\Log\Logger
-        */
+         * Fulfills the PSR-3 dependency with a Monolog logger.
+         *
+         * @param Container $container A container instance.
+         * @return \Psr\Log\Logger
+         */
         $container['logger'] = function (Container $container) {
 
             $loggerConfig = $container['logger/config'];
@@ -128,6 +130,5 @@ class LoggerServiceProvider implements ServiceProviderInterface
             $logger->pushHandler($streamHandler);
             return $logger;
         };
-
     }
 }

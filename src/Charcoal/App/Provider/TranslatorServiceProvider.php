@@ -10,13 +10,13 @@ use \Pimple\Container;
 use \Charcoal\App\Config\LoggerConfig;
 
 /**
- * Translator Service Provider. Configures and providers a Symfony Translator service to a container.
+ * Translator Service Provider. Configures and provides a Symfony Translator service to a container.
  *
  * ## Services
  * - `translator`
  *
  * ## Helpers
- * - `translator/config` `\Charcoal\A[p\Config\LoggerConfig`
+ * - `translator/config` `\Charcoal\App\Config\LoggerConfig`
  *
  * ## Requirements / Dependencies
  * - `config` A `ConfigInterface` must have been previously registered on the container.
@@ -37,11 +37,12 @@ class TranslatorServiceProvider implements ServiceProviderInterface
         $container['translator/config'] = function (Container $container) {
             $appConfig = $container['config'];
             $translatorConfig = new \Charcoal\App\Config\TranslatorConfig($appConfig->get('translator'));
+
             return $translatorConfig;
         };
 
         $container['translator'] = function (Container $container) {
-                return [];
+            return [];
         };
     }
 }

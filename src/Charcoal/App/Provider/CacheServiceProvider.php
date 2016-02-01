@@ -14,7 +14,9 @@ use \Stash\Pool;
 use \Charcoal\App\Config\CacheConfig;
 
 /**
- * Cache Service Provider. Provider a Stash cache pool.
+ * Cache Service Provider
+ *
+ * Provides a Stash cache pool.
  *
  * ## Services
  * - `cache` `\Stash\Pool
@@ -37,9 +39,9 @@ class CacheServiceProvider implements ServiceProviderInterface
     public function register(Container $container)
     {
         /**
-        * @param Container $container A container instance.
-        * @return CacheConfig
-        */
+         * @param Container $container A container instance.
+         * @return CacheConfig
+         */
         $container['cache/config'] = function (Container $container) {
             $appConfig = $container['config'];
 
@@ -50,9 +52,9 @@ class CacheServiceProvider implements ServiceProviderInterface
         $container['cache/available-drivers'] = \Stash\DriverList::getAvailableDrivers();
 
         /**
-        * @param Container $container A container instance.
-        * @return Container The Collection of cache drivers, in a Container.
-        */
+         * @param Container $container A container instance.
+         * @return Container The Collection of cache drivers, in a Container.
+         */
         $container['cache/drivers'] = function (Container $container) {
             $cacheConfig = $container['cache/config'];
 
@@ -62,33 +64,33 @@ class CacheServiceProvider implements ServiceProviderInterface
             $parentContainer = $container;
 
             /**
-            * @param Container $container A container instance.
-            * @return \Stash\Driver\Apc
-            */
+             * @param Container $container A container instance.
+             * @return \Stash\Driver\Apc
+             */
             $drivers['apc'] = function (Container $container) use ($parentContainer) {
                 return new $parentContainer['cache/available-drivers']['Apc']();
             };
 
             /**
-            * @param Container $container A container instance.
-            * @return \Stash\Driver\Sqlite
-            */
+             * @param Container $container A container instance.
+             * @return \Stash\Driver\Sqlite
+             */
             $drivers['db'] = function (Container $container) use ($parentContainer) {
                 return new $parentContainer['cache/available-drivers']['SQLite']();
             };
 
             /**
-            * @param Container $container A container instance.
-            * @return \Stash\Driver\FileSystem
-            */
+             * @param Container $container A container instance.
+             * @return \Stash\Driver\FileSystem
+             */
             $drivers['file'] = function (Container $container) use ($parentContainer) {
                 return new $parentContainer['cache/available-drivers']['FileSystem']();
             };
 
             /**
-            * @param Container $container A container instance.
-            * @return \Stash\Driver\Memcache
-            */
+             * @param Container $container A container instance.
+             * @return \Stash\Driver\Memcache
+             */
             $drivers['memcache'] = function (Container $container) use ($parentContainer) {
 
                 $cacheConfig = $parentContainer['cache/config'];
@@ -108,38 +110,38 @@ class CacheServiceProvider implements ServiceProviderInterface
 
                 return $driver;
             };
+
             /**
-            * @param Container $container A container instance.
-            * @return \Stash\Driver\Ephemeral
-            */
+             * @param Container $container A container instance.
+             * @return \Stash\Driver\Ephemeral
+             */
             $drivers['memory'] = function (Container $container) use ($parentContainer) {
                 return new $parentContainer['cache/available-drivers']['Ephemeral']();
             };
 
             /**
-            * @param Container $container A container instance.
-            * @return \Stash\Driver\BlackHole
-            */
+             * @param Container $container A container instance.
+             * @return \Stash\Driver\BlackHole
+             */
             $drivers['noop'] = function (Container $container) use ($parentContainer) {
                 return new $parentContainer['cache/available-drivers']['BlackHole']();
             };
 
             /**
-            * @param Container $container A container instance.
-            * @return \Stash\Driver\Redis
-            */
+             * @param Container $container A container instance.
+             * @return \Stash\Driver\Redis
+             */
             $drivers['redis'] = function (Container $container) use ($parentContainer) {
                 return new $parentContainer['cache/available-drivers']['Redis']();
             };
 
             return $drivers;
-
         };
 
         /**
-        * @param Container $container A container instance.
-        * @return Container The Collection of DatabaseSourceConfig, in a Container.
-        */
+         * @param Container $container A container instance.
+         * @return Container The Collection of DatabaseSourceConfig, in a Container.
+         */
         $container['cache/driver'] = function (Container $container) {
 
             $cacheConfig = $container['cache/config'];
@@ -156,11 +158,11 @@ class CacheServiceProvider implements ServiceProviderInterface
         };
 
         /**
-        * The cache pool, using Stash.
-        *
-        * @param Container $container A container instance.
-        * @return \Stash\Pool
-        */
+         * The cache pool, using Stash.
+         *
+         * @param Container $container A container instance.
+         * @return \Stash\Pool
+         */
         $container['cache'] = function (Container $container) {
 
             $cacheConfig = $container['cache/config'];
@@ -172,6 +174,5 @@ class CacheServiceProvider implements ServiceProviderInterface
 
             return $pool;
         };
-
     }
 }
