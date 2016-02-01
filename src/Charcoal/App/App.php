@@ -225,25 +225,32 @@ class App extends SlimApp implements
      * Retrieve the application's language manager.
      *
      * @return LanguageManager
+     * @todo   Move configuration setup to {@see \Charcoal\App\Provider\TranslatorServiceProvider}
      */
     public function languageManager()
     {
         if (!isset($this->languageManager)) {
-            $config = $this->config();
+            $appConfig   = $this->config();
+            $transConfig = [];
 
-            $locales = [];
-            if (isset($config['locales'])) {
-                $locales = $config['locales'];
-            } elseif (isset($config['languages'])) {
-                $locales['languages'] = $config['languages'];
+            /** New configuration key */
+            if (isset($appConfig['translator'])) {
+                $transConfig = array_merge($transConfig, $appConfig['translator']);
+            }
 
-                if (isset($config['default_language'])) {
-                    $locales['default_language'] = $config['default_language'];
+            /** Old configuration key */
+            if (isset($appConfig['locales'])) {
+                $transConfig = array_merge($transConfig, $appConfig['locales']);
+            } elseif (isset($appConfig['languages'])) {
+                $transConfig['languages'] = array_merge($transConfig, $appConfig['languages']);
+
+                if (isset($appConfig['default_language'])) {
+                    $transConfig['default_language'] = $appConfig['default_language'];
                 }
             }
 
             $this->languageManager = new LanguageManager([
-                'config' => $locales,
+                'config' => $transConfig,
                 'app'    => $this,
                 'logger' => $this->logger
             ]);

@@ -5,13 +5,11 @@ namespace Charcoal\App\Language;
 use \InvalidArgumentException;
 use \RuntimeException;
 
-// Intra-module (`charcoal-app`) dependency
-use \Charcoal\App\AbstractManager;
-
-// Intra-module (`charcoal-config`) dependency
+// Dependency from 'charcoal-config'
 use \Charcoal\Config\GenericConfig;
 
-// Intra-module (`charcoal-core`) dependencies
+// Dependency from 'charcoal-core'
+use \Charcoal\Loader\FileLoader;
 use \Charcoal\Translation\Catalog;
 use \Charcoal\Translation\CatalogInterface;
 use \Charcoal\Translation\ConfigurableTranslationTrait;
@@ -19,6 +17,10 @@ use \Charcoal\Translation\MultilingualAwareInterface;
 use \Charcoal\Translation\TranslationConfig;
 use \Charcoal\Translation\TranslationString;
 use \Charcoal\Translation\TranslationStringInterface;
+
+// Intra-dependencies from 'charcoal-app'
+use \Charcoal\App\App;
+use \Charcoal\App\AbstractManager;
 
 // Local namespace dependencies
 use \Charcoal\App\Language\Language;
@@ -138,10 +140,11 @@ class LanguageManager extends AbstractManager implements
      * @param  array $config The raw configuration array provided upon instantiation.
      * @return void
      * @throws RuntimeException If the translations passed to the manager isn't an associative array.
+     * @todo   Move catalog setup to {@see \Charcoal\App\Provider\TranslatorServiceProvider}
      */
     private function setupTranslations(array $config)
     {
-        $trans = [];
+        $translations = [];
 
         /**
          * Build the array of Language objects from the `TranslationConfig`-filtered list
@@ -149,7 +152,7 @@ class LanguageManager extends AbstractManager implements
          */
         if (isset($config['translations'])) {
             if (is_array($config['translations'])) {
-                $trans = $config['translations'];
+                $translations = $config['translations'];
             } else {
                 throw new RuntimeException(
                     'Global translations must be an associative array (e.g., `$ident => $translations`).'
@@ -157,7 +160,46 @@ class LanguageManager extends AbstractManager implements
             }
         }
 
-        $catalog = new Catalog($trans);
+        $catalog = new Catalog($translations);
+
+        if (isset($config['paths'])) {
+            $paths  = $config['paths'];
+            $loader = new GenericConfig();
+
+            if (!is_array($paths)) {
+                $paths = [ $paths ];
+            }
+
+            foreach ($paths as &$path) {
+                $path = rtrim($path, '/\\').DIRECTORY_SEPARATOR;
+
+                if (class_exists('\Charcoal\App\App')) {
+                    $basePath = App::instance()->config()->get('ROOT');
+                    $basePath = rtrim($basePath, '/\\').DIRECTORY_SEPARATOR;
+
+                    if (false === strpos($path, $basePath)) {
+                        $path = rtrim($basePath.$path, '/');
+                    }
+                }
+
+                foreach ($this->languages() as $langCode) {
+                    $exts = [ 'ini', 'json', 'php' ];
+                    while ($exts) {
+                        $ext = array_pop($exts);
+                        $cfg = sprintf('%1$s/messages.%2$s.%3$s', $path, $langCode, $ext);
+
+                        if ( file_exists($cfg) ) {
+                            $loader->addFile($cfg);
+                        }
+                    }
+
+                    foreach ($loader as $ident => $message) {
+                        $catalog->addEntryTranslation($ident, $langCode, $message);
+                    }
+                }
+            }
+        }
+
         $this->setCatalog($catalog);
     }
 
