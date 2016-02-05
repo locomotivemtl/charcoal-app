@@ -166,6 +166,7 @@ class ViewServiceProvider implements ServiceProviderInterface
          */
         $container['view/engine/twig'] = function (Container $container) {
             $engineOptions = $container['view/engine/args'];
+            $engineOptions['loader'] = $container['view/loader/twig'];
             return new TwigEngine($engineOptions);
         };
 

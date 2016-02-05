@@ -36,11 +36,11 @@ Default services, for a typical app, are also provided with a Pimple container.
   - Translator Service Provider
   - View Service Provider
 - Usage
-- Development
-  - Development dependencies
-  - Coding Style
-  - Authors
-  - Changelog
+- [Development](#development)
+  - [Development dependencies](#development-dependencies)
+  - [Coding Style](#coding-style)
+  - [Authors](#authors)
+  - [Changelog](#changelog)
 
 # How to install
 
