@@ -122,7 +122,17 @@ The main components of charcoal-app are:
 
 > 👉 The `App` concept is entirely optional. Modules could be loaded without one.
 
-### App configuration
+### Base App Configuration
+
+| Key                  | Type      | Default | Description |
+| -------------------- | --------- | ------- | ----------- |
+| **base_path**        | `array`   | `[]`    | ...         |
+| **base_url**         | `array`   | `[]`    | ... 				 |
+| **ROOT**             | `array`   | `[]`    | An alias of `base_path`. |
+| **timezone**         | `string`  | `"UTC"` |
+| **dev_mode**         | `boolean` | `false` |
+
+### Module & App configuration
 
 `\Charcoal\App\AppConfig` API:
 
@@ -134,11 +144,10 @@ The main components of charcoal-app are:
 | **translator**       | `array`   | `null`  |
 | **cache**            | `array`   | `null`  |
 | **logger**           | `array`   | `null`  |
-| **view**             | `array`   | `null`  |
+| **view**             | `array`   | `null`  | The default view configuration (default engine and path settings). See [ViewConfig](https://github.com/locomotivemtl/charcoal-view). |
 | **databases**        | `array`   | `[]`    |
 | **default_database** | `string`  | `""`    |
-| **timezone**         | `string`  | `"UTC"` |
-| **dev_mode**         | `boolean` | `false` |
+| **email**            | `array`   | `[]`    | The email (default from and SMTP options) configuration. See [EmailConfig](https://github.com/locomotivemtl/charcoal-email)|
 
 ## Module
 

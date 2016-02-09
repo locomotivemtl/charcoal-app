@@ -25,10 +25,7 @@ class AppContainer extends Container
      */
     public function __construct(array $values = [])
     {
-        $config = isset($values['config']) ? $values['config'] : [];
-
-        $this['charcoal/app/config'] = $config;
-        $this['config'] = $this['charcoal/app/config'];
+        $this['config'] = isset($values['config']) ? $values['config'] : [];
 
         // Default Services
         $this->register(new AppServiceProvider());
