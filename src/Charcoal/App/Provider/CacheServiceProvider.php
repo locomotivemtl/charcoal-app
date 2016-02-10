@@ -172,7 +172,10 @@ class CacheServiceProvider implements ServiceProviderInterface
 
             $pool = new Pool($driver);
             $pool->setLogger($container['logger']);
-            $pool->setNamespace($cacheConfig['prefix']);
+
+            // Ensure an alphanumeric namespace (prefix)
+            $namespace = preg_replace("/[^A-Za-z0-9 ]/", '', $cacheConfig['prefix']);
+            $pool->setNamespace($namespace);
 
             return $pool;
         };
