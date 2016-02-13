@@ -2,13 +2,14 @@
 
 namespace Charcoal\App\Routable;
 
-// PSR-7 (http messaging) dependencies
+// Dependencies from PSR-7 (HTTP Messaging)
 use \Psr\Http\Message\RequestInterface;
 use \Psr\Http\Message\ResponseInterface;
 
-// Dependencies from `charcoal-view` module
+// Dependencies from 'charcoal-view'
 use \Charcoal\View\Viewable;
 
+// Dependency from 'charcoal-translation'
 use \Charcoal\Translation\TranslationString;
 
 /**

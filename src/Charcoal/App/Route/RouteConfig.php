@@ -11,15 +11,15 @@ use \Charcoal\App\App;
 use \Charcoal\Config\AbstractConfig;
 
 // Dependencies from 'charcoal-core'
-use \Charcoal\Translation\LanguageAwareInterface;
-use \Charcoal\Translation\LanguageAwareTrait;
+use \Charcoal\Polyglot\UnilingualAwareInterface;
+use \Charcoal\Polyglot\UnilingualAwareTrait;
 
 /**
  * Base "Route" configuration.
  */
-class RouteConfig extends AbstractConfig implements LanguageAwareInterface
+class RouteConfig extends AbstractConfig implements UnilingualAwareInterface
 {
-    use LanguageAwareTrait;
+    use UnilingualAwareTrait;
 
     /**
      * Route identifier/name

@@ -29,13 +29,6 @@ interface AppInterface
     public function middlewareManager();
 
     /**
-     * Retrieve the application's language manager.
-     *
-     * @return \Charcoal\App\Language\LanguageManager
-     */
-    public function languageManager();
-
-    /**
      * Run application
      *
      * @param  boolean $silent If TRUE, will run in silent mode (no response).

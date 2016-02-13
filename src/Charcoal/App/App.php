@@ -6,18 +6,18 @@ namespace Charcoal\App;
 use \Exception;
 use \LogicException;
 
-// Slim Dependencies
+// Dependency from 'Slim'
 use \Slim\App as SlimApp;
 
-// PSR-3 (logger) dependencies
+// Dependencies from 'PSR-3' (Logging)
 use \Psr\Log\LoggerAwareInterface;
 use \Psr\Log\LoggerAwareTrait;
 
-// PSR-7 (HTTP Messaging) Dependencies
+// Dependencies from 'PSR-7' (HTTP Messaging)
 use \Psr\Http\Message\RequestInterface;
 use \Psr\Http\Message\ResponseInterface;
 
-// From `charcoal-config`
+// Dependencies from 'charcoal-config'
 use \Charcoal\Config\ConfigurableInterface;
 use \Charcoal\Config\ConfigurableTrait;
 
@@ -25,7 +25,6 @@ use \Charcoal\Config\ConfigurableTrait;
 use \Charcoal\App\AppConfig;
 use \Charcoal\App\AppContainer;
 use \Charcoal\App\AppInterface;
-use \Charcoal\App\Language\LanguageManager;
 use \Charcoal\App\Middleware\MiddlewareManager;
 use \Charcoal\App\Module\ModuleManager;
 use \Charcoal\App\Route\RouteManager;
@@ -66,11 +65,6 @@ class App extends SlimApp implements
      * @var MiddlewareManager
      */
     private $middlewareManager;
-
-    /**
-     * @var LanguageManager
-     */
-    private $languageManager;
 
     /**
      * Create new Charcoal application (and SlimApp).
@@ -222,44 +216,6 @@ class App extends SlimApp implements
     }
 
     /**
-     * Retrieve the application's language manager.
-     *
-     * @return LanguageManager
-     * @todo   Move configuration setup to {@see \Charcoal\App\ServiceProvider\TranslatorServiceProvider}
-     */
-    public function languageManager()
-    {
-        if (!isset($this->languageManager)) {
-            $appConfig   = $this->config();
-            $transConfig = [];
-
-            /** New configuration key */
-            if (isset($appConfig['translator'])) {
-                $transConfig = array_merge($transConfig, $appConfig['translator']);
-            }
-
-            /** Old configuration key */
-            if (isset($appConfig['locales'])) {
-                $transConfig = array_merge($transConfig, $appConfig['locales']);
-            } elseif (isset($appConfig['languages'])) {
-                $transConfig['languages'] = array_merge($transConfig, $appConfig['languages']);
-
-                if (isset($appConfig['default_language'])) {
-                    $transConfig['default_language'] = $appConfig['default_language'];
-                }
-            }
-
-            $this->languageManager = new LanguageManager([
-                'config' => $transConfig,
-                'app'    => $this,
-                'logger' => $this->logger
-            ]);
-        }
-
-        return $this->languageManager;
-    }
-
-    /**
      * Registers the default services and features that Charcoal needs to work.
      *
      * @return self
@@ -269,7 +225,6 @@ class App extends SlimApp implements
         $config = $this->config();
 
         $this->setupLogger();
-        $this->setupLanguages();
         $this->setupMiddlewares();
         $this->setupRoutes();
         $this->setupModules();
@@ -309,17 +264,6 @@ class App extends SlimApp implements
             $this->setLogger($container['logger']);
             $this->logger->debug('Charcoal App Init Logger');
         }
-    }
-
-    /**
-     * Setup the application's "global" linguistic features, via a LanguageManager
-     *
-     * @return void
-     */
-    protected function setupLanguages()
-    {
-        $languageManager = $this->languageManager();
-        $languageManager->setup();
     }
 
     /**
