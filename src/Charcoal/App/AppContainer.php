@@ -2,16 +2,11 @@
 
 namespace Charcoal\App;
 
-// Slim Dependencies
+// Slim Dependency
 use \Slim\Container;
 
 // Intra-Module `charcoal-app` dependencies
-use \Charcoal\App\Provider\AppServiceProvider;
-use \Charcoal\App\Provider\CacheServiceProvider;
-use \Charcoal\App\Provider\DatabaseServiceProvider;
-use \Charcoal\App\Provider\LoggerServiceProvider;
-use \Charcoal\App\Provider\TranslatorServiceProvider;
-use \Charcoal\App\Provider\ViewServiceProvider;
+use \Charcoal\App\Provider\ServiceProviderFactory;
 
 /**
  * Charcoal App Container
@@ -27,15 +22,35 @@ class AppContainer extends Container
     {
         $this['config'] = isset($values['config']) ? $values['config'] : [];
 
-        // Default Services
-        $this->register(new AppServiceProvider());
-        $this->register(new CacheServiceProvider());
-        $this->register(new DatabaseServiceProvider());
-        $this->register(new LoggerServiceProvider());
-        $this->register(new TranslatorServiceProvider());
-        $this->register(new ViewServiceProvider());
+        $defaults = [
+            'charcoal/app/provider/app'        => [],
+            'charcoal/app/provider/cache'      => [],
+            'charcoal/app/provider/database'   => [],
+            'charcoal/app/provider/logger'     => [],
+            'charcoal/app/provider/translator' => [],
+            'charcoal/app/provider/view'       => [],
+        ];
 
-        // Initialize lim container
+        $providers = $this['config']->get('service_providers');
+        $factory   = new ServiceProviderFactory();
+
+        if (is_array($providers) && count($providers)) {
+            $providers = array_replace($defaults, $providers);
+        } else {
+            $providers = $defaults;
+        }
+
+        foreach ($providers as $ident => $options) {
+            if (false === $options || (isset($options['active']) && !$options['active'])) {
+                continue;
+            }
+
+            $service = $factory->create($ident);
+
+            $this->register($service);
+        }
+
+        // Initialize Slim container
         parent::__construct($values);
     }
 }
