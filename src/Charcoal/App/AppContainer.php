@@ -20,6 +20,9 @@ class AppContainer extends Container
      */
     public function __construct(array $values = [])
     {
+        // Initialize container for Slim and Pimple
+        parent::__construct($values);
+
         $this['config'] = isset($values['config']) ? $values['config'] : [];
 
         $defaults = [
@@ -50,7 +53,5 @@ class AppContainer extends Container
             $this->register($service);
         }
 
-        // Initialize Slim container
-        parent::__construct($values);
     }
 }
