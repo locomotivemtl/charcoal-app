@@ -81,7 +81,7 @@ class ViewServiceProvider implements ServiceProviderInterface
          * @param Container $container A container instance.
          * @return array The view loader dependencies array.
          */
-        $container['view/loader/args'] = function (Container $container) {
+        $container['view/loader/dependencies'] = function (Container $container) {
             return [
                 'logger'    => $container['logger'],
                 'base_path' => $container['config']['ROOT'],
@@ -94,7 +94,7 @@ class ViewServiceProvider implements ServiceProviderInterface
          * @return MustacheLoader
          */
         $container['view/loader/mustache'] = function (Container $container) {
-            return new MustacheLoader($container['view/loader/args']);
+            return new MustacheLoader($container['view/loader/dependencies']);
         };
 
         /**
@@ -102,7 +102,7 @@ class ViewServiceProvider implements ServiceProviderInterface
          * @return PhpLoader
          */
         $container['view/loader/php'] = function (Container $container) {
-            return new PhpLoader($container['view/loader/args']);
+            return new PhpLoader($container['view/loader/dependencies']);
         };
 
         /**
@@ -110,7 +110,7 @@ class ViewServiceProvider implements ServiceProviderInterface
          * @return TwigLoader
          */
         $container['view/loader/twig'] = function (Container $container) {
-            return new TwigLoader($container['view/loader/args']);
+            return new TwigLoader($container['view/loader/dependencies']);
         };
     }
 
@@ -124,7 +124,7 @@ class ViewServiceProvider implements ServiceProviderInterface
          * @param Container $container A container instance.
          * @return array The engine dependencies array.
          */
-        $container['view/engine/args'] = function (Container $container) {
+        $container['view/engine/dependencies'] = function (Container $container) {
             return [
                 'logger' => $container['logger'],
                 'cache'  => null,
@@ -137,7 +137,7 @@ class ViewServiceProvider implements ServiceProviderInterface
          * @return MustacheEngine
          */
         $container['view/engine/mustache'] = function (Container $container) {
-            $engineOptions = $container['view/engine/args'];
+            $engineOptions = $container['view/engine/dependencies'];
             $engineOptions['loader'] = $container['view/loader/mustache'];
             return new MustacheEngine($engineOptions);
         };
@@ -147,7 +147,7 @@ class ViewServiceProvider implements ServiceProviderInterface
          * @return PhpEngine
          */
         $container['view/engine/php'] = function (Container $container) {
-            $engineOptions = $container['view/engine/args'];
+            $engineOptions = $container['view/engine/dependencies'];
             return new PhpEngine($engineOptions);
         };
 
@@ -156,7 +156,7 @@ class ViewServiceProvider implements ServiceProviderInterface
          * @return PhpMustacheEngine
          */
         $container['view/engine/php-mustache'] = function (Container $container) {
-            $engineOptions = $container['view/engine/args'];
+            $engineOptions = $container['view/engine/dependencies'];
             return new PhpMustacheEngine($engineOptions);
         };
 
@@ -165,7 +165,7 @@ class ViewServiceProvider implements ServiceProviderInterface
          * @return TwigEngine
          */
         $container['view/engine/twig'] = function (Container $container) {
-            $engineOptions = $container['view/engine/args'];
+            $engineOptions = $container['view/engine/dependencies'];
             $engineOptions['loader'] = $container['view/loader/twig'];
             return new TwigEngine($engineOptions);
         };
