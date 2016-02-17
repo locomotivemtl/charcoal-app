@@ -1,6 +1,6 @@
 <?php
 
-namespace Charcoal\App\Provider;
+namespace Charcoal\App\ServiceProvider;
 
 // PDO dependencies
 use \PDO;

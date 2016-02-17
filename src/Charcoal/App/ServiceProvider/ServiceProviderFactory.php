@@ -1,6 +1,6 @@
 <?php
 
-namespace Charcoal\App\Provider;
+namespace Charcoal\App\ServiceProvider;
 
 // Module `charcoal-factory` dependencies
 use \Charcoal\Factory\ResolverFactory;

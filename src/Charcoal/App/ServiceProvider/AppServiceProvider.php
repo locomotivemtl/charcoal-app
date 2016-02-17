@@ -1,6 +1,6 @@
 <?php
 
-namespace Charcoal\App\Provider;
+namespace Charcoal\App\ServiceProvider;
 
 use \Exception;
 
@@ -45,6 +45,17 @@ class AppServiceProvider implements ServiceProviderInterface
      */
     public function register(Container $container)
     {
+        $this->registerHandlerServices($container);
+        $this->registerRouteServices($container);
+        $this->registerRequestControllerServices($container);
+    }
+
+    /**
+     * @param Container $container The DI container.
+     * @return void
+     */
+    protected function registerHandlerServices(Container $container)
+    {
         if (!isset($container['notFoundHandler'])) {
             /**
              * HTTP 404 (Not found) handler.
@@ -64,7 +75,7 @@ class AppServiceProvider implements ServiceProviderInterface
             };
         }
 
-        if (!isset($container['notFoundHandler'])) {
+        if (!isset($container['errorHandler'])) {
             /**
              * HTTP 500 (Error) handler.
              *
@@ -88,7 +99,14 @@ class AppServiceProvider implements ServiceProviderInterface
                 };
             };
         }
+    }
 
+    /**
+     * @param Container $container The DI container.
+     * @return void
+     */
+    protected function registerRouteServices(Container $container)
+    {
         /**
          * @param Container $container A container instance.
          * @return RouteFactory
@@ -97,7 +115,14 @@ class AppServiceProvider implements ServiceProviderInterface
             $routeFactory = new RouteFactory();
             return $routeFactory;
         };
+    }
 
+    /**
+     * @param Container $container The DI container.
+     * @return void
+     */
+    protected function registerRequestControllerServices(Container $container)
+    {
         /**
          * @param Container $container A container instance.
          * @return ActionFactory

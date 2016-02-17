@@ -225,7 +225,7 @@ class App extends SlimApp implements
      * Retrieve the application's language manager.
      *
      * @return LanguageManager
-     * @todo   Move configuration setup to {@see \Charcoal\App\Provider\TranslatorServiceProvider}
+     * @todo   Move configuration setup to {@see \Charcoal\App\ServiceProvider\TranslatorServiceProvider}
      */
     public function languageManager()
     {

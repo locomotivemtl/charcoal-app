@@ -6,7 +6,7 @@ namespace Charcoal\App;
 use \Slim\Container;
 
 // Intra-Module `charcoal-app` dependencies
-use \Charcoal\App\Provider\ServiceProviderFactory;
+use \Charcoal\App\ServiceProvider\ServiceProviderFactory;
 
 /**
  * Charcoal App Container
@@ -26,12 +26,12 @@ class AppContainer extends Container
         $this['config'] = isset($values['config']) ? $values['config'] : [];
 
         $defaults = [
-            'charcoal/app/provider/app'        => [],
-            'charcoal/app/provider/cache'      => [],
-            'charcoal/app/provider/database'   => [],
-            'charcoal/app/provider/logger'     => [],
-            'charcoal/app/provider/translator' => [],
-            'charcoal/app/provider/view'       => [],
+            'charcoal/app/service-provider/app'        => [],
+            'charcoal/app/service-provider/cache'      => [],
+            'charcoal/app/service-provider/database'   => [],
+            'charcoal/app/service-provider/logger'     => [],
+            'charcoal/app/service-provider/translator' => [],
+            'charcoal/app/service-provider/view'       => [],
         ];
 
         $providers = $this['config']->get('service_providers');
