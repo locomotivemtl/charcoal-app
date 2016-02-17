@@ -72,9 +72,9 @@ class ViewServiceProvider implements ServiceProviderInterface
     }
 
     /**
-    * @param Container $container The DI container.
-    * @return void
-    */
+     * @param Container $container The DI container.
+     * @return void
+     */
     protected function registerLoaderServices(Container $container)
     {
         /**
@@ -115,9 +115,9 @@ class ViewServiceProvider implements ServiceProviderInterface
     }
 
     /**
-    * @param Container $container The DI container.
-    * @return void
-    */
+     * @param Container $container The DI container.
+     * @return void
+     */
     protected function registerEngineServices(Container $container)
     {
         /**
@@ -184,9 +184,9 @@ class ViewServiceProvider implements ServiceProviderInterface
     }
 
     /**
-    * @param Container $container The DI container.
-    * @return void
-    */
+     * @param Container $container The DI container.
+     * @return void
+     */
     protected function registerViewServices(Container $container)
     {
         /**

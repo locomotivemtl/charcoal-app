@@ -96,7 +96,7 @@ class TemplateRouteConfig extends RouteConfig
     {
         $config = App::instance()->config();
 
-        if ( $config->has('view.default_controller') ) {
+        if ($config->has('view.default_controller')) {
             return $config->get('view.default_controller');
         }
     }
@@ -139,7 +139,7 @@ class TemplateRouteConfig extends RouteConfig
     {
         $config = App::instance()->config();
 
-        if ( $config->has('view.default_engine') ) {
+        if ($config->has('view.default_engine')) {
             return $config->get('view.default_engine');
         } else {
             return 'mustache';

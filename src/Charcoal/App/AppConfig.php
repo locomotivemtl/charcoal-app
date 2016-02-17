@@ -54,7 +54,7 @@ class AppConfig extends AbstractConfig
     /**
      * @var ViewConfig $view
      */
-    # private $view;
+    protected $view;
 
     /**
      * @var array $databases

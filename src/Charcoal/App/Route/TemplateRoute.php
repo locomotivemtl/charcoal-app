@@ -109,7 +109,7 @@ class TemplateRoute implements
                     }
                 }
 
-                if ( (string)$uri !== (string)$request->getUri() ) {
+                if ((string)$uri !== (string)$request->getUri()) {
                     return $response->withRedirect(
                         $uri,
                         $config['redirect_mode']

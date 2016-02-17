@@ -49,7 +49,6 @@ class AppContainer extends Container
             }
 
             $service = $factory->create($ident);
-
             $this->register($service);
         }
 

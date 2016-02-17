@@ -188,7 +188,7 @@ class LanguageManager extends AbstractManager implements
                         $ext = array_pop($exts);
                         $cfg = sprintf('%1$s/messages.%2$s.%3$s', $path, $langCode, $ext);
 
-                        if ( file_exists($cfg) ) {
+                        if (file_exists($cfg)) {
                             $loader->addFile($cfg);
                         }
                     }
