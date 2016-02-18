@@ -21,20 +21,20 @@ class ModuleManager extends AbstractManager
      */
     public function setModules(array $modules)
     {
-        foreach ($modules as $module_ident => $module_config) {
-            $this->addModule($module_ident, $module_config);
+        foreach ($modules as $moduleIdent => $moduleConfig) {
+            $this->addModule($moduleIdent, $moduleConfig);
         }
         return $this;
     }
 
     /**
-     * @param string                $module_ident  The module identifier.
-     * @param array|ConfigInterface $module_config The module configuration data.
+     * @param string                $moduleIdent  The module identifier.
+     * @param array|ConfigInterface $moduleConfig The module configuration data.
      * @return ModuleManager Chainable
      */
-    public function addModule($module_ident, array $module_config)
+    public function addModule($moduleIdent, array $moduleConfig)
     {
-        $this->modules[$module_ident] = $module_config;
+        $this->modules[$moduleIdent] = $moduleConfig;
         return $this;
     }
 
@@ -44,14 +44,14 @@ class ModuleManager extends AbstractManager
     public function setupModules()
     {
         $modules = $this->config();
-        $module_factory = new ModuleFactory();
-        foreach ($modules as $module_ident => $module_config) {
-            $module = $module_factory->create($module_ident, [
+        $moduleFactory = new ModuleFactory();
+        foreach ($modules as $moduleIdent => $moduleConfig) {
+            $module = $moduleFactory->create($moduleIdent, [
                 'app'    => $this->app(),
                 'logger' => $this->logger
             ]);
             // Merge custom data to config
-            $module->config()->merge($module_config);
+            $module->config()->merge($moduleConfig);
             $module->setup();
         }
     }

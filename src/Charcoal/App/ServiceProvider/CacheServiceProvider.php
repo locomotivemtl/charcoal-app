@@ -18,12 +18,15 @@ use \Charcoal\App\Config\CacheConfig;
  *
  * Provides a Stash cache pool.
  *
+ * ## Dependencies
+ * - `config` A base app `\Charcoal\Config\ConfigInterface`
+ *
  * ## Services
- * - `cache` `\Stash\Pool
+ * - `cache` A PSR-6 cache `\Stash\Pool
  *
  * ## Helpers
- * - `cache/config` `\Charcoal\App\Config\CacheConfig`
- * - `cache/driver` `Stash\Interfaces\DriverInterface`
+ * - `cache/config` The cache config `\Charcoal\App\Config\CacheConfig`
+ * - `cache/driver` The default cache driver`Stash\Interfaces\DriverInterface`
  */
 class CacheServiceProvider implements ServiceProviderInterface
 {

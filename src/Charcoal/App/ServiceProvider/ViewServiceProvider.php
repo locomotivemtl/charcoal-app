@@ -22,7 +22,7 @@ use \Charcoal\View\ViewInterface;
 /**
  * View Service Provider
  *
- * ## External dependencies
+ * ## Requirements / Dependencies
  * - `config`
  *   - The global / base config (`ConfigInterface`).
  * - `logger`

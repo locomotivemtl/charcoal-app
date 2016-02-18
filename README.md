@@ -1,7 +1,7 @@
 Charcoal App
 ============
 
-`Charcoal\App` is a framework to create _Charcoal_ applications with **Slim 3**. It is actually a small layer on top of Slim to load the proper routes / controllers and middlewares from a configuration file.
+`Charcoal\App` is a framework to create _Charcoal_ applications with **Slim 3**. It is actually a small layer on top of Slim to load the proper routes / controllers and middlewares from a configuration file, as well as various service providers (for logger, cache, database and translation).
 
 The request is then handled by one of the 3 types of route (or _request controller_): `Action`, `Script` or `Template`.
 
@@ -11,9 +11,9 @@ Default services, for a typical app, are also provided with a Pimple container.
 
 # Table of contents
 
-- How to install
+- [How to install](#how-to-install)
 	- Dependencies
-- Components
+- [Components](#components)
   - Config
   - App
     - App Configuration
@@ -107,6 +107,10 @@ The main components of charcoal-app are:
 
 ## App
 
+The App component is based on Slim.
+
+> At its core, Slim is a dispatcher that receives an HTTP request, invokes an appropriate callback routine, and returns an HTTP response
+
 - The *App* loads the root onfiguration.
 	- **App**: _implements_ `\Charcoal\App\App`
 	- **Config**: `\Charcoal\App\AppConfig`
@@ -128,9 +132,10 @@ The main components of charcoal-app are:
 | -------------------- | --------- | ------- | ----------- |
 | **base_path**        | `array`   | `[]`    | ...         |
 | **base_url**         | `array`   | `[]`    | ... 				 |
+| **dev_mode**         | `boolean` | `false` |
 | **ROOT**             | `array`   | `[]`    | An alias of `base_path`. |
 | **timezone**         | `string`  | `"UTC"` |
-| **dev_mode**         | `boolean` | `false` |
+
 
 ### Module & App configuration
 
@@ -138,16 +143,19 @@ The main components of charcoal-app are:
 
 | Key                  | Type      | Default | Description |
 | -------------------- | --------- | ------- | ----------- |
-| **routes**           | `array`   | `[]`    | ...         |
-| **routables**        | `array`   | `[]`    | ...
-| **modules**          | `array`   | `[]`    | ...         |
-| **translator**       | `array`   | `null`  |
 | **cache**            | `array`   | `null`  |
-| **logger**           | `array`   | `null`  |
-| **view**             | `array`   | `null`  | The default view configuration (default engine and path settings). See [ViewConfig](https://github.com/locomotivemtl/charcoal-view). |
 | **databases**        | `array`   | `[]`    |
 | **default_database** | `string`  | `""`    |
-| **email**            | `array`   | `[]`    | The email (default from and SMTP options) configuration. See [EmailConfig](https://github.com/locomotivemtl/charcoal-email)|
+| **email**            | `array`   | `[]`    | The email (default from and SMTP options) configuration. See [EmailConfig](https://github.com/locomotivemtl/charcoal-email) |
+| **logger**           | `array`   | `null`  |
+| **modules**          | `array`   | `[]`    | ...         |
+| **routables**        | `array`   | `[]`    | ...
+| **routes**           | `array`   | `[]`    | ...         |
+| **service_providers**| `array`   | `[]`    | ...
+| **translator**       | `array`   | `null`  |
+| **view**             | `array`   | `null`  | The default view configuration (default engine and path settings). See [ViewConfig](https://github.com/locomotivemtl/charcoal-view). |
+
+
 
 ## Module
 
@@ -322,12 +330,12 @@ The next section, service providers, explain in more details the various availab
 
 Dependencies are handled with a `Pimple` dependency Container. There are various _Service Providers_ available inside `charcoal-app`:
 
-- `AppServiceProvider`
-- `CacheServiceProvider`
-- `DatabaseServicePovider`
-- `LoggerServiceProvider`
-- `TranslatorServiceProvider`
-- `ViewServiceProvider`
+- [`AppServiceProvider`](#app-service-provider)
+- [`CacheServiceProvider`](#cache-service-provider)
+- [`DatabaseServicePovider`](#database-service-provider)
+- [`LoggerServiceProvider`](#logger-service-provider)
+- [`TranslatorServiceProvider`](#translator-service-provider)
+- [`ViewServiceProvider`](#view-service-provider)
 
 All providers expect the DI Container to provider `config` object, which should hold the main project configuration in a `ConfigInterface` instance.
 
@@ -338,6 +346,9 @@ The `AppServiceProvider` provides the following services:
   - A `callback` for 404 (not found) URLs.
 - `errorHandler`
   - A `callback` for 500 (error) URLs.
+- `action/factory`
+- `script/factory`
+- `template/factory`
 
 ## Cache Service Provider
 
@@ -349,13 +360,13 @@ The `CacheServiceProvider` provides the following servicers:
 Also available are the following helpers:
 
 - `cache/config`
-	- A `\Charcoal\App\Config\CacheConfig` instance holding all configuration keys related to caching.
+	+ A `\Charcoal\App\Config\CacheConfig` instance holding all configuration keys related to caching.
 - `cache/available-drivers`
-  - An `array` of all the available Stash drivers on the system.
+	+ An `array` of all the available Stash drivers on the system.
 - `cache/drivers`
-  - A `\Pimple\Container` of all the avaialble `Stash\Driver` instances.
+  + A `\Pimple\Container` of all the avaialble `Stash\Driver` instances.
 - `cache/driver`
-  - The default `\Stash\Driver`.
+  + The default `\Stash\Driver`.
 
 > 👉 Stash 1.0 will support PSR-6. For now, `charcoal` is dependent on stash, not the psr6 standard.
 
@@ -364,24 +375,54 @@ Also available are the following helpers:
 The `DatabaseServiceProvider` provides the following services:
 
 - `database`
-	- The default database, as a `\PDO` instance.
+	+ The default database, as a `\PDO` instance.
 - `databases`
-  - A `\Pimple\Container` of all the available `\PDO` database instances.
+  + A `\Pimple\Container` of all the available `\PDO` database instances.
+
+Also available are the following helpers:
+
+- `database/config`
+	+ A `\Charcoal\App\Config\DatabaseConfig` instance holding the default database's configuration.
+- `databases/config`
+	+ A `\Pimple\Container` of all the available dataases config.
 
 ## Logger Service Provider
 
 The `LoggerServiceProvider` provides the following services:
 
 - `logger`
+	+ A PSR-3 logger, implementing `\Psr\Log\LoggerInterface`.
+	+ Charcoal-app provides a `\Monolog\Logger`.
 
 Also available are the following helpers:
 
 - `logger/config`
-
+	+ A `\Charcoal\App\Config\LoggerConfig` instance holding the logger configuration.
 
 ## Translator Service Provider
 
+The `TranslatorServiceProvider` provides the following services:
+
+- `translator`
+	+ Todo
+
+Also available are the following helpers:
+
+- `translator/config`
+
 ## View Service Provider
+
+The `ViewServiceProvider` (_charcoal/app/service-provider/view_) provides the following services:
+
+- `view`
+- `view/renderer`
+
+Also available are the following helpers:
+
+- `view/config`
+	+ The main View configuration `\Charcoal\View\ViewConfig`
+- `view/engine`
+	+ The default View engine (`\Charcoal\View\EngineInterface`)
 
 # Usage
 
