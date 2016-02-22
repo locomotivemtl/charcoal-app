@@ -27,260 +27,284 @@ class RouteManager extends AbstractManager
      */
     public function setupRoutes()
     {
-        if (PHP_SAPI == 'cli') {
-            $this->setupScriptRoutes();
-        } else {
-            $this->setupTemplateRoutes();
-            $this->setupActionRoutes();
-        }
-    }
-
-    /**
-     * @return void
-     */
-    protected function setupTemplateRoutes()
-    {
-        $app       = $this->app();
         $routes    = $this->config();
-        $templates = ( isset($routes['templates']) ? $routes['templates'] : [] );
 
-        foreach ($templates as $templateIdent => $tplConfig) {
-            $templateIdent = ltrim($templateIdent, '/');
-
-            if (!isset($tplConfig['ident'])) {
-                $tplConfig['ident'] = $templateIdent;
+        if (PHP_SAPI == 'cli') {
+            $scripts = ( isset($routes['scripts']) ? $routes['scripts'] : [] );
+            foreach ($scripts as $scriptIdent => $scriptConfig) {
+                $this->setupScript($scriptIdent, $scriptConfig);
+            }
+        } else {
+            $templates = ( isset($routes['templates']) ? $routes['templates'] : [] );
+            foreach ($templates as $templateIdent => $templateConfig) {
+                $this->setupTemplate($templateIdent, $templateConfig);
             }
 
-            if (isset($tplConfig['route'])) {
-                $routeIdent = '/'.ltrim($tplConfig['route'], '/');
-            } else {
-                $routeIdent = '/'.$templateIdent;
-                $tplConfig['route'] = $routeIdent;
-            }
-
-            if (isset($tplConfig['methods'])) {
-                $methods = $tplConfig['methods'];
-            } else {
-                $methods = ['GET'];
-            }
-
-            $routeHandler = $app->map(
-                $methods,
-                $routeIdent,
-                function (
-                    RequestInterface $request,
-                    ResponseInterface $response,
-                    array $args = []
-                ) use (
-                    $app,
-                    $templateIdent,
-                    $tplConfig
-                ) {
-                    $this['logger']->debug(
-                        sprintf('Loaded template route: %s', $templateIdent),
-                        $tplConfig
-                    );
-
-                    if (!isset($tplConfig['template_data'])) {
-                        $tplConfig['template_data'] = [];
-                    }
-
-                    if (count($args)) {
-                        $tplConfig['template_data'] = array_merge(
-                            $tplConfig['template_data'],
-                            $args
-                        );
-                    }
-
-                    $routeFactory = $this['route/factory'];
-                    $defaultRoute = 'charcoal/app/route/template';
-                    $routeController = isset($tplConfig['route_controller'])
-                        ? $tplConfig['route_controller']
-                        : $defaultRoute;
-
-                    $route = $routeFactory->create($routeController, [
-                        'app'    => $app,
-                        'config' => $tplConfig,
-                        'logger' => $this['logger']
-                    ]);
-
-                    return $route($this, $request, $response);
-                }
-            );
-
-            if (isset($tplConfig['ident'])) {
-                $routeHandler->setName($tplConfig['ident']);
-            }
-
-            if (isset($tplConfig['template_data'])) {
-                $routeHandler->setArguments($tplConfig['template_data']);
+            $actions = ( isset($routes['actions']) ? $routes['actions'] : [] );
+            foreach ($actions as $actionIdent => $actionConfig) {
+                $this->setupAction($actionIdent, $actionConfig);
             }
         }
     }
 
     /**
-     * @return void
-     */
-    protected function setupActionRoutes()
+    * @param string $templateIdent
+    * @param array|\ArrayAccess $templateConfig
+    * @throws InvalidArgumentException If the ident is not a string.
+    * @return void
+    */
+    public function setupTemplate($templateIdent, $templateConfig)
     {
-        $app     = $this->app();
-        $routes  = $this->config();
-        $actions = ( isset($routes['actions']) ? $routes['actions'] : [] );
+        if(!is_string($templateIdent)) {
+            throw new InvalidArgumentException(
+                'Can not setup route template, template ident is not a string'
+            );
+        }
 
-        foreach ($actions as $actionIdent => $actionConfig) {
-            $actionIdent = ltrim($actionIdent, '/');
+        $app = $this->app();
+        $templateIdent = ltrim($templateIdent, '/');
 
-            if (!isset($actionConfig['ident'])) {
-                $actionConfig['ident'] = $actionIdent;
+        if (!isset($templateConfig['ident'])) {
+            $templateConfig['ident'] = $templateIdent;
+        }
+
+        if (isset($templateConfig['route'])) {
+            $routeIdent = '/'.ltrim($templateConfig['route'], '/');
+        } else {
+            $routeIdent = '/'.$templateIdent;
+            $templateConfig['route'] = $routeIdent;
+        }
+
+        if (isset($templateConfig['methods'])) {
+            $methods = $templateConfig['methods'];
+        } else {
+            $methods = ['GET'];
+        }
+
+        $routeHandler = $app->map(
+            $methods,
+            $routeIdent,
+            function (
+                RequestInterface $request,
+                ResponseInterface $response,
+                array $args = []
+            ) use (
+                $app,
+                $templateIdent,
+                $templateConfig
+            ) {
+                $this['logger']->debug(
+                    sprintf('Loaded template route: %s', $templateIdent),
+                    $templateConfig
+                );
+
+                if (!isset($templateConfig['template_data'])) {
+                    $templateConfig['template_data'] = [];
+                }
+
+                if (count($args)) {
+                    $templateConfig['template_data'] = array_merge(
+                        $templateConfig['template_data'],
+                        $args
+                    );
+                }
+
+                $routeFactory = $this['route/factory'];
+                $defaultRoute = 'charcoal/app/route/template';
+                $routeController = isset($templateConfig['route_controller'])
+                    ? $templateConfig['route_controller']
+                    : $defaultRoute;
+
+                $route = $routeFactory->create($routeController, [
+                    'app'    => $app,
+                    'config' => $templateConfig,
+                    'logger' => $this['logger']
+                ]);
+
+                return $route($this, $request, $response);
             }
+        );
 
-            if (isset($actionConfig['route'])) {
-                $routeIdent = '/'.ltrim($actionConfig['route'], '/');
-            } else {
-                $routeIdent = '/'.$actionIdent;
-                $actionConfig['route'] = $routeIdent;
-            }
+        if (isset($templateConfig['ident'])) {
+            $routeHandler->setName($templateConfig['ident']);
+        }
 
-            if (isset($actionConfig['methods'])) {
-                $methods = $actionConfig['methods'];
-            } else {
-                $methods = ['POST'];
-            }
+        if (isset($templateConfig['template_data'])) {
+            $routeHandler->setArguments($templateConfig['template_data']);
+        }
+    }
 
-            $routeHandler = $app->map(
-                $methods,
-                $routeIdent,
-                function (
-                    RequestInterface $request,
-                    ResponseInterface $response,
-                    array $args = []
-                ) use (
-                    $app,
-                    $actionIdent,
+    /**
+    * @param string $actionIdent
+    * @param array|\ArrayAccess $actionConfig
+    * @throws InvalidArgumentException If the ident is not a string.
+    * @return void
+    */
+    public function setupAction($actionIdent, $actionConfig)
+    {
+        if(!is_string($actionIdent)) {
+            throw new InvalidArgumentException(
+                'Can not setup route action, action ident is not a string'
+            );
+        }
+
+        $app = $this->app();
+        $actionIdent = ltrim($actionIdent, '/');
+
+        if (!isset($actionConfig['ident'])) {
+            $actionConfig['ident'] = $actionIdent;
+        }
+
+        if (isset($actionConfig['route'])) {
+            $routeIdent = '/'.ltrim($actionConfig['route'], '/');
+        } else {
+            $routeIdent = '/'.$actionIdent;
+            $actionConfig['route'] = $routeIdent;
+        }
+
+        if (isset($actionConfig['methods'])) {
+            $methods = $actionConfig['methods'];
+        } else {
+            $methods = ['POST'];
+        }
+
+        $routeHandler = $app->map(
+            $methods,
+            $routeIdent,
+            function (
+                RequestInterface $request,
+                ResponseInterface $response,
+                array $args = []
+            ) use (
+                $app,
+                $actionIdent,
+                $actionConfig
+            ) {
+                $this['logger']->debug(
+                    sprintf('Loaded action route: %s', $actionIdent),
                     $actionConfig
-                ) {
-                    $this['logger']->debug(
-                        sprintf('Loaded action route: %s', $actionIdent),
-                        $actionConfig
-                    );
+                );
 
-                    if (!isset($actionConfig['action_data'])) {
-                        $actionConfig['action_data'] = [];
-                    }
-
-                    if (count($args)) {
-                        $actionConfig['action_data'] = array_merge(
-                            $actionConfig['action_data'],
-                            $args
-                        );
-                    }
-
-                    $routeFactory = $this['route/factory'];
-                    $defaultRoute = 'charcoal/app/route/action';
-                    $routeController = isset($actionConfig['route_controller'])
-                        ? $actionConfig['route_controller']
-                        : $defaultRoute;
-
-                    $route = $routeFactory->create($routeController, [
-                        'app'    => $app,
-                        'config' => $actionConfig,
-                        'logger' => $this['logger']
-                    ]);
-
-                    return $route($this, $request, $response);
+                if (!isset($actionConfig['action_data'])) {
+                    $actionConfig['action_data'] = [];
                 }
-            );
 
-            if (isset($actionConfig['ident'])) {
-                $routeHandler->setName($actionConfig['ident']);
-            }
+                if (count($args)) {
+                    $actionConfig['action_data'] = array_merge(
+                        $actionConfig['action_data'],
+                        $args
+                    );
+                }
 
-            if (isset($actionConfig['action_data'])) {
-                $routeHandler->setArguments($actionConfig['action_data']);
+                $routeFactory = $this['route/factory'];
+                $defaultRoute = 'charcoal/app/route/action';
+                $routeController = isset($actionConfig['route_controller'])
+                    ? $actionConfig['route_controller']
+                    : $defaultRoute;
+
+                $route = $routeFactory->create($routeController, [
+                    'app'    => $app,
+                    'config' => $actionConfig,
+                    'logger' => $this['logger']
+                ]);
+
+                return $route($this, $request, $response);
             }
+        );
+
+        if (isset($actionConfig['ident'])) {
+            $routeHandler->setName($actionConfig['ident']);
+        }
+
+        if (isset($actionConfig['action_data'])) {
+            $routeHandler->setArguments($actionConfig['action_data']);
         }
     }
 
     /**
-     * @return void
-     */
-    protected function setupScriptRoutes()
+    * @param string $scriptIdent
+    * @param array|\ArrayAccess $sriptConfig
+    * @throws InvalidArgumentException If the ident is not a string.
+    * @return void
+    */
+    public function setupScript($scriptIdent, $scriptConfig)
     {
-        $app     = $this->app();
-        $routes  = $this->config();
-        $scripts = ( isset($routes['scripts']) ? $routes['scripts'] : [] );
-
-        foreach ($scripts as $scriptIdent => $scriptConfig) {
-            $scriptIdent = ltrim($scriptIdent, '/');
-
-            if (!isset($scriptConfig['ident'])) {
-                $scriptConfig['ident'] = $scriptIdent;
-            }
-
-            if (isset($scriptConfig['route'])) {
-                $routeIdent = '/'.ltrim($scriptConfig['route'], '/');
-            } else {
-                $routeIdent = '/'.$scriptIdent;
-                $scriptConfig['route'] = $routeIdent;
-            }
-
-            if (isset($scriptConfig['methods'])) {
-                $methods = $scriptConfig['methods'];
-            } else {
-                $methods = ['GET'];
-            }
-
-            $routeHandler = $app->map(
-                $methods,
-                $routeIdent,
-                function (
-                    RequestInterface $request,
-                    ResponseInterface $response,
-                    array $args = []
-                ) use (
-                    $app,
-                    $scriptIdent,
-                    $scriptConfig
-                ) {
-                    $this->logger->debug(
-                        sprintf('Loaded script route: %s', $scriptIdent),
-                        $scriptConfig
-                    );
-
-                    if (!isset($scriptConfig['script_data'])) {
-                        $scriptConfig['script_data'] = [];
-                    }
-
-                    if (count($args)) {
-                        $scriptConfig['script_data'] = array_merge(
-                            $scriptConfig['script_data'],
-                            $args
-                        );
-                    }
-
-                    $routeFactory = $this['route/factory'];
-                    $defaultRoute = 'charcoal/app/route/script';
-                    $routeController = isset($scriptConfig['route_controller'])
-                        ? $scriptConfig['route_controller']
-                        : $defaultRoute;
-
-                    $route = $routeFactory->create($routeController, [
-                        'app'    => $app,
-                        'config' => $scriptConfig,
-                        'logger' => $this['logger']
-                    ]);
-
-                    return $route($this, $request, $response);
-                }
+        if(!is_string($scriptIdent)) {
+            throw new InvalidArgumentException(
+                'Can not setup route script, script ident is not a string'
             );
+        }
 
-            if (isset($scriptConfig['ident'])) {
-                $routeHandler->setName($scriptConfig['ident']);
-            }
+        $app = $this->app();
+        $scriptIdent = ltrim($scriptIdent, '/');
 
-            if (isset($scriptConfig['script_data'])) {
-                $routeHandler->setArguments($scriptConfig['script_data']);
+        if (!isset($scriptConfig['ident'])) {
+            $scriptConfig['ident'] = $scriptIdent;
+        }
+
+        if (isset($scriptConfig['route'])) {
+            $routeIdent = '/'.ltrim($scriptConfig['route'], '/');
+        } else {
+            $routeIdent = '/'.$scriptIdent;
+            $scriptConfig['route'] = $routeIdent;
+        }
+
+        if (isset($scriptConfig['methods'])) {
+            $methods = $scriptConfig['methods'];
+        } else {
+            $methods = ['GET'];
+        }
+
+        $routeHandler = $app->map(
+            $methods,
+            $routeIdent,
+            function (
+                RequestInterface $request,
+                ResponseInterface $response,
+                array $args = []
+            ) use (
+                $app,
+                $scriptIdent,
+                $scriptConfig
+            ) {
+                $this->logger->debug(
+                    sprintf('Loaded script route: %s', $scriptIdent),
+                    $scriptConfig
+                );
+
+                if (!isset($scriptConfig['script_data'])) {
+                    $scriptConfig['script_data'] = [];
+                }
+
+                if (count($args)) {
+                    $scriptConfig['script_data'] = array_merge(
+                        $scriptConfig['script_data'],
+                        $args
+                    );
+                }
+
+                $routeFactory = $this['route/factory'];
+                $defaultRoute = 'charcoal/app/route/script';
+                $routeController = isset($scriptConfig['route_controller'])
+                    ? $scriptConfig['route_controller']
+                    : $defaultRoute;
+
+                $route = $routeFactory->create($routeController, [
+                    'app'    => $app,
+                    'config' => $scriptConfig,
+                    'logger' => $this['logger']
+                ]);
+
+                return $route($this, $request, $response);
             }
+        );
+
+        if (isset($scriptConfig['ident'])) {
+            $routeHandler->setName($scriptConfig['ident']);
+        }
+
+        if (isset($scriptConfig['script_data'])) {
+            $routeHandler->setArguments($scriptConfig['script_data']);
         }
     }
 }
