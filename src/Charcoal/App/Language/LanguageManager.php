@@ -309,4 +309,32 @@ class LanguageManager extends AbstractManager implements
 
         return [];
     }
+
+    /**
+     * Set the application's current language.
+     *
+     * Must be one of the available languages assigned to the config.
+     *
+     * This method sets the environment's locale.
+     *
+     * @uses   ConfigurableTranslationTrait::setCurrentLanguage()
+     * @param  LanguageInterface|string|null $lang A language object or identifier.
+     * @return MultilingualAwareInterface Chainable
+     */
+    public function setCurrentLanguage($lang = null)
+    {
+        $this->config()->setCurrentLanguage($lang);
+
+        $lang = $this->config()->currentLanguage();
+        $lang = $this->language($lang);
+        if ($lang) {
+            $locale = ( $lang->locale() ?: $lang->code() );
+
+            if ($locale) {
+                setlocale(LC_ALL, $locale);
+            }
+        }
+
+        return $this;
+    }
 }
