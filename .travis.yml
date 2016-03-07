@@ -18,7 +18,8 @@ matrix:
 before_script:
   ## Init composer
   - composer selfupdate --quiet
-  - composer install -n --dev
+  # see https://getcomposer.org/doc/articles/troubleshooting.md#package-not-found-on-travis-ci-org
+  - COMPOSER_ROOT_VERSION=dev-master composer install -n --dev
   ## Install the PHPdoc binary
   - pear channel-discover pear.phpdoc.org
   - pear install phpdoc/phpDocumentor
