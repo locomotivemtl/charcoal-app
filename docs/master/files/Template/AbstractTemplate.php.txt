@@ -18,20 +18,16 @@ use \Charcoal\View\ViewableInterface;
 use \Charcoal\View\ViewableTrait;
 
 // Intra-module (`charcoal-app`) dependencies
-use \Charcoal\App\AppAwareInterface;
-use \Charcoal\App\AppAwareTrait;
 use \Charcoal\App\Template\TemplateInterface;
 
 /**
  *
  */
 abstract class AbstractTemplate extends AbstractEntity implements
-    AppAwareInterface,
     LoggerAwareInterface,
     TemplateInterface,
     ViewableInterface
 {
-    use AppAwareTrait;
     use ViewableTrait;
     use LoggerAwareTrait;
 
@@ -41,11 +37,6 @@ abstract class AbstractTemplate extends AbstractEntity implements
     public function __construct(array $data = null)
     {
         $this->setLogger($data['logger']);
-
-        // @todo: Remove this dependency.
-        if (isset($data['app'])) {
-            $this->setApp($data['app']);
-        }
     }
 
     /**

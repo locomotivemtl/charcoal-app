@@ -27,7 +27,7 @@ trait AppAwareTrait
     /**
      * @return AppInterface
      */
-    public function app()
+    protected function app()
     {
         if ($this->app === null) {
             $this->app = \Charcoal\App\App::instance();

@@ -91,7 +91,6 @@ class RouteManager extends AbstractManager
                 ResponseInterface $response,
                 array $args = []
             ) use (
-                $app,
                 $templateIdent,
                 $templateConfig
             ) {
@@ -118,7 +117,6 @@ class RouteManager extends AbstractManager
                     : $defaultRoute;
 
                 $route = $routeFactory->create($routeController, [
-                    'app'    => $app,
                     'config' => $templateConfig,
                     'logger' => $this['logger']
                 ]);
@@ -178,7 +176,6 @@ class RouteManager extends AbstractManager
                 ResponseInterface $response,
                 array $args = []
             ) use (
-                $app,
                 $actionIdent,
                 $actionConfig
             ) {
@@ -205,7 +202,6 @@ class RouteManager extends AbstractManager
                     : $defaultRoute;
 
                 $route = $routeFactory->create($routeController, [
-                    'app'    => $app,
                     'config' => $actionConfig,
                     'logger' => $this['logger']
                 ]);
@@ -265,7 +261,6 @@ class RouteManager extends AbstractManager
                 ResponseInterface $response,
                 array $args = []
             ) use (
-                $app,
                 $scriptIdent,
                 $scriptConfig
             ) {
@@ -292,7 +287,6 @@ class RouteManager extends AbstractManager
                     : $defaultRoute;
 
                 $route = $routeFactory->create($routeController, [
-                    'app'    => $app,
                     'config' => $scriptConfig,
                     'logger' => $this['logger']
                 ]);
