@@ -35,4 +35,16 @@ class AbstractActionTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException('\InvalidArgumentException');
         $this->obj->setMode(false);
     }
+
+    public function testSetSuccess()
+    {
+        $ret = $this->obj->setSuccess(false);
+        $this->assertSame($ret, $this->obj);
+        $this->assertFalse($this->obj->success());
+        $this->obj->setSuccess(true);
+        $this->assertTrue($this->obj->success());
+
+        $this->obj->setSuccess("1");
+        $this->assertTrue($this->obj->success());
+    }
 }
