@@ -1,0 +1,2823 @@
+{
+  "meta": {
+    "ident": "languages",
+    "version": "2015-11-19",
+    "repository": [
+      {
+        "url": "https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes"
+      },
+      {
+        "url": "http://data.okfn.org/data/core/language-codes"
+      }
+    ],
+    "name": {
+      "en": "Languages",
+      "fr": "Langues"
+    },
+    "description": "List of languages relative to ISO 639.",
+    "standards": [
+      "ISO 639-1",
+      "ISO 639-2",
+      "ISO 639-3",
+      "ISO 639-6"
+    ]
+  },
+  "languages": {
+    "ab": {
+      "name": {
+        "en": "Abkhaz",
+        "ab": "аҧсуа бызшәа, аҧсшәа",
+        "fr": "Abkhaze"
+      },
+      "codes": {
+        "639-6": "abks",
+        "639-3": "abk",
+        "639-2B": "abk",
+        "639-2T": "abk",
+        "639-1": "ab"
+      },
+      "direction": "ltr",
+      "family": "Northwest Caucasian"
+    },
+    "aa": {
+      "name": {
+        "en": "Afar",
+        "aa": "Afaraf",
+        "fr": "Afar"
+      },
+      "codes": {
+        "639-6": "aars",
+        "639-3": "aar",
+        "639-2B": "aar",
+        "639-2T": "aar",
+        "639-1": "aa"
+      },
+      "direction": "ltr",
+      "family": "Afro-Asiatic"
+    },
+    "af": {
+      "name": {
+        "en": "Afrikaans",
+        "af": "Afrikaans",
+        "fr": "Afrikaans"
+      },
+      "codes": {
+        "639-6": "afrs",
+        "639-3": "afr",
+        "639-2B": "afr",
+        "639-2T": "afr",
+        "639-1": "af"
+      },
+      "direction": "ltr",
+      "family": "Indo-European"
+    },
+    "ak": {
+      "name": {
+        "en": "Akan",
+        "ak": "Akan",
+        "fr": "Akan"
+      },
+      "codes": {
+        "639-3": "aka+2",
+        "639-2B": "aka",
+        "639-2T": "aka",
+        "639-1": "ak"
+      },
+      "direction": "ltr",
+      "family": "Niger–Congo"
+    },
+    "sq": {
+      "name": {
+        "en": "Albanian",
+        "sq": "Shqip",
+        "fr": "Albanais"
+      },
+      "codes": {
+        "639-3": "sqi+4",
+        "639-2B": "alb",
+        "639-2T": "sqi",
+        "639-1": "sq"
+      },
+      "direction": "ltr",
+      "family": "Indo-European"
+    },
+    "am": {
+      "name": {
+        "en": "Amharic",
+        "am": "አማርኛ",
+        "fr": "Amharique"
+      },
+      "codes": {
+        "639-3": "amh",
+        "639-2B": "amh",
+        "639-2T": "amh",
+        "639-1": "am"
+      },
+      "direction": "ltr",
+      "family": "Afro-Asiatic"
+    },
+    "ar": {
+      "name": {
+        "en": "Arabic",
+        "ar": "العربية",
+        "fr": "Arabe"
+      },
+      "codes": {
+        "639-3": "ara+30",
+        "639-2B": "ara",
+        "639-2T": "ara",
+        "639-1": "ar"
+      },
+      "direction": "rtl",
+      "family": "Afro-Asiatic"
+    },
+    "an": {
+      "name": {
+        "en": "Aragonese",
+        "an": "aragonés",
+        "fr": "Aragonais"
+      },
+      "codes": {
+        "639-3": "arg",
+        "639-2B": "arg",
+        "639-2T": "arg",
+        "639-1": "an"
+      },
+      "direction": "ltr",
+      "family": "Indo-European"
+    },
+    "hy": {
+      "name": {
+        "en": "Armenian",
+        "hy": "Հայերեն",
+        "fr": "Arménien"
+      },
+      "codes": {
+        "639-3": "hye",
+        "639-2B": "arm",
+        "639-2T": "hye",
+        "639-1": "hy"
+      },
+      "direction": "ltr",
+      "family": "Indo-European"
+    },
+    "as": {
+      "name": {
+        "en": "Assamese",
+        "as": "অসমীয়া",
+        "fr": "Assamais"
+      },
+      "codes": {
+        "639-3": "asm",
+        "639-2B": "asm",
+        "639-2T": "asm",
+        "639-1": "as"
+      },
+      "direction": "ltr",
+      "family": "Indo-European"
+    },
+    "av": {
+      "name": {
+        "en": "Avaric",
+        "av": "авар мацӀ, магӀарул мацӀ",
+        "fr": "Avar"
+      },
+      "codes": {
+        "639-3": "ava",
+        "639-2B": "ava",
+        "639-2T": "ava",
+        "639-1": "av"
+      },
+      "direction": "ltr",
+      "family": "Northeast Caucasian"
+    },
+    "ae": {
+      "name": {
+        "en": "Avestan",
+        "ae": "avesta",
+        "fr": "Avestique"
+      },
+      "codes": {
+        "639-3": "ave",
+        "639-2B": "ave",
+        "639-2T": "ave",
+        "639-1": "ae"
+      },
+      "direction": "ltr",
+      "family": "Indo-European"
+    },
+    "ay": {
+      "name": {
+        "en": "Aymara",
+        "ay": "aymar aru",
+        "fr": "Aymara"
+      },
+      "codes": {
+        "639-3": "aym+2",
+        "639-2B": "aym",
+        "639-2T": "aym",
+        "639-1": "ay"
+      },
+      "direction": "ltr",
+      "family": "Aymaran"
+    },
+    "az": {
+      "name": {
+        "en": "Azerbaijani",
+        "az": "azərbaycan dili",
+        "fr": "Azéri"
+      },
+      "codes": {
+        "639-3": "aze+2",
+        "639-2B": "aze",
+        "639-2T": "aze",
+        "639-1": "az"
+      },
+      "direction": "ltr",
+      "family": "Turkic"
+    },
+    "bm": {
+      "name": {
+        "en": "Bambara",
+        "bm": "bamanankan",
+        "fr": "Bambara"
+      },
+      "codes": {
+        "639-3": "bam",
+        "639-2B": "bam",
+        "639-2T": "bam",
+        "639-1": "bm"
+      },
+      "direction": "ltr",
+      "family": "Niger–Congo"
+    },
+    "ba": {
+      "name": {
+        "en": "Bashkir",
+        "ba": "башҡорт теле",
+        "fr": "Bachkir"
+      },
+      "codes": {
+        "639-3": "bak",
+        "639-2B": "bak",
+        "639-2T": "bak",
+        "639-1": "ba"
+      },
+      "direction": "ltr",
+      "family": "Turkic"
+    },
+    "eu": {
+      "name": {
+        "en": "Basque",
+        "eu": "euskara, euskera",
+        "fr": "Basque"
+      },
+      "codes": {
+        "639-3": "eus",
+        "639-2B": "baq",
+        "639-2T": "eus",
+        "639-1": "eu"
+      },
+      "direction": "ltr",
+      "family": "Language isolate"
+    },
+    "be": {
+      "name": {
+        "en": "Belarusian",
+        "be": "беларуская мова",
+        "fr": "Biélorusse"
+      },
+      "codes": {
+        "639-3": "bel",
+        "639-2B": "bel",
+        "639-2T": "bel",
+        "639-1": "be"
+      },
+      "direction": "ltr",
+      "family": "Indo-European"
+    },
+    "bn": {
+      "name": {
+        "en": "Bengali, Bangla ",
+        "bn": "বাংলা",
+        "fr": "Bengali"
+      },
+      "codes": {
+        "639-3": "ben",
+        "639-2B": "ben",
+        "639-2T": "ben",
+        "639-1": "bn"
+      },
+      "direction": "ltr",
+      "family": "Indo-European"
+    },
+    "bh": {
+      "name": {
+        "en": "Bihari",
+        "bh": "भोजपुरी",
+        "fr": "Langues biharis"
+      },
+      "codes": {
+        "639-2B": "bih ||",
+        "639-2T": "bih",
+        "639-1": "bh"
+      },
+      "direction": "ltr",
+      "family": "Indo-European"
+    },
+    "bi": {
+      "name": {
+        "en": "Bislama",
+        "bi": "Bislama",
+        "fr": "Bichlamar"
+      },
+      "codes": {
+        "639-3": "bis",
+        "639-2B": "bis",
+        "639-2T": "bis",
+        "639-1": "bi"
+      },
+      "direction": "ltr",
+      "family": "Creole"
+    },
+    "bs": {
+      "name": {
+        "en": "Bosnian",
+        "bs": "bosanski jezik",
+        "fr": "Bosniaque"
+      },
+      "codes": {
+        "639-6": "boss",
+        "639-3": "bos",
+        "639-2B": "bos",
+        "639-2T": "bos",
+        "639-1": "bs"
+      },
+      "direction": "ltr",
+      "family": "Indo-European"
+    },
+    "br": {
+      "name": {
+        "en": "Breton",
+        "br": "brezhoneg",
+        "fr": "Breton"
+      },
+      "codes": {
+        "639-3": "bre",
+        "639-2B": "bre",
+        "639-2T": "bre",
+        "639-1": "br"
+      },
+      "direction": "ltr",
+      "family": "Indo-European"
+    },
+    "bg": {
+      "name": {
+        "en": "Bulgarian",
+        "bg": "български език",
+        "fr": "Bulgare"
+      },
+      "codes": {
+        "639-6": "buls",
+        "639-3": "bul",
+        "639-2B": "bul",
+        "639-2T": "bul",
+        "639-1": "bg"
+      },
+      "direction": "ltr",
+      "family": "Indo-European"
+    },
+    "my": {
+      "name": {
+        "en": "Burmese",
+        "my": "ဗမာစာ",
+        "fr": "Birman"
+      },
+      "codes": {
+        "639-3": "mya",
+        "639-2B": "bur",
+        "639-2T": "mya",
+        "639-1": "my"
+      },
+      "direction": "ltr",
+      "family": "Sino-Tibetan"
+    },
+    "ca": {
+      "name": {
+        "en": "Catalan",
+        "ca": "català",
+        "fr": "Catalan; valencien"
+      },
+      "codes": {
+        "639-3": "cat",
+        "639-2B": "cat",
+        "639-2T": "cat",
+        "639-1": "ca"
+      },
+      "direction": "ltr",
+      "family": "Indo-European"
+    },
+    "ch": {
+      "name": {
+        "en": "Chamorro",
+        "ch": "Chamoru",
+        "fr": "Chamorro"
+      },
+      "codes": {
+        "639-3": "cha",
+        "639-2B": "cha",
+        "639-2T": "cha",
+        "639-1": "ch"
+      },
+      "direction": "ltr",
+      "family": "Austronesian"
+    },
+    "ce": {
+      "name": {
+        "en": "Chechen",
+        "ce": "нохчийн мотт",
+        "fr": "Tchétchène"
+      },
+      "codes": {
+        "639-3": "che",
+        "639-2B": "che",
+        "639-2T": "che",
+        "639-1": "ce"
+      },
+      "direction": "ltr",
+      "family": "Northeast Caucasian"
+    },
+    "ny": {
+      "name": {
+        "en": "Chewa ",
+        "ny": "chiCheŵa, chinyanja",
+        "fr": "Chichewa; chewa; nyanja"
+      },
+      "codes": {
+        "639-3": "nya",
+        "639-2B": "nya",
+        "639-2T": "nya",
+        "639-1": "ny"
+      },
+      "direction": "ltr",
+      "family": "Niger–Congo"
+    },
+    "zh": {
+      "name": {
+        "en": "Chinese",
+        "zh": "{{lang|zh-Hani|中文}} (Zhōngwén), {{lang|zh-Hans|汉语}}, {{lang|zh-Hant|漢語}}",
+        "fr": "Chinois"
+      },
+      "codes": {
+        "639-3": "zho+13",
+        "639-2B": "chi",
+        "639-2T": "zho",
+        "639-1": "zh"
+      },
+      "direction": "ltr",
+      "family": "Sino-Tibetan"
+    },
+    "cv": {
+      "name": {
+        "en": "Chuvash",
+        "cv": "чӑваш чӗлхи",
+        "fr": "Tchouvache"
+      },
+      "codes": {
+        "639-3": "chv",
+        "639-2B": "chv",
+        "639-2T": "chv",
+        "639-1": "cv"
+      },
+      "direction": "ltr",
+      "family": "Turkic"
+    },
+    "kw": {
+      "name": {
+        "en": "Cornish",
+        "kw": "Kernewek",
+        "fr": "Cornique"
+      },
+      "codes": {
+        "639-3": "cor",
+        "639-2B": "cor",
+        "639-2T": "cor",
+        "639-1": "kw"
+      },
+      "direction": "ltr",
+      "family": "Indo-European"
+    },
+    "co": {
+      "name": {
+        "en": "Corsican",
+        "co": "corsu, lingua corsa",
+        "fr": "Corse"
+      },
+      "codes": {
+        "639-3": "cos",
+        "639-2B": "cos",
+        "639-2T": "cos",
+        "639-1": "co"
+      },
+      "direction": "ltr",
+      "family": "Indo-European"
+    },
+    "cr": {
+      "name": {
+        "en": "Cree",
+        "cr": "ᓀᐦᐃᔭᐍᐏᐣ",
+        "fr": "Cree"
+      },
+      "codes": {
+        "639-3": "cre+6",
+        "639-2B": "cre",
+        "639-2T": "cre",
+        "639-1": "cr"
+      },
+      "direction": "ltr",
+      "family": "Algonquian"
+    },
+    "hr": {
+      "name": {
+        "en": "Croatian",
+        "hr": "hrvatski jezik",
+        "fr": "Croate"
+      },
+      "codes": {
+        "639-3": "hrv",
+        "639-2B": "hrv",
+        "639-2T": "hrv",
+        "639-1": "hr"
+      },
+      "direction": "ltr",
+      "family": "Indo-European"
+    },
+    "cs": {
+      "name": {
+        "en": "Czech",
+        "cs": "čeština, český jazyk",
+        "fr": "Tchèque"
+      },
+      "codes": {
+        "639-3": "ces",
+        "639-2B": "cze",
+        "639-2T": "ces",
+        "639-1": "cs"
+      },
+      "direction": "ltr",
+      "family": "Indo-European"
+    },
+    "da": {
+      "name": {
+        "en": "Danish",
+        "da": "dansk",
+        "fr": "Danois"
+      },
+      "codes": {
+        "639-3": "dan",
+        "639-2B": "dan",
+        "639-2T": "dan",
+        "639-1": "da"
+      },
+      "direction": "ltr",
+      "family": "Indo-European"
+    },
+    "dv": {
+      "name": {
+        "en": "Maldivian",
+        "dv": "ދިވެހި",
+        "fr": "Maldivien"
+      },
+      "codes": {
+        "639-3": "div",
+        "639-2B": "div",
+        "639-2T": "div",
+        "639-1": "dv"
+      },
+      "direction": "rtl",
+      "family": "Indo-European"
+    },
+    "nl": {
+      "name": {
+        "en": "Dutch",
+        "nl": "Nederlands, Vlaams",
+        "fr": "Néerlandais; flamand"
+      },
+      "codes": {
+        "639-3": "nld",
+        "639-2B": "dut",
+        "639-2T": "nld",
+        "639-1": "nl"
+      },
+      "direction": "ltr",
+      "family": "Indo-European"
+    },
+    "dz": {
+      "name": {
+        "en": "Dzongkha",
+        "dz": "རྫོང་ཁ",
+        "fr": "Dzongkha"
+      },
+      "codes": {
+        "639-3": "dzo",
+        "639-2B": "dzo",
+        "639-2T": "dzo",
+        "639-1": "dz"
+      },
+      "direction": "ltr",
+      "family": "Sino-Tibetan"
+    },
+    "en": {
+      "name": {
+        "de": "Englisch",
+        "en": "English",
+        "eo": "Angla Lingvo",
+        "es": "Inglés",
+        "fr": "Anglais",
+        "it": "Inglese",
+        "ja": "英語"
+      },
+      "codes": {
+        "639-6": "engs",
+        "639-3": "eng",
+        "639-2B": "eng",
+        "639-2T": "eng",
+        "639-1": "en"
+      },
+      "direction": "ltr",
+      "family": "Indo-European"
+    },
+    "eo": {
+      "name": {
+        "en": "Esperanto",
+        "eo": "Esperanto",
+        "fr": "Espéranto"
+      },
+      "codes": {
+        "639-3": "epo",
+        "639-2B": "epo",
+        "639-2T": "epo",
+        "639-1": "eo"
+      },
+      "direction": "ltr",
+      "family": "Constructed"
+    },
+    "et": {
+      "name": {
+        "en": "Estonian",
+        "et": "eesti, eesti keel",
+        "fr": "Estonien"
+      },
+      "codes": {
+        "639-3": "est+2",
+        "639-2B": "est",
+        "639-2T": "est",
+        "639-1": "et"
+      },
+      "direction": "ltr",
+      "family": "Uralic"
+    },
+    "ee": {
+      "name": {
+        "en": "Ewe",
+        "ee": "Eʋegbe",
+        "fr": "éwé"
+      },
+      "codes": {
+        "639-3": "ewe",
+        "639-2B": "ewe",
+        "639-2T": "ewe",
+        "639-1": "ee"
+      },
+      "direction": "ltr",
+      "family": "Niger–Congo"
+    },
+    "fo": {
+      "name": {
+        "en": "Faroese",
+        "fo": "føroyskt",
+        "fr": "Féroïen"
+      },
+      "codes": {
+        "639-3": "fao",
+        "639-2B": "fao",
+        "639-2T": "fao",
+        "639-1": "fo"
+      },
+      "direction": "ltr",
+      "family": "Indo-European"
+    },
+    "fj": {
+      "name": {
+        "en": "Fijian",
+        "fj": "vosa Vakaviti",
+        "fr": "Fidjien"
+      },
+      "codes": {
+        "639-3": "fij",
+        "639-2B": "fij",
+        "639-2T": "fij",
+        "639-1": "fj"
+      },
+      "direction": "ltr",
+      "family": "Austronesian"
+    },
+    "fi": {
+      "name": {
+        "en": "Finnish",
+        "fi": "suomi, suomen kieli",
+        "fr": "Finnois"
+      },
+      "codes": {
+        "639-3": "fin",
+        "639-2B": "fin",
+        "639-2T": "fin",
+        "639-1": "fi"
+      },
+      "direction": "ltr",
+      "family": "Uralic"
+    },
+    "fr": {
+      "name": {
+        "de": "Französisch",
+        "en": "French",
+        "eo": "Franca Lingvo",
+        "es": "Francés",
+        "fr": "Français",
+        "it": "Francese",
+        "ja": "フランス語"
+      },
+      "codes": {
+        "639-6": "fras",
+        "639-3": "fra",
+        "639-2B": "fre",
+        "639-2T": "fra",
+        "639-1": "fr"
+      },
+      "direction": "ltr",
+      "family": "Indo-European"
+    },
+    "ff": {
+      "name": {
+        "en": "Fula, Fulah, Pulaar, Pular ",
+        "ff": "Fulfulde, Pulaar, Pular",
+        "fr": "Peul"
+      },
+      "codes": {
+        "639-3": "ful+9",
+        "639-2B": "ful",
+        "639-2T": "ful",
+        "639-1": "ff"
+      },
+      "direction": "ltr",
+      "family": "Niger–Congo"
+    },
+    "gl": {
+      "name": {
+        "en": "Galician",
+        "gl": "galego",
+        "fr": "Galicien"
+      },
+      "codes": {
+        "639-3": "glg",
+        "639-2B": "glg",
+        "639-2T": "glg",
+        "639-1": "gl"
+      },
+      "direction": "ltr",
+      "family": "Indo-European"
+    },
+    "ka": {
+      "name": {
+        "en": "Georgian",
+        "ka": "ქართული",
+        "fr": "Géorgien"
+      },
+      "codes": {
+        "639-3": "kat",
+        "639-2B": "geo",
+        "639-2T": "kat",
+        "639-1": "ka"
+      },
+      "direction": "ltr",
+      "family": "South Caucasian"
+    },
+    "de": {
+      "name": {
+        "en": "German",
+        "de": "Deutsch",
+        "fr": "Allemand"
+      },
+      "codes": {
+        "639-6": "deus",
+        "639-3": "deu",
+        "639-2B": "ger",
+        "639-2T": "deu",
+        "639-1": "de"
+      },
+      "direction": "ltr",
+      "family": "Indo-European"
+    },
+    "el": {
+      "name": {
+        "en": "Greek (modern) ",
+        "el": "ελληνικά",
+        "fr": "Grec moderne (après 1453)"
+      },
+      "codes": {
+        "639-6": "ells",
+        "639-3": "ell",
+        "639-2B": "gre",
+        "639-2T": "ell",
+        "639-1": "el"
+      },
+      "direction": "ltr",
+      "family": "Indo-European"
+    },
+    "gn": {
+      "name": {
+        "en": "Guaraní",
+        "gn": "Avañe'ẽ",
+        "fr": "Guarani"
+      },
+      "codes": {
+        "639-3": "grn+5",
+        "639-2B": "grn",
+        "639-2T": "grn",
+        "639-1": "gn"
+      },
+      "direction": "ltr",
+      "family": "Tupian"
+    },
+    "gu": {
+      "name": {
+        "en": "Gujarati",
+        "gu": "ગુજરાતી",
+        "fr": "Goudjrati"
+      },
+      "codes": {
+        "639-3": "guj",
+        "639-2B": "guj",
+        "639-2T": "guj",
+        "639-1": "gu"
+      },
+      "direction": "ltr",
+      "family": "Indo-European"
+    },
+    "ht": {
+      "name": {
+        "en": "Haitian, Haitian Creole ",
+        "ht": "Kreyòl ayisyen",
+        "fr": "Haïtien; créole haïtien"
+      },
+      "codes": {
+        "639-3": "hat",
+        "639-2B": "hat",
+        "639-2T": "hat",
+        "639-1": "ht"
+      },
+      "direction": "ltr",
+      "family": "Creole"
+    },
+    "ha": {
+      "name": {
+        "en": "Hausa",
+        "ha": "هَوُسَ",
+        "fr": "Haoussa"
+      },
+      "codes": {
+        "639-3": "hau",
+        "639-2B": "hau",
+        "639-2T": "hau",
+        "639-1": "ha"
+      },
+      "direction": "rtl",
+      "family": "Afro-Asiatic"
+    },
+    "he": {
+      "name": {
+        "en": "Hebrew (modern)",
+        "he": "עברית",
+        "fr": "Hébreu"
+      },
+      "codes": {
+        "639-3": "heb",
+        "639-2B": "heb",
+        "639-2T": "heb",
+        "639-1": "he"
+      },
+      "direction": "rtl",
+      "family": "Afro-Asiatic"
+    },
+    "hz": {
+      "name": {
+        "en": "Herero",
+        "hz": "Otjiherero",
+        "fr": "Herero"
+      },
+      "codes": {
+        "639-3": "her",
+        "639-2B": "her",
+        "639-2T": "her",
+        "639-1": "hz"
+      },
+      "direction": "ltr",
+      "family": "Niger–Congo"
+    },
+    "hi": {
+      "name": {
+        "en": "Hindi",
+        "hi": "हिन्दी, हिंदी",
+        "fr": "Hindi"
+      },
+      "codes": {
+        "639-6": "hins",
+        "639-3": "hin",
+        "639-2B": "hin",
+        "639-2T": "hin",
+        "639-1": "hi"
+      },
+      "direction": "ltr",
+      "family": "Indo-European"
+    },
+    "ho": {
+      "name": {
+        "en": "Hiri Motu",
+        "ho": "Hiri Motu",
+        "fr": "Hiri motu"
+      },
+      "codes": {
+        "639-3": "hmo",
+        "639-2B": "hmo",
+        "639-2T": "hmo",
+        "639-1": "ho"
+      },
+      "direction": "ltr",
+      "family": "Austronesian"
+    },
+    "hu": {
+      "name": {
+        "en": "Hungarian",
+        "hu": "magyar",
+        "fr": "Hongrois"
+      },
+      "codes": {
+        "639-3": "hun",
+        "639-2B": "hun",
+        "639-2T": "hun",
+        "639-1": "hu"
+      },
+      "direction": "ltr",
+      "family": "Uralic"
+    },
+    "ia": {
+      "name": {
+        "en": "Interlingua",
+        "ia": "Interlingua",
+        "fr": "Interlingua (langue auxiliaire internationale)"
+      },
+      "codes": {
+        "639-3": "ina",
+        "639-2B": "ina",
+        "639-2T": "ina",
+        "639-1": "ia"
+      },
+      "direction": "ltr",
+      "family": "Constructed"
+    },
+    "id": {
+      "name": {
+        "en": "Indonesian",
+        "id": "Bahasa Indonesia",
+        "fr": "Indonésien"
+      },
+      "codes": {
+        "639-3": "ind",
+        "639-2B": "ind",
+        "639-2T": "ind",
+        "639-1": "id"
+      },
+      "direction": "ltr",
+      "family": "Austronesian"
+    },
+    "ie": {
+      "name": {
+        "en": "Interlingue",
+        "ie": "Interlingue",
+        "fr": "Interlingue"
+      },
+      "codes": {
+        "639-3": "ile",
+        "639-2B": "ile",
+        "639-2T": "ile",
+        "639-1": "ie"
+      },
+      "direction": "ltr",
+      "family": "Constructed"
+    },
+    "ga": {
+      "name": {
+        "en": "Irish",
+        "ga": "Gaeilge",
+        "fr": "Irlandais"
+      },
+      "codes": {
+        "639-3": "gle",
+        "639-2B": "gle",
+        "639-2T": "gle",
+        "639-1": "ga"
+      },
+      "direction": "ltr",
+      "family": "Indo-European"
+    },
+    "ig": {
+      "name": {
+        "en": "Igbo",
+        "ig": "Asụsụ Igbo",
+        "fr": "Igbo"
+      },
+      "codes": {
+        "639-3": "ibo",
+        "639-2B": "ibo",
+        "639-2T": "ibo",
+        "639-1": "ig"
+      },
+      "direction": "ltr",
+      "family": "Niger–Congo"
+    },
+    "ik": {
+      "name": {
+        "en": "Inupiaq",
+        "ik": "Iñupiaq, Iñupiatun",
+        "fr": "Inupiaq"
+      },
+      "codes": {
+        "639-3": "ipk+2",
+        "639-2B": "ipk",
+        "639-2T": "ipk",
+        "639-1": "ik"
+      },
+      "direction": "ltr",
+      "family": "Eskimo–Aleut"
+    },
+    "io": {
+      "name": {
+        "en": "Ido",
+        "io": "Ido",
+        "fr": "Ido"
+      },
+      "codes": {
+        "639-6": "idos",
+        "639-3": "ido",
+        "639-2B": "ido",
+        "639-2T": "ido",
+        "639-1": "io"
+      },
+      "direction": "ltr",
+      "family": "Constructed"
+    },
+    "is": {
+      "name": {
+        "en": "Icelandic",
+        "is": "Íslenska",
+        "fr": "Islandais"
+      },
+      "codes": {
+        "639-3": "isl",
+        "639-2B": "ice",
+        "639-2T": "isl",
+        "639-1": "is"
+      },
+      "direction": "ltr",
+      "family": "Indo-European"
+    },
+    "it": {
+      "name": {
+        "en": "Italian",
+        "it": "italiano",
+        "fr": "Italien"
+      },
+      "codes": {
+        "639-6": "itas",
+        "639-3": "ita",
+        "639-2B": "ita",
+        "639-2T": "ita",
+        "639-1": "it"
+      },
+      "direction": "ltr",
+      "family": "Indo-European"
+    },
+    "iu": {
+      "name": {
+        "en": "Inuktitut",
+        "iu": "ᐃᓄᒃᑎᑐᑦ",
+        "fr": "Inuktitut"
+      },
+      "codes": {
+        "639-3": "iku+2",
+        "639-2B": "iku",
+        "639-2T": "iku",
+        "639-1": "iu"
+      },
+      "direction": "ltr",
+      "family": "Eskimo–Aleut"
+    },
+    "ja": {
+      "name": {
+        "en": "Japanese",
+        "ja": "{{lang|ja-Hani|日本語}} ({{lang|ja-Hira|にほんご}})",
+        "fr": "Japonais"
+      },
+      "codes": {
+        "639-3": "jpn",
+        "639-2B": "jpn",
+        "639-2T": "jpn",
+        "639-1": "ja"
+      },
+      "direction": "ltr",
+      "family": "Japonic"
+    },
+    "jv": {
+      "name": {
+        "en": "Javanese",
+        "jv": "basa Jawa",
+        "fr": "Javanais"
+      },
+      "codes": {
+        "639-3": "jav",
+        "639-2B": "jav",
+        "639-2T": "jav",
+        "639-1": "jv"
+      },
+      "direction": "ltr",
+      "family": "Austronesian"
+    },
+    "kl": {
+      "name": {
+        "en": "Kalaallisut, Greenlandic ",
+        "kl": "kalaallisut, kalaallit oqaasii",
+        "fr": "Groenlandais"
+      },
+      "codes": {
+        "639-3": "kal",
+        "639-2B": "kal",
+        "639-2T": "kal",
+        "639-1": "kl"
+      },
+      "direction": "ltr",
+      "family": "Eskimo–Aleut"
+    },
+    "kn": {
+      "name": {
+        "en": "Kannada",
+        "kn": "ಕನ್ನಡ",
+        "fr": "Kannada"
+      },
+      "codes": {
+        "639-3": "kan",
+        "639-2B": "kan",
+        "639-2T": "kan",
+        "639-1": "kn"
+      },
+      "direction": "ltr",
+      "family": "Dravidian"
+    },
+    "kr": {
+      "name": {
+        "en": "Kanuri",
+        "kr": "Kanuri",
+        "fr": "Kanouri"
+      },
+      "codes": {
+        "639-3": "kau+3",
+        "639-2B": "kau",
+        "639-2T": "kau",
+        "639-1": "kr"
+      },
+      "direction": "ltr",
+      "family": "Nilo-Saharan"
+    },
+    "ks": {
+      "name": {
+        "en": "Kashmiri",
+        "ks": "{{lang|ks-Deva|कश्मीरी}}, {{rtl-lang|ks-Arb|كشميري}}",
+        "fr": "Kashmiri"
+      },
+      "codes": {
+        "639-3": "kas",
+        "639-2B": "kas",
+        "639-2T": "kas",
+        "639-1": "ks"
+      },
+      "direction": "ltr",
+      "family": "Indo-European"
+    },
+    "kk": {
+      "name": {
+        "en": "Kazakh",
+        "kk": "қазақ тілі",
+        "fr": "Kazakh"
+      },
+      "codes": {
+        "639-3": "kaz",
+        "639-2B": "kaz",
+        "639-2T": "kaz",
+        "639-1": "kk"
+      },
+      "direction": "ltr",
+      "family": "Turkic"
+    },
+    "km": {
+      "name": {
+        "en": "Khmer",
+        "km": "ខ្មែរ, ខេមរភាសា, ភាសាខ្មែរ",
+        "fr": "Khmer central"
+      },
+      "codes": {
+        "639-3": "khm",
+        "639-2B": "khm",
+        "639-2T": "khm",
+        "639-1": "km"
+      },
+      "direction": "ltr",
+      "family": "Austroasiatic"
+    },
+    "ki": {
+      "name": {
+        "en": "Kikuyu, Gikuyu ",
+        "ki": "Gĩkũyũ",
+        "fr": "Kikuyu"
+      },
+      "codes": {
+        "639-3": "kik",
+        "639-2B": "kik",
+        "639-2T": "kik",
+        "639-1": "ki"
+      },
+      "direction": "ltr",
+      "family": "Niger–Congo"
+    },
+    "rw": {
+      "name": {
+        "en": "Kinyarwanda",
+        "rw": "Ikinyarwanda",
+        "fr": "Rwanda"
+      },
+      "codes": {
+        "639-3": "kin",
+        "639-2B": "kin",
+        "639-2T": "kin",
+        "639-1": "rw"
+      },
+      "direction": "ltr",
+      "family": "Niger–Congo"
+    },
+    "ky": {
+      "name": {
+        "en": "Kyrgyz",
+        "ky": "Кыргызча, Кыргыз тили",
+        "fr": "Kirghiz"
+      },
+      "codes": {
+        "639-3": "kir",
+        "639-2B": "kir",
+        "639-2T": "kir",
+        "639-1": "ky"
+      },
+      "direction": "ltr",
+      "family": "Turkic"
+    },
+    "kv": {
+      "name": {
+        "en": "Komi",
+        "kv": "коми кыв",
+        "fr": "Kom"
+      },
+      "codes": {
+        "639-3": "kom+2",
+        "639-2B": "kom",
+        "639-2T": "kom",
+        "639-1": "kv"
+      },
+      "direction": "ltr",
+      "family": "Uralic"
+    },
+    "kg": {
+      "name": {
+        "en": "Kongo",
+        "kg": "Kikongo",
+        "fr": "Kongo"
+      },
+      "codes": {
+        "639-3": "kon+3",
+        "639-2B": "kon",
+        "639-2T": "kon",
+        "639-1": "kg"
+      },
+      "direction": "ltr",
+      "family": "Niger–Congo"
+    },
+    "ko": {
+      "name": {
+        "en": "Korean",
+        "ko": "{{lang|ko-Hang|한국어}}, {{lang|ko-Hang|조선어}} ",
+        "fr": "Coréen"
+      },
+      "codes": {
+        "639-3": "kor",
+        "639-2B": "kor",
+        "639-2T": "kor",
+        "639-1": "ko"
+      },
+      "direction": "ltr",
+      "family": "Koreanic"
+    },
+    "ku": {
+      "name": {
+        "en": "Kurdish",
+        "ku": "{{lang|ku-Latn|Kurdî}}, {{rtl-lang|ku-Arab|كوردی}}",
+        "fr": "Kurde"
+      },
+      "codes": {
+        "639-3": "kur+3",
+        "639-2B": "kur",
+        "639-2T": "kur",
+        "639-1": "ku"
+      },
+      "direction": "ltr",
+      "family": "Indo-European"
+    },
+    "kj": {
+      "name": {
+        "en": "Kwanyama, Kuanyama ",
+        "kj": "Kuanyama",
+        "fr": "Kuanyama; kwanyama"
+      },
+      "codes": {
+        "639-3": "kua",
+        "639-2B": "kua",
+        "639-2T": "kua",
+        "639-1": "kj"
+      },
+      "direction": "ltr",
+      "family": "Niger–Congo"
+    },
+    "la": {
+      "name": {
+        "en": "Latin",
+        "la": "latine, lingua latina",
+        "fr": "Latin"
+      },
+      "codes": {
+        "639-6": "lats",
+        "639-3": "lat",
+        "639-2B": "lat",
+        "639-2T": "lat",
+        "639-1": "la"
+      },
+      "direction": "ltr",
+      "family": "Indo-European"
+    },
+    "lb": {
+      "name": {
+        "en": "Luxembourgish, Letzeburgesch ",
+        "lb": "Lëtzebuergesch",
+        "fr": "Luxembourgeois"
+      },
+      "codes": {
+        "639-3": "ltz",
+        "639-2B": "ltz",
+        "639-2T": "ltz",
+        "639-1": "lb"
+      },
+      "direction": "ltr",
+      "family": "Indo-European"
+    },
+    "lg": {
+      "name": {
+        "en": "Ganda",
+        "lg": "Luganda",
+        "fr": "Ganda"
+      },
+      "codes": {
+        "639-3": "lug",
+        "639-2B": "lug",
+        "639-2T": "lug",
+        "639-1": "lg"
+      },
+      "direction": "ltr",
+      "family": "Niger–Congo"
+    },
+    "li": {
+      "name": {
+        "en": "Limburgish, Limburgan, Limburger ",
+        "li": "Limburgs",
+        "fr": "Limbourgeois"
+      },
+      "codes": {
+        "639-3": "lim",
+        "639-2B": "lim",
+        "639-2T": "lim",
+        "639-1": "li"
+      },
+      "direction": "ltr",
+      "family": "Indo-European"
+    },
+    "ln": {
+      "name": {
+        "en": "Lingala",
+        "ln": "Lingála",
+        "fr": "Lingala"
+      },
+      "codes": {
+        "639-3": "lin",
+        "639-2B": "lin",
+        "639-2T": "lin",
+        "639-1": "ln"
+      },
+      "direction": "ltr",
+      "family": "Niger–Congo"
+    },
+    "lo": {
+      "name": {
+        "en": "Lao",
+        "lo": "ພາສາລາວ",
+        "fr": "Lao"
+      },
+      "codes": {
+        "639-3": "lao",
+        "639-2B": "lao",
+        "639-2T": "lao",
+        "639-1": "lo"
+      },
+      "direction": "ltr",
+      "family": "Tai–Kadai"
+    },
+    "lt": {
+      "name": {
+        "en": "Lithuanian",
+        "lt": "lietuvių kalba",
+        "fr": "Lituanien"
+      },
+      "codes": {
+        "639-3": "lit",
+        "639-2B": "lit",
+        "639-2T": "lit",
+        "639-1": "lt"
+      },
+      "direction": "ltr",
+      "family": "Indo-European"
+    },
+    "lu": {
+      "name": {
+        "en": "Luba-Katanga",
+        "lu": "Tshiluba",
+        "fr": "Luba-katanga"
+      },
+      "codes": {
+        "639-3": "lub",
+        "639-2B": "lub",
+        "639-2T": "lub",
+        "639-1": "lu"
+      },
+      "direction": "ltr",
+      "family": "Niger–Congo"
+    },
+    "lv": {
+      "name": {
+        "en": "Latvian",
+        "lv": "latviešu valoda",
+        "fr": "Letton"
+      },
+      "codes": {
+        "639-3": "lav+2",
+        "639-2B": "lav",
+        "639-2T": "lav",
+        "639-1": "lv"
+      },
+      "direction": "ltr",
+      "family": "Indo-European"
+    },
+    "gv": {
+      "name": {
+        "en": "Manx",
+        "gv": "Gaelg, Gailck",
+        "fr": "Manx; mannois"
+      },
+      "codes": {
+        "639-3": "glv",
+        "639-2B": "glv",
+        "639-2T": "glv",
+        "639-1": "gv"
+      },
+      "direction": "ltr",
+      "family": "Indo-European"
+    },
+    "mk": {
+      "name": {
+        "en": "Macedonian",
+        "mk": "македонски јазик",
+        "fr": "Macédonien"
+      },
+      "codes": {
+        "639-3": "mkd",
+        "639-2B": "mac",
+        "639-2T": "mkd",
+        "639-1": "mk"
+      },
+      "direction": "ltr",
+      "family": "Indo-European"
+    },
+    "mg": {
+      "name": {
+        "en": "Malagasy",
+        "mg": "fiteny malagasy",
+        "fr": "Malgache"
+      },
+      "codes": {
+        "639-3": "mlg+10",
+        "639-2B": "mlg",
+        "639-2T": "mlg",
+        "639-1": "mg"
+      },
+      "direction": "ltr",
+      "family": "Austronesian"
+    },
+    "ms": {
+      "name": {
+        "en": "Malay",
+        "ms": "{{lang|ms|bahasa Melayu}}, {{rtl-lang|ms-Arab|بهاس ملايو}}",
+        "fr": "Malais"
+      },
+      "codes": {
+        "639-3": "msa+13",
+        "639-2B": "may",
+        "639-2T": "msa",
+        "639-1": "ms"
+      },
+      "direction": "ltr",
+      "family": "Austronesian"
+    },
+    "ml": {
+      "name": {
+        "en": "Malayalam",
+        "ml": "മലയാളം",
+        "fr": "Malayalam"
+      },
+      "codes": {
+        "639-3": "mal",
+        "639-2B": "mal",
+        "639-2T": "mal",
+        "639-1": "ml"
+      },
+      "direction": "ltr",
+      "family": "Dravidian"
+    },
+    "mt": {
+      "name": {
+        "en": "Maltese",
+        "mt": "Malti",
+        "fr": "Maltais"
+      },
+      "codes": {
+        "639-3": "mlt",
+        "639-2B": "mlt",
+        "639-2T": "mlt",
+        "639-1": "mt"
+      },
+      "direction": "ltr",
+      "family": "Afro-Asiatic"
+    },
+    "mi": {
+      "name": {
+        "en": "Māori",
+        "mi": "te reo Māori",
+        "fr": "Maori"
+      },
+      "codes": {
+        "639-3": "mri",
+        "639-2B": "mao",
+        "639-2T": "mri",
+        "639-1": "mi"
+      },
+      "direction": "ltr",
+      "family": "Austronesian"
+    },
+    "mr": {
+      "name": {
+        "en": "Marathi (Marāṭhī)",
+        "mr": "मराठी",
+        "fr": "Marathe"
+      },
+      "codes": {
+        "639-3": "mar",
+        "639-2B": "mar",
+        "639-2T": "mar",
+        "639-1": "mr"
+      },
+      "direction": "ltr",
+      "family": "Indo-European"
+    },
+    "mh": {
+      "name": {
+        "en": "Marshallese",
+        "mh": "Kajin M̧ajeļ",
+        "fr": "Marshall"
+      },
+      "codes": {
+        "639-3": "mah",
+        "639-2B": "mah",
+        "639-2T": "mah",
+        "639-1": "mh"
+      },
+      "direction": "ltr",
+      "family": "Austronesian"
+    },
+    "mn": {
+      "name": {
+        "en": "Mongolian",
+        "mn": "Монгол хэл",
+        "fr": "Mongol"
+      },
+      "codes": {
+        "639-3": "mon+2",
+        "639-2B": "mon",
+        "639-2T": "mon",
+        "639-1": "mn"
+      },
+      "direction": "ltr",
+      "family": "Mongolic"
+    },
+    "na": {
+      "name": {
+        "en": "Nauru",
+        "na": "Ekakairũ Naoero",
+        "fr": "Nauruan"
+      },
+      "codes": {
+        "639-3": "nau",
+        "639-2B": "nau",
+        "639-2T": "nau",
+        "639-1": "na"
+      },
+      "direction": "ltr",
+      "family": "Austronesian"
+    },
+    "nv": {
+      "name": {
+        "en": "Navajo, Navaho ",
+        "nv": "Diné bizaad",
+        "fr": "Navaho"
+      },
+      "codes": {
+        "639-3": "nav",
+        "639-2B": "nav",
+        "639-2T": "nav",
+        "639-1": "nv"
+      },
+      "direction": "ltr",
+      "family": "Dené–Yeniseian"
+    },
+    "nd": {
+      "name": {
+        "en": "Northern Ndebele",
+        "nd": "isiNdebele",
+        "fr": "Ndébélé du Nord"
+      },
+      "codes": {
+        "639-3": "nde",
+        "639-2B": "nde",
+        "639-2T": "nde",
+        "639-1": "nd"
+      },
+      "direction": "ltr",
+      "family": "Niger–Congo"
+    },
+    "ne": {
+      "name": {
+        "en": "Nepali",
+        "ne": "नेपाली",
+        "fr": "Népalais"
+      },
+      "codes": {
+        "639-3": "nep",
+        "639-2B": "nep",
+        "639-2T": "nep",
+        "639-1": "ne"
+      },
+      "direction": "ltr",
+      "family": "Indo-European"
+    },
+    "ng": {
+      "name": {
+        "en": "Ndonga",
+        "ng": "Owambo",
+        "fr": "Ndonga"
+      },
+      "codes": {
+        "639-3": "ndo",
+        "639-2B": "ndo",
+        "639-2T": "ndo",
+        "639-1": "ng"
+      },
+      "direction": "ltr",
+      "family": "Niger–Congo"
+    },
+    "nb": {
+      "name": {
+        "en": "Norwegian Bokmål",
+        "nb": "Norsk bokmål",
+        "fr": "Norvégien bokmål"
+      },
+      "codes": {
+        "639-3": "nob",
+        "639-2B": "nob",
+        "639-2T": "nob",
+        "639-1": "nb"
+      },
+      "direction": "ltr",
+      "family": "Indo-European"
+    },
+    "nn": {
+      "name": {
+        "en": "Norwegian Nynorsk",
+        "nn": "Norsk nynorsk",
+        "fr": "Norvégien nynorsk; nynorsk, norvégien"
+      },
+      "codes": {
+        "639-3": "nno",
+        "639-2B": "nno",
+        "639-2T": "nno",
+        "639-1": "nn"
+      },
+      "direction": "ltr",
+      "family": "Indo-European"
+    },
+    "no": {
+      "name": {
+        "en": "Norwegian",
+        "no": "Norsk",
+        "fr": "Norvégien"
+      },
+      "codes": {
+        "639-3": "nor+2",
+        "639-2B": "nor",
+        "639-2T": "nor",
+        "639-1": "no"
+      },
+      "direction": "ltr",
+      "family": "Indo-European"
+    },
+    "ii": {
+      "name": {
+        "en": "Nuosu",
+        "ii": "ꆈꌠ꒿ Nuosuhxop",
+        "fr": "Yi de Sichuan"
+      },
+      "codes": {
+        "639-3": "iii",
+        "639-2B": "iii",
+        "639-2T": "iii",
+        "639-1": "ii"
+      },
+      "direction": "ltr",
+      "family": "Sino-Tibetan"
+    },
+    "nr": {
+      "name": {
+        "en": "Southern Ndebele",
+        "nr": "isiNdebele",
+        "fr": "Ndébélé du Sud"
+      },
+      "codes": {
+        "639-3": "nbl",
+        "639-2B": "nbl",
+        "639-2T": "nbl",
+        "639-1": "nr"
+      },
+      "direction": "ltr",
+      "family": "Niger–Congo"
+    },
+    "oc": {
+      "name": {
+        "en": "Occitan",
+        "oc": "occitan, lenga d'òc",
+        "fr": "Occitan (après 1500); provençal"
+      },
+      "codes": {
+        "639-3": "oci",
+        "639-2B": "oci",
+        "639-2T": "oci",
+        "639-1": "oc"
+      },
+      "direction": "ltr",
+      "family": "Indo-European"
+    },
+    "oj": {
+      "name": {
+        "en": "Ojibwe, Ojibwa ",
+        "oj": "ᐊᓂᔑᓈᐯᒧᐎᓐ",
+        "fr": "Ojibwa"
+      },
+      "codes": {
+        "639-3": "oji+7",
+        "639-2B": "oji",
+        "639-2T": "oji",
+        "639-1": "oj"
+      },
+      "direction": "ltr",
+      "family": "Algonquian"
+    },
+    "cu": {
+      "name": {
+        "en": "Church Slavonic ",
+        "cu": "ѩзыкъ словѣньскъ",
+        "fr": "Slavon d'église; vieux slave; slavon liturgique; vieux bulgare"
+      },
+      "codes": {
+        "639-3": "chu",
+        "639-2B": "chu",
+        "639-2T": "chu",
+        "639-1": "cu"
+      },
+      "direction": "ltr",
+      "family": "Indo-European"
+    },
+    "om": {
+      "name": {
+        "en": "Oromo",
+        "om": "Afaan Oromoo",
+        "fr": "Galla"
+      },
+      "codes": {
+        "639-3": "orm+4",
+        "639-2B": "orm",
+        "639-2T": "orm",
+        "639-1": "om"
+      },
+      "direction": "ltr",
+      "family": "Afro-Asiatic"
+    },
+    "or": {
+      "name": {
+        "en": "Oriya",
+        "or": "ଓଡ଼ିଆ",
+        "fr": "Oriya"
+      },
+      "codes": {
+        "639-3": "ori",
+        "639-2B": "ori",
+        "639-2T": "ori",
+        "639-1": "or"
+      },
+      "direction": "ltr",
+      "family": "Indo-European"
+    },
+    "os": {
+      "name": {
+        "en": "Ossetian, Ossetic ",
+        "os": "ирон æвзаг",
+        "fr": "Ossète"
+      },
+      "codes": {
+        "639-3": "oss",
+        "639-2B": "oss",
+        "639-2T": "oss",
+        "639-1": "os"
+      },
+      "direction": "ltr",
+      "family": "Indo-European"
+    },
+    "pa": {
+      "name": {
+        "en": "Panjabi, Punjabi ",
+        "pa": "{{lang|pa|ਪੰਜਾਬੀ}}, {{rtl-lang|pa-Arab|پنجابی}}",
+        "fr": "Pendjabi"
+      },
+      "codes": {
+        "639-3": "pan",
+        "639-2B": "pan",
+        "639-2T": "pan",
+        "639-1": "pa"
+      },
+      "direction": "ltr",
+      "family": "Indo-European"
+    },
+    "pi": {
+      "name": {
+        "en": "Pāli",
+        "pi": "पाऴि",
+        "fr": "Pali"
+      },
+      "codes": {
+        "639-3": "pli",
+        "639-2B": "pli",
+        "639-2T": "pli",
+        "639-1": "pi"
+      },
+      "direction": "ltr",
+      "family": "Indo-European"
+    },
+    "fa": {
+      "name": {
+        "en": "Persian (Farsi)",
+        "fa": "فارسی",
+        "fr": "Persan"
+      },
+      "codes": {
+        "639-3": "fas+2",
+        "639-2B": "per",
+        "639-2T": "fas",
+        "639-1": "fa"
+      },
+      "direction": "rtl",
+      "family": "Indo-European"
+    },
+    "pl": {
+      "name": {
+        "en": "Polish",
+        "pl": "język polski, polszczyzna",
+        "fr": "Polonais"
+      },
+      "codes": {
+        "639-6": "pols",
+        "639-3": "pol",
+        "639-2B": "pol",
+        "639-2T": "pol",
+        "639-1": "pl"
+      },
+      "direction": "ltr",
+      "family": "Indo-European"
+    },
+    "ps": {
+      "name": {
+        "en": "Pashto, Pushto",
+        "ps": "پښتو",
+        "fr": "Pachto"
+      },
+      "codes": {
+        "639-3": "pus+3",
+        "639-2B": "pus",
+        "639-2T": "pus",
+        "639-1": "ps"
+      },
+      "direction": "rtl",
+      "family": "Indo-European"
+    },
+    "pt": {
+      "name": {
+        "en": "Portuguese",
+        "pt": "português",
+        "fr": "Portugais"
+      },
+      "codes": {
+        "639-3": "por",
+        "639-2B": "por",
+        "639-2T": "por",
+        "639-1": "pt"
+      },
+      "direction": "ltr",
+      "family": "Indo-European"
+    },
+    "qu": {
+      "name": {
+        "en": "Quechua",
+        "qu": "Runa Simi, Kichwa",
+        "fr": "Quechua"
+      },
+      "codes": {
+        "639-3": "que+44",
+        "639-2B": "que",
+        "639-2T": "que",
+        "639-1": "qu"
+      },
+      "direction": "ltr",
+      "family": "Quechuan"
+    },
+    "rm": {
+      "name": {
+        "en": "Romansh",
+        "rm": "rumantsch grischun",
+        "fr": "Romanche"
+      },
+      "codes": {
+        "639-3": "roh",
+        "639-2B": "roh",
+        "639-2T": "roh",
+        "639-1": "rm"
+      },
+      "direction": "ltr",
+      "family": "Indo-European"
+    },
+    "rn": {
+      "name": {
+        "en": "Kirundi",
+        "rn": "Ikirundi",
+        "fr": "Rundi"
+      },
+      "codes": {
+        "639-3": "run",
+        "639-2B": "run",
+        "639-2T": "run",
+        "639-1": "rn"
+      },
+      "direction": "ltr",
+      "family": "Niger–Congo"
+    },
+    "ro": {
+      "name": {
+        "en": "Romanian",
+        "ro": "limba română",
+        "fr": "Roumain; moldave"
+      },
+      "codes": {
+        "639-3": "ron",
+        "639-2B": "rum",
+        "639-2T": "ron",
+        "639-1": "ro"
+      },
+      "direction": "ltr",
+      "family": "Indo-European"
+    },
+    "rh": {
+      "name": {
+        "en": "Rothongua",
+        "rh": "荣同话"
+      },
+      "codes": {
+        "639-6": "zhrt",
+        "639-3": "zhr",
+        "639-2B": "zhr",
+        "639-2T": "zhr",
+        "639-1": "rh"
+      },
+      "direction": "ltr",
+      "family": "Sino-Tibetan"
+    },
+    "ru": {
+      "name": {
+        "en": "Russian",
+        "ru": "Русский",
+        "fr": "Russe"
+      },
+      "codes": {
+        "639-3": "rus",
+        "639-2B": "rus",
+        "639-2T": "rus",
+        "639-1": "ru"
+      },
+      "direction": "ltr",
+      "family": "Indo-European"
+    },
+    "sa": {
+      "name": {
+        "en": "Sanskrit (Saṁskṛta)",
+        "sa": "संस्कृतम्",
+        "fr": "Sanskrit"
+      },
+      "codes": {
+        "639-3": "san",
+        "639-2B": "san",
+        "639-2T": "san",
+        "639-1": "sa"
+      },
+      "direction": "ltr",
+      "family": "Indo-European"
+    },
+    "sc": {
+      "name": {
+        "en": "Sardinian",
+        "sc": "sardu",
+        "fr": "Sarde"
+      },
+      "codes": {
+        "639-3": "srd+4",
+        "639-2B": "srd",
+        "639-2T": "srd",
+        "639-1": "sc"
+      },
+      "direction": "ltr",
+      "family": "Indo-European"
+    },
+    "sd": {
+      "name": {
+        "en": "Sindhi",
+        "sd": "{{lang|sd-Deva|सिन्धी}}, {{rtl-lang|sd-Arab|سنڌي، سندھی}}",
+        "fr": "Sindhi"
+      },
+      "codes": {
+        "639-3": "snd",
+        "639-2B": "snd",
+        "639-2T": "snd",
+        "639-1": "sd"
+      },
+      "direction": "ltr",
+      "family": "Indo-European"
+    },
+    "se": {
+      "name": {
+        "en": "Northern Sami",
+        "se": "Davvisámegiella",
+        "fr": "Sami du Nord"
+      },
+      "codes": {
+        "639-3": "sme",
+        "639-2B": "sme",
+        "639-2T": "sme",
+        "639-1": "se"
+      },
+      "direction": "ltr",
+      "family": "Uralic"
+    },
+    "sm": {
+      "name": {
+        "en": "Samoan",
+        "sm": "gagana fa'a Samoa",
+        "fr": "Samoan"
+      },
+      "codes": {
+        "639-3": "smo",
+        "639-2B": "smo",
+        "639-2T": "smo",
+        "639-1": "sm"
+      },
+      "direction": "ltr",
+      "family": "Austronesian"
+    },
+    "sg": {
+      "name": {
+        "en": "Sango",
+        "sg": "yângâ tî sängö",
+        "fr": "Sango"
+      },
+      "codes": {
+        "639-3": "sag",
+        "639-2B": "sag",
+        "639-2T": "sag",
+        "639-1": "sg"
+      },
+      "direction": "ltr",
+      "family": "Creole"
+    },
+    "sr": {
+      "name": {
+        "en": "Serbian",
+        "sr": "српски језик",
+        "fr": "Serbe"
+      },
+      "codes": {
+        "639-3": "srp ||",
+        "639-2B": "srp",
+        "639-2T": "srp",
+        "639-1": "sr"
+      },
+      "direction": "ltr",
+      "family": "Indo-European"
+    },
+    "gd": {
+      "name": {
+        "en": "Scottish Gaelic, Gaelic ",
+        "gd": "Gàidhlig",
+        "fr": "Gaélique; gaélique écossais"
+      },
+      "codes": {
+        "639-3": "gla",
+        "639-2B": "gla",
+        "639-2T": "gla",
+        "639-1": "gd"
+      },
+      "direction": "ltr",
+      "family": "Indo-European"
+    },
+    "sn": {
+      "name": {
+        "en": "Shona",
+        "sn": "chiShona",
+        "fr": "Shona"
+      },
+      "codes": {
+        "639-3": "sna",
+        "639-2B": "sna",
+        "639-2T": "sna",
+        "639-1": "sn"
+      },
+      "direction": "ltr",
+      "family": "Niger–Congo"
+    },
+    "si": {
+      "name": {
+        "en": "Sinhala, Sinhalese ",
+        "si": "සිංහල",
+        "fr": "Singhalais"
+      },
+      "codes": {
+        "639-3": "sin",
+        "639-2B": "sin",
+        "639-2T": "sin",
+        "639-1": "si"
+      },
+      "direction": "ltr",
+      "family": "Indo-European"
+    },
+    "sk": {
+      "name": {
+        "en": "Slovak",
+        "sk": "slovenčina, slovenský jazyk",
+        "fr": "Slovaque"
+      },
+      "codes": {
+        "639-3": "slk",
+        "639-2B": "slo",
+        "639-2T": "slk",
+        "639-1": "sk"
+      },
+      "direction": "ltr",
+      "family": "Indo-European"
+    },
+    "sl": {
+      "name": {
+        "en": "Slovene",
+        "sl": "slovenski jezik, slovenščina",
+        "fr": "Slovène"
+      },
+      "codes": {
+        "639-3": "slv",
+        "639-2B": "slv",
+        "639-2T": "slv",
+        "639-1": "sl"
+      },
+      "direction": "ltr",
+      "family": "Indo-European"
+    },
+    "so": {
+      "name": {
+        "en": "Somali",
+        "so": "Soomaaliga, af Soomaali",
+        "fr": "Somali"
+      },
+      "codes": {
+        "639-3": "som",
+        "639-2B": "som",
+        "639-2T": "som",
+        "639-1": "so"
+      },
+      "direction": "ltr",
+      "family": "Afro-Asiatic"
+    },
+    "st": {
+      "name": {
+        "en": "Southern Sotho",
+        "st": "Sesotho",
+        "fr": "Sotho du Sud"
+      },
+      "codes": {
+        "639-3": "sot",
+        "639-2B": "sot",
+        "639-2T": "sot",
+        "639-1": "st"
+      },
+      "direction": "ltr",
+      "family": "Niger–Congo"
+    },
+    "es": {
+      "name": {
+        "en": "Spanish",
+        "es": "español",
+        "fr": "Espagnol; castillan"
+      },
+      "codes": {
+        "639-3": "spa",
+        "639-2B": "spa",
+        "639-2T": "spa",
+        "639-1": "es"
+      },
+      "direction": "ltr",
+      "family": "Indo-European"
+    },
+    "su": {
+      "name": {
+        "en": "Sundanese",
+        "su": "Basa Sunda",
+        "fr": "Soundanais"
+      },
+      "codes": {
+        "639-3": "sun",
+        "639-2B": "sun",
+        "639-2T": "sun",
+        "639-1": "su"
+      },
+      "direction": "ltr",
+      "family": "Austronesian"
+    },
+    "sw": {
+      "name": {
+        "en": "Swahili",
+        "sw": "Kiswahili",
+        "fr": "Swahili"
+      },
+      "codes": {
+        "639-3": "swa+2",
+        "639-2B": "swa",
+        "639-2T": "swa",
+        "639-1": "sw"
+      },
+      "direction": "ltr",
+      "family": "Niger–Congo"
+    },
+    "ss": {
+      "name": {
+        "en": "Swati",
+        "ss": "SiSwati",
+        "fr": "Swati"
+      },
+      "codes": {
+        "639-3": "ssw",
+        "639-2B": "ssw",
+        "639-2T": "ssw",
+        "639-1": "ss"
+      },
+      "direction": "ltr",
+      "family": "Niger–Congo"
+    },
+    "sv": {
+      "name": {
+        "en": "Swedish",
+        "sv": "svenska",
+        "fr": "Suédois"
+      },
+      "codes": {
+        "639-3": "swe",
+        "639-2B": "swe",
+        "639-2T": "swe",
+        "639-1": "sv"
+      },
+      "direction": "ltr",
+      "family": "Indo-European"
+    },
+    "ta": {
+      "name": {
+        "en": "Tamil",
+        "ta": "தமிழ்",
+        "fr": "Tamoul"
+      },
+      "codes": {
+        "639-3": "tam",
+        "639-2B": "tam",
+        "639-2T": "tam",
+        "639-1": "ta"
+      },
+      "direction": "ltr",
+      "family": "Dravidian"
+    },
+    "te": {
+      "name": {
+        "en": "Telugu",
+        "te": "తెలుగు",
+        "fr": "Télougou"
+      },
+      "codes": {
+        "639-3": "tel",
+        "639-2B": "tel",
+        "639-2T": "tel",
+        "639-1": "te"
+      },
+      "direction": "ltr",
+      "family": "Dravidian"
+    },
+    "tg": {
+      "name": {
+        "en": "Tajik",
+        "tg": "{{lang|tg-Cyrl|тоҷикӣ}}, {{lang|tg-Latn|toçikī}}, {{rtl-lang|tg-Arab|تاجیکی}}",
+        "fr": "Tadjik"
+      },
+      "codes": {
+        "639-3": "tgk",
+        "639-2B": "tgk",
+        "639-2T": "tgk",
+        "639-1": "tg"
+      },
+      "direction": "ltr",
+      "family": "Indo-European"
+    },
+    "th": {
+      "name": {
+        "en": "Thai",
+        "th": "ไทย",
+        "fr": "Thaï"
+      },
+      "codes": {
+        "639-3": "tha",
+        "639-2B": "tha",
+        "639-2T": "tha",
+        "639-1": "th"
+      },
+      "direction": "ltr",
+      "family": "Tai–Kadai"
+    },
+    "ti": {
+      "name": {
+        "en": "Tigrinya",
+        "ti": "ትግርኛ",
+        "fr": "Tigrigna"
+      },
+      "codes": {
+        "639-3": "tir",
+        "639-2B": "tir",
+        "639-2T": "tir",
+        "639-1": "ti"
+      },
+      "direction": "ltr",
+      "family": "Afro-Asiatic"
+    },
+    "bo": {
+      "name": {
+        "en": "Tibetan Standard, Tibetan, Central ",
+        "bo": "བོད་ཡིག",
+        "fr": "Tibétain"
+      },
+      "codes": {
+        "639-3": "bod",
+        "639-2B": "tib",
+        "639-2T": "bod",
+        "639-1": "bo"
+      },
+      "direction": "ltr",
+      "family": "Sino-Tibetan"
+    },
+    "tk": {
+      "name": {
+        "en": "Turkmen",
+        "tk": "Türkmen, Түркмен",
+        "fr": "Turkmène"
+      },
+      "codes": {
+        "639-3": "tuk",
+        "639-2B": "tuk",
+        "639-2T": "tuk",
+        "639-1": "tk"
+      },
+      "direction": "ltr",
+      "family": "Turkic"
+    },
+    "tl": {
+      "name": {
+        "en": "Tagalog",
+        "tl": "Wikang Tagalog, ᜏᜒᜃᜅ᜔ ᜆᜄᜎᜓᜄ᜔",
+        "fr": "Tagalog"
+      },
+      "codes": {
+        "639-3": "tgl",
+        "639-2B": "tgl",
+        "639-2T": "tgl",
+        "639-1": "tl"
+      },
+      "direction": "ltr",
+      "family": "Austronesian"
+    },
+    "tn": {
+      "name": {
+        "en": "Tswana",
+        "tn": "Setswana",
+        "fr": "Tswana"
+      },
+      "codes": {
+        "639-3": "tsn",
+        "639-2B": "tsn",
+        "639-2T": "tsn",
+        "639-1": "tn"
+      },
+      "direction": "ltr",
+      "family": "Niger–Congo"
+    },
+    "to": {
+      "name": {
+        "en": "Tonga (Tonga Islands) ",
+        "to": "faka Tonga",
+        "fr": "Tongan (Îles Tonga)"
+      },
+      "codes": {
+        "639-3": "ton",
+        "639-2B": "ton",
+        "639-2T": "ton",
+        "639-1": "to"
+      },
+      "direction": "ltr",
+      "family": "Austronesian"
+    },
+    "tr": {
+      "name": {
+        "en": "Turkish",
+        "tr": "Türkçe",
+        "fr": "Turc"
+      },
+      "codes": {
+        "639-3": "tur",
+        "639-2B": "tur",
+        "639-2T": "tur",
+        "639-1": "tr"
+      },
+      "direction": "ltr",
+      "family": "Turkic"
+    },
+    "ts": {
+      "name": {
+        "en": "Tsonga",
+        "ts": "Xitsonga",
+        "fr": "Tsonga"
+      },
+      "codes": {
+        "639-3": "tso",
+        "639-2B": "tso",
+        "639-2T": "tso",
+        "639-1": "ts"
+      },
+      "direction": "ltr",
+      "family": "Niger–Congo"
+    },
+    "tt": {
+      "name": {
+        "en": "Tatar",
+        "tt": "{{lang|tt-Cyrl|татар теле}}, {{lang|tt-Latn|tatar tele}}",
+        "fr": "Tatar"
+      },
+      "codes": {
+        "639-3": "tat",
+        "639-2B": "tat",
+        "639-2T": "tat",
+        "639-1": "tt"
+      },
+      "direction": "ltr",
+      "family": "Turkic"
+    },
+    "tw": {
+      "name": {
+        "en": "Twi",
+        "tw": "Twi",
+        "fr": "Twi"
+      },
+      "codes": {
+        "639-3": "twi ||",
+        "639-2B": "twi",
+        "639-2T": "twi",
+        "639-1": "tw"
+      },
+      "direction": "ltr",
+      "family": "Niger–Congo"
+    },
+    "ty": {
+      "name": {
+        "en": "Tahitian",
+        "ty": "Reo Tahiti",
+        "fr": "Tahitien"
+      },
+      "codes": {
+        "639-3": "tah",
+        "639-2B": "tah",
+        "639-2T": "tah",
+        "639-1": "ty"
+      },
+      "direction": "ltr",
+      "family": "Austronesian"
+    },
+    "ug": {
+      "name": {
+        "en": "Uyghur",
+        "ug": "{{rtl-lang|ug-Arab|ئۇيغۇرچە}}, {{lang|ug-Latn|Uyghurche}}",
+        "fr": "Ouïgour"
+      },
+      "codes": {
+        "639-3": "uig",
+        "639-2B": "uig",
+        "639-2T": "uig",
+        "639-1": "ug"
+      },
+      "direction": "ltr",
+      "family": "Turkic"
+    },
+    "uk": {
+      "name": {
+        "en": "Ukrainian",
+        "uk": "українська мова",
+        "fr": "Ukrainien"
+      },
+      "codes": {
+        "639-3": "ukr",
+        "639-2B": "ukr",
+        "639-2T": "ukr",
+        "639-1": "uk"
+      },
+      "direction": "ltr",
+      "family": "Indo-European"
+    },
+    "ur": {
+      "name": {
+        "en": "Urdu",
+        "ur": "اردو",
+        "fr": "Ourdou"
+      },
+      "codes": {
+        "639-3": "urd",
+        "639-2B": "urd",
+        "639-2T": "urd",
+        "639-1": "ur"
+      },
+      "direction": "rtl",
+      "family": "Indo-European"
+    },
+    "uz": {
+      "name": {
+        "en": "Uzbek",
+        "uz": "{{lang|uz-Latn|Oʻzbek}}, {{lang|uz-Cyrl|Ўзбек}}, {{rtl-lang|uz-Arab|أۇزبېك}}",
+        "fr": "Ouszbek"
+      },
+      "codes": {
+        "639-3": "uzb+2",
+        "639-2B": "uzb",
+        "639-2T": "uzb",
+        "639-1": "uz"
+      },
+      "direction": "ltr",
+      "family": "Turkic"
+    },
+    "ve": {
+      "name": {
+        "en": "Venda",
+        "ve": "Tshivenḓa",
+        "fr": "Venda"
+      },
+      "codes": {
+        "639-3": "ven",
+        "639-2B": "ven",
+        "639-2T": "ven",
+        "639-1": "ve"
+      },
+      "direction": "ltr",
+      "family": "Niger–Congo"
+    },
+    "vi": {
+      "name": {
+        "en": "Vietnamese",
+        "vi": "Tiếng Việt",
+        "fr": "Vietnamien"
+      },
+      "codes": {
+        "639-3": "vie",
+        "639-2B": "vie",
+        "639-2T": "vie",
+        "639-1": "vi"
+      },
+      "direction": "ltr",
+      "family": "Austroasiatic"
+    },
+    "vo": {
+      "name": {
+        "en": "Volapük",
+        "vo": "Volapük",
+        "fr": "Volapük"
+      },
+      "codes": {
+        "639-3": "vol",
+        "639-2B": "vol",
+        "639-2T": "vol",
+        "639-1": "vo"
+      },
+      "direction": "ltr",
+      "family": "Constructed"
+    },
+    "wa": {
+      "name": {
+        "en": "Walloon",
+        "wa": "walon",
+        "fr": "Wallon"
+      },
+      "codes": {
+        "639-3": "wln",
+        "639-2B": "wln",
+        "639-2T": "wln",
+        "639-1": "wa"
+      },
+      "direction": "ltr",
+      "family": "Indo-European"
+    },
+    "cy": {
+      "name": {
+        "en": "Welsh",
+        "cy": "Cymraeg",
+        "fr": "Gallois"
+      },
+      "codes": {
+        "639-3": "cym",
+        "639-2B": "wel",
+        "639-2T": "cym",
+        "639-1": "cy"
+      },
+      "direction": "ltr",
+      "family": "Indo-European"
+    },
+    "wo": {
+      "name": {
+        "en": "Wolof",
+        "wo": "Wollof",
+        "fr": "Wolof"
+      },
+      "codes": {
+        "639-3": "wol",
+        "639-2B": "wol",
+        "639-2T": "wol",
+        "639-1": "wo"
+      },
+      "direction": "ltr",
+      "family": "Niger–Congo"
+    },
+    "fy": {
+      "name": {
+        "en": "Western Frisian",
+        "fy": "Frysk",
+        "fr": "Frison occidental"
+      },
+      "codes": {
+        "639-3": "fry",
+        "639-2B": "fry",
+        "639-2T": "fry",
+        "639-1": "fy"
+      },
+      "direction": "ltr",
+      "family": "Indo-European"
+    },
+    "xh": {
+      "name": {
+        "en": "Xhosa",
+        "xh": "isiXhosa",
+        "fr": "Xhosa"
+      },
+      "codes": {
+        "639-3": "xho",
+        "639-2B": "xho",
+        "639-2T": "xho",
+        "639-1": "xh"
+      },
+      "direction": "ltr",
+      "family": "Niger–Congo"
+    },
+    "yi": {
+      "name": {
+        "en": "Yiddish",
+        "yi": "ייִדיש",
+        "fr": "Yiddish"
+      },
+      "codes": {
+        "639-3": "yid+2",
+        "639-2B": "yid",
+        "639-2T": "yid",
+        "639-1": "yi"
+      },
+      "direction": "rtl",
+      "family": "Indo-European"
+    },
+    "yo": {
+      "name": {
+        "en": "Yoruba",
+        "yo": "Yorùbá",
+        "fr": "Yoruba"
+      },
+      "codes": {
+        "639-3": "yor",
+        "639-2B": "yor",
+        "639-2T": "yor",
+        "639-1": "yo"
+      },
+      "direction": "ltr",
+      "family": "Niger–Congo"
+    },
+    "za": {
+      "name": {
+        "en": "Zhuang, Chuang ",
+        "za": "Saɯ cueŋƅ, Saw cuengh",
+        "fr": "Zhuang; chuang"
+      },
+      "codes": {
+        "639-3": "zha+16",
+        "639-2B": "zha",
+        "639-2T": "zha",
+        "639-1": "za"
+      },
+      "direction": "ltr",
+      "family": "Tai–Kadai"
+    },
+    "zu": {
+      "name": {
+        "en": "Zulu",
+        "zu": "isiZulu",
+        "fr": "Zoulou"
+      },
+      "codes": {
+        "639-3": "zul",
+        "639-2B": "zul",
+        "639-2T": "zul",
+        "639-1": "zu"
+      },
+      "direction": "ltr",
+      "family": "Niger–Congo"
+    }
+  }
+}
