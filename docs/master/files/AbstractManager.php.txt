@@ -16,7 +16,7 @@ use \Charcoal\App\AppInterface;
 /**
  * Managers handle various instances of App-related objects.
  *
- * Examples of managers are `LanguageManager`, `MiddlewareManager`, `ModuleManager` and `RouteManager`.
+ * Examples of managers are `MiddlewareManager`, `ModuleManager` and `RouteManager`.
  */
 abstract class AbstractManager implements
     AppAwareInterface,

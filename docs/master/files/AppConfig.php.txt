@@ -2,17 +2,11 @@
 
 namespace Charcoal\App;
 
-// PHP dependencies
 use \Exception;
 use \InvalidArgumentException;
 
-// Module `charcoal-config` dependencies
 use \Charcoal\Config\AbstractConfig;
 
-// Module `charcoal-core` dependencies
-use \Charcoal\Translation\TranslationConfig;
-
-// Intra-module (`charcoal-app`) dependencies
 use \Charcoal\App\Config\CacheConfig;
 use \Charcoal\App\Config\LoggerConfig;
 
@@ -52,11 +46,6 @@ class AppConfig extends AbstractConfig
     private $modules = [];
 
     /**
-     * @var TranslationConfig $translation
-     */
-    private $translation;
-
-    /**
      * @var CacheConfig $cache
      */
     private $cache;
@@ -94,7 +83,7 @@ class AppConfig extends AbstractConfig
             'routes'           => [],
             'routables'        => [],
             'modules'          => [],
-            'translation'      => [],
+            'translator'       => [],
             'cache'            => [],
             'logger'           => [],
             'view'             => [],
@@ -267,38 +256,6 @@ class AppConfig extends AbstractConfig
     public function modules()
     {
         return $this->modules;
-    }
-
-    /**
-     * Set the application's global TranslationConfig.
-     *
-     * @param  array|TranslationConfig $translation The Translation Configuration.
-     * @throws InvalidArgumentException If the argument is invalid.
-     * @return AppConfig Chainable
-     */
-    public function setTranslation($translation)
-    {
-        if ($translation instanceof TranslationConfig) {
-            $this->translation = $translation;
-            $this->translation->addDelegate($this);
-        } elseif (is_array($translation)) {
-            $this->translation = new TranslationConfig($translation, [$this]);
-        } else {
-            throw new InvalidArgumentException(
-                'Translation must be an array of config options or a CacheConfig object.'
-            );
-        }
-        return $this;
-    }
-
-    /**
-     * Get the application's global TranslationConfig
-     *
-     * @return TranslationConfig
-     */
-    public function translation()
-    {
-        return $this->translation;
     }
 
     /**
