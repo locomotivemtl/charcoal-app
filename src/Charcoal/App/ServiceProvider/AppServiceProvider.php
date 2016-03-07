@@ -17,6 +17,9 @@ use \Charcoal\App\Action\ActionFactory;
 use \Charcoal\App\Route\RouteFactory;
 use \Charcoal\App\Script\ScriptFactory;
 use \Charcoal\App\Template\TemplateFactory;
+use \Charcoal\App\Template\TemplateBuilder;
+use \Charcoal\App\Template\WidgetFactory;
+use \Charcoal\App\Template\WidgetBuilder;
 
 /**
  * Application Service Provider
@@ -148,6 +151,33 @@ class AppServiceProvider implements ServiceProviderInterface
         $container['template/factory'] = function (Container $container) {
             $templateFactory = new TemplateFactory();
             return $templateFactory;
+        };
+
+        /**
+         * @param Container $container A container instance.
+         * @return TemplateBuilder
+         */
+        $container['template/builder'] = function (Container $container) {
+            $templateBuilder = new TemplateBuider($container['template/factory'], $container);
+            return $templateBuilder;
+        };
+
+        /**
+         * @param Container $container A container instance.
+         * @return WidgetFactory
+         */
+        $container['widget/factory'] = function (Container $container) {
+            $widgetFactory = new WidgetFactory();
+            return $widgetFactory;
+        };
+
+        /**
+         * @param Container $container A container instance.
+         * @return TemplateBuilder
+         */
+        $container['widget/builder'] = function (Container $container) {
+            $widgetBuilder = new WidgetBuilder($container['widget/factory'], $container);
+            return $widgetBuilder;
         };
     }
 }

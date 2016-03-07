@@ -48,14 +48,14 @@ class RouteManager extends AbstractManager
     }
 
     /**
-    * @param string $templateIdent
-    * @param array|\ArrayAccess $templateConfig
-    * @throws InvalidArgumentException If the ident is not a string.
-    * @return void
-    */
+     * @param string             $templateIdent  The template identifier.
+     * @param array|\ArrayAccess $templateConfig The template config.
+     * @throws InvalidArgumentException If the ident is not a string.
+     * @return void
+     */
     public function setupTemplate($templateIdent, $templateConfig)
     {
-        if(!is_string($templateIdent)) {
+        if (!is_string($templateIdent)) {
             throw new InvalidArgumentException(
                 'Can not setup route template, template ident is not a string'
             );
@@ -135,14 +135,14 @@ class RouteManager extends AbstractManager
     }
 
     /**
-    * @param string $actionIdent
-    * @param array|\ArrayAccess $actionConfig
-    * @throws InvalidArgumentException If the ident is not a string.
-    * @return void
-    */
+     * @param string             $actionIdent  The action identifier.
+     * @param array|\ArrayAccess $actionConfig The action config.
+     * @throws InvalidArgumentException If the ident is not a string.
+     * @return void
+     */
     public function setupAction($actionIdent, $actionConfig)
     {
-        if(!is_string($actionIdent)) {
+        if (!is_string($actionIdent)) {
             throw new InvalidArgumentException(
                 'Can not setup route action, action ident is not a string'
             );
@@ -222,14 +222,14 @@ class RouteManager extends AbstractManager
     }
 
     /**
-    * @param string $scriptIdent
-    * @param array|\ArrayAccess $sriptConfig
-    * @throws InvalidArgumentException If the ident is not a string.
-    * @return void
-    */
+     * @param string             $scriptIdent  The script identifier.
+     * @param array|\ArrayAccess $scriptConfig The script config.
+     * @throws InvalidArgumentException If the ident is not a string.
+     * @return void
+     */
     public function setupScript($scriptIdent, $scriptConfig)
     {
-        if(!is_string($scriptIdent)) {
+        if (!is_string($scriptIdent)) {
             throw new InvalidArgumentException(
                 'Can not setup route script, script ident is not a string'
             );

@@ -9,6 +9,9 @@ use \InvalidArgumentException;
 use \Psr\Log\LoggerAwareInterface;
 use \Psr\Log\LoggerAwareTrait;
 
+// Dependencies from `Pimple`
+use \Pimple\Container;
+
 // Module `charcoal-view` dependencies
 use \Charcoal\View\GenericView;
 use \Charcoal\View\ViewableInterface;
@@ -41,11 +44,27 @@ abstract class AbstractWidget implements
         $this->setLogger($data['logger']);
     }
 
+        /**
+         * Give an opportunity to children classes to inject dependencies from a Pimple Container.
+         *
+         * Does nothing by default, reimplement in children classes.
+         *
+         * The `$container` DI-container (from `Pimple`) should not be saved or passed around, only to be used to
+         * inject dependencies (typically via setters).
+         *
+         * @param Container $container A dependencies container instance.
+         * @return void
+         */
+    public function setDependencies(Container $container)
+    {
+        // Nothing to do.
+    }
+
     /**
-     * @param array $data The data array (as [key=>value] pair) to set.
+     * @param array|ArrayInterface $data The data array (as [key=>value] pair) to set.
      * @return AbstractWidget Chainable
      */
-    public function setData(array $data)
+    public function setData($data)
     {
         foreach ($data as $prop => $val) {
 
