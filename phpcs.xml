@@ -110,12 +110,7 @@
     <!-- Verifies that there is a space between each condition of FOR loops -->
     <rule ref="Squiz.ControlStructures.ForLoopDeclaration" />
     <!-- Tests the spacing of shorthand IF statements -->
-    <rule ref="Squiz.ControlStructures.InlineIfDeclaration" />
-    <!-- Allow inline shorthand IF statements to be declared on multiple lines -->
-    <rule ref="Squiz.ControlStructures.InlineIfDeclaration.NotSingleLine">
-        <!-- This returns false-positive; hide them -->
-        <severity>0</severity>
-    </rule>
+    <!-- <rule ref="Squiz.ControlStructures.InlineIfDeclaration" />-->
     <!-- Ensures all control structure keywords are lowercase -->
     <rule ref="Squiz.ControlStructures.LowercaseDeclaration" />
     <!--<rule ref="Squiz.ControlStructures.SwitchDeclaration" />-->
