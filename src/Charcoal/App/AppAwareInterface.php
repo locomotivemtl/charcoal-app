@@ -16,9 +16,4 @@ interface AppAwareInterface
      * @return AppAwareInterface Chainable
      */
     public function setApp(AppInterface $app);
-
-    /**
-     * @return AppInterface
-     */
-    //protected function app();
 }
