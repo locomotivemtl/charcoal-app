@@ -63,7 +63,6 @@ class RouteManager extends AbstractManager
             );
         }
 
-        $app = $this->app();
         $templateIdent = ltrim($templateIdent, '/');
 
         if (!isset($templateConfig['ident'])) {
@@ -83,7 +82,7 @@ class RouteManager extends AbstractManager
             $methods = ['GET'];
         }
 
-        $routeHandler = $app->map(
+        $routeHandler = $this->app()->map(
             $methods,
             $routeIdent,
             function (
@@ -148,7 +147,6 @@ class RouteManager extends AbstractManager
             );
         }
 
-        $app = $this->app();
         $actionIdent = ltrim($actionIdent, '/');
 
         if (!isset($actionConfig['ident'])) {
@@ -168,7 +166,7 @@ class RouteManager extends AbstractManager
             $methods = ['POST'];
         }
 
-        $routeHandler = $app->map(
+        $routeHandler = $this->app()->map(
             $methods,
             $routeIdent,
             function (
@@ -233,7 +231,6 @@ class RouteManager extends AbstractManager
             );
         }
 
-        $app = $this->app();
         $scriptIdent = ltrim($scriptIdent, '/');
 
         if (!isset($scriptConfig['ident'])) {
@@ -253,7 +250,7 @@ class RouteManager extends AbstractManager
             $methods = ['GET'];
         }
 
-        $routeHandler = $app->map(
+        $routeHandler = $this->app()->map(
             $methods,
             $routeIdent,
             function (
