@@ -20,5 +20,5 @@ interface AppAwareInterface
     /**
      * @return AppInterface
      */
-    public function app();
+    //protected function app();
 }

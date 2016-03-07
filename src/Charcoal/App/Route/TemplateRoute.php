@@ -22,8 +22,6 @@ use \Charcoal\Config\ConfigurableInterface;
 use \Charcoal\Config\ConfigurableTrait;
 
 // Intra-module (`charcoal-app`) dependencies
-use \Charcoal\App\AppAwareInterface;
-use \Charcoal\App\AppAwareTrait;
 use \Charcoal\App\AppInterface;
 use \Charcoal\App\Template\TemplateInterface;
 use \Charcoal\App\Template\TemplateFactory;
@@ -36,13 +34,10 @@ use \Charcoal\App\Route\TemplateRouteConfig;
  *
  */
 class TemplateRoute implements
-    AppAwareInterface,
     ConfigurableInterface,
     RouteInterface
 {
-    use AppAwareTrait;
     use ConfigurableTrait;
-
 
     /**
      * Create new template route
@@ -52,7 +47,6 @@ class TemplateRoute implements
      * **Required**
      *
      * - `config` — ScriptRouteConfig
-     * - `app`    — AppInterface
      *
      * **Optional**
      *
@@ -63,7 +57,6 @@ class TemplateRoute implements
     public function __construct(array $data)
     {
         $this->setConfig($data['config']);
-        $this->setApp($data['app']);
     }
 
     /**
@@ -157,7 +150,6 @@ class TemplateRoute implements
         $template = $templateFactory->create(
             $templateController,
             [
-                'app'    => $this->app(),
                 'logger' => $container['logger']
             ],
             function (TemplateInterface $template) use ($container) {

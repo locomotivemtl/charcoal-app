@@ -18,8 +18,6 @@ use \Charcoal\Config\ConfigurableInterface;
 use \Charcoal\Config\ConfigurableTrait;
 
 // Intra-module (`charcoal-app`) dependencies
-use \Charcoal\App\AppAwareInterface;
-use \Charcoal\App\AppAwareTrait;
 use \Charcoal\App\AppInterface;
 use \Charcoal\App\Action\ActionFactory;
 use \Charcoal\App\Action\ActionInterface;
@@ -32,11 +30,9 @@ use \Charcoal\App\Route\ActionRouteConfig;
  * Action Route
  */
 class ActionRoute implements
-    AppAwareInterface,
     RouteInterface,
     ConfigurableInterface
 {
-    use AppAwareTrait;
     use ConfigurableTrait;
 
     /**
@@ -47,7 +43,6 @@ class ActionRoute implements
      * **Required**
      *
      * - `config` — ScriptRouteConfig
-     * - `app`    — AppInterface
      *
      * **Optional**
      *
@@ -58,7 +53,6 @@ class ActionRoute implements
     public function __construct(array $data)
     {
         $this->setConfig($data['config']);
-        $this->setApp($data['app']);
     }
 
     /**
@@ -89,7 +83,6 @@ class ActionRoute implements
         $action = $actionFactory->create(
             $actionController,
             [
-                'app'    => $this->app(),
                 'logger' => $container['logger']
             ],
             function (ActionInterface $action) use ($container) {

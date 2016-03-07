@@ -22,7 +22,6 @@ use \League\CLImate\CLImate;
 // Module `charcoal-config` dependencies
 use \Charcoal\Config\AbstractEntity;
 
-
 // Intra-module (`charcoal-app`) dependencies
 use \Charcoal\App\AppInterface;
 use \Charcoal\App\Script\ScriptInterface;
@@ -72,7 +71,6 @@ abstract class AbstractScript extends AbstractEntity implements
     final public function __construct(array $data = null)
     {
         $this->setLogger($data['logger']);
-        $this->setApp($data['app']);
 
         $this->init();
     }
@@ -121,47 +119,6 @@ abstract class AbstractScript extends AbstractEntity implements
         $this->setVerbose($climate->arguments->get('verbose'));
 
         return $this->run($request, $response);
-    }
-
-    /**
-     * @param AppInterface $app The template's parent charcoal app instance.
-     * @return AbstractAction Chainable
-     */
-    public function setApp(AppInterface $app)
-    {
-        $this->app = $app;
-        return $this;
-    }
-
-    /**
-     * @return AppInterface
-     */
-    public function app()
-    {
-        return $this->app;
-    }
-
-    /**
-     * @param array $data The data to set.
-     * @return AbstractAction Chainable
-     */
-    public function setData(array $data)
-    {
-        foreach ($data as $prop => $val) {
-            $func = [$this, 'set_'.$prop];
-
-            if ($val === null) {
-                continue;
-            }
-
-            if (is_callable($func)) {
-                call_user_func($func, $val);
-                unset($data[$prop]);
-            } else {
-                $this->{$prop} = $val;
-            }
-        }
-        return $this;
     }
 
     /**

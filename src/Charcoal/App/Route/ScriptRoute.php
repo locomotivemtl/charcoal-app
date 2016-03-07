@@ -22,8 +22,6 @@ use \Charcoal\Config\ConfigurableInterface;
 use \Charcoal\Config\ConfigurableTrait;
 
 // Intra-module (`charcoal-app`) dependencies
-use \Charcoal\App\AppAwareInterface;
-use \Charcoal\App\AppAwareTrait;
 use \Charcoal\App\AppInterface;
 use \Charcoal\App\Route\RouteInterface;
 use \Charcoal\App\Route\ScriptRouteConfig;
@@ -34,12 +32,10 @@ use \Charcoal\App\Script\ScriptInterface;
  *
  */
 class ScriptRoute implements
-    AppAwareInterface,
     ConfigurableInterface,
     LoggerAwareInterface,
     RouteInterface
 {
-    use AppAwareTrait;
     use ConfigurableTrait;
     use LoggerAwareTrait;
 
@@ -51,7 +47,6 @@ class ScriptRoute implements
      * **Required**
      *
      * - `config` — ScriptRouteConfig
-     * - `app`    — AppInterface
      *
      * **Optional**
      *
@@ -63,7 +58,6 @@ class ScriptRoute implements
     {
         $this->setLogger($data['logger']);
         $this->setConfig($data['config']);
-        $this->setApp($data['app']);
     }
 
     /**
@@ -95,7 +89,6 @@ class ScriptRoute implements
         $script = $scriptFactory->create(
             $scriptIdent,
             [
-                'app'    => $this->app(),
                 'logger' => $container['logger']
             ],
             function (ScriptInterface $script) use ($container) {

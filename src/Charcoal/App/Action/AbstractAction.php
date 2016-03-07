@@ -20,8 +20,6 @@ use \Psr\Http\Message\ResponseInterface;
 use \Charcoal\Config\AbstractEntity;
 
 // Intra-module (`charcoal-app`) dependencies
-use \Charcoal\App\AppAwareInterface;
-use \Charcoal\App\AppAwareTrait;
 use \Charcoal\App\Action\ActionInterface;
 
 /**
@@ -41,10 +39,8 @@ use \Charcoal\App\Action\ActionInterface;
  */
 abstract class AbstractAction extends AbstractEntity implements
     ActionInterface,
-    AppAwareInterface,
     LoggerAwareInterface
 {
-    use AppAwareTrait;
     use LoggerAwareTrait;
 
     const MODE_JSON = 'json';
@@ -77,7 +73,6 @@ abstract class AbstractAction extends AbstractEntity implements
     public function __construct(array $data = null)
     {
         $this->setLogger($data['logger']);
-        $this->setApp($data['app']);
     }
 
     /**
