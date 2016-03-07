@@ -72,7 +72,7 @@
                             </li>
                             <li>
                                 <a href="../reports/markers.html">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">2</span>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">3</span>
                                 </a>
                             </li>
                             <li>
@@ -126,7 +126,7 @@
                                     </tr>
                                                                             <tr>
                                             <td>TODO</td>
-                                            <td>130</td>
+                                            <td>132</td>
                                             <td>Implement translation drivers (Database, File, Yandex) similar to CacheServiceProvider.</td>
                                         </tr>
                                                                     </table>
@@ -137,7 +137,7 @@
                             <h3>
                             <i class="icon-file"></i>
                                 ServiceProvider/TranslatorServiceProvider.php
-                                <small style="float: right;padding-right: 10px;">1</small>
+                                <small style="float: right;padding-right: 10px;">2</small>
                             </h3>
                             <div>
                                 <table class="table markers table-bordered">
@@ -148,8 +148,24 @@
                                     </tr>
                                                                             <tr>
                                             <td>TODO</td>
-                                            <td>49</td>
-                                            <td>Implement translation drivers (Database, File, Yandex) similar to CacheServiceProvider.</td>
+                                            <td>61</td>
+                                            <td>[mcaskill 2016-02-11] Implement translation drivers (Database, File, Yandex)
+        similar to CacheServiceProvider.</td>
+                                        </tr>
+                                                                            <tr>
+                                            <td>TODO</td>
+                                            <td>61</td>
+                                            <td>[mcaskill 2016-03-07] Implement a &#039;setCurrentLanguage&#039; that will update
+        the environment&#039;s locale and our Container&#039;s TranslationConfig singeton.
+        For now, you need to call:
+
+        ```php
+        // Handles setlocale()
+        $container[&#039;translator/config&#039;]-&gt;setCurrentLanguage($lang);
+
+        // Handles ConfigurableTranslationTrait
+        $container[&#039;translator/locales&#039;]-&gt;setCurrentLanguage($lang);
+        ```</td>
                                         </tr>
                                                                     </table>
                             </div>
@@ -195,7 +211,7 @@
                 <section class="span10 offset1">
                     <hr />
                     Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
-                    on March 7th, 2016 at 20:56.
+                    on March 7th, 2016 at 22:24.
                 </section>
             </section>
         </section>
