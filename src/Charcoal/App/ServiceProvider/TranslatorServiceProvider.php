@@ -41,7 +41,19 @@ class TranslatorServiceProvider implements ServiceProviderInterface
      * This method should only be used to configure services and parameters.
      * It should not get services.
      *
-     * @todo Implement translation drivers (Database, File, Yandex) similar to CacheServiceProvider.
+     * @todo   [mcaskill 2016-02-11] Implement translation drivers (Database, File, Yandex)
+     *         similar to CacheServiceProvider.
+     * @todo   [mcaskill 2016-03-07] Implement a 'setCurrentLanguage' that will update
+     *         the environment's locale and our Container's TranslationConfig singeton.
+     *         For now, you need to call:
+     *
+     *         ```php
+     *         // Handles setlocale()
+     *         $container['translator/config']->setCurrentLanguage($lang);
+     *
+     *         // Handles ConfigurableTranslationTrait
+     *         $container['translator/locales']->setCurrentLanguage($lang);
+     *         ```
      * @param  Container $container A container instance.
      * @throws RuntimeException If no active languages are provided or translations are not valid.
      * @return void
@@ -141,9 +153,7 @@ class TranslatorServiceProvider implements ServiceProviderInterface
                 $paths  = $config['paths'];
 
                 $languages = $container['translator/locales']->availableLanguages();
-
-                $basePath = $container['config']->get('ROOT');
-                $basePath = rtrim($basePath, '/\\').DIRECTORY_SEPARATOR;
+                $basePath  = $container['config']->get('ROOT');
 
                 if (!is_array($paths)) {
                     $paths = [ $paths ];

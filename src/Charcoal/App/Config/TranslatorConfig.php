@@ -18,7 +18,9 @@ use \Charcoal\Translation\TranslatableTrait;
  */
 class TranslatorConfig extends AbstractConfig implements MultilingualAwareInterface
 {
-    use TranslatableTrait;
+    use TranslatableTrait {
+        TranslatableTrait::setCurrentLanguage as applyCurrentLanguage;
+    }
 
     /**
      * Whether the translator is enabled.
@@ -65,7 +67,7 @@ class TranslatorConfig extends AbstractConfig implements MultilingualAwareInterf
             'type'             => [ 'noop' ],
             'locales'          => [
                 'repositories' => [
-                    __DIR__.'/../../../../../charcoal-translation/config/languages.json'
+                    'vendor/locomotivemtl/charcoal-translation/config/languages.json'
                 ],
                 'languages' => [
                     'en'  => [
@@ -352,6 +354,70 @@ class TranslatorConfig extends AbstractConfig implements MultilingualAwareInterf
     private function setTranslationMessages(array $messages)
     {
         $this->translationPaths = $messages;
+
+        return $this;
+    }
+
+    /**
+     * Set the application's current language.
+     *
+     * Must be one of the available languages assigned to the config.
+     *
+     * This method sets the environment's locale.
+     *
+     * @uses   ConfigurableTranslationTrait::setCurrentLanguage()
+     * @param  LanguageInterface|string|null $lang A language object or identifier.
+     * @return MultilingualAwareInterface Chainable
+     */
+    public function setCurrentLanguage($lang = null)
+    {
+        $this->applyCurrentLanguage($lang);
+        $this->setCurrentLocale();
+
+        return $this;
+    }
+
+    /**
+     * Set the application's current language.
+     *
+     * Must be one of the available languages assigned to the config.
+     *
+     * This method sets the environment's locale.
+     *
+     * @uses   ConfigurableTranslationTrait::setCurrentLanguage()
+     * @return MultilingualAwareInterface Chainable
+     */
+    public function setCurrentLocale()
+    {
+        $current  = $this->currentLanguage();
+        $fallback = $this->defaultLanguage();
+
+        $locales   = [ LC_ALL ];
+        $languages = [ $current ];
+
+        if ($current !== $fallback) {
+            $languages[] = $fallback;
+        }
+
+        foreach ($languages as $code) {
+            $language = $this->language($code);
+
+            if ($language instanceof Language) {
+                $locale = $language->locale();
+
+                if (!$locale) {
+                    $locales = $language->code();
+                }
+
+                if ($locale) {
+                    $locales[] = $locale;
+                }
+            }
+        }
+
+        if (count($locales) > 1) {
+            call_user_func_array('setlocale', $locales);
+        }
 
         return $this;
     }

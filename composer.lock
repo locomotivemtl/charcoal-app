@@ -89,12 +89,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/locomotivemtl/charcoal-core.git",
-                "reference": "0710d8a1cf5089603d1d3b99c2d66a7835d12f4e"
+                "reference": "3934b49c8451d19ba9e0bd672f1172b803aff8a3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/locomotivemtl/charcoal-core/zipball/0710d8a1cf5089603d1d3b99c2d66a7835d12f4e",
-                "reference": "0710d8a1cf5089603d1d3b99c2d66a7835d12f4e",
+                "url": "https://api.github.com/repos/locomotivemtl/charcoal-core/zipball/3934b49c8451d19ba9e0bd672f1172b803aff8a3",
+                "reference": "3934b49c8451d19ba9e0bd672f1172b803aff8a3",
                 "shasum": ""
             },
             "require": {
@@ -145,7 +145,7 @@
                 "locomotive",
                 "php"
             ],
-            "time": "2016-03-07 19:52:29"
+            "time": "2016-03-07 21:44:47"
         },
         {
             "name": "locomotivemtl/charcoal-factory",
@@ -248,12 +248,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/locomotivemtl/charcoal-translation.git",
-                "reference": "c2fd4946f193e16d2dc77b0b6facc4444c86904e"
+                "reference": "eeb33485c9883204b8274d3103e74c1efaf1a99b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/locomotivemtl/charcoal-translation/zipball/c2fd4946f193e16d2dc77b0b6facc4444c86904e",
-                "reference": "c2fd4946f193e16d2dc77b0b6facc4444c86904e",
+                "url": "https://api.github.com/repos/locomotivemtl/charcoal-translation/zipball/eeb33485c9883204b8274d3103e74c1efaf1a99b",
+                "reference": "eeb33485c9883204b8274d3103e74c1efaf1a99b",
                 "shasum": ""
             },
             "require": {
@@ -293,7 +293,7 @@
             ],
             "description": "Charcoal Translations & Languages",
             "homepage": "https://charcoal.locomotive.ca",
-            "time": "2016-03-07 19:14:09"
+            "time": "2016-03-07 22:13:20"
         },
         {
             "name": "locomotivemtl/charcoal-view",
@@ -849,12 +849,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/guzzle.git",
-                "reference": "30f8346719d2ba1da9b2799f60b3dea360d908f4"
+                "reference": "55ab7c5edccd60c4089eb938af158b249f9831a1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/30f8346719d2ba1da9b2799f60b3dea360d908f4",
-                "reference": "30f8346719d2ba1da9b2799f60b3dea360d908f4",
+                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/55ab7c5edccd60c4089eb938af158b249f9831a1",
+                "reference": "55ab7c5edccd60c4089eb938af158b249f9831a1",
                 "shasum": ""
             },
             "require": {
@@ -903,7 +903,7 @@
                 "rest",
                 "web service"
             ],
-            "time": "2016-03-05 02:10:00"
+            "time": "2016-03-07 21:03:36"
         },
         {
             "name": "guzzlehttp/promises",
