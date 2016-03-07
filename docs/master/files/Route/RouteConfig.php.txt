@@ -150,7 +150,7 @@ class RouteConfig extends AbstractConfig implements UnilingualAwareInterface
             );
         }
 
-        $this->groups[] = $method;
+        $this->groups[] = $group;
 
         return $this;
     }

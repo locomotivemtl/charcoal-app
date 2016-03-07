@@ -14,7 +14,7 @@ use \Charcoal\Config\AbstractConfig as AbstractConfig;
 class CacheConfig extends AbstractConfig
 {
     /**
-     * @var string $type
+     * @var array $types
      */
     private $types = ['memory'];
 

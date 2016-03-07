@@ -63,12 +63,12 @@ abstract class AbstractModule implements
         if ($middlewares === null || count($middlewares === 0)) {
             return;
         }
-        $middleware_manager = new MiddlewareManager([
+        $middlewareManager = new MiddlewareManager([
             'logger' => $this->logger,
             'config' => $middlewares,
             'app' => $this->app()
         ]);
-        return $middleware_manager->setup_middlewares();
+        return $middlewareManager->setupMiddlewares();
     }
 
 
@@ -86,13 +86,13 @@ abstract class AbstractModule implements
             return;
         }
 
-        $route_manager = new RouteManager([
+        $routeManager = new RouteManager([
             'logger' => $this->logger,
             'config' => $routes,
             'app'    => $this->app()
         ]);
 
-        return $route_manager->setupRoutes();
+        return $routeManager->setupRoutes();
     }
 
     /**

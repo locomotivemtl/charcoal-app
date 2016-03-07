@@ -12,6 +12,11 @@ use \Charcoal\Config\AbstractConfig;
 class DatabaseConfig extends AbstractConfig
 {
     /**
+     * @var string $type
+     */
+    private $type;
+
+    /**
      * @var string $hostname
      */
     private $hostname;

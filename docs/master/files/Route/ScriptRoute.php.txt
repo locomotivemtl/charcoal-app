@@ -5,39 +5,30 @@ namespace Charcoal\App\Route;
 // Dependencies from `PHP`
 use \InvalidArgumentException;
 
-// PSR-3 (logger) dependencies
-use \Psr\Log\LoggerAwareInterface;
-use \Psr\Log\LoggerAwareTrait;
-
 // PSR-7 (http messaging) dependencies
 use \Psr\Http\Message\RequestInterface;
 use \Psr\Http\Message\ResponseInterface;
 
-// Dependencies from `Pimple`
+// Dependencies from `pimple`
 use \Pimple\Container;
 
 // From `charcoal-config`
-use \Charcoal\Config\ConfigInterface;
 use \Charcoal\Config\ConfigurableInterface;
 use \Charcoal\Config\ConfigurableTrait;
 
 // Intra-module (`charcoal-app`) dependencies
-use \Charcoal\App\AppInterface;
 use \Charcoal\App\Route\RouteInterface;
 use \Charcoal\App\Route\ScriptRouteConfig;
-use \Charcoal\App\Script\ScriptFactory;
 use \Charcoal\App\Script\ScriptInterface;
 
 /**
- *
+ * Script Route
  */
 class ScriptRoute implements
     ConfigurableInterface,
-    LoggerAwareInterface,
     RouteInterface
 {
     use ConfigurableTrait;
-    use LoggerAwareTrait;
 
     /**
      * Create new script route (CLI)
@@ -56,7 +47,6 @@ class ScriptRoute implements
      */
     public function __construct(array $data)
     {
-        $this->setLogger($data['logger']);
         $this->setConfig($data['config']);
     }
 
@@ -81,13 +71,12 @@ class ScriptRoute implements
     {
         $config = $this->config();
 
-        $scriptIdent = $config['ident'];
         $scriptController = $config['controller'];
 
         $scriptFactory = $container['script/factory'];
 
         $script = $scriptFactory->create(
-            $scriptIdent,
+            $scriptController,
             [
                 'logger' => $container['logger']
             ],
