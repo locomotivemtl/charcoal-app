@@ -261,5 +261,4 @@ abstract class AbstractAction extends AbstractEntity implements
      * @return ResponseInterface
      */
     abstract public function run(RequestInterface $request, ResponseInterface $response);
-
 }

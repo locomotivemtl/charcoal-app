@@ -89,12 +89,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/locomotivemtl/charcoal-core.git",
-                "reference": "f5c5a02e9c8ab6d1602b65183312fea25b51ef50"
+                "reference": "0710d8a1cf5089603d1d3b99c2d66a7835d12f4e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/locomotivemtl/charcoal-core/zipball/f5c5a02e9c8ab6d1602b65183312fea25b51ef50",
-                "reference": "f5c5a02e9c8ab6d1602b65183312fea25b51ef50",
+                "url": "https://api.github.com/repos/locomotivemtl/charcoal-core/zipball/0710d8a1cf5089603d1d3b99c2d66a7835d12f4e",
+                "reference": "0710d8a1cf5089603d1d3b99c2d66a7835d12f4e",
                 "shasum": ""
             },
             "require": {
@@ -104,6 +104,7 @@
                 "locomotivemtl/charcoal-config": "~0.5",
                 "locomotivemtl/charcoal-factory": "~0.2",
                 "locomotivemtl/charcoal-property": "dev-master",
+                "locomotivemtl/charcoal-translation": "dev-master",
                 "locomotivemtl/charcoal-view": "~0.1",
                 "php": ">=5.5.0",
                 "psr/log": "^1.0"
@@ -144,7 +145,7 @@
                 "locomotive",
                 "php"
             ],
-            "time": "2016-03-07 18:45:13"
+            "time": "2016-03-07 19:52:29"
         },
         {
             "name": "locomotivemtl/charcoal-factory",
@@ -198,12 +199,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/locomotivemtl/charcoal-property.git",
-                "reference": "585eb4bc6c9128dce815fdd0c37a4d49870d3c3c"
+                "reference": "a61ef715cfe6da00085b4f2e3afe9f6844d0b538"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/locomotivemtl/charcoal-property/zipball/585eb4bc6c9128dce815fdd0c37a4d49870d3c3c",
-                "reference": "585eb4bc6c9128dce815fdd0c37a4d49870d3c3c",
+                "url": "https://api.github.com/repos/locomotivemtl/charcoal-property/zipball/a61ef715cfe6da00085b4f2e3afe9f6844d0b538",
+                "reference": "a61ef715cfe6da00085b4f2e3afe9f6844d0b538",
                 "shasum": ""
             },
             "require": {
@@ -239,7 +240,7 @@
             ],
             "description": "Charcoal Property defines an object (provides metadata)",
             "homepage": "https://charcoal.locomotive.ca",
-            "time": "2016-03-07 18:49:10"
+            "time": "2016-03-07 19:53:16"
         },
         {
             "name": "locomotivemtl/charcoal-translation",
