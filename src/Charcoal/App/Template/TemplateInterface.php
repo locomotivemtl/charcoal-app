@@ -25,8 +25,8 @@ interface TemplateInterface
     public function setDependencies(Container $container);
 
     /**
-     * @param array $data The template data to set.
+     * @param array|\ArrayInterface $data The template data to set.
      * @return TemplateInterface Chainable
      */
-    public function setData(array $data);
+    public function setData($data);
 }
