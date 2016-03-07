@@ -13,7 +13,6 @@ use \Charcoal\Config\GenericConfig;
 
 // Dependencies from `charcoal-translation`
 use \Charcoal\Language\Language;
-use \Charcoal\Language\LanguageInterface;
 use \Charcoal\Language\LanguageRepository;
 use \Charcoal\Translation\Catalog\Catalog;
 use \Charcoal\Translation\TranslationConfig;

@@ -8,6 +8,7 @@ use \InvalidArgumentException;
 use \Charcoal\Config\AbstractConfig;
 
 // Dependencies from 'charcoal-translation'
+use \Charcoal\Language\Language;
 use \Charcoal\Language\LanguageRepository;
 use \Charcoal\Polyglot\MultilingualAwareInterface;
 use \Charcoal\Translation\TranslatableTrait;
@@ -116,7 +117,6 @@ class TranslatorConfig extends AbstractConfig implements MultilingualAwareInterf
      */
     public function types()
     {
-        // @todo: Sort by priority.
         return $this->types;
     }
 

@@ -29,7 +29,7 @@ class RouteManager extends AbstractManager
      */
     public function setupRoutes()
     {
-        $routes    = $this->config();
+        $routes = $this->config();
 
         if (PHP_SAPI == 'cli') {
             $scripts = ( isset($routes['scripts']) ? $routes['scripts'] : [] );
