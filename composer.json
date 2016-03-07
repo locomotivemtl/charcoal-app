@@ -23,9 +23,9 @@
     "slim/slim": "^3.1.0",
     "monolog/monolog": "^1.16",
     "tedivm/stash": "dev-master",
-    "locomotivemtl/charcoal-config": "~0.4",
+    "locomotivemtl/charcoal-config": "~0.5",
     "locomotivemtl/charcoal-core": "dev-master",
-    "locomotivemtl/charcoal-factory": "~0.2",
+    "locomotivemtl/charcoal-factory": "~0.3",
     "locomotivemtl/charcoal-view": "~0.1"
   },
   "require-dev": {
