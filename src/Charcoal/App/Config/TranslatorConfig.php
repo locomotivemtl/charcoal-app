@@ -13,7 +13,6 @@ use \Charcoal\Translation\TranslatableTrait;
 /**
  * Configuration container for the {@see TranslatorServiceProvider}.
  *
- * @todo Implement translation drivers (Database, File, Yandex) similar to CacheServiceProvider.
  */
 class TranslatorConfig extends AbstractConfig implements MultilingualAwareInterface
 {
@@ -122,6 +121,7 @@ class TranslatorConfig extends AbstractConfig implements MultilingualAwareInterf
      *
      * Set the driver type of translator to use.
      *
+     * @todo   Implement translation drivers (Database, File, Yandex) similar to CacheServiceProvider.
      * @param  string $type A translation driver to try using.
      * @return self
      */
@@ -196,11 +196,10 @@ class TranslatorConfig extends AbstractConfig implements MultilingualAwareInterf
     public function locales()
     {
         return [
-            'repositories'       => $this->languagePaths(),
-            'languages'          => $this->languages(),
-            'current_language'   => $this->currentLanguage(),
-            'default_language'   => $this->defaultLanguage(),
-            /*'fallback_languages' => $this->fallbackLanguages()*/
+            'repositories'     => $this->languagePaths(),
+            'languages'        => $this->languages(),
+            'current_language' => $this->currentLanguage(),
+            'default_language' => $this->defaultLanguage()
         ];
     }
 
@@ -238,10 +237,6 @@ class TranslatorConfig extends AbstractConfig implements MultilingualAwareInterf
         if (!empty($config['default_language'])) {
             $this->setDefaultLanguage($config['default_language']);
         }
-
-        /*if (!empty($config['fallback_languages'])) {
-            $this->setFallbackLanguages($config['fallback_languages']);
-        }*/
 
         return $this;
     }

@@ -32,8 +32,6 @@ use \Charcoal\App\Config\TranslatorConfig;
  *
  * ## Requirements / Dependencies
  * - `config` A `ConfigInterface` must have been previously registered on the container.
- *
- * @todo Implement translation drivers (Database, File, Yandex) similar to CacheServiceProvider.
  */
 class TranslatorServiceProvider implements ServiceProviderInterface
 {
@@ -43,7 +41,9 @@ class TranslatorServiceProvider implements ServiceProviderInterface
      * This method should only be used to configure services and parameters.
      * It should not get services.
      *
+     * @todo Implement translation drivers (Database, File, Yandex) similar to CacheServiceProvider.
      * @param  Container $container A container instance.
+     * @throws RuntimeException If no active languages are provided or translations are not valid.
      * @return void
      */
     public function register(Container $container)
@@ -162,7 +162,7 @@ class TranslatorServiceProvider implements ServiceProviderInterface
                             $ext = array_pop($exts);
                             $cfg = sprintf('%1$s/messages.%2$s.%3$s', $path, $langCode, $ext);
 
-                            if ( file_exists($cfg) ) {
+                            if (file_exists($cfg)) {
                                 $loader->addFile($cfg);
                             }
                         }

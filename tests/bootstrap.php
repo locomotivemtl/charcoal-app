@@ -14,10 +14,9 @@ $autoloader->add('Charcoal\\Tests\\', __DIR__);
 // Create container and configure it (with charcoal-config)
 
 $config = new AppConfig();
-$config->addFile(__DIR__.'/../config/config.php');
 
 $GLOBALS['container'] = new AppContainer([
-    'config'=>$config
+    'config' => $config
 ]);
 
 // Charcoal / Slim is the main app
