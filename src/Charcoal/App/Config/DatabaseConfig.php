@@ -2,6 +2,8 @@
 
 namespace Charcoal\App\Config;
 
+use \InvalidArgumentException;
+
 use \Charcoal\Config\AbstractConfig;
 
 /**
@@ -13,14 +15,17 @@ class DatabaseConfig extends AbstractConfig
      * @var string $hostname
      */
     private $hostname;
+
     /**
      * @var string $username
      */
     private $username;
+
     /**
      * @var string $password
      */
     private $password;
+
     /**
      * @var string $database
      */

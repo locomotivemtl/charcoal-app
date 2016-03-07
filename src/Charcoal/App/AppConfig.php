@@ -22,6 +22,21 @@ use \Charcoal\App\Config\LoggerConfig;
 class AppConfig extends AbstractConfig
 {
     /**
+     * @var string $timezone
+     */
+    private $timezone;
+
+    /**
+     * @var strubg $projectName
+     */
+    private $projectName;
+
+    /**
+     * @var boolean $devMode
+     */
+    private $devMode = false;
+
+    /**
      * @var array $routes
      */
     private $routes = [];
@@ -67,16 +82,6 @@ class AppConfig extends AbstractConfig
     private $defaultDatabase;
 
     /**
-     * @var boolean $devMode
-     */
-    private $devMode = false;
-
-    /**
-     * @var string $timezone
-     */
-    private $timezone;
-
-    /**
      * Default app-config values.
      *
      * @return array
@@ -84,6 +89,7 @@ class AppConfig extends AbstractConfig
     public function defaults()
     {
         return [
+            'project_name'     => '',
             'timezone'         => 'UTC',
             'routes'           => [],
             'routables'        => [],
@@ -100,6 +106,8 @@ class AppConfig extends AbstractConfig
 
     /**
      * Set the application's absolute root path.
+     *
+     * Resolves symlinks with realpath() and ensure trailing slash.
      *
      * @param string $path The absolute path to the application's root directory.
      * @return AppConfig Chainable
