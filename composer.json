@@ -22,7 +22,7 @@
     "php": ">=5.5.0",
     "slim/slim": "^3.1.0",
     "monolog/monolog": "^1.16",
-    "tedivm/stash": "dev-master",
+    "tedivm/stash": "0.14.*",
     "locomotivemtl/charcoal-config": "~0.5",
     "locomotivemtl/charcoal-core": "dev-master",
     "locomotivemtl/charcoal-factory": "~0.3",
