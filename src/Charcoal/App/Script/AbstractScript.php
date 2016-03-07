@@ -19,6 +19,10 @@ use \Pimple\Container;
 // `thephpleague/climate` dependencies
 use \League\CLImate\CLImate;
 
+// Module `charcoal-config` dependencies
+use \Charcoal\Config\AbstractEntity;
+
+
 // Intra-module (`charcoal-app`) dependencies
 use \Charcoal\App\AppInterface;
 use \Charcoal\App\Script\ScriptInterface;
@@ -26,7 +30,7 @@ use \Charcoal\App\Script\ScriptInterface;
 /**
  *
  */
-abstract class AbstractScript implements
+abstract class AbstractScript extends AbstractEntity implements
     LoggerAwareInterface,
     ScriptInterface
 {
@@ -86,7 +90,7 @@ abstract class AbstractScript implements
      */
     public function setDependencies(Container $container)
     {
-        // Nothing to do.
+        // This method is a stub. Reimplement in children template classes.
     }
 
     /**
