@@ -8,7 +8,9 @@ $autoloader = require __DIR__.'/../vendor/autoload.php';
 $autoloader->add('Charcoal\\', __DIR__.'/src/');
 $autoloader->add('Charcoal\\Tests\\', __DIR__);
 
-$config = new AppConfig();
+$config = new AppConfig([
+    'ROOT' => (dirname(__DIR__) . '/')
+]);
 $GLOBALS['container'] = new AppContainer([
     'config' => $config
 ]);
