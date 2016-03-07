@@ -45,7 +45,7 @@ class DatabaseServiceProvider implements ServiceProviderInterface
             $databases = $config->get('databases');
             $configs = new Container();
             foreach ($databases as $dbIdent => $dbOptions) {
-                $configs[$dbIdent] = new DatabaseSourceConfig($dbOptions);
+                $configs[$dbIdent] = new DatabaseConfig($dbOptions);
             }
             return $configs;
         };

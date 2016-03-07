@@ -1,9 +1,9 @@
 <?php
 
-namespace Charcoal\Cache\Memcache;
+namespace Charcoal\App\Config;
 
 // Local parent namespace dependencies
-use \Charcoal\Config\AbstractConfig as AbstractConfig;
+use \Charcoal\Config\AbstractConfig;
 
 /**
  * Memcache Cache Server Config

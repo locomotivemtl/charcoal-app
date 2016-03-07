@@ -354,7 +354,6 @@ abstract class AbstractScript implements
             $arg_desc = $a['description'];
             $input_type = isset($a['inputType']) ? $a['inputType'] : 'text';
             $choices = isset($a['choices']) ? $a['choices'] : null;
-
         } else {
             $arg_desc = $argName;
             $input_type = 'text';

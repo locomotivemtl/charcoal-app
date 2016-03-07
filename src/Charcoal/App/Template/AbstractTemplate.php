@@ -69,7 +69,6 @@ abstract class AbstractTemplate implements
     public function setData(array $data)
     {
         foreach ($data as $prop => $val) {
-
             if ($val === null) {
                 continue;
             }
