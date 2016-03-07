@@ -6,9 +6,6 @@ namespace Charcoal\App\ServiceProvider;
 use \Pimple\ServiceProviderInterface;
 use \Pimple\Container;
 
-// Intra-Module `charcoal-app` dependencies
-use \Charcoal\App\Config\LoggerConfig;
-
 /**
  * Translator Service Provider. Configures and provides a Symfony Translator service to a container.
  *

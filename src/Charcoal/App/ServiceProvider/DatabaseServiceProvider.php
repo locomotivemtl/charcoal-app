@@ -58,12 +58,12 @@ class DatabaseServiceProvider implements ServiceProviderInterface
             $config = $container['config'];
             $databases = $config->get('databases');
             $dbs = new Container();
-            foreach ($databases as $dbIdent => $dbOptions) {
+            foreach ($databases as $dbIdent) {
                 /**
                 * @param Container $container A container instance.
                 * @return PDO
                 */
-                $dbs[$dbIdent] = function (Container $container) use ($dbOptions) {
+                $dbs[$dbIdent] = function (Container $container) {
                     $dbConfig = $container['databases/config'][$dbIdent];
 
                     $type = $dbConfig['type'];

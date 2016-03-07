@@ -158,7 +158,7 @@ class AppServiceProvider implements ServiceProviderInterface
          * @return TemplateBuilder
          */
         $container['template/builder'] = function (Container $container) {
-            $templateBuilder = new TemplateBuider($container['template/factory'], $container);
+            $templateBuilder = new TemplateBuilder($container['template/factory'], $container);
             return $templateBuilder;
         };
 

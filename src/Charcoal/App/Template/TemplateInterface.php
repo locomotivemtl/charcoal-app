@@ -5,9 +5,6 @@ namespace Charcoal\App\Template;
 // Dependencies from `Pimple`
 use \Pimple\Container;
 
-// Intra-module (`charcoal-app`) dependencies
-use \Charcoal\App\AppInterface;
-
 /**
  *
  */
