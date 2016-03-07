@@ -67,7 +67,6 @@ abstract class AbstractWidget implements
     public function setData($data)
     {
         foreach ($data as $prop => $val) {
-
             if ($val === null) {
                 continue;
             }
