@@ -37,10 +37,10 @@ interface ActionInterface
     public function setDependencies(Container $container);
 
     /**
-     * @param array $data The data to set.
+     * @param array|\ArrayInterface $data The data to set.
      * @return ActionInterface Chainable
      */
-    public function setData(array $data);
+    public function setData($data);
 
     /**
      * @param string $mode The action mode.
