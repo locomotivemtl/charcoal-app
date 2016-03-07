@@ -2,6 +2,8 @@
 
 namespace Charcoal\App\Config;
 
+use \InvalidArgumentException;
+
 // Dependency from 'charcoal-config'
 use \Charcoal\Config\AbstractConfig;
 
