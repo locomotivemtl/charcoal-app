@@ -5,10 +5,6 @@ namespace Charcoal\App\Route;
 // Dependencies from `PHP`
 use \InvalidArgumentException;
 
-// PSR-3 (logger) dependencies
-use \Psr\Log\LoggerAwareInterface;
-use \Psr\Log\LoggerAwareTrait;
-
 // PSR-7 (http messaging) dependencies
 use \Psr\Http\Message\RequestInterface;
 use \Psr\Http\Message\ResponseInterface;

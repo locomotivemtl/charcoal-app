@@ -34,15 +34,15 @@ class MemcacheCacheServerConfig extends AbstractConfig
      */
     public function defaults()
     {
-        $default = [
+        $defaults = [
             'host'       => 'localhost',
             'port'       => 11211,
             'persistent' => true,
             'weight'     => 1
         ];
 
-        $default_data = array_merge(parent::default_data(), $default);
-        return $default_data;
+        $defaults = array_merge(parent::defaults(), $defaults);
+        return $defaults;
     }
 
     /**

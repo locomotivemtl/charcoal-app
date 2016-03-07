@@ -9,20 +9,15 @@ use \InvalidArgumentException;
 use \Psr\Http\Message\RequestInterface;
 use \Psr\Http\Message\ResponseInterface;
 
-// Depedencies from Pimple
+// Depedencies from `pimple`
 use \Pimple\Container;
 
 // From `charcoal-config`
-use \Charcoal\Config\ConfigInterface;
 use \Charcoal\Config\ConfigurableInterface;
 use \Charcoal\Config\ConfigurableTrait;
 
 // Intra-module (`charcoal-app`) dependencies
-use \Charcoal\App\AppInterface;
-use \Charcoal\App\Action\ActionFactory;
 use \Charcoal\App\Action\ActionInterface;
-
-// Local namespace dependencies
 use \Charcoal\App\Route\RouteInterface;
 use \Charcoal\App\Route\ActionRouteConfig;
 
