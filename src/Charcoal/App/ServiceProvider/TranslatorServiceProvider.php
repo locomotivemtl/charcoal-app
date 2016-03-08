@@ -152,7 +152,7 @@ class TranslatorServiceProvider implements ServiceProviderInterface
                 $paths  = $config['paths'];
 
                 $languages = $container['translator/locales']->availableLanguages();
-                $basePath  = $container['config']->get('ROOT');
+                $basePath  = $container['config']->get('base_path');
 
                 if (!is_array($paths)) {
                     $paths = [ $paths ];

@@ -84,7 +84,7 @@ class ViewServiceProvider implements ServiceProviderInterface
         $container['view/loader/dependencies'] = function (Container $container) {
             return [
                 'logger'    => $container['logger'],
-                'base_path' => $container['config']['ROOT'],
+                'base_path' => $container['config']['base_path'],
                 'paths'     => $container['view/config']['path']
             ];
         };
