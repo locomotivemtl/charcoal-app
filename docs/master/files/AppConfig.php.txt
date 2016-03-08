@@ -21,9 +21,19 @@ class AppConfig extends AbstractConfig
     private $timezone;
 
     /**
-     * @var strubg $projectName
+     * @var string $projectName
      */
     private $projectName;
+
+    /**
+     * @var string $basePath
+     */
+    private $basePath;
+
+    /**
+     * @var string $publicPath
+     */
+    private $publicPath;
 
     /**
      * @var boolean $devMode
@@ -77,8 +87,12 @@ class AppConfig extends AbstractConfig
      */
     public function defaults()
     {
+        $baseDir = rtrim(realpath(__DIR__.'/../../../'), '/').'/';
+
         return [
             'project_name'     => '',
+            'base_path'        => $baseDir,
+            'public_path'      => null,
             'timezone'         => 'UTC',
             'routes'           => [],
             'routables'        => [],
@@ -98,12 +112,42 @@ class AppConfig extends AbstractConfig
      *
      * Resolves symlinks with realpath() and ensure trailing slash.
      *
+     * @deprecated In favor of {self::setBasePath()}
+     * @todo  Add `trigger_error('...', E_USER_DEPRECATED)`: "setROOT() is deprecated. Use setBasePath() instead."
      * @param string $path The absolute path to the application's root directory.
      * @return AppConfig Chainable
      */
     public function setROOT($path)
     {
-        $this->ROOT = rtrim(realpath($path), '/').'/';
+        $this->setBasePath($path);
+
+        return $this;
+    }
+
+    /**
+     * Retrieve the application's absolute root path.
+     *
+     * @deprecated In favor of {self::basePath()}
+     * @todo  Add `trigger_error('...', E_USER_DEPRECATED)`: "ROOT() is deprecated. Use basePath() instead."
+     * @return string The absolute path to the application's root directory.
+     */
+    public function ROOT()
+    {
+        return $this->basePath();
+    }
+
+    /**
+     * Set the application's absolute root path.
+     *
+     * Resolves symlinks with realpath() and ensure trailing slash.
+     *
+     * @param string $path The absolute path to the application's root directory.
+     * @return AppConfig Chainable
+     */
+    public function setBasePath($path)
+    {
+        $this->basePath = rtrim(realpath($path), '\\/').'/';
+
         return $this;
     }
 
@@ -112,9 +156,51 @@ class AppConfig extends AbstractConfig
      *
      * @return string The absolute path to the application's root directory.
      */
-    public function ROOT()
+    public function basePath()
     {
-        return $this->ROOT;
+        return $this->basePath;
+    }
+
+    /**
+     * Set the application's absolute path to the public web directory.
+     *
+     * @param string $path The path to the application's public directory.
+     * @return AppConfig Chainable
+     */
+    public function setPublicPath($path)
+    {
+        $this->publicPath = rtrim(realpath($path), '\\/').'/';
+
+        return $this;
+    }
+
+    /**
+     * Retrieve the application's absolute path to the public web directory.
+     *
+     * @return string The absolute path to the application's public directory.
+     */
+    public function publicPath()
+    {
+        if (!isset($this->publicPath)) {
+            return $this->basePath().DIRECTORY_SEPARATOR.'www/';
+        }
+
+        return $this->publicPath;
+    }
+
+    /**
+     * Retrieve the application's fully qualified base URL to the public web directory.
+     *
+     * @return string The base URI to the application's web directory.
+     * @todo   [mcaskill 2016-03-08] Deprecate {@see self::$URL} in favor of 'base_url'; {@see \Slim\Http\Uri}.
+     */
+    public function baseUrl()
+    {
+        if (isset($this->URL)) {
+            return $this->URL;
+        }
+
+        return '';
     }
 
     /**
@@ -201,12 +287,61 @@ class AppConfig extends AbstractConfig
     }
 
     /**
+     * @param array $translator The translator configuration structure to set.
+     * @return AppConfig Chainable
+     */
+    public function setTranslator(array $translator)
+    {
+        if (!isset($this->translator)) {
+            $this->translator = [];
+        }
+
+        $toIterate = [ 'locales', 'translations' ];
+        foreach ($translator as $key => $val) {
+            if (in_array($key, $toIterate) && isset($this->translator[$key])) {
+                $this->translator[$key] = array_merge($this->translator[$key], $val);
+            } else {
+                $this->translator[$key] = $val;
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param array $view The view configuration structure to set.
+     * @return AppConfig Chainable
+     */
+    public function setView(array $view)
+    {
+        if (!isset($this->view)) {
+            $this->view = [];
+        }
+
+        $this->view = array_merge($this->view, $view);
+
+        return $this;
+    }
+
+    /**
      * @param array $routes The route configuration structure to set.
      * @return AppConfig Chainable
      */
     public function setRoutes(array $routes)
     {
-        $this->routes = $routes;
+        if (!isset($this->routes)) {
+            $this->routes = [];
+        }
+
+        $toIterate = [ 'templates', 'actions', 'scripts' ];
+        foreach ($routes as $key => $val) {
+            if (in_array($key, $toIterate) && isset($this->routes[$key])) {
+                $this->routes[$key] = array_merge($this->routes[$key], $val);
+            } else {
+                $this->routes[$key] = $val;
+            }
+        }
+
         return $this;
     }
 

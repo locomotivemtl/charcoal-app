@@ -63,9 +63,10 @@ class RouteManager extends AbstractManager
             );
         }
 
-        $templateIdent = ltrim($templateIdent, '/');
-
-        if (!isset($templateConfig['ident'])) {
+        if (isset($templateConfig['ident'])) {
+            $templateIdent = $templateConfig['ident'];
+        } else {
+            $templateIdent = ltrim($templateIdent, '/');
             $templateConfig['ident'] = $templateIdent;
         }
 
@@ -79,7 +80,7 @@ class RouteManager extends AbstractManager
         if (isset($templateConfig['methods'])) {
             $methods = $templateConfig['methods'];
         } else {
-            $methods = ['GET'];
+            $methods = [ 'GET' ];
         }
 
         $routeHandler = $this->app()->map(
