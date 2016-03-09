@@ -21,16 +21,22 @@ class AppConfig extends AbstractConfig
     private $timezone;
 
     /**
+     * The application's name.
+     *
      * @var string $projectName
      */
     private $projectName;
 
     /**
+     * The base path for the Charcoal installation.
+     *
      * @var string $basePath
      */
     private $basePath;
 
     /**
+     * The path to the public / web directory.
+     *
      * @var string $publicPath
      */
     private $publicPath;
@@ -87,6 +93,7 @@ class AppConfig extends AbstractConfig
      */
     public function defaults()
     {
+        /** @var string $baseDir Presume that Charcoal App _is_ the application */
         $baseDir = rtrim(realpath(__DIR__.'/../../../'), '/').'/';
 
         return [
@@ -113,8 +120,8 @@ class AppConfig extends AbstractConfig
      * Resolves symlinks with realpath() and ensure trailing slash.
      *
      * @deprecated In favor of {self::setBasePath()}
-     * @todo  Add `trigger_error('...', E_USER_DEPRECATED)`: "setROOT() is deprecated. Use setBasePath() instead."
-     * @param string $path The absolute path to the application's root directory.
+     * @todo   Add `trigger_error('...', E_USER_DEPRECATED)`: "setROOT() is deprecated. Use setBasePath() instead."
+     * @param  string $path The absolute path to the application's root directory.
      * @return AppConfig Chainable
      */
     public function setROOT($path)
@@ -128,7 +135,7 @@ class AppConfig extends AbstractConfig
      * Retrieve the application's absolute root path.
      *
      * @deprecated In favor of {self::basePath()}
-     * @todo  Add `trigger_error('...', E_USER_DEPRECATED)`: "ROOT() is deprecated. Use basePath() instead."
+     * @todo   Add `trigger_error('...', E_USER_DEPRECATED)`: "ROOT() is deprecated. Use basePath() instead."
      * @return string The absolute path to the application's root directory.
      */
     public function ROOT()
@@ -141,12 +148,12 @@ class AppConfig extends AbstractConfig
      *
      * Resolves symlinks with realpath() and ensure trailing slash.
      *
-     * @param string $path The absolute path to the application's root directory.
+     * @param  string $path The absolute path to the application's root directory.
      * @return AppConfig Chainable
      */
     public function setBasePath($path)
     {
-        $this->basePath = rtrim(realpath($path), '\\/').'/';
+        $this->basePath = rtrim(realpath($path), '\\/').DIRECTORY_SEPARATOR;
 
         return $this;
     }
@@ -164,12 +171,12 @@ class AppConfig extends AbstractConfig
     /**
      * Set the application's absolute path to the public web directory.
      *
-     * @param string $path The path to the application's public directory.
+     * @param  string $path The path to the application's public directory.
      * @return AppConfig Chainable
      */
     public function setPublicPath($path)
     {
-        $this->publicPath = rtrim(realpath($path), '\\/').'/';
+        $this->publicPath = rtrim(realpath($path), '\\/').DIRECTORY_SEPARATOR;
 
         return $this;
     }
@@ -182,7 +189,7 @@ class AppConfig extends AbstractConfig
     public function publicPath()
     {
         if (!isset($this->publicPath)) {
-            return $this->basePath().DIRECTORY_SEPARATOR.'www/';
+            return $this->basePath().DIRECTORY_SEPARATOR.'www'.DIRECTORY_SEPARATOR;
         }
 
         return $this->publicPath;
@@ -198,15 +205,17 @@ class AppConfig extends AbstractConfig
     {
         if (isset($this->URL)) {
             return $this->URL;
+        } else {
+            return '';
         }
-
-        return '';
     }
 
     /**
-     * @param string $timezone The timezone string.
+     * Set the application's default timezone.
+     *
+     * @param  string $timezone The timezone string.
      * @throws InvalidArgumentException If the argument is not a string.
-     * @return CharcoalConfig Chainable
+     * @return AppConfig Chainable
      */
     public function setTimezone($timezone)
     {
@@ -240,7 +249,7 @@ class AppConfig extends AbstractConfig
      *
      * @param string|null $projectName The project name.
      * @throws InvalidArgumentException If the project argument is not a string (or null).
-     * @return CharcoalConfig Chainable
+     * @return AppConfig Chainable
      */
     public function setProjectName($projectName)
     {
@@ -270,7 +279,7 @@ class AppConfig extends AbstractConfig
 
     /**
      * @param boolean $devMode The "dev mode" flag.
-     * @return CharcoalConfig Chainable
+     * @return AppConfig Chainable
      */
     public function setDevMode($devMode)
     {
@@ -324,7 +333,10 @@ class AppConfig extends AbstractConfig
     }
 
     /**
-     * @param array $routes The route configuration structure to set.
+     * Parse the application's route configuration.
+     *
+     * @see    \Charcoal\Admin\Config::setRoutes() For a similar implementation.
+     * @param  array $routes The route configuration structure to set.
      * @return AppConfig Chainable
      */
     public function setRoutes(array $routes)
@@ -502,7 +514,7 @@ class AppConfig extends AbstractConfig
     /**
      * @param string $defaultDatabase The default database ident.
      * @throws InvalidArgumentException If the argument is not a string.
-     * @return CharcoalConfig Chainable
+     * @return AppConfig Chainable
      */
     public function setDefaultDatabase($defaultDatabase)
     {
@@ -519,7 +531,7 @@ class AppConfig extends AbstractConfig
      * @param string $ident  The database ident.
      * @param array  $config The database options.
      * @throws InvalidArgumentException If the arguments are invalid.
-     * @return CharcoalConfig Chainable
+     * @return AppConfig Chainable
      */
     public function addDatabase($ident, array $config)
     {
