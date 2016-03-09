@@ -68,9 +68,9 @@ abstract class AbstractAction extends AbstractEntity implements
     private $failureUrl;
 
     /**
-     * @param array $data The dependencies (app and logger).
+     * @param array|\ArrayAccess $data The dependencies (app and logger).
      */
-    public function __construct(array $data = null)
+    public function __construct($data = null)
     {
         $this->setLogger($data['logger']);
     }

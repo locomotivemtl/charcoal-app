@@ -34,9 +34,9 @@ class CacheConfig extends AbstractConfig
     public function defaults()
     {
         return [
-            'type'        => 'noop',
+            'types'        => ['memory'],
             'defaultTtl' => 0,
-            'prefix'      => 'charcoal-cache-'
+            'prefix'      => 'charcoal'
         ];
     }
 

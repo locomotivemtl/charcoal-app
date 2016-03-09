@@ -68,11 +68,9 @@ abstract class AbstractScript extends AbstractEntity implements
     /**
      * @param array $data The dependencies (app and logger).
      */
-    final public function __construct(array $data = null)
+    public function __construct($data = null)
     {
         $this->setLogger($data['logger']);
-
-        $this->init();
     }
 
     /**
@@ -94,7 +92,7 @@ abstract class AbstractScript extends AbstractEntity implements
     /**
      * @return void
      */
-    public function init()
+    protected function init()
     {
         $arguments = $this->defaultArguments();
         $this->setArguments($arguments);
@@ -107,6 +105,7 @@ abstract class AbstractScript extends AbstractEntity implements
      */
     final public function __invoke(RequestInterface $request, ResponseInterface $response)
     {
+        $this->init();
         $climate = $this->climate();
 
         if ($climate->arguments->defined('help')) {
@@ -122,9 +121,15 @@ abstract class AbstractScript extends AbstractEntity implements
     }
 
     /**
+     * Safe climate getter.
+     * If the instance was not previously set, create it.
+     *
+     * CLImate is "PHP's best friend for the terminal."
+     * "CLImate allows you to easily output colored text, special formats, and more."
+     *
      * @return CLImate
      */
-    public function climate()
+    protected function climate()
     {
         if ($this->climate === null) {
             $this->climate = new CLImate();
@@ -300,7 +305,7 @@ abstract class AbstractScript extends AbstractEntity implements
      * @param string $argName The argument identifier to read from list or input.
      * @return string The argument value or prompt value
      */
-    public function argOrInput($argName)
+    protected function argOrInput($argName)
     {
         $climate = $this->climate();
         $arg = $climate->arguments->get($argName);

@@ -65,7 +65,7 @@ class TranslatorConfig extends AbstractConfig implements MultilingualAwareInterf
     {
         return [
             'active'           => true,
-            'type'             => [ 'noop' ],
+            'types'             => [ 'noop' ],
             'locales'          => [
                 'repositories' => [
                     'vendor/locomotivemtl/charcoal-translation/config/languages.json'

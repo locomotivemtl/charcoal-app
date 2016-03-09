@@ -16,14 +16,17 @@ class MemcacheCacheConfig extends AbstractConfig
      * @var string $host
      */
     public $host;
+
     /**
      * @var integer $port
      */
     public $port;
+
     /**
      * @var boolean $persistent
      */
     public $persistent;
+
     /**
      * @var integer $weight
      */
