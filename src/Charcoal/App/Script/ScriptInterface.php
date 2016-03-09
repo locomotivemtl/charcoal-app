@@ -77,14 +77,6 @@ interface ScriptInterface
     public function argument($argumentIdent);
 
     /**
-     * Get an argument either from argument list (if set) or else from an input prompt.
-     *
-     * @param string $argName The argument identifier to read from list or input.
-     * @return array
-     */
-    public function argOrInput($argName);
-
-    /**
      * @param RequestInterface  $request  A PSR-7 compatible Request instance.
      * @param ResponseInterface $response A PSR-7 compatible Response instance.
      * @return ResponseInterface
