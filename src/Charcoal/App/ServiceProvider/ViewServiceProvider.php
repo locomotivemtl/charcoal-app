@@ -85,7 +85,7 @@ class ViewServiceProvider implements ServiceProviderInterface
             return [
                 'logger'    => $container['logger'],
                 'base_path' => $container['config']['base_path'],
-                'paths'     => $container['view/config']['path']
+                'paths'     => $container['view/config']['paths']
             ];
         };
 
@@ -196,24 +196,22 @@ class ViewServiceProvider implements ServiceProviderInterface
          * @return ViewInterface
          */
         $container['view'] = function (Container $container) {
-            $viewConfig = $container['view/config'];
-            $engine = $container['view/engine'];
-
             $view = new GenericView([
-                'config'=>$viewConfig
+                'config' => $container['view/config']
             ]);
-            $view->setEngine($engine);
+            $view->setEngine($container['view/engine']);
             return $view;
         };
 
         /**
+         * A PSR-7 renderer, using the default view instance.
+         *
          * @param Container $container A container instance.
          * @return Renderer
          */
         $container['view/renderer'] = function (Container $container) {
-            $view = $container['view'];
             $renderer = new Renderer([
-                'view'=>$view
+                'view' => $container['view']
             ]);
             return $renderer;
         };

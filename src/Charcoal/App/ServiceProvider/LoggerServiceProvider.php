@@ -70,7 +70,7 @@ class LoggerServiceProvider implements ServiceProviderInterface
         };
 
         /**
-         * @return MapFactory
+         * @return FactoryInterface
          */
         $container['logger/handler/factory'] = function (Container $contianer) {
             $mapFactory = new MapFactory();
@@ -92,8 +92,8 @@ class LoggerServiceProvider implements ServiceProviderInterface
             $handlers = new Container();
             $handlerFactory = $container['logger/handler/factory'];
             foreach ($handlersConfig as $h) {
-                $type = $h['type'];
-                $handlers[$type] = function (Container $c) use ($h) {
+                $handlers[$type] = function (Container $c) use ($h, $handlerFactory) {
+                    $type = $h['type'];
                     $args = [];
                     $handler = $handlerFactory->create($type, $args);
                     return $handler;
@@ -115,7 +115,6 @@ class LoggerServiceProvider implements ServiceProviderInterface
             if ($loggerConfig['active'] !== true) {
                 return new NullLogger();
             }
-
 
             $memProcessor = new MemoryUsageProcessor();
             $uidProcessor = new UidProcessor();
