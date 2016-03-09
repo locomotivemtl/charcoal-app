@@ -40,7 +40,7 @@ abstract class AbstractWidget extends AbstractEntity implements
     private $active;
 
     /**
-     * @param array|ContainerInterface $data Optional dependencies.
+     * @param array|\ArrayAccess $data Optional dependencies.
      */
     final public function __construct($data = null)
     {
