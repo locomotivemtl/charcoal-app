@@ -10,7 +10,9 @@ use \Psr\Http\Message\ResponseInterface;
 use \Pimple\Container;
 
 /**
- * Base Route Interface
+ * Base Route Interface.
+ *
+ * Routes are simple _invokable_ objects.
  */
 interface RouteInterface
 {
