@@ -66,7 +66,7 @@ abstract class AbstractScript extends AbstractEntity implements
     private $verbose;
 
     /**
-     * @param array $data The dependencies (app and logger).
+     * @param array|\ArrayAccess $data The dependencies (app and logger).
      */
     public function __construct($data = null)
     {
