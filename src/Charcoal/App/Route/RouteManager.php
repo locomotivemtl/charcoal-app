@@ -17,7 +17,7 @@ use \Charcoal\App\AbstractManager;
 class RouteManager extends AbstractManager
 {
     /**
-     * Set up the routes
+     * Set up the routes.
      *
      * There are 3 types of routes:
      *
@@ -38,8 +38,8 @@ class RouteManager extends AbstractManager
             }
         } else {
             $templates = ( isset($routes['templates']) ? $routes['templates'] : [] );
-            foreach ($templates as $templateIdent => $templateConfig) {
-                $this->setupTemplate($templateIdent, $templateConfig);
+            foreach ($templates as $routeIdent => $templateConfig) {
+                $this->setupTemplate($routeIdent, $templateConfig);
             }
 
             $actions = ( isset($routes['actions']) ? $routes['actions'] : [] );
@@ -50,41 +50,44 @@ class RouteManager extends AbstractManager
     }
 
     /**
-     * @param string             $templateIdent  The template identifier.
-     * @param array|\ArrayAccess $templateConfig The template config.
-     * @throws InvalidArgumentException If the ident is not a string.
+     * Add template route.
+     *
+     * Typically for a GET request, the route will render a template.
+     *
+     * @param  string             $routeIdent     The template's route identifier.
+     * @param  array|\ArrayAccess $templateConfig The template's config for the route.
+     * @throws InvalidArgumentException If the route identifier is not a string.
      * @return void
      */
-    public function setupTemplate($templateIdent, $templateConfig)
+    public function setupTemplate($routeIdent, $templateConfig)
     {
-        if (!is_string($templateIdent)) {
+        if (!is_string($routeIdent)) {
             throw new InvalidArgumentException(
-                'Can not setup route template, template ident is not a string'
+                'Can not setup route template, route identifier is not a string'
             );
         }
 
+        $templateIdent = isset($templateConfig['ident'])
+            ? $templateConfig['ident']
+            : $routeIdent;
+
         $templateIdent = ltrim($templateIdent, '/');
+        $templateConfig['ident'] = $templateIdent;
 
-        if (!isset($templateConfig['ident'])) {
-            $templateConfig['ident'] = $templateIdent;
-        }
+        $routePattern = isset($templateConfig['route'])
+            ? $templateConfig['route']
+            : $routeIdent;
 
-        if (isset($templateConfig['route'])) {
-            $routeIdent = '/'.ltrim($templateConfig['route'], '/');
-        } else {
-            $routeIdent = '/'.$templateIdent;
-            $templateConfig['route'] = $routeIdent;
-        }
+        $routePattern = '/'.ltrim($routePattern, '/');
+        $templateConfig['route'] = $routePattern;
 
-        if (isset($templateConfig['methods'])) {
-            $methods = $templateConfig['methods'];
-        } else {
-            $methods = ['GET'];
-        }
+        $methods = isset($templateConfig['methods'])
+            ? $templateConfig['methods']
+            : [ 'GET' ];
 
         $routeHandler = $this->app()->map(
             $methods,
-            $routeIdent,
+            $routePattern,
             function (
                 RequestInterface $request,
                 ResponseInterface $response,
@@ -134,41 +137,44 @@ class RouteManager extends AbstractManager
     }
 
     /**
-     * @param string             $actionIdent  The action identifier.
-     * @param array|\ArrayAccess $actionConfig The action config.
-     * @throws InvalidArgumentException If the ident is not a string.
+     * Add action route.
+     *
+     * Typically for a POST request, the route will execute an action (returns JSON).
+     *
+     * @param  string             $routeIdent   The action's route identifier.
+     * @param  array|\ArrayAccess $actionConfig The action's config for the route.
+     * @throws InvalidArgumentException If the route identifier is not a string.
      * @return void
      */
-    public function setupAction($actionIdent, $actionConfig)
+    public function setupAction($routeIdent, $actionConfig)
     {
-        if (!is_string($actionIdent)) {
+        if (!is_string($routeIdent)) {
             throw new InvalidArgumentException(
-                'Can not setup route action, action ident is not a string'
+                'Can not setup route action, route identifier is not a string'
             );
         }
 
+        $actionIdent = isset($actionConfig['ident'])
+            ? $actionConfig['ident']
+            : $routeIdent;
+
         $actionIdent = ltrim($actionIdent, '/');
+        $actionConfig['ident'] = $actionIdent;
 
-        if (!isset($actionConfig['ident'])) {
-            $actionConfig['ident'] = $actionIdent;
-        }
+        $routePattern = isset($actionConfig['route'])
+            ? $actionConfig['route']
+            : $routeIdent;
 
-        if (isset($actionConfig['route'])) {
-            $routeIdent = '/'.ltrim($actionConfig['route'], '/');
-        } else {
-            $routeIdent = '/'.$actionIdent;
-            $actionConfig['route'] = $routeIdent;
-        }
+        $routePattern = '/'.ltrim($routePattern, '/');
+        $actionConfig['route'] = $routePattern;
 
-        if (isset($actionConfig['methods'])) {
-            $methods = $actionConfig['methods'];
-        } else {
-            $methods = ['POST'];
-        }
+        $methods = isset($actionConfig['methods'])
+            ? $actionConfig['methods']
+            : [ 'POST' ];
 
         $routeHandler = $this->app()->map(
             $methods,
-            $routeIdent,
+            $routePattern,
             function (
                 RequestInterface $request,
                 ResponseInterface $response,
@@ -218,41 +224,44 @@ class RouteManager extends AbstractManager
     }
 
     /**
-     * @param string             $scriptIdent  The script identifier.
-     * @param array|\ArrayAccess $scriptConfig The script config.
-     * @throws InvalidArgumentException If the ident is not a string.
+     * Add script route.
+     *
+     * Typically used for a CLI interface, the route will execute a script.
+     *
+     * @param  string             $routeIdent   The script's route identifier.
+     * @param  array|\ArrayAccess $scriptConfig The script's config for the route.
+     * @throws InvalidArgumentException If the route identifier is not a string.
      * @return void
      */
-    public function setupScript($scriptIdent, $scriptConfig)
+    public function setupScript($routeIdent, $scriptConfig)
     {
-        if (!is_string($scriptIdent)) {
+        if (!is_string($routeIdent)) {
             throw new InvalidArgumentException(
-                'Can not setup route script, script ident is not a string'
+                'Can not setup route script, route identifier is not a string'
             );
         }
 
+        $scriptIdent = isset($scriptConfig['ident'])
+            ? $scriptConfig['ident']
+            : $routeIdent;
+
         $scriptIdent = ltrim($scriptIdent, '/');
+        $scriptConfig['ident'] = $scriptIdent;
 
-        if (!isset($scriptConfig['ident'])) {
-            $scriptConfig['ident'] = $scriptIdent;
-        }
+        $routePattern = isset($scriptConfig['route'])
+            ? $scriptConfig['route']
+            : $routeIdent;
 
-        if (isset($scriptConfig['route'])) {
-            $routeIdent = '/'.ltrim($scriptConfig['route'], '/');
-        } else {
-            $routeIdent = '/'.$scriptIdent;
-            $scriptConfig['route'] = $routeIdent;
-        }
+        $routePattern = '/'.ltrim($routePattern, '/');
+        $scriptConfig['route'] = $routePattern;
 
-        if (isset($scriptConfig['methods'])) {
-            $methods = $scriptConfig['methods'];
-        } else {
-            $methods = ['GET'];
-        }
+        $methods = isset($scriptConfig['methods'])
+            ? $scriptConfig['methods']
+            : [ 'GET' ];
 
         $routeHandler = $this->app()->map(
             $methods,
-            $routeIdent,
+            $routePattern,
             function (
                 RequestInterface $request,
                 ResponseInterface $response,
