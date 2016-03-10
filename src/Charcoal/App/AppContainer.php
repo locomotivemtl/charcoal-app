@@ -23,7 +23,7 @@ class AppContainer extends Container
         // Initialize container for Slim and Pimple
         parent::__construct($values);
 
-        $this['config'] = isset($values['config']) ? $values['config'] : [];
+        $this['config'] = (isset($values['config']) ? $values['config'] : []);
 
         $defaults = [
             'charcoal/app/service-provider/app'        => [],
@@ -34,14 +34,13 @@ class AppContainer extends Container
             'charcoal/app/service-provider/view'       => [],
         ];
 
-        $providers = $this['config']->get('service_providers');
-        $factory   = new ServiceProviderFactory();
-
-        if (is_array($providers) && count($providers)) {
-            $providers = array_replace($defaults, $providers);
+        if (!empty($this['config']['service_providers'])) {
+            $providers = array_replace($defaults, $this['config']['service_providers']);
         } else {
             $providers = $defaults;
         }
+
+        $factory = new ServiceProviderFactory();
 
         foreach ($providers as $ident => $options) {
             if (false === $options || (isset($options['active']) && !$options['active'])) {
