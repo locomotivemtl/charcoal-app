@@ -45,13 +45,17 @@ class ModuleManager extends AbstractManager
     {
         $modules = $this->config();
         $moduleFactory = new ModuleFactory();
+
         foreach ($modules as $moduleIdent => $moduleConfig) {
+            if ($moduleConfig === false || (isset($moduleConfig['active']) && !$moduleConfig['active'])) {
+                continue;
+            }
+
             $module = $moduleFactory->create($moduleIdent, [
                 'app'    => $this->app(),
                 'logger' => $this->logger
             ]);
-            // Merge custom data to config
-            $module->config()->merge($moduleConfig);
+
             $module->setup();
         }
     }
