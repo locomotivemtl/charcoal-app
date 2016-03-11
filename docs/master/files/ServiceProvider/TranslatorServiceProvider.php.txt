@@ -21,7 +21,9 @@ use \Charcoal\Translation\TranslationConfig;
 use \Charcoal\App\Config\TranslatorConfig;
 
 /**
- * Translator Service Provider. Configures and provides a Symfony Translator service to a container.
+ * Translator Service Provider
+ *
+ * Configures and provides a Symfony Translator service to a container.
  *
  * ## Services
  * - `translator`
@@ -53,7 +55,7 @@ class TranslatorServiceProvider implements ServiceProviderInterface
      *         // Handles ConfigurableTranslationTrait
      *         $container['translator/locales']->setCurrentLanguage($lang);
      *         ```
-     * @param  Container $container A container instance.
+     * @param  Container $container The container instance.
      * @throws RuntimeException If no active languages are provided or translations are not valid.
      * @return void
      */
