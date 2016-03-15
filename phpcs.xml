@@ -86,6 +86,10 @@
     <!--<rule ref="Squiz.Commenting.FileComment" />-->
     <!-- Function comment blocks -->
     <rule ref="Squiz.Commenting.FunctionComment" />
+    <!-- Do not test scalar typehint (php-7 only feature) -->
+    <rule ref="Squiz.Commenting.FunctionComment.ScalarTypeHintMissing">
+        <severity>0</severity>
+    </rule>
     <!-- Verifies that a @throws tag exists for a function that throws exceptions -->
     <rule ref="Squiz.Commenting.FunctionCommentThrowTag" />
     <!-- Checks that there is adequate spacing between comments -->
