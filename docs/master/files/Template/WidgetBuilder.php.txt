@@ -39,8 +39,13 @@ class WidgetBuilder
     public function build($options)
     {
         $container = $this->container;
-        $objType = isset($options['type']) ? $options['type'] : self::DEFAULT_TYPE;
-
+        if (isset($options['controller'])) {
+            $objType = $options['controller'];
+        } elseif (isset($options['type'])) {
+            $objType = $options['type'];
+        } else {
+            $objType = self::DEFAULT_TYPE;
+        }
         $obj = $this->factory->create($objType, [
             'logger'    =>  $container['logger'],
             'view'      =>  $container['view']
