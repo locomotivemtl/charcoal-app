@@ -3,10 +3,10 @@
 namespace Charcoal\App\Config;
 
 // Dependencies from `PHP`
-use \InvalidArgumentException as InvalidArgumentException;
+use \InvalidArgumentException;
 
-// Module (`charcoal-config`) dependencies
-use \Charcoal\Config\AbstractConfig as AbstractConfig;
+// Module `charcoal-config` dependencies
+use \Charcoal\Config\AbstractConfig;
 
 /**
  * Cache Configuration
