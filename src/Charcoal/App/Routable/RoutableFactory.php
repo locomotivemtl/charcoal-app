@@ -2,7 +2,7 @@
 
 namespace Charcoal\App\Routable;
 
-// Module `charcoal-core` dependencies
+// Module `charcoal-factory` dependencies
 use \Charcoal\Factory\ResolverFactory;
 
 /**

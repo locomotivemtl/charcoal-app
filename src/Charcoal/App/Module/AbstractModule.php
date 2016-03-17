@@ -2,6 +2,8 @@
 
 namespace Charcoal\App\Module;
 
+use \InvalidArgumentException;
+
 // Dependencies from PSR-3 (Logger)
 use \Psr\Log\LoggerAwareInterface;
 use \Psr\Log\LoggerAwareTrait;

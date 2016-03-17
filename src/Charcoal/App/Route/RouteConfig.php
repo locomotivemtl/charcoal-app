@@ -10,7 +10,7 @@ use \Charcoal\App\App;
 // Dependency from 'charcoal-config'
 use \Charcoal\Config\AbstractConfig;
 
-// Dependencies from 'charcoal-core'
+// Dependencies from 'charcoal-translation'
 use \Charcoal\Polyglot\UnilingualAwareInterface;
 use \Charcoal\Polyglot\UnilingualAwareTrait;
 
