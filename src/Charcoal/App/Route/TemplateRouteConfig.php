@@ -154,7 +154,12 @@ class TemplateRouteConfig extends RouteConfig
      */
     public function setTemplateData(array $templateData)
     {
-        $this->templateData = $templateData;
+        if (!isset($this->templateData)) {
+            $this->templateData = [];
+        }
+
+        $this->templateData = array_merge($this->templateData, $templateData);
+
         return $this;
     }
 
