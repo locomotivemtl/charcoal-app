@@ -2,22 +2,23 @@
 
 namespace Charcoal\App\Route;
 
-// Dependencies from `PHP`
 use \InvalidArgumentException;
 
-// PSR-7 (http messaging) dependencies
+// Dependencies from PSR-7 (HTTP Messaging)
 use \Psr\Http\Message\RequestInterface;
 use \Psr\Http\Message\ResponseInterface;
 
+// Dependency from Pimple
 use \Pimple\Container;
 
+// Dependency from Slim
 use \Slim\Http\Uri;
 
-// From `charcoal-config`
+// Dependency from 'charcoal-config'
 use \Charcoal\Config\ConfigurableInterface;
 use \Charcoal\Config\ConfigurableTrait;
 
-// Intra-module (`charcoal-app`) dependencies
+// Intra-module ('charcoal-app') dependencies
 use \Charcoal\App\AppInterface;
 use \Charcoal\App\Template\TemplateInterface;
 use \Charcoal\App\Template\TemplateFactory;
@@ -58,7 +59,7 @@ class TemplateRoute implements
     /**
      * ConfigurableTrait > createConfig()
      *
-     * @param mixed|null $data Optional config data.
+     * @param  mixed|null $data Optional config data.
      * @return ConfigInterface
      */
     public function createConfig($data = null)
@@ -67,9 +68,9 @@ class TemplateRoute implements
     }
 
     /**
-     * @param Container         $container A DI (Pimple) container.
-     * @param RequestInterface  $request   A PSR-7 compatible Request instance.
-     * @param ResponseInterface $response  A PSR-7 compatible Response instance.
+     * @param  Container         $container A DI (Pimple) container.
+     * @param  RequestInterface  $request   A PSR-7 compatible Request instance.
+     * @param  ResponseInterface $response  A PSR-7 compatible Response instance.
      * @return ResponseInterface
      */
     public function __invoke(Container $container, RequestInterface $request, ResponseInterface $response)
@@ -78,32 +79,10 @@ class TemplateRoute implements
 
         // Handle explicit redirects
         if (!empty($config['redirect'])) {
-            $uri   = $request->getUri();
-            $parts = parse_url($config['redirect']);
+            $uri = $this->parseRedirect($config['redirect'], $request);
 
-            if (!empty($parts)) {
-                if (isset($parts['host'])) {
-                    $uri = Uri::createFromString($config['redirect']);
-                } else {
-                    if (isset($parts['path'])) {
-                        $uri = $uri->withPath($parts['path']);
-                    }
-
-                    if (isset($parts['query'])) {
-                        $uri = $uri->withQuery($parts['query']);
-                    }
-
-                    if (isset($parts['fragment'])) {
-                        $uri = $uri->withFragment($parts['fragment']);
-                    }
-                }
-
-                if ((string)$uri !== (string)$request->getUri()) {
-                    return $response->withRedirect(
-                        $uri,
-                        $config['redirect_mode']
-                    );
-                }
+            if ($uri) {
+                return $response->withRedirect($uri, $config['redirect_mode']);
             }
         }
 
@@ -130,7 +109,7 @@ class TemplateRoute implements
     }
 
     /**
-     * @param Container $container A DI (Pimple) container.
+     * @param  Container $container A DI (Pimple) container.
      * @return string
      */
     protected function templateContent(Container $container)
@@ -141,7 +120,7 @@ class TemplateRoute implements
         $templateController = $config['controller'];
 
         $templateFactory = $container['template/factory'];
-        $templateFactory->setDefaultClass($config['defaultController']);
+        $templateFactory->setDefaultClass($config['default_controller']);
 
         $template = $templateFactory->create(
             $templateController,
@@ -161,5 +140,40 @@ class TemplateRoute implements
         $templateContent = $template->render($templateIdent);
 
         return $templateContent;
+    }
+
+    /**
+     * @param  string           $redirection The route's destination.
+     * @param  RequestInterface $request     A PSR-7 compatible Request instance.
+     * @return Uri|null
+     */
+    protected function parseRedirect($redirection, RequestInterface $request)
+    {
+        $uri   = $request->getUri();
+        $parts = parse_url($redirection);
+
+        if (!empty($parts)) {
+            if (isset($parts['host'])) {
+                $uri = Uri::createFromString($redirection);
+            } else {
+                if (isset($parts['path'])) {
+                    $uri = $uri->withPath($parts['path']);
+                }
+
+                if (isset($parts['query'])) {
+                    $uri = $uri->withQuery($parts['query']);
+                }
+
+                if (isset($parts['fragment'])) {
+                    $uri = $uri->withFragment($parts['fragment']);
+                }
+            }
+
+            if ((string)$uri !== (string)$request->getUri()) {
+                return $uri;
+            }
+        }
+
+        return null;
     }
 }
