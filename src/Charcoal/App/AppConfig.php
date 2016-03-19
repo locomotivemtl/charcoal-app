@@ -57,6 +57,11 @@ class AppConfig extends AbstractConfig
     private $routables = [];
 
     /**
+     * @var array $handlers
+     */
+    private $handlers = [];
+
+    /**
      * @var array $modules
      */
     private $modules = [];
@@ -103,6 +108,7 @@ class AppConfig extends AbstractConfig
             'timezone'         => 'UTC',
             'routes'           => [],
             'routables'        => [],
+            'handlers'         => [],
             'modules'          => [],
             'translator'       => [],
             'cache'            => [],
@@ -381,6 +387,33 @@ class AppConfig extends AbstractConfig
     public function routables()
     {
         return $this->routables;
+    }
+
+    /**
+     * Define custom response and error handlers.
+     *
+     * Slim provides five standard handlers:
+     * - "foundHandler"
+     * - "notFoundHandler"
+     * - "notAllowedHandler"
+     * - "errorHandler"
+     * - "phpErrorHandler"
+     *
+     * @param array $handlers The handlers configuration structure to set.
+     * @return AppConfig Chainable
+     */
+    public function setHandlers(array $handlers)
+    {
+        $this->handlers = $handlers;
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function handlers()
+    {
+        return $this->handlers;
     }
 
     /**

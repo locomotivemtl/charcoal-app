@@ -4,11 +4,11 @@ namespace Charcoal\App\ServiceProvider;
 
 use \Exception;
 
-// PSR-7 (http messaging) dependencies
+// Dependencies from PSR-7 (HTTP Messaging)
 use \Psr\Http\Message\RequestInterface;
 use \Psr\Http\Message\ResponseInterface;
 
-// Dependencies from `pimple/pimple`
+// Dependencies from Pimple
 use \Pimple\ServiceProviderInterface;
 use \Pimple\Container;
 
@@ -16,6 +16,13 @@ use \Pimple\Container;
 use \Charcoal\App\Action\ActionFactory;
 use \Charcoal\App\Route\RouteFactory;
 use \Charcoal\App\Script\ScriptFactory;
+
+use \Charcoal\App\Handler\Error;
+use \Charcoal\App\Handler\PhpError;
+use \Charcoal\App\Handler\Shutdown;
+use \Charcoal\App\Handler\NotAllowed;
+use \Charcoal\App\Handler\NotFound;
+
 use \Charcoal\App\Template\TemplateFactory;
 use \Charcoal\App\Template\TemplateBuilder;
 use \Charcoal\App\Template\WidgetFactory;
@@ -59,47 +66,124 @@ class AppServiceProvider implements ServiceProviderInterface
      */
     protected function registerHandlerServices(Container $container)
     {
-        if (!isset($container['notFoundHandler'])) {
+        $appConfig = $container['config'];
+
+        if (!isset($appConfig['handlers'])) {
+            return;
+        }
+
+        if ((
+            !isset($container['notFoundHandler']) ||
+            $container['notFoundHandler'] instanceof \Slim\Handlers\NotFound
+        )) {
+            unset($container['notFoundHandler']);
+
             /**
-             * HTTP 404 (Not found) handler.
+             * HTTP 404 (Not Found) handler.
              *
-             * @param Container $container A container instance.
-             * @return callable
+             * @param  Container $container A container instance.
+             * @return HandlerInterface
              */
             $container['notFoundHandler'] = function (Container $container) {
+                $config  = $container['config'];
+                $handler = new NotFound($container);
 
-                return function (RequestInterface $request, ResponseInterface $response) use ($container) {
+                if (isset($config['handlers']['notFound'])) {
+                    $handler->config()->merge($config['handlers']['notFound']);
+                }
 
-                    return $container['response']
-                        ->withStatus(404)
-                        ->withHeader('Content-Type', 'text/html')
-                        ->write('Page not found'."\n");
-                };
+                return $handler->init();
             };
         }
 
-        if (!isset($container['errorHandler'])) {
+        if ((
+            !isset($container['notAllowedHandler']) ||
+            $container['notAllowedHandler'] instanceof \Slim\Handlers\NotAllowed
+        )) {
+            unset($container['notAllowedHandler']);
+
+            /**
+             * HTTP 405 (Not Allowed) handler.
+             *
+             * @param  Container $container A container instance.
+             * @return HandlerInterface
+             */
+            $container['notAllowedHandler'] = function (Container $container) {
+                $config  = $container['config'];
+                $handler = new NotAllowed($container);
+
+                if (isset($config['handlers']['notAllowed'])) {
+                    $handler->config()->merge($config['handlers']['notAllowed']);
+                }
+
+                return $handler->init();
+            };
+        }
+
+        if ((
+            !isset($container['phpErrorHandler']) ||
+            $container['phpErrorHandler'] instanceof \Slim\Handlers\PhpError
+        )) {
+            unset($container['phpErrorHandler']);
+
+            /**
+             * HTTP 500 (Error) handler for PHP 7+ Throwables.
+             *
+             * @param  Container $container A container instance.
+             * @return HandlerInterface
+             */
+            $container['phpErrorHandler'] = function (Container $container) {
+                $config  = $container['config'];
+                $handler = new PhpError($container);
+
+                if (isset($config['handlers']['phpError'])) {
+                    $handler->config()->merge($config['handlers']['phpError']);
+                }
+
+                return $handler->init();
+            };
+        }
+
+        if ((
+            !isset($container['errorHandler']) ||
+            $container['errorHandler'] instanceof \Slim\Handlers\Error
+        )) {
+            unset($container['errorHandler']);
+
             /**
              * HTTP 500 (Error) handler.
              *
-             * @param Container $container A container instance.
-             * @return callable
+             * @param  Container $container A container instance.
+             * @return HandlerInterface
              */
             $container['errorHandler'] = function (Container $container) {
+                $config  = $container['config'];
+                $handler = new Error($container);
 
-                return function (
-                    RequestInterface $request,
-                    ResponseInterface $response,
-                    Exception $exception
-                ) use ($container) {
+                if (isset($config['handlers']['error'])) {
+                    $handler->config()->merge($config['handlers']['error']);
+                }
 
-                    return $container['response']
-                        ->withStatus(500)
-                        ->withHeader('Content-Type', 'text/html')
-                        ->write(
-                            sprintf('Something went wrong! (%s)'."\n", $exception->getMessage())
-                        );
-                };
+                return $handler->init();
+            };
+        }
+
+        if (!isset($container['shutdownHandler'])) {
+            /**
+             * HTTP 503 (Service Unavailable) handler.
+             *
+             * @param  Container $container A container instance.
+             * @return HandlerInterface
+             */
+            $container['shutdownHandler'] = function (Container $container) {
+                $config  = $container['config'];
+                $handler = new Shutdown($container);
+
+                if (isset($config['handlers']['shutdown'])) {
+                    $handler->config()->merge($config['handlers']['shutdown']);
+                }
+
+                return $handler->init();
             };
         }
     }

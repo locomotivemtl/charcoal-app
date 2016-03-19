@@ -266,7 +266,11 @@
     <rule ref="Squiz.PHP.DisallowObEndFlush" />
     <rule ref="Squiz.PHP.DisallowSizeFunctionsInLoops" />
     <!-- @todo Doc me -->
-    <rule ref="Squiz.PHP.DiscouragedFunctions" />
+    <rule ref="Squiz.PHP.DiscouragedFunctions">
+        <properties>
+            <property name="forbiddenFunctions" type="array" value="print_r=>null,var_dump=>null,var_export=>null" />
+        </properties>
+    </rule>
     <rule ref="Squiz.PHP.EmbeddedPhp" />
     <rule ref="Squiz.PHP.EmbeddedPhp.Indent">
         <severity>0</severity>
@@ -294,9 +298,17 @@
 <!-- Strings Sniffs -->
 
     <!-- Use one string instead of concatenating 2 strings together -->
-    <rule ref="Generic.Strings.UnnecessaryStringConcat" />
+    <rule ref="Generic.Strings.UnnecessaryStringConcat">
+        <properties>
+            <property name="allowMultiline" value="true"/>
+        </properties>
+    </rule>
     <!-- Makes sure there are no spaces between the concatenation operator (.) the strings -->
-    <rule ref="Squiz.Strings.ConcatenationSpacing" />
+    <rule ref="Squiz.Strings.ConcatenationSpacing">
+        <properties>
+            <property name="ignoreNewlines" value="true"/>
+        </properties>
+    </rule>
     <!-- Makes sure that any use of Double Quotes ("") are warranted. -->
     <rule ref="Squiz.Strings.DoubleQuoteUsage" />
     <!-- Makes sure that any strings that are "echoed" are not enclosed in brackets -->
