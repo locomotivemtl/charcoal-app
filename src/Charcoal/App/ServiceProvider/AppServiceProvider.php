@@ -66,107 +66,95 @@ class AppServiceProvider implements ServiceProviderInterface
      */
     protected function registerHandlerServices(Container $container)
     {
-        $appConfig = $container['config'];
+        $config = $container['config'];
 
-        if (!isset($appConfig['handlers'])) {
+        if (!isset($config['handlers'])) {
             return;
         }
 
-        if ((
-            !isset($container['notFoundHandler']) ||
-            $container['notFoundHandler'] instanceof \Slim\Handlers\NotFound
-        )) {
-            unset($container['notFoundHandler']);
-
-            /**
-             * HTTP 404 (Not Found) handler.
-             *
-             * @param  Container $container A container instance.
-             * @return HandlerInterface
-             */
-            $container['notFoundHandler'] = function (Container $container) {
-                $config  = $container['config'];
+        /**
+         * HTTP 404 (Not Found) handler.
+         *
+         * @param  object|HandlerInterface $handler   An error handler instance.
+         * @param  Container               $container A container instance.
+         * @return HandlerInterface
+         */
+        $container->extend('notFoundHandler', function ($handler, Container $container) use ($config) {
+            if ($handler instanceof \Slim\Handlers\NotFound) {
                 $handler = new NotFound($container);
 
                 if (isset($config['handlers']['notFound'])) {
                     $handler->config()->merge($config['handlers']['notFound']);
                 }
 
-                return $handler->init();
-            };
-        }
+                $handler->init();
+            }
 
-        if ((
-            !isset($container['notAllowedHandler']) ||
-            $container['notAllowedHandler'] instanceof \Slim\Handlers\NotAllowed
-        )) {
-            unset($container['notAllowedHandler']);
+            return $handler;
+        });
 
-            /**
-             * HTTP 405 (Not Allowed) handler.
-             *
-             * @param  Container $container A container instance.
-             * @return HandlerInterface
-             */
-            $container['notAllowedHandler'] = function (Container $container) {
-                $config  = $container['config'];
+        /**
+         * HTTP 405 (Not Allowed) handler.
+         *
+         * @param  object|HandlerInterface $handler   An error handler instance.
+         * @param  Container               $container A container instance.
+         * @return HandlerInterface
+         */
+        $container->extend('notAllowedHandler', function ($handler, Container $container) use ($config) {
+            if ($handler instanceof \Slim\Handlers\NotAllowed) {
                 $handler = new NotAllowed($container);
 
                 if (isset($config['handlers']['notAllowed'])) {
                     $handler->config()->merge($config['handlers']['notAllowed']);
                 }
 
-                return $handler->init();
-            };
-        }
+                $handler->init();
+            }
 
-        if ((
-            !isset($container['phpErrorHandler']) ||
-            $container['phpErrorHandler'] instanceof \Slim\Handlers\PhpError
-        )) {
-            unset($container['phpErrorHandler']);
+            return $handler;
+        });
 
-            /**
-             * HTTP 500 (Error) handler for PHP 7+ Throwables.
-             *
-             * @param  Container $container A container instance.
-             * @return HandlerInterface
-             */
-            $container['phpErrorHandler'] = function (Container $container) {
-                $config  = $container['config'];
+        /**
+         * HTTP 500 (Error) handler for PHP 7+ Throwables.
+         *
+         * @param  object|HandlerInterface $handler   An error handler instance.
+         * @param  Container               $container A container instance.
+         * @return HandlerInterface
+         */
+        $container->extend('phpErrorHandler', function ($handler, Container $container) use ($config) {
+            if ($handler instanceof \Slim\Handlers\PhpError) {
                 $handler = new PhpError($container);
 
                 if (isset($config['handlers']['phpError'])) {
                     $handler->config()->merge($config['handlers']['phpError']);
                 }
 
-                return $handler->init();
-            };
-        }
+                $handler->init();
+            }
 
-        if ((
-            !isset($container['errorHandler']) ||
-            $container['errorHandler'] instanceof \Slim\Handlers\Error
-        )) {
-            unset($container['errorHandler']);
+            return $handler;
+        });
 
-            /**
-             * HTTP 500 (Error) handler.
-             *
-             * @param  Container $container A container instance.
-             * @return HandlerInterface
-             */
-            $container['errorHandler'] = function (Container $container) {
-                $config  = $container['config'];
+        /**
+         * HTTP 500 (Error) handler.
+         *
+         * @param  object|HandlerInterface $handler   An error handler instance.
+         * @param  Container               $container A container instance.
+         * @return HandlerInterface
+         */
+        $container->extend('errorHandler', function ($handler, Container $container) use ($config) {
+            if ($handler instanceof \Slim\Handlers\Error) {
                 $handler = new Error($container);
 
                 if (isset($config['handlers']['error'])) {
                     $handler->config()->merge($config['handlers']['error']);
                 }
 
-                return $handler->init();
-            };
-        }
+                $handler->init();
+            }
+
+            return $handler;
+        });
 
         if (!isset($container['shutdownHandler'])) {
             /**
