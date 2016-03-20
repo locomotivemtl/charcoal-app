@@ -176,8 +176,8 @@ class HandlerConfig extends AbstractConfig implements UnilingualAwareInterface
     {
         $config = App::instance()->config();
 
-        if ($config->has('handlers.defaults.engine')) {
-            return $config->get('handlers.defaults.engine');
+        if ($config->has('view.default_engine')) {
+            return $config->get('view.default_engine');
         } else {
             return 'mustache';
         }

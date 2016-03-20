@@ -263,7 +263,7 @@ abstract class AbstractHandler implements
      * @param  string|UriInterface $url A URL to the base URL.
      * @return AbstractHandler Chainable
      */
-    protected function setBaseUrl($url)
+    public function setBaseUrl($url)
     {
         if ($url instanceof UriInterface) {
             $url = $url->withPath('')->withQuery('')->withFragment('');
