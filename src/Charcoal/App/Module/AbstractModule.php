@@ -166,9 +166,7 @@ abstract class AbstractModule implements
     /**
      * Setup the module's "global" routables.
      *
-     * Routables can only be defined globally (app-level) for now.
-     *
-     * @return void
+     * @return ModuleInterface Chainable
      */
     protected function setupRoutables()
     {

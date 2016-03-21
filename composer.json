@@ -21,7 +21,7 @@
   "require": {
     "php": ">=5.5.0",
     "slim/slim": "^3.1.0",
-    "monolog/monolog": "^1.16",
+    "monolog/monolog": "^1.17",
     "tedivm/stash": "0.14.*",
     "locomotivemtl/charcoal-config": "~0.5",
     "locomotivemtl/charcoal-factory": "~0.3",
