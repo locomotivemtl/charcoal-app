@@ -35,7 +35,7 @@ class CacheConfig extends AbstractConfig
     {
         return [
             'types'        => ['memory'],
-            'defaultTtl' => 0,
+            'default_ttl' => 0,
             'prefix'      => 'charcoal'
         ];
     }
