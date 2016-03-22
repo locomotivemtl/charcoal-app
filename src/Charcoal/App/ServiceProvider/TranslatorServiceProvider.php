@@ -150,8 +150,7 @@ class TranslatorServiceProvider implements ServiceProviderInterface
             $catalog = new Catalog($translations);
 
             if (isset($config['paths'])) {
-                $loader = new GenericConfig();
-                $paths  = $config['paths'];
+                $paths = $config['paths'];
 
                 $languages = $container['translator/locales']->availableLanguages();
                 $basePath  = $container['config']->get('base_path');
@@ -168,7 +167,8 @@ class TranslatorServiceProvider implements ServiceProviderInterface
                     }
 
                     foreach ($languages as $langCode) {
-                        $exts = [ 'ini', 'json', 'php' ];
+                        $loader = new GenericConfig();
+                        $exts   = [ 'ini', 'json', 'php' ];
                         while ($exts) {
                             $ext = array_pop($exts);
                             $cfg = sprintf('%1$s/messages.%2$s.%3$s', $path, $langCode, $ext);
