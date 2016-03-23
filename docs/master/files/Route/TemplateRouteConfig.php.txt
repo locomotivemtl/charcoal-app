@@ -7,6 +7,9 @@ use \InvalidArgumentException;
 // Dependency from 'charcoal-app'
 use \Charcoal\App\App;
 
+// Dependencies from 'charcoal-translation'
+use \Charcoal\Translation\TranslationString;
+
 // Local namespace dependencies
 use \Charcoal\App\Route\RouteConfig;
 
@@ -174,18 +177,18 @@ class TemplateRouteConfig extends RouteConfig
     }
 
     /**
-     * @param string $redirect Points to a route.
+     * @param  string|string[] $redirect Points to a route.
      * @return TemplateRouteConfig Chainable
      */
     public function setRedirect($redirect)
     {
-        $this->redirect = $redirect;
+        $this->redirect = new TranslationString($redirect);
 
         return $this;
     }
 
     /**
-     * @return string redirect route
+     * @return string|TranslationString Redirect route
      */
     public function redirect()
     {
