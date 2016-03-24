@@ -35,6 +35,7 @@ The request is then handled by one of the 3 types of route (or _request controll
 - [Usage](#usage)
 - [Development](#development)
   - [Development dependencies](#development-dependencies)
+  - [Continuous Integration](#continuous-integration)
   - [Coding Style](#coding-style)
   - [Authors](#authors)
   - [Changelog](#changelog)
@@ -503,7 +504,7 @@ A full example, in JSON format:
 ```json
 {
 	"cache":{
-		"types": ['memcache', 'memory'],
+		"types": ["memcache", "memory"],
 		"default_ttl": 0,
 		"prefix": "charcoal"
 	}
@@ -688,7 +689,7 @@ Or, in JSON format:
 	"view": {
 		"paths":[
 			"templates/",
-			"vendor/locomotivemtl/charcoal-admin/templates/
+			"vendor/locomotivemtl/charcoal-admin/templates/"
 		],
 		"engines":{
 			"mustache":{}
@@ -734,7 +735,7 @@ For a complete project example using `charcoal-app`, see the [charcoal-project-b
 To install the development environment:
 
 ```shell
-$ composer install
+$ composer install --prefer-source
 ```
 
 ## Development dependencies

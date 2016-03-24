@@ -9,7 +9,7 @@ $autoloader->add('Charcoal\\', __DIR__.'/src/');
 $autoloader->add('Charcoal\\Tests\\', __DIR__);
 
 $config = new AppConfig([
-    'base_path' => (dirname(__DIR__) . '/')
+    'base_path' => (dirname(__DIR__).'/')
 ]);
 $GLOBALS['container'] = new AppContainer([
     'config' => $config
