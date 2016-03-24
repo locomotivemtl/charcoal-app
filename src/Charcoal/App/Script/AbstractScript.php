@@ -58,12 +58,12 @@ abstract class AbstractScript extends AbstractEntity implements
     /**
      * @var boolean $quiet
      */
-    private $quiet;
+    private $quiet = false;
 
     /**
      * @var boolean $verbose
      */
-    private $verbose;
+    private $verbose = false;
 
     /**
      * @param array|\ArrayAccess $data The dependencies (app and logger).
@@ -211,10 +211,10 @@ abstract class AbstractScript extends AbstractEntity implements
         return $this->description;
     }
 
-        /**
-         * @param boolean $quiet The quiet flag.
-         * @return ScriptInterface Chainable
-         */
+    /**
+     * @param boolean $quiet The quiet flag.
+     * @return ScriptInterface Chainable
+     */
     public function setQuiet($quiet)
     {
         $this->quiet = !!$quiet;
