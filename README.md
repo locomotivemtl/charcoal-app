@@ -5,7 +5,6 @@ Charcoal App
 
 The request is then handled by one of the 3 types of route (or _request controller_): `Action`, `Script` or `Template`.
 
-[![Build Status](https://travis-ci.org/locomotivemtl/charcoal-app.svg?branch=master)](https://travis-ci.org/locomotivemtl/charcoal-app)
 
 # Table of contents
 
@@ -735,16 +734,23 @@ For a complete project example using `charcoal-app`, see the [charcoal-project-b
 To install the development environment:
 
 ```shell
-$ npm install
 $ composer install
 ```
 
 ## Development dependencies
 
-- `npm`
-- `grunt`
-- `composer`
-- `phpunit`
+- `phpunit/phpunit`
+- `squizlabs/php_codesniffer`
+- `satooshi/php-coveralls`
+
+## Continuous Integration
+
+| Service | Badge | Description |
+| ------- | ----- | ----------- |
+| [Travis](https://travis-ci.org/locomotivemtl/charcoal-app) | [![Build Status](https://travis-ci.org/locomotivemtl/charcoal-app.svg?branch=master)](https://travis-ci.org/locomotivemtl/charcoal-app) | Runs code sniff check and unit tests. Auto-generates API documentation. |
+| [Scrutinizer](https://scrutinizer-ci.com/g/locomotivemtl/charcoal-app/) | [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/locomotivemtl/charcoal-app/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/locomotivemtl/charcoal-app/?branch=master) | Code quality checker. Also validates API documentation quality. |
+| [Coveralls](https://coveralls.io/github/locomotivemtl/charcoal-app) | [![Coverage Status](https://coveralls.io/repos/github/locomotivemtl/charcoal-app/badge.svg?branch=master)](https://coveralls.io/github/locomotivemtl/charcoal-app?branch=master) | Unit Tests code coverage. |
+| [Sensiolabs](https://insight.sensiolabs.com/projects/533b5796-7e69-42a7-a046-71342146308a) | [![SensioLabsInsight](https://insight.sensiolabs.com/projects/533b5796-7e69-42a7-a046-71342146308a/mini.png)](https://insight.sensiolabs.com/projects/533b5796-7e69-42a7-a046-71342146308a) | Another code quality checker, focused on PHP. |
 
 ## Coding Style
 
@@ -756,7 +762,7 @@ The Charcoal-App module follows the Charcoal coding-style:
 - [_phpDocumentor_](http://phpdoc.org/) comments.
 - Read the [phpcs.xml](phpcs.xml) file for all the details on code style.
 
-> Coding style validation / enforcement can be performed with `grunt phpcs`. An auto-fixer is also available with `grunt phpcbf`.
+> Coding style validation / enforcement can be performed with `composer phpcs`. An auto-fixer is also available with `composer phpcbf`.
 
 ## Authors
 
