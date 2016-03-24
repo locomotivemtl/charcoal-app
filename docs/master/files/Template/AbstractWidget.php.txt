@@ -37,7 +37,7 @@ abstract class AbstractWidget extends AbstractEntity implements
     /**
      * @var boolean $active
      */
-    private $active;
+    private $active = true;
 
     /**
      * @param array|\ArrayAccess $data Optional dependencies.
