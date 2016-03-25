@@ -738,6 +738,11 @@ To install the development environment:
 $ composer install --prefer-source
 ```
 
+## API documentation
+
+- The auto-generated `phpDocumentor` API documentation is available at [https://locomotivemtl.github.io/charcoal-app/docs/master/](https://locomotivemtl.github.io/charcoal-app/docs/master/)
+- The auto-generated `apigen` API documentation is available at [https://codedoc.pub/locomotivemtl/charcoal-app/master/](https://codedoc.pub/locomotivemtl/charcoal-app/master/index.html)
+
 ## Development dependencies
 
 - `phpunit/phpunit`
