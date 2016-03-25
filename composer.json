@@ -42,9 +42,9 @@
   "bin": [ "bin/charcoal" ],
   "scripts": {
     "test": [
-      "find {src,tests} -name '*.php' -print0 | xargs -0 -n1 -P8 php -l | grep -v '^No syntax errors detected'; test $? -eq 1",
-      "php vendor/bin/phpcs -ps --colors --standard=phpcs.xml src/",
-      "php vendor/bin/phpunit --configuration tests/phpunit.xml --coverage-text"
+      "@phplint",
+      "@phpcs",
+      "@phpunit"
     ],
     "phplint": "find {src,tests} -name '*.php' -print0 | xargs -0 -n1 -P8 php -l | grep -v '^No syntax errors detected'; test $? -eq 1",
     "phpunit": "php vendor/bin/phpunit --configuration tests/phpunit.xml --coverage-text",
