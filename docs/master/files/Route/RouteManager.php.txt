@@ -76,9 +76,8 @@ class RouteManager extends AbstractManager
 
         $routePattern = isset($templateConfig['route'])
             ? $templateConfig['route']
-            : $routeIdent;
+            : '/'.ltrim($routeIdent, '/');
 
-        $routePattern = '/'.ltrim($routePattern, '/');
         $templateConfig['route'] = $routePattern;
 
         $methods = isset($templateConfig['methods'])
@@ -165,9 +164,8 @@ class RouteManager extends AbstractManager
 
         $routePattern = isset($actionConfig['route'])
             ? $actionConfig['route']
-            : $routeIdent;
+            : '/'.ltrim($routeIdent, '/');
 
-        $routePattern = '/'.ltrim($routePattern, '/');
         $actionConfig['route'] = $routePattern;
 
         $methods = isset($actionConfig['methods'])
@@ -254,9 +252,8 @@ class RouteManager extends AbstractManager
 
         $routePattern = isset($scriptConfig['route'])
             ? $scriptConfig['route']
-            : $routeIdent;
+            : '/'.ltrim($routeIdent, '/');
 
-        $routePattern = '/'.ltrim($routePattern, '/');
         $scriptConfig['route'] = $routePattern;
 
         $methods = isset($scriptConfig['methods'])
