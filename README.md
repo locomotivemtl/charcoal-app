@@ -62,7 +62,7 @@ A PSR-4 compliant autoloader
 	- Factories are provided for Action, Module, Routable, Route, Script, ServiceProvider, Template and Widget
 - [`locomotivemtl/charcoal-view`](https://github.com/locomotivemtl/charcoal-view)
 	- Template controllers will typically load a _View_ object  (or a _Renderer_, for PSR7 / Slim compatibility) and render a template.
-	- An engine should also be installed. This can be:
+	- A rendering engine should also be installed. This can be:
 		- Mustache (default, recommended)
 		- Twig
 		- or simple PHP templates.
@@ -136,30 +136,14 @@ At the core of a _Charcoal application_ is a highy customizable **Config** syste
 
 Typically, the configuration should load a file located in `config/config.php` in a `AppConfig` object. This file might load other, specialized, config file (PHP, json or ini files).
 
+In the front controller, ensure the configuration is loaded:
+
+```php
+$config = new \Charcoal\App\AppConfig();
+$config->addFile(__DIR__.'/../config/config.php');
+```
+
 > It is recommended to keep a separate _config_ file for all of your different app modules. Compartmentalized config sections are easier to maintain and understand.
-
-## App component
-
-The App component is based on [Slim](https://github.com/slimphp/Slim).
-
-> **What is Slim?**
->
-> At its core, Slim is a dispatcher that receives an HTTP request, invokes an appropriate callback routine, and returns an HTTP response.
-
-- The *App* loads the root onfiguration.
-	- **App**: _implements_ `\Charcoal\App\App`
-	- **Config**: `\Charcoal\App\AppConfig`
-		- The `AppConfig` expects a key called `modules`
-			- Each modules have an ident and a sub-configuration (`ModuleConfig`)
-	- **Container**: Dependencies are expected to be in a `Pimple` container
-
-- The *App* has one method: `setup()` wich:
-	- Accepts a `\Slim\App` as a parameter.
-	- Instanciate a `ModuleManager` which:
-		- Loop all `modules` from the `AppConfiguration` and create new *Modules* according to the configuration.
-		- (The Module creation is done statically via it's `setup()` abstract method)
-
-> 👉 The `App` concept is entirely optional. Modules could be loaded without one.
 
 ### Base App Configuration
 
@@ -198,6 +182,36 @@ The App component is based on [Slim](https://github.com/slimphp/Slim).
 | **translator**       | `array`   | `null`  |
 | **view**             | `array`   | `null`  | The default view configuration (default engine and path settings). See [ViewConfig](https://github.com/locomotivemtl/charcoal-view). I|
 
+## App component
+
+The App component is based on [Slim](https://github.com/slimphp/Slim). It actually extends the `\Slim\App` class.
+
+> **What is Slim?**
+>
+> At its core, Slim is a dispatcher that receives an HTTP request, invokes an appropriate callback routine, and returns an HTTP response.
+
+The **App** is responsible for loading the _modules_, setting up the _routes_ and the _default handlers_ and adding _Service Providers_ to provide external services to the _DI Container_.
+
+Initialize the app in the _Front Controller_:
+
+```php
+// Create container and configure it (with charcoal-config)
+$container = new \Charcoal\App\AppContainer([
+    'settings' => [
+        'displayErrorDetails' => true
+    ],
+    // See code example from the "Config component", above.
+    'config' => $config
+]);
+
+// Charcoal / Slim is the main app
+$app = \Charcoal\App\App::instance($container);
+$app->run();
+```
+
+
+
+
 ## Module component
 
 - A *Module* loads its configuration from the root config
@@ -223,7 +237,10 @@ All routes are actually handled by the *Slim* app. Charcoal Routes are just *def
 		- `Action`
 		- `Script` (_Scripts_ can only be ran from the CLI.)
 		- `Template`
-	- The `controller` ident
+	- The `controller` ident, which will identify the proper controller to create.
+	    - Controllers are created from a _resolver_ factory. Their identifier may look like `foo/bar/controller-name`.
+
+
 
 ### Route API
 
@@ -234,10 +251,11 @@ All routes are actually handled by the *Slim* app. Charcoal Routes are just *def
 | Key             | Type       | Default     | Description |
 | --------------- | ---------- | ----------- | ----------- |
 | **ident**       | `string`   | `null`      | Route identifier. |
+| **route**       | `string`   | `null`        | Route pattern. |
 | **methods**     | `string[]` | `[ 'GET' ]` | The HTTP methods to wthich this route resolve to. Ex: `['GET', 'POST', 'PUT', 'DELETE']` |
 | **controller**  | `string`   | `null`      | Controller identifier. Will be guessed from the _ident_ when `null`. |
 | **lang**        | `string`   | `null`      | The current language. |
-| **group**       | `string`   | `null`      | The route group, if any. |
+| **groups**      | `string[]` | `null`      | The route group, if any. |
 
 
 There are 3 types of `Route`:
@@ -780,6 +798,6 @@ The Charcoal-App module follows the Charcoal coding-style:
 
 ### 0.1
 
-_2016-03-09_
+_2016-03-29_
 
 - Initial release
