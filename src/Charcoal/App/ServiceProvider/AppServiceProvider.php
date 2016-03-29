@@ -160,6 +160,8 @@ class AppServiceProvider implements ServiceProviderInterface
             /**
              * HTTP 503 (Service Unavailable) handler.
              *
+             * This handler is not part of Slim.
+             *
              * @param  Container $container A container instance.
              * @return HandlerInterface
              */
