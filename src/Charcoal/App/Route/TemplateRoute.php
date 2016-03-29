@@ -28,6 +28,23 @@ use \Charcoal\App\Route\RouteInterface;
 use \Charcoal\App\Route\TemplateRouteConfig;
 
 /**
+ * Template Route Handler.
+ *
+ * A route handler is a simple `invokale` object with the signature:
+ * `__invoke(Container $container, RequestInterface $request, ResponseInterface $response)`
+ * It is only called (invoked) when a route is matched.
+ *
+ * This is the default "Slim Route Handler" for _template_ style routes.
+ * It uses a `TemplateRouteConfig` to properly either:
+ *
+ * - redirect the request, if explicitely set
+ * - load and render a "Template" object
+ *
+ * Templates can be any objects that can be loaded with a "TemplateFactory".
+ * The Template Factory used is an external dependency (`template/factory`) expected to be set on the container.
+ *
+ * Template-level cache is possible by setting the "cache" config option to true.
+ * Cached template can not have any options; they will always return the exact same content for all "template".
  *
  */
 class TemplateRoute implements
@@ -39,15 +56,9 @@ class TemplateRoute implements
     /**
      * Create new template route
      *
-     * ### Dependencies
-     *
-     * **Required**
+     * **Required dependencies**
      *
      * - `config` — ScriptRouteConfig
-     *
-     * **Optional**
-     *
-     * - `logger` — PSR-3 Logger
      *
      * @param array|\ArrayInterface $data Dependencies.
      */
@@ -90,14 +101,14 @@ class TemplateRoute implements
 
         if ($config['cache']) {
             $cachePool = $container['cache'];
-            $cacheItem = $cachePool->getItem('template', $templateIdent);
+            $cacheItem = $cachePool->getItem('template/'.$templateIdent);
 
             $templateContent = $cacheItem->get();
             if ($cacheItem->isMiss()) {
                 $cacheItem->lock();
                 $templateContent = $this->templateContent($container);
 
-                $cacheItem->set($templateContent, $config['cache_ttl']);
+                $cachePool->save($cacheItem->set($templateContent, $config['cache_ttl']));
             }
         } else {
             $templateContent = $this->templateContent($container);
@@ -122,24 +133,16 @@ class TemplateRoute implements
         $templateFactory = $container['template/factory'];
         $templateFactory->setDefaultClass($config['default_controller']);
 
-        $template = $templateFactory->create(
-            $templateController,
-            [
-                'logger' => $container['logger']
-            ],
-            function (TemplateInterface $template) use ($container) {
-                $template->setDependencies($container);
-            }
-        );
+        $template = $templateFactory->create($templateController, [
+            'logger' => $container['logger']
+        ]);
+        $template->setDependencies($container);
 
-        $template->setView($container['view']);
 
         // Set custom data from config.
         $template->setData($config['template_data']);
 
-        $templateContent = $template->render($templateIdent);
-
-        return $templateContent;
+        return $container['view']->render($templateIdent, $template);
     }
 
     /**

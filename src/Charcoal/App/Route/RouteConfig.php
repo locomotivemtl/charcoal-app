@@ -89,7 +89,7 @@ class RouteConfig extends AbstractConfig implements UnilingualAwareInterface
     }
 
     /**
-     * Set route pattern
+     * Set route pattern.
      *
      * @param string $pattern Route pattern.
      * @throws InvalidArgumentException If the pattern argument is not a string.
