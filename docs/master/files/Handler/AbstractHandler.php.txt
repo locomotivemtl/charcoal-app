@@ -240,8 +240,6 @@ abstract class AbstractHandler implements
             }
         );
 
-        $template->setView($container['view']);
-
         if (!isset($templateData['error_title'])) {
             $templateData['error_title'] = $this->messageTitle();
         }
@@ -251,8 +249,7 @@ abstract class AbstractHandler implements
         }
 
         $template->setData($templateData);
-
-        $templateContent = $template->render($templateIdent);
+        $templateContent = $container['view']->render($templateIdent, $template);
 
         return $templateContent;
     }
