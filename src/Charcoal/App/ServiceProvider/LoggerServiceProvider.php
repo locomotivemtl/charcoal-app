@@ -79,7 +79,7 @@ class LoggerServiceProvider implements ServiceProviderInterface
                 return null;
             }
 
-            return new StreamHandler($handlerConfig['stream'], $handler['level']);
+            return new StreamHandler($handlerConfig['stream'], $handlerConfig['level']);
         };
 
         /**
@@ -92,7 +92,7 @@ class LoggerServiceProvider implements ServiceProviderInterface
                 return null;
             }
 
-            return new BrowserConsoleHandler($handler['level']);
+            return new BrowserConsoleHandler($handlerConfig['level']);
         };
 
         /**
