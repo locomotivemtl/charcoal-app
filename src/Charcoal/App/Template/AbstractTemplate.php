@@ -12,23 +12,16 @@ use \Pimple\Container;
 // Module `charcoal-config` dependencies
 use \Charcoal\Config\AbstractEntity;
 
-// Module `charcoal-view` dependencies
-use \Charcoal\View\GenericView;
-use \Charcoal\View\ViewableInterface;
-use \Charcoal\View\ViewableTrait;
-
 // Intra-module (`charcoal-app`) dependencies
 use \Charcoal\App\Template\TemplateInterface;
 
 /**
- *
+ * Template (View Controller) base class
  */
 abstract class AbstractTemplate extends AbstractEntity implements
     LoggerAwareInterface,
-    TemplateInterface,
-    ViewableInterface
+    TemplateInterface
 {
-    use ViewableTrait;
     use LoggerAwareTrait;
 
     /**
@@ -53,22 +46,5 @@ abstract class AbstractTemplate extends AbstractEntity implements
     public function setDependencies(Container $container)
     {
         // This method is a stub. Reimplement in children template classes.
-    }
-
-    /**
-     * The default Template View is a simple GenericView.
-     *
-     * @param array $data The optional view data.
-     * @return \Charcoal\View\ViewInterface
-     */
-    public function createView(array $data = null)
-    {
-        $view = new GenericView([
-            'logger' => $this->logger
-        ]);
-        if ($data !== null) {
-            $view->setData($data);
-        }
-        return $view;
     }
 }
