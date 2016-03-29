@@ -19,5 +19,4 @@ class ActionRouteConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($ret, $this->obj);
         $this->assertEquals(['foo'=>'bar'], $this->obj->actionData());
     }
-
 }

@@ -44,7 +44,15 @@ class AbstractActionTest extends \PHPUnit_Framework_TestCase
         $this->obj->setSuccess(true);
         $this->assertTrue($this->obj->success());
 
-        $this->obj->setSuccess('1');
+        $this->obj->setSuccess("1");
         $this->assertTrue($this->obj->success());
+    }
+
+    public function testSuccessUrl()
+    {
+        $this->assertEquals('', $this->obj->successUrl());
+        $ret = $this->obj->setSuccessUrl('foo');
+        $this->assertSame($ret, $this->obj);
+        $this->assertEquals('foo', $this->obj->successUrl());
     }
 }
