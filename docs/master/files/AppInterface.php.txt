@@ -22,13 +22,6 @@ interface AppInterface
     public function routeManager();
 
     /**
-     * Retrieve the application's middleware manager.
-     *
-     * @return \Charcoal\App\Middleware\MiddlewareManager
-     */
-    public function middlewareManager();
-
-    /**
      * Run application
      *
      * @param  boolean $silent If TRUE, will run in silent mode (no response).

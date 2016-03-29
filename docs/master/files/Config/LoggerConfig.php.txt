@@ -32,6 +32,7 @@ class LoggerConfig extends AbstractConfig
     {
         return [
             'active' => true,
+            'namespace' => 'Charcoal',
             'handlers' => [
                 'stream' => [
                     'type'      => 'stream',

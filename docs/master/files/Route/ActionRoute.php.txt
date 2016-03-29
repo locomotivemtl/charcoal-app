@@ -22,7 +22,7 @@ use \Charcoal\App\Route\RouteInterface;
 use \Charcoal\App\Route\ActionRouteConfig;
 
 /**
- * Action Route
+ * Action Route Handler.
  */
 class ActionRoute implements
     RouteInterface,

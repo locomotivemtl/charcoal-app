@@ -62,11 +62,6 @@ class App extends SlimApp implements
     private $routeManager;
 
     /**
-     * @var MiddlewareManager
-     */
-    private $middlewareManager;
-
-    /**
      * Create new Charcoal application (and SlimApp).
      *
      * ### Dependencies
@@ -195,27 +190,6 @@ class App extends SlimApp implements
     }
 
     /**
-     * Retrieve the application's middleware manager.
-     *
-     * @return MiddlewareManager
-     */
-    public function middlewareManager()
-    {
-        if (!isset($this->middlewareManager)) {
-            $config = $this->config();
-            $middlewares = (isset($config['middlewares']) ? $config['middlewares'] : [] );
-
-            $this->middlewareManager = new MiddlewareManager([
-                'config' => $middlewares,
-                'app'    => $this,
-                'logger' => $this->logger
-            ]);
-        }
-
-        return $this->middlewareManager;
-    }
-
-    /**
      * Registers the default services and features that Charcoal needs to work.
      *
      * @return self
@@ -225,7 +199,6 @@ class App extends SlimApp implements
         $config = $this->config();
 
         $this->setupLogger();
-        $this->setupMiddlewares();
         $this->setupRoutes();
         $this->setupModules();
         $this->setupRoutables();
@@ -264,17 +237,6 @@ class App extends SlimApp implements
             $this->setLogger($container['logger']);
             $this->logger->debug('Charcoal App Init Logger');
         }
-    }
-
-    /**
-     * Setup the middleware for SlimApp, via a MiddlewareManager
-     *
-     * @return void
-     */
-    protected function setupMiddlewares()
-    {
-        $middlewareManager = $this->middlewareManager();
-        $middlewareManager->setupMiddlewares();
     }
 
     /**

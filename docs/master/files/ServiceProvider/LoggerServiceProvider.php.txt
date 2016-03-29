@@ -72,14 +72,27 @@ class LoggerServiceProvider implements ServiceProviderInterface
         /**
          * @return FactoryInterface
          */
-        $container['logger/handler/factory'] = function (Container $contianer) {
-            $mapFactory = new MapFactory();
-            $mapFactory->setBaseClass('\Monolog\Handler\HandlerInterface');
-            $mapFactory->setMap([
-                'stream'            => '\Monolog\Handler\StreamHandler',
-                'browser-console'   => '\Monolog\Handler\BrowserConsoleHandler'
-            ]);
-            return $mapFactory;
+        $container['logger/handler/stream'] = function (Container $container) {
+            $loggerConfig = $container['logger/config'];
+            $handlerConfig = $loggerConfig['handlers.stream'];
+            if ($handlerConfig['active'] !== true) {
+                return null;
+            }
+
+            return new StreamHandler($handlerConfig['stream'], $handlerConfig['level']);
+        };
+
+        /**
+         * @return FactoryInterface
+         */
+        $container['logger/handler/browser-console'] = function (Container $container) {
+            $loggerConfig = $container['logger/config'];
+            $handlerConfig = $loggerConfig['handlers.console'];
+            if ($handlerConfig['active'] !== true) {
+                return null;
+            }
+
+            return new BrowserConsoleHandler($handlerConfig['level']);
         };
 
         /**
@@ -92,10 +105,9 @@ class LoggerServiceProvider implements ServiceProviderInterface
             $handlers = new Container();
             $handlerFactory = $container['logger/handler/factory'];
             foreach ($handlersConfig as $h) {
-                $handlers[$type] = function (Container $c) use ($h, $handlerFactory) {
+                $handlers[$h['type']] = function (Container $c) use ($h, $handlerFactory) {
                     $type = $h['type'];
-                    $args = [];
-                    $handler = $handlerFactory->create($type, $args);
+                    $handler = $handlerFactory->create($type);
                     return $handler;
                 };
             }
@@ -116,17 +128,23 @@ class LoggerServiceProvider implements ServiceProviderInterface
                 return new NullLogger();
             }
 
-            $memProcessor = new MemoryUsageProcessor();
-            $uidProcessor = new UidProcessor();
-
-            $browserHandler = new BrowserConsoleHandler(Logger::DEBUG);
-            $streamHandler = new StreamHandler('charcoal.app.log', Logger::DEBUG);
-
             $logger = new Logger('Charcoal');
+
+            $memProcessor = new MemoryUsageProcessor();
             $logger->pushProcessor($memProcessor);
+
+            $uidProcessor = new UidProcessor();
             $logger->pushProcessor($uidProcessor);
-            $logger->pushHandler($browserHandler);
-            $logger->pushHandler($streamHandler);
+
+            $consoleHandler = $container['logger/handler/browser-console'];
+            if ($consoleHandler) {
+                $logger->pushHandler($consoleHandler);
+            }
+
+            $streamHandler = $container['logger/handler/stream'];
+            if ($streamHandler) {
+                $logger->pushHandler($streamHandler);
+            }
             return $logger;
         };
     }

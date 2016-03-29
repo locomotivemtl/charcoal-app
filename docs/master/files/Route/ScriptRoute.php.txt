@@ -22,7 +22,7 @@ use \Charcoal\App\Route\ScriptRouteConfig;
 use \Charcoal\App\Script\ScriptInterface;
 
 /**
- * Script Route
+ * Script Route Handler.
  */
 class ScriptRoute implements
     ConfigurableInterface,
