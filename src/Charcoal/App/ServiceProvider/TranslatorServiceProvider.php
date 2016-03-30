@@ -169,7 +169,7 @@ class TranslatorServiceProvider implements ServiceProviderInterface
                     foreach ($languages as $langCode) {
                         $loader = new GenericConfig();
                         $exts   = [ 'ini', 'json', 'php' ];
-                        while ($exts) {
+                        while (!empty($exts)) {
                             $ext = array_pop($exts);
                             $cfg = sprintf('%1$s/messages.%2$s.%3$s', $path, $langCode, $ext);
 
