@@ -2,6 +2,8 @@
 
 namespace Charcoal\Tests\App\Route;
 
+use \Charcoal\Translation\TranslationString;
+
 use \Charcoal\App\Route\TemplateRouteConfig;
 
 class TemplateRouteConfigTest extends \PHPUnit_Framework_TestCase
@@ -13,13 +15,41 @@ class TemplateRouteConfigTest extends \PHPUnit_Framework_TestCase
         $this->obj = new TemplateRouteConfig();
     }
 
-    // public function testSetEngine()
-    // {
-    //     $this->assertEquals('mustache', $this->obj->engine());
-    //     $ret = $this->obj->setEngine('twig');
-    //     $this->assertSame($ret, $this->obj);
-    //     $this->assertEquals('twig', $this->obj->engine());
-    // }
+    public function testSetEngine()
+    {
+        //$this->assertEquals('mustache', $this->obj->engine());
+        $ret = $this->obj->setEngine('twig');
+        $this->assertSame($ret, $this->obj);
+        $this->assertEquals('twig', $this->obj->engine());
+
+        $this->obj->setEngine(null);
+        //$this->assertEquals('mustache', $this->obj->engine());
+
+        $this->setExpectedException('\InvalidArgumentException');
+        $this->obj->setEngine(false);
+    }
+
+    public function testSetTemplate()
+    {
+        $this->assertNull($this->obj->template());
+        $ret = $this->obj->setTemplate('foobar');
+        $this->assertSame($ret, $this->obj);
+
+        $this->assertEquals('foobar', $this->obj->template());
+
+        $this->setExpectedException('\InvalidArgumentException');
+        $this->obj->setTemplate(false);
+    }
+
+    public function testRedirect()
+    {
+        $this->assertNull($this->obj->redirect());
+        $ret = $this->obj->setRedirect('foobar');
+        $this->assertSame($ret, $this->obj);
+
+        $exp = new TranslationString('foobar');
+        $this->assertEquals($exp, $this->obj->redirect());
+    }
 
     public function testSetRedirectMode()
     {
@@ -31,6 +61,14 @@ class TemplateRouteConfigTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException('\InvalidArgumentException');
         $this->obj->setRedirectMode(666);
 
+    }
+
+    public function testSetCache()
+    {
+        $this->assertFalse($this->obj->cache());
+        $ret = $this->obj->setCache(true);
+        $this->assertSame($ret, $this->obj);
+        $this->assertTrue($this->obj->cache());
     }
 
     public function testSetCacheTtl()

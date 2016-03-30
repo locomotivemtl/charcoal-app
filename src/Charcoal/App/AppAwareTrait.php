@@ -2,6 +2,7 @@
 
 namespace Charcoal\App;
 
+use \Charcoal\App\App;
 use \Charcoal\App\AppInterface;
 
 /**
@@ -30,7 +31,7 @@ trait AppAwareTrait
     protected function app()
     {
         if ($this->app === null) {
-            $this->app = \Charcoal\App\App::instance();
+            $this->app = App::instance();
         }
         return $this->app;
     }

@@ -11,9 +11,9 @@ class AbstractWidgetTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->obj = $this->getMockForAbstractClass('\Charcoal\App\Template\AbstractWidget', [[
-                'app'=>$GLOBALS['app'],
-                'logger'=>new \Psr\Log\NullLogger()
-            ]]);
+            'app'=>$GLOBALS['app'],
+            'logger'=>new \Psr\Log\NullLogger()
+        ]]);
     }
 
     /**

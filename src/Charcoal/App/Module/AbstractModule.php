@@ -21,7 +21,6 @@ use \Charcoal\App\AppAwareTrait;
 use \Charcoal\App\AppConfig;
 use \Charcoal\App\AppInterface;
 use \Charcoal\App\Action\ActionFactory;
-use \Charcoal\App\Middleware\MiddlewareManager;
 use \Charcoal\App\Module\ModuleManager;
 use \Charcoal\App\Route\RouteManager;
 use \Charcoal\App\Routable\RoutableFactory;
@@ -47,11 +46,6 @@ abstract class AbstractModule implements
      * @var RouteManager
      */
     private $routeManager;
-
-    /**
-     * @var MiddlewareManager
-     */
-    private $middlewareManager;
 
     /**
      * Return a new AbstractModule object.
@@ -111,31 +105,7 @@ abstract class AbstractModule implements
      */
     public function setup()
     {
-        $this->setupMiddlewares();
         $this->setupRoutes();
-
-        return $this;
-    }
-
-    /**
-     * Set up the module's middlewares, via a MiddlewareManager
-     *
-     * @return AbstractModule
-     */
-    protected function setupMiddlewares()
-    {
-        if (!isset($this->middlewareManager)) {
-            $config = $this->config();
-            $middlewares = (isset($config['middlewares']) ? $config['middlewares'] : [] );
-
-            $this->middlewareManager = new MiddlewareManager([
-                'config' => $middlewares,
-                'app'    => $this->app(),
-                'logger' => $this->logger
-            ]);
-
-            $this->middlewareManager->setupMiddlewares();
-        }
 
         return $this;
     }

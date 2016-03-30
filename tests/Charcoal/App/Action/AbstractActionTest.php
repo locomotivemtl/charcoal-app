@@ -14,15 +14,23 @@ class AbstractActionTest extends \PHPUnit_Framework_TestCase
         $this->app = $GLOBALS['app'];
         $container = $this->app->getContainer();
         $this->obj = $this->getMockForAbstractClass('\Charcoal\App\Action\AbstractAction', [[
-            'app'=>$this->app,
             'logger'=>$container['logger']
         ]]);
     }
 
-    public function testConstructor()
+    public function testSetData()
     {
-        $obj = $this->obj;
-        $this->assertInstanceOf('\Charcoal\App\Action\AbstractAction', $obj);
+        $ret = $this->obj->setData([
+            'mode' => 'redirect',
+            'success' => true,
+            'success_url' => 'win',
+            'failure_url' => 'fail'
+        ]);
+        $this->assertSame($ret, $this->obj);
+        $this->assertEquals('redirect', $this->obj->mode());
+        $this->assertEquals(true, $this->obj->success());
+        $this->assertEquals('win', $this->obj->successUrl());
+        $this->assertEquals('fail', $this->obj->failureUrl());
     }
 
     public function testSetMode()
@@ -54,5 +62,54 @@ class AbstractActionTest extends \PHPUnit_Framework_TestCase
         $ret = $this->obj->setSuccessUrl('foo');
         $this->assertSame($ret, $this->obj);
         $this->assertEquals('foo', $this->obj->successUrl());
+
+        $this->assertEquals('', $this->obj->setSuccessUrl(null)->successUrl());
+
+        $this->setExpectedException('\InvalidArgumentException');
+        $this->obj->setSuccessUrl([]);
+    }
+
+    public function testSetFailureUrl()
+    {
+        $this->assertEquals('', $this->obj->failureUrl());
+        $ret = $this->obj->setFailureUrl('foo');
+        $this->assertSame($ret, $this->obj);
+        $this->assertEquals('foo', $this->obj->failureUrl());
+
+        $this->assertEquals('', $this->obj->setFailureUrl(null)->successUrl());
+
+        $this->setExpectedException('\InvalidArgumentException');
+        $this->obj->setFailureUrl([]);
+    }
+
+    public function testRedirectUrlSuccess()
+    {
+        $this->obj->setData([
+            'failure_url' => 'fail',
+            'success_url' => 'win'
+        ]);
+
+        $this->obj->setSuccess(true);
+        $this->assertEquals('win', $this->obj->redirectUrl());
+        $this->obj->setSuccess(false);
+        $this->assertEquals('fail', $this->obj->redirectUrl());
+    }
+
+    /**
+     * This test assert that the action object is invokable.
+     *
+     * For this, the `run` method must be added as public in the mock object.
+     */
+    public function testInvokable()
+    {
+        $request = $this->getMock('\Psr\Http\Message\RequestInterface');
+        $response = new \Slim\Http\Response();
+
+        $this->obj->expects($this->any())
+            ->method('run')
+            ->will($this->returnValue($response));
+
+        $obj = $this->obj;
+        $res = $obj($request, $response);
     }
 }

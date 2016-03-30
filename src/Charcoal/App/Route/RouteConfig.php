@@ -54,9 +54,9 @@ class RouteConfig extends AbstractConfig implements UnilingualAwareInterface
     /**
      * Parent route groups
      *
-     * @var string[]|RouteGroup[]
+     * @var string[]
      */
-    private $groups;
+    private $groups = [];
 
     /**
      * Set route identifier

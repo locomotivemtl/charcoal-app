@@ -12,33 +12,33 @@ The request is then handled by one of the 3 types of route (or _request controll
 	- [Dependencies](#dependencies)
 	- [Recommended modules](#recommended-modules)
 - [Components](#components)
-  - [Config](#config-component)
-  - [App](#app-compoment)
-  - [Module](#module-component)
-  - [Routes and RequestController](#routes-and-requestcontroller)
-    - [Route API](#route-api)
-    - Action
-    - Script
-    - Template
-  - [Routable objects](#routable-objects)
-    - [The routable callback](#the-routable-callback)
-  - [Middleware](#middleware)
-  - [Charcoal Binary](#charcoal-binary)
+	- [Config](#config-component)
+	- [App](#app-compoment)
+	- [Module](#module-component)
+	- [Routes and RequestController](#routes-and-requestcontroller)
+		- [Action Request Controller](#action-request-controller)
+		- [Script Request Controller](#script-request-controller)
+		- [Template Request Controller](#template-request-controller)
+		- [Route API](#route-api)
+		- [Routable objects](#routable-objects)
+	- [The routable callback](#the-routable-callback)
+	- [Middleware](#middleware)
+	- [Charcoal Binary](#charcoal-binary)
 - Basic Services
 - [Service Providers](#service-providers)
-  - [App Service Provider](#app-service-provider)
-  - [Cache Service Provider](#cache-service-provider)
-  - [Database Service Provider](#database-service-provider)
-  - [Logger Service Provider](#logger-service-provider)
-  - [Translator Service Provider](#translator-service-provider)
-  - [View Service Provider](#view-service-provider)
+	- [App Service Provider](#app-service-provider)
+	- [Cache Service Provider](#cache-service-provider)
+	- [Database Service Provider](#database-service-provider)
+	- [Logger Service Provider](#logger-service-provider)
+	- [Translator Service Provider](#translator-service-provider)
+	- [View Service Provider](#view-service-provider)
 - [Usage](#usage)
 - [Development](#development)
-  - [Development dependencies](#development-dependencies)
-  - [Continuous Integration](#continuous-integration)
-  - [Coding Style](#coding-style)
-  - [Authors](#authors)
-  - [Changelog](#changelog)
+	- [Development dependencies](#development-dependencies)
+	- [Continuous Integration](#continuous-integration)
+	- [Coding Style](#coding-style)
+	- [Authors](#authors)
+	- [Changelog](#changelog)
 
 # How to install
 
@@ -76,7 +76,7 @@ A PSR-4 compliant autoloader
 - [`pimple/pimple`](http://pimple.sensiolabs.org/)
   - Dependency injection container.
   - Actually provided by `slim/slim`.
-- `monolog/monolog`
+- [`monolog/monolog`](https://github.com/Seldaek/monolog)
 	- Monolog is a PSR-3 compliant logger.
 	- Monolog is used as main logger to fulfills PSR3 dependencies all-around.
 - [`tedivm/stash`](https://github.com/tedious/Stash)
@@ -106,7 +106,7 @@ In addition to the above dependencies, here's a list of recommended modules that
 	- Especially made for Charcoal _models_ / _objects_.
 	- A good example of `charcoal-app` / mustache templates usage.
 
-For a complete, ready-to-user project, use the `charcoal-project-boilerplate`:
+For a complete, ready-to-use project, start from the [`boilerplate`](https://github.com/locomotivemtl/charcoal-project-boilerplate):
 
 ```shell
 ★ composer create-project locomotivemtl/charcoal-project-boilerplate
@@ -116,18 +116,15 @@ For a complete, ready-to-user project, use the `charcoal-project-boilerplate`:
 
 The main components of charcoal-app are:
 
-
 - [Config](#config-component)
 - [App](#app-compoment)
 - [Module](#module-component)
 - [Routes and RequestController](#routes-and-requestcontroller)
-- [Route API](#route-api)
-	- Action
-	- Script
-	- Template
+ 	- [Action](#action-request-controller)
+	- [Script](#script-request-controller)
+	- [Template](#template-request-controller)
+	- [Route API](#route-api)
 - [Routable objects](#routable-objects)
-- [The routable callback](#the-routable-callback)
-- [Middleware](#middleware)
 - [Charcoal Binary](#charcoal-binary)
 
 ## Config component
@@ -154,14 +151,12 @@ $config->addFile(__DIR__.'/../config/config.php');
 | **ROOT**             | `array`   | `[]`    | An alias of `base_path`. |
 | **timezone**         | `string`  | `"UTC"` | The current timezone. |
 
-
 ### Module & App configuration
 
 `\Charcoal\App\AppConfig` API:
 
 | Key                  | Type      | Default | Description |
 | -------------------- | --------- | ------- | ----------- |
-| **middlewares**      | `array`   | `[]`    | ...         |
 | **modules**          | `array`   | `[]`    | ...         |
 | **routables**        | `array`   | `[]`    | ...         |
 | **routes**           | `array`   | `[]`    | ...         |
@@ -209,9 +204,6 @@ $app = \Charcoal\App\App::instance($container);
 $app->run();
 ```
 
-
-
-
 ## Module component
 
 - A *Module* loads its configuration from the root config
@@ -225,7 +217,6 @@ $app->run();
 
 - A *Module* defines:
 	- **Routes**: which defines a path to load and a `RequestController` configuration.
-	- **Middlewares**: which are TBD.
 
 ## Routes and RequestController
 
@@ -237,12 +228,249 @@ All routes are actually handled by the *Slim* app. Charcoal Routes are just *def
 		- `Action`
 		- `Script` (_Scripts_ can only be ran from the CLI.)
 		- `Template`
-	- The `controller` ident, which will identify the proper controller to create.
+	- The `route_controller` ident, which will identify the proper controller to create.
 	    - Controllers are created from a _resolver_ factory. Their identifier may look like `foo/bar/controller-name`.
 
+Routes can be
 
+### Action Request Controller
 
-### Route API
+The default `charcoal-app` action route handler is `charcoal/app/route/action` (`\Charcoal\App\Route\ActionRoute`).
+
+Actions are set on `POST` requests by default, but this can be overridden by setting the `methods` route option.
+
+By default, what this route handler does is instanciate an _Action_ object (the type of object is set with the `controller`, or `ident` option) and invoke it. The _Action_ must implement `\Charcoal\App\Action\ActionInterface`.
+
+#### Actions API
+
+Actions are basic _Charcoal Entities_ (they extend the `\Charcoal\Config\AbstractEntity` class). Actions are meant to be subclassed in custom projects. But it provides the following default options:
+
+| Key        | Type     | Default        | Description     |
+| ---------- | -------- | -------------- | --------------- |
+| **mode**   | `string` | ``json'`       | The mode can be "json" or "redirect". `json` returns json data; redirect sends a 30X redirect. |
+| **success** | `boolean` | `false`      | Wether the action was successful or not. Typically changed in the `run` method. |
+| **success_url** | `string` | `null` |
+| **failure_url** | `string` | `null` |
+
+When writing an action, there are only 2 abstract methods that must be added to the _Action_ class:
+
+- `run(RequestInterface $request, ResponseInterface $response);`
+- `results();`
+
+The run method is ran automatically when _invoking_ an action.
+
+#### Custom Actions
+
+There are 2 steps to creating a custom action for a charcoal-app.
+
+1. Set up the action route
+2. Write the Action controller
+
+In the config file (typically, `config/routes.json` loaded from `config/config.php`:
+
+```json
+{
+	"routes": {
+		"actions": {
+			"test": {
+				"controller":"foo/bar/action/test"
+			}
+		}
+	}
+}
+```
+
+The controller FQN should match its identifier. In this example, the _Action Factory_ will attempt to load the `foo/bar/action/test` controller, which will match the `\Foo\Bar\Action\TestAction` class. Using _PSR-4_, this class should be located in the source at `src/Foo/Bar/Action/TestAction.php`
+
+```php
+
+namespace Foo\Bar\Action;
+
+use \Psr\Http\Message\RequestInterface;
+use \Psr\Http\Message\ResponseInterface;
+use \Charcoal\App\Action\AbstractAction;
+
+class TestAction extends AbstractAction
+{
+	private $greetings;
+
+	/**
+	 * @param RequestInterface  $request  A PSR-7 compatible Request instance.
+     * @param ResponseInterface $response A PSR-7 compatible Response instance.
+     * @return ResponseInterface
+     */
+	public function run(RequestInterface $request, ResponseInterface $response)
+	{
+		$this->greetings = 'Hello world!';
+		$this->setSuccess(true);
+		return $response;
+	}
+
+	/**
+	 * @return array
+	 */
+	public function results()
+	{
+		return [
+			'success'   => $this->success(),
+			'greetings' => $this->greetings
+		];
+	}
+}
+```
+
+When requesting `http://$URL/test` (with **POST**), the following should be returned:
+
+```json
+{
+	"success": 1,
+	"greetings": "Hello World!"
+}
+```
+
+### Script Request Controller
+
+The default `charcoal-app` script route handler is `charcoal/app/route/script` (`\Charcoal\App\Route\ScriptRoute`).
+
+Scripts mock a _Slim_ HTTP environment for the _CLI_. Allowing to be route like regular web routes but for a script environment. `charcoal-app` comes with the `charcoal` binary which is meant to run those kind of scripts.
+
+> Thanks to _composer_, the charcoal binary is installed automatically in your project and callable with `php vendor/bin/charcoal`.
+
+By default, what this route handler does is instanciate a _Script_ object (the type of object is set with `controller` or `ident` option) and invoke it. The _Script_ must implement `\Charcoal\App\Script\ScriptInterface`.
+
+> The CLI helper (arguments parser, input and output handlers) is provided by [climate](https://github.com/thephpleague/climate).
+
+####Script API
+
+| Key           | Type     | Default        | Description     |
+| ------------- | -------- | -------------- | --------------- |
+| **arguments** | `array`  | _help, quiet and verbose_ | The script arguments. |
+
+#### Custom scripts
+
+Creating custom scripts is exactly like creating custom actions:
+
+1. Set up the script route.
+2. Write the Script controller.
+
+In the config file (typically, `config/routes.json` loaded from `config/config.php`:
+
+```json
+{
+	"routes": {
+		"scripts": {
+			"test": {
+				"controller":"foo/bar/script/test"
+			}
+		}
+	}
+}
+```
+
+The controller FQN should match its identifier. In this example, the _Script Factory_ will attempt to load the `foo/bar/sript/test` controller, which will match the `\Foo\Bar\Script\TestScript` class. Using _PSR-4_, this class should be located in the source at `src/Foo/Bar/Script/TestScript.php`
+
+```php
+
+namespace Foo\Bar\Script;
+
+use \Psr\Http\Message\RequestInterface;
+use \Psr\Http\Message\ResponseInterface;
+use \Charcoal\App\Script\AbstractScript;
+
+class TestScript extends AbstractScript
+{
+	/**
+	 * @param RequestInterface  $request  A PSR-7 compatible Request instance.
+     * @param ResponseInterface $response A PSR-7 compatible Response instance.
+     * @return ResponseInterface
+     */
+	public function run(RequestInterface $request, ResponseInterface $response)
+	{
+		$this->climate()->out('Hello World!');
+		return $response;
+	}
+
+}
+```
+
+Calling the script with `./vendor/bin/charcoal test` should output:
+
+```
+★ Hello World!
+```
+
+### Template Request Controller
+
+The default `charcoal-app` template route handler is `charcoal/app/route/template` (`\Charcoal\App\Route\TemplateRoute`).
+
+Templates are set on `GET` requests by default, but this can be overridden by setting the `methods` route option.
+
+> In a typical charcoal-app project, most "web pages" are served as a Template.
+
+By default, what this route handler does is instanciate a _Template_ object (the type of object is set with the `controller`, or `ident` option) and "render" it. The _Action_ must implement `\Charcoal\App\Action\ActionInterface`.
+
+To render the template, it is important that a `view` has been set properly on the _DI container_. This can be done easily with the [View Service Provider](#view-service-provider)
+
+#### Custom templates
+
+Creating custom templates is probably the most common thing to do for a `charcoal-app` project. There are 3 steps involved:
+
+1. Set up the template route
+2. Write the template controller
+3. Write the template view
+
+> Although it is possible to use different rendering engines, the following example assume the default `mustache` engine.
+
+In the config file (typically, `config/routes.json` loaded from `config/config.php`:
+
+```json
+{
+	"routes": {
+		"templates": {
+			"test": {
+				"controller": "foo/bar/template/test",
+				"template": "foo/bar/template/test"
+			}
+		}
+	}
+}
+```
+
+The controller FQN should match its identifier. In this example, the _Template Factory_ will attempt to load the `foo/bar/template/test` controller, which will match the `\Foo\Bar\Template\TestTemplate` class. Using _PSR-4_, this class should be located in the source at `src/Foo/Bar/Template/TestTemplate.php`
+
+```php
+
+namespace Foo\Bar\Template;
+
+use \Psr\Http\Message\RequestInterface;
+use \Psr\Http\Message\ResponseInterface;
+use \Charcoal\App\Action\AbstractTemplate;
+
+class TestTemplate extends AbstractTemplate
+{
+	/**
+	 * @return string
+	 */
+	public function greetings()
+	{
+		return 'Hello World!';
+	}
+}
+```
+
+Finally, the _template view_ must also be created. The route config above specified the **template** as `foo/bar/template/test`. Because the default engine (mustache) is used, the loaded file should be located at `templates/foo/bar/template/test.mustache`:
+
+```html
+{{>foo/bar/template/inc.header}}
+
+<section class="main">
+	{{greetings}}
+</section>
+
+{{>foo/bar/template/inc.footer}}
+```
+
+### Route Options
 
 > 👉 Slim's routing is actually provided by [FastRoute](https://github.com/nikic/FastRoute)
 
@@ -251,26 +479,19 @@ All routes are actually handled by the *Slim* app. Charcoal Routes are just *def
 | Key             | Type       | Default     | Description |
 | --------------- | ---------- | ----------- | ----------- |
 | **ident**       | `string`   | `null`      | Route identifier. |
-| **route**       | `string`   | `null`        | Route pattern. |
+| **route**       | `string`   | `null`      | Route pattern. |
 | **methods**     | `string[]` | `[ 'GET' ]` | The HTTP methods to wthich this route resolve to. Ex: `['GET', 'POST', 'PUT', 'DELETE']` |
 | **controller**  | `string`   | `null`      | Controller identifier. Will be guessed from the _ident_ when `null`. |
 | **lang**        | `string`   | `null`      | The current language. |
 | **groups**      | `string[]` | `null`      | The route group, if any. |
 
-
-There are 3 types of `Route`:
-
-- `ActionRoute`: typically executes an action (return JSON) from a _POST_ request.
-- `ScriptRoute`: typically ran from the CLI interface.
-- `TemplateRoute`: typically  load a template from a _GET_ request. "A Web page".
+> Additionnaly, a **route_controller** option can be set, to load a custom route handler.
 
 **Action specific configuration**
 
 | Key               | Type     | Default      | Description |
 | ----------------- | -------- | ------------ | ----------- |
 | **action_data**   | `array`  | `[]`         | Extra / custom action data. |
-
-By default, _actions_ are map to the `'POST'` methods.
 
 **Script specific configuration**
 
@@ -280,15 +501,26 @@ By default, _actions_ are map to the `'POST'` methods.
 
 **Template specific configuration**
 
-| Key               | Type     | Default      | Description |
-| ----------------- | -------- | ------------ | ----------- |
-| **template**      | `string` | `null`       | The template _ident_ to display. |
-| **engine**        | `string` | `'mustache'` | The template _engine_ type. Default Charcoal view engines are `mustache`, `php` and `php-mustache`. |
-| **template_data** | `array`  | `[]`         | Extra / custom template data. |
+| Key               | Type      | Default      | Description |
+| ----------------- | --------- | ------------ | ----------- |
+| **template**      | `string`  | `null`       | The template _ident_ to display. |
+| **engine**        | `string`  | `'mustache'` | The template _engine_ type. Default Charcoal view engines are `mustache`, `php` and `php-mustache`. |
+| **template_data** | `array`   | `[]`         | Extra / custom template data. |
+| **cache**         | `boolean` | `false`      | Set to true to enable template-level cache on this object. This is not recommended for any page that must serve dynamic content. |
+| **cache_ttl**     | `integer` | `0`          | The _time-to-live_, in seconds, of the cache object, if applicable. |
 
-#### Defining a default route.
+#### Defining routes, in JSON
 
-To set the "default" route, simply map a route to "/".
+Here is an example of route definitions. Some things to note:
+
+- To set the "default" template (GET) route, simply map a route to "/".
+- Most configuration options are optional.
+- The "full" routes in the example below tries to display all posible config options.
+	+ Custom route controller
+	+ A lot of those are unnecessary, as they are set by default.
+	+ The "redirect" option is not set, as it conflicts most other options or renders them unncessary.
+- The same definition could be pure PHP.
+
 
 ```json
 {
@@ -298,8 +530,23 @@ To set the "default" route, simply map a route to "/".
 				"redirect":"home"
 			},
 			"home":{
-				"template": "acme/home"
-			}
+				"controller": "acme/template/home",
+				"template": "acme/template/home"
+			},
+			"full":{
+				"route":"/full",
+				"route_controller": "acme/route/template",
+				"ident": "full-example",
+				"template": "acme/route/full",
+				"controller":"acme/route/full",
+				"engine":"mustache"
+				"methods": ["GET"],
+				"cache": false,
+				"cache_ttl":0,
+				"template_data": {
+					"custom_options": 42
+				}
+		}
 		},
 		"actions":{
 			"publish":{
@@ -317,13 +564,13 @@ To set the "default" route, simply map a route to "/".
 
 ## Routable objects
 
-Routes are great to match URL path to template controller or action controller, but needs to be defined in the `AppConfig` container.
+Routes are great to match URL path to template controller or action controller, but needs to **all** be defined in the (main) `AppConfig` configuration.
 
 Routables, on the other hand, are dynamic objects (typically, Charcoal Model objects that implements the `Charcoal\App\Routable\RoutableInterface`) whose _route path_ is typically defined from a dynamic property (and stored in a database).
 
 ### The routable callback
 
-The `RoutableInterface` / `RoutableTrait` classes have one abstract method: `handle_route($path, $request, $response)` which must be implemented in the routable class.
+The `RoutableInterface` / `RoutableTrait` classes have one abstract method: `handleRoute($path, $request, $response)` which must be implemented in the routable class.
 
 This method should:
 
@@ -338,17 +585,6 @@ The returned callable signature should be:
 
 Routables are called last (only if no explicit routes match fisrt). If no routables return a callable, then a 404 will be sent. (Slim's `NotFoundHandler`).
 
-## Middleware
-
-Middleware is not yet implemented in `Charcoal\App`. The plan is to use the PSR7-middleware system, which is a callable with the signature:
-
-```
-use \Psr\Http\Message\RequestInterface as RequestInterface;
-use \Psr\Http\Message\ResponseInterfac as ResponseInterface;
-
-middleware(RequestInterface $request, ResponseInterface $response) : ResponseInterface
-```
-
 ## Charcoal Binary
 
 As previously mentionned, `Script` routes are only available to run from the CLI. A script loader is provided in `bin/charcoal`. It will be installed, with composer, in `vendor/bin/charcoal`.
@@ -357,51 +593,6 @@ To view available commands:
 
 ```shell
 ★ ./vendor/bin/charcoal
-```
-
-To enable a script, simply add a _script route_ to your configuration:
-
-```json
-{
-	"routes":{
-		"scripts":{
-			"acme/foo":{
-				"controller":"acme/script/foo-bar"
-			}
-		}
-	}
-}
-```
-
-In this example, calling the script with:
-
-```shell
-★ ./vendor/bin/charcoal acme/foo
-```
-
-would call the `\Acme\Script\FooBarScript` class, which must implement the `\Charcoal\App\Script\ScriptInterface`. A typical script only needs to reimplement the `run()` method, and the `defaultArguments()` method if required:
-
-```php
-
-namespace Acme\Script;
-
-use \Psr\Http\Message\RequestInterface;
-use \Psr\Http\Message\ResponseInterface;
-use \Charcoal\App\Script\AbstractScript;
-
-class FooBarScript extends AbstractScript
-{
-	/**
-     * @param RequestInterface  $request  A PSR-7 compatible Request instance.
-     * @param ResponseInterface $response A PSR-7 compatible Response instance.
-     * @return ResponseInterface
-     */
-	public function run(RequestInterface $request, ResponseInterface $response)
-	{
-		$this->climate()->out('This script does nothing.');
-		return $response;
-	}
-}
 ```
 
 ## Configuration examples
@@ -426,6 +617,9 @@ Example of a module configuration:
 	"routables": {
 		"charcoal/cms/news": {}
 	},
+	"service_providers":[
+		"foo/bar/service-provider/test"
+	],
 	"middlewares": {}
 }
 ```
@@ -798,6 +992,6 @@ The Charcoal-App module follows the Charcoal coding-style:
 
 ### 0.1
 
-_2016-03-29_
+_2016-03-30_
 
 - Initial release

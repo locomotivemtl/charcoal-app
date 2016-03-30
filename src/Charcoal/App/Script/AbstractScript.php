@@ -124,8 +124,8 @@ abstract class AbstractScript extends AbstractEntity implements
      * Safe climate getter.
      * If the instance was not previously set, create it.
      *
-     * CLImate is "PHP's best friend for the terminal."
-     * "CLImate allows you to easily output colored text, special formats, and more."
+     * > CLImate is "PHP's best friend for the terminal."
+     * > "CLImate allows you to easily output colored text, special formats, and more."
      *
      * @return CLImate
      */
