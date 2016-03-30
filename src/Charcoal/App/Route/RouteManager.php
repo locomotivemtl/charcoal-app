@@ -79,17 +79,14 @@ class RouteManager extends AbstractManager
                 $routeIdent,
                 $templateConfig
             ) {
-                $templateIdent = isset($templateConfig['ident'])
-                    ? $templateConfig['ident']
-                    : $routeIdent;
+                if (!isset($templateConfig['ident'])) {
+                    $templateConfig['ident'] = ltrim($routeIdent, '/');
+                }
 
                 $this['logger']->debug(
-                    sprintf('Loaded template route: %s', $routeIdent),
+                    sprintf('Loaded template route: %s', $templateConfig['ident']),
                     $templateConfig
                 );
-
-                $templateIdent = ltrim($templateIdent, '/');
-                $templateConfig['ident'] = $templateIdent;
 
                 if (!isset($templateConfig['template_data'])) {
                     $templateConfig['template_data'] = [];
@@ -160,17 +157,14 @@ class RouteManager extends AbstractManager
                 $routeIdent,
                 $actionConfig
             ) {
-                $actionIdent = isset($actionConfig['ident'])
-                    ? $actionConfig['ident']
-                    : $routeIdent;
+                if (!isset($actionConfig['ident'])) {
+                    $actionConfig['ident'] = ltrim($routeIdent, '/');
+                }
 
                 $this['logger']->debug(
-                    sprintf('Loaded action route: %s', $routeIdent),
+                    sprintf('Loaded action route: %s', $actionConfig['ident']),
                     $actionConfig
                 );
-
-                $actionIdent = ltrim($actionIdent, '/');
-                $actionConfig['ident'] = $actionIdent;
 
                 if (!isset($actionConfig['action_data'])) {
                     $actionConfig['action_data'] = [];
@@ -241,17 +235,14 @@ class RouteManager extends AbstractManager
                 $routeIdent,
                 $scriptConfig
             ) {
-                $scriptIdent = isset($scriptConfig['ident'])
-                    ? $scriptConfig['ident']
-                    : $routeIdent;
+                if (!isset($scriptConfig['ident'])) {
+                    $scriptConfig['ident'] = ltrim($routeIdent, '/');
+                }
 
                 $this->logger->debug(
-                    sprintf('Loaded script route: %s', $routeIdent),
+                    sprintf('Loaded script route: %s', $scriptConfig['ident']),
                     $scriptConfig
                 );
-
-                $scriptIdent = ltrim($scriptIdent, '/');
-                $scriptConfig['ident'] = $scriptIdent;
 
                 if (!isset($scriptConfig['script_data'])) {
                     $scriptConfig['script_data'] = [];
