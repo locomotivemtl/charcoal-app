@@ -85,10 +85,9 @@ abstract class AbstractWidget extends AbstractEntity implements
     /**
      * ViewableInterface > create_view().
      *
-     * @param array $data Optional view data.
      * @return ViewInterface
      */
-    public function createView(array $data = null)
+    public function createView()
     {
         $view = new GenericView([
             'logger'=>$this->logger
