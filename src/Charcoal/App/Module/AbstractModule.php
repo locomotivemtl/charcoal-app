@@ -81,7 +81,7 @@ abstract class AbstractModule implements
      *
      * @param  string $key Optional. If provided, the config key value will be returned, instead of the full object.
      * @throws InvalidArgumentException If a config has not been defined.
-     * @return ConfigInterface
+     * @return \Charcoal\Config\ConfigInterface
      */
     public function config($key = null)
     {

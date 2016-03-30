@@ -33,16 +33,16 @@ class Error extends AbstractHandler
     /**
      * Whether to output the error's details.
      *
-     * @var boolean
+     * @var boolean $displayErrorDetails
      */
     protected $displayErrorDetails;
 
     /**
      * The caught exception.
      *
-     * @var Exception
+     * @var Exception $exception
      */
-    protected $error;
+    protected $exception;
 
     /**
      * Inject dependencies from a Pimple Container.
@@ -88,6 +88,7 @@ class Error extends AbstractHandler
                 break;
 
             case 'text/html':
+            default:
                 $output = $this->renderHtmlOutput();
                 break;
         }

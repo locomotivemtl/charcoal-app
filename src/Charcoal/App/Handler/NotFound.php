@@ -46,6 +46,7 @@ class NotFound extends AbstractHandler
                 break;
 
             case 'text/html':
+            default:
                 $output = $this->renderHtmlOutput();
         }
 
