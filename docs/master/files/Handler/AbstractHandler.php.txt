@@ -230,15 +230,10 @@ abstract class AbstractHandler implements
         $templateFactory = $container['template/factory'];
         $templateFactory->setDefaultClass($config['default_controller']);
 
-        $template = $templateFactory->create(
-            $templateController,
-            [
-                'logger' => $container['logger']
-            ],
-            function (TemplateInterface $template) use ($container) {
-                $template->setDependencies($container);
-            }
-        );
+        $template = $templateFactory->create($templateController, [
+            'logger' => $container['logger']
+        ]);
+        $template->setDependencies($container);
 
         if (!isset($templateData['error_title'])) {
             $templateData['error_title'] = $this->messageTitle();
@@ -249,9 +244,7 @@ abstract class AbstractHandler implements
         }
 
         $template->setData($templateData);
-        $templateContent = $container['view']->render($templateIdent, $template);
-
-        return $templateContent;
+        return $container['view']->render($templateIdent, $template);
     }
 
     /**

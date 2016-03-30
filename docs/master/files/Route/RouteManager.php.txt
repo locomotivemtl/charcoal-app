@@ -12,7 +12,7 @@ use \Psr\Http\Message\ResponseInterface;
 use \Charcoal\App\AbstractManager;
 
 /**
- *
+ * The route manager takes care of dispatching each route from an app or a module config
  */
 class RouteManager extends AbstractManager
 {
@@ -56,24 +56,10 @@ class RouteManager extends AbstractManager
      *
      * @param  string             $routeIdent     The template's route identifier.
      * @param  array|\ArrayAccess $templateConfig The template's config for the route.
-     * @throws InvalidArgumentException If the route identifier is not a string.
      * @return \Slim\Route
      */
     public function setupTemplate($routeIdent, $templateConfig)
     {
-        if (!is_string($routeIdent)) {
-            throw new InvalidArgumentException(
-                'Can not setup route template, route identifier is not a string'
-            );
-        }
-
-        $templateIdent = isset($templateConfig['ident'])
-            ? $templateConfig['ident']
-            : $routeIdent;
-
-        $templateIdent = ltrim($templateIdent, '/');
-        $templateConfig['ident'] = $templateIdent;
-
         $routePattern = isset($templateConfig['route'])
             ? $templateConfig['route']
             : '/'.ltrim($routeIdent, '/');
@@ -92,13 +78,21 @@ class RouteManager extends AbstractManager
                 ResponseInterface $response,
                 array $args = []
             ) use (
-                $templateIdent,
+                $routeIdent,
                 $templateConfig
             ) {
                 $this['logger']->debug(
                     sprintf('Loaded template route: %s', $templateIdent),
                     $templateConfig
                 );
+
+                $templateIdent = isset($templateConfig['ident'])
+                    ? $templateConfig['ident']
+                    : $routeIdent;
+
+                $templateIdent = ltrim($templateIdent, '/');
+                $templateConfig['ident'] = $templateIdent;
+
 
                 if (!isset($templateConfig['template_data'])) {
                     $templateConfig['template_data'] = [];
@@ -144,24 +138,10 @@ class RouteManager extends AbstractManager
      *
      * @param  string             $routeIdent   The action's route identifier.
      * @param  array|\ArrayAccess $actionConfig The action's config for the route.
-     * @throws InvalidArgumentException If the route identifier is not a string.
      * @return \Slim\Route
      */
     public function setupAction($routeIdent, $actionConfig)
     {
-        if (!is_string($routeIdent)) {
-            throw new InvalidArgumentException(
-                'Can not setup route action, route identifier is not a string'
-            );
-        }
-
-        $actionIdent = isset($actionConfig['ident'])
-            ? $actionConfig['ident']
-            : $routeIdent;
-
-        $actionIdent = ltrim($actionIdent, '/');
-        $actionConfig['ident'] = $actionIdent;
-
         $routePattern = isset($actionConfig['route'])
             ? $actionConfig['route']
             : '/'.ltrim($routeIdent, '/');
@@ -180,13 +160,20 @@ class RouteManager extends AbstractManager
                 ResponseInterface $response,
                 array $args = []
             ) use (
-                $actionIdent,
+                $routeIdent,
                 $actionConfig
             ) {
                 $this['logger']->debug(
                     sprintf('Loaded action route: %s', $actionIdent),
                     $actionConfig
                 );
+
+                $actionIdent = isset($actionConfig['ident'])
+                    ? $actionConfig['ident']
+                    : $routeIdent;
+
+                $actionIdent = ltrim($actionIdent, '/');
+                $actionConfig['ident'] = $actionIdent;
 
                 if (!isset($actionConfig['action_data'])) {
                     $actionConfig['action_data'] = [];
@@ -232,24 +219,10 @@ class RouteManager extends AbstractManager
      *
      * @param  string             $routeIdent   The script's route identifier.
      * @param  array|\ArrayAccess $scriptConfig The script's config for the route.
-     * @throws InvalidArgumentException If the route identifier is not a string.
      * @return \Slim\Route
      */
     public function setupScript($routeIdent, $scriptConfig)
     {
-        if (!is_string($routeIdent)) {
-            throw new InvalidArgumentException(
-                'Can not setup route script, route identifier is not a string'
-            );
-        }
-
-        $scriptIdent = isset($scriptConfig['ident'])
-            ? $scriptConfig['ident']
-            : $routeIdent;
-
-        $scriptIdent = ltrim($scriptIdent, '/');
-        $scriptConfig['ident'] = $scriptIdent;
-
         $routePattern = isset($scriptConfig['route'])
             ? $scriptConfig['route']
             : '/'.ltrim($routeIdent, '/');
@@ -268,13 +241,21 @@ class RouteManager extends AbstractManager
                 ResponseInterface $response,
                 array $args = []
             ) use (
-                $scriptIdent,
+                $routeIdent,
                 $scriptConfig
             ) {
                 $this->logger->debug(
                     sprintf('Loaded script route: %s', $scriptIdent),
                     $scriptConfig
                 );
+
+                $scriptIdent = isset($scriptConfig['ident'])
+                    ? $scriptConfig['ident']
+                    : $routeIdent;
+
+                $scriptIdent = ltrim($scriptIdent, '/');
+                $scriptConfig['ident'] = $scriptIdent;
+
 
                 if (!isset($scriptConfig['script_data'])) {
                     $scriptConfig['script_data'] = [];

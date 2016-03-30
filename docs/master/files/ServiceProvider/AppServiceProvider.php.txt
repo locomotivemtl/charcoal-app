@@ -190,6 +190,9 @@ class AppServiceProvider implements ServiceProviderInterface
          */
         $container['route/factory'] = function (Container $container) {
             $routeFactory = new RouteFactory();
+            $routeFactory->setArguments([
+                'logger' => $container['logger']
+            ]);
             return $routeFactory;
         };
     }
@@ -206,6 +209,9 @@ class AppServiceProvider implements ServiceProviderInterface
          */
         $container['action/factory'] = function (Container $container) {
             $actionFactory = new ActionFactory();
+            $actionFactory->setArguments([
+                'logger' => $container['logger']
+            ]);
             return $actionFactory;
         };
 
@@ -215,6 +221,9 @@ class AppServiceProvider implements ServiceProviderInterface
          */
         $container['script/factory'] = function (Container $container) {
             $scriptFactory = new ScriptFactory();
+            $scriptFactory->setArguments([
+                'logger' => $container['logger']
+            ]);
             return $scriptFactory;
         };
 
@@ -224,6 +233,9 @@ class AppServiceProvider implements ServiceProviderInterface
          */
         $container['template/factory'] = function (Container $container) {
             $templateFactory = new TemplateFactory();
+            $templateFactory->setArguments([
+                'logger' => $container['logger']
+            ]);
             return $templateFactory;
         };
 

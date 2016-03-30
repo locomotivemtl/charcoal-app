@@ -133,9 +133,7 @@ class TemplateRoute implements
         $templateFactory = $container['template/factory'];
         $templateFactory->setDefaultClass($config['default_controller']);
 
-        $template = $templateFactory->create($templateController, [
-            'logger' => $container['logger']
-        ]);
+        $template = $templateFactory->create($templateController);
         $template->setDependencies($container);
 
 

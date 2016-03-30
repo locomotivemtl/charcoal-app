@@ -96,7 +96,6 @@ class CacheConfig extends AbstractConfig
      */
     public function types()
     {
-        // @todo: Sort by priority.
         return $this->types;
     }
 
