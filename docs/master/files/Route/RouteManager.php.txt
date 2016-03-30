@@ -82,7 +82,7 @@ class RouteManager extends AbstractManager
                 $templateConfig
             ) {
                 $this['logger']->debug(
-                    sprintf('Loaded template route: %s', $templateIdent),
+                    sprintf('Loaded template route: %s', $routeIdent),
                     $templateConfig
                 );
 
@@ -164,7 +164,7 @@ class RouteManager extends AbstractManager
                 $actionConfig
             ) {
                 $this['logger']->debug(
-                    sprintf('Loaded action route: %s', $actionIdent),
+                    sprintf('Loaded action route: %s', $routeIdent),
                     $actionConfig
                 );
 
@@ -245,7 +245,7 @@ class RouteManager extends AbstractManager
                 $scriptConfig
             ) {
                 $this->logger->debug(
-                    sprintf('Loaded script route: %s', $scriptIdent),
+                    sprintf('Loaded script route: %s', $routeIdent),
                     $scriptConfig
                 );
 
