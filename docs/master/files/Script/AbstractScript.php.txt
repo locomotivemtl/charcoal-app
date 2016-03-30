@@ -110,7 +110,7 @@ abstract class AbstractScript extends AbstractEntity implements
 
         if ($climate->arguments->defined('help')) {
             $climate->usage();
-            die();
+            return $response;
         }
 
         $climate->arguments->parse();

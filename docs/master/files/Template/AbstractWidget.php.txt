@@ -93,9 +93,6 @@ abstract class AbstractWidget extends AbstractEntity implements
         $view = new GenericView([
             'logger'=>$this->logger
         ]);
-        if ($data !== null) {
-            $view->setData($data);
-        }
         return $view;
     }
 }
