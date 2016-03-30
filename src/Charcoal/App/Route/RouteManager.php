@@ -2,8 +2,6 @@
 
 namespace Charcoal\App\Route;
 
-use \InvalidArgumentException;
-
 // PSR-7 (http messaging) dependencies
 use \Psr\Http\Message\RequestInterface;
 use \Psr\Http\Message\ResponseInterface;

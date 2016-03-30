@@ -2,12 +2,6 @@
 
 namespace Charcoal\App\ServiceProvider;
 
-use \Exception;
-
-// Dependencies from PSR-7 (HTTP Messaging)
-use \Psr\Http\Message\RequestInterface;
-use \Psr\Http\Message\ResponseInterface;
-
 // Dependencies from Pimple
 use \Pimple\ServiceProviderInterface;
 use \Pimple\Container;
