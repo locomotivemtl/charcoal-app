@@ -88,6 +88,7 @@ class PhpError extends AbstractHandler
                 break;
 
             case 'text/html':
+            default:
                 $output = $this->renderHtmlOutput();
                 break;
         }

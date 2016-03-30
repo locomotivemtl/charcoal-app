@@ -35,6 +35,13 @@ class AppConfig extends AbstractConfig
     private $basePath;
 
     /**
+     * The base URL (public) for the Charcoal installation.
+     *
+     * @var string $baseUrl
+     */
+    private $baseUrl;
+
+    /**
      * The path to the public / web directory.
      *
      * @var string $publicPath
@@ -278,7 +285,7 @@ class AppConfig extends AbstractConfig
     public function projectName()
     {
         if ($this->projectName === null) {
-            return $this->url();
+            return $this->baseUrl();
         }
         return $this->projectName;
     }

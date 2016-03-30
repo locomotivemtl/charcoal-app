@@ -63,7 +63,7 @@ class DatabaseServiceProvider implements ServiceProviderInterface
                 * @param Container $container A container instance.
                 * @return PDO
                 */
-                $dbs[$dbIdent] = function (Container $container) {
+                $dbs[$dbIdent] = function (Container $container) use ($dbIdent) {
                     $dbConfig = $container['databases/config'][$dbIdent];
 
                     $type = $dbConfig['type'];
