@@ -160,7 +160,7 @@ abstract class AbstractHandler implements
         $selectedContentTypes = array_intersect(explode(',', $acceptHeader), $this->knownContentTypes);
 
         if (count($selectedContentTypes)) {
-            return $selectedContentTypes[0];
+            return reset($selectedContentTypes);
         }
 
         return 'text/html';
