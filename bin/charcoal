@@ -79,9 +79,4 @@ $container['environment'] = function($c) use ($path) {
 // Charcoal / Slim is the main app
 $app = App::instance($container);
 
-// Set up dependencies
-require $baseDir.'/config/dependencies.php';
-// Register middlewares
-require $baseDir.'/config/middlewares.php';
-
 $app->run();
