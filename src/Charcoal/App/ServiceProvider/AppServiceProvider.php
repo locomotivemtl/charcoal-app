@@ -241,16 +241,20 @@ class AppServiceProvider implements ServiceProviderInterface
             $templateBuilder = new TemplateBuilder($container['template/factory'], $container);
             return $templateBuilder;
         };
-
-        /**
+/**
          * @param Container $container A container instance.
          * @return WidgetFactory
          */
         $container['widget/factory'] = function (Container $container) {
             $widgetFactory = new WidgetFactory();
+            $widgetFactory->setArguments([
+                'logger' => $container['logger']
+            ]);
+            $widgetFactory->setCallback(function($obj) use ($container) {
+                $obj->setDependencies($container);
+            });
             return $widgetFactory;
         };
-
         /**
          * @param Container $container A container instance.
          * @return TemplateBuilder
