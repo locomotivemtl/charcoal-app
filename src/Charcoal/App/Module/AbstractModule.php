@@ -23,7 +23,6 @@ use \Charcoal\App\AppInterface;
 use \Charcoal\App\Action\ActionFactory;
 use \Charcoal\App\Module\ModuleManager;
 use \Charcoal\App\Route\RouteManager;
-use \Charcoal\App\Routable\RoutableFactory;
 
 /**
  *
@@ -113,7 +112,7 @@ abstract class AbstractModule implements
     /**
      * Set up the module's routes, via a RouteManager
      *
-     * @return AbstractModule
+     * @return AbstractModule Chainable
      */
     public function setupRoutes()
     {
@@ -129,52 +128,6 @@ abstract class AbstractModule implements
 
             $this->routeManager->setupRoutes();
         }
-
-        return $this->setupRoutables();
-    }
-
-    /**
-     * Setup the module's "global" routables.
-     *
-     * @return ModuleInterface Chainable
-     */
-    protected function setupRoutables()
-    {
-        $config = $this->config();
-
-        if (isset($config['base_path'])) {
-            $container = $this->app()->getContainer();
-
-            // For now, need to rely on a catch-all...
-            $this->app()->get(
-                '{catchall:.*}',
-                function (
-                    RequestInterface $request,
-                    ResponseInterface $response,
-                    array $args
-                ) use (
-                    $config,
-                    $container
-                ) {
-                    $routables = $config['routables'];
-                    if ($routables === null || count($routables) === 0) {
-                        return $container['notFoundHandler']($request, $response);
-                    }
-                    $routableFactory = new RoutableFactory();
-                    foreach ($routables as $routableType => $routableOptions) {
-                        $routable = $routableFactory->create($routableType);
-                        $route = $routable->routeHandler($args['catchall'], $request, $response);
-                        if ($route) {
-                            return $route($request, $response);
-                        }
-                    }
-
-                    // If this point is reached, no routable has provided a callback. 404.
-                    return $container['notFoundHandler']($request, $response);
-                }
-            );
-        }
-
         return $this;
     }
 }
