@@ -281,7 +281,7 @@ class App extends SlimApp implements
                     if ($route->pathResolvable($this)) {
                         $this['logger']->debug(
                             sprintf('Loaded routable "%s" for path %s', $routableType, $args['catchall'])
-                            );
+                        );
                         return $route($this, $request, $response);
                     }
                 }
