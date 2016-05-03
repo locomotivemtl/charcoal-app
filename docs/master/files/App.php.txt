@@ -27,7 +27,7 @@ use \Charcoal\App\AppContainer;
 use \Charcoal\App\AppInterface;
 use \Charcoal\App\Module\ModuleManager;
 use \Charcoal\App\Route\RouteManager;
-use \Charcoal\App\Routable\RoutableFactory;
+use \Charcoal\App\Route\RouteFactory;
 
 /**
  * Charcoal App
@@ -267,23 +267,27 @@ class App extends SlimApp implements
                 ResponseInterface $response,
                 array $args
             ) use ($app) {
-                $c = $app->getContainer();
                 $config = $app->config();
                 $routables = $config['routables'];
                 if ($routables === null || count($routables) === 0) {
-                    return $c['notFoundHandler']($request, $response);
+                    return $this['notFoundHandler']($request, $response);
                 }
-                $routableFactory = new RoutableFactory();
+                $routeFactory = $this['route/factory'];
                 foreach ($routables as $routableType => $routableOptions) {
-                    $routable = $routableFactory->create($routableType);
-                    $route = $routable->routeHandler($args['catchall'], $request, $response);
-                    if ($route) {
-                        return $route($request, $response);
+                    $route = $routeFactory->create($routableType, [
+                        'path' => $args['catchall'],
+                        'config' => $routableOptions
+                    ]);
+                    if ($route->pathResolvable($this)) {
+                        $this['logger']->debug(
+                            sprintf('Loaded routable "%s" for path %s', $routableType, $args['catchall'])
+                            );
+                        return $route($this, $request, $response);
                     }
                 }
 
                 // If this point is reached, no routable has provided a callback. 404.
-                return $c['notFoundHandler']($request, $response);
+                return $this['notFoundHandler']($request, $response);
             }
         );
     }
