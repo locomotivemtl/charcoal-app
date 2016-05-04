@@ -27,6 +27,13 @@ use \Charcoal\App\Handler\AbstractHandler;
 class Shutdown extends AbstractHandler
 {
     /**
+     * HTTP methods allowed by the current request.
+     *
+     * @var string $methods
+     */
+    protected $methods;
+
+    /**
      * Invoke "Maintenance" Handler
      *
      * @param  ServerRequestInterface $request  The most recent Request object.

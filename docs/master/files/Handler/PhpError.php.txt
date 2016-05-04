@@ -118,7 +118,7 @@ class PhpError extends AbstractHandler
     }
 
     /**
-     * Retrieves the HTTP methods allowed by the current request.
+     * Retrieves wether the the details of the error message should be displayed.
      *
      * @return boolean
      */
