@@ -28,7 +28,7 @@ class NotAllowed extends AbstractHandler
     /**
      * HTTP methods allowed by the current request.
      *
-     * @var array $methods
+     * @var string $methods
      */
     protected $methods;
 
