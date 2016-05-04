@@ -238,10 +238,10 @@ class AppServiceProvider implements ServiceProviderInterface
          * @return TemplateBuilder
          */
         $container['template/builder'] = function (Container $container) {
-            $templateBuilder = new TemplateBuilder($container['template/factory'], $container);
-            return $templateBuilder;
+            return new TemplateBuilder($container['template/factory'], $container);
         };
-/**
+
+        /**
          * @param Container $container A container instance.
          * @return WidgetFactory
          */
@@ -260,8 +260,7 @@ class AppServiceProvider implements ServiceProviderInterface
          * @return TemplateBuilder
          */
         $container['widget/builder'] = function (Container $container) {
-            $widgetBuilder = new WidgetBuilder($container['widget/factory'], $container);
-            return $widgetBuilder;
+            return new WidgetBuilder($container['widget/factory'], $container);
         };
     }
 }

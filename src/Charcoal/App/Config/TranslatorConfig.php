@@ -49,14 +49,14 @@ class TranslatorConfig extends AbstractConfig implements MultilingualAwareInterf
      *
      * @var array $translationMessages
      */
-    private $translationMessages;
+    private $translationMessages = [];
 
     /**
      * List of file and directory paths for loading translations.
      *
      * @var array $translationPaths
      */
-    private $translationPaths;
+    private $translationPaths = [];
 
     /**
      * @return array
