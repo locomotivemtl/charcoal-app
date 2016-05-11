@@ -24,7 +24,6 @@ use \Charcoal\Config\ConfigurableTrait;
 // Local namespace dependencies
 use \Charcoal\App\AppConfig;
 use \Charcoal\App\AppContainer;
-use \Charcoal\App\AppInterface;
 use \Charcoal\App\Module\ModuleManager;
 use \Charcoal\App\Route\RouteManager;
 use \Charcoal\App\Route\RouteFactory;
@@ -36,7 +35,6 @@ use \Charcoal\App\Route\RouteFactory;
  * and run a Slim Framework application within Charcoal.
  */
 class App extends SlimApp implements
-    AppInterface,
     LoggerAwareInterface,
     ConfigurableInterface
 {
@@ -61,13 +59,30 @@ class App extends SlimApp implements
     private $routeManager;
 
     /**
+     * Getter for creating/returning the unique instance of this class.
+     *
+     * @param ContainerInterface|array $container The application's settings.
+     * @return self
+     */
+    public static function instance($container = [])
+    {
+        if (!isset(static::$instance)) {
+            $called_class = get_called_class();
+
+            static::$instance = new $called_class($container);
+        }
+
+        return static::$instance;
+    }
+
+    /**
      * Create new Charcoal application (and SlimApp).
      *
      * ### Dependencies
      *
      * **Required**
      *
-     * - `charcoal/app/config` — AppConfig
+     * - `config` — AppConfig
      *
      * **Optional**
      *
@@ -88,7 +103,7 @@ class App extends SlimApp implements
             );
         }
 
-        // Guarantee the use of Charcoal's DI container
+        // Ensure the DI container is
         if (is_array($container)) {
             $container = new AppContainer($container);
         }
@@ -99,6 +114,22 @@ class App extends SlimApp implements
         if (isset($container['config'])) {
             $this->setConfig($container['config']);
         }
+    }
+
+    /**
+     * Run application.
+     *
+     * Initialize the Charcoal application before running (with SlimApp).
+     *
+     * @uses   self::setup()
+     * @param  boolean $silent If true, will run in silent mode (no response).
+     * @return ResponseInterface The PSR7 HTTP response.
+     */
+    public function run($silent = false)
+    {
+        $this->setup();
+
+        return parent::run($silent);
     }
 
     /**
@@ -129,29 +160,14 @@ class App extends SlimApp implements
         );
     }
 
-    /**
-     * Getter for creating/returning the unique instance of this class.
-     *
-     * @param ContainerInterface|array $container The application's settings.
-     * @return self
-     */
-    public static function instance($container = [])
-    {
-        if (!isset(static::$instance)) {
-            $called_class = get_called_class();
 
-            static::$instance = new $called_class($container);
-        }
-
-        return static::$instance;
-    }
 
     /**
      * Retrieve the application's module manager.
      *
      * @return ModuleManager
      */
-    public function moduleManager()
+    protected function moduleManager()
     {
         if (!isset($this->moduleManager)) {
             $config  = $this->config();
@@ -172,7 +188,7 @@ class App extends SlimApp implements
      *
      * @return RouteManager
      */
-    public function routeManager()
+    protected function routeManager()
     {
         if (!isset($this->routeManager)) {
             $config = $this->config();
@@ -191,36 +207,19 @@ class App extends SlimApp implements
     /**
      * Registers the default services and features that Charcoal needs to work.
      *
-     * @return self
+     * @return AppInterface Chainable
      */
     private function setup()
     {
         $config = $this->config();
+        date_default_timezone_set($config['timezone']);
 
         $this->setupLogger();
         $this->setupRoutes();
         $this->setupModules();
         $this->setupRoutables();
 
-        date_default_timezone_set($config['timezone']);
-
         return $this;
-    }
-
-    /**
-     * Run application
-     *
-     * Initialize the Charcoal application before running (with SlimApp).
-     *
-     * @uses   self::setup()
-     * @param  boolean $silent If TRUE, will run in silent mode (no response).
-     * @return ResponseInterface The PSR7 HTTP response.
-     */
-    public function run($silent = false)
-    {
-        $this->setup();
-
-        return parent::run($silent);
     }
 
     /**
@@ -232,10 +231,13 @@ class App extends SlimApp implements
     {
         $container = $this->getContainer();
 
-        if (isset($container['logger'])) {
-            $this->setLogger($container['logger']);
-            $this->logger->debug('Charcoal App Init Logger');
+        if (!isset($container['logger'])) {
+            $container['logger'] = new \Psr\Log\NullLogger();
         }
+
+        $this->setLogger($container['logger']);
+        $this->logger->debug('>>> Charcoal App Init Logger');
+
     }
 
     /**
@@ -310,7 +312,7 @@ class App extends SlimApp implements
      * @param  array|string|null $data Optional configuration data.
      * @return AppConfig
      */
-    public function createConfig($data = null)
+    protected function createConfig($data = null)
     {
         return new AppConfig($data);
     }

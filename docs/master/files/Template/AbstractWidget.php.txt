@@ -44,9 +44,6 @@ abstract class AbstractWidget extends AbstractEntity implements
      */
     public function __construct($data = null)
     {
-        if (!isset($data['logger'])) {
-            $data['logger'] = new \Psr\Log\NullLogger();
-        }
         $this->setLogger($data['logger']);
     }
 

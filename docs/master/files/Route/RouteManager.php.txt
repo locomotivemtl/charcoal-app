@@ -6,14 +6,35 @@ namespace Charcoal\App\Route;
 use \Psr\Http\Message\RequestInterface;
 use \Psr\Http\Message\ResponseInterface;
 
+// Module `charcoal-config` dependencies
+use \Charcoal\Config\ConfigurableInterface;
+use \Charcoal\Config\ConfigurableTrait;
+
 // Local namespace dependencies
-use \Charcoal\App\AbstractManager;
+use \Charcoal\App\AppAwareInterface;
+use \Charcoal\App\AppAwareTrait;
 
 /**
  * The route manager takes care of dispatching each route from an app or a module config
  */
-class RouteManager extends AbstractManager
+class RouteManager implements
+    AppAwareInterface,
+    ConfigurableInterface
 {
+    use AppAwareTrait;
+    use ConfigurableTrait;
+
+    /**
+     * Manager constructor
+     *
+     * @param array $data The dependencies container.
+     */
+    public function __construct(array $data)
+    {
+        $this->setConfig($data['config']);
+        $this->setApp($data['app']);
+    }
+
     /**
      * Set up the routes.
      *
@@ -239,7 +260,7 @@ class RouteManager extends AbstractManager
                     $scriptConfig['ident'] = ltrim($routeIdent, '/');
                 }
 
-                $this->logger->debug(
+                $this['logger']->debug(
                     sprintf('Loaded script route: %s', $scriptConfig['ident']),
                     $scriptConfig
                 );
