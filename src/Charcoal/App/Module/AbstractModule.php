@@ -53,10 +53,7 @@ abstract class AbstractModule implements
      */
     public function __construct(array $data)
     {
-        if (isset($data['logger'])) {
-            $this->setLogger($data['logger']);
-        }
-
+        $this->setLogger($data['logger']);
         $this->setApp($data['app']);
     }
 

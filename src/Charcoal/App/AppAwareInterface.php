@@ -2,7 +2,7 @@
 
 namespace Charcoal\App;
 
-use \Charcoal\App\AppInterface;
+use \Charcoal\App\App;
 
 /**
  * Interface for objects that depend on an app.
@@ -12,8 +12,8 @@ use \Charcoal\App\AppInterface;
 interface AppAwareInterface
 {
     /**
-     * @param AppInterface $app The app instance this object depends on.
+     * @param App $app The app instance this object depends on.
      * @return AppAwareInterface Chainable
      */
-    public function setApp(AppInterface $app);
+    public function setApp(App $app);
 }

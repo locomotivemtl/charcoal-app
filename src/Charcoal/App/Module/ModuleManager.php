@@ -2,18 +2,47 @@
 
 namespace Charcoal\App\Module;
 
+// PSR-3 (logger) dependencies
+use \Psr\Log\LoggerAwareInterface;
+use \Psr\Log\LoggerAwareTrait;
+
+// Module `charcoal-config` dependencies
+use \Charcoal\Config\ConfigurableInterface;
+use \Charcoal\Config\ConfigurableTrait;
+
 // Local namespace dependencies
-use \Charcoal\App\AbstractManager;
+use \Charcoal\App\AppAwareInterface;
+use \Charcoal\App\AppAwareTrait;
+use \Charcoal\App\Module\ModuleFactory;
 
 /**
  *
  */
-class ModuleManager extends AbstractManager
+class ModuleManager implements
+    AppAwareInterface,
+    ConfigurableInterface,
+    LoggerAwareInterface
 {
+    use AppAwareTrait;
+    use ConfigurableTrait;
+    use LoggerAwareTrait;
+
     /**
      * @var array $modules
      */
     private $modules = [];
+
+    /**
+     * Manager constructor
+     *
+     * @param array $data The dependencies container.
+     */
+    public function __construct(array $data)
+    {
+        $this->setLogger($data['logger']);
+        $this->setConfig($data['config']);
+        $this->setApp($data['app']);
+    }
 
     /**
      * @param array $modules The list of modules to add.

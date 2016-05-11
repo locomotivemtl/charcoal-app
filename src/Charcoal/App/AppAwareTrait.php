@@ -3,7 +3,6 @@
 namespace Charcoal\App;
 
 use \Charcoal\App\App;
-use \Charcoal\App\AppInterface;
 
 /**
 * Implementation, as trait, of the `AppAwareInterface`.
@@ -11,28 +10,25 @@ use \Charcoal\App\AppInterface;
 trait AppAwareTrait
 {
     /**
-     * @var AppInterface $app
+     * @var App $app
      */
     private $app;
 
     /**
-     * @param AppInterface $app The app instance this object depends on.
+     * @param App $app The app instance this object depends on.
      * @return AppAwareInterface Chainable
      */
-    public function setApp(AppInterface $app)
+    public function setApp(App $app)
     {
         $this->app = $app;
         return $this;
     }
 
     /**
-     * @return AppInterface
+     * @return App
      */
     protected function app()
     {
-        if ($this->app === null) {
-            $this->app = App::instance();
-        }
         return $this->app;
     }
 }

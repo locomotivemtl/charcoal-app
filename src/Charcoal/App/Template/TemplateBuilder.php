@@ -2,8 +2,9 @@
 
 namespace Charcoal\App\Template;
 
-use \Charcoal\Factory\FactoryInterface;
 use \Pimple\Container;
+
+use \Charcoal\Factory\FactoryInterface;
 
 /**
  * Build templates from config, with a TemplateFactory
