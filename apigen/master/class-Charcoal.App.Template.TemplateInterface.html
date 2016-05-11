@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>Interface Charcoal\App\Template\TemplateInterface</title>
+
+	<link rel="stylesheet" href="resources/style.css?e99947befd7bf673c6b43ff75e9e0f170c88a60e">
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+				<h3>Namespaces</h3>
+			<ul>
+				<li class="active">
+					<a href="namespace-Charcoal.html">
+						Charcoal<span></span>
+					</a>
+
+						<ul>
+				<li class="active">
+					<a href="namespace-Charcoal.App.html">
+						App<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Charcoal.App.Action.html">
+						Action					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Charcoal.App.Config.html">
+						Config					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Charcoal.App.Handler.html">
+						Handler					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Charcoal.App.Module.html">
+						Module					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Charcoal.App.Route.html">
+						Route					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Charcoal.App.Script.html">
+						Script					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Charcoal.App.ServiceProvider.html">
+						ServiceProvider					</a>
+
+						</li>
+				<li class="active">
+					<a href="namespace-Charcoal.App.Template.html">
+						Template					</a>
+
+						</li>
+							</ul></li></ul></li>
+			</ul>
+		</div>
+
+		<hr>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-Charcoal.App.Template.AbstractTemplate.html">AbstractTemplate</a></li>
+				<li><a href="class-Charcoal.App.Template.AbstractWidget.html">AbstractWidget</a></li>
+				<li><a href="class-Charcoal.App.Template.TemplateBuilder.html">TemplateBuilder</a></li>
+				<li><a href="class-Charcoal.App.Template.TemplateFactory.html">TemplateFactory</a></li>
+				<li><a href="class-Charcoal.App.Template.WidgetBuilder.html">WidgetBuilder</a></li>
+				<li><a href="class-Charcoal.App.Template.WidgetFactory.html">WidgetFactory</a></li>
+			</ul>
+
+			<h3>Interfaces</h3>
+			<ul>
+				<li class="active"><a href="class-Charcoal.App.Template.TemplateInterface.html">TemplateInterface</a></li>
+				<li><a href="class-Charcoal.App.Template.WidgetInterface.html">WidgetInterface</a></li>
+			</ul>
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="">
+		<input type="hidden" name="ie" value="UTF-8">
+		<input type="text" name="q" class="text" placeholder="Search">
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-Charcoal.App.Template.html" title="Summary of Charcoal\App\Template"><span>Namespace</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Interface TemplateInterface</h1>
+
+
+
+
+
+
+
+	<div>
+		<h4>Direct known implementers</h4>
+			<a href="class-Charcoal.App.Template.AbstractTemplate.html">Charcoal\App\Template\AbstractTemplate</a>
+	</div>
+
+
+
+
+	<div class="info">
+		
+		
+		<b>Namespace:</b> <a href="namespace-Charcoal.html">Charcoal</a>\<a href="namespace-Charcoal.App.html">App</a>\<a href="namespace-Charcoal.App.Template.html">Template</a><br>
+		
+
+			<b>Located at</b> <a href="source-class-Charcoal.App.Template.TemplateInterface.html#8-32" title="Go to source code">Charcoal/App/Template/TemplateInterface.php</a>
+		<br>
+	</div>
+
+
+
+	<table class="summary methods" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="setDependencies" id="_setDependencies">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setDependencies">#</a>
+		<code><a href="source-class-Charcoal.App.Template.TemplateInterface.html#14-25" title="Go to source code">setDependencies</a>( <span>Pimple\Container <var>$container</var></span> )</code>
+
+		<div class="description short">
+			<p>Give an opportunity to children classes to inject dependencies from a Pimple Container.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Give an opportunity to children classes to inject dependencies from a Pimple Container.</p>
+
+<p>Does nothing by default, reimplement in children classes.</p>
+
+<p>The <code>$container</code> DI-container (from <code>Pimple</code>) should not be saved or passed around, only to be used to
+inject dependencies (typically via setters).</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$container</var></dt>
+					<dd>A dependencies container instance.</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setData" id="_setData">
+
+		<td class="attributes"><code>
+			 public 
+
+			<code><a href="class-Charcoal.App.Template.TemplateInterface.html">Charcoal\App\Template\TemplateInterface</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setData">#</a>
+		<code><a href="source-class-Charcoal.App.Template.TemplateInterface.html#27-31" title="Go to source code">setData</a>( <span>array|ArrayAccess|Iterator <var>$data</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$data</var></dt>
+					<dd>The template data to set.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-Charcoal.App.Template.TemplateInterface.html">Charcoal\App\Template\TemplateInterface</a></code><br>Chainable
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		 API documentation generated by <a href="http://apigen.org">ApiGen</a>
+	</div>
+</div>
+</div>
+<script src="resources/combined.js"></script>
+<script src="elementlist.js"></script>
+</body>
+</html>
