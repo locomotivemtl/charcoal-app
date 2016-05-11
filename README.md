@@ -1,10 +1,10 @@
 Charcoal App
 ============
 
-`Charcoal\App` is a framework to create _Charcoal_ applications with **Slim 3**. It is actually a small layer on top of Slim to load the proper routes / controllers from a configuration file, as well as setting up various service providers (for logger, cache, database and translation) that make up an application.
+Charcoal App is a framework to create and manage _Charcoal_ application with **Slim 3**.
+An _app is a collection of _modules_, _routes_ (`templates`, `actions` and `scripts`), _handlers_ and _services_ tied together with a `Charcoal` _config_ and a `Pimple` _container_.
 
-The request is then handled by one of the 3 types of route (or _request controller_): `Action`, `Script` or `Template`.
-
+Provided services (through `Pimple`'s _Service Providers_) are a psr-3 _logger_, a psr-6 _cache_ system, a _view_ / renderer, a PDO _database_ source and a _translator_.
 
 # Table of contents
 
@@ -21,11 +21,9 @@ The request is then handled by one of the 3 types of route (or _request controll
 		- [Template Request Controller](#template-request-controller)
 		- [Route API](#route-api)
 		- [Routable objects](#routable-objects)
-	- [The routable callback](#the-routable-callback)
-	- [Middleware](#middleware)
 	- [Charcoal Binary](#charcoal-binary)
-- Basic Services
 - [Service Providers](#service-providers)
+	- [Basic Services](#basic-services)
 	- [App Service Provider](#app-service-provider)
 	- [Cache Service Provider](#cache-service-provider)
 	- [Database Service Provider](#database-service-provider)
@@ -206,17 +204,15 @@ $app->run();
 
 ## Module component
 
-- A *Module* loads its configuration from the root config
-	- **Module**: _implements_ `Charcoal\App\ModuleInterface`
-	- **Config**: `\Charcoal\App\ModuleConfig`
-		- The `ModuleConfig
+A *Module* defines its specific components:
 
-- A *Module* requires:
-	- A parent **Container**
-	- A `\Slim\App`
-
-- A *Module* defines:
-	- **Routes**: which defines a path to load and a `RequestController` configuration.
+- **Config**
+- **Routes**
+	- Actions
+	- Scripts
+ 	- Templates
+- **Middlewares**: TBD
+- **Service Providers**: TBD
 
 ## Routes and RequestController
 
@@ -539,7 +535,7 @@ Here is an example of route definitions. Some things to note:
 				"ident": "full-example",
 				"template": "acme/route/full",
 				"controller":"acme/route/full",
-				"engine":"mustache"
+				"engine":"mustache",
 				"methods": ["GET"],
 				"cache": false,
 				"cache_ttl":0,
@@ -754,12 +750,12 @@ The **database** config is as follow:
 
 | Key               | Type     | Default       | Description |
 | ----------------- | -------- | ------------- | ----------- |
-| **type**          | `string` | `mysql`       | The database driver type.
-| **hostname**      | `string` |
-| **username**      | `string` |
-| **password**      | `string` |
-| **database**      | `string` |
-| **disable_utf8**  | `bool`   |
+| **type**          | `string` | `mysql`       | The database driver type. |
+| **hostname**      | `string` | `localhost`   | The database hostname or IP address. |
+| **username**      | `string` | `''`          | The username with access to this database / tables. |
+| **password**      | `string` | `''`          | The password, for username.
+| **database**      | `string` | `''`          | The database name for this project.  |
+| **disable_utf8**  | `bool`   | `false`       | Set to true to disable automatic utf-8. |
 
 Or, in JSON format:
 
@@ -913,7 +909,7 @@ Or, in JSON format:
 
 # Usage
 
-Typical Front-Controller (`index.php`):
+Typical Front-Controller (`www/index.php`):
 
 ```php
 use \Charcoal\App\App;
@@ -947,13 +943,19 @@ For a complete project example using `charcoal-app`, see the [charcoal-project-b
 To install the development environment:
 
 ```shell
-$ composer install --prefer-source
+★ composer install --prefer-source
+```
+
+Run the code checkers and unit tests with:
+
+```shell
+★ composer test
 ```
 
 ## API documentation
 
 - The auto-generated `phpDocumentor` API documentation is available at [https://locomotivemtl.github.io/charcoal-app/docs/master/](https://locomotivemtl.github.io/charcoal-app/docs/master/)
-- The auto-generated `apigen` API documentation is available at [https://codedoc.pub/locomotivemtl/charcoal-app/master/](https://codedoc.pub/locomotivemtl/charcoal-app/master/index.html)
+- The auto-generated `apigen` API documentation is available at [https://locomotivemtl.github.io/charcoal-app/apigen/master/](https://locomotivemtl.github.io/charcoal-app/apigen/master/)
 
 ## Development dependencies
 
@@ -965,7 +967,7 @@ $ composer install --prefer-source
 
 | Service | Badge | Description |
 | ------- | ----- | ----------- |
-| [Travis](https://travis-ci.org/locomotivemtl/charcoal-app) | [![Build Status](https://travis-ci.org/locomotivemtl/charcoal-app.svg?branch=master)](https://travis-ci.org/locomotivemtl/charcoal-app) | Runs code sniff check and unit tests. Auto-generates API documentation. |
+| [Travis](https://travis-ci.org/locomotivemtl/charcoal-app) | [![Build Status](https://travis-ci.org/locomotivemtl/charcoal-app.svg?branch=master)](https://travis-ci.org/locomotivemtl/charcoal-app) | Runs code sniff check and unit tests. Auto-generates API documentaation. |
 | [Scrutinizer](https://scrutinizer-ci.com/g/locomotivemtl/charcoal-app/) | [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/locomotivemtl/charcoal-app/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/locomotivemtl/charcoal-app/?branch=master) | Code quality checker. Also validates API documentation quality. |
 | [Coveralls](https://coveralls.io/github/locomotivemtl/charcoal-app) | [![Coverage Status](https://coveralls.io/repos/github/locomotivemtl/charcoal-app/badge.svg?branch=master)](https://coveralls.io/github/locomotivemtl/charcoal-app?branch=master) | Unit Tests code coverage. |
 | [Sensiolabs](https://insight.sensiolabs.com/projects/533b5796-7e69-42a7-a046-71342146308a) | [![SensioLabsInsight](https://insight.sensiolabs.com/projects/533b5796-7e69-42a7-a046-71342146308a/mini.png)](https://insight.sensiolabs.com/projects/533b5796-7e69-42a7-a046-71342146308a) | Another code quality checker, focused on PHP. |
@@ -989,6 +991,13 @@ The Charcoal-App module follows the Charcoal coding-style:
 - Benjamin Roch <benjamin@locomotive.ca>
 
 ## Changelog
+
+### 0.1.1
+
+_2016-05-02_
+
+- Fix binary; do not attempt to include files that probably dont exist
+- Logger is now optional for widget (a null logger will be created if none is provided)
 
 ### 0.1
 
