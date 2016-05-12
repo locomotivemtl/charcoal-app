@@ -17,6 +17,11 @@
       "homepage": "https://locomotive.ca"
     }
   ],
+  "extra": {
+      "branch-alias": {
+          "dev-master": "0.1.x-dev"
+      }
+  },
   "minimum-stability":"dev",
   "require": {
     "php": ">=5.5.0",
