@@ -170,7 +170,7 @@ Charcoal\Config\AbstractEntity
 		<b>Namespace:</b> <a href="namespace-Charcoal.html">Charcoal</a>\<a href="namespace-Charcoal.App.html">App</a>\<a href="namespace-Charcoal.App.Template.html">Template</a><br>
 		
 
-			<b>Located at</b> <a href="source-class-Charcoal.App.Template.AbstractTemplate.html#18-50" title="Go to source code">Charcoal/App/Template/AbstractTemplate.php</a>
+			<b>Located at</b> <a href="source-class-Charcoal.App.Template.AbstractTemplate.html#21-65" title="Go to source code">Charcoal/App/Template/AbstractTemplate.php</a>
 		<br>
 	</div>
 
@@ -190,7 +190,7 @@ Charcoal\Config\AbstractEntity
 
 		<td class="name"><div>
 		<a class="anchor" href="#___construct">#</a>
-		<code><a href="source-class-Charcoal.App.Template.AbstractTemplate.html#27-33" title="Go to source code">__construct</a>( <span>array|ArrayAccess <var>$data</var> = <span class="php-keyword1">null</span></span> )</code>
+		<code><a href="source-class-Charcoal.App.Template.AbstractTemplate.html#30-36" title="Go to source code">__construct</a>( <span>array|ArrayAccess <var>$data</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			
@@ -213,6 +213,47 @@ Charcoal\Config\AbstractEntity
 		</div>
 		</div></td>
 	</tr>
+	<tr data-order="init" id="_init">
+
+		<td class="attributes"><code>
+			 public 
+
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_init">#</a>
+		<code><a href="source-class-Charcoal.App.Template.AbstractTemplate.html#38-48" title="Go to source code">init</a>( <span>Psr\Http\Message\RequestInterface <var>$request</var></span> )</code>
+
+		<div class="description short">
+			<p>Initialize the template with a request.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Initialize the template with a request.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$request</var></dt>
+					<dd>The request to intialize.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					boolean
+				</div>
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Charcoal.App.Template.TemplateInterface.html#_init">Charcoal\App\Template\TemplateInterface::init()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
 	<tr data-order="setDependencies" id="_setDependencies">
 
 		<td class="attributes"><code>
@@ -225,7 +266,7 @@ Charcoal\Config\AbstractEntity
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setDependencies">#</a>
-		<code><a href="source-class-Charcoal.App.Template.AbstractTemplate.html#35-49" title="Go to source code">setDependencies</a>( <span>Pimple\Container <var>$container</var></span> )</code>
+		<code><a href="source-class-Charcoal.App.Template.AbstractTemplate.html#50-64" title="Go to source code">setDependencies</a>( <span>Pimple\Container <var>$container</var></span> )</code>
 
 		<div class="description short">
 			<p>Give an opportunity to children classes to inject dependencies from a Pimple Container.</p>
