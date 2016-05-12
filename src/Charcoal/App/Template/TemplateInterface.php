@@ -40,5 +40,4 @@ interface TemplateInterface
      * @return boolean
      */
     public function init(RequestInterface $request);
-
 }
