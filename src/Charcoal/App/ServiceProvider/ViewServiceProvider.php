@@ -197,6 +197,7 @@ class ViewServiceProvider implements ServiceProviderInterface
          */
         $container['view'] = function (Container $container) {
             $view = new GenericView([
+                'logger' => $container['logger'],
                 'config' => $container['view/config']
             ]);
             $view->setEngine($container['view/engine']);
