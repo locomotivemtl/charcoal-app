@@ -106,12 +106,12 @@ class TemplateRoute implements
             $templateContent = $cacheItem->get();
             if ($cacheItem->isMiss()) {
                 $cacheItem->lock();
-                $templateContent = $this->templateContent($container);
+                $templateContent = $this->templateContent($container, $request);
 
                 $cachePool->save($cacheItem->set($templateContent, $config['cache_ttl']));
             }
         } else {
-            $templateContent = $this->templateContent($container);
+            $templateContent = $this->templateContent($container, $request);
         }
 
         $response->write($templateContent);
@@ -120,10 +120,11 @@ class TemplateRoute implements
     }
 
     /**
-     * @param  Container $container A DI (Pimple) container.
+     * @param  Container        $container A DI (Pimple) container.
+     * @param  RequestInterface $request   The request to intialize the template with.
      * @return string
      */
-    protected function templateContent(Container $container)
+    protected function templateContent(Container $container, RequestInterface $request)
     {
         $config = $this->config();
 
@@ -135,7 +136,7 @@ class TemplateRoute implements
 
         $template = $templateFactory->create($templateController);
         $template->setDependencies($container);
-
+        $template->init($request);
 
         // Set custom data from config.
         $template->setData($config['template_data']);

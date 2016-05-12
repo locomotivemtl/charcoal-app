@@ -6,6 +6,9 @@ namespace Charcoal\App\Template;
 use \Psr\Log\LoggerAwareInterface;
 use \Psr\Log\LoggerAwareTrait;
 
+// PSR-7 (HTTP Messaging) dependencies
+use \Psr\Http\Message\RequestInterface;
+
 // Dependencies from `Pimple`
 use \Pimple\Container;
 
@@ -30,6 +33,18 @@ abstract class AbstractTemplate extends AbstractEntity implements
     public function __construct($data = null)
     {
         $this->setLogger($data['logger']);
+    }
+
+    /**
+     * Initialize the template with a request.
+     *
+     * @param RequestInterface $request The request to intialize.
+     * @return boolean
+     */
+    public function init(RequestInterface $request)
+    {
+        // This method is a stub. Reimplement in children methods to ensure template initialization.
+        return true;
     }
 
     /**
