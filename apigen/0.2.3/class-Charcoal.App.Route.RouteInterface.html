@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>Interface Charcoal\App\Route\RouteInterface</title>
+
+	<link rel="stylesheet" href="resources/style.css?e99947befd7bf673c6b43ff75e9e0f170c88a60e">
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+				<h3>Namespaces</h3>
+			<ul>
+				<li class="active">
+					<a href="namespace-Charcoal.html">
+						Charcoal<span></span>
+					</a>
+
+						<ul>
+				<li class="active">
+					<a href="namespace-Charcoal.App.html">
+						App<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Charcoal.App.Action.html">
+						Action					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Charcoal.App.Config.html">
+						Config					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Charcoal.App.Handler.html">
+						Handler					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Charcoal.App.Module.html">
+						Module					</a>
+
+						</li>
+				<li class="active">
+					<a href="namespace-Charcoal.App.Route.html">
+						Route					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Charcoal.App.Script.html">
+						Script					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Charcoal.App.ServiceProvider.html">
+						ServiceProvider					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Charcoal.App.Template.html">
+						Template					</a>
+
+						</li>
+							</ul></li></ul></li>
+			</ul>
+		</div>
+
+		<hr>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-Charcoal.App.Route.ActionRoute.html">ActionRoute</a></li>
+				<li><a href="class-Charcoal.App.Route.ActionRouteConfig.html">ActionRouteConfig</a></li>
+				<li><a href="class-Charcoal.App.Route.RouteConfig.html">RouteConfig</a></li>
+				<li><a href="class-Charcoal.App.Route.RouteFactory.html">RouteFactory</a></li>
+				<li><a href="class-Charcoal.App.Route.RouteManager.html">RouteManager</a></li>
+				<li><a href="class-Charcoal.App.Route.ScriptRoute.html">ScriptRoute</a></li>
+				<li><a href="class-Charcoal.App.Route.ScriptRouteConfig.html">ScriptRouteConfig</a></li>
+				<li><a href="class-Charcoal.App.Route.TemplateRoute.html">TemplateRoute</a></li>
+				<li><a href="class-Charcoal.App.Route.TemplateRouteConfig.html">TemplateRouteConfig</a></li>
+			</ul>
+
+			<h3>Interfaces</h3>
+			<ul>
+				<li class="active"><a href="class-Charcoal.App.Route.RouteInterface.html">RouteInterface</a></li>
+			</ul>
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="">
+		<input type="hidden" name="ie" value="UTF-8">
+		<input type="text" name="q" class="text" placeholder="Search">
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-Charcoal.App.Route.html" title="Summary of Charcoal\App\Route"><span>Namespace</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Interface RouteInterface</h1>
+
+
+	<div class="description">
+	<p>Base Route Interface.</p>
+
+<p>Routes are simple <em>invokable</em> objects.</p>
+	</div>
+
+
+
+
+
+	<div>
+		<h4>Direct known implementers</h4>
+			<a href="class-Charcoal.App.Route.ActionRoute.html">Charcoal\App\Route\ActionRoute</a>, 
+			<a href="class-Charcoal.App.Route.ScriptRoute.html">Charcoal\App\Route\ScriptRoute</a>, 
+			<a href="class-Charcoal.App.Route.TemplateRoute.html">Charcoal\App\Route\TemplateRoute</a>
+	</div>
+
+
+
+
+	<div class="info">
+		
+		
+		<b>Namespace:</b> <a href="namespace-Charcoal.html">Charcoal</a>\<a href="namespace-Charcoal.App.html">App</a>\<a href="namespace-Charcoal.App.Route.html">Route</a><br>
+		
+
+			<b>Located at</b> <a href="source-class-Charcoal.App.Route.RouteInterface.html#12-26" title="Go to source code">Charcoal/App/Route/RouteInterface.php</a>
+		<br>
+	</div>
+
+
+
+	<table class="summary methods" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="__invoke" id="___invoke">
+
+		<td class="attributes"><code>
+			 public 
+
+			Psr\Http\Message\ResponseInterface
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___invoke">#</a>
+		<code><a href="source-class-Charcoal.App.Route.RouteInterface.html#19-25" title="Go to source code">__invoke</a>( <span>Pimple\Container <var>$container</var></span>, <span>Psr\Http\Message\RequestInterface <var>$request</var></span>, <span>Psr\Http\Message\ResponseInterface <var>$response</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$container</var></dt>
+					<dd>A DI container (pimple) instance.</dd>
+					<dt><var>$request</var></dt>
+					<dd>A PSR-7 compatible Request instance.</dd>
+					<dt><var>$response</var></dt>
+					<dd>A PSR-7 compatible Response instance.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					Psr\Http\Message\ResponseInterface
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		 API documentation generated by <a href="http://apigen.org">ApiGen</a>
+	</div>
+</div>
+</div>
+<script src="resources/combined.js"></script>
+<script src="elementlist.js"></script>
+</body>
+</html>
