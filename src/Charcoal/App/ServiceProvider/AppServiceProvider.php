@@ -206,6 +206,9 @@ class AppServiceProvider implements ServiceProviderInterface
             $actionFactory->setArguments([
                 'logger' => $container['logger']
             ]);
+            $actionFactory->setCallback(function($obj) use ($container) {
+                $obj->setDependencies($container);
+            });
             return $actionFactory;
         };
 
@@ -218,6 +221,9 @@ class AppServiceProvider implements ServiceProviderInterface
             $scriptFactory->setArguments([
                 'logger' => $container['logger']
             ]);
+            $scriptFactory->setCallback(function($obj) use ($container) {
+                $obj->setDependencies($container);
+            });
             return $scriptFactory;
         };
 
@@ -230,6 +236,9 @@ class AppServiceProvider implements ServiceProviderInterface
             $templateFactory->setArguments([
                 'logger' => $container['logger']
             ]);
+            $templateFactory->setCallback(function($obj) use ($container) {
+                $obj->setDependencies($container);
+            });
             return $templateFactory;
         };
 
