@@ -206,7 +206,7 @@ class AppServiceProvider implements ServiceProviderInterface
             $actionFactory->setArguments([
                 'logger' => $container['logger']
             ]);
-            $actionFactory->setCallback(function($obj) use ($container) {
+            $actionFactory->setCallback(function(ActionInterface $obj) use ($container) {
                 $obj->setDependencies($container);
             });
             return $actionFactory;
@@ -221,7 +221,7 @@ class AppServiceProvider implements ServiceProviderInterface
             $scriptFactory->setArguments([
                 'logger' => $container['logger']
             ]);
-            $scriptFactory->setCallback(function($obj) use ($container) {
+            $scriptFactory->setCallback(function(ScriptInterface $obj) use ($container) {
                 $obj->setDependencies($container);
             });
             return $scriptFactory;
@@ -236,7 +236,7 @@ class AppServiceProvider implements ServiceProviderInterface
             $templateFactory->setArguments([
                 'logger' => $container['logger']
             ]);
-            $templateFactory->setCallback(function($obj) use ($container) {
+            $templateFactory->setCallback(function(TemplateInterface $obj) use ($container) {
                 $obj->setDependencies($container);
             });
             return $templateFactory;
@@ -259,7 +259,7 @@ class AppServiceProvider implements ServiceProviderInterface
             $widgetFactory->setArguments([
                 'logger' => $container['logger']
             ]);
-            $widgetFactory->setCallback(function($obj) use ($container) {
+            $widgetFactory->setCallback(function(WidgetInterface $obj) use ($container) {
                 $obj->setDependencies($container);
             });
             return $widgetFactory;
