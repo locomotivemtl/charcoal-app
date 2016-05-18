@@ -38,7 +38,6 @@ class WidgetBuilder
      */
     public function build($options)
     {
-        $container = $this->container;
         if (isset($options['controller'])) {
             $objType = $options['controller'];
         } elseif (isset($options['type'])) {
