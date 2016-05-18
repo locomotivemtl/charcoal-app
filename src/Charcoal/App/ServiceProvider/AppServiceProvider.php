@@ -8,8 +8,10 @@ use \Pimple\Container;
 
 // Intra-module (`charcoal-app`) dependencies
 use \Charcoal\App\Action\ActionFactory;
+use \Charcoal\App\Action\ActionInterface;
 use \Charcoal\App\Route\RouteFactory;
 use \Charcoal\App\Script\ScriptFactory;
+use \Charcoal\App\Script\ScriptInterface;
 
 use \Charcoal\App\Handler\Error;
 use \Charcoal\App\Handler\PhpError;
@@ -18,8 +20,10 @@ use \Charcoal\App\Handler\NotAllowed;
 use \Charcoal\App\Handler\NotFound;
 
 use \Charcoal\App\Template\TemplateFactory;
+use \Charcoal\App\Template\TemplateInterface;
 use \Charcoal\App\Template\TemplateBuilder;
 use \Charcoal\App\Template\WidgetFactory;
+use \Charcoal\App\Template\WidgetInterface;
 use \Charcoal\App\Template\WidgetBuilder;
 
 /**
