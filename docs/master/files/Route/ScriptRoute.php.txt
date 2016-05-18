@@ -75,15 +75,7 @@ class ScriptRoute implements
 
         $scriptFactory = $container['script/factory'];
 
-        $script = $scriptFactory->create(
-            $scriptController,
-            [
-                'logger' => $container['logger']
-            ],
-            function (ScriptInterface $script) use ($container) {
-                $script->setDependencies($container);
-            }
-        );
+        $script = $scriptFactory->create($scriptController);
 
         $script->setData($config['script_data']);
 

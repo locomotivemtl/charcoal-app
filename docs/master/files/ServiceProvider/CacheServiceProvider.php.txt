@@ -59,8 +59,6 @@ class CacheServiceProvider implements ServiceProviderInterface
          * @return Container The Collection of cache drivers, in a Container.
          */
         $container['cache/drivers'] = function (Container $container) {
-            $cacheConfig = $container['cache/config'];
-
             $drivers = new Container();
 
             $parentContainer = $container;
@@ -144,7 +142,7 @@ class CacheServiceProvider implements ServiceProviderInterface
 
         /**
          * @param Container $container A container instance.
-         * @return Container The Collection of DatabaseSourceConfig, in a Container.
+         * @return \Stash\Interfaces\DriverInterface The default (stash) cache driver, in a Container.
          */
         $container['cache/driver'] = function (Container $container) {
 

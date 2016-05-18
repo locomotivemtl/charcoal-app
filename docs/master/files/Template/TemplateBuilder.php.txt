@@ -42,11 +42,7 @@ class TemplateBuilder
         $container = $this->container;
         $objType = isset($options['type']) ? $options['type'] : self::DEFAULT_TYPE;
 
-        $obj = $this->factory->create($objType, [
-            'logger'    =>  $container['logger'],
-            'view'      =>  $container['view']
-        ]);
-        $obj->setDependencies($container);
+        $obj = $this->factory->create($objType);
         $obj->setData($options);
         return $obj;
     }

@@ -8,8 +8,10 @@ use \Pimple\Container;
 
 // Intra-module (`charcoal-app`) dependencies
 use \Charcoal\App\Action\ActionFactory;
+use \Charcoal\App\Action\ActionInterface;
 use \Charcoal\App\Route\RouteFactory;
 use \Charcoal\App\Script\ScriptFactory;
+use \Charcoal\App\Script\ScriptInterface;
 
 use \Charcoal\App\Handler\Error;
 use \Charcoal\App\Handler\PhpError;
@@ -18,8 +20,10 @@ use \Charcoal\App\Handler\NotAllowed;
 use \Charcoal\App\Handler\NotFound;
 
 use \Charcoal\App\Template\TemplateFactory;
+use \Charcoal\App\Template\TemplateInterface;
 use \Charcoal\App\Template\TemplateBuilder;
 use \Charcoal\App\Template\WidgetFactory;
+use \Charcoal\App\Template\WidgetInterface;
 use \Charcoal\App\Template\WidgetBuilder;
 
 /**
@@ -206,7 +210,7 @@ class AppServiceProvider implements ServiceProviderInterface
             $actionFactory->setArguments([
                 'logger' => $container['logger']
             ]);
-            $actionFactory->setCallback(function($obj) use ($container) {
+            $actionFactory->setCallback(function(ActionInterface $obj) use ($container) {
                 $obj->setDependencies($container);
             });
             return $actionFactory;
@@ -221,7 +225,7 @@ class AppServiceProvider implements ServiceProviderInterface
             $scriptFactory->setArguments([
                 'logger' => $container['logger']
             ]);
-            $scriptFactory->setCallback(function($obj) use ($container) {
+            $scriptFactory->setCallback(function(ScriptInterface $obj) use ($container) {
                 $obj->setDependencies($container);
             });
             return $scriptFactory;
@@ -236,7 +240,7 @@ class AppServiceProvider implements ServiceProviderInterface
             $templateFactory->setArguments([
                 'logger' => $container['logger']
             ]);
-            $templateFactory->setCallback(function($obj) use ($container) {
+            $templateFactory->setCallback(function(TemplateInterface $obj) use ($container) {
                 $obj->setDependencies($container);
             });
             return $templateFactory;
@@ -259,7 +263,7 @@ class AppServiceProvider implements ServiceProviderInterface
             $widgetFactory->setArguments([
                 'logger' => $container['logger']
             ]);
-            $widgetFactory->setCallback(function($obj) use ($container) {
+            $widgetFactory->setCallback(function(WidgetInterface $obj) use ($container) {
                 $obj->setDependencies($container);
             });
             return $widgetFactory;
