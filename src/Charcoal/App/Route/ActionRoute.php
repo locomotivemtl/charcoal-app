@@ -74,7 +74,6 @@ class ActionRoute implements
         $actionController = $config['controller'];
 
         $action = $container['action/factory']->create($actionController);
-        $action->setDependencies($container);
         $action->setData($config['action_data']);
 
         // Run (invoke) action.

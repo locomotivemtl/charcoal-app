@@ -144,7 +144,7 @@ class CacheServiceProvider implements ServiceProviderInterface
 
         /**
          * @param Container $container A container instance.
-         * @return Container The Collection of DatabaseSourceConfig, in a Container.
+         * @return \Stash\Interfaces\DriverInterface The default (stash) cache driver, in a Container.
          */
         $container['cache/driver'] = function (Container $container) {
 

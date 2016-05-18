@@ -230,10 +230,7 @@ abstract class AbstractHandler implements
         $templateFactory = $container['template/factory'];
         $templateFactory->setDefaultClass($config['default_controller']);
 
-        $template = $templateFactory->create($templateController, [
-            'logger' => $container['logger']
-        ]);
-        $template->setDependencies($container);
+        $template = $templateFactory->create($templateController);
 
         if (!isset($templateData['error_title'])) {
             $templateData['error_title'] = $this->messageTitle();

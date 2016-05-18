@@ -135,7 +135,6 @@ class TemplateRoute implements
         $templateFactory->setDefaultClass($config['default_controller']);
 
         $template = $templateFactory->create($templateController);
-        $template->setDependencies($container);
         $template->init($request);
 
         // Set custom data from config.
