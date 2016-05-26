@@ -82,7 +82,6 @@
 			<h3>Classes</h3>
 			<ul>
 				<li><a href="class-Charcoal.App.Action.AbstractAction.html">Charcoal\App\Action\AbstractAction</a></li>
-				<li><a href="class-Charcoal.App.Action.ActionFactory.html">Charcoal\App\Action\ActionFactory</a></li>
 				<li><a href="class-Charcoal.App.App.html">Charcoal\App\App</a></li>
 				<li><a href="class-Charcoal.App.AppConfig.html">Charcoal\App\AppConfig</a></li>
 				<li><a href="class-Charcoal.App.AppContainer.html">Charcoal\App\AppContainer</a></li>
@@ -101,32 +100,25 @@
 				<li><a href="class-Charcoal.App.Handler.Shutdown.html">Charcoal\App\Handler\Shutdown</a></li>
 				<li><a href="class-Charcoal.App.Module.AbstractModule.html">Charcoal\App\Module\AbstractModule</a></li>
 				<li><a href="class-Charcoal.App.Module.ModuleConfig.html">Charcoal\App\Module\ModuleConfig</a></li>
-				<li><a href="class-Charcoal.App.Module.ModuleFactory.html">Charcoal\App\Module\ModuleFactory</a></li>
 				<li><a href="class-Charcoal.App.Module.ModuleManager.html">Charcoal\App\Module\ModuleManager</a></li>
 				<li><a href="class-Charcoal.App.Route.ActionRoute.html">Charcoal\App\Route\ActionRoute</a></li>
 				<li><a href="class-Charcoal.App.Route.ActionRouteConfig.html">Charcoal\App\Route\ActionRouteConfig</a></li>
 				<li><a href="class-Charcoal.App.Route.RouteConfig.html">Charcoal\App\Route\RouteConfig</a></li>
-				<li><a href="class-Charcoal.App.Route.RouteFactory.html">Charcoal\App\Route\RouteFactory</a></li>
 				<li><a href="class-Charcoal.App.Route.RouteManager.html">Charcoal\App\Route\RouteManager</a></li>
 				<li><a href="class-Charcoal.App.Route.ScriptRoute.html">Charcoal\App\Route\ScriptRoute</a></li>
 				<li><a href="class-Charcoal.App.Route.ScriptRouteConfig.html">Charcoal\App\Route\ScriptRouteConfig</a></li>
 				<li><a href="class-Charcoal.App.Route.TemplateRoute.html">Charcoal\App\Route\TemplateRoute</a></li>
 				<li><a href="class-Charcoal.App.Route.TemplateRouteConfig.html">Charcoal\App\Route\TemplateRouteConfig</a></li>
 				<li><a href="class-Charcoal.App.Script.AbstractScript.html">Charcoal\App\Script\AbstractScript</a></li>
-				<li><a href="class-Charcoal.App.Script.ScriptFactory.html">Charcoal\App\Script\ScriptFactory</a></li>
 				<li><a href="class-Charcoal.App.ServiceProvider.AppServiceProvider.html">Charcoal\App\ServiceProvider\AppServiceProvider</a></li>
 				<li><a href="class-Charcoal.App.ServiceProvider.CacheServiceProvider.html">Charcoal\App\ServiceProvider\CacheServiceProvider</a></li>
 				<li><a href="class-Charcoal.App.ServiceProvider.DatabaseServiceProvider.html">Charcoal\App\ServiceProvider\DatabaseServiceProvider</a></li>
 				<li><a href="class-Charcoal.App.ServiceProvider.LoggerServiceProvider.html">Charcoal\App\ServiceProvider\LoggerServiceProvider</a></li>
-				<li><a href="class-Charcoal.App.ServiceProvider.ServiceProviderFactory.html">Charcoal\App\ServiceProvider\ServiceProviderFactory</a></li>
 				<li><a href="class-Charcoal.App.ServiceProvider.TranslatorServiceProvider.html">Charcoal\App\ServiceProvider\TranslatorServiceProvider</a></li>
 				<li><a href="class-Charcoal.App.ServiceProvider.ViewServiceProvider.html">Charcoal\App\ServiceProvider\ViewServiceProvider</a></li>
 				<li><a href="class-Charcoal.App.Template.AbstractTemplate.html">Charcoal\App\Template\AbstractTemplate</a></li>
 				<li><a href="class-Charcoal.App.Template.AbstractWidget.html">Charcoal\App\Template\AbstractWidget</a></li>
-				<li><a href="class-Charcoal.App.Template.TemplateBuilder.html">Charcoal\App\Template\TemplateBuilder</a></li>
-				<li><a href="class-Charcoal.App.Template.TemplateFactory.html">Charcoal\App\Template\TemplateFactory</a></li>
 				<li><a href="class-Charcoal.App.Template.WidgetBuilder.html">Charcoal\App\Template\WidgetBuilder</a></li>
-				<li><a href="class-Charcoal.App.Template.WidgetFactory.html">Charcoal\App\Template\WidgetFactory</a></li>
 			</ul>
 
 			<h3>Interfaces</h3>
@@ -199,7 +191,7 @@
 </span><span id="17" class="l"><a href="#17"> 17: </a><span class="php-keyword1">use</span> \Monolog\Handler\StreamHandler;
 </span><span id="18" class="l"><a href="#18"> 18: </a>
 </span><span id="19" class="l"><a href="#19"> 19: </a><span class="php-comment">// Module `charcoal-factory` dependencies</span>
-</span><span id="20" class="l"><a href="#20"> 20: </a><span class="php-keyword1">use</span> \Charcoal\Factory\MapFactory;
+</span><span id="20" class="l"><a href="#20"> 20: </a><span class="php-keyword1">use</span> \Charcoal\Factory\GenericFactory;
 </span><span id="21" class="l"><a href="#21"> 21: </a>
 </span><span id="22" class="l"><a href="#22"> 22: </a><span class="php-comment">// Intra-Module `charcoal-app` dependencies</span>
 </span><span id="23" class="l"><a href="#23"> 23: </a><span class="php-keyword1">use</span> \Charcoal\App\Config\LoggerConfig;
@@ -240,19 +232,19 @@
 </span><span id="58" class="l"><a href="#58"> 58: </a>        };
 </span><span id="59" class="l"><a href="#59"> 59: </a>
 </span><span id="60" class="l"><a href="#60"> 60: </a>        <span class="php-comment">/**
-</span></span><span id="61" class="l"><a href="#61"> 61: </a><span class="php-comment">         * @return MapFactory
+</span></span><span id="61" class="l"><a href="#61"> 61: </a><span class="php-comment">         * @return \Charcoal\Factory\FactoryInterface
 </span></span><span id="62" class="l"><a href="#62"> 62: </a><span class="php-comment">         */</span>
 </span><span id="63" class="l"><a href="#63"> 63: </a>        <span class="php-var">$container</span>[<span class="php-quote">'logger/processor/factory'</span>] = <span class="php-keyword1">function</span> (Container <span class="php-var">$contianer</span>) {
-</span><span id="64" class="l"><a href="#64"> 64: </a>            <span class="php-var">$mapFactory</span> = <span class="php-keyword1">new</span> MapFactory();
-</span><span id="65" class="l"><a href="#65"> 65: </a>            <span class="php-var">$mapFactory</span>-&gt;setMap([
-</span><span id="66" class="l"><a href="#66"> 66: </a>                <span class="php-quote">'memory-usage'</span>  =&gt; <span class="php-quote">'\Monolog\Processor\MemoryUsageProcessor'</span>,
-</span><span id="67" class="l"><a href="#67"> 67: </a>                <span class="php-quote">'uid'</span>           =&gt; <span class="php-quote">'\Monolog\Processor\UidProcessor'</span>
-</span><span id="68" class="l"><a href="#68"> 68: </a>            ]);
-</span><span id="69" class="l"><a href="#69"> 69: </a>            <span class="php-keyword1">return</span> <span class="php-var">$mapFactory</span>;
+</span><span id="64" class="l"><a href="#64"> 64: </a>            <span class="php-keyword1">return</span> <span class="php-keyword1">new</span> GenericFactory([
+</span><span id="65" class="l"><a href="#65"> 65: </a>                <span class="php-quote">'map'</span> =&gt; [
+</span><span id="66" class="l"><a href="#66"> 66: </a>                    <span class="php-quote">'memory-usage'</span>  =&gt; <span class="php-quote">'\Monolog\Processor\MemoryUsageProcessor'</span>,
+</span><span id="67" class="l"><a href="#67"> 67: </a>                    <span class="php-quote">'uid'</span>           =&gt; <span class="php-quote">'\Monolog\Processor\UidProcessor'</span>
+</span><span id="68" class="l"><a href="#68"> 68: </a>                ]
+</span><span id="69" class="l"><a href="#69"> 69: </a>            ]);
 </span><span id="70" class="l"><a href="#70"> 70: </a>        };
 </span><span id="71" class="l"><a href="#71"> 71: </a>
 </span><span id="72" class="l"><a href="#72"> 72: </a>        <span class="php-comment">/**
-</span></span><span id="73" class="l"><a href="#73"> 73: </a><span class="php-comment">         * @return FactoryInterface
+</span></span><span id="73" class="l"><a href="#73"> 73: </a><span class="php-comment">         * @return StreamHandler|null
 </span></span><span id="74" class="l"><a href="#74"> 74: </a><span class="php-comment">         */</span>
 </span><span id="75" class="l"><a href="#75"> 75: </a>        <span class="php-var">$container</span>[<span class="php-quote">'logger/handler/stream'</span>] = <span class="php-keyword1">function</span> (Container <span class="php-var">$container</span>) {
 </span><span id="76" class="l"><a href="#76"> 76: </a>            <span class="php-var">$loggerConfig</span> = <span class="php-var">$container</span>[<span class="php-quote">'logger/config'</span>];
@@ -339,6 +331,6 @@
 </div>
 </div>
 <script src="resources/combined.js?174ed0656881a1883d2390d4abd6a0405884e257"></script>
-<script src="elementlist.js?cf2a0b096f9a134a7c16a082af0f86ef5d4605be"></script>
+<script src="elementlist.js?629c2dc116e015fb07701fda02d2cc32293bb55d"></script>
 </body>
 </html>
