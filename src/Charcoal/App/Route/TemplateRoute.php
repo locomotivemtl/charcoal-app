@@ -21,7 +21,6 @@ use \Charcoal\Config\ConfigurableTrait;
 // Intra-module ('charcoal-app') dependencies
 use \Charcoal\App\AppInterface;
 use \Charcoal\App\Template\TemplateInterface;
-use \Charcoal\App\Template\TemplateFactory;
 
 // Local namespace dependencies
 use \Charcoal\App\Route\RouteInterface;

@@ -17,7 +17,7 @@ use \Monolog\Handler\BrowserConsoleHandler;
 use \Monolog\Handler\StreamHandler;
 
 // Module `charcoal-factory` dependencies
-use \Charcoal\Factory\MapFactory;
+use \Charcoal\Factory\GenericFactory;
 
 // Intra-Module `charcoal-app` dependencies
 use \Charcoal\App\Config\LoggerConfig;
@@ -58,19 +58,19 @@ class LoggerServiceProvider implements ServiceProviderInterface
         };
 
         /**
-         * @return MapFactory
+         * @return \Charcoal\Factory\FactoryInterface
          */
         $container['logger/processor/factory'] = function (Container $contianer) {
-            $mapFactory = new MapFactory();
-            $mapFactory->setMap([
-                'memory-usage'  => '\Monolog\Processor\MemoryUsageProcessor',
-                'uid'           => '\Monolog\Processor\UidProcessor'
+            return new GenericFactory([
+                'map' => [
+                    'memory-usage'  => '\Monolog\Processor\MemoryUsageProcessor',
+                    'uid'           => '\Monolog\Processor\UidProcessor'
+                ]
             ]);
-            return $mapFactory;
         };
 
         /**
-         * @return FactoryInterface
+         * @return StreamHandler|null
          */
         $container['logger/handler/stream'] = function (Container $container) {
             $loggerConfig = $container['logger/config'];

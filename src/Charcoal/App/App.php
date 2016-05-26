@@ -173,10 +173,12 @@ class App extends SlimApp implements
             $config  = $this->config();
             $modules = (isset($config['modules']) ? $config['modules'] : [] );
 
+            $container = $this->getContainer();
             $this->moduleManager = new ModuleManager([
                 'config' => $modules,
                 'app'    => $this,
-                'logger' => $this->logger
+                'logger' => $this->logger,
+                'module_factory' => $container['module/factory']
             ]);
         }
 

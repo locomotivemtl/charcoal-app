@@ -93,6 +93,9 @@ class CacheServiceProvider implements ServiceProviderInterface
              */
             $drivers['memcache'] = function (Container $container) use ($parentContainer) {
 
+                if (!isset($parentContainer['cache/available-drivers']['Memcache'])) {
+                    return null;
+                }
                 $cacheConfig   = $parentContainer['cache/config'];
                 $driverOptions = [
                     'servers' => []

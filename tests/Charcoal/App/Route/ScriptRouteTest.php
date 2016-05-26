@@ -24,7 +24,7 @@ class ScriptRouteTest extends \PHPUnit_Framework_TestCase
     {
         $container = new Container();
         $container['script/factory'] = function($c) {
-            $factory = new \Charcoal\App\Script\ScriptFactory();
+            $factory = new \Charcoal\Factory\GenericFactory();
             return $factory;
         };
         $container['logger'] = function($c) {

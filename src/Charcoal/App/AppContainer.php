@@ -5,8 +5,8 @@ namespace Charcoal\App;
 // Slim Dependency
 use \Slim\Container;
 
-// Intra-Module `charcoal-app` dependencies
-use \Charcoal\App\ServiceProvider\ServiceProviderFactory;
+// Depedencies from `charcoal-factory`
+use \Charcoal\Factory\GenericFactory as Factory;
 
 /**
  * Charcoal App Container
@@ -40,7 +40,12 @@ class AppContainer extends Container
             $providers = $defaults;
         }
 
-        $factory = new ServiceProviderFactory();
+        $factory = new Factory([
+            'base_class' => '\Pimple\ServiceProviderInterface',
+            'resolver_options' => [
+                'suffix' => 'ServiceProvider'
+            ]
+        ]);
 
         foreach ($providers as $ident => $options) {
             if (false === $options || (isset($options['active']) && !$options['active'])) {

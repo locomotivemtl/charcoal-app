@@ -27,7 +27,6 @@ use \Charcoal\View\ViewableTrait;
 // Intra-module (`charcoal-app`) dependencies
 use \Charcoal\App\AppConfig;
 use \Charcoal\App\Template\TemplateInterface;
-use \Charcoal\App\Template\TemplateFactory;
 
 // Local Dependencies
 use \Charcoal\App\Handler\HandlerInterface;
