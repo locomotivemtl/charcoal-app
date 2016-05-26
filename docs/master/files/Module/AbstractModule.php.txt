@@ -18,9 +18,9 @@ use \Charcoal\Config\ConfigurableInterface;
 // Intra-module ('charcoal-app') dependencies
 use \Charcoal\App\AppAwareInterface;
 use \Charcoal\App\AppAwareTrait;
+use \Charcoal\App\App;
 use \Charcoal\App\AppConfig;
 use \Charcoal\App\AppInterface;
-use \Charcoal\App\Action\ActionFactory;
 use \Charcoal\App\Module\ModuleManager;
 use \Charcoal\App\Route\RouteManager;
 
@@ -54,6 +54,10 @@ abstract class AbstractModule implements
     public function __construct(array $data)
     {
         $this->setLogger($data['logger']);
+
+        if (!isset($data['app'])) {
+            $data['app'] = App::instance();
+        }
         $this->setApp($data['app']);
     }
 

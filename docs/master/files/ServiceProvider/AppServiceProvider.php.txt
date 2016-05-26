@@ -6,11 +6,11 @@ namespace Charcoal\App\ServiceProvider;
 use \Pimple\ServiceProviderInterface;
 use \Pimple\Container;
 
+// Dependencies from charcoal-factory
+use \Charcoal\Factory\GenericFactory as Factory;
+
 // Intra-module (`charcoal-app`) dependencies
-use \Charcoal\App\Action\ActionFactory;
 use \Charcoal\App\Action\ActionInterface;
-use \Charcoal\App\Route\RouteFactory;
-use \Charcoal\App\Script\ScriptFactory;
 use \Charcoal\App\Script\ScriptInterface;
 
 use \Charcoal\App\Handler\Error;
@@ -19,10 +19,8 @@ use \Charcoal\App\Handler\Shutdown;
 use \Charcoal\App\Handler\NotAllowed;
 use \Charcoal\App\Handler\NotFound;
 
-use \Charcoal\App\Template\TemplateFactory;
 use \Charcoal\App\Template\TemplateInterface;
 use \Charcoal\App\Template\TemplateBuilder;
-use \Charcoal\App\Template\WidgetFactory;
 use \Charcoal\App\Template\WidgetInterface;
 use \Charcoal\App\Template\WidgetBuilder;
 
@@ -56,6 +54,7 @@ class AppServiceProvider implements ServiceProviderInterface
         $this->registerHandlerServices($container);
         $this->registerRouteServices($container);
         $this->registerRequestControllerServices($container);
+        $this->registerModuleServices($container);
     }
 
     /**
@@ -184,14 +183,18 @@ class AppServiceProvider implements ServiceProviderInterface
     {
         /**
          * @param Container $container A container instance.
-         * @return RouteFactory
+         * @return \Charcoal\Factory\FactoryInterface
          */
         $container['route/factory'] = function (Container $container) {
-            $routeFactory = new RouteFactory();
-            $routeFactory->setArguments([
-                'logger' => $container['logger']
+            return new Factory([
+                'base_class' => '\Charcoal\App\Route\RouteInterface',
+                'resolver_options' => [
+                    'suffix' => 'Route'
+                ],
+                'arguments' => [[
+                    'logger' => $container['logger']
+                ]]
             ]);
-            return $routeFactory;
         };
     }
 
@@ -203,70 +206,78 @@ class AppServiceProvider implements ServiceProviderInterface
     {
         /**
          * @param Container $container A container instance.
-         * @return ActionFactory
+         * @return \Charcoal\Factory\FactoryInterface
          */
         $container['action/factory'] = function (Container $container) {
-            $actionFactory = new ActionFactory();
-            $actionFactory->setArguments([
-                'logger' => $container['logger']
+            return new Factory([
+                'base_class' => '\Charcoal\App\Action\ActionInterface',
+                'resolver_options' => [
+                    'suffix' => 'Action'
+                ],
+                'arguments' => [[
+                    'logger' => $container['logger']
+                ]],
+                'callback' => function(ActionInterface $obj) use ($container) {
+                    $obj->setDependencies($container);
+                }
             ]);
-            $actionFactory->setCallback(function(ActionInterface $obj) use ($container) {
-                $obj->setDependencies($container);
-            });
-            return $actionFactory;
         };
 
         /**
          * @param Container $container A container instance.
-         * @return ScriptFactory
+         * @return \Charcoal\Factory\FactoryInterface
          */
         $container['script/factory'] = function (Container $container) {
-            $scriptFactory = new ScriptFactory();
-            $scriptFactory->setArguments([
-                'logger' => $container['logger']
+            return new Factory([
+                'base_class' => '\Charcoal\App\Script\ScriptInterface',
+                'resolver_options' => [
+                    'suffix' => 'Script'
+                ],
+                'arguments' => [[
+                    'logger' => $container['logger']
+                ]],
+                'callback' => function(ScriptInterface $obj) use ($container) {
+                    $obj->setDependencies($container);
+                }
             ]);
-            $scriptFactory->setCallback(function(ScriptInterface $obj) use ($container) {
-                $obj->setDependencies($container);
-            });
-            return $scriptFactory;
         };
 
         /**
          * @param Container $container A container instance.
-         * @return TemplateFactory
+         * @return \Charcoal\Factory\FactoryInterface
          */
         $container['template/factory'] = function (Container $container) {
-            $templateFactory = new TemplateFactory();
-            $templateFactory->setArguments([
-                'logger' => $container['logger']
+            return new Factory([
+                'base_class' => '\Charcoal\App\Template\TemplateInterface',
+                'resolver_options' => [
+                    'suffix' => 'Template'
+                ],
+                'arguments' => [[
+                    'logger' => $container['logger']
+                ]],
+                'callback' => function(TemplateInterface $obj) use ($container) {
+                    $obj->setDependencies($container);
+                }
             ]);
-            $templateFactory->setCallback(function(TemplateInterface $obj) use ($container) {
-                $obj->setDependencies($container);
-            });
-            return $templateFactory;
         };
 
         /**
          * @param Container $container A container instance.
-         * @return TemplateBuilder
-         */
-        $container['template/builder'] = function (Container $container) {
-            return new TemplateBuilder($container['template/factory'], $container);
-        };
-
-        /**
-         * @param Container $container A container instance.
-         * @return WidgetFactory
+         * @return \Charcoal\Factory\FactoryInterface
          */
         $container['widget/factory'] = function (Container $container) {
-            $widgetFactory = new WidgetFactory();
-            $widgetFactory->setArguments([
-                'logger' => $container['logger']
+            return new Factory([
+                'base_class' => '\Charcoal\App\Template\WidgetInterface',
+                'resolver_options' => [
+                    'suffix' => 'Widget'
+                ],
+                'arguments' => [[
+                    'logger' => $container['logger']
+                ]],
+                'callback' => function(WidgetInterface $obj) use ($container) {
+                    $obj->setDependencies($container);
+                }
             ]);
-            $widgetFactory->setCallback(function(WidgetInterface $obj) use ($container) {
-                $obj->setDependencies($container);
-            });
-            return $widgetFactory;
         };
         /**
          * @param Container $container A container instance.
@@ -274,6 +285,29 @@ class AppServiceProvider implements ServiceProviderInterface
          */
         $container['widget/builder'] = function (Container $container) {
             return new WidgetBuilder($container['widget/factory'], $container);
+        };
+    }
+
+    /**
+     * @param Container $container The DI container.
+     * @return void
+     */
+    protected function registerModuleServices(Container $container)
+    {
+        /**
+         * @param Container $container A container instance.
+         * @return \Charcoal\Factory\FactoryInterface
+         */
+        $container['module/factory'] = function (Container $container) {
+            return new Factory([
+                'base_class' => '\Charcoal\App\Module\ModuleInterface',
+                'resolver_options' => [
+                    'suffix' => 'Module'
+                ],
+                'arguments' => [[
+                    'logger' => $container['logger']
+                ]]
+            ]);
         };
     }
 }
