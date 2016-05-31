@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>Class Charcoal\App\Script\AbstractScript</title>
+
+	<link rel="stylesheet" href="resources/style.css?e99947befd7bf673c6b43ff75e9e0f170c88a60e">
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+				<h3>Namespaces</h3>
+			<ul>
+				<li class="active">
+					<a href="namespace-Charcoal.html">
+						Charcoal<span></span>
+					</a>
+
+						<ul>
+				<li class="active">
+					<a href="namespace-Charcoal.App.html">
+						App<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Charcoal.App.Action.html">
+						Action					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Charcoal.App.Config.html">
+						Config					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Charcoal.App.Handler.html">
+						Handler					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Charcoal.App.Module.html">
+						Module					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Charcoal.App.Route.html">
+						Route					</a>
+
+						</li>
+				<li class="active">
+					<a href="namespace-Charcoal.App.Script.html">
+						Script					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Charcoal.App.ServiceProvider.html">
+						ServiceProvider					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Charcoal.App.Template.html">
+						Template					</a>
+
+						</li>
+							</ul></li></ul></li>
+			</ul>
+		</div>
+
+		<hr>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li class="active"><a href="class-Charcoal.App.Script.AbstractScript.html">AbstractScript</a></li>
+				<li><a href="class-Charcoal.App.Script.ScriptFactory.html">ScriptFactory</a></li>
+			</ul>
+
+			<h3>Interfaces</h3>
+			<ul>
+				<li><a href="class-Charcoal.App.Script.CronScriptInterface.html">CronScriptInterface</a></li>
+				<li><a href="class-Charcoal.App.Script.ScriptInterface.html">ScriptInterface</a></li>
+			</ul>
+
+			<h3>Traits</h3>
+			<ul>
+				<li><a href="class-Charcoal.App.Script.CronScriptTrait.html">CronScriptTrait</a></li>
+			</ul>
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="">
+		<input type="hidden" name="ie" value="UTF-8">
+		<input type="text" name="q" class="text" placeholder="Search">
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-Charcoal.App.Script.html" title="Summary of Charcoal\App\Script"><span>Namespace</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class AbstractScript</h1>
+
+
+
+	<dl class="tree">
+		<dd style="padding-left:0px">
+Charcoal\Config\AbstractEntity
+			
+			
+		</dd>
+		<dd style="padding-left:30px">
+			<img src="resources/inherit.png" alt="Extended by">
+<b><span>Charcoal\App\Script\AbstractScript</span></b>			
+			 implements 
+<span>Psr\Log\LoggerAwareInterface</span>, 
+			
+				<a href="class-Charcoal.App.Script.ScriptInterface.html"><span>Charcoal\App\Script\ScriptInterface</span></a>
+			
+			 uses 
+					Psr\Log\LoggerAwareTrait (not available)
+
+			
+		</dd>
+	</dl>
+
+
+
+
+
+
+
+
+	<div class="info">
+		<b>Abstract</b><br>
+		
+		<b>Namespace:</b> <a href="namespace-Charcoal.html">Charcoal</a>\<a href="namespace-Charcoal.App.html">App</a>\<a href="namespace-Charcoal.App.Script.html">Script</a><br>
+		
+
+			<b>Located at</b> <a href="source-class-Charcoal.App.Script.AbstractScript.html#29-341" title="Go to source code">Charcoal/App/Script/AbstractScript.php</a>
+		<br>
+	</div>
+
+
+
+	<table class="summary methods" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="__construct" id="___construct">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___construct">#</a>
+		<code><a href="source-class-Charcoal.App.Script.AbstractScript.html#68-74" title="Go to source code">__construct</a>( <span>array|ArrayAccess <var>$data</var> = <span class="php-keyword1">null</span></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$data</var></dt>
+					<dd>The dependencies (app and logger).</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setDependencies" id="_setDependencies">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setDependencies">#</a>
+		<code><a href="source-class-Charcoal.App.Script.AbstractScript.html#76-90" title="Go to source code">setDependencies</a>( <span>Pimple\Container <var>$container</var></span> )</code>
+
+		<div class="description short">
+			<p>Give an opportunity to children classes to inject dependencies from a Pimple Container.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Give an opportunity to children classes to inject dependencies from a Pimple Container.</p>
+
+<p>Does nothing by default, reimplement in children classes.</p>
+
+<p>The <code>$container</code> DI-container (from <code>Pimple</code>) should not be saved or passed around, only to be used to
+inject dependencies (typically via setters).</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$container</var></dt>
+					<dd>A dependencies container instance.</dd>
+				</dl></div>
+
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Charcoal.App.Script.ScriptInterface.html#_setDependencies">Charcoal\App\Script\ScriptInterface::setDependencies()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="init" id="_init">
+
+		<td class="attributes"><code>
+			 protected 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_init">#</a>
+		<code><a href="source-class-Charcoal.App.Script.AbstractScript.html#92-99" title="Go to source code">init</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="__invoke" id="___invoke">
+
+		<td class="attributes"><code>
+			final public 
+
+			Psr\Http\Message\ResponseInterface
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___invoke">#</a>
+		<code><a href="source-class-Charcoal.App.Script.AbstractScript.html#101-121" title="Go to source code">__invoke</a>( <span>Psr\Http\Message\RequestInterface <var>$request</var></span>, <span>Psr\Http\Message\ResponseInterface <var>$response</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$request</var></dt>
+					<dd>A PSR-7 compatible Request instance.</dd>
+					<dt><var>$response</var></dt>
+					<dd>A PSR-7 compatible Response instance.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					Psr\Http\Message\ResponseInterface
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="climate" id="_climate">
+
+		<td class="attributes"><code>
+			 protected 
+
+			League\CLImate\CLImate
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_climate">#</a>
+		<code><a href="source-class-Charcoal.App.Script.AbstractScript.html#123-138" title="Go to source code">climate</a>( )</code>
+
+		<div class="description short">
+			<p>Safe climate getter.
+If the instance was not previously set, create it.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Safe climate getter.
+If the instance was not previously set, create it.</p>
+
+<blockquote>
+  <p>CLImate is "PHP's best friend for the terminal."
+  "CLImate allows you to easily output colored text, special formats, and more."</p>
+</blockquote>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					League\CLImate\CLImate
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="defaultArguments" id="_defaultArguments">
+
+		<td class="attributes"><code>
+			 public 
+
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_defaultArguments">#</a>
+		<code><a href="source-class-Charcoal.App.Script.AbstractScript.html#140-163" title="Go to source code">defaultArguments</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					array
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setIdent" id="_setIdent">
+
+		<td class="attributes"><code>
+			 public 
+
+			<code><a href="class-Charcoal.App.Script.ScriptInterface.html">Charcoal\App\Script\ScriptInterface</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setIdent">#</a>
+		<code><a href="source-class-Charcoal.App.Script.AbstractScript.html#165-179" title="Go to source code">setIdent</a>( <span>string <var>$ident</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$ident</var></dt>
+					<dd>The script identifier string.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-Charcoal.App.Script.ScriptInterface.html">Charcoal\App\Script\ScriptInterface</a></code><br>Chainable
+				</div>
+
+				<h4>Throws</h4>
+				<div class="list">
+					InvalidArgumentException<br>If the ident argument is not a string.
+				</div>
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Charcoal.App.Script.ScriptInterface.html#_setIdent">Charcoal\App\Script\ScriptInterface::setIdent()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="ident" id="_ident">
+
+		<td class="attributes"><code>
+			 public 
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_ident">#</a>
+		<code><a href="source-class-Charcoal.App.Script.AbstractScript.html#181-187" title="Go to source code">ident</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					string
+				</div>
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Charcoal.App.Script.ScriptInterface.html#_ident">Charcoal\App\Script\ScriptInterface::ident()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setDescription" id="_setDescription">
+
+		<td class="attributes"><code>
+			 public 
+
+			<code><a href="class-Charcoal.App.Script.ScriptInterface.html">Charcoal\App\Script\ScriptInterface</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setDescription">#</a>
+		<code><a href="source-class-Charcoal.App.Script.AbstractScript.html#189-204" title="Go to source code">setDescription</a>( <span>string <var>$description</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$description</var></dt>
+					<dd>The script description.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-Charcoal.App.Script.ScriptInterface.html">Charcoal\App\Script\ScriptInterface</a></code><br>Chainable
+				</div>
+
+				<h4>Throws</h4>
+				<div class="list">
+					InvalidArgumentException<br>If the deescription parameter is not a string.
+				</div>
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Charcoal.App.Script.ScriptInterface.html#_setDescription">Charcoal\App\Script\ScriptInterface::setDescription()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="description" id="_description">
+
+		<td class="attributes"><code>
+			 public 
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_description">#</a>
+		<code><a href="source-class-Charcoal.App.Script.AbstractScript.html#206-212" title="Go to source code">description</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					string
+				</div>
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Charcoal.App.Script.ScriptInterface.html#_description">Charcoal\App\Script\ScriptInterface::description()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setQuiet" id="_setQuiet">
+
+		<td class="attributes"><code>
+			 public 
+
+			<code><a href="class-Charcoal.App.Script.ScriptInterface.html">Charcoal\App\Script\ScriptInterface</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setQuiet">#</a>
+		<code><a href="source-class-Charcoal.App.Script.AbstractScript.html#214-222" title="Go to source code">setQuiet</a>( <span>boolean <var>$quiet</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$quiet</var></dt>
+					<dd>The quiet flag.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-Charcoal.App.Script.ScriptInterface.html">Charcoal\App\Script\ScriptInterface</a></code><br>Chainable
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="quiet" id="_quiet">
+
+		<td class="attributes"><code>
+			 public 
+
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_quiet">#</a>
+		<code><a href="source-class-Charcoal.App.Script.AbstractScript.html#224-230" title="Go to source code">quiet</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					boolean
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setVerbose" id="_setVerbose">
+
+		<td class="attributes"><code>
+			 public 
+
+			<code><a href="class-Charcoal.App.Script.ScriptInterface.html">Charcoal\App\Script\ScriptInterface</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setVerbose">#</a>
+		<code><a href="source-class-Charcoal.App.Script.AbstractScript.html#232-240" title="Go to source code">setVerbose</a>( <span>boolean <var>$verbose</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$verbose</var></dt>
+					<dd>The verbose flag.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-Charcoal.App.Script.ScriptInterface.html">Charcoal\App\Script\ScriptInterface</a></code><br>Chainable
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="verbose" id="_verbose">
+
+		<td class="attributes"><code>
+			 public 
+
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_verbose">#</a>
+		<code><a href="source-class-Charcoal.App.Script.AbstractScript.html#242-248" title="Go to source code">verbose</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					boolean
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setArguments" id="_setArguments">
+
+		<td class="attributes"><code>
+			 public 
+
+			<code><a href="class-Charcoal.App.Script.ScriptInterface.html">Charcoal\App\Script\ScriptInterface</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setArguments">#</a>
+		<code><a href="source-class-Charcoal.App.Script.AbstractScript.html#250-262" title="Go to source code">setArguments</a>( <span>array <var>$arguments</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$arguments</var></dt>
+					<dd>The scripts argument array, as [key=>value].</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-Charcoal.App.Script.ScriptInterface.html">Charcoal\App\Script\ScriptInterface</a></code><br>Chainable
+				</div>
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Charcoal.App.Script.ScriptInterface.html#_setArguments">Charcoal\App\Script\ScriptInterface::setArguments()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="addArgument" id="_addArgument">
+
+		<td class="attributes"><code>
+			 public 
+
+			<code><a href="class-Charcoal.App.Script.ScriptInterface.html">Charcoal\App\Script\ScriptInterface</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_addArgument">#</a>
+		<code><a href="source-class-Charcoal.App.Script.AbstractScript.html#264-280" title="Go to source code">addArgument</a>( <span>string <var>$argumentIdent</var></span>, <span>array <var>$argument</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$argumentIdent</var></dt>
+					<dd>The argument identifier.</dd>
+					<dt><var>$argument</var></dt>
+					<dd>The argument options.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-Charcoal.App.Script.ScriptInterface.html">Charcoal\App\Script\ScriptInterface</a></code><br>Chainable
+				</div>
+
+				<h4>Throws</h4>
+				<div class="list">
+					InvalidArgumentException<br>If the argument ident is not a string.
+				</div>
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Charcoal.App.Script.ScriptInterface.html#_addArgument">Charcoal\App\Script\ScriptInterface::addArgument()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="arguments" id="_arguments">
+
+		<td class="attributes"><code>
+			 public 
+
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_arguments">#</a>
+		<code><a href="source-class-Charcoal.App.Script.AbstractScript.html#282-288" title="Go to source code">arguments</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					array<br>$arguments
+				</div>
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Charcoal.App.Script.ScriptInterface.html#_arguments">Charcoal\App\Script\ScriptInterface::arguments()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="argument" id="_argument">
+
+		<td class="attributes"><code>
+			 public 
+
+			array|null
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_argument">#</a>
+		<code><a href="source-class-Charcoal.App.Script.AbstractScript.html#290-300" title="Go to source code">argument</a>( <span>string <var>$argumentIdent</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$argumentIdent</var></dt>
+					<dd>The argument identifier to retrieve options from.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					array|null<br>The argument options, or null if it does not exist.
+				</div>
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Charcoal.App.Script.ScriptInterface.html#_argument">Charcoal\App\Script\ScriptInterface::argument()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="argOrInput" id="_argOrInput">
+
+		<td class="attributes"><code>
+			 protected 
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_argOrInput">#</a>
+		<code><a href="source-class-Charcoal.App.Script.AbstractScript.html#302-340" title="Go to source code">argOrInput</a>( <span>string <var>$argName</var></span> )</code>
+
+		<div class="description short">
+			<p>Get an argument either from argument list (if set) or else from an input prompt.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Get an argument either from argument list (if set) or else from an input prompt.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$argName</var></dt>
+					<dd>The argument identifier to read from list or input.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					string<br>The argument value or prompt value
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-Charcoal.App.Script.ScriptInterface.html#methods">Charcoal\App\Script\ScriptInterface</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-Charcoal.App.Script.ScriptInterface.html#_run">run()</a>
+		</code></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		 API documentation generated by <a href="http://apigen.org">ApiGen</a>
+	</div>
+</div>
+</div>
+<script src="resources/combined.js"></script>
+<script src="elementlist.js"></script>
+</body>
+</html>
