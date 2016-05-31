@@ -42,7 +42,7 @@ class DatabaseServiceProvider implements ServiceProviderInterface
         */
         $container['databases/config'] = function (Container $container) {
             $config = $container['config'];
-            $databases = $config->get('databases');
+            $databases = $config['databases'];
             $configs = new Container();
             foreach ($databases as $dbIdent => $dbOptions) {
                 $configs[$dbIdent] = new DatabaseConfig($dbOptions);
@@ -58,13 +58,18 @@ class DatabaseServiceProvider implements ServiceProviderInterface
             $config = $container['config'];
             $databases = $config->get('databases');
             $dbs = new Container();
-            foreach ($databases as $dbIdent) {
+            $origContainer = $container;
+            foreach ($databases as $dbIdent => $dbOptions) {
+
+                unset($dbOptions);
+
                 /**
                 * @param Container $container A container instance.
                 * @return PDO
                 */
-                $dbs[$dbIdent] = function (Container $container) use ($dbIdent) {
-                    $dbConfig = $container['databases/config'][$dbIdent];
+                $dbs[$dbIdent] = function (Container $container) use ($dbIdent, $origContainer) {
+                    $dbConfigs = $origContainer['databases/config'];
+                    $dbConfig = $dbConfigs[$dbIdent];
 
                     $type = $dbConfig['type'];
                     $host = $dbConfig['hostname'];
@@ -99,7 +104,7 @@ class DatabaseServiceProvider implements ServiceProviderInterface
         */
         $container['database/config'] = function (Container $container) {
             $config = $container['config'];
-            $databaseIdent = $config->get('default_database');
+            $databaseIdent = $config['default_database'];
             return $container['databases/config'][$databaseIdent];
         };
 
@@ -111,8 +116,9 @@ class DatabaseServiceProvider implements ServiceProviderInterface
         */
         $container['database'] = function (Container $container) {
             $config = $container['config'];
-            $databaseIdent = $config->get('default_database');
-            return $container['databases'][$databaseIdent];
+            $databaseIdent = $config['default_database'];
+            $databases = $container['databases'];
+            return $databases[$databaseIdent];
         };
     }
 }
