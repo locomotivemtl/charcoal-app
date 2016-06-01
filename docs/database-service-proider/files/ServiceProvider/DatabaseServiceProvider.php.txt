@@ -60,7 +60,6 @@ class DatabaseServiceProvider implements ServiceProviderInterface
             $dbs = new Container();
             $origContainer = $container;
             foreach ($databases as $dbIdent => $dbOptions) {
-
                 unset($dbOptions);
 
                 /**
