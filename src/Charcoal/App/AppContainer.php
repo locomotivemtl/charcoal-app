@@ -2,8 +2,11 @@
 
 namespace Charcoal\App;
 
-// Slim Dependency
+// Dependency from Slim
 use \Slim\Container;
+
+// Dependency from Pimple
+use \Pimple\ServiceProviderInterface;
 
 // Depedencies from `charcoal-factory`
 use \Charcoal\Factory\GenericFactory as Factory;
@@ -25,6 +28,17 @@ class AppContainer extends Container
 
         $this['config'] = (isset($values['config']) ? $values['config'] : []);
 
+        if (!isset($container['provider/factory'])) {
+            $this['provider/factory'] = function (Container $container) {
+                return new Factory([
+                    'base_class'       => ServiceProviderInterface::class,
+                    'resolver_options' => [
+                        'suffix' => 'ServiceProvider'
+                    ]
+                ]);
+            };
+        }
+
         $defaults = [
             'charcoal/app/service-provider/app'        => [],
             'charcoal/app/service-provider/cache'      => [],
@@ -40,20 +54,19 @@ class AppContainer extends Container
             $providers = $defaults;
         }
 
-        $factory = new Factory([
-            'base_class' => '\Pimple\ServiceProviderInterface',
-            'resolver_options' => [
-                'suffix' => 'ServiceProvider'
-            ]
-        ]);
 
-        foreach ($providers as $ident => $options) {
-            if (false === $options || (isset($options['active']) && !$options['active'])) {
+        foreach ($providers as $provider => $values) {
+            if (false === $values) {
                 continue;
             }
 
-            $service = $factory->create($ident);
-            $this->register($service);
+            if (!is_array($values)) {
+                $values = [];
+            }
+
+            $provider = $this['provider/factory']->get($provider);
+
+            $this->register($provider, $values);
         }
     }
 }
