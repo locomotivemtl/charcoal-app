@@ -52,13 +52,15 @@ class CacheServiceProvider implements ServiceProviderInterface
             return $cacheConfig;
         };
 
-        $container['cache/available-drivers'] = \Stash\DriverList::getAvailableDrivers();
+        $container['cache/available-drivers'] = DriverList::getAvailableDrivers();
 
         /**
          * @param Container $container A container instance.
          * @return Container The Collection of cache drivers, in a Container.
          */
         $container['cache/drivers'] = function (Container $container) {
+            $cacheConfig = $container['cache/config'];
+
             $drivers = new Container();
 
             $parentContainer = $container;
@@ -68,7 +70,12 @@ class CacheServiceProvider implements ServiceProviderInterface
              * @return \Stash\Driver\Apc
              */
             $drivers['apc'] = function (Container $container) use ($parentContainer) {
-                return new $parentContainer['cache/available-drivers']['Apc']();
+                $drivers = $parentContainer['cache/available-drivers'];
+                if (!isset($drivers['Apc'])) {
+                    // Apc is not available on system
+                    return null;
+                }
+                return new $drivers['Apc']();
             };
 
             /**
@@ -76,7 +83,12 @@ class CacheServiceProvider implements ServiceProviderInterface
              * @return \Stash\Driver\Sqlite
              */
             $drivers['db'] = function (Container $container) use ($parentContainer) {
-                return new $parentContainer['cache/available-drivers']['SQLite']();
+                $drivers = $parentContainer['cache/available-drivers'];
+                if (!isset($drivers['SQLite'])) {
+                    // SQLite is not available on system
+                    return null;
+                }
+                return new $drivers['SQLite']();
             };
 
             /**
@@ -84,7 +96,8 @@ class CacheServiceProvider implements ServiceProviderInterface
              * @return \Stash\Driver\FileSystem
              */
             $drivers['file'] = function (Container $container) use ($parentContainer) {
-                return new $parentContainer['cache/available-drivers']['FileSystem']();
+                $drivers = $parentContainer['cache/available-drivers'];
+                return new $drivers['FileSystem']();
             };
 
             /**
@@ -92,10 +105,12 @@ class CacheServiceProvider implements ServiceProviderInterface
              * @return \Stash\Driver\Memcache
              */
             $drivers['memcache'] = function (Container $container) use ($parentContainer) {
-
-                if (!isset($parentContainer['cache/available-drivers']['Memcache'])) {
+                $drivers = $parentContainer['cache/available-drivers'];
+                if (!isset($drivers['Memcache'])) {
+                    // Memcache is not available on system
                     return null;
                 }
+
                 $cacheConfig   = $parentContainer['cache/config'];
                 $driverOptions = [
                     'servers' => []
@@ -108,12 +123,11 @@ class CacheServiceProvider implements ServiceProviderInterface
                     }
                     $driverOptions['servers'] = $servers;
                 } else {
+                    // Default memcache options (locahost:11211)
                     $driverOptions['servers'][] = [ '127.0.0.1', 11211 ];
                 }
 
-                $driver = new $parentContainer['cache/available-drivers']['Memcache']($driverOptions);
-
-                return $driver;
+                return new $drivers['Memcache']($driverOptions);
             };
 
             /**
@@ -121,7 +135,8 @@ class CacheServiceProvider implements ServiceProviderInterface
              * @return \Stash\Driver\Ephemeral
              */
             $drivers['memory'] = function (Container $container) use ($parentContainer) {
-                return new $parentContainer['cache/available-drivers']['Ephemeral']();
+                $drivers = $parentContainer['cache/available-drivers'];
+                return new $drivers['Ephemeral']();
             };
 
             /**
@@ -129,7 +144,8 @@ class CacheServiceProvider implements ServiceProviderInterface
              * @return \Stash\Driver\BlackHole
              */
             $drivers['noop'] = function (Container $container) use ($parentContainer) {
-                return new $parentContainer['cache/available-drivers']['BlackHole']();
+                $drivers = $parentContainer['cache/available-drivers'];
+                return new $drivers['BlackHole']();
             };
 
             /**
@@ -137,7 +153,12 @@ class CacheServiceProvider implements ServiceProviderInterface
              * @return \Stash\Driver\Redis
              */
             $drivers['redis'] = function (Container $container) use ($parentContainer) {
-                return new $parentContainer['cache/available-drivers']['Redis']();
+                $drivers = $parentContainer['cache/available-drivers'];
+                if (!isset($drivers['Redis'])) {
+                    // Redis is not available on system
+                    return null;
+                }
+                return new $drivers['Redis']();
             };
 
             return $drivers;
@@ -145,7 +166,7 @@ class CacheServiceProvider implements ServiceProviderInterface
 
         /**
          * @param Container $container A container instance.
-         * @return \Stash\Interfaces\DriverInterface The default (stash) cache driver, in a Container.
+         * @return Container The Collection of DatabaseSourceConfig, in a Container.
          */
         $container['cache/driver'] = function (Container $container) {
 
