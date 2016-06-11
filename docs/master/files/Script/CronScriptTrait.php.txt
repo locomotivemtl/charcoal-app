@@ -46,18 +46,20 @@ trait CronScriptTrait
     public function startLock()
     {
         $lockName = str_replace('\\', '-', get_class($this));
+        $lockName .= md5(__DIR__);
+// Ensure uniqueness for project on server
         $lockFile = sys_get_temp_dir().'/'.$lockName;
         $this->lockFilePointer = fopen($lockFile, 'w');
         if (!$this->lockFilePointer) {
              throw new Exception(
-                 'Can not run action. Lock file not available.'
+                 sprintf('Can not run action. Lock file "%s" not available.', $lockFile)
              );
         }
         if (flock($this->lockFilePointer, LOCK_EX)) {
             return true;
         } else {
             throw new Exception(
-                'Can not run action. Lock file not available.'
+                sprintf('Can not run action. Lock file "%s" not available.', $lockFile)
             );
         }
     }
