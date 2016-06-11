@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>Class Charcoal\App\Action\AbstractAction</title>
+
+	<link rel="stylesheet" href="resources/style.css?e99947befd7bf673c6b43ff75e9e0f170c88a60e">
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+				<h3>Namespaces</h3>
+			<ul>
+				<li class="active">
+					<a href="namespace-Charcoal.html">
+						Charcoal<span></span>
+					</a>
+
+						<ul>
+				<li class="active">
+					<a href="namespace-Charcoal.App.html">
+						App<span></span>
+					</a>
+
+						<ul>
+				<li class="active">
+					<a href="namespace-Charcoal.App.Action.html">
+						Action					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Charcoal.App.Config.html">
+						Config					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Charcoal.App.Handler.html">
+						Handler					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Charcoal.App.Module.html">
+						Module					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Charcoal.App.Route.html">
+						Route					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Charcoal.App.Script.html">
+						Script					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Charcoal.App.ServiceProvider.html">
+						ServiceProvider					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Charcoal.App.Template.html">
+						Template					</a>
+
+						</li>
+							</ul></li></ul></li>
+			</ul>
+		</div>
+
+		<hr>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li class="active"><a href="class-Charcoal.App.Action.AbstractAction.html">AbstractAction</a></li>
+			</ul>
+
+			<h3>Interfaces</h3>
+			<ul>
+				<li><a href="class-Charcoal.App.Action.ActionInterface.html">ActionInterface</a></li>
+			</ul>
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="">
+		<input type="hidden" name="ie" value="UTF-8">
+		<input type="text" name="q" class="text" placeholder="Search">
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-Charcoal.App.Action.html" title="Summary of Charcoal\App\Action"><span>Namespace</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class AbstractAction</h1>
+
+
+	<div class="description">
+	<p>Default implementation, as abstract class, of  the <code>ActionInterface</code>.</p>
+
+<p>Actions respond to a (PSR7-style) request and response and returns back the response.</p>
+
+<p>Typical implementations only need to implement the following 2 <em>abstract</em> methods:</p>
+
+<pre><code class="php">// Returns an associative array of results
+public function results();
+// Gets a psr7 request and response and returns a response
+public function run(RequestInterface $request, ResponseInterface $response);
+</code></pre>
+
+<p>Actions can be invoked (with the magic <code>__invoke()</code> method) which automatically call the:</p>
+	</div>
+
+	<dl class="tree">
+		<dd style="padding-left:0px">
+Charcoal\Config\AbstractEntity
+			
+			
+		</dd>
+		<dd style="padding-left:30px">
+			<img src="resources/inherit.png" alt="Extended by">
+<b><span>Charcoal\App\Action\AbstractAction</span></b>			
+			 implements 
+				<a href="class-Charcoal.App.Action.ActionInterface.html"><span>Charcoal\App\Action\ActionInterface</span></a>, 
+			
+<span>Psr\Log\LoggerAwareInterface</span>
+			
+			 uses 
+					Psr\Log\LoggerAwareTrait (not available)
+
+			
+		</dd>
+	</dl>
+
+
+
+
+
+
+
+
+	<div class="info">
+		<b>Abstract</b><br>
+		
+		<b>Namespace:</b> <a href="namespace-Charcoal.html">Charcoal</a>\<a href="namespace-Charcoal.App.html">App</a>\<a href="namespace-Charcoal.App.Action.html">Action</a><br>
+		
+
+			<b>Located at</b> <a href="source-class-Charcoal.App.Action.AbstractAction.html#25-259" title="Go to source code">Charcoal/App/Action/AbstractAction.php</a>
+		<br>
+	</div>
+
+
+
+	<table class="summary methods" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="__construct" id="___construct">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___construct">#</a>
+		<code><a href="source-class-Charcoal.App.Action.AbstractAction.html#70-76" title="Go to source code">__construct</a>( <span>array|ArrayAccess <var>$data</var> = <span class="php-keyword1">null</span></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$data</var></dt>
+					<dd>The dependencies (app and logger).</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setDependencies" id="_setDependencies">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setDependencies">#</a>
+		<code><a href="source-class-Charcoal.App.Action.AbstractAction.html#78-92" title="Go to source code">setDependencies</a>( <span>Pimple\Container <var>$container</var></span> )</code>
+
+		<div class="description short">
+			<p>Give an opportunity to children classes to inject dependencies from a Pimple Container.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Give an opportunity to children classes to inject dependencies from a Pimple Container.</p>
+
+<p>Does nothing by default, reimplement in children classes.</p>
+
+<p>The <code>$container</code> DI-container (from <code>Pimple</code>) should not be saved or passed around, only to be used to
+inject dependencies (typically via setters).</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$container</var></dt>
+					<dd>A dependencies container instance.</dd>
+				</dl></div>
+
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Charcoal.App.Action.ActionInterface.html#_setDependencies">Charcoal\App\Action\ActionInterface::setDependencies()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="__invoke" id="___invoke">
+
+		<td class="attributes"><code>
+			final public 
+
+			Psr\Http\Message\ResponseInterface
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___invoke">#</a>
+		<code><a href="source-class-Charcoal.App.Action.AbstractAction.html#94-119" title="Go to source code">__invoke</a>( <span>Psr\Http\Message\RequestInterface <var>$request</var></span>, <span>Psr\Http\Message\ResponseInterface <var>$response</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$request</var></dt>
+					<dd>A PSR-7 compatible Request instance.</dd>
+					<dt><var>$response</var></dt>
+					<dd>A PSR-7 compatible Response instance.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					Psr\Http\Message\ResponseInterface
+				</div>
+
+
+				<h4>See</h4>
+				<div class="list">
+						<code><a href="class-Charcoal.App.Action.AbstractAction.html#_run">Charcoal\App\Action\AbstractAction::run()</a></code><br>
+				</div>
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Charcoal.App.Action.ActionInterface.html#___invoke">Charcoal\App\Action\ActionInterface::__invoke()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setMode" id="_setMode">
+
+		<td class="attributes"><code>
+			 public 
+
+			<code><a href="class-Charcoal.App.Action.ActionInterface.html">Charcoal\App\Action\ActionInterface</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setMode">#</a>
+		<code><a href="source-class-Charcoal.App.Action.AbstractAction.html#121-135" title="Go to source code">setMode</a>( <span>string <var>$mode</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$mode</var></dt>
+					<dd>The action mode.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-Charcoal.App.Action.ActionInterface.html">Charcoal\App\Action\ActionInterface</a></code><br>Chainable
+				</div>
+
+				<h4>Throws</h4>
+				<div class="list">
+					InvalidArgumentException<br>If the mode argument is not a string.
+				</div>
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Charcoal.App.Action.ActionInterface.html#_setMode">Charcoal\App\Action\ActionInterface::setMode()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="mode" id="_mode">
+
+		<td class="attributes"><code>
+			 public 
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_mode">#</a>
+		<code><a href="source-class-Charcoal.App.Action.AbstractAction.html#137-143" title="Go to source code">mode</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					string
+				</div>
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Charcoal.App.Action.ActionInterface.html#_mode">Charcoal\App\Action\ActionInterface::mode()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setSuccess" id="_setSuccess">
+
+		<td class="attributes"><code>
+			 public 
+
+			<code><a href="class-Charcoal.App.Action.ActionInterface.html">Charcoal\App\Action\ActionInterface</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setSuccess">#</a>
+		<code><a href="source-class-Charcoal.App.Action.AbstractAction.html#145-154" title="Go to source code">setSuccess</a>( <span>boolean <var>$success</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$success</var></dt>
+					<dd>Success flag (true / false).</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-Charcoal.App.Action.ActionInterface.html">Charcoal\App\Action\ActionInterface</a></code><br>Chainable
+				</div>
+
+				<h4>Throws</h4>
+				<div class="list">
+					InvalidArgumentException<br>If the success argument is not a boolean.
+				</div>
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Charcoal.App.Action.ActionInterface.html#_setSuccess">Charcoal\App\Action\ActionInterface::setSuccess()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="success" id="_success">
+
+		<td class="attributes"><code>
+			 public 
+
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_success">#</a>
+		<code><a href="source-class-Charcoal.App.Action.AbstractAction.html#156-162" title="Go to source code">success</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					boolean
+				</div>
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Charcoal.App.Action.ActionInterface.html#_success">Charcoal\App\Action\ActionInterface::success()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setSuccessUrl" id="_setSuccessUrl">
+
+		<td class="attributes"><code>
+			 public 
+
+			<code><a href="class-Charcoal.App.Action.ActionInterface.html">Charcoal\App\Action\ActionInterface</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setSuccessUrl">#</a>
+		<code><a href="source-class-Charcoal.App.Action.AbstractAction.html#164-182" title="Go to source code">setSuccessUrl</a>( <span>string|null <var>$url</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$url</var></dt>
+					<dd>The success URL.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-Charcoal.App.Action.ActionInterface.html">Charcoal\App\Action\ActionInterface</a></code><br>Chainable
+				</div>
+
+				<h4>Throws</h4>
+				<div class="list">
+					InvalidArgumentException<br>If the URL parameter is not a string.
+				</div>
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Charcoal.App.Action.ActionInterface.html#_setSuccessUrl">Charcoal\App\Action\ActionInterface::setSuccessUrl()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="successUrl" id="_successUrl">
+
+		<td class="attributes"><code>
+			 public 
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_successUrl">#</a>
+		<code><a href="source-class-Charcoal.App.Action.AbstractAction.html#184-193" title="Go to source code">successUrl</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					string
+				</div>
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Charcoal.App.Action.ActionInterface.html#_successUrl">Charcoal\App\Action\ActionInterface::successUrl()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setFailureUrl" id="_setFailureUrl">
+
+		<td class="attributes"><code>
+			 public 
+
+			<code><a href="class-Charcoal.App.Action.ActionInterface.html">Charcoal\App\Action\ActionInterface</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setFailureUrl">#</a>
+		<code><a href="source-class-Charcoal.App.Action.AbstractAction.html#195-213" title="Go to source code">setFailureUrl</a>( <span>string|null <var>$url</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$url</var></dt>
+					<dd>The success URL.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-Charcoal.App.Action.ActionInterface.html">Charcoal\App\Action\ActionInterface</a></code><br>Chainable
+				</div>
+
+				<h4>Throws</h4>
+				<div class="list">
+					InvalidArgumentException<br>If the URL parameter is not a string.
+				</div>
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Charcoal.App.Action.ActionInterface.html#_setFailureUrl">Charcoal\App\Action\ActionInterface::setFailureUrl()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="failureUrl" id="_failureUrl">
+
+		<td class="attributes"><code>
+			 public 
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_failureUrl">#</a>
+		<code><a href="source-class-Charcoal.App.Action.AbstractAction.html#215-224" title="Go to source code">failureUrl</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					string
+				</div>
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Charcoal.App.Action.ActionInterface.html#_failureUrl">Charcoal\App\Action\ActionInterface::failureUrl()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="redirectUrl" id="_redirectUrl">
+
+		<td class="attributes"><code>
+			 public 
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_redirectUrl">#</a>
+		<code><a href="source-class-Charcoal.App.Action.AbstractAction.html#226-238" title="Go to source code">redirectUrl</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					string
+				</div>
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Charcoal.App.Action.ActionInterface.html#_redirectUrl">Charcoal\App\Action\ActionInterface::redirectUrl()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="results" id="_results">
+
+		<td class="attributes"><code>
+			abstract public 
+
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_results">#</a>
+		<code><a href="source-class-Charcoal.App.Action.AbstractAction.html#240-247" title="Go to source code">results</a>( )</code>
+
+		<div class="description short">
+			<p>Returns an associative array of results (set after being  invoked / run).</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Returns an associative array of results (set after being  invoked / run).</p>
+
+<p>The raw array of results will be called from <code>__invoke()</code>.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					array
+				</div>
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Charcoal.App.Action.ActionInterface.html#_results">Charcoal\App\Action\ActionInterface::results()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="run" id="_run">
+
+		<td class="attributes"><code>
+			abstract public 
+
+			Psr\Http\Message\ResponseInterface
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_run">#</a>
+		<code><a href="source-class-Charcoal.App.Action.AbstractAction.html#249-258" title="Go to source code">run</a>( <span>Psr\Http\Message\RequestInterface <var>$request</var></span>, <span>Psr\Http\Message\ResponseInterface <var>$response</var></span> )</code>
+
+		<div class="description short">
+			<p>Gets a psr7 request and response and returns a response.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Gets a psr7 request and response and returns a response.</p>
+
+<p>Called from <code>__invoke()</code> as the first thing.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$request</var></dt>
+					<dd>A PSR-7 compatible Request instance.</dd>
+					<dt><var>$response</var></dt>
+					<dd>A PSR-7 compatible Response instance.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					Psr\Http\Message\ResponseInterface
+				</div>
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Charcoal.App.Action.ActionInterface.html#_run">Charcoal\App\Action\ActionInterface::run()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-Charcoal.App.Action.ActionInterface.html#methods">Charcoal\App\Action\ActionInterface</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-Charcoal.App.Action.ActionInterface.html#_setData">setData()</a>
+		</code></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+	<table class="summary constants" id="constants">
+	<caption>Constants summary</caption>
+	<tr data-order="MODE_JSON" id="MODE_JSON">
+
+		<td class="attributes"><code>string</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-Charcoal.App.Action.AbstractAction.html#46" title="Go to source code"><b>MODE_JSON</b></a>
+			</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#MODE_JSON" class="anchor">#</a>
+				<code><span class="php-quote">'json'</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="MODE_REDIRECT" id="MODE_REDIRECT">
+
+		<td class="attributes"><code>string</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-Charcoal.App.Action.AbstractAction.html#47" title="Go to source code"><b>MODE_REDIRECT</b></a>
+			</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#MODE_REDIRECT" class="anchor">#</a>
+				<code><span class="php-quote">'redirect'</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="DEFAULT_MODE" id="DEFAULT_MODE">
+
+		<td class="attributes"><code>string</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-Charcoal.App.Action.AbstractAction.html#48" title="Go to source code"><b>DEFAULT_MODE</b></a>
+			</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#DEFAULT_MODE" class="anchor">#</a>
+				<code><code><a href="class-Charcoal.App.Action.AbstractAction.html#MODE_JSON">Charcoal\App\Action\AbstractAction::<b>MODE_JSON</b></a></code></code>
+			</div>
+		</td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		 API documentation generated by <a href="http://apigen.org">ApiGen</a>
+	</div>
+</div>
+</div>
+<script src="resources/combined.js"></script>
+<script src="elementlist.js"></script>
+</body>
+</html>

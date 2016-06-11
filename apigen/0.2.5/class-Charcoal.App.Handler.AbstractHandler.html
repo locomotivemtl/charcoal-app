@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>Class Charcoal\App\Handler\AbstractHandler</title>
+
+	<link rel="stylesheet" href="resources/style.css?e99947befd7bf673c6b43ff75e9e0f170c88a60e">
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+				<h3>Namespaces</h3>
+			<ul>
+				<li class="active">
+					<a href="namespace-Charcoal.html">
+						Charcoal<span></span>
+					</a>
+
+						<ul>
+				<li class="active">
+					<a href="namespace-Charcoal.App.html">
+						App<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Charcoal.App.Action.html">
+						Action					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Charcoal.App.Config.html">
+						Config					</a>
+
+						</li>
+				<li class="active">
+					<a href="namespace-Charcoal.App.Handler.html">
+						Handler					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Charcoal.App.Module.html">
+						Module					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Charcoal.App.Route.html">
+						Route					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Charcoal.App.Script.html">
+						Script					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Charcoal.App.ServiceProvider.html">
+						ServiceProvider					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Charcoal.App.Template.html">
+						Template					</a>
+
+						</li>
+							</ul></li></ul></li>
+			</ul>
+		</div>
+
+		<hr>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li class="active"><a href="class-Charcoal.App.Handler.AbstractHandler.html">AbstractHandler</a></li>
+				<li><a href="class-Charcoal.App.Handler.Error.html">Error</a></li>
+				<li><a href="class-Charcoal.App.Handler.HandlerConfig.html">HandlerConfig</a></li>
+				<li><a href="class-Charcoal.App.Handler.NotAllowed.html">NotAllowed</a></li>
+				<li><a href="class-Charcoal.App.Handler.NotFound.html">NotFound</a></li>
+				<li><a href="class-Charcoal.App.Handler.PhpError.html">PhpError</a></li>
+				<li><a href="class-Charcoal.App.Handler.Shutdown.html">Shutdown</a></li>
+			</ul>
+
+			<h3>Interfaces</h3>
+			<ul>
+				<li><a href="class-Charcoal.App.Handler.HandlerInterface.html">HandlerInterface</a></li>
+			</ul>
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="">
+		<input type="hidden" name="ie" value="UTF-8">
+		<input type="text" name="q" class="text" placeholder="Search">
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-Charcoal.App.Handler.html" title="Summary of Charcoal\App\Handler"><span>Namespace</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class AbstractHandler</h1>
+
+
+	<div class="description">
+	<p>Base Error Handler</p>
+
+<p>Enhanced version Slim's error handlers.</p>
+
+<p>It outputs messages in either JSON, XML or HTML
+based on the Accept header.</p>
+	</div>
+
+	<dl class="tree">
+		<dd style="padding-left:0px">
+<b><span>Charcoal\App\Handler\AbstractHandler</span></b>			
+			 implements 
+<span>Charcoal\Translation\Catalog\CatalogAwareInterface</span>, 
+			
+<span>Charcoal\Config\ConfigurableInterface</span>, 
+			
+				<a href="class-Charcoal.App.Handler.HandlerInterface.html"><span>Charcoal\App\Handler\HandlerInterface</span></a>, 
+			
+<span>Charcoal\View\ViewableInterface</span>
+			
+			 uses 
+					Charcoal\Translation\Catalog\CatalogAwareTrait (not available)
+
+			
+					Charcoal\Config\ConfigurableTrait (not available)
+
+			
+					Charcoal\View\ViewableTrait (not available)
+
+			
+		</dd>
+	</dl>
+
+
+	<div>
+		<h4>Direct known subclasses</h4>
+			<a href="class-Charcoal.App.Handler.Error.html">Charcoal\App\Handler\Error</a>, 
+			<a href="class-Charcoal.App.Handler.NotAllowed.html">Charcoal\App\Handler\NotAllowed</a>, 
+			<a href="class-Charcoal.App.Handler.NotFound.html">Charcoal\App\Handler\NotFound</a>, 
+			<a href="class-Charcoal.App.Handler.PhpError.html">Charcoal\App\Handler\PhpError</a>, 
+			<a href="class-Charcoal.App.Handler.Shutdown.html">Charcoal\App\Handler\Shutdown</a>
+	</div>
+
+
+
+
+
+
+	<div class="info">
+		<b>Abstract</b><br>
+		
+		<b>Namespace:</b> <a href="namespace-Charcoal.html">Charcoal</a>\<a href="namespace-Charcoal.App.html">App</a>\<a href="namespace-Charcoal.App.Handler.html">Handler</a><br>
+		
+
+			<b>Located at</b> <a href="source-class-Charcoal.App.Handler.AbstractHandler.html#35-304" title="Go to source code">Charcoal/App/Handler/AbstractHandler.php</a>
+		<br>
+	</div>
+
+
+
+	<table class="summary methods" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="__construct" id="___construct">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___construct">#</a>
+		<code><a href="source-class-Charcoal.App.Handler.AbstractHandler.html#79-87" title="Go to source code">__construct</a>( <span>Pimple\Container <var>$container</var></span> )</code>
+
+		<div class="description short">
+			<p>Return a new AbstractHandler object.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Return a new AbstractHandler object.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$container</var></dt>
+					<dd>A dependencies container instance.</dd>
+				</dl></div>
+
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Charcoal.App.Handler.HandlerInterface.html#___construct">Charcoal\App\Handler\HandlerInterface::__construct()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="init" id="_init">
+
+		<td class="attributes"><code>
+			 public 
+
+			<code><a href="class-Charcoal.App.Handler.AbstractHandler.html">Charcoal\App\Handler\AbstractHandler</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_init">#</a>
+		<code><a href="source-class-Charcoal.App.Handler.AbstractHandler.html#89-97" title="Go to source code">init</a>( )</code>
+
+		<div class="description short">
+			<p>Initialize the AbstractHandler object.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Initialize the AbstractHandler object.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-Charcoal.App.Handler.AbstractHandler.html">Charcoal\App\Handler\AbstractHandler</a></code><br>Chainable
+				</div>
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Charcoal.App.Handler.HandlerInterface.html#_init">Charcoal\App\Handler\HandlerInterface::init()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setDependencies" id="_setDependencies">
+
+		<td class="attributes"><code>
+			 public 
+
+			<code><a href="class-Charcoal.App.Handler.AbstractHandler.html">Charcoal\App\Handler\AbstractHandler</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setDependencies">#</a>
+		<code><a href="source-class-Charcoal.App.Handler.AbstractHandler.html#99-124" title="Go to source code">setDependencies</a>( <span>Pimple\Container <var>$container</var></span> )</code>
+
+		<div class="description short">
+			<p>Inject dependencies from a Pimple Container.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Inject dependencies from a Pimple Container.</p>
+
+<h2>Dependencies</h2>
+
+<ul>
+<li><code>AppConfig $appConfig</code> — The application's configuration.</li>
+<li><code>UriInterface $baseUri</code> — A base URI.</li>
+<li><code>ViewInterface $view</code> — A view instance.</li>
+<li><code>CatalogInterface $catalog</code> — A translation catalog.</li>
+</ul>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$container</var></dt>
+					<dd>A dependencies container instance.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-Charcoal.App.Handler.AbstractHandler.html">Charcoal\App\Handler\AbstractHandler</a></code><br>Chainable
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setContainer" id="_setContainer">
+
+		<td class="attributes"><code>
+			 public 
+
+			<code><a href="class-Charcoal.App.Handler.AbstractHandler.html">Charcoal\App\Handler\AbstractHandler</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setContainer">#</a>
+		<code><a href="source-class-Charcoal.App.Handler.AbstractHandler.html#126-136" title="Go to source code">setContainer</a>( <span>Pimple\Container <var>$container</var></span> )</code>
+
+		<div class="description short">
+			<p>Set container for use with the template controller</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Set container for use with the template controller</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$container</var></dt>
+					<dd>A dependencies container instance.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-Charcoal.App.Handler.AbstractHandler.html">Charcoal\App\Handler\AbstractHandler</a></code><br>Chainable
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="createConfig" id="_createConfig">
+
+		<td class="attributes"><code>
+			 public 
+
+			ConfigInterface
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_createConfig">#</a>
+		<code><a href="source-class-Charcoal.App.Handler.AbstractHandler.html#138-148" title="Go to source code">createConfig</a>( <span>mixed|null <var>$data</var> = <span class="php-keyword1">null</span></span> )</code>
+
+		<div class="description short">
+			<p>ConfigurableTrait > createConfig()</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>ConfigurableTrait > createConfig()</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$data</var></dt>
+					<dd>Optional config data.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					ConfigInterface
+				</div>
+
+
+				<h4>See</h4>
+				<div class="list">
+						ConfigurableTrait::createConfig()<br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="determineContentType" id="_determineContentType">
+
+		<td class="attributes"><code>
+			 protected 
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_determineContentType">#</a>
+		<code><a href="source-class-Charcoal.App.Handler.AbstractHandler.html#150-166" title="Go to source code">determineContentType</a>( <span>Psr\Http\Message\ServerRequestInterface <var>$request</var></span> )</code>
+
+		<div class="description short">
+			<p>Determine which content type we know about is wanted using Accept header</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Determine which content type we know about is wanted using Accept header</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$request</var></dt>
+					<dd>The most recent Request object.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					string
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="renderHtmlOutput" id="_renderHtmlOutput">
+
+		<td class="attributes"><code>
+			 protected 
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_renderHtmlOutput">#</a>
+		<code><a href="source-class-Charcoal.App.Handler.AbstractHandler.html#168-196" title="Go to source code">renderHtmlOutput</a>( )</code>
+
+		<div class="description short">
+			<p>Render HTML Error Page</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Render HTML Error Page</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					string
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="messageTitle" id="_messageTitle">
+
+		<td class="attributes"><code>
+			 public 
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_messageTitle">#</a>
+		<code><a href="source-class-Charcoal.App.Handler.AbstractHandler.html#198-206" title="Go to source code">messageTitle</a>( )</code>
+
+		<div class="description short">
+			<p>Render title of error</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Render title of error</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					string
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="renderHtmlMessage" id="_renderHtmlMessage">
+
+		<td class="attributes"><code>
+			abstract public 
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_renderHtmlMessage">#</a>
+		<code><a href="source-class-Charcoal.App.Handler.AbstractHandler.html#208-213" title="Go to source code">renderHtmlMessage</a>( )</code>
+
+		<div class="description short">
+			<p>Render body of HTML error</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Render body of HTML error</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					string
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="renderHtmlTemplate" id="_renderHtmlTemplate">
+
+		<td class="attributes"><code>
+			 protected 
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_renderHtmlTemplate">#</a>
+		<code><a href="source-class-Charcoal.App.Handler.AbstractHandler.html#215-244" title="Go to source code">renderHtmlTemplate</a>( )</code>
+
+		<div class="description short">
+			<p>Render HTML Error Page</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Render HTML Error Page</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					string
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setBaseUrl" id="_setBaseUrl">
+
+		<td class="attributes"><code>
+			 public 
+
+			<code><a href="class-Charcoal.App.Handler.AbstractHandler.html">Charcoal\App\Handler\AbstractHandler</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setBaseUrl">#</a>
+		<code><a href="source-class-Charcoal.App.Handler.AbstractHandler.html#246-261" title="Go to source code">setBaseUrl</a>( <span>string|Psr\Http\Message\UriInterface <var>$url</var></span> )</code>
+
+		<div class="description short">
+			<p>Set the base URL (home page).</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Set the base URL (home page).</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$url</var></dt>
+					<dd>A URL to the base URL.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-Charcoal.App.Handler.AbstractHandler.html">Charcoal\App\Handler\AbstractHandler</a></code><br>Chainable
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="baseUrl" id="_baseUrl">
+
+		<td class="attributes"><code>
+			 public 
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_baseUrl">#</a>
+		<code><a href="source-class-Charcoal.App.Handler.AbstractHandler.html#263-271" title="Go to source code">baseUrl</a>( )</code>
+
+		<div class="description short">
+			<p>Retrieves the URL for the home page.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Retrieves the URL for the home page.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					string<br>A URL representing the home page.
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setCatalog" id="_setCatalog">
+
+		<td class="attributes"><code>
+			 public 
+
+			<code><a href="class-Charcoal.App.Handler.AbstractHandler.html">Charcoal\App\Handler\AbstractHandler</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setCatalog">#</a>
+		<code><a href="source-class-Charcoal.App.Handler.AbstractHandler.html#273-303" title="Go to source code">setCatalog</a>( <span>Charcoal\Translation\Catalog\CatalogInterface <var>$catalog</var></span> )</code>
+
+		<div class="description short">
+			<p>Sets a translation catalog instance on the object.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Sets a translation catalog instance on the object.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$catalog</var></dt>
+					<dd>A translation catalog object.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-Charcoal.App.Handler.AbstractHandler.html">Charcoal\App\Handler\AbstractHandler</a></code><br>Chainable
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+
+
+
+
+	<table class="summary properties" id="properties">
+	<caption>Properties summary</caption>
+	<tr data-order="container" id="$container">
+		<td class="attributes"><code>
+			protected  
+			Pimple\Container
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Charcoal.App.Handler.AbstractHandler.html#53-58" title="Go to source code"><var>$container</var></a>
+
+			<div class="description short">
+				<p>Container</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Container</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$container" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="baseUrl" id="$baseUrl">
+		<td class="attributes"><code>
+			protected  
+			string
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Charcoal.App.Handler.AbstractHandler.html#60-65" title="Go to source code"><var>$baseUrl</var></a>
+
+			<div class="description short">
+				<p>URL for the home page</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>URL for the home page</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$baseUrl" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="knownContentTypes" id="$knownContentTypes">
+		<td class="attributes"><code>
+			protected  
+			array
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Charcoal.App.Handler.AbstractHandler.html#67-77" title="Go to source code"><var>$knownContentTypes</var></a>
+
+			<div class="description short">
+				<p>Known handled content types</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Known handled content types</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$knownContentTypes" class="anchor">#</a>
+				<code>[
+    <span class="php-quote">'application/json'</span>,
+    <span class="php-quote">'application/xml'</span>,
+    <span class="php-quote">'text/xml'</span>,
+    <span class="php-quote">'text/html'</span>,
+]</code>
+			</div>
+		</td>
+	</tr>
+	</table>
+
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		 API documentation generated by <a href="http://apigen.org">ApiGen</a>
+	</div>
+</div>
+</div>
+<script src="resources/combined.js"></script>
+<script src="elementlist.js"></script>
+</body>
+</html>
