@@ -148,7 +148,7 @@ abstract class AbstractHandler implements
     }
 
     /**
-     * Determine which content type we know about is wanted using Accept header
+     * Determine which content type we know about is wanted using "Accept" header
      *
      * @param  ServerRequestInterface $request The most recent Request object.
      * @return string
@@ -160,6 +160,14 @@ abstract class AbstractHandler implements
 
         if (count($selectedContentTypes)) {
             return reset($selectedContentTypes);
+        }
+
+        // handle +json and +xml specially
+        if (preg_match('/\+(json|xml)/', $acceptHeader, $matches)) {
+            $mediaType = 'application/' . $matches[1];
+            if (in_array($mediaType, $this->knownContentTypes)) {
+                return $mediaType;
+            }
         }
 
         return 'text/html';
