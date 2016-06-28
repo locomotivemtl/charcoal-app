@@ -60,7 +60,6 @@ class TemplateRouteConfigTest extends \PHPUnit_Framework_TestCase
 
         $this->setExpectedException('\InvalidArgumentException');
         $this->obj->setRedirectMode(666);
-
     }
 
     public function testSetCache()

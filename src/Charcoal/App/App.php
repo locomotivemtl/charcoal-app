@@ -239,7 +239,6 @@ class App extends SlimApp implements
 
         $this->setLogger($container['logger']);
         $this->logger->debug('>>> Charcoal App Init Logger');
-
     }
 
     /**

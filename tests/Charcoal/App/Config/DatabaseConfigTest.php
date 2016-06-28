@@ -23,6 +23,5 @@ class DatabaseConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('', $this->obj->username());
         $this->assertEquals('', $this->obj->database());
         $this->assertFalse($this->obj->disableUtf8());
-
     }
 }

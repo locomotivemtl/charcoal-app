@@ -21,7 +21,6 @@ class AbstractScriptTest extends \PHPUnit_Framework_TestCase
         $request = $this->getMock('\Psr\Http\Message\RequestInterface');
         $response = $this->getMock('\Psr\Http\Message\ResponseInterface');
         $invoke = call_user_func([$this->obj, '__invoke'], $request, $response);
-
     }
 
     public function testSetIdent()

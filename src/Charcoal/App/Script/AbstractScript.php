@@ -336,6 +336,5 @@ abstract class AbstractScript extends AbstractEntity implements
         }
         $arg = $input->prompt();
         return $arg;
-
     }
 }
