@@ -44,6 +44,7 @@ abstract class AbstractAction extends AbstractEntity implements
     use LoggerAwareTrait;
 
     const MODE_JSON = 'json';
+    const MODE_XML = 'xml';
     const MODE_REDIRECT = 'redirect';
     const DEFAULT_MODE = self::MODE_JSON;
 
@@ -106,6 +107,12 @@ abstract class AbstractAction extends AbstractEntity implements
                 $response = $response
                     ->withHeader('Content-Type', 'application/json')
                     ->write(json_encode($this->results()));
+                break;
+
+            case self::MODE_XML:
+                $response = $response
+                    ->withHeader('Content-Type', 'text/xml')
+                    ->write($this->results());
                 break;
 
             case self::MODE_REDIRECT:
