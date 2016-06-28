@@ -123,7 +123,7 @@ class CacheServiceProvider implements ServiceProviderInterface
                     }
                     $driverOptions['servers'] = $servers;
                 } else {
-                    // Default memcache options (locahost:11211)
+                    // Default Memcache options: locahost:11211
                     $driverOptions['servers'][] = [ '127.0.0.1', 11211 ];
                 }
 
