@@ -338,7 +338,7 @@
 </span><span id="164" class="l"><a href="#164">164: </a>
 </span><span id="165" class="l"><a href="#165">165: </a>        <span class="php-comment">// handle +json and +xml specially</span>
 </span><span id="166" class="l"><a href="#166">166: </a>        <span class="php-keyword1">if</span> (<span class="php-keyword2">preg_match</span>(<span class="php-quote">'/\+(json|xml)/'</span>, <span class="php-var">$acceptHeader</span>, <span class="php-var">$matches</span>)) {
-</span><span id="167" class="l"><a href="#167">167: </a>            <span class="php-var">$mediaType</span> = <span class="php-quote">'application/'</span> . <span class="php-var">$matches</span>[<span class="php-num">1</span>];
+</span><span id="167" class="l"><a href="#167">167: </a>            <span class="php-var">$mediaType</span> = <span class="php-quote">'application/'</span>.<span class="php-var">$matches</span>[<span class="php-num">1</span>];
 </span><span id="168" class="l"><a href="#168">168: </a>            <span class="php-keyword1">if</span> (<span class="php-keyword2">in_array</span>(<span class="php-var">$mediaType</span>, <span class="php-var">$this</span>-&gt;knownContentTypes)) {
 </span><span id="169" class="l"><a href="#169">169: </a>                <span class="php-keyword1">return</span> <span class="php-var">$mediaType</span>;
 </span><span id="170" class="l"><a href="#170">170: </a>            }
