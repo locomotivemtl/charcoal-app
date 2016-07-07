@@ -49,6 +49,13 @@ class AppConfig extends AbstractConfig
     private $publicPath;
 
     /**
+     * The path to the storage directory.
+     *
+     * @var string $storagePath
+     */
+    private $storagePath;
+
+    /**
      * @var boolean $devMode
      */
     private $devMode = false;
@@ -112,6 +119,7 @@ class AppConfig extends AbstractConfig
             'project_name'     => '',
             'base_path'        => $baseDir,
             'public_path'      => null,
+            'storage_path'     => null,
             'timezone'         => 'UTC',
             'routes'           => [],
             'routables'        => [],
@@ -162,10 +170,23 @@ class AppConfig extends AbstractConfig
      * Resolves symlinks with realpath() and ensure trailing slash.
      *
      * @param  string $path The absolute path to the application's root directory.
+     * @throws InvalidArgumentException If the argument is not a string.
      * @return AppConfig Chainable
      */
     public function setBasePath($path)
     {
+        if ($path === null) {
+            throw new InvalidArgumentException(
+                'The base path is required.'
+            );
+        }
+
+        if (!is_string($path)) {
+            throw new InvalidArgumentException(
+                'The base path must be a string'
+            );
+        }
+
         $this->basePath = rtrim(realpath($path), '\\/').DIRECTORY_SEPARATOR;
 
         return $this;
@@ -185,10 +206,23 @@ class AppConfig extends AbstractConfig
      * Set the application's absolute path to the public web directory.
      *
      * @param  string $path The path to the application's public directory.
+     * @throws InvalidArgumentException If the argument is not a string.
      * @return AppConfig Chainable
      */
     public function setPublicPath($path)
     {
+        if ($path === null) {
+            $this->publicPath = null;
+
+            return $this;
+        }
+
+        if (!is_string($path)) {
+            throw new InvalidArgumentException(
+                'The public path must be a string'
+            );
+        }
+
         $this->publicPath = rtrim(realpath($path), '\\/').DIRECTORY_SEPARATOR;
 
         return $this;
@@ -206,6 +240,48 @@ class AppConfig extends AbstractConfig
         }
 
         return $this->publicPath;
+    }
+
+    /**
+     * Set the application's absolute path to the storage directory.
+     *
+     * @param  string $path The path to the application's storage directory.
+     * @throws InvalidArgumentException If the argument is not a string.
+     * @return $this
+     */
+    public function setStoragePath($path)
+    {
+        if ($path === null) {
+            $this->storagePath = null;
+
+            return $this;
+        }
+
+        if (!is_string($path)) {
+            throw new InvalidArgumentException(
+                'The storage path must be a string'
+            );
+        }
+
+        $this->storagePath = rtrim(realpath($path), '\\/').DIRECTORY_SEPARATOR;
+
+        return $this;
+    }
+
+    /**
+     * Get the path to the storage directory.
+     *
+     * Note that the storage space is outside of the public access.
+     *
+     * @return string
+     */
+    public function storagePath()
+    {
+        if (!isset($this->storagePath)) {
+            return $this->basePath().DIRECTORY_SEPARATOR.'uploads'.DIRECTORY_SEPARATOR;
+        }
+
+        return $this->storagePath;
     }
 
     /**
