@@ -33,6 +33,10 @@ abstract class AbstractTemplate extends AbstractEntity implements
     public function __construct($data = null)
     {
         $this->setLogger($data['logger']);
+
+        if (isset($data['container'])) {
+            $this->setDependencies($data['container']);
+        }
     }
 
     /**
