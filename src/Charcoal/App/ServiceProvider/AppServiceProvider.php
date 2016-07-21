@@ -70,6 +70,25 @@ class AppServiceProvider implements ServiceProviderInterface
             return;
         }
 
+        if (!isset($container['base-url'])) {
+            /**
+             * Base URL as a PSR-7 UriInterface object for the current request
+             * or the Charcoal application.
+             *
+             * @param Container $container
+             * @return UriInterface
+             */
+            $container['base-url'] = function (Container $container) {
+                if (isset($container['config']['base_url'])) {
+                    $baseUrl = $container['config']['base_url'];
+                } else {
+                    $baseUrl = $container['request']->getUri()->getBaseUrl();
+                }
+
+                return \Slim\Http\Uri::createFromString($baseUrl);
+            };
+        }
+
         /**
          * HTTP 404 (Not Found) handler.
          *
