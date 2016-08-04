@@ -288,15 +288,10 @@ class AppConfig extends AbstractConfig
      * Retrieve the application's fully qualified base URL to the public web directory.
      *
      * @return string The base URI to the application's web directory.
-     * @todo   [mcaskill 2016-03-08] Deprecate {@see self::$URL} in favor of 'base_url'; {@see \Slim\Http\Uri}.
      */
     public function baseUrl()
     {
-        if (isset($this->URL)) {
-            return $this->URL;
-        } else {
-            return '';
-        }
+        return $this->baseUrl;
     }
 
     /**
