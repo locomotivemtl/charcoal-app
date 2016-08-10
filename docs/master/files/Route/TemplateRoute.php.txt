@@ -125,21 +125,31 @@ class TemplateRoute implements
      */
     protected function templateContent(Container $container, RequestInterface $request)
     {
-        $config = $this->config();
+        $config   = $this->config();
+        $template = $this->createTemplate($container, $request);
 
-        $templateIdent      = $config['template'];
-        $templateController = $config['controller'];
+        return $container['view']->render($config['template'], $template);
+    }
+
+    /**
+     * @param  Container        $container A DI (Pimple) container.
+     * @param  RequestInterface $request   The request to intialize the template with.
+     * @return string
+     */
+    protected function createTemplate(Container $container, RequestInterface $request)
+    {
+        $config = $this->config();
 
         $templateFactory = $container['template/factory'];
         $templateFactory->setDefaultClass($config['default_controller']);
 
-        $template = $templateFactory->create($templateController);
+        $template = $templateFactory->create($config['controller']);
         $template->init($request);
 
         // Set custom data from config.
         $template->setData($config['template_data']);
 
-        return $container['view']->render($templateIdent, $template);
+        return $template;
     }
 
     /**
