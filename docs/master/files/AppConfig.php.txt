@@ -236,7 +236,7 @@ class AppConfig extends AbstractConfig
     public function publicPath()
     {
         if (!isset($this->publicPath)) {
-            return $this->basePath().DIRECTORY_SEPARATOR.'www'.DIRECTORY_SEPARATOR;
+            return $this->basePath().'www'.DIRECTORY_SEPARATOR;
         }
 
         return $this->publicPath;
@@ -278,7 +278,7 @@ class AppConfig extends AbstractConfig
     public function storagePath()
     {
         if (!isset($this->storagePath)) {
-            return $this->basePath().DIRECTORY_SEPARATOR.'uploads'.DIRECTORY_SEPARATOR;
+            return $this->basePath().'uploads'.DIRECTORY_SEPARATOR;
         }
 
         return $this->storagePath;
