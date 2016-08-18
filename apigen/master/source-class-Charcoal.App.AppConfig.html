@@ -410,7 +410,7 @@
 </span><span id="236" class="l"><a href="#236">236: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> publicPath()
 </span><span id="237" class="l"><a href="#237">237: </a>    {
 </span><span id="238" class="l"><a href="#238">238: </a>        <span class="php-keyword1">if</span> (!<span class="php-keyword1">isset</span>(<span class="php-var">$this</span>-&gt;publicPath)) {
-</span><span id="239" class="l"><a href="#239">239: </a>            <span class="php-keyword1">return</span> <span class="php-var">$this</span>-&gt;basePath().DIRECTORY_SEPARATOR.<span class="php-quote">'www'</span>.DIRECTORY_SEPARATOR;
+</span><span id="239" class="l"><a href="#239">239: </a>            <span class="php-keyword1">return</span> <span class="php-var">$this</span>-&gt;basePath().<span class="php-quote">'www'</span>.DIRECTORY_SEPARATOR;
 </span><span id="240" class="l"><a href="#240">240: </a>        }
 </span><span id="241" class="l"><a href="#241">241: </a>
 </span><span id="242" class="l"><a href="#242">242: </a>        <span class="php-keyword1">return</span> <span class="php-var">$this</span>-&gt;publicPath;
@@ -452,7 +452,7 @@
 </span><span id="278" class="l"><a href="#278">278: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> storagePath()
 </span><span id="279" class="l"><a href="#279">279: </a>    {
 </span><span id="280" class="l"><a href="#280">280: </a>        <span class="php-keyword1">if</span> (!<span class="php-keyword1">isset</span>(<span class="php-var">$this</span>-&gt;storagePath)) {
-</span><span id="281" class="l"><a href="#281">281: </a>            <span class="php-keyword1">return</span> <span class="php-var">$this</span>-&gt;basePath().DIRECTORY_SEPARATOR.<span class="php-quote">'uploads'</span>.DIRECTORY_SEPARATOR;
+</span><span id="281" class="l"><a href="#281">281: </a>            <span class="php-keyword1">return</span> <span class="php-var">$this</span>-&gt;basePath().<span class="php-quote">'uploads'</span>.DIRECTORY_SEPARATOR;
 </span><span id="282" class="l"><a href="#282">282: </a>        }
 </span><span id="283" class="l"><a href="#283">283: </a>
 </span><span id="284" class="l"><a href="#284">284: </a>        <span class="php-keyword1">return</span> <span class="php-var">$this</span>-&gt;storagePath;
