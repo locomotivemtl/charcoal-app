@@ -39,12 +39,12 @@ abstract class AbstractModule implements
     /**
      * @var ConfigInterface $config
      */
-    private $config;
+    protected $config;
 
     /**
      * @var RouteManager
      */
-    private $routeManager;
+    protected $routeManager;
 
     /**
      * Return a new AbstractModule object.
@@ -129,6 +129,7 @@ abstract class AbstractModule implements
 
             $this->routeManager->setupRoutes();
         }
+
         return $this;
     }
 }

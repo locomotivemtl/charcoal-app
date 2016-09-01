@@ -25,6 +25,13 @@ class RouteManager implements
     use ConfigurableTrait;
 
     /**
+     * Additional route data.
+     *
+     * @var array
+     */
+    private $routeData = [];
+
+    /**
      * Manager constructor
      *
      * @param array $data The dependencies container.
@@ -33,6 +40,39 @@ class RouteManager implements
     {
         $this->setConfig($data['config']);
         $this->setApp($data['app']);
+    }
+
+    /**
+     * Replace global route parameters.
+     *
+     * These are merged with each route's arguments.
+     *
+     * @see \Slim\Route::setArguments()
+     * @param array $routeData Route parameters.
+     * @return RouteManager Chainable
+     */
+    public function setRouteData(array $routeData)
+    {
+        $this->routeData = $routeData;
+
+        return $this;
+    }
+
+    /**
+     * Merge global route parameters.
+     *
+     * @param array $routeData Route parameters.
+     * @return RouteManager Chainable
+     */
+    public function mergeRouteData(array $routeData)
+    {
+        if (!isset($this->routeData)) {
+            $this->routeData = [];
+        }
+
+        $this->routeData = array_merge($this->routeData, $routeData);
+
+        return $this;
     }
 
     /**
@@ -139,8 +179,14 @@ class RouteManager implements
             $routeHandler->setName($templateConfig['ident']);
         }
 
-        if (isset($templateConfig['template_data'])) {
-            $routeHandler->setArguments($templateConfig['template_data']);
+        if ($this->routeData) {
+            $routeData = $this->routeData;
+
+            if (isset($templateConfig['template_data'])) {
+                $routeData = array_merge($routeData, $templateConfig['template_data']);
+            }
+
+            $routeHandler->setArguments($routeData);
         }
 
         return $routeHandler;
@@ -217,8 +263,14 @@ class RouteManager implements
             $routeHandler->setName($actionConfig['ident']);
         }
 
-        if (isset($actionConfig['action_data'])) {
-            $routeHandler->setArguments($actionConfig['action_data']);
+        if ($this->routeData) {
+            $routeData = $this->routeData;
+
+            if (isset($actionConfig['action_data'])) {
+                $routeData = array_merge($routeData, $actionConfig['action_data']);
+            }
+
+            $routeHandler->setArguments($routeData);
         }
 
         return $routeHandler;
@@ -295,9 +347,16 @@ class RouteManager implements
             $routeHandler->setName($scriptConfig['ident']);
         }
 
-        if (isset($scriptConfig['script_data'])) {
-            $routeHandler->setArguments($scriptConfig['script_data']);
+        if ($this->routeData) {
+            $routeData = $this->routeData;
+
+            if (isset($scriptConfig['script_data'])) {
+                $routeData = array_merge($routeData, $scriptConfig['script_data']);
+            }
+
+            $routeHandler->setArguments($routeData);
         }
+
         return $routeHandler;
     }
 }
