@@ -8,35 +8,35 @@ Provided services (through `Pimple`'s _Service Providers_) are a psr-3 _logger_,
 
 # Table of contents
 
-- [How to install](#how-to-install)
-	- [Dependencies](#dependencies)
-	- [Recommended modules](#recommended-modules)
-- [Components](#components)
-	- [Config](#config-component)
-	- [App](#app-compoment)
-	- [Module](#module-component)
-	- [Routes and RequestController](#routes-and-requestcontroller)
-		- [Action Request Controller](#action-request-controller)
-		- [Script Request Controller](#script-request-controller)
-		- [Template Request Controller](#template-request-controller)
-		- [Route API](#route-api)
-		- [Routable objects](#routable-objects)
-	- [Charcoal Binary](#charcoal-binary)
-- [Service Providers](#service-providers)
-	- [Basic Services](#basic-services)
-	- [App Service Provider](#app-service-provider)
-	- [Cache Service Provider](#cache-service-provider)
-	- [Database Service Provider](#database-service-provider)
-	- [Logger Service Provider](#logger-service-provider)
-	- [Translator Service Provider](#translator-service-provider)
-	- [View Service Provider](#view-service-provider)
-- [Usage](#usage)
-- [Development](#development)
-	- [Development dependencies](#development-dependencies)
-	- [Continuous Integration](#continuous-integration)
-	- [Coding Style](#coding-style)
-	- [Authors](#authors)
-	- [Changelog](#changelog)
+-   [How to install](#how-to-install)
+    -   [Dependencies](#dependencies)
+    -   [Recommended modules](#recommended-modules)
+-   [Components](#components)
+    -   [Config](#config-component)
+    -   [App](#app-compoment)
+    -   [Module](#module-component)
+    -   [Routes and RequestController](#routes-and-requestcontroller)
+        -   [Action Request Controller](#action-request-controller)
+        -   [Script Request Controller](#script-request-controller)
+        -   [Template Request Controller](#template-request-controller)
+        -   [Route API](#route-api)
+        -   [Routable objects](#routable-objects)
+    -   [Charcoal Binary](#charcoal-binary)
+-   [Service Providers](#service-providers)
+    -   [Basic Services](#basic-services)
+    -   [App Service Provider](#app-service-provider)
+    -   [Cache Service Provider](#cache-service-provider)
+    -   [Database Service Provider](#database-service-provider)
+    -   [Logger Service Provider](#logger-service-provider)
+    -   [Translator Service Provider](#translator-service-provider)
+    -   [View Service Provider](#view-service-provider)
+-   [Usage](#usage)
+-   [Development](#development)
+    -   [Development dependencies](#development-dependencies)
+    -   [Continuous Integration](#continuous-integration)
+    -   [Coding Style](#coding-style)
+    -   [Authors](#authors)
+    -   [Changelog](#changelog)
 
 # How to install
 
@@ -50,38 +50,38 @@ A PSR-4 compliant autoloader
 
 ## Dependencies
 
-- [`PHP 5.5+`](http://php.net)
-	- Older versions of PHP are deprecated, therefore not supported for charcoal-app. PHP 5.6 + is recommendend.
-- [`locomotivemtl/charcoal-config`](https://github.com/locomotivemtl/charcoal-config)
-	-  The basic configuration system and config container.
-	-  Also provides the base `AbstractEntity` data container.
-- [`locomotivemtl/charcoal-factory`](https://github.com/locomotivemtl/charcoal-factory)
-	- Dynamic object creation.
-	- Factories are provided for Action, Module, Routable, Route, Script, ServiceProvider, Template and Widget
-- [`locomotivemtl/charcoal-view`](https://github.com/locomotivemtl/charcoal-view)
-	- Template controllers will typically load a _View_ object  (or a _Renderer_, for PSR7 / Slim compatibility) and render a template.
-	- A rendering engine should also be installed. This can be:
-		- Mustache (default, recommended)
-		- Twig
-		- or simple PHP templates.
-- [`slim/slim`](https://github.com/slimphp/Slim)
-	- Slim is a PSR-7 compliant micro-framework.
-	- It provides the main app, container and router.
-	- Its dependencies are:
-		-  [`nikic/fast-route`](https://github.com/nikic/FastRoute)
-		-  `pimple/pimple`
-		-  [`psr/http-message`]((http://www.php-fig.org/psr/psr-7/))
-- [`pimple/pimple`](http://pimple.sensiolabs.org/)
-  - Dependency injection container.
-  - Actually provided by `slim/slim`.
-- [`monolog/monolog`](https://github.com/Seldaek/monolog)
-	- Monolog is a PSR-3 compliant logger.
-	- Monolog is used as main logger to fulfills PSR3 dependencies all-around.
-- [`tedivm/stash`](https://github.com/tedious/Stash)
-  - Stash is a PSR-6 compliant cache system.
-  - Cache greatly speeds up an application. A driver must be configured:
-  	- Supported drivers are `memcache, `redis`, `db` (sqlite), `file`, `memory` or `noop`
-  	- Recommended drivers are `memcache` and `redis`.
+-   [`PHP 5.5+`](http://php.net)
+    -   Older versions of PHP are deprecated, therefore not supported for charcoal-app. PHP 5.6 + is recommendend.
+-   [`locomotivemtl/charcoal-config`](https://github.com/locomotivemtl/charcoal-config)
+    -    The basic configuration system and config container.
+    -    Also provides the base `AbstractEntity` data container.
+-   [`locomotivemtl/charcoal-factory`](https://github.com/locomotivemtl/charcoal-factory)
+    -   Dynamic object creation.
+    -   Factories are provided for Action, Module, Routable, Route, Script, ServiceProvider, Template and Widget
+-   [`locomotivemtl/charcoal-view`](https://github.com/locomotivemtl/charcoal-view)
+    -   Template controllers will typically load a _View_ object  (or a _Renderer_, for PSR7 / Slim compatibility) and render a template.
+    -   A rendering engine should also be installed. This can be:
+        -   Mustache (default, recommended)
+        -   Twig
+        -   or simple PHP templates.
+-   [`slim/slim`](https://github.com/slimphp/Slim)
+    -   Slim is a PSR-7 compliant micro-framework.
+    -   It provides the main app, container and router.
+    -   Its dependencies are:
+        -    [`nikic/fast-route`](https://github.com/nikic/FastRoute)
+        -    `pimple/pimple`
+        -    [`psr/http-message`]((http://www.php-fig.org/psr/psr-7/))
+-   [`pimple/pimple`](http://pimple.sensiolabs.org/)
+  -   Dependency injection container.
+  -   Actually provided by `slim/slim`.
+-   [`monolog/monolog`](https://github.com/Seldaek/monolog)
+    -   Monolog is a PSR-3 compliant logger.
+    -   Monolog is used as main logger to fulfills PSR3 dependencies all-around.
+-   [`tedivm/stash`](https://github.com/tedious/Stash)
+  -   Stash is a PSR-6 compliant cache system.
+  -   Cache greatly speeds up an application. A driver must be configured:
+    -   Supported drivers are `memcache, `redis`, `db` (sqlite), `file`, `memory` or `noop`
+    -   Recommended drivers are `memcache` and `redis`.
 
 > 👉 Development dependencies, which are optional when using charcoal-app in a project, are described in the [Development](#development) section of this README file.
 
@@ -91,18 +91,18 @@ Read the `composer.json` file for more details on dependencies.
 
 In addition to the above dependencies, here's a list of recommended modules that can be added to a project.
 
-- [locomotivemtl/charcoal-email](https://github.com/locomotivemtl/charcoal-email)
-	- Easily set up, send, queue or track emails.
-	- Integrates with `charcoal-app` with _Service Provider_.
-	- Can use standard Charcoal Template as _View_.
-	- Uses `phpmailer` to actually send the mail.
-- [locomotivemtl/charcoal-cms](https://github.com/locomotivemtl/charcoal-cms)
-	- Base objects (Section, Text, Document, etc.) for a _CMS_ style of website.
-	- Is made to be used with charcoal-admin
-- [locomotivemtl/charcoal-admin](https://github.com/locomotivemtl/charcoal-admin)
-	- A modern, responsive backend for Charcoal projects.
-	- Especially made for Charcoal _models_ / _objects_.
-	- A good example of `charcoal-app` / mustache templates usage.
+-   [locomotivemtl/charcoal-email](https://github.com/locomotivemtl/charcoal-email)
+    -   Easily set up, send, queue or track emails.
+    -   Integrates with `charcoal-app` with _Service Provider_.
+    -   Can use standard Charcoal Template as _View_.
+    -   Uses `phpmailer` to actually send the mail.
+-   [locomotivemtl/charcoal-cms](https://github.com/locomotivemtl/charcoal-cms)
+    -   Base objects (Section, Text, Document, etc.) for a _CMS_ style of website.
+    -   Is made to be used with charcoal-admin
+-   [locomotivemtl/charcoal-admin](https://github.com/locomotivemtl/charcoal-admin)
+    -   A modern, responsive backend for Charcoal projects.
+    -   Especially made for Charcoal _models_ / _objects_.
+    -   A good example of `charcoal-app` / mustache templates usage.
 
 For a complete, ready-to-use project, start from the [`boilerplate`](https://github.com/locomotivemtl/charcoal-project-boilerplate):
 
@@ -114,16 +114,16 @@ For a complete, ready-to-use project, start from the [`boilerplate`](https://git
 
 The main components of charcoal-app are:
 
-- [Config](#config-component)
-- [App](#app-compoment)
-- [Module](#module-component)
-- [Routes and RequestController](#routes-and-requestcontroller)
- 	- [Action](#action-request-controller)
-	- [Script](#script-request-controller)
-	- [Template](#template-request-controller)
-	- [Route API](#route-api)
-- [Routable objects](#routable-objects)
-- [Charcoal Binary](#charcoal-binary)
+-   [Config](#config-component)
+-   [App](#app-compoment)
+-   [Module](#module-component)
+-   [Routes and RequestController](#routes-and-requestcontroller)
+    -   [Action](#action-request-controller)
+    -   [Script](#script-request-controller)
+    -   [Template](#template-request-controller)
+    -   [Route API](#route-api)
+-   [Routable objects](#routable-objects)
+-   [Charcoal Binary](#charcoal-binary)
 
 ## Config component
 
@@ -206,26 +206,26 @@ $app->run();
 
 A *Module* defines its specific components:
 
-- **Config**
-- **Routes**
-	- Actions
-	- Scripts
- 	- Templates
-- **Middlewares**: TBD
-- **Service Providers**: TBD
+-   **Config**
+-   **Routes**
+    -   Actions
+    -   Scripts
+    -   Templates
+-   **Middlewares**: TBD
+-   **Service Providers**: TBD
 
 ## Routes and RequestController
 
 All routes are actually handled by the *Slim* app. Charcoal Routes are just *definition* of a route:
 
-- An identifier, which typically matches the controller.
-- A RouteConfig structure, which contains:
-	- The `type` of  `RequestController`. This can be:
-		- `Action`
-		- `Script` (_Scripts_ can only be ran from the CLI.)
-		- `Template`
-	- The `route_controller` ident, which will identify the proper controller to create.
-	    - Controllers are created from a _resolver_ factory. Their identifier may look like `foo/bar/controller-name`.
+-   An identifier, which typically matches the controller.
+-   A RouteConfig structure, which contains:
+    -   The `type` of  `RequestController`. This can be:
+        -   `Action`
+        -   `Script` (_Scripts_ can only be ran from the CLI.)
+        -   `Template`
+    -   The `route_controller` ident, which will identify the proper controller to create.
+        -   Controllers are created from a _resolver_ factory. Their identifier may look like `foo/bar/controller-name`.
 
 Routes can be
 
@@ -250,8 +250,8 @@ Actions are basic _Charcoal Entities_ (they extend the `\Charcoal\Config\Abstrac
 
 When writing an action, there are only 2 abstract methods that must be added to the _Action_ class:
 
-- `run(RequestInterface $request, ResponseInterface $response);`
-- `results();`
+-   `run(RequestInterface $request, ResponseInterface $response);`
+-   `results();`
 
 The run method is ran automatically when _invoking_ an action.
 
@@ -266,13 +266,13 @@ In the config file (typically, `config/routes.json` loaded from `config/config.p
 
 ```json
 {
-	"routes": {
-		"actions": {
-			"test": {
-				"controller":"foo/bar/action/test"
-			}
-		}
-	}
+    "routes": {
+        "actions": {
+            "test": {
+                "controller": "foo/bar/action/test"
+            }
+        }
+    }
 }
 ```
 
@@ -288,30 +288,30 @@ use \Charcoal\App\Action\AbstractAction;
 
 class TestAction extends AbstractAction
 {
-	private $greetings;
+    private $greetings;
 
-	/**
-	 * @param RequestInterface  $request  A PSR-7 compatible Request instance.
+    /**
+     * @param RequestInterface  $request  A PSR-7 compatible Request instance.
      * @param ResponseInterface $response A PSR-7 compatible Response instance.
      * @return ResponseInterface
      */
-	public function run(RequestInterface $request, ResponseInterface $response)
-	{
-		$this->greetings = 'Hello world!';
-		$this->setSuccess(true);
-		return $response;
-	}
+    public function run(RequestInterface $request, ResponseInterface $response)
+    {
+        $this->greetings = 'Hello world!';
+        $this->setSuccess(true);
+        return $response;
+    }
 
-	/**
-	 * @return array
-	 */
-	public function results()
-	{
-		return [
-			'success'   => $this->success(),
-			'greetings' => $this->greetings
-		];
-	}
+    /**
+     * @return array
+     */
+    public function results()
+    {
+        return [
+            'success'   => $this->success(),
+            'greetings' => $this->greetings
+        ];
+    }
 }
 ```
 
@@ -319,8 +319,8 @@ When requesting `http://$URL/test` (with **POST**), the following should be retu
 
 ```json
 {
-	"success": 1,
-	"greetings": "Hello World!"
+    "success": 1,
+    "greetings": "Hello World!"
 }
 ```
 
@@ -353,13 +353,13 @@ In the config file (typically, `config/routes.json` loaded from `config/config.p
 
 ```json
 {
-	"routes": {
-		"scripts": {
-			"test": {
-				"controller":"foo/bar/script/test"
-			}
-		}
-	}
+    "routes": {
+        "scripts": {
+            "test": {
+                "controller": "foo/bar/script/test"
+            }
+        }
+    }
 }
 ```
 
@@ -375,16 +375,16 @@ use \Charcoal\App\Script\AbstractScript;
 
 class TestScript extends AbstractScript
 {
-	/**
-	 * @param RequestInterface  $request  A PSR-7 compatible Request instance.
+    /**
+     * @param RequestInterface  $request  A PSR-7 compatible Request instance.
      * @param ResponseInterface $response A PSR-7 compatible Response instance.
      * @return ResponseInterface
      */
-	public function run(RequestInterface $request, ResponseInterface $response)
-	{
-		$this->climate()->out('Hello World!');
-		return $response;
-	}
+    public function run(RequestInterface $request, ResponseInterface $response)
+    {
+        $this->climate()->out('Hello World!');
+        return $response;
+    }
 
 }
 ```
@@ -421,14 +421,14 @@ In the config file (typically, `config/routes.json` loaded from `config/config.p
 
 ```json
 {
-	"routes": {
-		"templates": {
-			"test": {
-				"controller": "foo/bar/template/test",
-				"template": "foo/bar/template/test"
-			}
-		}
-	}
+    "routes": {
+        "templates": {
+            "test": {
+                "controller": "foo/bar/template/test",
+                "template": "foo/bar/template/test"
+            }
+        }
+    }
 }
 ```
 
@@ -444,13 +444,13 @@ use \Charcoal\App\Action\AbstractTemplate;
 
 class TestTemplate extends AbstractTemplate
 {
-	/**
-	 * @return string
-	 */
-	public function greetings()
-	{
-		return 'Hello World!';
-	}
+    /**
+     * @return string
+     */
+    public function greetings()
+    {
+        return 'Hello World!';
+    }
 }
 ```
 
@@ -460,7 +460,7 @@ Finally, the _template view_ must also be created. The route config above specif
 {{>foo/bar/template/inc.header}}
 
 <section class="main">
-	{{greetings}}
+    {{greetings}}
 </section>
 
 {{>foo/bar/template/inc.footer}}
@@ -509,52 +509,52 @@ Finally, the _template view_ must also be created. The route config above specif
 
 Here is an example of route definitions. Some things to note:
 
-- To set the "default" template (GET) route, simply map a route to "/".
-- Most configuration options are optional.
-- The "full" routes in the example below tries to display all posible config options.
-	+ Custom route controller
-	+ A lot of those are unnecessary, as they are set by default.
-	+ The "redirect" option is not set, as it conflicts most other options or renders them unncessary.
-- The same definition could be pure PHP.
+-   To set the "default" template (GET) route, simply map a route to "/".
+-   Most configuration options are optional.
+-   The "full" routes in the example below tries to display all posible config options.
+    -   Custom route controller
+    -   A lot of those are unnecessary, as they are set by default.
+    -   The "redirect" option is not set, as it conflicts most other options or renders them unncessary.
+-   The same definition could be pure PHP.
 
 
 ```json
 {
-	"routes": {
-		"templates":{
-			"/": {
-				"redirect":"home"
-			},
-			"home":{
-				"controller": "acme/template/home",
-				"template": "acme/template/home"
-			},
-			"full":{
-				"route":"/full",
-				"route_controller": "acme/route/template",
-				"ident": "full-example",
-				"template": "acme/route/full",
-				"controller":"acme/route/full",
-				"engine":"mustache",
-				"methods": ["GET"],
-				"cache": false,
-				"cache_ttl":0,
-				"template_data": {
-					"custom_options": 42
-				}
-		}
-		},
-		"actions":{
-			"publish":{
-				"controller":"acme/action/blog/publish",
-			}
-		},
-		"scripts":{
-			"foo":{
-				"controller":"acme/script/foo"
-			}
-		}
-	}
+    "routes": {
+        "templates": {
+            "/": {
+                "redirect": "home"
+            },
+            "home": {
+                "controller": "acme/template/home",
+                "template": "acme/template/home"
+            },
+            "full": {
+                "route": "/full",
+                "route_controller": "acme/route/template",
+                "ident": "full-example",
+                "template": "acme/route/full",
+                "controller": "acme/route/full",
+                "engine": "mustache",
+                "methods": ["GET"],
+                "cache": false,
+                "cache_ttl": 0,
+                "template_data": {
+                    "custom_options": 42
+                }
+        }
+        },
+        "actions": {
+            "publish": {
+                "controller": "acme/action/blog/publish",
+            }
+        },
+        "scripts": {
+            "foo": {
+                "controller": "acme/script/foo"
+            }
+        }
+    }
 }
 ```
 
@@ -570,11 +570,11 @@ The `RoutableInterface` / `RoutableTrait` classes have one abstract method: `han
 
 This method should:
 
-- Check the path to know if it should respond
-	- Typically, this means checking the _path_ parameter against the database to load a matching object.
-	- But really, it could be anything...
-- Return a `callable` object that will handle the route if it matches
-- Return `null` if no match
+-   Check the path to know if it should respond
+    -   Typically, this means checking the _path_ parameter against the database to load a matching object.
+    -   But really, it could be anything...
+-   Return a `callable` object that will handle the route if it matches
+-   Return `null` if no match
 
 The returned callable signature should be:
 `function(RequestInterface $request, ResponseInterface $response)` and returns a `ResponseInterface`
@@ -597,26 +597,26 @@ Example of a module configuration:
 
 ```json
 {
-	"routes": {
-		"templates": {
-			"foo/bar": {},
-			"foo/baz/{:id}": {
-				"controller": "foo/baz",
-				"methods": [ "GET", "POST" ]
-			}
-		},
-		"default_template": "foo_bar",
-		"actions": {
-			"foo/bar": {}
-		}
-	},
-	"routables": {
-		"charcoal/cms/news": {}
-	},
-	"service_providers":[
-		"foo/bar/service-provider/test"
-	],
-	"middlewares": {}
+    "routes": {
+        "templates": {
+            "foo/bar": {},
+            "foo/baz/{:id}": {
+                "controller": "foo/baz",
+                "methods": [ "GET", "POST" ]
+            }
+        },
+        "default_template": "foo_bar",
+        "actions": {
+            "foo/bar": {}
+        }
+    },
+    "routables": {
+        "charcoal/cms/news": {}
+    },
+    "service_providers": [
+        "foo/bar/service-provider/test"
+    ],
+    "middlewares": {}
 }
 ```
 
@@ -625,12 +625,12 @@ Example of a module configuration:
 
 Dependencies are handled with a `Pimple` dependency Container. There are various _Service Providers_ available inside `charcoal-app`:
 
-- [`AppServiceProvider`](#app-service-provider)
-- [`CacheServiceProvider`](#cache-service-provider)
-- [`DatabaseServicePovider`](#database-service-provider)
-- [`LoggerServiceProvider`](#logger-service-provider)
-- [`TranslatorServiceProvider`](#translator-service-provider)
-- [`ViewServiceProvider`](#view-service-provider)
+-   [`AppServiceProvider`](#app-service-provider)
+-   [`CacheServiceProvider`](#cache-service-provider)
+-   [`DatabaseServicePovider`](#database-service-provider)
+-   [`LoggerServiceProvider`](#logger-service-provider)
+-   [`TranslatorServiceProvider`](#translator-service-provider)
+-   [`ViewServiceProvider`](#view-service-provider)
 
 All providers expect the DI Container to provide `config` object, which should hold the main project configuration in a `ConfigInterface` instance.
 
@@ -640,25 +640,25 @@ Dependencies are handled with a `Pimple` dependency Container.
 
 Basic "App" services are:
 
-- `config`
-  - A `\Charcoal\App\AppConfig` instance.
-- `logger`
-  - A `\Psr\Log\Logger` instance.
-  - Provided by _Monolog_.
-  - Configured by `config['logger']`
-- `cache`
-  - A `\Stash\Pool` instance.
-  - Configured by `config['cache']`
-- `view`
-	- A `Charcoal\View\ViewInterface` instance
-	- Typically a `\Charcoal\View\GenericView` object.
-	- Configured by `config['view']`
-- `database`
-  - The default _PDO_ database.
-  - From a pool of database, available through `databases`.
-  - Configured by `config['databases']` and `config['default_database']`.
-- `translator`
-  - To do.
+-   `config`
+  -   A `\Charcoal\App\AppConfig` instance.
+-   `logger`
+  -   A `\Psr\Log\Logger` instance.
+  -   Provided by _Monolog_.
+  -   Configured by `config['logger']`
+-   `cache`
+  -   A `\Stash\Pool` instance.
+  -   Configured by `config['cache']`
+-   `view`
+    -   A `Charcoal\View\ViewInterface` instance
+    -   Typically a `\Charcoal\View\GenericView` object.
+    -   Configured by `config['view']`
+-   `database`
+  -   The default _PDO_ database.
+  -   From a pool of database, available through `databases`.
+  -   Configured by `config['databases']` and `config['default_database']`.
+-   `translator`
+  -   To do.
 
 ## App Service Provider
 
@@ -711,11 +711,11 @@ A full example, in JSON format:
 
 ```json
 {
-	"cache":{
-		"types": ["memcache", "memory"],
-		"default_ttl": 0,
-		"prefix": "charcoal"
-	}
+    "cache": {
+        "types": ["memcache", "memory"],
+        "default_ttl": 0,
+        "prefix": "charcoal"
+    }
 }
 ```
 
@@ -761,16 +761,16 @@ Or, in JSON format:
 
 ```json
 {
-	"databases":{
-		"foobar":{
-			"type":"mysql",
-			"hostname":"dbserver.example.com",
-			"username":"dbuser",
-			"password":"dbpassword",
-			"disable_utf8":false
-		}
-	},
-	"default_database":"foobar"
+    "databases": {
+        "foobar": {
+            "type": "mysql",
+            "hostname": "dbserver.example.com",
+            "username": "dbuser",
+            "password": "dbpassword",
+            "disable_utf8": false
+        }
+    },
+    "default_database": "foobar"
 }
 ```
 
@@ -786,8 +786,8 @@ A `\Monolog\Logger` is actually provided in charcoal-app.
 
 Also available are the following helpers:
 
-- `logger/config`
-	+ A `\Charcoal\App\Config\LoggerConfig` instance holding the logger configuration.
+-   `logger/config`
+    -   A `\Charcoal\App\Config\LoggerConfig` instance holding the logger configuration.
 
 ### Logger config
 
@@ -802,17 +802,17 @@ Possible **processors** are `memory-usage` and `uid`.
 
 ```json
 {
-	"logger":{
-		"active":true,
-		"handlers":{
-			"stream":{},
-			"console":{}
-		},
-		"processors":{
-			"memory_usage":{},
-			"uid":{}
-		}
-	}
+    "logger": {
+        "active": true,
+        "handlers": {
+            "stream": {},
+            "console": {}
+        },
+        "processors": {
+            "memory_usage": {},
+            "uid": {}
+        }
+    }
 }
 ```
 
@@ -820,12 +820,12 @@ Possible **processors** are `memory-usage` and `uid`.
 
 The `TranslatorServiceProvider`, or `charcoal/app/service-provider/translator` provides the following services:
 
-- `translator`
-	+ Todo
+-   `translator`
+    -   Todo
 
 Also available are the following helpers:
 
-- `translator/config`
+-   `translator/config`
 
 ### Translator config
 
@@ -840,24 +840,24 @@ Or, in JSON format:
 
 ```json
 {
-	"translator": {
-		"active": true,
-		"types": [],
-		"locales": {
-			"repositories":[],
-			"languages":{
-				"en":{},
-				"fr":{}
-			},
-			"default_language":"",
-			"fallback_languages":["en"]
-		},
-		"translations": {
-			"paths": [],
-			"messages": []
-		}
+    "translator": {
+        "active": true,
+        "types": [],
+        "locales": {
+            "repositories": [],
+            "languages": {
+                "en": {},
+                "fr": {}
+            },
+            "default_language": "",
+            "fallback_languages": ["en"]
+        },
+        "translations": {
+            "paths": [],
+            "messages": []
+        }
 
-	}
+    }
 }
 ```
 
@@ -875,10 +875,10 @@ The `ViewServiceProvider`, or `charcoal/app/service-provider/view` provides the 
 
 Also available are the following helpers:
 
-- `view/config`
-	+ The main View configuration `\Charcoal\View\ViewConfig`
-- `view/engine`
-	+ The default View engine (`\Charcoal\View\EngineInterface`)
+-   `view/config`
+    -   The main View configuration `\Charcoal\View\ViewConfig`
+-   `view/engine`
+    -   The default View engine (`\Charcoal\View\EngineInterface`)
 
 ### View Config
 
@@ -894,16 +894,16 @@ Or, in JSON format:
 
 ```json
 {
-	"view": {
-		"paths":[
-			"templates/",
-			"vendor/locomotivemtl/charcoal-admin/templates/"
-		],
-		"engines":{
-			"mustache":{}
-		},
-		"default_engine":"mustache"
-	}
+    "view": {
+        "paths": [
+            "templates/",
+            "vendor/locomotivemtl/charcoal-admin/templates/"
+        ],
+        "engines": {
+            "mustache": {}
+        },
+        "default_engine": "mustache"
+    }
 }
 ```
 
@@ -954,14 +954,14 @@ Run the code checkers and unit tests with:
 
 ## API documentation
 
-- The auto-generated `phpDocumentor` API documentation is available at [https://locomotivemtl.github.io/charcoal-app/docs/master/](https://locomotivemtl.github.io/charcoal-app/docs/master/)
-- The auto-generated `apigen` API documentation is available at [https://locomotivemtl.github.io/charcoal-app/apigen/master/](https://locomotivemtl.github.io/charcoal-app/apigen/master/)
+-   The auto-generated `phpDocumentor` API documentation is available at [https://locomotivemtl.github.io/charcoal-app/docs/master/](https://locomotivemtl.github.io/charcoal-app/docs/master/)
+-   The auto-generated `apigen` API documentation is available at [https://locomotivemtl.github.io/charcoal-app/apigen/master/](https://locomotivemtl.github.io/charcoal-app/apigen/master/)
 
 ## Development dependencies
 
-- `phpunit/phpunit`
-- `squizlabs/php_codesniffer`
-- `satooshi/php-coveralls`
+-   `phpunit/phpunit`
+-   `squizlabs/php_codesniffer`
+-   `satooshi/php-coveralls`
 
 ## Continuous Integration
 
@@ -976,19 +976,19 @@ Run the code checkers and unit tests with:
 
 The Charcoal-App module follows the Charcoal coding-style:
 
-- [_PSR-1_](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-1-basic-coding-standard.md)
-- [_PSR-2_](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md)
-- [_PSR-4_](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-4-autoloader.md), autoloading is therefore provided by _Composer_.
-- [_phpDocumentor_](http://phpdoc.org/) comments.
-- Read the [phpcs.xml](phpcs.xml) file for all the details on code style.
+-   [_PSR-1_](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-1-basic-coding-standard.md)
+-   [_PSR-2_](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md)
+-   [_PSR-4_](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-4-autoloader.md), autoloading is therefore provided by _Composer_.
+-   [_phpDocumentor_](http://phpdoc.org/) comments.
+-   Read the [phpcs.xml](phpcs.xml) file for all the details on code style.
 
 > Coding style validation / enforcement can be performed with `composer phpcs`. An auto-fixer is also available with `composer phpcbf`.
 
 ## Authors
 
-- Mathieu Ducharme <mat@locomotive.ca>
-- Chauncey McAskill <chauncey@locomotive.ca>
-- Benjamin Roch <benjamin@locomotive.ca>
+-   Mathieu Ducharme <mat@locomotive.ca>
+-   Chauncey McAskill <chauncey@locomotive.ca>
+-   Benjamin Roch <benjamin@locomotive.ca>
 
 ## Changelog
 
@@ -996,11 +996,11 @@ The Charcoal-App module follows the Charcoal coding-style:
 
 _2016-05-02_
 
-- Fix binary; do not attempt to include files that probably dont exist
-- Logger is now optional for widget (a null logger will be created if none is provided)
+-   Fix binary; do not attempt to include files that probably dont exist
+-   Logger is now optional for widget (a null logger will be created if none is provided)
 
 ### 0.1
 
 _2016-03-30_
 
-- Initial release
+-   Initial release

@@ -1,59 +1,61 @@
 {
-  "name": "locomotivemtl/charcoal-app",
-  "description": "Charcoal App, based on Slim 3",
-  "homepage": "https://charcoal.locomotive.ca",
-  "license": "MIT",
-  "support": {
-    "issues": "https://github.com/locomotivemtl/charcoal-app/issues",
-    "source": "https://github.com/locomotivemtl/charcoal-app"
-  },
-  "authors": [
-    {
-      "name": "Mathieu Ducharme",
-      "email": "mat@locomotive.ca"
+    "name": "locomotivemtl/charcoal-app",
+    "description": "Charcoal App, based on Slim 3",
+    "homepage": "https://charcoal.locomotive.ca",
+    "license": "MIT",
+    "support": {
+        "issues": "https://github.com/locomotivemtl/charcoal-app/issues",
+        "source": "https://github.com/locomotivemtl/charcoal-app"
     },
-    {
-      "name": "Locomotive",
-      "homepage": "https://locomotive.ca"
-    }
-  ],
-  "extra": {
-      "branch-alias": {
-          "dev-master": "0.1.x-dev"
-      }
-  },
-  "minimum-stability":"dev",
-  "require": {
-    "php": ">=5.5.0",
-    "slim/slim": "~3.4",
-    "monolog/monolog": "^1.17",
-    "tedivm/stash": "~0.14",
-    "locomotivemtl/charcoal-config": "~0.6",
-    "locomotivemtl/charcoal-factory": "~0.4",
-    "locomotivemtl/charcoal-view": "~0.1",
-    "locomotivemtl/charcoal-translation": "dev-master",
-    "league/climate": "^3.2"
-  },
-  "require-dev": {
-    "phpunit/phpunit": "^4.8",
-    "squizlabs/php_codesniffer": "^2.4",
-    "satooshi/php-coveralls":"~1.0.1"
-  },
-  "autoload": {
-    "psr-4": {
-      "Charcoal\\": "src/Charcoal/"
-    }
-  },
-  "bin": [ "bin/charcoal" ],
-  "scripts": {
-    "test": [
-      "@phplint",
-      "@phpcs",
-      "@phpunit"
+    "authors": [
+        {
+            "name": "Mathieu Ducharme",
+            "email": "mat@locomotive.ca"
+        },
+        {
+            "name": "Locomotive",
+            "homepage": "https://locomotive.ca"
+        }
     ],
-    "phplint": "find {src,tests} -name '*.php' -print0 | xargs -0 -n1 -P8 php -l | grep -v '^No syntax errors detected'; test $? -eq 1",
-    "phpunit": "php vendor/bin/phpunit --configuration tests/phpunit.xml --coverage-text",
-    "phpcs": "php vendor/bin/phpcs --config-set ignore_warnings_on_exit 1;php vendor/bin/phpcs -ps --colors --standard=phpcs.xml src/",
-    "phpcbf": "php vendor/bin/phpcbf -ps --colors --standard=phpcs.xml src/ tests/"
-  }
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=5.5.0",
+        "psr/log": "^1.0",
+        "psr/http-message": "^1.0",
+        "slim/slim": "~3.4",
+        "monolog/monolog": "^1.17",
+        "tedivm/stash": "~0.14",
+        "league/climate": "^3.2",
+        "locomotivemtl/charcoal-config": "~0.6",
+        "locomotivemtl/charcoal-factory": "~0.4",
+        "locomotivemtl/charcoal-view": "~0.1",
+        "locomotivemtl/charcoal-translation": "dev-master"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^4.8",
+        "squizlabs/php_codesniffer": "^2.4",
+        "satooshi/php-coveralls": "~1.0.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Charcoal\\": "src/Charcoal/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.1.x-dev"
+        }
+    },
+    "bin": [ "bin/charcoal" ],
+    "scripts": {
+        "test": [
+            "@phplint",
+            "@phpcs",
+            "@phpunit"
+        ],
+        "phplint": "find {src,tests} -name '*.php' -print0 | xargs -0 -n1 -P8 php -l | grep -v '^No syntax errors detected'; test $? -eq 1",
+        "phpunit": "php vendor/bin/phpunit --configuration tests/phpunit.xml --coverage-text",
+        "phpcs": "php vendor/bin/phpcs --config-set ignore_warnings_on_exit 1;php vendor/bin/phpcs -ps --colors --standard=phpcs.xml src/",
+        "phpcbf": "php vendor/bin/phpcbf -ps --colors --standard=phpcs.xml src/ tests/"
+    }
 }

@@ -40,8 +40,8 @@ $config->set('ROOT', $baseDir . '/');
 
 // Create container and configure it (with charcoal-config)
 $container = new AppContainer([
-    'settings'  => [],
-    'config'    => $config
+    'settings' => [],
+    'config'   => $config
 ]);
 
 // Handle "404 Not Found"
@@ -71,7 +71,7 @@ $container['errorHandler'] = function ($c)
 // Fake environment (for CLI) with path
 $container['environment'] = function($c) use ($path) {
     return SlimEnvironment::mock([
-        'PATH_INFO' => $path,
+        'PATH_INFO'   => $path,
         'REQUEST_URI' => $path
     ]);
 };
