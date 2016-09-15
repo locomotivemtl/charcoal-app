@@ -1,12 +1,10 @@
 {
     "name": "locomotivemtl/charcoal-app",
+    "type": "library",
     "description": "Charcoal App, based on Slim 3",
+    "keywords": [ "charcoal", "framework", "slim", "cms" ],
     "homepage": "https://charcoal.locomotive.ca",
     "license": "MIT",
-    "support": {
-        "issues": "https://github.com/locomotivemtl/charcoal-app/issues",
-        "source": "https://github.com/locomotivemtl/charcoal-app"
-    },
     "authors": [
         {
             "name": "Mathieu Ducharme",
@@ -18,6 +16,11 @@
         }
     ],
     "minimum-stability": "dev",
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.1.x-dev"
+        }
+    },
     "require": {
         "php": ">=5.5.0",
         "psr/log": "^1.0",
@@ -39,11 +42,6 @@
     "autoload": {
         "psr-4": {
             "Charcoal\\": "src/Charcoal/"
-        }
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "0.1.x-dev"
         }
     },
     "bin": [ "bin/charcoal" ],
