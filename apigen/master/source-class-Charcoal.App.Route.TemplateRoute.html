@@ -333,7 +333,7 @@
 </span></span><span id="159" class="l"><a href="#159">159: </a><span class="php-comment">     */</span>
 </span><span id="160" class="l"><a href="#160">160: </a>    <span class="php-keyword1">protected</span> <span class="php-keyword1">function</span> parseRedirect(<span class="php-var">$redirection</span>, RequestInterface <span class="php-var">$request</span>)
 </span><span id="161" class="l"><a href="#161">161: </a>    {
-</span><span id="162" class="l"><a href="#162">162: </a>        <span class="php-var">$uri</span>   = <span class="php-var">$request</span>-&gt;getUri();
+</span><span id="162" class="l"><a href="#162">162: </a>        <span class="php-var">$uri</span>   = <span class="php-var">$request</span>-&gt;getUri()-&gt;withUserInfo(<span class="php-quote">''</span>);
 </span><span id="163" class="l"><a href="#163">163: </a>        <span class="php-var">$parts</span> = <span class="php-keyword2">parse_url</span>(<span class="php-var">$redirection</span>);
 </span><span id="164" class="l"><a href="#164">164: </a>
 </span><span id="165" class="l"><a href="#165">165: </a>        <span class="php-keyword1">if</span> (!<span class="php-keyword1">empty</span>(<span class="php-var">$parts</span>)) {
