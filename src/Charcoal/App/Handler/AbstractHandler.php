@@ -112,7 +112,7 @@ abstract class AbstractHandler implements
     public function setDependencies(Container $container)
     {
         $this->setContainer($container);
-        $this->setBaseUrl($container['request']->getUri());
+        $this->setBaseUrl($container['base-url']);
         $this->setView($container['view']);
         $this->setCatalog($container['translator/catalog']);
 
