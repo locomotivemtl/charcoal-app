@@ -157,7 +157,6 @@ class AppConfig extends AbstractConfig
      * Retrieve the application's absolute root path.
      *
      * @deprecated In favor of {self::basePath()}
-     * @todo   Add `trigger_error('...', E_USER_DEPRECATED)`: "ROOT() is deprecated. Use basePath() instead."
      * @return string The absolute path to the application's root directory.
      */
     public function ROOT()
