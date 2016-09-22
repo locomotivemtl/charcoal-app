@@ -159,7 +159,7 @@ class TemplateRoute implements
      */
     protected function parseRedirect($redirection, RequestInterface $request)
     {
-        $uri   = $request->getUri();
+        $uri   = $request->getUri()->withUserInfo('');
         $parts = parse_url($redirection);
 
         if (!empty($parts)) {

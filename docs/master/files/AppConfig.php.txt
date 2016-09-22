@@ -141,12 +141,13 @@ class AppConfig extends AbstractConfig
      * Resolves symlinks with realpath() and ensure trailing slash.
      *
      * @deprecated In favor of {self::setBasePath()}
-     * @todo   Add `trigger_error('...', E_USER_DEPRECATED)`: "setROOT() is deprecated. Use setBasePath() instead."
      * @param  string $path The absolute path to the application's root directory.
      * @return AppConfig Chainable
      */
     public function setROOT($path)
     {
+        trigger_error('setROOT() is deprecated. Use setBasePath() instead.', E_USER_DEPRECATED);
+
         $this->setBasePath($path);
 
         return $this;
@@ -161,7 +162,38 @@ class AppConfig extends AbstractConfig
      */
     public function ROOT()
     {
+        trigger_error('ROOT() is deprecated. Use basePath() instead.', E_USER_DEPRECATED);
+
         return $this->basePath();
+    }
+
+    /**
+     * Set the application's fully qualified base URL to the public web directory.
+     *
+     * @deprecated In favor of {self::setBaseUrl()}
+     * @param  string $uri The base URI to the application's web directory.
+     * @return AppConfig Chainable
+     */
+    public function setURL($uri)
+    {
+        trigger_error('setURL() is deprecated. Use setBaseUrl() instead.', E_USER_DEPRECATED);
+
+        $this->setBaseUrl($uri);
+
+        return $this;
+    }
+
+    /**
+     * Retrieve the application's fully qualified base URL to the public web directory.
+     *
+     * @deprecated In favor of {self::baseUrl()}
+     * @return string The base URI to the application's web directory.
+     */
+    public function URL()
+    {
+        trigger_error('URL() is deprecated. Use baseUrl() instead.', E_USER_DEPRECATED);
+
+        return $this->baseUrl();
     }
 
     /**
@@ -285,9 +317,22 @@ class AppConfig extends AbstractConfig
     }
 
     /**
+     * Set the application's fully qualified base URL to the public web directory.
+     *
+     * @param  string|\Psr\Http\Message\UriInterface $uri The base URI to the application's web directory.
+     * @return AppConfig Chainable
+     */
+    public function setBaseUrl($uri)
+    {
+        $this->baseUrl = \Slim\Http\Uri::createFromString($uri);
+
+        return $this;
+    }
+
+    /**
      * Retrieve the application's fully qualified base URL to the public web directory.
      *
-     * @return string The base URI to the application's web directory.
+     * @return string|\Psr\Http\Message\UriInterface The base URI to the application's web directory.
      */
     public function baseUrl()
     {

@@ -6,6 +6,9 @@ namespace Charcoal\App\ServiceProvider;
 use \Pimple\ServiceProviderInterface;
 use \Pimple\Container;
 
+// Dependencies from Slim
+use \Slim\Http\Uri;
+
 // Dependencies from charcoal-factory
 use \Charcoal\Factory\GenericFactory as Factory;
 
@@ -76,7 +79,7 @@ class AppServiceProvider implements ServiceProviderInterface
              * or the Charcoal application.
              *
              * @param Container $container
-             * @return UriInterface
+             * @return \Psr\Http\Message\UriInterface
              */
             $container['base-url'] = function (Container $container) {
                 if (isset($container['config']['base_url'])) {
@@ -85,7 +88,9 @@ class AppServiceProvider implements ServiceProviderInterface
                     $baseUrl = $container['request']->getUri()->getBaseUrl();
                 }
 
-                return \Slim\Http\Uri::createFromString($baseUrl);
+                $baseUrl = Uri::createFromString($baseUrl)->withUserInfo('');
+
+                return $baseUrl;
             };
         }
 
