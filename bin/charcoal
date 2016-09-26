@@ -36,7 +36,7 @@ $path = '/'.ltrim($argv[1], '/');
 
 $config = new AppConfig();
 $config->addFile($baseDir.'/config/config.php');
-$config->set('ROOT', $baseDir . '/');
+$config->set('base_path', $baseDir . '/');
 
 // Create container and configure it (with charcoal-config)
 $container = new AppContainer([
