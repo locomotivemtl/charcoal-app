@@ -2,7 +2,8 @@
 
 namespace Charcoal\App\ServiceProvider;
 
-// PDO dependencies
+// PHP dependencies
+use \Exception;
 use \PDO;
 
 // Dependencies from `pimple/pimple`
@@ -111,12 +112,18 @@ class DatabaseServiceProvider implements ServiceProviderInterface
         * The database service, as a PDO object.
         *
         * @param Container $container A container instance.
+        * @throws Exception If the database configuration is invalid.
         * @return PDO
         */
         $container['database'] = function (Container $container) {
             $config = $container['config'];
             $databaseIdent = $config['default_database'];
             $databases = $container['databases'];
+            if (!isset($databases[$databaseIdent])) {
+                throw new Exception(
+                    sprintf('The database "%s" is not defined in the "databases" configuration.', $databaseIdent)
+                );
+            }
             return $databases[$databaseIdent];
         };
     }
