@@ -110,16 +110,29 @@ abstract class AbstractScript extends AbstractEntity implements
     final public function __invoke(RequestInterface $request, ResponseInterface $response)
     {
         $this->init();
-        $climate = $this->climate();
 
-        if ($climate->arguments->defined('help')) {
+        $climate   = $this->climate();
+        $arguments = $climate->arguments;
+
+        if ($arguments->defined('help')) {
             $climate->usage();
             return $response;
         }
 
-        $climate->arguments->parse();
-        $this->setQuiet($climate->arguments->get('quiet'));
-        $this->setVerbose($climate->arguments->get('verbose'));
+        if ($arguments->defined('quiet') && $arguments->defined('verbose')) {
+            $climate->error('You must choose one of --quiet or --verbose');
+            return $response;
+        }
+
+        if ($arguments->defined('quiet')) {
+            $this->setQuiet(true);
+        }
+
+        if ($arguments->defined('verbose')) {
+            $this->setVerbose(true);
+        }
+
+        $arguments->parse();
 
         return $this->run($request, $response);
     }
@@ -142,26 +155,30 @@ abstract class AbstractScript extends AbstractEntity implements
     }
 
     /**
+     * Retrieve the script's supported arguments.
+     *
      * @return array
      */
     public function defaultArguments()
     {
         return [
             'help' => [
+                'prefix'       => 'h',
                 'longPrefix'   => 'help',
-                'description'  => 'Prints a usage statement.',
+                'description'  => 'Display help information.',
                 'noValue'      => true
             ],
             'quiet' => [
                 'prefix'       => 'q',
                 'longPrefix'   => 'quiet',
-                'description'  => 'Disable output as much as possible.',
-                'noValue'      => false
+                'description'  => 'Only print error and warning messages.',
+                'noValue'      => true
             ],
             'verbose' => [
                 'prefix'        => 'v',
                 'longPrefix'    => 'verbose',
-                'description'   => ''
+                'description'   => 'Increase verbosity of messages.',
+                'noValue'       => true
             ]
         ];
     }
