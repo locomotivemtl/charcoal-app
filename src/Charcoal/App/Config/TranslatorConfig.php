@@ -353,7 +353,7 @@ class TranslatorConfig extends AbstractConfig implements MultilingualAwareInterf
      */
     private function setTranslationMessages(array $messages)
     {
-        $this->translationPaths = $messages;
+        $this->translationMessages = $messages;
 
         return $this;
     }

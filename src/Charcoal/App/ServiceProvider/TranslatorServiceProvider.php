@@ -8,13 +8,13 @@ use \RuntimeException;
 use \Pimple\ServiceProviderInterface;
 use \Pimple\Container;
 
-// Dependency from 'charcoal-config'
-use \Charcoal\Config\GenericConfig;
-
 // Dependencies from `charcoal-translation`
 use \Charcoal\Language\Language;
 use \Charcoal\Language\LanguageRepository;
 use \Charcoal\Translation\Catalog\Catalog;
+use \Charcoal\Translation\Catalog\Resource;
+use \Charcoal\Translation\Catalog\ResourceInterface;
+use \Charcoal\Translation\Catalog\ResourceRepository;
 use \Charcoal\Translation\TranslationConfig;
 
 // Intra-Module `charcoal-app` dependencies
@@ -90,6 +90,16 @@ class TranslatorServiceProvider implements ServiceProviderInterface
             return $loader;
         };
 
+        $container['translator/resource-repository'] = function (Container $container) {
+            $config = $container['translator/config']->translations();
+
+            $loader = new ResourceRepository();
+            $loader->setDependencies($container);
+            $loader->setPaths($config['paths']);
+
+            return $loader;
+        };
+
         $container['translator/locales'] = function (Container $container) {
             $repo   = $container['translator/language-repository'];
             $config = $container['translator/config']->locales();
@@ -97,7 +107,7 @@ class TranslatorServiceProvider implements ServiceProviderInterface
                 return (!isset($lang['active']) || $lang['active']);
             });
 
-            if (count($config['languages'])) {
+            if ($langs) {
                 $index = $repo->load(array_keys($langs));
 
                 foreach ($langs as $ident => $data) {
@@ -131,6 +141,8 @@ class TranslatorServiceProvider implements ServiceProviderInterface
         };
 
         $container['translator/catalog'] = function (Container $container) {
+            $repo   = $container['translator/resource-repository'];
+            $langs  = $container['translator/locales']->availableLanguages();
             $config = $container['translator/config']->translations();
 
             /**
@@ -149,42 +161,14 @@ class TranslatorServiceProvider implements ServiceProviderInterface
             }
 
             $catalog = new Catalog($translations);
+            $repo->setCatalog($catalog);
 
-            if (isset($config['paths'])) {
-                $paths = $config['paths'];
+            if ($langs) {
+                $repo->setLanguages($langs);
 
-                $languages = $container['translator/locales']->availableLanguages();
-                $basePath  = $container['config']->get('base_path');
-
-                if (!is_array($paths)) {
-                    $paths = [ $paths ];
-                }
-
-                foreach ($paths as &$path) {
-                    $path = rtrim($path, '/\\').DIRECTORY_SEPARATOR;
-
-                    if (false === strpos($path, $basePath)) {
-                        $path = rtrim($basePath.$path, '/');
-                    }
-
-                    foreach ($languages as $langCode) {
-                        $loader = new GenericConfig();
-                        $exts   = [ 'ini', 'json', 'php' ];
-                        while (!empty($exts)) {
-                            $ext = array_pop($exts);
-                            $cfg = sprintf('%1$s/messages.%2$s.%3$s', $path, $langCode, $ext);
-
-                            if (file_exists($cfg)) {
-                                $loader->addFile($cfg);
-                            }
-                        }
-
-                        if (count($loader->keys())) {
-                            foreach ($loader as $ident => $message) {
-                                $catalog->addEntryTranslation($ident, $langCode, $message);
-                            }
-                        }
-                    }
+                $translations = $repo->load();
+                if ($translations) {
+                    $catalog->addResources($translations);
                 }
             }
 
