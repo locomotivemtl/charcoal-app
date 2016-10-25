@@ -33,7 +33,6 @@ if (!isset($argv[1])) {
 }
 $path = '/'.ltrim($argv[1], '/');
 
-
 $config = new AppConfig();
 $config->addFile($baseDir.'/config/config.php');
 $config->set('base_path', $baseDir . '/');
@@ -45,31 +44,31 @@ $container = new AppContainer([
 ]);
 
 // Handle "404 Not Found"
-$container['notFoundHandler'] = function ($c)
+$container['notFoundHandler'] = function ($container)
 {
-    return function ($request, $response) use ($c)
+    return function ($request, $response) use ($container)
     {
-        return $c['response']
+        return $container['response']
             ->withStatus(404)
             ->write('Script not found'."\n");
     };
 };
 
 // Handle "500 Server Error"
-$container['errorHandler'] = function ($c)
+$container['errorHandler'] = function ($container)
 {
-    return function ($request, $response, $exception) use ($c)
+    return function ($request, $response, $exception) use ($container)
     {
-        return $c['response']
+        return $container['response']
             ->withStatus(500)
             ->write(
-                sprintf('Something went wrong! (%s)'."\n", $exception->getMessage())
+                sprintf('Something went wrong! [%s]'."\n", $exception->getMessage())
             );
     };
 };
 
 // Fake environment (for CLI) with path
-$container['environment'] = function($c) use ($path) {
+$container['environment'] = function($container) use ($path) {
     return SlimEnvironment::mock([
         'PATH_INFO'   => $path,
         'REQUEST_URI' => $path
