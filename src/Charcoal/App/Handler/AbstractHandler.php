@@ -295,9 +295,9 @@ abstract class AbstractHandler implements
                 'es' => 'Error'
             ],
             'application-error' => [
-                'en' => 'Charcoal Application Error',
-                'fr' => 'Erreur de l’application Charcoal',
-                'es' => 'Error Charcoal Aplicación'
+                'en' => 'Application Error',
+                'fr' => 'Erreur de l’application',
+                'es' => 'Error Aplicación'
             ]
         ];
 
