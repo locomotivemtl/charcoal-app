@@ -2,32 +2,31 @@
 
 namespace Charcoal\App\Script;
 
-// Dependencies from `PHP`
 use \InvalidArgumentException;
 
-// PSR-3 (logger) dependencies
+// From PSR-3
 use \Psr\Log\LoggerAwareInterface;
 use \Psr\Log\LoggerAwareTrait;
 
-// PSR-7 (http messaging) dependencies
+// From PSR-7
 use \Psr\Http\Message\RequestInterface;
 use \Psr\Http\Message\ResponseInterface;
 
-// Dependencies from `Pimple`
+// From Pimple
 use \Pimple\Container;
 
-// `thephpleague/climate` dependencies
+// From 'league/climate'
 use \League\CLImate\CLImate;
 
-// Module `charcoal-config` dependencies
+// From 'charcoal-config'
 use \Charcoal\Config\AbstractEntity;
 
-// Intra-module (`charcoal-app`) dependencies
+// From 'charcoal-app'
 use \Charcoal\App\AppInterface;
 use \Charcoal\App\Script\ScriptInterface;
 
 /**
- *
+ * Abstract CLI Script
  */
 abstract class AbstractScript extends AbstractEntity implements
     LoggerAwareInterface,
@@ -66,6 +65,8 @@ abstract class AbstractScript extends AbstractEntity implements
     private $verbose = false;
 
     /**
+     * Return a new CLI script.
+     *
      * @param array|\ArrayAccess $data The dependencies (app and logger).
      */
     public function __construct($data = null)
@@ -85,7 +86,7 @@ abstract class AbstractScript extends AbstractEntity implements
      * The `$container` DI-container (from `Pimple`) should not be saved or passed around, only to be used to
      * inject dependencies (typically via setters).
      *
-     * @param Container $container A dependencies container instance.
+     * @param  Container $container A dependencies container instance.
      * @return void
      */
     public function setDependencies(Container $container)
@@ -103,8 +104,8 @@ abstract class AbstractScript extends AbstractEntity implements
     }
 
     /**
-     * @param RequestInterface  $request  A PSR-7 compatible Request instance.
-     * @param ResponseInterface $response A PSR-7 compatible Response instance.
+     * @param  RequestInterface  $request  A PSR-7 compatible Request instance.
+     * @param  ResponseInterface $response A PSR-7 compatible Response instance.
      * @return ResponseInterface
      */
     final public function __invoke(RequestInterface $request, ResponseInterface $response)
@@ -165,20 +166,31 @@ abstract class AbstractScript extends AbstractEntity implements
             'help' => [
                 'prefix'       => 'h',
                 'longPrefix'   => 'help',
-                'description'  => 'Display help information.',
-                'noValue'      => true
+                'noValue'      => true,
+                'description'  => 'Display help information.'
             ],
             'quiet' => [
                 'prefix'       => 'q',
                 'longPrefix'   => 'quiet',
-                'description'  => 'Only print error and warning messages.',
-                'noValue'      => true
+                'noValue'      => true,
+                'description'  => 'Only print error and warning messages.'
             ],
             'verbose' => [
                 'prefix'        => 'v',
                 'longPrefix'    => 'verbose',
-                'description'   => 'Increase verbosity of messages.',
-                'noValue'       => true
+                'noValue'       => true,
+                'description'   => 'Increase verbosity of messages.'
+            ],
+            'interactive' => [
+                'prefix'       => 'i',
+                'longPrefix'   => 'interactive',
+                'noValue'      => true,
+                'description'  => 'Ask any interactive question.'
+            ],
+            'dry_run' => [
+                'longPrefix'   => 'dry-run',
+                'noValue'      => true,
+                'description'  => 'This will simulate the script and show you what would happen.'
             ]
         ];
     }
@@ -321,41 +333,100 @@ abstract class AbstractScript extends AbstractEntity implements
     }
 
     /**
-     * Get an argument either from argument list (if set) or else from an input prompt.
+     * Retrieve an argument either from argument list (if set) or from user input.
      *
-     * @param string $argName The argument identifier to read from list or input.
-     * @return string The argument value or prompt value
+     * @param  string $argName An argument identifier.
+     * @return mixed Returns the argument or prompt value.
      */
     protected function argOrInput($argName)
     {
         $climate = $this->climate();
-        $arg = $climate->arguments->get($argName);
+
+        $value = $climate->arguments->get($argName);
+        if ($value) {
+            return $value;
+        }
+
+        return $this->input($argName);
+    }
+
+    /**
+     * Request a value from the user for the given argument.
+     *
+     * @param  string $name An argument identifier.
+     * @throws RuntimeException If a radio or checkbox prompt has no options.
+     * @return mixed Returns the prompt value.
+     */
+    protected function input($name)
+    {
+        $cli = $this->climate();
+        $arg = $this->argument($name);
 
         if ($arg) {
-            return $arg;
+            $type = (isset($arg['inputType']) ? $arg['inputType'] : 'input');
+
+            if (isset($arg['prompt'])) {
+                $label = $arg['prompt'];
+            } elseif (isset($arg['description'])) {
+                $label = $arg['description'];
+            } else {
+                $label = $name;
+            }
+
+            if (isset($arg['choices'])) {
+                $arg['options'] = $arg['choices'];
+                $arg['acceptValue'] = $arg['choices'];
+            }
+
+            $accept = true;
+        } else {
+            $type   = 'input';
+            $label  = $name;
+            $accept = false;
         }
 
-        $arguments = $this->arguments();
-        if (isset($arguments[$argName])) {
-            $a = $arguments[$argName];
-            $arg_desc = $a['description'];
-            $input_type = isset($a['inputType']) ? $a['inputType'] : 'text';
-            $choices = isset($a['choices']) ? $a['choices'] : null;
-        } else {
-            $arg_desc = $argName;
-            $input_type = 'text';
-            $choices = null;
+        $prompt = 'prompt';
+        switch ($type) {
+            case 'checkboxes':
+            case 'radio':
+                if (!isset($arg['options'])) {
+                    throw new RuntimeException(
+                        sprintf('The [%s] argument has no options.', $key)
+                    );
+                }
+
+                $accept = false;
+                $input  = $cli->{$type}($label, $arg['options']);
+                break;
+
+            case 'confirm':
+                $prompt = 'confirmed';
+                $input  = $cli->confirm($label);
+                break;
+
+            case 'password':
+                $input = $cli->password($label);
+                $input->multiLine();
+                break;
+
+            case 'multiline':
+                $input = $cli->input($label);
+                $input->multiLine();
+                break;
+
+            default:
+                $input = $cli->input($label);
+                break;
         }
 
-        if ($input_type == 'checkbox') {
-            $input = $climate->checkboxes(sprintf('Select %s', $arg_desc), $choices);
-        } else {
-            $input = $climate->input(sprintf('Enter %s:', $arg_desc));
-            if ($choices) {
-                $input->accept(array_keys($choices), true);
+        if ($accept) {
+            if (isset($arg['acceptValue'])) {
+                if (is_array($arg['acceptValue']) || is_callable($arg['acceptValue'])) {
+                    $input->accept($arg['acceptValue']);
+                }
             }
         }
-        $arg = $input->prompt();
-        return $arg;
+
+        return $input->{$prompt}();
     }
 }

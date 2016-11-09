@@ -5,8 +5,8 @@ namespace Charcoal\App\Script;
 use \Exception;
 
 /**
-*
-*/
+ * Cron-job utilities
+ */
 trait CronScriptTrait
 {
     /**
@@ -19,7 +19,6 @@ trait CronScriptTrait
      * @var resource $lockFilePointer
      */
     private $lockFilePointer;
-
 
     /**
      * @param boolean $useLock The boolean flag if a lock should be used.
@@ -47,7 +46,7 @@ trait CronScriptTrait
     {
         $lockName = str_replace('\\', '-', get_class($this));
         $lockName .= md5(__DIR__);
-// Ensure uniqueness for project on server
+        // Ensure uniqueness for project on server
         $lockFile = sys_get_temp_dir().'/'.$lockName;
         $this->lockFilePointer = fopen($lockFile, 'w');
         if (!$this->lockFilePointer) {
