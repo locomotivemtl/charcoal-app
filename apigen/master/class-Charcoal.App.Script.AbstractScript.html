@@ -91,7 +91,9 @@
 
 			<h3>Traits</h3>
 			<ul>
+				<li><a href="class-Charcoal.App.Script.ArgScriptTrait.html">ArgScriptTrait</a></li>
 				<li><a href="class-Charcoal.App.Script.CronScriptTrait.html">CronScriptTrait</a></li>
+				<li><a href="class-Charcoal.App.Script.PathScriptTrait.html">PathScriptTrait</a></li>
 			</ul>
 
 
@@ -131,6 +133,9 @@
 	<h1>Class AbstractScript</h1>
 
 
+	<div class="description">
+	<p>Abstract CLI Script</p>
+	</div>
 
 	<dl class="tree">
 		<dd style="padding-left:0px">
@@ -166,7 +171,7 @@ Charcoal\Config\AbstractEntity
 		<b>Namespace:</b> <a href="namespace-Charcoal.html">Charcoal</a>\<a href="namespace-Charcoal.App.html">App</a>\<a href="namespace-Charcoal.App.Script.html">Script</a><br>
 		
 
-			<b>Located at</b> <a href="source-class-Charcoal.App.Script.AbstractScript.html#29-361" title="Go to source code">Charcoal/App/Script/AbstractScript.php</a>
+			<b>Located at</b> <a href="source-class-Charcoal.App.Script.AbstractScript.html#28-432" title="Go to source code">Charcoal/App/Script/AbstractScript.php</a>
 		<br>
 	</div>
 
@@ -186,14 +191,14 @@ Charcoal\Config\AbstractEntity
 
 		<td class="name"><div>
 		<a class="anchor" href="#___construct">#</a>
-		<code><a href="source-class-Charcoal.App.Script.AbstractScript.html#68-78" title="Go to source code">__construct</a>( <span>array|ArrayAccess <var>$data</var> = <span class="php-keyword1">null</span></span> )</code>
+		<code><a href="source-class-Charcoal.App.Script.AbstractScript.html#67-79" title="Go to source code">__construct</a>( <span>array|ArrayAccess <var>$data</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
-			
+			<p>Return a new CLI script.</p>
 		</div>
 
 		<div class="description detailed hidden">
-			
+			<p>Return a new CLI script.</p>
 
 
 				<h4>Parameters</h4>
@@ -221,7 +226,7 @@ Charcoal\Config\AbstractEntity
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setDependencies">#</a>
-		<code><a href="source-class-Charcoal.App.Script.AbstractScript.html#80-94" title="Go to source code">setDependencies</a>( <span>Pimple\Container <var>$container</var></span> )</code>
+		<code><a href="source-class-Charcoal.App.Script.AbstractScript.html#81-95" title="Go to source code">setDependencies</a>( <span>Pimple\Container <var>$container</var></span> )</code>
 
 		<div class="description short">
 			<p>Give an opportunity to children classes to inject dependencies from a Pimple Container.</p>
@@ -263,7 +268,7 @@ inject dependencies (typically via setters).</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_init">#</a>
-		<code><a href="source-class-Charcoal.App.Script.AbstractScript.html#96-103" title="Go to source code">init</a>( )</code>
+		<code><a href="source-class-Charcoal.App.Script.AbstractScript.html#97-104" title="Go to source code">init</a>( )</code>
 
 		<div class="description short">
 			
@@ -293,7 +298,7 @@ inject dependencies (typically via setters).</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#___invoke">#</a>
-		<code><a href="source-class-Charcoal.App.Script.AbstractScript.html#105-138" title="Go to source code">__invoke</a>( <span>Psr\Http\Message\RequestInterface <var>$request</var></span>, <span>Psr\Http\Message\ResponseInterface <var>$response</var></span> )</code>
+		<code><a href="source-class-Charcoal.App.Script.AbstractScript.html#106-139" title="Go to source code">__invoke</a>( <span>Psr\Http\Message\RequestInterface <var>$request</var></span>, <span>Psr\Http\Message\ResponseInterface <var>$response</var></span> )</code>
 
 		<div class="description short">
 			
@@ -334,7 +339,7 @@ inject dependencies (typically via setters).</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_climate">#</a>
-		<code><a href="source-class-Charcoal.App.Script.AbstractScript.html#140-155" title="Go to source code">climate</a>( )</code>
+		<code><a href="source-class-Charcoal.App.Script.AbstractScript.html#141-156" title="Go to source code">climate</a>( )</code>
 
 		<div class="description short">
 			<p>Safe climate getter.
@@ -375,7 +380,7 @@ If the instance was not previously set, create it.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_defaultArguments">#</a>
-		<code><a href="source-class-Charcoal.App.Script.AbstractScript.html#157-184" title="Go to source code">defaultArguments</a>( )</code>
+		<code><a href="source-class-Charcoal.App.Script.AbstractScript.html#158-196" title="Go to source code">defaultArguments</a>( )</code>
 
 		<div class="description short">
 			<p>Retrieve the script's supported arguments.</p>
@@ -409,7 +414,7 @@ If the instance was not previously set, create it.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setIdent">#</a>
-		<code><a href="source-class-Charcoal.App.Script.AbstractScript.html#186-200" title="Go to source code">setIdent</a>( <span>string <var>$ident</var></span> )</code>
+		<code><a href="source-class-Charcoal.App.Script.AbstractScript.html#198-212" title="Go to source code">setIdent</a>( <span>string <var>$ident</var></span> )</code>
 
 		<div class="description short">
 			
@@ -454,7 +459,7 @@ If the instance was not previously set, create it.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_ident">#</a>
-		<code><a href="source-class-Charcoal.App.Script.AbstractScript.html#202-208" title="Go to source code">ident</a>( )</code>
+		<code><a href="source-class-Charcoal.App.Script.AbstractScript.html#214-220" title="Go to source code">ident</a>( )</code>
 
 		<div class="description short">
 			
@@ -490,7 +495,7 @@ If the instance was not previously set, create it.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setDescription">#</a>
-		<code><a href="source-class-Charcoal.App.Script.AbstractScript.html#210-225" title="Go to source code">setDescription</a>( <span>string <var>$description</var></span> )</code>
+		<code><a href="source-class-Charcoal.App.Script.AbstractScript.html#222-237" title="Go to source code">setDescription</a>( <span>string <var>$description</var></span> )</code>
 
 		<div class="description short">
 			
@@ -535,7 +540,7 @@ If the instance was not previously set, create it.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_description">#</a>
-		<code><a href="source-class-Charcoal.App.Script.AbstractScript.html#227-233" title="Go to source code">description</a>( )</code>
+		<code><a href="source-class-Charcoal.App.Script.AbstractScript.html#239-245" title="Go to source code">description</a>( )</code>
 
 		<div class="description short">
 			
@@ -571,7 +576,7 @@ If the instance was not previously set, create it.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setQuiet">#</a>
-		<code><a href="source-class-Charcoal.App.Script.AbstractScript.html#235-243" title="Go to source code">setQuiet</a>( <span>boolean <var>$quiet</var></span> )</code>
+		<code><a href="source-class-Charcoal.App.Script.AbstractScript.html#247-255" title="Go to source code">setQuiet</a>( <span>boolean <var>$quiet</var></span> )</code>
 
 		<div class="description short">
 			
@@ -610,7 +615,7 @@ If the instance was not previously set, create it.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_quiet">#</a>
-		<code><a href="source-class-Charcoal.App.Script.AbstractScript.html#245-251" title="Go to source code">quiet</a>( )</code>
+		<code><a href="source-class-Charcoal.App.Script.AbstractScript.html#257-263" title="Go to source code">quiet</a>( )</code>
 
 		<div class="description short">
 			
@@ -644,7 +649,7 @@ If the instance was not previously set, create it.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setVerbose">#</a>
-		<code><a href="source-class-Charcoal.App.Script.AbstractScript.html#253-261" title="Go to source code">setVerbose</a>( <span>boolean <var>$verbose</var></span> )</code>
+		<code><a href="source-class-Charcoal.App.Script.AbstractScript.html#265-273" title="Go to source code">setVerbose</a>( <span>boolean <var>$verbose</var></span> )</code>
 
 		<div class="description short">
 			
@@ -683,7 +688,7 @@ If the instance was not previously set, create it.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_verbose">#</a>
-		<code><a href="source-class-Charcoal.App.Script.AbstractScript.html#263-269" title="Go to source code">verbose</a>( )</code>
+		<code><a href="source-class-Charcoal.App.Script.AbstractScript.html#275-281" title="Go to source code">verbose</a>( )</code>
 
 		<div class="description short">
 			
@@ -717,7 +722,7 @@ If the instance was not previously set, create it.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setArguments">#</a>
-		<code><a href="source-class-Charcoal.App.Script.AbstractScript.html#271-283" title="Go to source code">setArguments</a>( <span>array <var>$arguments</var></span> )</code>
+		<code><a href="source-class-Charcoal.App.Script.AbstractScript.html#283-295" title="Go to source code">setArguments</a>( <span>array <var>$arguments</var></span> )</code>
 
 		<div class="description short">
 			
@@ -758,7 +763,7 @@ If the instance was not previously set, create it.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_addArgument">#</a>
-		<code><a href="source-class-Charcoal.App.Script.AbstractScript.html#285-301" title="Go to source code">addArgument</a>( <span>string <var>$argumentIdent</var></span>, <span>array <var>$argument</var></span> )</code>
+		<code><a href="source-class-Charcoal.App.Script.AbstractScript.html#297-313" title="Go to source code">addArgument</a>( <span>string <var>$argumentIdent</var></span>, <span>array <var>$argument</var></span> )</code>
 
 		<div class="description short">
 			
@@ -805,7 +810,7 @@ If the instance was not previously set, create it.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_arguments">#</a>
-		<code><a href="source-class-Charcoal.App.Script.AbstractScript.html#303-309" title="Go to source code">arguments</a>( )</code>
+		<code><a href="source-class-Charcoal.App.Script.AbstractScript.html#315-321" title="Go to source code">arguments</a>( )</code>
 
 		<div class="description short">
 			
@@ -841,7 +846,7 @@ If the instance was not previously set, create it.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_argument">#</a>
-		<code><a href="source-class-Charcoal.App.Script.AbstractScript.html#311-321" title="Go to source code">argument</a>( <span>string <var>$argumentIdent</var></span> )</code>
+		<code><a href="source-class-Charcoal.App.Script.AbstractScript.html#323-333" title="Go to source code">argument</a>( <span>string <var>$argumentIdent</var></span> )</code>
 
 		<div class="description short">
 			
@@ -875,34 +880,77 @@ If the instance was not previously set, create it.</p>
 		<td class="attributes"><code>
 			 protected 
 
-			string
+			mixed
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_argOrInput">#</a>
-		<code><a href="source-class-Charcoal.App.Script.AbstractScript.html#323-360" title="Go to source code">argOrInput</a>( <span>string <var>$argName</var></span> )</code>
+		<code><a href="source-class-Charcoal.App.Script.AbstractScript.html#335-351" title="Go to source code">argOrInput</a>( <span>string <var>$argName</var></span> )</code>
 
 		<div class="description short">
-			<p>Get an argument either from argument list (if set) or else from an input prompt.</p>
+			<p>Retrieve an argument either from argument list (if set) or from user input.</p>
 		</div>
 
 		<div class="description detailed hidden">
-			<p>Get an argument either from argument list (if set) or else from an input prompt.</p>
+			<p>Retrieve an argument either from argument list (if set) or from user input.</p>
 
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$argName</var></dt>
-					<dd>The argument identifier to read from list or input.</dd>
+					<dd>An argument identifier.</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
 				<div class="list">
-					string<br>The argument value or prompt value
+					mixed<br>Returns the argument or prompt value.
 				</div>
 
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="input" id="_input">
+
+		<td class="attributes"><code>
+			 protected 
+
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_input">#</a>
+		<code><a href="source-class-Charcoal.App.Script.AbstractScript.html#353-431" title="Go to source code">input</a>( <span>string <var>$name</var></span> )</code>
+
+		<div class="description short">
+			<p>Request a value from the user for the given argument.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Request a value from the user for the given argument.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$name</var></dt>
+					<dd>An argument identifier.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					mixed<br>Returns the prompt value.
+				</div>
+
+				<h4>Throws</h4>
+				<div class="list">
+					RuntimeException<br>If a radio or checkbox prompt has no options.
+				</div>
 
 
 
