@@ -65,6 +65,16 @@ abstract class AbstractScript extends AbstractEntity implements
     private $verbose = false;
 
     /**
+     * @var boolean $interactive
+     */
+    private $interactive = false;
+
+    /**
+     * @var boolean $dryRun
+     */
+    private $dryRun = false;
+
+    /**
      * Return a new CLI script.
      *
      * @param array|\ArrayAccess $data The dependencies (app and logger).
@@ -131,6 +141,14 @@ abstract class AbstractScript extends AbstractEntity implements
 
         if ($arguments->defined('verbose')) {
             $this->setVerbose(true);
+        }
+
+        if ($arguments->defined('interactive')) {
+            $this->setInteractive(true);
+        }
+
+        if ($arguments->defined('dry_run')) {
+            $this->setDryRun(true);
         }
 
         $arguments->parse();
@@ -278,6 +296,42 @@ abstract class AbstractScript extends AbstractEntity implements
     public function verbose()
     {
         return $this->verbose;
+    }
+
+    /**
+     * @param boolean $interactive The interactive flag.
+     * @return ScriptInterface Chainable
+     */
+    public function setInteractive($interactive)
+    {
+        $this->interactive = !!$interactive;
+        return $this;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function interactive()
+    {
+        return $this->interactive;
+    }
+
+    /**
+     * @param boolean $simulate The dry-run flag.
+     * @return ScriptInterface Chainable
+     */
+    public function setDryRun($simulate)
+    {
+        $this->dryRun = !!$simulate;
+        return $this;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function dryRun()
+    {
+        return $this->dryRun;
     }
 
     /**
