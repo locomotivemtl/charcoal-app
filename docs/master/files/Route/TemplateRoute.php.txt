@@ -83,8 +83,11 @@ class TemplateRoute implements
      * @param  ResponseInterface $response  A PSR-7 compatible Response instance.
      * @return ResponseInterface
      */
-    public function __invoke(Container $container, RequestInterface $request, ResponseInterface $response)
-    {
+    public function __invoke(
+        Container $container,
+        RequestInterface $request,
+        ResponseInterface $response
+    ) {
         $config = $this->config();
 
         // Handle explicit redirects
@@ -96,22 +99,7 @@ class TemplateRoute implements
             }
         }
 
-        $templateIdent = $config['template'];
-
-        if ($config['cache']) {
-            $cachePool = $container['cache'];
-            $cacheItem = $cachePool->getItem('template/'.$templateIdent);
-
-            $templateContent = $cacheItem->get();
-            if ($cacheItem->isMiss()) {
-                $cacheItem->lock();
-                $templateContent = $this->templateContent($container, $request);
-
-                $cachePool->save($cacheItem->set($templateContent, $config['cache_ttl']));
-            }
-        } else {
-            $templateContent = $this->templateContent($container, $request);
-        }
+        $templateContent = $this->templateContent($container, $request);
 
         $response->write($templateContent);
 
@@ -123,7 +111,36 @@ class TemplateRoute implements
      * @param  RequestInterface $request   The request to intialize the template with.
      * @return string
      */
-    protected function templateContent(Container $container, RequestInterface $request)
+    protected function templateContent(
+        Container $container,
+        RequestInterface $request
+    ) {
+        $config = $this->config();
+
+        if ($config['cache']) {
+            $cachePool = $container['cache'];
+            $cacheItem = $cachePool->getItem('template/'.$config['template']);
+
+            $template = $cacheItem->get();
+            if ($cacheItem->isMiss()) {
+                $cacheItem->lock();
+                $template = $this->renderTemplate($container, $request);
+
+                $cachePool->save($cacheItem->set($template, $config['cache_ttl']));
+            }
+        } else {
+            $template = $this->renderTemplate($container, $request);
+        }
+
+        return $template;
+    }
+
+    /**
+     * @param  Container        $container A DI (Pimple) container.
+     * @param  RequestInterface $request   The request to intialize the template with.
+     * @return string
+     */
+    protected function renderTemplate(Container $container, RequestInterface $request)
     {
         $config   = $this->config();
         $template = $this->createTemplate($container, $request);
