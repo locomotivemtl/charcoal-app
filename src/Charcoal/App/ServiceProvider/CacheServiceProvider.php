@@ -16,7 +16,7 @@ use \Charcoal\App\Config\CacheConfig;
 /**
  * Cache Service Provider
  *
- * Provides a Stash cache pool.
+ * Provides a Stash cache pool (PSR-6 compatible).
  *
  * ## Dependencies
  * - `config` A base app `\Charcoal\Config\ConfigInterface`
