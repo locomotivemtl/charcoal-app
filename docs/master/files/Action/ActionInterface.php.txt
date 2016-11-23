@@ -104,10 +104,10 @@ interface ActionInterface
     public function run(RequestInterface $request, ResponseInterface $response);
 
     /**
-     * Initialize the template with a request.
+     * Initialize the action with a request.
      *
-     * @param RequestInterface $request The request to intialize.
-     * @return boolean
+     * @param RequestInterface $request The request to initialize.
+     * @return boolean Success / Failure.
      */
     public function init(RequestInterface $request);
 }

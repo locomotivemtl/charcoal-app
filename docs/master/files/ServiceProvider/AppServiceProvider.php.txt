@@ -16,6 +16,7 @@ use \Charcoal\Factory\GenericFactory as Factory;
 use \Charcoal\App\Action\ActionInterface;
 use \Charcoal\App\Script\ScriptInterface;
 use \Charcoal\App\Route\RouteInterface;
+use \Charcoal\App\Module\ModuleInterface;
 
 use \Charcoal\App\Handler\Error;
 use \Charcoal\App\Handler\PhpError;
@@ -207,6 +208,8 @@ class AppServiceProvider implements ServiceProviderInterface
     protected function registerRouteServices(Container $container)
     {
         /**
+         * The Route Factory service is used to instanciate new routes.
+         *
          * @param Container $container A container instance.
          * @return \Charcoal\Factory\FactoryInterface
          */
@@ -230,6 +233,11 @@ class AppServiceProvider implements ServiceProviderInterface
     protected function registerRequestControllerServices(Container $container)
     {
         /**
+         * The Action Factory service is used to instanciate new actions.
+         *
+         * - Actions are `ActionInterface` and must be suffixed with `Action`.
+         * - The container is passed to the created action constructor, which will call `setDependencies()`.
+         *
          * @param Container $container A container instance.
          * @return \Charcoal\Factory\FactoryInterface
          */
@@ -248,6 +256,11 @@ class AppServiceProvider implements ServiceProviderInterface
         };
 
         /**
+         * The Script Factory service is used to instanciate new scripts.
+         *
+         * - Scripts are `ScriptInterface` and must be suffixed with `Script`.
+         * - The container is passed to the created script constructor, which will call `setDependencies()`.
+         *
          * @param Container $container A container instance.
          * @return \Charcoal\Factory\FactoryInterface
          */
@@ -265,6 +278,11 @@ class AppServiceProvider implements ServiceProviderInterface
         };
 
         /**
+         * The Template Factory service is used to instanciate new templates.
+         *
+         * - Templates are `TemplateInterface` and must be suffixed with `Template`.
+         * - The container is passed to the created template constructor, which will call `setDependencies()`.
+         *
          * @param Container $container A container instance.
          * @return \Charcoal\Factory\FactoryInterface
          */
@@ -282,6 +300,11 @@ class AppServiceProvider implements ServiceProviderInterface
         };
 
         /**
+         * The Widget Factory service is used to instanciate new widgets.
+         *
+         * - Widgets are `WidgetInterface` and must be suffixed with `Widget`.
+         * - The container is passed to the created widget constructor, which will call `setDependencies()`.
+         *
          * @param Container $container A container instance.
          * @return \Charcoal\Factory\FactoryInterface
          */
@@ -313,12 +336,16 @@ class AppServiceProvider implements ServiceProviderInterface
     protected function registerModuleServices(Container $container)
     {
         /**
+         * The Module Factory service is used to instanciate new modules.
+         *
+         * - Modules are `ModuleInterface` and must be suffixed with `Module`.
+         *
          * @param Container $container A container instance.
          * @return \Charcoal\Factory\FactoryInterface
          */
         $container['module/factory'] = function (Container $container) {
             return new Factory([
-                'base_class' => '\Charcoal\App\Module\ModuleInterface',
+                'base_class' => ModuleInterface::class,
                 'resolver_options' => [
                     'suffix' => 'Module'
                 ],
