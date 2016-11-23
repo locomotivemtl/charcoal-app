@@ -70,10 +70,6 @@ class AppServiceProvider implements ServiceProviderInterface
     {
         $config = $container['config'];
 
-        if (!isset($config['handlers'])) {
-            return;
-        }
-
         if (!isset($container['base-url'])) {
             /**
              * Base URL as a PSR-7 UriInterface object for the current request
@@ -93,6 +89,10 @@ class AppServiceProvider implements ServiceProviderInterface
 
                 return $baseUrl;
             };
+        }
+
+        if (!isset($config['handlers'])) {
+            return;
         }
 
         /**
