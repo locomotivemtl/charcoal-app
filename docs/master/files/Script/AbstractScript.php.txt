@@ -3,6 +3,7 @@
 namespace Charcoal\App\Script;
 
 use \InvalidArgumentException;
+use \RuntimeException;
 
 // From PSR-3
 use \Psr\Log\LoggerAwareInterface;
