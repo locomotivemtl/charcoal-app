@@ -81,6 +81,18 @@ abstract class AbstractAction extends AbstractEntity implements
     }
 
     /**
+     * Initialize the template with a request.
+     *
+     * @param RequestInterface $request The request to intialize.
+     * @return boolean Success / Failure.
+     */
+    public function init(RequestInterface $request)
+    {
+        // This method is a stub. Reimplement in children methods to ensure template initialization.
+        return true;
+    }
+
+    /**
      * Give an opportunity to children classes to inject dependencies from a Pimple Container.
      *
      * Does nothing by default, reimplement in children classes.
@@ -94,6 +106,7 @@ abstract class AbstractAction extends AbstractEntity implements
     public function setDependencies(Container $container)
     {
         // This method is a stub. Reimplement in children action classes.
+        return;
     }
 
     /**

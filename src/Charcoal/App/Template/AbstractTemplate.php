@@ -43,7 +43,7 @@ abstract class AbstractTemplate extends AbstractEntity implements
      * Initialize the template with a request.
      *
      * @param RequestInterface $request The request to intialize.
-     * @return boolean
+     * @return boolean Success / Failure.
      */
     public function init(RequestInterface $request)
     {
@@ -65,5 +65,6 @@ abstract class AbstractTemplate extends AbstractEntity implements
     public function setDependencies(Container $container)
     {
         // This method is a stub. Reimplement in children template classes.
+        return;
     }
 }
