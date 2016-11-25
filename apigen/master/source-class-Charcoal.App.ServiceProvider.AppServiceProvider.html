@@ -451,103 +451,116 @@
 </span><span id="274" class="l"><a href="#274">274: </a>                <span class="php-quote">'arguments'</span> =&gt; [[
 </span><span id="275" class="l"><a href="#275">275: </a>                    <span class="php-quote">'container'</span> =&gt; <span class="php-var">$container</span>,
 </span><span id="276" class="l"><a href="#276">276: </a>                    <span class="php-quote">'logger'</span> =&gt; <span class="php-var">$container</span>[<span class="php-quote">'logger'</span>],
-</span><span id="277" class="l"><a href="#277">277: </a>                    <span class="php-quote">'climate'</span> =&gt; <span class="php-var">$container</span>[<span class="php-quote">'climate'</span>]
-</span><span id="278" class="l"><a href="#278">278: </a>                ]]
-</span><span id="279" class="l"><a href="#279">279: </a>            ]);
-</span><span id="280" class="l"><a href="#280">280: </a>        };
-</span><span id="281" class="l"><a href="#281">281: </a>
-</span><span id="282" class="l"><a href="#282">282: </a>        <span class="php-comment">/**
-</span></span><span id="283" class="l"><a href="#283">283: </a><span class="php-comment">         * The Template Factory service is used to instanciate new templates.
-</span></span><span id="284" class="l"><a href="#284">284: </a><span class="php-comment">         *
-</span></span><span id="285" class="l"><a href="#285">285: </a><span class="php-comment">         * - Templates are `TemplateInterface` and must be suffixed with `Template`.
-</span></span><span id="286" class="l"><a href="#286">286: </a><span class="php-comment">         * - The container is passed to the created template constructor, which will call `setDependencies()`.
-</span></span><span id="287" class="l"><a href="#287">287: </a><span class="php-comment">         *
-</span></span><span id="288" class="l"><a href="#288">288: </a><span class="php-comment">         * @param Container $container A container instance.
-</span></span><span id="289" class="l"><a href="#289">289: </a><span class="php-comment">         * @return \Charcoal\Factory\FactoryInterface
-</span></span><span id="290" class="l"><a href="#290">290: </a><span class="php-comment">         */</span>
-</span><span id="291" class="l"><a href="#291">291: </a>        <span class="php-var">$container</span>[<span class="php-quote">'template/factory'</span>] = <span class="php-keyword1">function</span> (Container <span class="php-var">$container</span>) {
-</span><span id="292" class="l"><a href="#292">292: </a>            <span class="php-keyword1">return</span> <span class="php-keyword1">new</span> Factory([
-</span><span id="293" class="l"><a href="#293">293: </a>                <span class="php-quote">'base_class'</span> =&gt; TemplateInterface::<span class="php-keyword1">class</span>,
-</span><span id="294" class="l"><a href="#294">294: </a>                <span class="php-quote">'resolver_options'</span> =&gt; [
-</span><span id="295" class="l"><a href="#295">295: </a>                    <span class="php-quote">'suffix'</span> =&gt; <span class="php-quote">'Template'</span>
-</span><span id="296" class="l"><a href="#296">296: </a>                ],
-</span><span id="297" class="l"><a href="#297">297: </a>                <span class="php-quote">'arguments'</span> =&gt; [[
-</span><span id="298" class="l"><a href="#298">298: </a>                    <span class="php-quote">'container'</span> =&gt; <span class="php-var">$container</span>,
-</span><span id="299" class="l"><a href="#299">299: </a>                    <span class="php-quote">'logger'</span> =&gt; <span class="php-var">$container</span>[<span class="php-quote">'logger'</span>]
-</span><span id="300" class="l"><a href="#300">300: </a>                ]]
-</span><span id="301" class="l"><a href="#301">301: </a>            ]);
-</span><span id="302" class="l"><a href="#302">302: </a>        };
-</span><span id="303" class="l"><a href="#303">303: </a>
-</span><span id="304" class="l"><a href="#304">304: </a>        <span class="php-comment">/**
-</span></span><span id="305" class="l"><a href="#305">305: </a><span class="php-comment">         * The Widget Factory service is used to instanciate new widgets.
-</span></span><span id="306" class="l"><a href="#306">306: </a><span class="php-comment">         *
-</span></span><span id="307" class="l"><a href="#307">307: </a><span class="php-comment">         * - Widgets are `WidgetInterface` and must be suffixed with `Widget`.
-</span></span><span id="308" class="l"><a href="#308">308: </a><span class="php-comment">         * - The container is passed to the created widget constructor, which will call `setDependencies()`.
-</span></span><span id="309" class="l"><a href="#309">309: </a><span class="php-comment">         *
-</span></span><span id="310" class="l"><a href="#310">310: </a><span class="php-comment">         * @param Container $container A container instance.
-</span></span><span id="311" class="l"><a href="#311">311: </a><span class="php-comment">         * @return \Charcoal\Factory\FactoryInterface
-</span></span><span id="312" class="l"><a href="#312">312: </a><span class="php-comment">         */</span>
-</span><span id="313" class="l"><a href="#313">313: </a>        <span class="php-var">$container</span>[<span class="php-quote">'widget/factory'</span>] = <span class="php-keyword1">function</span> (Container <span class="php-var">$container</span>) {
-</span><span id="314" class="l"><a href="#314">314: </a>            <span class="php-keyword1">return</span> <span class="php-keyword1">new</span> Factory([
-</span><span id="315" class="l"><a href="#315">315: </a>                <span class="php-quote">'base_class'</span> =&gt; WidgetInterface::<span class="php-keyword1">class</span>,
-</span><span id="316" class="l"><a href="#316">316: </a>                <span class="php-quote">'resolver_options'</span> =&gt; [
-</span><span id="317" class="l"><a href="#317">317: </a>                    <span class="php-quote">'suffix'</span> =&gt; <span class="php-quote">'Widget'</span>
-</span><span id="318" class="l"><a href="#318">318: </a>                ],
-</span><span id="319" class="l"><a href="#319">319: </a>                <span class="php-quote">'arguments'</span> =&gt; [[
-</span><span id="320" class="l"><a href="#320">320: </a>                    <span class="php-quote">'container'</span> =&gt; <span class="php-var">$container</span>,
-</span><span id="321" class="l"><a href="#321">321: </a>                    <span class="php-quote">'logger'</span> =&gt; <span class="php-var">$container</span>[<span class="php-quote">'logger'</span>]
-</span><span id="322" class="l"><a href="#322">322: </a>                ]]
-</span><span id="323" class="l"><a href="#323">323: </a>            ]);
-</span><span id="324" class="l"><a href="#324">324: </a>        };
-</span><span id="325" class="l"><a href="#325">325: </a>        <span class="php-comment">/**
-</span></span><span id="326" class="l"><a href="#326">326: </a><span class="php-comment">         * @param Container $container A container instance.
-</span></span><span id="327" class="l"><a href="#327">327: </a><span class="php-comment">         * @return TemplateBuilder
-</span></span><span id="328" class="l"><a href="#328">328: </a><span class="php-comment">         */</span>
-</span><span id="329" class="l"><a href="#329">329: </a>        <span class="php-var">$container</span>[<span class="php-quote">'widget/builder'</span>] = <span class="php-keyword1">function</span> (Container <span class="php-var">$container</span>) {
-</span><span id="330" class="l"><a href="#330">330: </a>            <span class="php-keyword1">return</span> <span class="php-keyword1">new</span> WidgetBuilder(<span class="php-var">$container</span>[<span class="php-quote">'widget/factory'</span>], <span class="php-var">$container</span>);
-</span><span id="331" class="l"><a href="#331">331: </a>        };
-</span><span id="332" class="l"><a href="#332">332: </a>    }
-</span><span id="333" class="l"><a href="#333">333: </a>
-</span><span id="334" class="l"><a href="#334">334: </a>    <span class="php-comment">/**
-</span></span><span id="335" class="l"><a href="#335">335: </a><span class="php-comment">     * @param Container $container The DI container.
-</span></span><span id="336" class="l"><a href="#336">336: </a><span class="php-comment">     * @return void
-</span></span><span id="337" class="l"><a href="#337">337: </a><span class="php-comment">     */</span>
-</span><span id="338" class="l"><a href="#338">338: </a>    <span class="php-keyword1">protected</span> <span class="php-keyword1">function</span> registerModuleServices(Container <span class="php-var">$container</span>)
-</span><span id="339" class="l"><a href="#339">339: </a>    {
-</span><span id="340" class="l"><a href="#340">340: </a>        <span class="php-comment">/**
-</span></span><span id="341" class="l"><a href="#341">341: </a><span class="php-comment">         * The Module Factory service is used to instanciate new modules.
-</span></span><span id="342" class="l"><a href="#342">342: </a><span class="php-comment">         *
-</span></span><span id="343" class="l"><a href="#343">343: </a><span class="php-comment">         * - Modules are `ModuleInterface` and must be suffixed with `Module`.
-</span></span><span id="344" class="l"><a href="#344">344: </a><span class="php-comment">         *
-</span></span><span id="345" class="l"><a href="#345">345: </a><span class="php-comment">         * @param Container $container A container instance.
-</span></span><span id="346" class="l"><a href="#346">346: </a><span class="php-comment">         * @return \Charcoal\Factory\FactoryInterface
-</span></span><span id="347" class="l"><a href="#347">347: </a><span class="php-comment">         */</span>
-</span><span id="348" class="l"><a href="#348">348: </a>        <span class="php-var">$container</span>[<span class="php-quote">'module/factory'</span>] = <span class="php-keyword1">function</span> (Container <span class="php-var">$container</span>) {
-</span><span id="349" class="l"><a href="#349">349: </a>            <span class="php-keyword1">return</span> <span class="php-keyword1">new</span> Factory([
-</span><span id="350" class="l"><a href="#350">350: </a>                <span class="php-quote">'base_class'</span> =&gt; ModuleInterface::<span class="php-keyword1">class</span>,
-</span><span id="351" class="l"><a href="#351">351: </a>                <span class="php-quote">'resolver_options'</span> =&gt; [
-</span><span id="352" class="l"><a href="#352">352: </a>                    <span class="php-quote">'suffix'</span> =&gt; <span class="php-quote">'Module'</span>
-</span><span id="353" class="l"><a href="#353">353: </a>                ],
-</span><span id="354" class="l"><a href="#354">354: </a>                <span class="php-quote">'arguments'</span> =&gt; [[
-</span><span id="355" class="l"><a href="#355">355: </a>                    <span class="php-quote">'logger'</span> =&gt; <span class="php-var">$container</span>[<span class="php-quote">'logger'</span>]
-</span><span id="356" class="l"><a href="#356">356: </a>                ]]
-</span><span id="357" class="l"><a href="#357">357: </a>            ]);
-</span><span id="358" class="l"><a href="#358">358: </a>        };
-</span><span id="359" class="l"><a href="#359">359: </a>    }
-</span><span id="360" class="l"><a href="#360">360: </a>
-</span><span id="361" class="l"><a href="#361">361: </a>    <span class="php-keyword1">protected</span> <span class="php-keyword1">function</span> registerScriptServices(Container <span class="php-var">$container</span>)
-</span><span id="362" class="l"><a href="#362">362: </a>    {
-</span><span id="363" class="l"><a href="#363">363: </a>        <span class="php-comment">/**
-</span></span><span id="364" class="l"><a href="#364">364: </a><span class="php-comment">         * @param Container $container A container instance.
-</span></span><span id="365" class="l"><a href="#365">365: </a><span class="php-comment">         * @return CLImate
-</span></span><span id="366" class="l"><a href="#366">366: </a><span class="php-comment">         */</span>
-</span><span id="367" class="l"><a href="#367">367: </a>        <span class="php-var">$container</span>[<span class="php-quote">'climate'</span>] = <span class="php-keyword1">function</span> (Container <span class="php-var">$container</span>) {
-</span><span id="368" class="l"><a href="#368">368: </a>            <span class="php-var">$climate</span> = <span class="php-keyword1">new</span> CLImate();
-</span><span id="369" class="l"><a href="#369">369: </a>            <span class="php-keyword1">return</span> <span class="php-var">$climate</span>;
-</span><span id="370" class="l"><a href="#370">370: </a>        };
-</span><span id="371" class="l"><a href="#371">371: </a>    }
-</span><span id="372" class="l"><a href="#372">372: </a>}
-</span><span id="373" class="l"><a href="#373">373: </a></span></code></pre>
+</span><span id="277" class="l"><a href="#277">277: </a>                    <span class="php-quote">'climate'</span> =&gt; <span class="php-var">$container</span>[<span class="php-quote">'climate'</span>],
+</span><span id="278" class="l"><a href="#278">278: </a>                    <span class="php-quote">'climate_reader'</span> =&gt; <span class="php-var">$container</span>[<span class="php-quote">'climate/reader'</span>]
+</span><span id="279" class="l"><a href="#279">279: </a>                ]]
+</span><span id="280" class="l"><a href="#280">280: </a>            ]);
+</span><span id="281" class="l"><a href="#281">281: </a>        };
+</span><span id="282" class="l"><a href="#282">282: </a>
+</span><span id="283" class="l"><a href="#283">283: </a>        <span class="php-comment">/**
+</span></span><span id="284" class="l"><a href="#284">284: </a><span class="php-comment">         * The Template Factory service is used to instanciate new templates.
+</span></span><span id="285" class="l"><a href="#285">285: </a><span class="php-comment">         *
+</span></span><span id="286" class="l"><a href="#286">286: </a><span class="php-comment">         * - Templates are `TemplateInterface` and must be suffixed with `Template`.
+</span></span><span id="287" class="l"><a href="#287">287: </a><span class="php-comment">         * - The container is passed to the created template constructor, which will call `setDependencies()`.
+</span></span><span id="288" class="l"><a href="#288">288: </a><span class="php-comment">         *
+</span></span><span id="289" class="l"><a href="#289">289: </a><span class="php-comment">         * @param Container $container A container instance.
+</span></span><span id="290" class="l"><a href="#290">290: </a><span class="php-comment">         * @return \Charcoal\Factory\FactoryInterface
+</span></span><span id="291" class="l"><a href="#291">291: </a><span class="php-comment">         */</span>
+</span><span id="292" class="l"><a href="#292">292: </a>        <span class="php-var">$container</span>[<span class="php-quote">'template/factory'</span>] = <span class="php-keyword1">function</span> (Container <span class="php-var">$container</span>) {
+</span><span id="293" class="l"><a href="#293">293: </a>            <span class="php-keyword1">return</span> <span class="php-keyword1">new</span> Factory([
+</span><span id="294" class="l"><a href="#294">294: </a>                <span class="php-quote">'base_class'</span> =&gt; TemplateInterface::<span class="php-keyword1">class</span>,
+</span><span id="295" class="l"><a href="#295">295: </a>                <span class="php-quote">'resolver_options'</span> =&gt; [
+</span><span id="296" class="l"><a href="#296">296: </a>                    <span class="php-quote">'suffix'</span> =&gt; <span class="php-quote">'Template'</span>
+</span><span id="297" class="l"><a href="#297">297: </a>                ],
+</span><span id="298" class="l"><a href="#298">298: </a>                <span class="php-quote">'arguments'</span> =&gt; [[
+</span><span id="299" class="l"><a href="#299">299: </a>                    <span class="php-quote">'container'</span> =&gt; <span class="php-var">$container</span>,
+</span><span id="300" class="l"><a href="#300">300: </a>                    <span class="php-quote">'logger'</span> =&gt; <span class="php-var">$container</span>[<span class="php-quote">'logger'</span>]
+</span><span id="301" class="l"><a href="#301">301: </a>                ]]
+</span><span id="302" class="l"><a href="#302">302: </a>            ]);
+</span><span id="303" class="l"><a href="#303">303: </a>        };
+</span><span id="304" class="l"><a href="#304">304: </a>
+</span><span id="305" class="l"><a href="#305">305: </a>        <span class="php-comment">/**
+</span></span><span id="306" class="l"><a href="#306">306: </a><span class="php-comment">         * The Widget Factory service is used to instanciate new widgets.
+</span></span><span id="307" class="l"><a href="#307">307: </a><span class="php-comment">         *
+</span></span><span id="308" class="l"><a href="#308">308: </a><span class="php-comment">         * - Widgets are `WidgetInterface` and must be suffixed with `Widget`.
+</span></span><span id="309" class="l"><a href="#309">309: </a><span class="php-comment">         * - The container is passed to the created widget constructor, which will call `setDependencies()`.
+</span></span><span id="310" class="l"><a href="#310">310: </a><span class="php-comment">         *
+</span></span><span id="311" class="l"><a href="#311">311: </a><span class="php-comment">         * @param Container $container A container instance.
+</span></span><span id="312" class="l"><a href="#312">312: </a><span class="php-comment">         * @return \Charcoal\Factory\FactoryInterface
+</span></span><span id="313" class="l"><a href="#313">313: </a><span class="php-comment">         */</span>
+</span><span id="314" class="l"><a href="#314">314: </a>        <span class="php-var">$container</span>[<span class="php-quote">'widget/factory'</span>] = <span class="php-keyword1">function</span> (Container <span class="php-var">$container</span>) {
+</span><span id="315" class="l"><a href="#315">315: </a>            <span class="php-keyword1">return</span> <span class="php-keyword1">new</span> Factory([
+</span><span id="316" class="l"><a href="#316">316: </a>                <span class="php-quote">'base_class'</span> =&gt; WidgetInterface::<span class="php-keyword1">class</span>,
+</span><span id="317" class="l"><a href="#317">317: </a>                <span class="php-quote">'resolver_options'</span> =&gt; [
+</span><span id="318" class="l"><a href="#318">318: </a>                    <span class="php-quote">'suffix'</span> =&gt; <span class="php-quote">'Widget'</span>
+</span><span id="319" class="l"><a href="#319">319: </a>                ],
+</span><span id="320" class="l"><a href="#320">320: </a>                <span class="php-quote">'arguments'</span> =&gt; [[
+</span><span id="321" class="l"><a href="#321">321: </a>                    <span class="php-quote">'container'</span> =&gt; <span class="php-var">$container</span>,
+</span><span id="322" class="l"><a href="#322">322: </a>                    <span class="php-quote">'logger'</span> =&gt; <span class="php-var">$container</span>[<span class="php-quote">'logger'</span>]
+</span><span id="323" class="l"><a href="#323">323: </a>                ]]
+</span><span id="324" class="l"><a href="#324">324: </a>            ]);
+</span><span id="325" class="l"><a href="#325">325: </a>        };
+</span><span id="326" class="l"><a href="#326">326: </a>        <span class="php-comment">/**
+</span></span><span id="327" class="l"><a href="#327">327: </a><span class="php-comment">         * @param Container $container A container instance.
+</span></span><span id="328" class="l"><a href="#328">328: </a><span class="php-comment">         * @return TemplateBuilder
+</span></span><span id="329" class="l"><a href="#329">329: </a><span class="php-comment">         */</span>
+</span><span id="330" class="l"><a href="#330">330: </a>        <span class="php-var">$container</span>[<span class="php-quote">'widget/builder'</span>] = <span class="php-keyword1">function</span> (Container <span class="php-var">$container</span>) {
+</span><span id="331" class="l"><a href="#331">331: </a>            <span class="php-keyword1">return</span> <span class="php-keyword1">new</span> WidgetBuilder(<span class="php-var">$container</span>[<span class="php-quote">'widget/factory'</span>], <span class="php-var">$container</span>);
+</span><span id="332" class="l"><a href="#332">332: </a>        };
+</span><span id="333" class="l"><a href="#333">333: </a>    }
+</span><span id="334" class="l"><a href="#334">334: </a>
+</span><span id="335" class="l"><a href="#335">335: </a>    <span class="php-comment">/**
+</span></span><span id="336" class="l"><a href="#336">336: </a><span class="php-comment">     * @param Container $container The DI container.
+</span></span><span id="337" class="l"><a href="#337">337: </a><span class="php-comment">     * @return void
+</span></span><span id="338" class="l"><a href="#338">338: </a><span class="php-comment">     */</span>
+</span><span id="339" class="l"><a href="#339">339: </a>    <span class="php-keyword1">protected</span> <span class="php-keyword1">function</span> registerModuleServices(Container <span class="php-var">$container</span>)
+</span><span id="340" class="l"><a href="#340">340: </a>    {
+</span><span id="341" class="l"><a href="#341">341: </a>        <span class="php-comment">/**
+</span></span><span id="342" class="l"><a href="#342">342: </a><span class="php-comment">         * The Module Factory service is used to instanciate new modules.
+</span></span><span id="343" class="l"><a href="#343">343: </a><span class="php-comment">         *
+</span></span><span id="344" class="l"><a href="#344">344: </a><span class="php-comment">         * - Modules are `ModuleInterface` and must be suffixed with `Module`.
+</span></span><span id="345" class="l"><a href="#345">345: </a><span class="php-comment">         *
+</span></span><span id="346" class="l"><a href="#346">346: </a><span class="php-comment">         * @param Container $container A container instance.
+</span></span><span id="347" class="l"><a href="#347">347: </a><span class="php-comment">         * @return \Charcoal\Factory\FactoryInterface
+</span></span><span id="348" class="l"><a href="#348">348: </a><span class="php-comment">         */</span>
+</span><span id="349" class="l"><a href="#349">349: </a>        <span class="php-var">$container</span>[<span class="php-quote">'module/factory'</span>] = <span class="php-keyword1">function</span> (Container <span class="php-var">$container</span>) {
+</span><span id="350" class="l"><a href="#350">350: </a>            <span class="php-keyword1">return</span> <span class="php-keyword1">new</span> Factory([
+</span><span id="351" class="l"><a href="#351">351: </a>                <span class="php-quote">'base_class'</span> =&gt; ModuleInterface::<span class="php-keyword1">class</span>,
+</span><span id="352" class="l"><a href="#352">352: </a>                <span class="php-quote">'resolver_options'</span> =&gt; [
+</span><span id="353" class="l"><a href="#353">353: </a>                    <span class="php-quote">'suffix'</span> =&gt; <span class="php-quote">'Module'</span>
+</span><span id="354" class="l"><a href="#354">354: </a>                ],
+</span><span id="355" class="l"><a href="#355">355: </a>                <span class="php-quote">'arguments'</span> =&gt; [[
+</span><span id="356" class="l"><a href="#356">356: </a>                    <span class="php-quote">'logger'</span> =&gt; <span class="php-var">$container</span>[<span class="php-quote">'logger'</span>]
+</span><span id="357" class="l"><a href="#357">357: </a>                ]]
+</span><span id="358" class="l"><a href="#358">358: </a>            ]);
+</span><span id="359" class="l"><a href="#359">359: </a>        };
+</span><span id="360" class="l"><a href="#360">360: </a>    }
+</span><span id="361" class="l"><a href="#361">361: </a>
+</span><span id="362" class="l"><a href="#362">362: </a>    <span class="php-comment">/**
+</span></span><span id="363" class="l"><a href="#363">363: </a><span class="php-comment">     * @param Container $container A container instance.
+</span></span><span id="364" class="l"><a href="#364">364: </a><span class="php-comment">     * @return void
+</span></span><span id="365" class="l"><a href="#365">365: </a><span class="php-comment">     */</span>
+</span><span id="366" class="l"><a href="#366">366: </a>    <span class="php-keyword1">protected</span> <span class="php-keyword1">function</span> registerScriptServices(Container <span class="php-var">$container</span>)
+</span><span id="367" class="l"><a href="#367">367: </a>    {
+</span><span id="368" class="l"><a href="#368">368: </a>        <span class="php-comment">/**
+</span></span><span id="369" class="l"><a href="#369">369: </a><span class="php-comment">         * @param Container $container A container instance.
+</span></span><span id="370" class="l"><a href="#370">370: </a><span class="php-comment">         * @return null|\League\CLImate\Util\Reader\ReaderInterface
+</span></span><span id="371" class="l"><a href="#371">371: </a><span class="php-comment">         */</span>
+</span><span id="372" class="l"><a href="#372">372: </a>        <span class="php-var">$container</span>[<span class="php-quote">'climate/reader'</span>] = <span class="php-keyword1">function</span> (Container <span class="php-var">$container</span>) {
+</span><span id="373" class="l"><a href="#373">373: </a>            <span class="php-keyword1">return</span> <span class="php-keyword1">null</span>;
+</span><span id="374" class="l"><a href="#374">374: </a>        };
+</span><span id="375" class="l"><a href="#375">375: </a>
+</span><span id="376" class="l"><a href="#376">376: </a>        <span class="php-comment">/**
+</span></span><span id="377" class="l"><a href="#377">377: </a><span class="php-comment">         * @param Container $container A container instance.
+</span></span><span id="378" class="l"><a href="#378">378: </a><span class="php-comment">         * @return CLImate
+</span></span><span id="379" class="l"><a href="#379">379: </a><span class="php-comment">         */</span>
+</span><span id="380" class="l"><a href="#380">380: </a>        <span class="php-var">$container</span>[<span class="php-quote">'climate'</span>] = <span class="php-keyword1">function</span> (Container <span class="php-var">$container</span>) {
+</span><span id="381" class="l"><a href="#381">381: </a>            <span class="php-var">$climate</span> = <span class="php-keyword1">new</span> CLImate();
+</span><span id="382" class="l"><a href="#382">382: </a>            <span class="php-keyword1">return</span> <span class="php-var">$climate</span>;
+</span><span id="383" class="l"><a href="#383">383: </a>        };
+</span><span id="384" class="l"><a href="#384">384: </a>    }
+</span><span id="385" class="l"><a href="#385">385: </a>}
+</span><span id="386" class="l"><a href="#386">386: </a></span></code></pre>
 
 	<div id="footer">
 		 API documentation generated by <a href="http://apigen.org">ApiGen</a>
