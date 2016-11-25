@@ -2,6 +2,9 @@
 
 namespace Charcoal\Tests\App\Script;
 
+// From 'league/climate'
+use \League\CLImate\CLImate;
+
 use \Charcoal\App\App;
 
 class AbstractScriptTest extends \PHPUnit_Framework_TestCase
@@ -12,7 +15,8 @@ class AbstractScriptTest extends \PHPUnit_Framework_TestCase
     {
         $this->obj = $this->getMockForAbstractClass('\Charcoal\App\Script\AbstractScript', [[
                 'app'=>$GLOBALS['app'],
-                'logger'=>new \Psr\Log\NullLogger()
+                'logger'=>new \Psr\Log\NullLogger(),
+                'climate' => new CLImate()
             ]]);
     }
 

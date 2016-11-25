@@ -83,6 +83,7 @@ abstract class AbstractScript extends AbstractEntity implements
     public function __construct($data = null)
     {
         $this->setLogger($data['logger']);
+        $this->setClimate($data['climate']);
 
         if (isset($data['container'])) {
             $this->setDependencies($data['container']);
@@ -158,6 +159,15 @@ abstract class AbstractScript extends AbstractEntity implements
     }
 
     /**
+     * @param CLImate $climate A climate instance.
+     * @return void
+     */
+    private function setClimate(CLImate $climate)
+    {
+        $this->climate = $climate;
+    }
+
+    /**
      * Safe climate getter.
      * If the instance was not previously set, create it.
      *
@@ -168,9 +178,6 @@ abstract class AbstractScript extends AbstractEntity implements
      */
     protected function climate()
     {
-        if ($this->climate === null) {
-            $this->climate = new CLImate();
-        }
         return $this->climate;
     }
 
