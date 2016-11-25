@@ -18,6 +18,7 @@ use \Pimple\Container;
 
 // From 'league/climate'
 use \League\CLImate\CLImate;
+use \League\CLImate\Util\Reader\ReaderInterface;
 
 // From 'charcoal-config'
 use \Charcoal\Config\AbstractEntity;
@@ -56,6 +57,11 @@ abstract class AbstractScript extends AbstractEntity implements
     private $climate;
 
     /**
+     * @var ReaderInterface $cliamteReader
+     */
+    private $climateReader;
+
+    /**
      * @var boolean $quiet
      */
     private $quiet = false;
@@ -84,6 +90,9 @@ abstract class AbstractScript extends AbstractEntity implements
     {
         $this->setLogger($data['logger']);
         $this->setClimate($data['climate']);
+        if (isset($data['climate_reader'])) {
+            $this->setClimateReader($data['climate_reader']);
+        }
 
         if (isset($data['container'])) {
             $this->setDependencies($data['container']);
@@ -179,6 +188,23 @@ abstract class AbstractScript extends AbstractEntity implements
     protected function climate()
     {
         return $this->climate;
+    }
+
+    /**
+     * @param ReaderInterface $climateInterface A climate reader.
+     * @return void
+     */
+    private function setClimateReader(ReaderInterface $climateReader)
+    {
+        $this->climateReader = $climateReader;
+    }
+
+    /**
+     * @return ReaderInterface
+     */
+    protected function climateReader()
+    {
+        return $this->climateReader;
     }
 
     /**
@@ -458,26 +484,26 @@ abstract class AbstractScript extends AbstractEntity implements
                 }
 
                 $accept = false;
-                $input  = $cli->{$type}($label, $arg['options']);
+                $input  = $cli->{$type}($label, $arg['options'], $this->climateReader);
                 break;
 
             case 'confirm':
                 $prompt = 'confirmed';
-                $input  = $cli->confirm($label);
+                $input  = $cli->confirm($label, $this->climateReader);
                 break;
 
             case 'password':
-                $input = $cli->password($label);
+                $input = $cli->password($label, $this->climateReader);
                 $input->multiLine();
                 break;
 
             case 'multiline':
-                $input = $cli->input($label);
+                $input = $cli->input($label, $this->climateReader);
                 $input->multiLine();
                 break;
 
             default:
-                $input = $cli->input($label);
+                $input = $cli->input($label, $this->climateReader);
                 break;
         }
 
