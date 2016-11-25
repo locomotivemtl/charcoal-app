@@ -274,7 +274,8 @@ class AppServiceProvider implements ServiceProviderInterface
                 'arguments' => [[
                     'container' => $container,
                     'logger' => $container['logger'],
-                    'climate' => $container['climate']
+                    'climate' => $container['climate'],
+                    'climate_reader' => $container['climate/reader']
                 ]]
             ]);
         };
@@ -358,8 +359,20 @@ class AppServiceProvider implements ServiceProviderInterface
         };
     }
 
+    /**
+     * @param Container $container A container instance.
+     * @return void
+     */
     protected function registerScriptServices(Container $container)
     {
+        /**
+         * @param Container $container A container instance.
+         * @return null|\League\CLImate\Util\Reader\ReaderInterface
+         */
+        $container['climate/reader'] = function (Container $container) {
+            return null;
+        };
+
         /**
          * @param Container $container A container instance.
          * @return CLImate
