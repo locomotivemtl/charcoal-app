@@ -9,6 +9,9 @@ use \Pimple\Container;
 // Dependencies from Slim
 use \Slim\Http\Uri;
 
+// Dependencies from league/climate
+use \League\CLImate\CLImate;
+
 // Dependencies from charcoal-factory
 use \Charcoal\Factory\GenericFactory as Factory;
 
