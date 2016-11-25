@@ -191,7 +191,7 @@ abstract class AbstractScript extends AbstractEntity implements
     }
 
     /**
-     * @param ReaderInterface $climateInterface A climate reader.
+     * @param ReaderInterface $climateReader A climate reader.
      * @return void
      */
     private function setClimateReader(ReaderInterface $climateReader)
