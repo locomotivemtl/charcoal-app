@@ -59,6 +59,7 @@ class AppServiceProvider implements ServiceProviderInterface
         $this->registerHandlerServices($container);
         $this->registerRouteServices($container);
         $this->registerRequestControllerServices($container);
+        $this->registerScriptServices($container);
         $this->registerModuleServices($container);
     }
 
@@ -272,7 +273,8 @@ class AppServiceProvider implements ServiceProviderInterface
                 ],
                 'arguments' => [[
                     'container' => $container,
-                    'logger' => $container['logger']
+                    'logger' => $container['logger'],
+                    'climate' => $container['climate']
                 ]]
             ]);
         };
@@ -353,6 +355,18 @@ class AppServiceProvider implements ServiceProviderInterface
                     'logger' => $container['logger']
                 ]]
             ]);
+        };
+    }
+
+    protected function registerScriptServices(Container $container)
+    {
+        /**
+         * @param Container $container A container instance.
+         * @return CLImate
+         */
+        $container['climate'] = function (Container $container) {
+            $climate = new CLImate();
+            return $climate;
         };
     }
 }
