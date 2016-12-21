@@ -16,7 +16,10 @@ class TranslatorServiceProviderTest extends PHPUnit_Framework_TestCase
     public function testProvider()
     {
         $container = new Container([
-            'config' => []
+            'config' => [
+                'base_path' => ''
+            ],
+            'cache' => null
         ]);
         $provider = new TranslatorServiceProvider();
         $provider->register($container);
