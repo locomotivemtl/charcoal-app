@@ -453,7 +453,7 @@
 </span><span id="276" class="l"><a href="#276">276: </a>    <span class="php-comment">/**
 </span></span><span id="277" class="l"><a href="#277">277: </a><span class="php-comment">     * Set the application's absolute path to the storage directory.
 </span></span><span id="278" class="l"><a href="#278">278: </a><span class="php-comment">     *
-</span></span><span id="279" class="l"><a href="#279">279: </a><span class="php-comment">     * @param  string $path The path to the application's storage directory.
+</span></span><span id="279" class="l"><a href="#279">279: </a><span class="php-comment">     * @param  string|null $path The path to the application's storage directory.
 </span></span><span id="280" class="l"><a href="#280">280: </a><span class="php-comment">     * @throws InvalidArgumentException If the argument is not a string.
 </span></span><span id="281" class="l"><a href="#281">281: </a><span class="php-comment">     * @return $this
 </span></span><span id="282" class="l"><a href="#282">282: </a><span class="php-comment">     */</span>
@@ -815,7 +815,7 @@
 </span><span id="638" class="l"><a href="#638">638: </a>    {
 </span><span id="639" class="l"><a href="#639">639: </a>        <span class="php-keyword1">if</span> (<span class="php-var">$this</span>-&gt;databases === <span class="php-keyword1">null</span>) {
 </span><span id="640" class="l"><a href="#640">640: </a>            <span class="php-keyword1">throw</span> <span class="php-keyword1">new</span> Exception(
-</span><span id="641" class="l"><a href="#641">641: </a>                <span class="php-quote">'Databases are not set.'</span>
+</span><span id="641" class="l"><a href="#641">641: </a>                <span class="php-quote">'Invalid app config: Databases are not set.'</span>
 </span><span id="642" class="l"><a href="#642">642: </a>            );
 </span><span id="643" class="l"><a href="#643">643: </a>        }
 </span><span id="644" class="l"><a href="#644">644: </a>        <span class="php-keyword1">return</span> <span class="php-var">$this</span>-&gt;databases;
@@ -831,13 +831,13 @@
 </span><span id="654" class="l"><a href="#654">654: </a>    {
 </span><span id="655" class="l"><a href="#655">655: </a>        <span class="php-keyword1">if</span> (!<span class="php-keyword2">is_string</span>(<span class="php-var">$ident</span>)) {
 </span><span id="656" class="l"><a href="#656">656: </a>            <span class="php-keyword1">throw</span> <span class="php-keyword1">new</span> InvalidArgumentException(
-</span><span id="657" class="l"><a href="#657">657: </a>                <span class="php-quote">'Default database must be a string.'</span>
+</span><span id="657" class="l"><a href="#657">657: </a>                <span class="php-quote">'Invalid app config: default database must be a string.'</span>
 </span><span id="658" class="l"><a href="#658">658: </a>            );
 </span><span id="659" class="l"><a href="#659">659: </a>        }
 </span><span id="660" class="l"><a href="#660">660: </a>        <span class="php-var">$databases</span> = <span class="php-var">$this</span>-&gt;databases();
 </span><span id="661" class="l"><a href="#661">661: </a>        <span class="php-keyword1">if</span> (!<span class="php-keyword1">isset</span>(<span class="php-var">$databases</span>[<span class="php-var">$ident</span>])) {
 </span><span id="662" class="l"><a href="#662">662: </a>            <span class="php-keyword1">throw</span> <span class="php-keyword1">new</span> Exception(
-</span><span id="663" class="l"><a href="#663">663: </a>                <span class="php-keyword2">sprintf</span>(<span class="php-quote">'No database configuration matches &quot;%s&quot;.'</span>, <span class="php-var">$ident</span>)
+</span><span id="663" class="l"><a href="#663">663: </a>                <span class="php-keyword2">sprintf</span>(<span class="php-quote">'Invalid app config: no database configuration matches &quot;%s&quot;.'</span>, <span class="php-var">$ident</span>)
 </span><span id="664" class="l"><a href="#664">664: </a>            );
 </span><span id="665" class="l"><a href="#665">665: </a>        }
 </span><span id="666" class="l"><a href="#666">666: </a>        <span class="php-keyword1">return</span> <span class="php-var">$databases</span>[<span class="php-var">$ident</span>];
@@ -852,7 +852,7 @@
 </span><span id="675" class="l"><a href="#675">675: </a>    {
 </span><span id="676" class="l"><a href="#676">676: </a>        <span class="php-keyword1">if</span> (!<span class="php-keyword2">is_string</span>(<span class="php-var">$defaultDatabase</span>)) {
 </span><span id="677" class="l"><a href="#677">677: </a>            <span class="php-keyword1">throw</span> <span class="php-keyword1">new</span> InvalidArgumentException(
-</span><span id="678" class="l"><a href="#678">678: </a>                <span class="php-quote">'Default database must be a string.'</span>
+</span><span id="678" class="l"><a href="#678">678: </a>                <span class="php-quote">'Invalid app config: Default database must be a string.'</span>
 </span><span id="679" class="l"><a href="#679">679: </a>            );
 </span><span id="680" class="l"><a href="#680">680: </a>        }
 </span><span id="681" class="l"><a href="#681">681: </a>        <span class="php-var">$this</span>-&gt;defaultDatabase = <span class="php-var">$defaultDatabase</span>;
@@ -869,7 +869,7 @@
 </span><span id="692" class="l"><a href="#692">692: </a>    {
 </span><span id="693" class="l"><a href="#693">693: </a>        <span class="php-keyword1">if</span> (!<span class="php-keyword2">is_string</span>(<span class="php-var">$ident</span>)) {
 </span><span id="694" class="l"><a href="#694">694: </a>            <span class="php-keyword1">throw</span> <span class="php-keyword1">new</span> InvalidArgumentException(
-</span><span id="695" class="l"><a href="#695">695: </a>                <span class="php-quote">'Database ident must be a string.'</span>
+</span><span id="695" class="l"><a href="#695">695: </a>                <span class="php-quote">'Invalid app config: database ident must be a string.'</span>
 </span><span id="696" class="l"><a href="#696">696: </a>            );
 </span><span id="697" class="l"><a href="#697">697: </a>        }
 </span><span id="698" class="l"><a href="#698">698: </a>
@@ -888,7 +888,7 @@
 </span><span id="711" class="l"><a href="#711">711: </a>    {
 </span><span id="712" class="l"><a href="#712">712: </a>        <span class="php-keyword1">if</span> (<span class="php-var">$this</span>-&gt;defaultDatabase === <span class="php-keyword1">null</span>) {
 </span><span id="713" class="l"><a href="#713">713: </a>            <span class="php-keyword1">throw</span> <span class="php-keyword1">new</span> Exception(
-</span><span id="714" class="l"><a href="#714">714: </a>                <span class="php-quote">'Default database is not set.'</span>
+</span><span id="714" class="l"><a href="#714">714: </a>                <span class="php-quote">'Invalid app config: default database is not set.'</span>
 </span><span id="715" class="l"><a href="#715">715: </a>            );
 </span><span id="716" class="l"><a href="#716">716: </a>        }
 </span><span id="717" class="l"><a href="#717">717: </a>        <span class="php-keyword1">return</span> <span class="php-var">$this</span>-&gt;defaultDatabase;
