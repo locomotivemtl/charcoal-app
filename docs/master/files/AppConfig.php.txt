@@ -276,7 +276,7 @@ class AppConfig extends AbstractConfig
     /**
      * Set the application's absolute path to the storage directory.
      *
-     * @param  string $path The path to the application's storage directory.
+     * @param  string|null $path The path to the application's storage directory.
      * @throws InvalidArgumentException If the argument is not a string.
      * @return $this
      */
@@ -638,7 +638,7 @@ class AppConfig extends AbstractConfig
     {
         if ($this->databases === null) {
             throw new Exception(
-                'Databases are not set.'
+                'Invalid app config: Databases are not set.'
             );
         }
         return $this->databases;
@@ -654,13 +654,13 @@ class AppConfig extends AbstractConfig
     {
         if (!is_string($ident)) {
             throw new InvalidArgumentException(
-                'Default database must be a string.'
+                'Invalid app config: default database must be a string.'
             );
         }
         $databases = $this->databases();
         if (!isset($databases[$ident])) {
             throw new Exception(
-                sprintf('No database configuration matches "%s".', $ident)
+                sprintf('Invalid app config: no database configuration matches "%s".', $ident)
             );
         }
         return $databases[$ident];
@@ -675,7 +675,7 @@ class AppConfig extends AbstractConfig
     {
         if (!is_string($defaultDatabase)) {
             throw new InvalidArgumentException(
-                'Default database must be a string.'
+                'Invalid app config: Default database must be a string.'
             );
         }
         $this->defaultDatabase = $defaultDatabase;
@@ -692,7 +692,7 @@ class AppConfig extends AbstractConfig
     {
         if (!is_string($ident)) {
             throw new InvalidArgumentException(
-                'Database ident must be a string.'
+                'Invalid app config: database ident must be a string.'
             );
         }
 
@@ -711,7 +711,7 @@ class AppConfig extends AbstractConfig
     {
         if ($this->defaultDatabase === null) {
             throw new Exception(
-                'Default database is not set.'
+                'Invalid app config: default database is not set.'
             );
         }
         return $this->defaultDatabase;

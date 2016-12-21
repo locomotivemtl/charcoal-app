@@ -26,9 +26,20 @@ class AppContainer extends Container
         // Initialize container for Slim and Pimple
         parent::__construct($values);
 
+        // Ensure "config" is set
         $this['config'] = (isset($values['config']) ? $values['config'] : []);
 
-        if (!isset($container['provider/factory'])) {
+        $this->registerProviderFactory();
+        $this->registerConfigProviders();
+
+    }
+
+    /**
+     * @return void
+     */
+    private function registerProviderFactory()
+    {
+        if (!isset($this['provider/factory'])) {
             $this['provider/factory'] = function (Container $container) {
                 return new Factory([
                     'base_class'       => ServiceProviderInterface::class,
@@ -38,8 +49,14 @@ class AppContainer extends Container
                 ]);
             };
         }
+    }
 
-        $defaults = [
+    /**
+     * @return void
+     */
+    private function registerConfigProviders()
+    {
+        $defaultProviders = [
             'charcoal/app/service-provider/app'        => [],
             'charcoal/app/service-provider/cache'      => [],
             'charcoal/app/service-provider/database'   => [],
@@ -49,11 +66,10 @@ class AppContainer extends Container
         ];
 
         if (!empty($this['config']['service_providers'])) {
-            $providers = array_replace($defaults, $this['config']['service_providers']);
+            $providers = array_replace($defaultProviders, $this['config']['service_providers']);
         } else {
-            $providers = $defaults;
+            $providers = $defaultProviders;
         }
-
 
         foreach ($providers as $provider => $values) {
             if (false === $values) {

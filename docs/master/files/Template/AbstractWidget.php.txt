@@ -2,9 +2,6 @@
 
 namespace Charcoal\App\Template;
 
-// Dependencies from `PHP`
-use \InvalidArgumentException;
-
 // PSR-3 (logger) dependencies
 use \Psr\Log\LoggerAwareInterface;
 use \Psr\Log\LoggerAwareTrait;
@@ -16,7 +13,6 @@ use \Pimple\Container;
 use \Charcoal\Config\AbstractEntity;
 
 // Module `charcoal-view` dependencies
-use \Charcoal\View\GenericView;
 use \Charcoal\View\ViewableInterface;
 use \Charcoal\View\ViewableTrait;
 
@@ -65,6 +61,7 @@ abstract class AbstractWidget extends AbstractEntity implements
     public function setDependencies(Container $container)
     {
         // Nothing to do.
+        return;
     }
 
 

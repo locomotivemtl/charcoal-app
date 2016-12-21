@@ -24,7 +24,7 @@ use \Charcoal\View\ViewInterface;
  *
  * ## Requirements / Dependencies
  * - `config`
- *   - The global / base config (`ConfigInterface`).
+ *   - The global / base app config (`ConfigInterface`).
  * - `logger`
  *   - A PSR-3 loger.
  *
