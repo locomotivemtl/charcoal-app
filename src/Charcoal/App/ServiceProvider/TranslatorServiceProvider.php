@@ -33,6 +33,8 @@ use \Charcoal\App\Config\TranslatorConfig;
  *
  * ## Requirements / Dependencies
  * - `config` A `ConfigInterface` must have been previously registered on the container.
+ *
+ * @todo This Service Provider should be moved to the `charcoal-translation` module.
  */
 class TranslatorServiceProvider implements ServiceProviderInterface
 {
@@ -65,16 +67,16 @@ class TranslatorServiceProvider implements ServiceProviderInterface
             $appConfig = $container['config'];
             $translatorConfig = new TranslatorConfig();
 
-            if ($appConfig->has('translator')) {
-                $translatorConfig->merge($appConfig->get('translator'));
+            if (isset($appConfig['translator'])) {
+                $translatorConfig->merge($appConfig['translator']);
             }
 
-            if ($appConfig->has('locales')) {
-                $translatorConfig->setLocales($appConfig->get('locales'));
+            if (isset($appConfig['locales'])) {
+                $translatorConfig->setLocales($appConfig['locales']);
             }
 
-            if ($appConfig->has('translations')) {
-                $translatorConfig->setTranslations($appConfig->get('translations'));
+            if (isset($appConfig['translations'])) {
+                $translatorConfig->setTranslations($appConfig['translations']);
             }
 
             return $translatorConfig;
