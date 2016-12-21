@@ -24,6 +24,5 @@ class CacheServiceProviderTest extends PHPUnit_Framework_TestCase
         $this->assertTrue(isset($container['cache/config']));
         $this->assertTrue(isset($container['cache/driver']));
         $this->assertTrue(isset($container['cache']));
-
     }
 }
