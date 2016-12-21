@@ -2,7 +2,13 @@
 
 namespace Charcoal\Tests\App\Template;
 
-use \Charcoal\App\App;
+use \PHPUnit_Framework_TestCase;
+
+use \Psr\Log\NullLogger;
+
+use \Pimple\Container;
+
+use \Charcoal\App\Template\AbstractWidget;
 
 class AbstractWidgetTest extends \PHPUnit_Framework_TestCase
 {
@@ -10,9 +16,10 @@ class AbstractWidgetTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->obj = $this->getMockForAbstractClass('\Charcoal\App\Template\AbstractWidget', [[
-            'app'=>$GLOBALS['app'],
-            'logger'=>new \Psr\Log\NullLogger()
+        $container = new Container();
+        $this->obj = $this->getMockForAbstractClass(AbstractWidget::class, [[
+            'logger' => new NullLogger(),
+            'container' => $container
         ]]);
     }
 
@@ -29,5 +36,12 @@ class AbstractWidgetTest extends \PHPUnit_Framework_TestCase
         $ret = $obj->setActive(false);
         $this->assertSame($ret, $obj);
         $this->assertFalse($obj->active());
+    }
+
+    public function testSetDependencies()
+    {
+        $container = new Container();
+        $res = $this->obj->setDependencies($container);
+        $this->assertNull($res);
     }
 }

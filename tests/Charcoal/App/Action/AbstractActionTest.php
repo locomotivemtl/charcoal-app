@@ -2,19 +2,32 @@
 
 namespace Charcoal\Tests\App\Action;
 
-use \Charcoal\App\App;
+use \PHPUnit_Framework_TestCase;
 
-class AbstractActionTest extends \PHPUnit_Framework_TestCase
+use \Psr\Log\NullLogger;
+
+use \Psr\Http\Message\RequestInterface;
+
+use \Slim\Http\Response;
+
+use \Pimple\Container;
+
+use \Charcoal\App\Action\AbstractAction;
+
+/**
+ *
+ */
+class AbstractActionTest extends PHPUnit_Framework_TestCase
 {
-    public $app;
+
     public $obj;
 
     public function setUp()
     {
-        $this->app = $GLOBALS['app'];
-        $container = $this->app->getContainer();
-        $this->obj = $this->getMockForAbstractClass('\Charcoal\App\Action\AbstractAction', [[
-            'logger'=>$container['logger']
+        $container = new Container();
+        $this->obj = $this->getMockForAbstractClass(AbstractAction::class, [[
+            'logger'    => new NullLogger(),
+            'container' => $container
         ]]);
     }
 
@@ -102,8 +115,8 @@ class AbstractActionTest extends \PHPUnit_Framework_TestCase
      */
     public function testInvokable()
     {
-        $request = $this->getMock('\Psr\Http\Message\RequestInterface');
-        $response = new \Slim\Http\Response();
+        $request = $this->getMock(RequestInterface::class);
+        $response = new Response();
 
         $this->obj->expects($this->any())
             ->method('run')
@@ -111,5 +124,90 @@ class AbstractActionTest extends \PHPUnit_Framework_TestCase
 
         $obj = $this->obj;
         $res = $obj($request, $response);
+
+        $this->assertInstanceOf(Response::class, $res);
+    }
+
+    public function testDefaultModeisJson()
+    {
+        $request = $this->getMock(RequestInterface::class);
+        $response = new Response();
+
+        $this->obj->expects($this->any())
+            ->method('run')
+            ->will($this->returnValue($response));
+
+        $obj = $this->obj;
+        $res = $obj($request, $response);
+
+        $headers = $res->getHeaders();
+        $this->assertEquals('application/json', $headers['Content-Type'][0]);
+    }
+
+    public function testInvokeModeJson()
+    {
+        $request = $this->getMock(RequestInterface::class);
+        $response = new Response();
+
+        $this->obj->expects($this->any())
+            ->method('run')
+            ->will($this->returnValue($response));
+
+        $this->obj->setMode('json');
+        $obj = $this->obj;
+        $res = $obj($request, $response);
+
+        $headers = $res->getHeaders();
+        $this->assertEquals('application/json', $headers['Content-Type'][0]);
+    }
+
+    public function testInvokeModeXml()
+    {
+        $request = $this->getMock(RequestInterface::class);
+        $response = new Response();
+
+        $this->obj->expects($this->any())
+            ->method('run')
+            ->will($this->returnValue($response));
+
+        $this->obj->setMode('xml');
+        $obj = $this->obj;
+        $res = $obj($request, $response);
+
+        $headers = $res->getHeaders();
+        $this->assertEquals('text/xml', $headers['Content-Type'][0]);
+    }
+
+    public function testInvokeModeRedirect()
+    {
+        $request = $this->getMock(RequestInterface::class);
+        $response = new Response();
+
+        $this->obj->expects($this->any())
+            ->method('run')
+            ->will($this->returnValue($response));
+
+        $this->obj->setMode('redirect');
+        $this->obj->setFailureUrl('example.com');
+        $obj = $this->obj;
+        $res = $obj($request, $response);
+
+        $this->assertEquals(301, $res->getStatusCode());
+
+        $headers = $res->getHeaders();
+        $this->assertEquals('example.com', $headers['Location'][0]);
+    }
+
+    public function testInitIsTrue()
+    {
+        $request = $this->getMock(RequestInterface::class);
+        $this->assertTrue($this->obj->init($request));
+    }
+
+    public function testSetDependencies()
+    {
+        $container = new Container();
+        $res = $this->obj->setDependencies($container);
+        $this->assertNull($res);
     }
 }

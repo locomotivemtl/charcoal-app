@@ -2,26 +2,46 @@
 
 namespace Charcoal\Tests\App\Template;
 
-use \Charcoal\App\App;
+use \PHPUnit_Framework_TestCase;
 
+use \Psr\Log\NullLogger;
+
+use \Psr\Http\Message\RequestInterface;
+
+use \Pimple\Container;
+
+use \Charcoal\App\Template\AbstractTemplate;
+
+/**
+ *
+ */
 class AbstractTemplateTest extends \PHPUnit_Framework_TestCase
 {
-    public $app;
+    /**
+     * Object under test
+     * @var AbstractTemplate
+     */
     public $obj;
 
     public function setUp()
     {
-        $this->app = $GLOBALS['app'];
-        $container = $this->app->getContainer();
-        $this->obj = $this->getMockForAbstractClass('\Charcoal\App\Template\AbstractTemplate', [[
-                'app'=>$this->app,
-                'logger'=>$container['logger']
-            ]]);
+        $container = new Container();
+        $this->obj = $this->getMockForAbstractClass(AbstractTemplate::class, [[
+            'logger'    => new NullLogger(),
+            'container' => $container
+        ]]);
     }
 
-    public function testConstructor()
+    public function testInitIsTrue()
     {
-        $obj = $this->obj;
-        $this->assertInstanceOf('\Charcoal\App\Template\AbstractTemplate', $obj);
+        $request = $this->getMock(RequestInterface::class);
+        $this->assertTrue($this->obj->init($request));
+    }
+
+    public function testSetDependencies()
+    {
+        $container = new Container();
+        $res = $this->obj->setDependencies($container);
+        $this->assertNull($res);
     }
 }

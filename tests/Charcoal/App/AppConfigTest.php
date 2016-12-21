@@ -11,6 +11,6 @@ class AppConfigTest extends \PHPUnit_Framework_TestCase
     public function testConstructor()
     {
         $obj = new AppConfig();
-        $this->assertInstanceOf('\Charcoal\App\AppConfig', $obj);
+        $this->assertInstanceOf(AppConfig::class, $obj);
     }
 }
