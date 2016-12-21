@@ -31,7 +31,6 @@ class AppContainer extends Container
 
         $this->registerProviderFactory();
         $this->registerConfigProviders();
-
     }
 
     /**
