@@ -17,10 +17,12 @@ use \Charcoal\App\Config\DatabaseConfig;
  * Database Service Provider. Configures and provides a PDO service to a container.
  *
  * ## Services
- * - `database` The `\PDO` object containeing
+ *
+ * - `database` The `\PDO` instance.
  * - `databases` Container of all availables `\PDO` databases.
  *
  * ## Helpers
+ *
  * - `database/config` A `DatabaseConfig` object containing the DB settings.
  * - `databases/config A container of `DatabaseConfig`
  */
