@@ -61,7 +61,7 @@ class AppContainer extends Container
             'charcoal/app/service-provider/database'   => [],
             'charcoal/app/service-provider/logger'     => [],
             'charcoal/app/service-provider/translator' => [],
-            'charcoal/app/service-provider/view'       => [],
+            'charcoal/view/view'                       => [],
         ];
 
         if (!empty($this['config']['service_providers'])) {
