@@ -128,35 +128,18 @@
 
 
 	<div class="description">
-	<p>View Service Provider</p>
-
-<h2>Requirements / Dependencies</h2>
-
-<ul>
-<li><code>config</code> - The global / base app config (<code>ConfigInterface</code>).</li>
-<li><code>logger</code> - A PSR-3 loger.</li>
-</ul>
-
-<h2>Services</h2>
-
-<ul>
-<li><code>view/config</code> - The global view config (<code>ViewConfig</code>).</li>
-<li><code>view</code> - The default <code>ViewInterface</code> object, determined by <code>view/config</code>.</li>
-<li><code>view/renderer</code> - A PSR-7 renderer using the default <code>view</code> object.</li>
-</ul>
-
-<h2>Helpers</h2>
-
-<ul>
-<li><code>view/engine</code> - The default <code>EngineInterface</code> object, determined by <code>view/config</code>.</li>
-</ul>
+	<p>Kept for backward compatibility. Use \Charcoal\View\ViewServiceProvider</p>
 	</div>
 
 	<dl class="tree">
 		<dd style="padding-left:0px">
+Charcoal\View\ViewServiceProvider
+			
+			
+		</dd>
+		<dd style="padding-left:30px">
+			<img src="resources/inherit.png" alt="Extended by">
 <b><span>Charcoal\App\ServiceProvider\ViewServiceProvider</span></b>			
-			 implements 
-<span>Pimple\ServiceProviderInterface</span>
 			
 			
 		</dd>
@@ -175,158 +158,12 @@
 		<b>Namespace:</b> <a href="namespace-Charcoal.html">Charcoal</a>\<a href="namespace-Charcoal.App.html">App</a>\<a href="namespace-Charcoal.App.ServiceProvider.html">ServiceProvider</a><br>
 		
 
-			<b>Located at</b> <a href="source-class-Charcoal.App.ServiceProvider.ViewServiceProvider.html#22-219" title="Go to source code">Charcoal/App/ServiceProvider/ViewServiceProvider.php</a>
+			<b>Located at</b> <a href="source-class-Charcoal.App.ServiceProvider.ViewServiceProvider.html#7-13" title="Go to source code">Charcoal/App/ServiceProvider/ViewServiceProvider.php</a>
 		<br>
 	</div>
 
 
 
-	<table class="summary methods" id="methods">
-	<caption>Methods summary</caption>
-	<tr data-order="register" id="_register">
-
-		<td class="attributes"><code>
-			 public 
-
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_register">#</a>
-		<code><a href="source-class-Charcoal.App.ServiceProvider.ViewServiceProvider.html#45-71" title="Go to source code">register</a>( <span>Pimple\Container <var>$container</var></span> )</code>
-
-		<div class="description short">
-			<p>Registers services on the given container.</p>
-		</div>
-
-		<div class="description detailed hidden">
-			<p>Registers services on the given container.</p>
-
-<p>This method should only be used to configure services and parameters.
-It should not get services.</p>
-
-
-				<h4>Parameters</h4>
-				<div class="list"><dl>
-					<dt><var>$container</var></dt>
-					<dd>A container instance.</dd>
-				</dl></div>
-
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="registerLoaderServices" id="_registerLoaderServices">
-
-		<td class="attributes"><code>
-			 protected 
-
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_registerLoaderServices">#</a>
-		<code><a href="source-class-Charcoal.App.ServiceProvider.ViewServiceProvider.html#73-114" title="Go to source code">registerLoaderServices</a>( <span>Pimple\Container <var>$container</var></span> )</code>
-
-		<div class="description short">
-			
-		</div>
-
-		<div class="description detailed hidden">
-			
-
-
-				<h4>Parameters</h4>
-				<div class="list"><dl>
-					<dt><var>$container</var></dt>
-					<dd>The DI container.</dd>
-				</dl></div>
-
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="registerEngineServices" id="_registerEngineServices">
-
-		<td class="attributes"><code>
-			 protected 
-
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_registerEngineServices">#</a>
-		<code><a href="source-class-Charcoal.App.ServiceProvider.ViewServiceProvider.html#116-183" title="Go to source code">registerEngineServices</a>( <span>Pimple\Container <var>$container</var></span> )</code>
-
-		<div class="description short">
-			
-		</div>
-
-		<div class="description detailed hidden">
-			
-
-
-				<h4>Parameters</h4>
-				<div class="list"><dl>
-					<dt><var>$container</var></dt>
-					<dd>The DI container.</dd>
-				</dl></div>
-
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="registerViewServices" id="_registerViewServices">
-
-		<td class="attributes"><code>
-			 protected 
-
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_registerViewServices">#</a>
-		<code><a href="source-class-Charcoal.App.ServiceProvider.ViewServiceProvider.html#185-218" title="Go to source code">registerViewServices</a>( <span>Pimple\Container <var>$container</var></span> )</code>
-
-		<div class="description short">
-			
-		</div>
-
-		<div class="description detailed hidden">
-			
-
-
-				<h4>Parameters</h4>
-				<div class="list"><dl>
-					<dt><var>$container</var></dt>
-					<dd>The DI container.</dd>
-				</dl></div>
-
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	</table>
 
 
 
