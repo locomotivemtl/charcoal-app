@@ -51,7 +51,7 @@ class CacheServiceProvider implements ServiceProviderInterface
         $container['cache/config'] = function (Container $container) {
             $appConfig = $container['config'];
 
-            $cacheConfig =  new CacheConfig($appConfig->get('cache'));
+            $cacheConfig =  new CacheConfig($appConfig['cache']);
             return $cacheConfig;
         };
 
@@ -174,7 +174,7 @@ class CacheServiceProvider implements ServiceProviderInterface
         $container['cache/driver'] = function (Container $container) {
 
             $cacheConfig = $container['cache/config'];
-            $types = $cacheConfig->get('types');
+            $types = $cacheConfig['types'];
 
             foreach ($types as $type) {
                 if (isset($container['cache/drivers'][$type])) {
