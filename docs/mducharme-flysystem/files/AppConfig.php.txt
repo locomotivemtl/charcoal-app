@@ -2,13 +2,14 @@
 
 namespace Charcoal\App;
 
-use \Exception;
-use \InvalidArgumentException;
+use Exception;
+use InvalidArgumentException;
 
-use \Charcoal\Config\AbstractConfig;
+use Charcoal\Config\AbstractConfig;
 
-use \Charcoal\App\Config\CacheConfig;
-use \Charcoal\App\Config\LoggerConfig;
+use Charcoal\App\Config\CacheConfig;
+use Charcoal\App\Config\FilesystemConfig;
+use Charcoal\App\Config\LoggerConfig;
 
 /**
  * Charcoal App configuration
@@ -104,6 +105,11 @@ class AppConfig extends AbstractConfig
      * @var string $defaultDatabase
      */
     private $defaultDatabase;
+
+    /**
+     * @var array $filesystem
+     */
+    private $filesystem;
 
     /**
      * Default app-config values.
@@ -715,6 +721,36 @@ class AppConfig extends AbstractConfig
             );
         }
         return $this->defaultDatabase;
+    }
+
+    /**
+     * @param array|FilesystemConfig $filesystem The application global cache config.
+     * @throws InvalidArgumentException If the argument is not an array or a config.
+     * @return AppConfig Chainable
+     */
+    public function setFilesystem($filesystem)
+    {
+        if ($cache instanceof FilesystemConfig) {
+            $this->filesystem = $filesystem;
+            $this->filesystem->addDelegate($this);
+        } elseif (is_array($cache)) {
+            $this->filesystem = new FileSystemConfig($filesystem, [$this]);
+        } else {
+            throw new InvalidArgumentException(
+                'Filesystem must be an array of config options or a FilesystemConfig object.'
+            );
+        }
+        return $this;
+    }
+
+    /**
+     * Get the application's global `FilesystemConfig`
+     *
+     * @return FilesystemConfig
+     */
+    public function filesystem()
+    {
+        return $this->filesystem;
     }
 }
 
