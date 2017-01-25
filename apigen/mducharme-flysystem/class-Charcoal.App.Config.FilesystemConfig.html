@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 
-	<title>Class Charcoal\App\AppContainer</title>
+	<title>Class Charcoal\App\Config\FilesystemConfig</title>
 
 	<link rel="stylesheet" href="resources/style.css?e99947befd7bf673c6b43ff75e9e0f170c88a60e">
 
@@ -35,7 +35,7 @@
 						Action					</a>
 
 						</li>
-				<li>
+				<li class="active">
 					<a href="namespace-Charcoal.App.Config.html">
 						Config					</a>
 
@@ -80,21 +80,16 @@
 		<div id="elements">
 			<h3>Classes</h3>
 			<ul>
-				<li><a href="class-Charcoal.App.App.html">App</a></li>
-				<li><a href="class-Charcoal.App.AppConfig.html">AppConfig</a></li>
-				<li class="active"><a href="class-Charcoal.App.AppContainer.html">AppContainer</a></li>
+				<li><a href="class-Charcoal.App.Config.CacheConfig.html">CacheConfig</a></li>
+				<li><a href="class-Charcoal.App.Config.DatabaseConfig.html">DatabaseConfig</a></li>
+				<li class="active"><a href="class-Charcoal.App.Config.FilesystemConfig.html">FilesystemConfig</a></li>
+				<li><a href="class-Charcoal.App.Config.LoggerConfig.html">LoggerConfig</a></li>
+				<li><a href="class-Charcoal.App.Config.MemcacheCacheConfig.html">MemcacheCacheConfig</a></li>
+				<li><a href="class-Charcoal.App.Config.MemcacheCacheServerConfig.html">MemcacheCacheServerConfig</a></li>
+				<li><a href="class-Charcoal.App.Config.TranslatorConfig.html">TranslatorConfig</a></li>
 			</ul>
 
-			<h3>Interfaces</h3>
-			<ul>
-				<li><a href="class-Charcoal.App.AppAwareInterface.html">AppAwareInterface</a></li>
-			</ul>
 
-			<h3>Traits</h3>
-			<ul>
-				<li><a href="class-Charcoal.App.AppAwareTrait.html">AppAwareTrait</a></li>
-				<li><a href="class-Charcoal.App.CallableResolverAwareTrait.html">CallableResolverAwareTrait</a></li>
-			</ul>
 
 
 
@@ -118,7 +113,7 @@
 				<a href="index.html" title="Overview"><span>Overview</span></a>
 			</li>
 			<li>
-				<a href="namespace-Charcoal.App.html" title="Summary of Charcoal\App"><span>Namespace</span></a>
+				<a href="namespace-Charcoal.App.Config.html" title="Summary of Charcoal\App\Config"><span>Namespace</span></a>
 			</li>
 			<li class="active">
 <span>Class</span>			</li>
@@ -130,22 +125,19 @@
 	</div>
 
 <div id="content" class="class">
-	<h1>Class AppContainer</h1>
+	<h1>Class FilesystemConfig</h1>
 
 
-	<div class="description">
-	<p>Charcoal App Container</p>
-	</div>
 
 	<dl class="tree">
 		<dd style="padding-left:0px">
-Slim\Container
+Charcoal\Config\AbstractConfig
 			
 			
 		</dd>
 		<dd style="padding-left:30px">
 			<img src="resources/inherit.png" alt="Extended by">
-<b><span>Charcoal\App\AppContainer</span></b>			
+<b><span>Charcoal\App\Config\FilesystemConfig</span></b>			
 			
 			
 		</dd>
@@ -161,10 +153,10 @@ Slim\Container
 	<div class="info">
 		
 		
-		<b>Namespace:</b> <a href="namespace-Charcoal.html">Charcoal</a>\<a href="namespace-Charcoal.App.html">App</a><br>
+		<b>Namespace:</b> <a href="namespace-Charcoal.html">Charcoal</a>\<a href="namespace-Charcoal.App.html">App</a>\<a href="namespace-Charcoal.App.Config.html">Config</a><br>
 		
 
-			<b>Located at</b> <a href="source-class-Charcoal.App.AppContainer.html#14-88" title="Go to source code">Charcoal/App/AppContainer.php</a>
+			<b>Located at</b> <a href="source-class-Charcoal.App.Config.FilesystemConfig.html#8-44" title="Go to source code">Charcoal/App/Config/FilesystemConfig.php</a>
 		<br>
 	</div>
 
@@ -172,34 +164,33 @@ Slim\Container
 
 	<table class="summary methods" id="methods">
 	<caption>Methods summary</caption>
-	<tr data-order="__construct" id="___construct">
+	<tr data-order="defaults" id="_defaults">
 
 		<td class="attributes"><code>
 			 public 
 
-			
+			array
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#___construct">#</a>
-		<code><a href="source-class-Charcoal.App.AppContainer.html#19-34" title="Go to source code">__construct</a>( <span>array <var>$values</var> = []</span> )</code>
+		<a class="anchor" href="#_defaults">#</a>
+		<code><a href="source-class-Charcoal.App.Config.FilesystemConfig.html#24-43" title="Go to source code">defaults</a>( )</code>
 
 		<div class="description short">
-			<p>Create new container</p>
+			
 		</div>
 
 		<div class="description detailed hidden">
-			<p>Create new container</p>
+			
 
 
-				<h4>Parameters</h4>
-				<div class="list"><dl>
-					<dt><var>$values</var></dt>
-					<dd>The parameters or objects.</dd>
-				</dl></div>
 
+				<h4>Returns</h4>
+				<div class="list">
+					array
+				</div>
 
 
 
@@ -220,6 +211,59 @@ Slim\Container
 
 
 
+	<table class="summary properties" id="properties">
+	<caption>Properties summary</caption>
+	<tr data-order="connections" id="$connections">
+		<td class="attributes"><code>
+			public  
+			array
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Charcoal.App.Config.FilesystemConfig.html#14-17" title="Go to source code"><var>$connections</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$connections" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="defaultConnection" id="$defaultConnection">
+		<td class="attributes"><code>
+			public  
+			string
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Charcoal.App.Config.FilesystemConfig.html#19-22" title="Go to source code"><var>$defaultConnection</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$defaultConnection" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	</table>
 
 
 
