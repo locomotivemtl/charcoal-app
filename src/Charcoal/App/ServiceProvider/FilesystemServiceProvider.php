@@ -129,7 +129,7 @@ class FilesystemServiceProvider implements ServiceProviderInterface
     {
         if (!isset($config['path']) || !$config['path']) {
             throw new InvalidArgumentException(
-                'No "path" configured for S3 filesystem.'
+                'No "path" configured for local filesystem.'
             );
         }
         $defaults = [
@@ -169,7 +169,7 @@ class FilesystemServiceProvider implements ServiceProviderInterface
         $defaults = [
             'region'    => '',
             'version'   => 'latest',
-            'prefix'    => ''
+            'prefix'    => null
         ];
         $config = array_merge($defaults, $config);
 
@@ -182,7 +182,15 @@ class FilesystemServiceProvider implements ServiceProviderInterface
             'version' => $config['version'],
         ]);
 
-        return new AwsS3Adapter($client, $config['bucket'], $config['prefix']);
+        if (isset($config['public']) && !$config['public']) {
+            $permissions = null;
+        } else {
+            $permissions = [
+                'ACL' => 'public-read'
+            ];
+        }
+
+        return new AwsS3Adapter($client, $config['bucket'], $config['prefix'], $permissions);
     }
 
     /**
