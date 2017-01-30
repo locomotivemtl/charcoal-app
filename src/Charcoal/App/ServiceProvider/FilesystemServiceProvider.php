@@ -109,7 +109,7 @@ class FilesystemServiceProvider implements ServiceProviderInterface
             $adapter = $this->createSftpAdapter($config);
         } elseif ($type == 'memory') {
             $adapter = $this->createMemoryAdapter($config);
-        } elseif ($type == 'null') {
+        } elseif ($type == 'noop') {
             $adapter = $this->createNullAdapter($config);
         } else {
             throw new UnexpectedValueException(

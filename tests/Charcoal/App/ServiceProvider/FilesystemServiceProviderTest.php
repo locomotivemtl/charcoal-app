@@ -197,7 +197,7 @@ class FilesystemServiceProviderTest extends PHPUnit_Framework_TestCase
                 'filesystem' => [
                     'connections' => [
                         'test' => [
-                            'type' => 'null'
+                            'type' => 'noop'
                         ]
                     ]
                 ]
