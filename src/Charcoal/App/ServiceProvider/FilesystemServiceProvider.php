@@ -4,6 +4,7 @@ namespace Charcoal\App\ServiceProvider;
 
 use Exception;
 use InvalidArgumentException;
+use UnexpectedValueException;
 
 // Dependencies from `pimple/pimple`
 use Pimple\ServiceProviderInterface;
@@ -69,7 +70,6 @@ class FilesystemServiceProvider implements ServiceProviderInterface
         $container['filesystems'] = function(Container $container) {
             $filesystemConfig = $container['filesystem/config'];
             $filesystems = new Container();
-            $parentContainer = $container;
 
             foreach ($filesystemConfig['connections'] as $ident => $connection) {
                 $fs = $this->createConnection($connection);
