@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>Class Charcoal\App\Route\RouteManager</title>
+
+	<link rel="stylesheet" href="resources/style.css?e99947befd7bf673c6b43ff75e9e0f170c88a60e">
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+				<h3>Namespaces</h3>
+			<ul>
+				<li class="active">
+					<a href="namespace-Charcoal.html">
+						Charcoal<span></span>
+					</a>
+
+						<ul>
+				<li class="active">
+					<a href="namespace-Charcoal.App.html">
+						App<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Charcoal.App.Action.html">
+						Action					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Charcoal.App.Config.html">
+						Config					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Charcoal.App.Handler.html">
+						Handler					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Charcoal.App.Module.html">
+						Module					</a>
+
+						</li>
+				<li class="active">
+					<a href="namespace-Charcoal.App.Route.html">
+						Route					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Charcoal.App.Script.html">
+						Script					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Charcoal.App.ServiceProvider.html">
+						ServiceProvider					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Charcoal.App.Template.html">
+						Template					</a>
+
+						</li>
+							</ul></li></ul></li>
+			</ul>
+		</div>
+
+		<hr>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-Charcoal.App.Route.ActionRoute.html">ActionRoute</a></li>
+				<li><a href="class-Charcoal.App.Route.ActionRouteConfig.html">ActionRouteConfig</a></li>
+				<li><a href="class-Charcoal.App.Route.RouteConfig.html">RouteConfig</a></li>
+				<li class="active"><a href="class-Charcoal.App.Route.RouteManager.html">RouteManager</a></li>
+				<li><a href="class-Charcoal.App.Route.ScriptRoute.html">ScriptRoute</a></li>
+				<li><a href="class-Charcoal.App.Route.ScriptRouteConfig.html">ScriptRouteConfig</a></li>
+				<li><a href="class-Charcoal.App.Route.TemplateRoute.html">TemplateRoute</a></li>
+				<li><a href="class-Charcoal.App.Route.TemplateRouteConfig.html">TemplateRouteConfig</a></li>
+			</ul>
+
+			<h3>Interfaces</h3>
+			<ul>
+				<li><a href="class-Charcoal.App.Route.RouteInterface.html">RouteInterface</a></li>
+			</ul>
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="">
+		<input type="hidden" name="ie" value="UTF-8">
+		<input type="text" name="q" class="text" placeholder="Search">
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-Charcoal.App.Route.html" title="Summary of Charcoal\App\Route"><span>Namespace</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class RouteManager</h1>
+
+
+	<div class="description">
+	<p>The route manager takes care of dispatching each route from an app or a module config</p>
+	</div>
+
+	<dl class="tree">
+		<dd style="padding-left:0px">
+<b><span>Charcoal\App\Route\RouteManager</span></b>			
+			 implements 
+				<a href="class-Charcoal.App.AppAwareInterface.html"><span>Charcoal\App\AppAwareInterface</span></a>, 
+			
+<span>Charcoal\Config\ConfigurableInterface</span>
+			
+			 uses 
+					<a href="class-Charcoal.App.AppAwareTrait.html"><span>Charcoal\App\AppAwareTrait</span></a>, 
+			
+					Charcoal\Config\ConfigurableTrait (not available)
+
+			
+		</dd>
+	</dl>
+
+
+
+
+
+
+
+
+	<div class="info">
+		
+		
+		<b>Namespace:</b> <a href="namespace-Charcoal.html">Charcoal</a>\<a href="namespace-Charcoal.App.html">App</a>\<a href="namespace-Charcoal.App.Route.html">Route</a><br>
+		
+
+			<b>Located at</b> <a href="source-class-Charcoal.App.Route.RouteManager.html#17-362" title="Go to source code">Charcoal/App/Route/RouteManager.php</a>
+		<br>
+	</div>
+
+
+
+	<table class="summary methods" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="__construct" id="___construct">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___construct">#</a>
+		<code><a href="source-class-Charcoal.App.Route.RouteManager.html#34-43" title="Go to source code">__construct</a>( <span>array <var>$data</var></span> )</code>
+
+		<div class="description short">
+			<p>Manager constructor</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Manager constructor</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$data</var></dt>
+					<dd>The dependencies container.</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setRouteData" id="_setRouteData">
+
+		<td class="attributes"><code>
+			 public 
+
+			<code><a href="class-Charcoal.App.Route.RouteManager.html">Charcoal\App\Route\RouteManager</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setRouteData">#</a>
+		<code><a href="source-class-Charcoal.App.Route.RouteManager.html#45-59" title="Go to source code">setRouteData</a>( <span>array <var>$routeData</var></span> )</code>
+
+		<div class="description short">
+			<p>Replace global route parameters.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Replace global route parameters.</p>
+
+<p>These are merged with each route's arguments.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$routeData</var></dt>
+					<dd>Route parameters.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-Charcoal.App.Route.RouteManager.html">Charcoal\App\Route\RouteManager</a></code><br>Chainable
+				</div>
+
+
+				<h4>See</h4>
+				<div class="list">
+						\Slim\Route::setArguments()<br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="mergeRouteData" id="_mergeRouteData">
+
+		<td class="attributes"><code>
+			 public 
+
+			<code><a href="class-Charcoal.App.Route.RouteManager.html">Charcoal\App\Route\RouteManager</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_mergeRouteData">#</a>
+		<code><a href="source-class-Charcoal.App.Route.RouteManager.html#61-76" title="Go to source code">mergeRouteData</a>( <span>array <var>$routeData</var></span> )</code>
+
+		<div class="description short">
+			<p>Merge global route parameters.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Merge global route parameters.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$routeData</var></dt>
+					<dd>Route parameters.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-Charcoal.App.Route.RouteManager.html">Charcoal\App\Route\RouteManager</a></code><br>Chainable
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setupRoutes" id="_setupRoutes">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setupRoutes">#</a>
+		<code><a href="source-class-Charcoal.App.Route.RouteManager.html#78-109" title="Go to source code">setupRoutes</a>( )</code>
+
+		<div class="description short">
+			<p>Set up the routes.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Set up the routes.</p>
+
+<p>There are 3 types of routes:</p>
+
+<ul>
+<li>Templates</li>
+<li>Actions</li>
+<li>Scripts</li>
+</ul>
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setupTemplate" id="_setupTemplate">
+
+		<td class="attributes"><code>
+			 public 
+
+			Slim\Route
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setupTemplate">#</a>
+		<code><a href="source-class-Charcoal.App.Route.RouteManager.html#111-193" title="Go to source code">setupTemplate</a>( <span>string <var>$routeIdent</var></span>, <span>array|ArrayAccess <var>$templateConfig</var></span> )</code>
+
+		<div class="description short">
+			<p>Add template route.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Add template route.</p>
+
+<p>Typically for a GET request, the route will render a template.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$routeIdent</var></dt>
+					<dd>The template's route identifier.</dd>
+					<dt><var>$templateConfig</var></dt>
+					<dd>The template's config for the route.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					Slim\Route
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setupAction" id="_setupAction">
+
+		<td class="attributes"><code>
+			 public 
+
+			Slim\Route
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setupAction">#</a>
+		<code><a href="source-class-Charcoal.App.Route.RouteManager.html#195-277" title="Go to source code">setupAction</a>( <span>string <var>$routeIdent</var></span>, <span>array|ArrayAccess <var>$actionConfig</var></span> )</code>
+
+		<div class="description short">
+			<p>Add action route.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Add action route.</p>
+
+<p>Typically for a POST request, the route will execute an action (returns JSON).</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$routeIdent</var></dt>
+					<dd>The action's route identifier.</dd>
+					<dt><var>$actionConfig</var></dt>
+					<dd>The action's config for the route.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					Slim\Route
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setupScript" id="_setupScript">
+
+		<td class="attributes"><code>
+			 public 
+
+			Slim\Route
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setupScript">#</a>
+		<code><a href="source-class-Charcoal.App.Route.RouteManager.html#279-361" title="Go to source code">setupScript</a>( <span>string <var>$routeIdent</var></span>, <span>array|ArrayAccess <var>$scriptConfig</var></span> )</code>
+
+		<div class="description short">
+			<p>Add script route.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Add script route.</p>
+
+<p>Typically used for a CLI interface, the route will execute a script.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$routeIdent</var></dt>
+					<dd>The script's route identifier.</dd>
+					<dt><var>$scriptConfig</var></dt>
+					<dd>The script's config for the route.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					Slim\Route
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-Charcoal.App.AppAwareInterface.html#methods">Charcoal\App\AppAwareInterface</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-Charcoal.App.AppAwareInterface.html#_setApp">setApp()</a>
+		</code></td>
+	</tr>
+	</table>
+
+	<table class="summary used">
+	<caption>Methods used from <a href="class-Charcoal.App.AppAwareTrait.html#methods">Charcoal\App\AppAwareTrait</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-Charcoal.App.AppAwareTrait.html#_app">app()</a>, 
+			<a href="class-Charcoal.App.AppAwareTrait.html#_setApp">setApp()</a>
+		</code></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		 API documentation generated by <a href="http://apigen.org">ApiGen</a>
+	</div>
+</div>
+</div>
+<script src="resources/combined.js"></script>
+<script src="elementlist.js"></script>
+</body>
+</html>
