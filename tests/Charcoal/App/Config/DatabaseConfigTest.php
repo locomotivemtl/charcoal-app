@@ -24,4 +24,64 @@ class DatabaseConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('', $this->obj->database());
         $this->assertFalse($this->obj->disableUtf8());
     }
+
+    public function testSetType()
+    {
+        $ret = $this->obj->setType('sqlite');
+        $this->assertSame($ret, $this->obj);
+        $this->assertEquals('sqlite', $this->obj->type());
+
+        $this->setExpectedException('\InvalidArgumentException');
+        $this->obj->setType([]);
+    }
+
+    public function testSetHostname()
+    {
+        $ret = $this->obj->setHostname('foo');
+        $this->assertSame($ret, $this->obj);
+        $this->assertEquals('foo', $this->obj->hostname());
+
+        $this->setExpectedException('\InvalidArgumentException');
+        $this->obj->setHostname([]);
+    }
+
+    public function testSetUsername()
+    {
+        $ret = $this->obj->setUsername('foobar');
+        $this->assertSame($ret, $this->obj);
+        $this->assertEquals('foobar', $this->obj->username());
+
+        $this->setExpectedException('\InvalidArgumentException');
+        $this->obj->setUsername([]);
+    }
+
+    public function testSetPassword()
+    {
+        $ret = $this->obj->setPassword('baz');
+        $this->assertSame($ret, $this->obj);
+        $this->assertEquals('baz', $this->obj->password());
+
+        $this->setExpectedException('\InvalidArgumentException');
+        $this->obj->setPassword([]);
+    }
+
+    public function testSetDatabase()
+    {
+        $ret = $this->obj->setDatabase('barbaz');
+        $this->assertSame($ret, $this->obj);
+        $this->assertEquals('barbaz', $this->obj->database());
+
+        $this->setExpectedException('\InvalidArgumentException');
+        $this->obj->setDatabase([]);
+    }
+
+    public function testSetDIsableUtf8()
+    {
+        $ret = $this->obj->setDIsableUtf8(true);
+        $this->assertSame($ret, $this->obj);
+        $this->assertTrue($this->obj->disableUtf8());
+
+        $this->obj['disable_utf8'] = 0;
+        $this->assertFalse($this->obj['disable_utf8']);
+    }
 }
