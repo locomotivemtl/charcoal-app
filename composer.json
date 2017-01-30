@@ -32,12 +32,17 @@
         "locomotivemtl/charcoal-config": "~0.6",
         "locomotivemtl/charcoal-factory": "~0.4",
         "locomotivemtl/charcoal-view": "~0.1",
-        "locomotivemtl/charcoal-translation": "~0.1"
+        "locomotivemtl/charcoal-translation": "~0.1",
+        "league/flysystem": "^1.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^4.8",
         "squizlabs/php_codesniffer": "^2.4",
-        "satooshi/php-coveralls": "~1.0.1"
+        "satooshi/php-coveralls": "~1.0.1",
+        "league/flysystem-aws-s3-v3": "^1.0",
+        "league/flysystem-sftp": "^1.0",
+        "league/flysystem-memory": "^1.0",
+        "league/flysystem-dropbox": "^1.0"
     },
     "autoload": {
         "psr-4": {

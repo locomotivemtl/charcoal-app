@@ -4,17 +4,17 @@ Charcoal App
 Charcoal App is a framework to create and manage _Charcoal_ application with **Slim 3**.
 An _app is a collection of _modules_, _routes_ (`templates`, `actions` and `scripts`), _handlers_ and _services_ tied together with a `Charcoal` _config_ and a `Pimple` _container_.
 
-Provided services (through `Pimple`'s _Service Providers_) are a psr-3 _logger_, a psr-6 _cache_ system, a _view_ / renderer, a PDO _database_ source and a _translator_.
+Provided services (through `Pimple`'s _Service Providers_) are a psr-3 _logger_, a psr-6 _cache_ system, a _view_ / renderer, Flysystem _filesystems_, a PDO _database_ source and a _translator_.
 
 # Table of contents
 
 -   [How to install](#how-to-install)
+    -   [From boilerplate](#from-boilerplate)
     -   [Dependencies](#dependencies)
     -   [Recommended modules](#recommended-modules)
 -   [Components](#components)
     -   [Config](#config-component)
     -   [App](#app-compoment)
-    -   [Module](#module-component)
     -   [Routes and RequestController](#routes-and-requestcontroller)
         -   [Action Request Controller](#action-request-controller)
         -   [Script Request Controller](#script-request-controller)
@@ -26,10 +26,18 @@ Provided services (through `Pimple`'s _Service Providers_) are a psr-3 _logger_,
     -   [Basic Services](#basic-services)
     -   [App Service Provider](#app-service-provider)
     -   [Cache Service Provider](#cache-service-provider)
+        +   [Cache config](#cache-config)
     -   [Database Service Provider](#database-service-provider)
+        +   [Database config](#database-config)
+    -   [Filesystem Service Provider](#filesystem-service-provider)
+        +   [Filesystem config](#filesystem-config)
+        +   [Default connnections](#default-connections)
     -   [Logger Service Provider](#logger-service-provider)
+        +   [Logger config](#logger-config)
     -   [Translator Service Provider](#translator-service-provider)
+        +   [Translator config](#translator-config)
     -   [View Service Provider](#view-service-provider)
+        +   [View config](#view-config)
 -   [Usage](#usage)
 -   [Development](#development)
     -   [Development dependencies](#development-dependencies)
@@ -46,12 +54,19 @@ The preferred (and only supported) way of installing _charcoal-app_ is with **co
 ★ composer require locomotivemtl/charcoal-app
 ```
 
-A PSR-4 compliant autoloader
+## From boilerplate
+
+For a complete, ready-to-use project, start from the [`boilerplate`](https://github.com/locomotivemtl/charcoal-project-boilerplate):
+
+```shell
+★ composer create-project locomotivemtl/charcoal-project-boilerplate
+```
 
 ## Dependencies
 
--   [`PHP 5.5+`](http://php.net)
+-   [`PHP 5.6+`](http://php.net)
     -   Older versions of PHP are deprecated, therefore not supported for charcoal-app. PHP 5.6 + is recommendend.
+    -   PHP 7 is also supported.
 -   [`locomotivemtl/charcoal-config`](https://github.com/locomotivemtl/charcoal-config)
     -    The basic configuration system and config container.
     -    Also provides the base `AbstractEntity` data container.
@@ -80,8 +95,11 @@ A PSR-4 compliant autoloader
 -   [`tedivm/stash`](https://github.com/tedious/Stash)
   -   Stash is a PSR-6 compliant cache system.
   -   Cache greatly speeds up an application. A driver must be configured:
-    -   Supported drivers are `memcache, `redis`, `db` (sqlite), `file`, `memory` or `noop`
+    -   Supported drivers are `memcache`, `redis`, `db` (sqlite), `file`, `memory` or `noop`
     -   Recommended drivers are `memcache` and `redis`.
+-   [`league/flysystem`](https://github.com/thephpleague/flysystem)
+  -   Filesystem abstraction provided by Flysystem.
+      +   Supported types are `local`, `ftp`, `sftp`, `s3`, `dropbox`, `memory` or `noop`.
 
 > 👉 Development dependencies, which are optional when using charcoal-app in a project, are described in the [Development](#development) section of this README file.
 
@@ -103,12 +121,6 @@ In addition to the above dependencies, here's a list of recommended modules that
     -   A modern, responsive backend for Charcoal projects.
     -   Especially made for Charcoal _models_ / _objects_.
     -   A good example of `charcoal-app` / mustache templates usage.
-
-For a complete, ready-to-use project, start from the [`boilerplate`](https://github.com/locomotivemtl/charcoal-project-boilerplate):
-
-```shell
-★ composer create-project locomotivemtl/charcoal-project-boilerplate
-```
 
 # Components
 
@@ -171,6 +183,7 @@ $config->addFile(__DIR__.'/../config/config.php');
 | **databases**        | `array`   | `[]`    | An array of `DatabaseConfig`
 | **default_database** | `string`  | `""`    |
 | **email**            | `array`   | `[]`    | The email (default from and SMTP options) configuration. See [EmailConfig](https://github.com/locomotivemtl/charcoal-email) |
+| **filesystem**       | `array`   | `null`   |
 | **logger**           | `array`   | `null`  | The logger service configuration
 | **translator**       | `array`   | `null`  |
 | **view**             | `array`   | `null`  | The default view configuration (default engine and path settings). See [ViewConfig](https://github.com/locomotivemtl/charcoal-view). I|
@@ -201,18 +214,6 @@ $container = new \Charcoal\App\AppContainer([
 $app = \Charcoal\App\App::instance($container);
 $app->run();
 ```
-
-## Module component
-
-A *Module* defines its specific components:
-
--   **Config**
--   **Routes**
-    -   Actions
-    -   Scripts
-    -   Templates
--   **Middlewares**: TBD
--   **Service Providers**: TBD
 
 ## Routes and RequestController
 
@@ -628,6 +629,7 @@ Dependencies are handled with a `Pimple` dependency Container. There are various
 -   [`AppServiceProvider`](#app-service-provider)
 -   [`CacheServiceProvider`](#cache-service-provider)
 -   [`DatabaseServicePovider`](#database-service-provider)
+-   [`FilesystemServiceProvider`](#filesystem-service-provider)
 -   [`LoggerServiceProvider`](#logger-service-provider)
 -   [`TranslatorServiceProvider`](#translator-service-provider)
 -   [`ViewServiceProvider`](#view-service-provider)
@@ -640,25 +642,31 @@ Dependencies are handled with a `Pimple` dependency Container.
 
 Basic "App" services are:
 
--   `config`
-  -   A `\Charcoal\App\AppConfig` instance.
--   `logger`
-  -   A `\Psr\Log\Logger` instance.
-  -   Provided by _Monolog_.
-  -   Configured by `config['logger']`
 -   `cache`
   -   A `\Stash\Pool` instance.
   -   Configured by `config['cache']`
--   `view`
-    -   A `Charcoal\View\ViewInterface` instance
-    -   Typically a `\Charcoal\View\GenericView` object.
-    -   Configured by `config['view']`
+-   `config`
+  -   A `\Charcoal\App\AppConfig` instance.
 -   `database`
   -   The default _PDO_ database.
   -   From a pool of database, available through `databases`.
   -   Configured by `config['databases']` and `config['default_database']`.
+-   `filesystems`
+    - A (pimple) container of `\League\Flysystem\Filesystem`
+    - Configured by `config['filesystem]`
+    - Also provide a `\League\Flysystem\MountManager` as `filesystem/manager`. 
+-   `logger`
+  -   A `\Psr\Log\Logger` instance.
+  -   Provided by _Monolog_.
+  -   Configured by `config['logger']`
 -   `translator`
   -   To do.
+-   `view`
+    -   A `Charcoal\View\ViewInterface` instance
+    -   Typically a `\Charcoal\View\GenericView` object.
+    -   Configured by `config['view']`
+    -   Actually provided by [`charcoal-view`](https://github.com/locomotivemtl/charcoal-view)
+
 
 ## App Service Provider
 
@@ -774,6 +782,38 @@ Or, in JSON format:
 }
 ```
 
+## Filesystem Service Provider
+
+The `FilesystemServiceProvider`, or `charcoal/app/service-provider/filesystem` provides the following services:
+
+| Service       | Type                | Description |
+| ------------- | ------------------- | ----------- |
+| **filesystems** | `\Pimple\Container` | A list of `\League\Flysystem\Filesystem`
+| **filesystem/manager** | `\League\Flysystem\MountManager` | A mount manager.
+
+Also available are the following helpers:
+
+| Helper Service       | Type                | Description |
+| -------------------- | ------------------- | ----------- |
+| **filesystem/config**  | `FilesystemConfig`<sup>1</sup> | Default filesystem config container.
+
+<sup>1</sup> `\Charcoal\App\Config\FilesystemConfig`
+
+### Filesystem config
+
+| Key               | Type     | Default       | Description |
+| ----------------- | -------- | ------------- | ----------- |
+| **connections**   | `array`  | `...`         |
+| **default_connection** | `string` | `'public'` | 
+
+### Default connections
+
+There are 2 connections **alway** available: `private` and `public`.
+
+By default, the `public` connection represents a _local_ filesystem with the the web-visible root path of the project (the `www` folder) set as the path.
+
+By default, the `private` connection represents a _local_ filesystem with the base path of the project set as the path.
+
 ## Logger Service Provider
 
 The `LoggerServiceProvider`, or `charcoal/app/service-provider/logger` provides the following services:
@@ -782,7 +822,7 @@ The `LoggerServiceProvider`, or `charcoal/app/service-provider/logger` provides 
 | ------------- | ------------------- | ----------- |
 | **logger**    | `\Psr\Log\LoggerInterface` | A PSR-3 compliant logger.
 
-A `\Monolog\Logger` is actually provided in charcoal-app.
+A `\Monolog\Logger` is actually provided by default in charcoal-app.
 
 Also available are the following helpers:
 
@@ -863,12 +903,14 @@ Or, in JSON format:
 
 ## View Service Provider
 
-The `ViewServiceProvider`, or `charcoal/app/service-provider/view` provides the following services:
+The `ViewServiceProvider`, or `charcoal/view/service-provider/view` provides the following services:
 
 | Service       | Type                | Description |
 | ------------- | ------------------- | ----------- |
 | **view**      | `ViewInterface`<sup>1</sup> | A Charcoal view instance.
 | **view/renderer** | `Renderer`<sup>2</sup> | A PSR-7 view / renderer. |
+
+> The View Service provider is not part of the `charcoal-app` module. It is provided by the [`charcoal-view`](https://github.com/locomotivemtl/charcoal-view). It is however registered by default by the main `AppContainer`; therefore it is also documented here.
 
 <sup>1</sup> `\Charcoal\View\ViewInterface`, typically a `\Charcoal\View\GenericView`.<br>
 <sup>2</sup> `\Charcoal\View\Renderer`.<br>

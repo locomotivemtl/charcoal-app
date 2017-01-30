@@ -53,7 +53,7 @@ class LoggerServiceProvider implements ServiceProviderInterface
         $container['logger/config'] = function (Container $container) {
             $config = $container['config'];
 
-            $loggerConfig = new LoggerConfig($config->get('logger'));
+            $loggerConfig = new LoggerConfig($config['logger']);
             return $loggerConfig;
         };
 

@@ -59,7 +59,7 @@ class DatabaseServiceProvider implements ServiceProviderInterface
         */
         $container['databases'] = function (Container $container) {
             $config = $container['config'];
-            $databases = $config->get('databases');
+            $databases = $config['databases'];
             $dbs = new Container();
             $origContainer = $container;
             foreach ($databases as $dbIdent => $dbOptions) {
