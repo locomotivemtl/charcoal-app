@@ -730,10 +730,10 @@ class AppConfig extends AbstractConfig
      */
     public function setFilesystem($filesystem)
     {
-        if ($cache instanceof FilesystemConfig) {
+        if ($filesystem instanceof FilesystemConfig) {
             $this->filesystem = $filesystem;
             $this->filesystem->addDelegate($this);
-        } elseif (is_array($cache)) {
+        } elseif (is_array($filesystem)) {
             $this->filesystem = new FileSystemConfig($filesystem, [$this]);
         } else {
             throw new InvalidArgumentException(

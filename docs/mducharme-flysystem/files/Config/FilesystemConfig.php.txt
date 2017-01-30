@@ -14,7 +14,7 @@ class FilesystemConfig extends AbstractConfig
     /**
      * @var array
      */
-    public $connections;
+    protected $connections = [];
 
     /**
      * @var string
@@ -24,22 +24,31 @@ class FilesystemConfig extends AbstractConfig
     /**
      * @return array
      */
-    public function defaults()
+    public function defaultConnections()
     {
-        $defaults = [
-            'connections' => [
-                'private' => [
-                    'type' => 'local',
-                    'path' => '/'
-                ],
-                'public' => [
-                    'type' => 'local',
-                    'path' => 'www/'
-                ]
+        return [
+            'public' => [
+                'type'      => 'local',
+                'path'      => './',
+                'label'     => 'Public'
             ],
-            'default_connection' => 'public'
+            'private' => [
+                'public'    => false,
+                'type'      => 'local',
+                'path'      => '../',
+                'label'     => 'Private'
+            ]
         ];
-        return array_merge(parent::defaults(), $defaults);
+    }
+
+    /**
+     * Ensure connections always return the default connections.
+     *
+     * @return array
+     */
+    public function connections()
+    {
+        return array_merge($this->defaultConnections(), $this->connections);
     }
 }
 

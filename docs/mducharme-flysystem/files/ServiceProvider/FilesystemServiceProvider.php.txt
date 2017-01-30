@@ -4,6 +4,7 @@ namespace Charcoal\App\ServiceProvider;
 
 use Exception;
 use InvalidArgumentException;
+use UnexpectedValueException;
 
 // Dependencies from `pimple/pimple`
 use Pimple\ServiceProviderInterface;
@@ -69,7 +70,6 @@ class FilesystemServiceProvider implements ServiceProviderInterface
         $container['filesystems'] = function(Container $container) {
             $filesystemConfig = $container['filesystem/config'];
             $filesystems = new Container();
-            $parentContainer = $container;
 
             foreach ($filesystemConfig['connections'] as $ident => $connection) {
                 $fs = $this->createConnection($connection);
@@ -109,7 +109,7 @@ class FilesystemServiceProvider implements ServiceProviderInterface
             $adapter = $this->createSftpAdapter($config);
         } elseif ($type == 'memory') {
             $adapter = $this->createMemoryAdapter($config);
-        } elseif ($type == 'null') {
+        } elseif ($type == 'noop') {
             $adapter = $this->createNullAdapter($config);
         } else {
             throw new UnexpectedValueException(
@@ -129,7 +129,7 @@ class FilesystemServiceProvider implements ServiceProviderInterface
     {
         if (!isset($config['path']) || !$config['path']) {
             throw new InvalidArgumentException(
-                'No "path" configured for S3 filesystem.'
+                'No "path" configured for local filesystem.'
             );
         }
         $defaults = [
@@ -169,7 +169,7 @@ class FilesystemServiceProvider implements ServiceProviderInterface
         $defaults = [
             'region'    => '',
             'version'   => 'latest',
-            'prefix'    => ''
+            'prefix'    => null
         ];
         $config = array_merge($defaults, $config);
 
@@ -182,7 +182,15 @@ class FilesystemServiceProvider implements ServiceProviderInterface
             'version' => $config['version'],
         ]);
 
-        return new AwsS3Adapter($client, $config['bucket'], $config['prefix']);
+        if (isset($config['public']) && !$config['public']) {
+            $permissions = null;
+        } else {
+            $permissions = [
+                'ACL' => 'public-read'
+            ];
+        }
+
+        return new AwsS3Adapter($client, $config['bucket'], $config['prefix'], $permissions);
     }
 
     /**
