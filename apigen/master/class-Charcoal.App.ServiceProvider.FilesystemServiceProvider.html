@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 
-	<title>Class Charcoal\App\ServiceProvider\TranslatorServiceProvider</title>
+	<title>Class Charcoal\App\ServiceProvider\FilesystemServiceProvider</title>
 
 	<link rel="stylesheet" href="resources/style.css?e99947befd7bf673c6b43ff75e9e0f170c88a60e">
 
@@ -83,9 +83,9 @@
 				<li><a href="class-Charcoal.App.ServiceProvider.AppServiceProvider.html">AppServiceProvider</a></li>
 				<li><a href="class-Charcoal.App.ServiceProvider.CacheServiceProvider.html">CacheServiceProvider</a></li>
 				<li><a href="class-Charcoal.App.ServiceProvider.DatabaseServiceProvider.html">DatabaseServiceProvider</a></li>
-				<li><a href="class-Charcoal.App.ServiceProvider.FilesystemServiceProvider.html">FilesystemServiceProvider</a></li>
+				<li class="active"><a href="class-Charcoal.App.ServiceProvider.FilesystemServiceProvider.html">FilesystemServiceProvider</a></li>
 				<li><a href="class-Charcoal.App.ServiceProvider.LoggerServiceProvider.html">LoggerServiceProvider</a></li>
-				<li class="active"><a href="class-Charcoal.App.ServiceProvider.TranslatorServiceProvider.html">TranslatorServiceProvider</a></li>
+				<li><a href="class-Charcoal.App.ServiceProvider.TranslatorServiceProvider.html">TranslatorServiceProvider</a></li>
 				<li><a href="class-Charcoal.App.ServiceProvider.ViewServiceProvider.html">ViewServiceProvider</a></li>
 			</ul>
 
@@ -125,36 +125,13 @@
 	</div>
 
 <div id="content" class="class">
-	<h1>Class TranslatorServiceProvider</h1>
+	<h1>Class FilesystemServiceProvider</h1>
 
 
-	<div class="description">
-	<p>Translator Service Provider</p>
-
-<p>Configures and provides a Symfony Translator service to a container.</p>
-
-<h2>Services</h2>
-
-<ul>
-<li><code>translator</code></li>
-</ul>
-
-<h2>Helpers</h2>
-
-<ul>
-<li><code>translator/config</code> <code>\Charcoal\App\Config\TranslatorConfig</code></li>
-</ul>
-
-<h2>Requirements / Dependencies</h2>
-
-<ul>
-<li><code>config</code> A <code>ConfigInterface</code> must have been previously registered on the container.</li>
-</ul>
-	</div>
 
 	<dl class="tree">
 		<dd style="padding-left:0px">
-<b><span>Charcoal\App\ServiceProvider\TranslatorServiceProvider</span></b>			
+<b><span>Charcoal\App\ServiceProvider\FilesystemServiceProvider</span></b>			
 			 implements 
 <span>Pimple\ServiceProviderInterface</span>
 			
@@ -175,7 +152,7 @@
 		<b>Namespace:</b> <a href="namespace-Charcoal.html">Charcoal</a>\<a href="namespace-Charcoal.App.html">App</a>\<a href="namespace-Charcoal.App.ServiceProvider.html">ServiceProvider</a><br>
 		
 
-			<b>Located at</b> <a href="source-class-Charcoal.App.ServiceProvider.TranslatorServiceProvider.html#23-189" title="Go to source code">Charcoal/App/ServiceProvider/TranslatorServiceProvider.php</a>
+			<b>Located at</b> <a href="source-class-Charcoal.App.ServiceProvider.FilesystemServiceProvider.html#41-311" title="Go to source code">Charcoal/App/ServiceProvider/FilesystemServiceProvider.php</a>
 		<br>
 	</div>
 
@@ -195,30 +172,23 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_register">#</a>
-		<code><a href="source-class-Charcoal.App.ServiceProvider.TranslatorServiceProvider.html#41-188" title="Go to source code">register</a>( <span>Pimple\Container <var>$container</var></span> )</code>
+		<code><a href="source-class-Charcoal.App.ServiceProvider.FilesystemServiceProvider.html#46-82" title="Go to source code">register</a>( <span>Pimple\Container <var>$container</var></span> )</code>
 
 		<div class="description short">
-			<p>Registers services on the given container.</p>
+			
 		</div>
 
 		<div class="description detailed hidden">
-			<p>Registers services on the given container.</p>
-
-<p>This method should only be used to configure services and parameters.
-It should not get services.</p>
+			
 
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$container</var></dt>
-					<dd>The container instance.</dd>
+					<dd>Pimple DI Container.</dd>
 				</dl></div>
 
 
-				<h4>Throws</h4>
-				<div class="list">
-					RuntimeException<br>If no active languages are provided or translations are not valid.
-				</div>
 
 
 

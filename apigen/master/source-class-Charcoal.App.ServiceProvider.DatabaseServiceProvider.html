@@ -87,6 +87,7 @@
 				<li><a href="class-Charcoal.App.AppContainer.html">Charcoal\App\AppContainer</a></li>
 				<li><a href="class-Charcoal.App.Config.CacheConfig.html">Charcoal\App\Config\CacheConfig</a></li>
 				<li><a href="class-Charcoal.App.Config.DatabaseConfig.html">Charcoal\App\Config\DatabaseConfig</a></li>
+				<li><a href="class-Charcoal.App.Config.FilesystemConfig.html">Charcoal\App\Config\FilesystemConfig</a></li>
 				<li><a href="class-Charcoal.App.Config.LoggerConfig.html">Charcoal\App\Config\LoggerConfig</a></li>
 				<li><a href="class-Charcoal.App.Config.MemcacheCacheConfig.html">Charcoal\App\Config\MemcacheCacheConfig</a></li>
 				<li><a href="class-Charcoal.App.Config.MemcacheCacheServerConfig.html">Charcoal\App\Config\MemcacheCacheServerConfig</a></li>
@@ -113,6 +114,7 @@
 				<li><a href="class-Charcoal.App.ServiceProvider.AppServiceProvider.html">Charcoal\App\ServiceProvider\AppServiceProvider</a></li>
 				<li><a href="class-Charcoal.App.ServiceProvider.CacheServiceProvider.html">Charcoal\App\ServiceProvider\CacheServiceProvider</a></li>
 				<li><a href="class-Charcoal.App.ServiceProvider.DatabaseServiceProvider.html">Charcoal\App\ServiceProvider\DatabaseServiceProvider</a></li>
+				<li><a href="class-Charcoal.App.ServiceProvider.FilesystemServiceProvider.html">Charcoal\App\ServiceProvider\FilesystemServiceProvider</a></li>
 				<li><a href="class-Charcoal.App.ServiceProvider.LoggerServiceProvider.html">Charcoal\App\ServiceProvider\LoggerServiceProvider</a></li>
 				<li><a href="class-Charcoal.App.ServiceProvider.TranslatorServiceProvider.html">Charcoal\App\ServiceProvider\TranslatorServiceProvider</a></li>
 				<li><a href="class-Charcoal.App.ServiceProvider.ViewServiceProvider.html">Charcoal\App\ServiceProvider\ViewServiceProvider</a></li>
@@ -236,7 +238,7 @@
 </span></span><span id="59" class="l"><a href="#59"> 59: </a><span class="php-comment">        */</span>
 </span><span id="60" class="l"><a href="#60"> 60: </a>        <span class="php-var">$container</span>[<span class="php-quote">'databases'</span>] = <span class="php-keyword1">function</span> (Container <span class="php-var">$container</span>) {
 </span><span id="61" class="l"><a href="#61"> 61: </a>            <span class="php-var">$config</span> = <span class="php-var">$container</span>[<span class="php-quote">'config'</span>];
-</span><span id="62" class="l"><a href="#62"> 62: </a>            <span class="php-var">$databases</span> = <span class="php-var">$config</span>-&gt;get(<span class="php-quote">'databases'</span>);
+</span><span id="62" class="l"><a href="#62"> 62: </a>            <span class="php-var">$databases</span> = <span class="php-var">$config</span>[<span class="php-quote">'databases'</span>];
 </span><span id="63" class="l"><a href="#63"> 63: </a>            <span class="php-var">$dbs</span> = <span class="php-keyword1">new</span> Container();
 </span><span id="64" class="l"><a href="#64"> 64: </a>            <span class="php-var">$origContainer</span> = <span class="php-var">$container</span>;
 </span><span id="65" class="l"><a href="#65"> 65: </a>            <span class="php-keyword1">foreach</span> (<span class="php-var">$databases</span> <span class="php-keyword1">as</span> <span class="php-var">$dbIdent</span> =&gt; <span class="php-var">$dbOptions</span>) {
@@ -315,6 +317,6 @@
 </div>
 </div>
 <script src="resources/combined.js?174ed0656881a1883d2390d4abd6a0405884e257"></script>
-<script src="elementlist.js?bbd613920c31c25d8363377b87149e0240e2c1dc"></script>
+<script src="elementlist.js?0022e2d9b047e7a95eade55de12e78fea83bee63"></script>
 </body>
 </html>
