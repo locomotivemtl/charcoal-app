@@ -59,7 +59,7 @@ trait ArgScriptTrait
             }
 
             $value = $args->get($key);
-            if ($value) {
+            if (!empty($value) || is_numeric($value)) {
                 $this->{$setter}($value);
             }
 
@@ -71,8 +71,7 @@ trait ArgScriptTrait
                 }
 
                 $value = $this->input($key);
-
-                if ($value) {
+                if (!empty($value) || is_numeric($value)) {
                     $this->{$setter}($value);
                 }
             }
