@@ -98,7 +98,7 @@ class TranslatorServiceProvider implements ServiceProviderInterface
             $loader = new ResourceRepository([
                 'logger'    => $container['logger'],
                 'cache'     => $container['cache'],
-                'base_path' => $container['config']['base_path']
+                'base_path' => $container['config']['base_path'],
                 'paths'     => $config['paths']
             ]);
 
