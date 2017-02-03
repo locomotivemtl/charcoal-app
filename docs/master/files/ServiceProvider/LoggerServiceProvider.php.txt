@@ -60,7 +60,7 @@ class LoggerServiceProvider implements ServiceProviderInterface
         /**
          * @return \Charcoal\Factory\FactoryInterface
          */
-        $container['logger/processor/factory'] = function (Container $contianer) {
+        $container['logger/processor/factory'] = function (Container $container) {
             return new GenericFactory([
                 'map' => [
                     'memory-usage'  => '\Monolog\Processor\MemoryUsageProcessor',
@@ -105,7 +105,7 @@ class LoggerServiceProvider implements ServiceProviderInterface
             $handlers = new Container();
             $handlerFactory = $container['logger/handler/factory'];
             foreach ($handlersConfig as $h) {
-                $handlers[$h['type']] = function (Container $c) use ($h, $handlerFactory) {
+                $handlers[$h['type']] = function (Container $container) use ($h, $handlerFactory) {
                     $type = $h['type'];
                     $handler = $handlerFactory->create($type);
                     return $handler;

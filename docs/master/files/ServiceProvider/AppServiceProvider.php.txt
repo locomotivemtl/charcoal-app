@@ -219,11 +219,11 @@ class AppServiceProvider implements ServiceProviderInterface
          */
         $container['route/factory'] = function (Container $container) {
             return new Factory([
-                'base_class' => RouteInterface::class,
+                'base_class'       => RouteInterface::class,
                 'resolver_options' => [
                     'suffix' => 'Route'
                 ],
-                'arguments' => [[
+                'arguments'  => [[
                     'logger' => $container['logger']
                 ]]
             ]);
@@ -247,13 +247,13 @@ class AppServiceProvider implements ServiceProviderInterface
          */
         $container['action/factory'] = function (Container $container) {
             return new Factory([
-                'base_class' => ActionInterface::class,
+                'base_class'       => ActionInterface::class,
                 'resolver_options' => [
                     'suffix' => 'Action'
                 ],
                 'arguments' => [[
                     'container' => $container,
-                    'logger' => $container['logger'],
+                    'logger'    => $container['logger'],
 
                 ]]
             ]);
@@ -270,14 +270,14 @@ class AppServiceProvider implements ServiceProviderInterface
          */
         $container['script/factory'] = function (Container $container) {
             return new Factory([
-                'base_class' => ScriptInterface::class,
+                'base_class'       => ScriptInterface::class,
                 'resolver_options' => [
                     'suffix' => 'Script'
                 ],
                 'arguments' => [[
-                    'container' => $container,
-                    'logger' => $container['logger'],
-                    'climate' => $container['climate'],
+                    'container'      => $container,
+                    'logger'         => $container['logger'],
+                    'climate'        => $container['climate'],
                     'climate_reader' => $container['climate/reader']
                 ]]
             ]);
@@ -294,13 +294,13 @@ class AppServiceProvider implements ServiceProviderInterface
          */
         $container['template/factory'] = function (Container $container) {
             return new Factory([
-                'base_class' => TemplateInterface::class,
+                'base_class'       => TemplateInterface::class,
                 'resolver_options' => [
                     'suffix' => 'Template'
                 ],
                 'arguments' => [[
                     'container' => $container,
-                    'logger' => $container['logger']
+                    'logger'    => $container['logger']
                 ]]
             ]);
         };
@@ -316,13 +316,13 @@ class AppServiceProvider implements ServiceProviderInterface
          */
         $container['widget/factory'] = function (Container $container) {
             return new Factory([
-                'base_class' => WidgetInterface::class,
+                'base_class'       => WidgetInterface::class,
                 'resolver_options' => [
                     'suffix' => 'Widget'
                 ],
                 'arguments' => [[
                     'container' => $container,
-                    'logger' => $container['logger']
+                    'logger'    => $container['logger']
                 ]]
             ]);
         };
@@ -351,11 +351,11 @@ class AppServiceProvider implements ServiceProviderInterface
          */
         $container['module/factory'] = function (Container $container) {
             return new Factory([
-                'base_class' => ModuleInterface::class,
+                'base_class'       => ModuleInterface::class,
                 'resolver_options' => [
                     'suffix' => 'Module'
                 ],
-                'arguments' => [[
+                'arguments'  => [[
                     'logger' => $container['logger']
                 ]]
             ]);
@@ -369,6 +369,7 @@ class AppServiceProvider implements ServiceProviderInterface
     protected function registerScriptServices(Container $container)
     {
         /**
+         * @todo   Needs implementation
          * @param Container $container A container instance.
          * @return null|\League\CLImate\Util\Reader\ReaderInterface
          */
