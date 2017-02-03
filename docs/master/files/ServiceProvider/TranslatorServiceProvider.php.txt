@@ -85,9 +85,12 @@ class TranslatorServiceProvider implements ServiceProviderInterface
         $container['translator/language-repository'] = function (Container $container) {
             $config = $container['translator/config']->locales();
 
-            $loader = new LanguageRepository();
-            $loader->setDependencies($container);
-            $loader->setPaths($config['repositories']);
+            $loader = new LanguageRepository([
+                'logger'    => $container['logger'],
+                'cache'     => $container['cache'],
+                'base_path' => $container['config']['base_path'],
+                'paths'     => $config['repositories']
+            ]);
 
             return $loader;
         };
