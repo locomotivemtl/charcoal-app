@@ -124,7 +124,6 @@ class TemplateRoute implements
 
             $template = $cacheItem->get();
             if ($cacheItem->isMiss()) {
-                $cacheItem->lock();
                 $template = $this->renderTemplate($container, $request);
 
                 $cachePool->save($cacheItem->set($template, $config['cache_ttl']));
