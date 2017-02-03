@@ -65,6 +65,5 @@ abstract class AbstractTemplate extends AbstractEntity implements
     public function setDependencies(Container $container)
     {
         // This method is a stub. Reimplement in children template classes.
-        return;
     }
 }

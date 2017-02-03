@@ -52,6 +52,9 @@
     "bin": [ "bin/charcoal" ],
     "scripts": {
         "test": [
+            "@tests"
+        ],
+        "tests": [
             "@phplint",
             "@phpcs",
             "@phpunit"

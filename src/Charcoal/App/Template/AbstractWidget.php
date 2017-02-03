@@ -60,8 +60,7 @@ abstract class AbstractWidget extends AbstractEntity implements
      */
     public function setDependencies(Container $container)
     {
-        // Nothing to do.
-        return;
+        // This method is a stub. Reimplement in children template classes.
     }
 
 

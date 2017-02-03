@@ -106,7 +106,6 @@ abstract class AbstractAction extends AbstractEntity implements
     public function setDependencies(Container $container)
     {
         // This method is a stub. Reimplement in children action classes.
-        return;
     }
 
     /**
