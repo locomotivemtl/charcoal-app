@@ -187,7 +187,8 @@ abstract class AbstractHandler implements
 
         if ($config['cache']) {
             $cachePool = $container['cache'];
-            $cacheItem = $cachePool->getItem('template', $templateIdent);
+            $cacheKey  = str_replace('/', '.', 'template/'.$templateIdent);
+            $cacheItem = $cachePool->getItem($cacheKey);
 
             $output = $cacheItem->get();
             if ($cacheItem->isMiss()) {

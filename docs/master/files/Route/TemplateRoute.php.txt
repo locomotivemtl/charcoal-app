@@ -119,7 +119,8 @@ class TemplateRoute implements
 
         if ($config['cache']) {
             $cachePool = $container['cache'];
-            $cacheItem = $cachePool->getItem('template/'.$config['template']);
+            $cacheKey  = str_replace('/', '.', 'template/'.$config['template']);
+            $cacheItem = $cachePool->getItem($cacheKey);
 
             $template = $cacheItem->get();
             if ($cacheItem->isMiss()) {
