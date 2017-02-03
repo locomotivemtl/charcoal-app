@@ -192,7 +192,6 @@ abstract class AbstractHandler implements
 
             $output = $cacheItem->get();
             if ($cacheItem->isMiss()) {
-                $cacheItem->lock();
                 $output = $this->renderHtmlTemplate();
 
                 $cacheItem->set($output, $config['cache_ttl']);
