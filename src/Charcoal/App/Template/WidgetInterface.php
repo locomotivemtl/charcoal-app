@@ -24,10 +24,10 @@ interface WidgetInterface
     public function setDependencies(Container $container);
 
     /**
-     * @param array|\ArrayInterface $data The template data to set.
+     * @param array $data The template data to set.
      * @return WidgetInterface Chainable
      */
-    public function setData($data);
+    public function setData(array $data);
 
     /**
      * @param boolean $active The active flag.

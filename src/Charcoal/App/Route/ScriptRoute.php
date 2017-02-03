@@ -43,9 +43,9 @@ class ScriptRoute implements
      *
      * - `logger` — PSR-3 Logger
      *
-     * @param array|\ArrayAccess $data Dependencies.
+     * @param array $data Dependencies.
      */
-    public function __construct($data)
+    public function __construct(array $data)
     {
         $this->setConfig($data['config']);
     }
@@ -54,7 +54,7 @@ class ScriptRoute implements
      * ConfigurableTrait > create_config()
      *
      * @param mixed|null $data Optional config data.
-     * @return ConfigInterface
+     * @return ScriptRouteConfig
      */
     public function createConfig($data = null)
     {

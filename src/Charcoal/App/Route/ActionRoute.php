@@ -43,9 +43,9 @@ class ActionRoute implements
      *
      * - `logger` — PSR-3 Logger
      *
-     * @param array|\ArrayInterface $data Dependencies.
+     * @param array $data Dependencies.
      */
-    public function __construct($data)
+    public function __construct(array $data)
     {
         $this->setConfig($data['config']);
     }
@@ -54,7 +54,7 @@ class ActionRoute implements
      * ConfigurableTrait > createConfig()
      *
      * @param mixed|null $data Optional config data.
-     * @return ConfigInterface
+     * @return ActionRouteConfig
      */
     public function createConfig($data = null)
     {
