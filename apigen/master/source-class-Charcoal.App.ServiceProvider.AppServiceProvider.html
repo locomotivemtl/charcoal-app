@@ -398,11 +398,11 @@
 </span></span><span id="219" class="l"><a href="#219">219: </a><span class="php-comment">         */</span>
 </span><span id="220" class="l"><a href="#220">220: </a>        <span class="php-var">$container</span>[<span class="php-quote">'route/factory'</span>] = <span class="php-keyword1">function</span> (Container <span class="php-var">$container</span>) {
 </span><span id="221" class="l"><a href="#221">221: </a>            <span class="php-keyword1">return</span> <span class="php-keyword1">new</span> Factory([
-</span><span id="222" class="l"><a href="#222">222: </a>                <span class="php-quote">'base_class'</span> =&gt; RouteInterface::<span class="php-keyword1">class</span>,
+</span><span id="222" class="l"><a href="#222">222: </a>                <span class="php-quote">'base_class'</span>       =&gt; RouteInterface::<span class="php-keyword1">class</span>,
 </span><span id="223" class="l"><a href="#223">223: </a>                <span class="php-quote">'resolver_options'</span> =&gt; [
 </span><span id="224" class="l"><a href="#224">224: </a>                    <span class="php-quote">'suffix'</span> =&gt; <span class="php-quote">'Route'</span>
 </span><span id="225" class="l"><a href="#225">225: </a>                ],
-</span><span id="226" class="l"><a href="#226">226: </a>                <span class="php-quote">'arguments'</span> =&gt; [[
+</span><span id="226" class="l"><a href="#226">226: </a>                <span class="php-quote">'arguments'</span>  =&gt; [[
 </span><span id="227" class="l"><a href="#227">227: </a>                    <span class="php-quote">'logger'</span> =&gt; <span class="php-var">$container</span>[<span class="php-quote">'logger'</span>]
 </span><span id="228" class="l"><a href="#228">228: </a>                ]]
 </span><span id="229" class="l"><a href="#229">229: </a>            ]);
@@ -426,13 +426,13 @@
 </span></span><span id="247" class="l"><a href="#247">247: </a><span class="php-comment">         */</span>
 </span><span id="248" class="l"><a href="#248">248: </a>        <span class="php-var">$container</span>[<span class="php-quote">'action/factory'</span>] = <span class="php-keyword1">function</span> (Container <span class="php-var">$container</span>) {
 </span><span id="249" class="l"><a href="#249">249: </a>            <span class="php-keyword1">return</span> <span class="php-keyword1">new</span> Factory([
-</span><span id="250" class="l"><a href="#250">250: </a>                <span class="php-quote">'base_class'</span> =&gt; ActionInterface::<span class="php-keyword1">class</span>,
+</span><span id="250" class="l"><a href="#250">250: </a>                <span class="php-quote">'base_class'</span>       =&gt; ActionInterface::<span class="php-keyword1">class</span>,
 </span><span id="251" class="l"><a href="#251">251: </a>                <span class="php-quote">'resolver_options'</span> =&gt; [
 </span><span id="252" class="l"><a href="#252">252: </a>                    <span class="php-quote">'suffix'</span> =&gt; <span class="php-quote">'Action'</span>
 </span><span id="253" class="l"><a href="#253">253: </a>                ],
 </span><span id="254" class="l"><a href="#254">254: </a>                <span class="php-quote">'arguments'</span> =&gt; [[
 </span><span id="255" class="l"><a href="#255">255: </a>                    <span class="php-quote">'container'</span> =&gt; <span class="php-var">$container</span>,
-</span><span id="256" class="l"><a href="#256">256: </a>                    <span class="php-quote">'logger'</span> =&gt; <span class="php-var">$container</span>[<span class="php-quote">'logger'</span>],
+</span><span id="256" class="l"><a href="#256">256: </a>                    <span class="php-quote">'logger'</span>    =&gt; <span class="php-var">$container</span>[<span class="php-quote">'logger'</span>],
 </span><span id="257" class="l"><a href="#257">257: </a>
 </span><span id="258" class="l"><a href="#258">258: </a>                ]]
 </span><span id="259" class="l"><a href="#259">259: </a>            ]);
@@ -449,14 +449,14 @@
 </span></span><span id="270" class="l"><a href="#270">270: </a><span class="php-comment">         */</span>
 </span><span id="271" class="l"><a href="#271">271: </a>        <span class="php-var">$container</span>[<span class="php-quote">'script/factory'</span>] = <span class="php-keyword1">function</span> (Container <span class="php-var">$container</span>) {
 </span><span id="272" class="l"><a href="#272">272: </a>            <span class="php-keyword1">return</span> <span class="php-keyword1">new</span> Factory([
-</span><span id="273" class="l"><a href="#273">273: </a>                <span class="php-quote">'base_class'</span> =&gt; ScriptInterface::<span class="php-keyword1">class</span>,
+</span><span id="273" class="l"><a href="#273">273: </a>                <span class="php-quote">'base_class'</span>       =&gt; ScriptInterface::<span class="php-keyword1">class</span>,
 </span><span id="274" class="l"><a href="#274">274: </a>                <span class="php-quote">'resolver_options'</span> =&gt; [
 </span><span id="275" class="l"><a href="#275">275: </a>                    <span class="php-quote">'suffix'</span> =&gt; <span class="php-quote">'Script'</span>
 </span><span id="276" class="l"><a href="#276">276: </a>                ],
 </span><span id="277" class="l"><a href="#277">277: </a>                <span class="php-quote">'arguments'</span> =&gt; [[
-</span><span id="278" class="l"><a href="#278">278: </a>                    <span class="php-quote">'container'</span> =&gt; <span class="php-var">$container</span>,
-</span><span id="279" class="l"><a href="#279">279: </a>                    <span class="php-quote">'logger'</span> =&gt; <span class="php-var">$container</span>[<span class="php-quote">'logger'</span>],
-</span><span id="280" class="l"><a href="#280">280: </a>                    <span class="php-quote">'climate'</span> =&gt; <span class="php-var">$container</span>[<span class="php-quote">'climate'</span>],
+</span><span id="278" class="l"><a href="#278">278: </a>                    <span class="php-quote">'container'</span>      =&gt; <span class="php-var">$container</span>,
+</span><span id="279" class="l"><a href="#279">279: </a>                    <span class="php-quote">'logger'</span>         =&gt; <span class="php-var">$container</span>[<span class="php-quote">'logger'</span>],
+</span><span id="280" class="l"><a href="#280">280: </a>                    <span class="php-quote">'climate'</span>        =&gt; <span class="php-var">$container</span>[<span class="php-quote">'climate'</span>],
 </span><span id="281" class="l"><a href="#281">281: </a>                    <span class="php-quote">'climate_reader'</span> =&gt; <span class="php-var">$container</span>[<span class="php-quote">'climate/reader'</span>]
 </span><span id="282" class="l"><a href="#282">282: </a>                ]]
 </span><span id="283" class="l"><a href="#283">283: </a>            ]);
@@ -473,13 +473,13 @@
 </span></span><span id="294" class="l"><a href="#294">294: </a><span class="php-comment">         */</span>
 </span><span id="295" class="l"><a href="#295">295: </a>        <span class="php-var">$container</span>[<span class="php-quote">'template/factory'</span>] = <span class="php-keyword1">function</span> (Container <span class="php-var">$container</span>) {
 </span><span id="296" class="l"><a href="#296">296: </a>            <span class="php-keyword1">return</span> <span class="php-keyword1">new</span> Factory([
-</span><span id="297" class="l"><a href="#297">297: </a>                <span class="php-quote">'base_class'</span> =&gt; TemplateInterface::<span class="php-keyword1">class</span>,
+</span><span id="297" class="l"><a href="#297">297: </a>                <span class="php-quote">'base_class'</span>       =&gt; TemplateInterface::<span class="php-keyword1">class</span>,
 </span><span id="298" class="l"><a href="#298">298: </a>                <span class="php-quote">'resolver_options'</span> =&gt; [
 </span><span id="299" class="l"><a href="#299">299: </a>                    <span class="php-quote">'suffix'</span> =&gt; <span class="php-quote">'Template'</span>
 </span><span id="300" class="l"><a href="#300">300: </a>                ],
 </span><span id="301" class="l"><a href="#301">301: </a>                <span class="php-quote">'arguments'</span> =&gt; [[
 </span><span id="302" class="l"><a href="#302">302: </a>                    <span class="php-quote">'container'</span> =&gt; <span class="php-var">$container</span>,
-</span><span id="303" class="l"><a href="#303">303: </a>                    <span class="php-quote">'logger'</span> =&gt; <span class="php-var">$container</span>[<span class="php-quote">'logger'</span>]
+</span><span id="303" class="l"><a href="#303">303: </a>                    <span class="php-quote">'logger'</span>    =&gt; <span class="php-var">$container</span>[<span class="php-quote">'logger'</span>]
 </span><span id="304" class="l"><a href="#304">304: </a>                ]]
 </span><span id="305" class="l"><a href="#305">305: </a>            ]);
 </span><span id="306" class="l"><a href="#306">306: </a>        };
@@ -495,13 +495,13 @@
 </span></span><span id="316" class="l"><a href="#316">316: </a><span class="php-comment">         */</span>
 </span><span id="317" class="l"><a href="#317">317: </a>        <span class="php-var">$container</span>[<span class="php-quote">'widget/factory'</span>] = <span class="php-keyword1">function</span> (Container <span class="php-var">$container</span>) {
 </span><span id="318" class="l"><a href="#318">318: </a>            <span class="php-keyword1">return</span> <span class="php-keyword1">new</span> Factory([
-</span><span id="319" class="l"><a href="#319">319: </a>                <span class="php-quote">'base_class'</span> =&gt; WidgetInterface::<span class="php-keyword1">class</span>,
+</span><span id="319" class="l"><a href="#319">319: </a>                <span class="php-quote">'base_class'</span>       =&gt; WidgetInterface::<span class="php-keyword1">class</span>,
 </span><span id="320" class="l"><a href="#320">320: </a>                <span class="php-quote">'resolver_options'</span> =&gt; [
 </span><span id="321" class="l"><a href="#321">321: </a>                    <span class="php-quote">'suffix'</span> =&gt; <span class="php-quote">'Widget'</span>
 </span><span id="322" class="l"><a href="#322">322: </a>                ],
 </span><span id="323" class="l"><a href="#323">323: </a>                <span class="php-quote">'arguments'</span> =&gt; [[
 </span><span id="324" class="l"><a href="#324">324: </a>                    <span class="php-quote">'container'</span> =&gt; <span class="php-var">$container</span>,
-</span><span id="325" class="l"><a href="#325">325: </a>                    <span class="php-quote">'logger'</span> =&gt; <span class="php-var">$container</span>[<span class="php-quote">'logger'</span>]
+</span><span id="325" class="l"><a href="#325">325: </a>                    <span class="php-quote">'logger'</span>    =&gt; <span class="php-var">$container</span>[<span class="php-quote">'logger'</span>]
 </span><span id="326" class="l"><a href="#326">326: </a>                ]]
 </span><span id="327" class="l"><a href="#327">327: </a>            ]);
 </span><span id="328" class="l"><a href="#328">328: </a>        };
@@ -530,11 +530,11 @@
 </span></span><span id="351" class="l"><a href="#351">351: </a><span class="php-comment">         */</span>
 </span><span id="352" class="l"><a href="#352">352: </a>        <span class="php-var">$container</span>[<span class="php-quote">'module/factory'</span>] = <span class="php-keyword1">function</span> (Container <span class="php-var">$container</span>) {
 </span><span id="353" class="l"><a href="#353">353: </a>            <span class="php-keyword1">return</span> <span class="php-keyword1">new</span> Factory([
-</span><span id="354" class="l"><a href="#354">354: </a>                <span class="php-quote">'base_class'</span> =&gt; ModuleInterface::<span class="php-keyword1">class</span>,
+</span><span id="354" class="l"><a href="#354">354: </a>                <span class="php-quote">'base_class'</span>       =&gt; ModuleInterface::<span class="php-keyword1">class</span>,
 </span><span id="355" class="l"><a href="#355">355: </a>                <span class="php-quote">'resolver_options'</span> =&gt; [
 </span><span id="356" class="l"><a href="#356">356: </a>                    <span class="php-quote">'suffix'</span> =&gt; <span class="php-quote">'Module'</span>
 </span><span id="357" class="l"><a href="#357">357: </a>                ],
-</span><span id="358" class="l"><a href="#358">358: </a>                <span class="php-quote">'arguments'</span> =&gt; [[
+</span><span id="358" class="l"><a href="#358">358: </a>                <span class="php-quote">'arguments'</span>  =&gt; [[
 </span><span id="359" class="l"><a href="#359">359: </a>                    <span class="php-quote">'logger'</span> =&gt; <span class="php-var">$container</span>[<span class="php-quote">'logger'</span>]
 </span><span id="360" class="l"><a href="#360">360: </a>                ]]
 </span><span id="361" class="l"><a href="#361">361: </a>            ]);
@@ -548,24 +548,25 @@
 </span><span id="369" class="l"><a href="#369">369: </a>    <span class="php-keyword1">protected</span> <span class="php-keyword1">function</span> registerScriptServices(Container <span class="php-var">$container</span>)
 </span><span id="370" class="l"><a href="#370">370: </a>    {
 </span><span id="371" class="l"><a href="#371">371: </a>        <span class="php-comment">/**
-</span></span><span id="372" class="l"><a href="#372">372: </a><span class="php-comment">         * @param Container $container A container instance.
-</span></span><span id="373" class="l"><a href="#373">373: </a><span class="php-comment">         * @return null|\League\CLImate\Util\Reader\ReaderInterface
-</span></span><span id="374" class="l"><a href="#374">374: </a><span class="php-comment">         */</span>
-</span><span id="375" class="l"><a href="#375">375: </a>        <span class="php-var">$container</span>[<span class="php-quote">'climate/reader'</span>] = <span class="php-keyword1">function</span> (Container <span class="php-var">$container</span>) {
-</span><span id="376" class="l"><a href="#376">376: </a>            <span class="php-keyword1">return</span> <span class="php-keyword1">null</span>;
-</span><span id="377" class="l"><a href="#377">377: </a>        };
-</span><span id="378" class="l"><a href="#378">378: </a>
-</span><span id="379" class="l"><a href="#379">379: </a>        <span class="php-comment">/**
-</span></span><span id="380" class="l"><a href="#380">380: </a><span class="php-comment">         * @param Container $container A container instance.
-</span></span><span id="381" class="l"><a href="#381">381: </a><span class="php-comment">         * @return CLImate
-</span></span><span id="382" class="l"><a href="#382">382: </a><span class="php-comment">         */</span>
-</span><span id="383" class="l"><a href="#383">383: </a>        <span class="php-var">$container</span>[<span class="php-quote">'climate'</span>] = <span class="php-keyword1">function</span> (Container <span class="php-var">$container</span>) {
-</span><span id="384" class="l"><a href="#384">384: </a>            <span class="php-var">$climate</span> = <span class="php-keyword1">new</span> CLImate();
-</span><span id="385" class="l"><a href="#385">385: </a>            <span class="php-keyword1">return</span> <span class="php-var">$climate</span>;
-</span><span id="386" class="l"><a href="#386">386: </a>        };
-</span><span id="387" class="l"><a href="#387">387: </a>    }
-</span><span id="388" class="l"><a href="#388">388: </a>}
-</span><span id="389" class="l"><a href="#389">389: </a></span></code></pre>
+</span></span><span id="372" class="l"><a href="#372">372: </a><span class="php-comment">         * @todo   Needs implementation
+</span></span><span id="373" class="l"><a href="#373">373: </a><span class="php-comment">         * @param Container $container A container instance.
+</span></span><span id="374" class="l"><a href="#374">374: </a><span class="php-comment">         * @return null|\League\CLImate\Util\Reader\ReaderInterface
+</span></span><span id="375" class="l"><a href="#375">375: </a><span class="php-comment">         */</span>
+</span><span id="376" class="l"><a href="#376">376: </a>        <span class="php-var">$container</span>[<span class="php-quote">'climate/reader'</span>] = <span class="php-keyword1">function</span> (Container <span class="php-var">$container</span>) {
+</span><span id="377" class="l"><a href="#377">377: </a>            <span class="php-keyword1">return</span> <span class="php-keyword1">null</span>;
+</span><span id="378" class="l"><a href="#378">378: </a>        };
+</span><span id="379" class="l"><a href="#379">379: </a>
+</span><span id="380" class="l"><a href="#380">380: </a>        <span class="php-comment">/**
+</span></span><span id="381" class="l"><a href="#381">381: </a><span class="php-comment">         * @param Container $container A container instance.
+</span></span><span id="382" class="l"><a href="#382">382: </a><span class="php-comment">         * @return CLImate
+</span></span><span id="383" class="l"><a href="#383">383: </a><span class="php-comment">         */</span>
+</span><span id="384" class="l"><a href="#384">384: </a>        <span class="php-var">$container</span>[<span class="php-quote">'climate'</span>] = <span class="php-keyword1">function</span> (Container <span class="php-var">$container</span>) {
+</span><span id="385" class="l"><a href="#385">385: </a>            <span class="php-var">$climate</span> = <span class="php-keyword1">new</span> CLImate();
+</span><span id="386" class="l"><a href="#386">386: </a>            <span class="php-keyword1">return</span> <span class="php-var">$climate</span>;
+</span><span id="387" class="l"><a href="#387">387: </a>        };
+</span><span id="388" class="l"><a href="#388">388: </a>    }
+</span><span id="389" class="l"><a href="#389">389: </a>}
+</span><span id="390" class="l"><a href="#390">390: </a></span></code></pre>
 
 	<div id="footer">
 		 API documentation generated by <a href="http://apigen.org">ApiGen</a>
