@@ -243,7 +243,7 @@
 </span><span id="64" class="l"><a href="#64"> 64: </a>    <span class="php-comment">/**
 </span></span><span id="65" class="l"><a href="#65"> 65: </a><span class="php-comment">     * Set the module's config
 </span></span><span id="66" class="l"><a href="#66"> 66: </a><span class="php-comment">     *
-</span></span><span id="67" class="l"><a href="#67"> 67: </a><span class="php-comment">     * @param  ConfigInterface|array $config The module configuration.
+</span></span><span id="67" class="l"><a href="#67"> 67: </a><span class="php-comment">     * @param  \Charcoal\Config\ConfigInterface|array $config The module configuration.
 </span></span><span id="68" class="l"><a href="#68"> 68: </a><span class="php-comment">     * @return AbstractModule
 </span></span><span id="69" class="l"><a href="#69"> 69: </a><span class="php-comment">     */</span>
 </span><span id="70" class="l"><a href="#70"> 70: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> setConfig(<span class="php-var">$config</span>)
@@ -260,7 +260,7 @@
 </span></span><span id="81" class="l"><a href="#81"> 81: </a><span class="php-comment">     *
 </span></span><span id="82" class="l"><a href="#82"> 82: </a><span class="php-comment">     * @param  string $key Optional. If provided, the config key value will be returned, instead of the full object.
 </span></span><span id="83" class="l"><a href="#83"> 83: </a><span class="php-comment">     * @throws InvalidArgumentException If a config has not been defined.
-</span></span><span id="84" class="l"><a href="#84"> 84: </a><span class="php-comment">     * @return \Charcoal\Config\ConfigInterface
+</span></span><span id="84" class="l"><a href="#84"> 84: </a><span class="php-comment">     * @return \Charcoal\Config\ConfigInterface|mixed
 </span></span><span id="85" class="l"><a href="#85"> 85: </a><span class="php-comment">     */</span>
 </span><span id="86" class="l"><a href="#86"> 86: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> config(<span class="php-var">$key</span> = <span class="php-keyword1">null</span>)
 </span><span id="87" class="l"><a href="#87"> 87: </a>    {
