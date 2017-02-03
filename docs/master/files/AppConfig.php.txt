@@ -92,7 +92,7 @@ class AppConfig extends AbstractConfig
     private $logger;
 
     /**
-     * @var ViewConfig $view
+     * @var \Charcoal\View\ViewConfig $view
      */
     protected $view;
 

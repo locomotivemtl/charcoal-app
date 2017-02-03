@@ -61,7 +61,7 @@ class App extends SlimApp implements
     /**
      * Getter for creating/returning the unique instance of this class.
      *
-     * @param ContainerInterface|array $container The application's settings.
+     * @param Container|array $container The application's settings.
      * @return self
      */
     public static function instance($container = [])

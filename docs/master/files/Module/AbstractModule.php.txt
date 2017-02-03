@@ -64,7 +64,7 @@ abstract class AbstractModule implements
     /**
      * Set the module's config
      *
-     * @param  ConfigInterface|array $config The module configuration.
+     * @param  \Charcoal\Config\ConfigInterface|array $config The module configuration.
      * @return AbstractModule
      */
     public function setConfig($config)
@@ -81,7 +81,7 @@ abstract class AbstractModule implements
      *
      * @param  string $key Optional. If provided, the config key value will be returned, instead of the full object.
      * @throws InvalidArgumentException If a config has not been defined.
-     * @return \Charcoal\Config\ConfigInterface
+     * @return \Charcoal\Config\ConfigInterface|mixed
      */
     public function config($key = null)
     {
