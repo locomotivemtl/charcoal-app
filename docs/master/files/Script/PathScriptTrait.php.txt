@@ -164,7 +164,7 @@ trait PathScriptTrait
         foreach (glob(dirname($pattern).'/*', (GLOB_ONLYDIR|GLOB_NOSORT)) as $dir) {
             $files = array_merge($files, $this->globRecursive($dir.'/'.basename($pattern), $flags));
             $depth++;
-            if ($depth >= $maxDepth) {
+            if ($maxDepth > 0 && $depth >= $maxDepth) {
                 break;
             }
         }
