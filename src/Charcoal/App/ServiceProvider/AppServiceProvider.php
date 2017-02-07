@@ -74,6 +74,26 @@ class AppServiceProvider implements ServiceProviderInterface
     {
         $config = $container['config'];
 
+        if (!isset($container['debug'])) {
+            /**
+             * Application Debug Mode
+             *
+             * @param Container $container
+             * @return boolean
+             */
+            $container['debug'] = function (Container $container) {
+                if (isset($container['config']['debug'])) {
+                    $debug = !!$container['config']['debug'];
+                } elseif (isset($container['config']['dev_mode'])) {
+                    $debug = !!$container['config']['dev_mode'];
+                } else {
+                    $debug = false;
+                }
+
+                return $debug;
+            };
+        }
+
         if (!isset($container['base-url'])) {
             /**
              * Base URL as a PSR-7 UriInterface object for the current request
