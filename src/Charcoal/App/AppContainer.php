@@ -62,6 +62,7 @@ class AppContainer extends Container
             'charcoal/app/service-provider/filesystem' => [],
             'charcoal/app/service-provider/logger'     => [],
             'charcoal/app/service-provider/translator' => [],
+            'charcoal/translator/service-provider/translator' => [],
             'charcoal/view/view'                       => [],
         ];
 
