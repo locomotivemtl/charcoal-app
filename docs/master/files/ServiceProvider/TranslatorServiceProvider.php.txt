@@ -29,7 +29,7 @@ use \Charcoal\App\Config\TranslatorConfig;
  * - `translator`
  *
  * ## Helpers
- * - `translator/config` `\Charcoal\App\Config\TranslatorConfig`
+ * - `translation/config` `\Charcoal\App\Config\TranslatorConfig`
  *
  * ## Requirements / Dependencies
  * - `config` A `ConfigInterface` must have been previously registered on the container.
@@ -52,7 +52,7 @@ class TranslatorServiceProvider implements ServiceProviderInterface
      *
      *         ```php
      *         // Handles setlocale()
-     *         $container['translator/config']->setCurrentLanguage($lang);
+     *         $container['translation/config']->setCurrentLanguage($lang);
      *
      *         // Handles ConfigurableTranslationTrait
      *         $container['translator/locales']->setCurrentLanguage($lang);
@@ -63,7 +63,7 @@ class TranslatorServiceProvider implements ServiceProviderInterface
      */
     public function register(Container $container)
     {
-        $container['translator/config'] = function (Container $container) {
+        $container['translation/config'] = function (Container $container) {
             $appConfig = $container['config'];
             $translatorConfig = new TranslatorConfig();
 
@@ -83,7 +83,7 @@ class TranslatorServiceProvider implements ServiceProviderInterface
         };
 
         $container['translator/language-repository'] = function (Container $container) {
-            $config = $container['translator/config']->locales();
+            $config = $container['translation/config']->locales();
 
             $loader = new LanguageRepository([
                 'logger'    => $container['logger'],
@@ -96,7 +96,7 @@ class TranslatorServiceProvider implements ServiceProviderInterface
         };
 
         $container['translator/resource-repository'] = function (Container $container) {
-            $config = $container['translator/config']->translations();
+            $config = $container['translation/config']->translations();
 
             $loader = new ResourceRepository([
                 'logger'    => $container['logger'],
@@ -110,7 +110,7 @@ class TranslatorServiceProvider implements ServiceProviderInterface
 
         $container['translator/locales'] = function (Container $container) {
             $repo   = $container['translator/language-repository'];
-            $config = $container['translator/config']->locales();
+            $config = $container['translation/config']->locales();
             $langs  = array_filter($config['languages'], function ($lang) {
                 return (!isset($lang['active']) || $lang['active']);
             });
@@ -151,7 +151,7 @@ class TranslatorServiceProvider implements ServiceProviderInterface
         $container['translator/catalog'] = function (Container $container) {
             $repo   = $container['translator/resource-repository'];
             $langs  = $container['translator/locales']->availableLanguages();
-            $config = $container['translator/config']->translations();
+            $config = $container['translation/config']->translations();
 
             /**
              * Build the array of Language objects from the `TranslationConfig`-filtered list
