@@ -183,10 +183,6 @@ class TranslatorServiceProvider implements ServiceProviderInterface
             return $catalog;
         };
 
-        $container['translator'] = function (Container $container) {
-            return [];
-        };
-
         /**
          * @todo Figure this shit out!
          */
