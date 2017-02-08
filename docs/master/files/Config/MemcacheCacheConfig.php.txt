@@ -37,7 +37,7 @@ class MemcacheCacheConfig extends AbstractConfig
      */
     public function defaults()
     {
-        $default = [
+        return [
             'host'       => 'localhost',
             'port'       => 11211,
             'persistent' => true,
