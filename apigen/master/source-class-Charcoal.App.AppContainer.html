@@ -241,31 +241,32 @@
 </span><span id="62" class="l"><a href="#62">62: </a>            <span class="php-quote">'charcoal/app/service-provider/filesystem'</span> =&gt; [],
 </span><span id="63" class="l"><a href="#63">63: </a>            <span class="php-quote">'charcoal/app/service-provider/logger'</span>     =&gt; [],
 </span><span id="64" class="l"><a href="#64">64: </a>            <span class="php-quote">'charcoal/app/service-provider/translator'</span> =&gt; [],
-</span><span id="65" class="l"><a href="#65">65: </a>            <span class="php-quote">'charcoal/view/view'</span>                       =&gt; [],
-</span><span id="66" class="l"><a href="#66">66: </a>        ];
-</span><span id="67" class="l"><a href="#67">67: </a>
-</span><span id="68" class="l"><a href="#68">68: </a>        <span class="php-keyword1">if</span> (!<span class="php-keyword1">empty</span>(<span class="php-var">$this</span>[<span class="php-quote">'config'</span>][<span class="php-quote">'service_providers'</span>])) {
-</span><span id="69" class="l"><a href="#69">69: </a>            <span class="php-var">$providers</span> = <span class="php-keyword2">array_replace</span>(<span class="php-var">$defaultProviders</span>, <span class="php-var">$this</span>[<span class="php-quote">'config'</span>][<span class="php-quote">'service_providers'</span>]);
-</span><span id="70" class="l"><a href="#70">70: </a>        } <span class="php-keyword1">else</span> {
-</span><span id="71" class="l"><a href="#71">71: </a>            <span class="php-var">$providers</span> = <span class="php-var">$defaultProviders</span>;
-</span><span id="72" class="l"><a href="#72">72: </a>        }
-</span><span id="73" class="l"><a href="#73">73: </a>
-</span><span id="74" class="l"><a href="#74">74: </a>        <span class="php-keyword1">foreach</span> (<span class="php-var">$providers</span> <span class="php-keyword1">as</span> <span class="php-var">$provider</span> =&gt; <span class="php-var">$values</span>) {
-</span><span id="75" class="l"><a href="#75">75: </a>            <span class="php-keyword1">if</span> (<span class="php-keyword1">false</span> === <span class="php-var">$values</span>) {
-</span><span id="76" class="l"><a href="#76">76: </a>                <span class="php-keyword1">continue</span>;
-</span><span id="77" class="l"><a href="#77">77: </a>            }
-</span><span id="78" class="l"><a href="#78">78: </a>
-</span><span id="79" class="l"><a href="#79">79: </a>            <span class="php-keyword1">if</span> (!<span class="php-keyword2">is_array</span>(<span class="php-var">$values</span>)) {
-</span><span id="80" class="l"><a href="#80">80: </a>                <span class="php-var">$values</span> = [];
-</span><span id="81" class="l"><a href="#81">81: </a>            }
-</span><span id="82" class="l"><a href="#82">82: </a>
-</span><span id="83" class="l"><a href="#83">83: </a>            <span class="php-var">$provider</span> = <span class="php-var">$this</span>[<span class="php-quote">'provider/factory'</span>]-&gt;get(<span class="php-var">$provider</span>);
-</span><span id="84" class="l"><a href="#84">84: </a>
-</span><span id="85" class="l"><a href="#85">85: </a>            <span class="php-var">$this</span>-&gt;register(<span class="php-var">$provider</span>, <span class="php-var">$values</span>);
-</span><span id="86" class="l"><a href="#86">86: </a>        }
-</span><span id="87" class="l"><a href="#87">87: </a>    }
-</span><span id="88" class="l"><a href="#88">88: </a>}
-</span><span id="89" class="l"><a href="#89">89: </a></span></code></pre>
+</span><span id="65" class="l"><a href="#65">65: </a>            <span class="php-quote">'charcoal/translator/service-provider/translator'</span> =&gt; [],
+</span><span id="66" class="l"><a href="#66">66: </a>            <span class="php-quote">'charcoal/view/view'</span>                       =&gt; [],
+</span><span id="67" class="l"><a href="#67">67: </a>        ];
+</span><span id="68" class="l"><a href="#68">68: </a>
+</span><span id="69" class="l"><a href="#69">69: </a>        <span class="php-keyword1">if</span> (!<span class="php-keyword1">empty</span>(<span class="php-var">$this</span>[<span class="php-quote">'config'</span>][<span class="php-quote">'service_providers'</span>])) {
+</span><span id="70" class="l"><a href="#70">70: </a>            <span class="php-var">$providers</span> = <span class="php-keyword2">array_replace</span>(<span class="php-var">$defaultProviders</span>, <span class="php-var">$this</span>[<span class="php-quote">'config'</span>][<span class="php-quote">'service_providers'</span>]);
+</span><span id="71" class="l"><a href="#71">71: </a>        } <span class="php-keyword1">else</span> {
+</span><span id="72" class="l"><a href="#72">72: </a>            <span class="php-var">$providers</span> = <span class="php-var">$defaultProviders</span>;
+</span><span id="73" class="l"><a href="#73">73: </a>        }
+</span><span id="74" class="l"><a href="#74">74: </a>
+</span><span id="75" class="l"><a href="#75">75: </a>        <span class="php-keyword1">foreach</span> (<span class="php-var">$providers</span> <span class="php-keyword1">as</span> <span class="php-var">$provider</span> =&gt; <span class="php-var">$values</span>) {
+</span><span id="76" class="l"><a href="#76">76: </a>            <span class="php-keyword1">if</span> (<span class="php-keyword1">false</span> === <span class="php-var">$values</span>) {
+</span><span id="77" class="l"><a href="#77">77: </a>                <span class="php-keyword1">continue</span>;
+</span><span id="78" class="l"><a href="#78">78: </a>            }
+</span><span id="79" class="l"><a href="#79">79: </a>
+</span><span id="80" class="l"><a href="#80">80: </a>            <span class="php-keyword1">if</span> (!<span class="php-keyword2">is_array</span>(<span class="php-var">$values</span>)) {
+</span><span id="81" class="l"><a href="#81">81: </a>                <span class="php-var">$values</span> = [];
+</span><span id="82" class="l"><a href="#82">82: </a>            }
+</span><span id="83" class="l"><a href="#83">83: </a>
+</span><span id="84" class="l"><a href="#84">84: </a>            <span class="php-var">$provider</span> = <span class="php-var">$this</span>[<span class="php-quote">'provider/factory'</span>]-&gt;get(<span class="php-var">$provider</span>);
+</span><span id="85" class="l"><a href="#85">85: </a>
+</span><span id="86" class="l"><a href="#86">86: </a>            <span class="php-var">$this</span>-&gt;register(<span class="php-var">$provider</span>, <span class="php-var">$values</span>);
+</span><span id="87" class="l"><a href="#87">87: </a>        }
+</span><span id="88" class="l"><a href="#88">88: </a>    }
+</span><span id="89" class="l"><a href="#89">89: </a>}
+</span><span id="90" class="l"><a href="#90">90: </a></span></code></pre>
 
 	<div id="footer">
 		 API documentation generated by <a href="http://apigen.org">ApiGen</a>

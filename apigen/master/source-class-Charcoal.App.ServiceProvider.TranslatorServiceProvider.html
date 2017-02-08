@@ -208,7 +208,7 @@
 </span></span><span id="29" class="l"><a href="#29"> 29: </a><span class="php-comment"> * - `translator`
 </span></span><span id="30" class="l"><a href="#30"> 30: </a><span class="php-comment"> *
 </span></span><span id="31" class="l"><a href="#31"> 31: </a><span class="php-comment"> * ## Helpers
-</span></span><span id="32" class="l"><a href="#32"> 32: </a><span class="php-comment"> * - `translator/config` `\Charcoal\App\Config\TranslatorConfig`
+</span></span><span id="32" class="l"><a href="#32"> 32: </a><span class="php-comment"> * - `translation/config` `\Charcoal\App\Config\TranslatorConfig`
 </span></span><span id="33" class="l"><a href="#33"> 33: </a><span class="php-comment"> *
 </span></span><span id="34" class="l"><a href="#34"> 34: </a><span class="php-comment"> * ## Requirements / Dependencies
 </span></span><span id="35" class="l"><a href="#35"> 35: </a><span class="php-comment"> * - `config` A `ConfigInterface` must have been previously registered on the container.
@@ -231,7 +231,7 @@
 </span></span><span id="52" class="l"><a href="#52"> 52: </a><span class="php-comment">     *
 </span></span><span id="53" class="l"><a href="#53"> 53: </a><span class="php-comment">     *         ```php
 </span></span><span id="54" class="l"><a href="#54"> 54: </a><span class="php-comment">     *         // Handles setlocale()
-</span></span><span id="55" class="l"><a href="#55"> 55: </a><span class="php-comment">     *         $container['translator/config']-&gt;setCurrentLanguage($lang);
+</span></span><span id="55" class="l"><a href="#55"> 55: </a><span class="php-comment">     *         $container['translation/config']-&gt;setCurrentLanguage($lang);
 </span></span><span id="56" class="l"><a href="#56"> 56: </a><span class="php-comment">     *
 </span></span><span id="57" class="l"><a href="#57"> 57: </a><span class="php-comment">     *         // Handles ConfigurableTranslationTrait
 </span></span><span id="58" class="l"><a href="#58"> 58: </a><span class="php-comment">     *         $container['translator/locales']-&gt;setCurrentLanguage($lang);
@@ -242,7 +242,7 @@
 </span></span><span id="63" class="l"><a href="#63"> 63: </a><span class="php-comment">     */</span>
 </span><span id="64" class="l"><a href="#64"> 64: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> register(Container <span class="php-var">$container</span>)
 </span><span id="65" class="l"><a href="#65"> 65: </a>    {
-</span><span id="66" class="l"><a href="#66"> 66: </a>        <span class="php-var">$container</span>[<span class="php-quote">'translator/config'</span>] = <span class="php-keyword1">function</span> (Container <span class="php-var">$container</span>) {
+</span><span id="66" class="l"><a href="#66"> 66: </a>        <span class="php-var">$container</span>[<span class="php-quote">'translation/config'</span>] = <span class="php-keyword1">function</span> (Container <span class="php-var">$container</span>) {
 </span><span id="67" class="l"><a href="#67"> 67: </a>            <span class="php-var">$appConfig</span> = <span class="php-var">$container</span>[<span class="php-quote">'config'</span>];
 </span><span id="68" class="l"><a href="#68"> 68: </a>            <span class="php-var">$translatorConfig</span> = <span class="php-keyword1">new</span> TranslatorConfig();
 </span><span id="69" class="l"><a href="#69"> 69: </a>
@@ -262,7 +262,7 @@
 </span><span id="83" class="l"><a href="#83"> 83: </a>        };
 </span><span id="84" class="l"><a href="#84"> 84: </a>
 </span><span id="85" class="l"><a href="#85"> 85: </a>        <span class="php-var">$container</span>[<span class="php-quote">'translator/language-repository'</span>] = <span class="php-keyword1">function</span> (Container <span class="php-var">$container</span>) {
-</span><span id="86" class="l"><a href="#86"> 86: </a>            <span class="php-var">$config</span> = <span class="php-var">$container</span>[<span class="php-quote">'translator/config'</span>]-&gt;locales();
+</span><span id="86" class="l"><a href="#86"> 86: </a>            <span class="php-var">$config</span> = <span class="php-var">$container</span>[<span class="php-quote">'translation/config'</span>]-&gt;locales();
 </span><span id="87" class="l"><a href="#87"> 87: </a>
 </span><span id="88" class="l"><a href="#88"> 88: </a>            <span class="php-var">$loader</span> = <span class="php-keyword1">new</span> LanguageRepository([
 </span><span id="89" class="l"><a href="#89"> 89: </a>                <span class="php-quote">'logger'</span>    =&gt; <span class="php-var">$container</span>[<span class="php-quote">'logger'</span>],
@@ -275,7 +275,7 @@
 </span><span id="96" class="l"><a href="#96"> 96: </a>        };
 </span><span id="97" class="l"><a href="#97"> 97: </a>
 </span><span id="98" class="l"><a href="#98"> 98: </a>        <span class="php-var">$container</span>[<span class="php-quote">'translator/resource-repository'</span>] = <span class="php-keyword1">function</span> (Container <span class="php-var">$container</span>) {
-</span><span id="99" class="l"><a href="#99"> 99: </a>            <span class="php-var">$config</span> = <span class="php-var">$container</span>[<span class="php-quote">'translator/config'</span>]-&gt;translations();
+</span><span id="99" class="l"><a href="#99"> 99: </a>            <span class="php-var">$config</span> = <span class="php-var">$container</span>[<span class="php-quote">'translation/config'</span>]-&gt;translations();
 </span><span id="100" class="l"><a href="#100">100: </a>
 </span><span id="101" class="l"><a href="#101">101: </a>            <span class="php-var">$loader</span> = <span class="php-keyword1">new</span> ResourceRepository([
 </span><span id="102" class="l"><a href="#102">102: </a>                <span class="php-quote">'logger'</span>    =&gt; <span class="php-var">$container</span>[<span class="php-quote">'logger'</span>],
@@ -289,7 +289,7 @@
 </span><span id="110" class="l"><a href="#110">110: </a>
 </span><span id="111" class="l"><a href="#111">111: </a>        <span class="php-var">$container</span>[<span class="php-quote">'translator/locales'</span>] = <span class="php-keyword1">function</span> (Container <span class="php-var">$container</span>) {
 </span><span id="112" class="l"><a href="#112">112: </a>            <span class="php-var">$repo</span>   = <span class="php-var">$container</span>[<span class="php-quote">'translator/language-repository'</span>];
-</span><span id="113" class="l"><a href="#113">113: </a>            <span class="php-var">$config</span> = <span class="php-var">$container</span>[<span class="php-quote">'translator/config'</span>]-&gt;locales();
+</span><span id="113" class="l"><a href="#113">113: </a>            <span class="php-var">$config</span> = <span class="php-var">$container</span>[<span class="php-quote">'translation/config'</span>]-&gt;locales();
 </span><span id="114" class="l"><a href="#114">114: </a>            <span class="php-var">$langs</span>  = <span class="php-keyword2">array_filter</span>(<span class="php-var">$config</span>[<span class="php-quote">'languages'</span>], <span class="php-keyword1">function</span> (<span class="php-var">$lang</span>) {
 </span><span id="115" class="l"><a href="#115">115: </a>                <span class="php-keyword1">return</span> (!<span class="php-keyword1">isset</span>(<span class="php-var">$lang</span>[<span class="php-quote">'active'</span>]) || <span class="php-var">$lang</span>[<span class="php-quote">'active'</span>]);
 </span><span id="116" class="l"><a href="#116">116: </a>            });
@@ -330,7 +330,7 @@
 </span><span id="151" class="l"><a href="#151">151: </a>        <span class="php-var">$container</span>[<span class="php-quote">'translator/catalog'</span>] = <span class="php-keyword1">function</span> (Container <span class="php-var">$container</span>) {
 </span><span id="152" class="l"><a href="#152">152: </a>            <span class="php-var">$repo</span>   = <span class="php-var">$container</span>[<span class="php-quote">'translator/resource-repository'</span>];
 </span><span id="153" class="l"><a href="#153">153: </a>            <span class="php-var">$langs</span>  = <span class="php-var">$container</span>[<span class="php-quote">'translator/locales'</span>]-&gt;availableLanguages();
-</span><span id="154" class="l"><a href="#154">154: </a>            <span class="php-var">$config</span> = <span class="php-var">$container</span>[<span class="php-quote">'translator/config'</span>]-&gt;translations();
+</span><span id="154" class="l"><a href="#154">154: </a>            <span class="php-var">$config</span> = <span class="php-var">$container</span>[<span class="php-quote">'translation/config'</span>]-&gt;translations();
 </span><span id="155" class="l"><a href="#155">155: </a>
 </span><span id="156" class="l"><a href="#156">156: </a>            <span class="php-comment">/**
 </span></span><span id="157" class="l"><a href="#157">157: </a><span class="php-comment">             * Build the array of Language objects from the `TranslationConfig`-filtered list
