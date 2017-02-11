@@ -117,16 +117,16 @@ class TemplateRoute implements
     ) {
         $config = $this->config();
 
-        if ($config['cache']) {
+        if ($this->cacheEnabled()) {
             $cachePool = $container['cache'];
-            $cacheKey  = str_replace('/', '.', 'template/'.$config['template']);
+            $cacheKey  = str_replace('/', '.', 'template.'.$this->cacheIdent());
             $cacheItem = $cachePool->getItem($cacheKey);
 
             $template = $cacheItem->get();
             if ($cacheItem->isMiss()) {
                 $template = $this->renderTemplate($container, $request);
 
-                $cachePool->save($cacheItem->set($template, $config['cache_ttl']));
+                $cachePool->save($cacheItem->set($template, $this->cacheTtl()));
             }
         } else {
             $template = $this->renderTemplate($container, $request);
@@ -202,5 +202,32 @@ class TemplateRoute implements
         }
 
         return null;
+    }
+
+    /**
+     * @return boolean
+     */
+    protected function cacheEnabled()
+    {
+        $config = $this->config();
+        return $config['cache'];
+    }
+
+    /**
+     * @return integer
+     */
+    protected function cacheTtl()
+    {
+        $config = $this->config();
+        return $config['cache_ttl'];
+    }
+
+    /**
+     * @return string
+     */
+    protected function cacheIdent()
+    {
+        $config = $this->config;
+        return $config['template'];
     }
 }
