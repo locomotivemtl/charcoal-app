@@ -267,5 +267,4 @@ class RouteManager implements
 
         return $routeHandler;
     }
-
 }
