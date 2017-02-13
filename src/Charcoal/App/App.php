@@ -35,10 +35,8 @@ use \Charcoal\App\Route\RouteFactory;
  * and run a Slim Framework application within Charcoal.
  */
 class App extends SlimApp implements
-    LoggerAwareInterface,
     ConfigurableInterface
 {
-    use LoggerAwareTrait;
     use ConfigurableTrait;
 
     /**
@@ -160,8 +158,6 @@ class App extends SlimApp implements
         );
     }
 
-
-
     /**
      * Retrieve the application's module manager.
      *
@@ -177,7 +173,7 @@ class App extends SlimApp implements
             $this->moduleManager = new ModuleManager([
                 'config' => $modules,
                 'app'    => $this,
-                'logger' => $this->logger,
+                'logger' => $container['logger'],
                 'module_factory' => $container['module/factory']
             ]);
         }
@@ -198,8 +194,7 @@ class App extends SlimApp implements
 
             $this->routeManager = new RouteManager([
                 'config' => $routes,
-                'app'    => $this,
-                'logger' => $this->logger
+                'app'    => $this
             ]);
         }
 
@@ -209,48 +204,32 @@ class App extends SlimApp implements
     /**
      * Registers the default services and features that Charcoal needs to work.
      *
-     * @return AppInterface Chainable
+     * @return void
      */
     private function setup()
     {
         $config = $this->config();
         date_default_timezone_set($config['timezone']);
 
-        $this->setupLogger();
-        $this->setupRoutes();
-        $this->setupModules();
-        $this->setupRoutables();
-
-        return $this;
-    }
-
-    /**
-     * Setup the application's logging interface.
-     *
-     * @return void
-     */
-    protected function setupLogger()
-    {
         $container = $this->getContainer();
 
-        if (!isset($container['logger'])) {
-            $container['logger'] = new \Psr\Log\NullLogger();
-        }
+        // Cache generator; added first, so it will be executed last
+        //$this->add($container['cache/generator-middleware']);
 
-        $this->setLogger($container['logger']);
-        $this->logger->debug('>>> Charcoal App Init Logger');
+        // Setup routes
+//        $this->add($this->routeManager());
+        $this->routeManager()->setupRoutes();
+
+        // Setup modules
+        $this->moduleManager()->setupModules($this);
+
+        // Setup routable
+        $this->setupRoutables();
+
+        // Cache loader; added last, so it will be executed first
+        //$this->add($container['cache/loader-middleware']);
     }
 
-    /**
-     * Setup the application's "global" routes, via a RouteManager
-     *
-     * @return void
-     */
-    protected function setupRoutes()
-    {
-        $routeManager = $this->routeManager();
-        $routeManager->setupRoutes();
-    }
 
     /**
      * Setup the application's "global" routables.
@@ -293,28 +272,5 @@ class App extends SlimApp implements
                 return $this['notFoundHandler']($request, $response);
             }
         );
-    }
-
-    /**
-     * Setup the application's modules, via a ModuleManager
-     *
-     * @return void
-     */
-    protected function setupModules()
-    {
-        $moduleManager = $this->moduleManager();
-        $moduleManager->setupModules();
-    }
-
-    /**
-     * Retrieve a new ConfigInterface instance for the object.
-     *
-     * @see    ConfigurableTrait::createConfig() For abstract definition of this method.
-     * @param  array|string|null $data Optional configuration data.
-     * @return AppConfig
-     */
-    protected function createConfig($data = null)
-    {
-        return new AppConfig($data);
     }
 }
