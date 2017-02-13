@@ -239,7 +239,7 @@
 </span><span id="60" class="l"><a href="#60"> 60: </a>        <span class="php-comment">/**
 </span></span><span id="61" class="l"><a href="#61"> 61: </a><span class="php-comment">         * @return \Charcoal\Factory\FactoryInterface
 </span></span><span id="62" class="l"><a href="#62"> 62: </a><span class="php-comment">         */</span>
-</span><span id="63" class="l"><a href="#63"> 63: </a>        <span class="php-var">$container</span>[<span class="php-quote">'logger/processor/factory'</span>] = <span class="php-keyword1">function</span> (Container <span class="php-var">$container</span>) {
+</span><span id="63" class="l"><a href="#63"> 63: </a>        <span class="php-var">$container</span>[<span class="php-quote">'logger/processor/factory'</span>] = <span class="php-keyword1">function</span> () {
 </span><span id="64" class="l"><a href="#64"> 64: </a>            <span class="php-keyword1">return</span> <span class="php-keyword1">new</span> GenericFactory([
 </span><span id="65" class="l"><a href="#65"> 65: </a>                <span class="php-quote">'map'</span> =&gt; [
 </span><span id="66" class="l"><a href="#66"> 66: </a>                    <span class="php-quote">'memory-usage'</span>  =&gt; <span class="php-quote">'\Monolog\Processor\MemoryUsageProcessor'</span>,
@@ -284,7 +284,7 @@
 </span><span id="105" class="l"><a href="#105">105: </a>            <span class="php-var">$handlers</span> = <span class="php-keyword1">new</span> Container();
 </span><span id="106" class="l"><a href="#106">106: </a>            <span class="php-var">$handlerFactory</span> = <span class="php-var">$container</span>[<span class="php-quote">'logger/handler/factory'</span>];
 </span><span id="107" class="l"><a href="#107">107: </a>            <span class="php-keyword1">foreach</span> (<span class="php-var">$handlersConfig</span> <span class="php-keyword1">as</span> <span class="php-var">$h</span>) {
-</span><span id="108" class="l"><a href="#108">108: </a>                <span class="php-var">$handlers</span>[<span class="php-var">$h</span>[<span class="php-quote">'type'</span>]] = <span class="php-keyword1">function</span> (Container <span class="php-var">$container</span>) <span class="php-keyword1">use</span> (<span class="php-var">$h</span>, <span class="php-var">$handlerFactory</span>) {
+</span><span id="108" class="l"><a href="#108">108: </a>                <span class="php-var">$handlers</span>[<span class="php-var">$h</span>[<span class="php-quote">'type'</span>]] = <span class="php-keyword1">function</span> () <span class="php-keyword1">use</span> (<span class="php-var">$h</span>, <span class="php-var">$handlerFactory</span>) {
 </span><span id="109" class="l"><a href="#109">109: </a>                    <span class="php-var">$type</span> = <span class="php-var">$h</span>[<span class="php-quote">'type'</span>];
 </span><span id="110" class="l"><a href="#110">110: </a>                    <span class="php-var">$handler</span> = <span class="php-var">$handlerFactory</span>-&gt;create(<span class="php-var">$type</span>);
 </span><span id="111" class="l"><a href="#111">111: </a>                    <span class="php-keyword1">return</span> <span class="php-var">$handler</span>;
