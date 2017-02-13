@@ -13,6 +13,10 @@ use \Charcoal\Config\ConfigurableTrait;
 // Local namespace dependencies
 use \Charcoal\App\AppAwareInterface;
 use \Charcoal\App\AppAwareTrait;
+use \Charcoal\App\Route\ActionRoute;
+use \Charcoal\App\Route\ScriptRoute;
+use \Charcoal\App\Route\TemplateRoute;
+
 
 /**
  * The route manager takes care of dispatching each route from an app or a module config
@@ -161,7 +165,7 @@ class RouteManager implements
                 }
 
                 $routeFactory = $this['route/factory'];
-                $defaultRoute = 'charcoal/app/route/template';
+                $defaultRoute = TemplateRoute::class;
                 $routeController = isset($templateConfig['route_controller'])
                     ? $templateConfig['route_controller']
                     : $defaultRoute;
@@ -245,7 +249,7 @@ class RouteManager implements
                 }
 
                 $routeFactory = $this['route/factory'];
-                $defaultRoute = 'charcoal/app/route/action';
+                $defaultRoute = ActionRoute::class;
                 $routeController = isset($actionConfig['route_controller'])
                     ? $actionConfig['route_controller']
                     : $defaultRoute;
@@ -329,7 +333,7 @@ class RouteManager implements
                 }
 
                 $routeFactory = $this['route/factory'];
-                $defaultRoute = 'charcoal/app/route/script';
+                $defaultRoute = ScriptRoute::class;
                 $routeController = isset($scriptConfig['route_controller'])
                     ? $scriptConfig['route_controller']
                     : $defaultRoute;
