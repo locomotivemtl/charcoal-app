@@ -47,6 +47,11 @@
 
 						</li>
 				<li>
+					<a href="namespace-Charcoal.App.Middleware.html">
+						Middleware					</a>
+
+						</li>
+				<li>
 					<a href="namespace-Charcoal.App.Module.html">
 						Module					</a>
 
@@ -99,6 +104,7 @@
 				<li><a href="class-Charcoal.App.Handler.NotFound.html">Charcoal\App\Handler\NotFound</a></li>
 				<li><a href="class-Charcoal.App.Handler.PhpError.html">Charcoal\App\Handler\PhpError</a></li>
 				<li><a href="class-Charcoal.App.Handler.Shutdown.html">Charcoal\App\Handler\Shutdown</a></li>
+				<li><a href="class-Charcoal.App.Middleware.CacheMiddleware.html">Charcoal\App\Middleware\CacheMiddleware</a></li>
 				<li><a href="class-Charcoal.App.Module.AbstractModule.html">Charcoal\App\Module\AbstractModule</a></li>
 				<li><a href="class-Charcoal.App.Module.ModuleConfig.html">Charcoal\App\Module\ModuleConfig</a></li>
 				<li><a href="class-Charcoal.App.Module.ModuleManager.html">Charcoal\App\Module\ModuleManager</a></li>
@@ -182,30 +188,30 @@
 </span><span id="3" class="l"><a href="#3">  3: </a><span class="php-keyword1">namespace</span> Charcoal\App;
 </span><span id="4" class="l"><a href="#4">  4: </a>
 </span><span id="5" class="l"><a href="#5">  5: </a><span class="php-comment">// PHP Dependencies</span>
-</span><span id="6" class="l"><a href="#6">  6: </a><span class="php-keyword1">use</span> \Exception;
-</span><span id="7" class="l"><a href="#7">  7: </a><span class="php-keyword1">use</span> \LogicException;
+</span><span id="6" class="l"><a href="#6">  6: </a><span class="php-keyword1">use</span> Exception;
+</span><span id="7" class="l"><a href="#7">  7: </a><span class="php-keyword1">use</span> LogicException;
 </span><span id="8" class="l"><a href="#8">  8: </a>
 </span><span id="9" class="l"><a href="#9">  9: </a><span class="php-comment">// Dependency from 'Slim'</span>
-</span><span id="10" class="l"><a href="#10"> 10: </a><span class="php-keyword1">use</span> \Slim\App <span class="php-keyword1">as</span> SlimApp;
+</span><span id="10" class="l"><a href="#10"> 10: </a><span class="php-keyword1">use</span> Slim\App <span class="php-keyword1">as</span> SlimApp;
 </span><span id="11" class="l"><a href="#11"> 11: </a>
 </span><span id="12" class="l"><a href="#12"> 12: </a><span class="php-comment">// Dependencies from 'PSR-3' (Logging)</span>
-</span><span id="13" class="l"><a href="#13"> 13: </a><span class="php-keyword1">use</span> \Psr\<span class="php-keyword2">Log</span>\LoggerAwareInterface;
-</span><span id="14" class="l"><a href="#14"> 14: </a><span class="php-keyword1">use</span> \Psr\<span class="php-keyword2">Log</span>\LoggerAwareTrait;
+</span><span id="13" class="l"><a href="#13"> 13: </a><span class="php-keyword1">use</span> Psr\<span class="php-keyword2">Log</span>\LoggerAwareInterface;
+</span><span id="14" class="l"><a href="#14"> 14: </a><span class="php-keyword1">use</span> Psr\<span class="php-keyword2">Log</span>\LoggerAwareTrait;
 </span><span id="15" class="l"><a href="#15"> 15: </a>
 </span><span id="16" class="l"><a href="#16"> 16: </a><span class="php-comment">// Dependencies from 'PSR-7' (HTTP Messaging)</span>
-</span><span id="17" class="l"><a href="#17"> 17: </a><span class="php-keyword1">use</span> \Psr\Http\Message\RequestInterface;
-</span><span id="18" class="l"><a href="#18"> 18: </a><span class="php-keyword1">use</span> \Psr\Http\Message\ResponseInterface;
+</span><span id="17" class="l"><a href="#17"> 17: </a><span class="php-keyword1">use</span> Psr\Http\Message\RequestInterface;
+</span><span id="18" class="l"><a href="#18"> 18: </a><span class="php-keyword1">use</span> Psr\Http\Message\ResponseInterface;
 </span><span id="19" class="l"><a href="#19"> 19: </a>
 </span><span id="20" class="l"><a href="#20"> 20: </a><span class="php-comment">// Dependencies from 'charcoal-config'</span>
-</span><span id="21" class="l"><a href="#21"> 21: </a><span class="php-keyword1">use</span> \Charcoal\Config\ConfigurableInterface;
-</span><span id="22" class="l"><a href="#22"> 22: </a><span class="php-keyword1">use</span> \Charcoal\Config\ConfigurableTrait;
+</span><span id="21" class="l"><a href="#21"> 21: </a><span class="php-keyword1">use</span> Charcoal\Config\ConfigurableInterface;
+</span><span id="22" class="l"><a href="#22"> 22: </a><span class="php-keyword1">use</span> Charcoal\Config\ConfigurableTrait;
 </span><span id="23" class="l"><a href="#23"> 23: </a>
 </span><span id="24" class="l"><a href="#24"> 24: </a><span class="php-comment">// Local namespace dependencies</span>
-</span><span id="25" class="l"><a href="#25"> 25: </a><span class="php-keyword1">use</span> \Charcoal\App\AppConfig;
-</span><span id="26" class="l"><a href="#26"> 26: </a><span class="php-keyword1">use</span> \Charcoal\App\AppContainer;
-</span><span id="27" class="l"><a href="#27"> 27: </a><span class="php-keyword1">use</span> \Charcoal\App\Module\ModuleManager;
-</span><span id="28" class="l"><a href="#28"> 28: </a><span class="php-keyword1">use</span> \Charcoal\App\Route\RouteManager;
-</span><span id="29" class="l"><a href="#29"> 29: </a><span class="php-keyword1">use</span> \Charcoal\App\Route\RouteFactory;
+</span><span id="25" class="l"><a href="#25"> 25: </a><span class="php-keyword1">use</span> Charcoal\App\AppConfig;
+</span><span id="26" class="l"><a href="#26"> 26: </a><span class="php-keyword1">use</span> Charcoal\App\AppContainer;
+</span><span id="27" class="l"><a href="#27"> 27: </a><span class="php-keyword1">use</span> Charcoal\App\Module\ModuleManager;
+</span><span id="28" class="l"><a href="#28"> 28: </a><span class="php-keyword1">use</span> Charcoal\App\Route\RouteManager;
+</span><span id="29" class="l"><a href="#29"> 29: </a><span class="php-keyword1">use</span> Charcoal\App\Route\RouteFactory;
 </span><span id="30" class="l"><a href="#30"> 30: </a>
 </span><span id="31" class="l"><a href="#31"> 31: </a><span class="php-comment">/**
 </span></span><span id="32" class="l"><a href="#32"> 32: </a><span class="php-comment"> * Charcoal App
@@ -390,70 +396,65 @@
 </span><span id="211" class="l"><a href="#211">211: </a>        <span class="php-var">$config</span> = <span class="php-var">$this</span>-&gt;config();
 </span><span id="212" class="l"><a href="#212">212: </a>        <span class="php-keyword2">date_default_timezone_set</span>(<span class="php-var">$config</span>[<span class="php-quote">'timezone'</span>]);
 </span><span id="213" class="l"><a href="#213">213: </a>
-</span><span id="214" class="l"><a href="#214">214: </a>        <span class="php-var">$container</span> = <span class="php-var">$this</span>-&gt;getContainer();
-</span><span id="215" class="l"><a href="#215">215: </a>
-</span><span id="216" class="l"><a href="#216">216: </a>        <span class="php-comment">// Cache generator; added first, so it will be executed last</span>
-</span><span id="217" class="l"><a href="#217">217: </a>        <span class="php-comment">//$this-&gt;add($container['cache/generator-middleware']);</span>
-</span><span id="218" class="l"><a href="#218">218: </a>
-</span><span id="219" class="l"><a href="#219">219: </a>        <span class="php-comment">// Setup routes</span>
-</span><span id="220" class="l"><a href="#220">220: </a><span class="php-comment">//        $this-&gt;add($this-&gt;routeManager());</span>
-</span><span id="221" class="l"><a href="#221">221: </a>        <span class="php-var">$this</span>-&gt;routeManager()-&gt;setupRoutes();
+</span><span id="214" class="l"><a href="#214">214: </a>        <span class="php-comment">// Setup routes</span>
+</span><span id="215" class="l"><a href="#215">215: </a>        <span class="php-var">$this</span>-&gt;routeManager()-&gt;setupRoutes();
+</span><span id="216" class="l"><a href="#216">216: </a>
+</span><span id="217" class="l"><a href="#217">217: </a>        <span class="php-comment">// Setup modules</span>
+</span><span id="218" class="l"><a href="#218">218: </a>        <span class="php-var">$this</span>-&gt;moduleManager()-&gt;setupModules(<span class="php-var">$this</span>);
+</span><span id="219" class="l"><a href="#219">219: </a>
+</span><span id="220" class="l"><a href="#220">220: </a>        <span class="php-comment">// Setup routable</span>
+</span><span id="221" class="l"><a href="#221">221: </a>        <span class="php-var">$this</span>-&gt;setupRoutables();
 </span><span id="222" class="l"><a href="#222">222: </a>
-</span><span id="223" class="l"><a href="#223">223: </a>        <span class="php-comment">// Setup modules</span>
-</span><span id="224" class="l"><a href="#224">224: </a>        <span class="php-var">$this</span>-&gt;moduleManager()-&gt;setupModules(<span class="php-var">$this</span>);
-</span><span id="225" class="l"><a href="#225">225: </a>
-</span><span id="226" class="l"><a href="#226">226: </a>        <span class="php-comment">// Setup routable</span>
-</span><span id="227" class="l"><a href="#227">227: </a>        <span class="php-var">$this</span>-&gt;setupRoutables();
+</span><span id="223" class="l"><a href="#223">223: </a>        <span class="php-comment">// Cache generator; added last, so it will be executed first</span>
+</span><span id="224" class="l"><a href="#224">224: </a>        <span class="php-var">$container</span> = <span class="php-var">$this</span>-&gt;getContainer();
+</span><span id="225" class="l"><a href="#225">225: </a>        <span class="php-var">$this</span>-&gt;add(<span class="php-var">$container</span>[<span class="php-quote">'cache/middleware'</span>]);
+</span><span id="226" class="l"><a href="#226">226: </a>    }
+</span><span id="227" class="l"><a href="#227">227: </a>
 </span><span id="228" class="l"><a href="#228">228: </a>
-</span><span id="229" class="l"><a href="#229">229: </a>        <span class="php-comment">// Cache loader; added last, so it will be executed first</span>
-</span><span id="230" class="l"><a href="#230">230: </a>        <span class="php-comment">//$this-&gt;add($container['cache/loader-middleware']);</span>
-</span><span id="231" class="l"><a href="#231">231: </a>    }
-</span><span id="232" class="l"><a href="#232">232: </a>
-</span><span id="233" class="l"><a href="#233">233: </a>
-</span><span id="234" class="l"><a href="#234">234: </a>    <span class="php-comment">/**
-</span></span><span id="235" class="l"><a href="#235">235: </a><span class="php-comment">     * Setup the application's &quot;global&quot; routables.
-</span></span><span id="236" class="l"><a href="#236">236: </a><span class="php-comment">     *
-</span></span><span id="237" class="l"><a href="#237">237: </a><span class="php-comment">     * Routables can only be defined globally (app-level) for now.
-</span></span><span id="238" class="l"><a href="#238">238: </a><span class="php-comment">     *
-</span></span><span id="239" class="l"><a href="#239">239: </a><span class="php-comment">     * @return void
-</span></span><span id="240" class="l"><a href="#240">240: </a><span class="php-comment">     */</span>
-</span><span id="241" class="l"><a href="#241">241: </a>    <span class="php-keyword1">protected</span> <span class="php-keyword1">function</span> setupRoutables()
-</span><span id="242" class="l"><a href="#242">242: </a>    {
-</span><span id="243" class="l"><a href="#243">243: </a>        <span class="php-var">$app</span> = <span class="php-var">$this</span>;
-</span><span id="244" class="l"><a href="#244">244: </a>        <span class="php-comment">// For now, need to rely on a catch-all...</span>
-</span><span id="245" class="l"><a href="#245">245: </a>        <span class="php-var">$this</span>-&gt;get(
-</span><span id="246" class="l"><a href="#246">246: </a>            <span class="php-quote">'{catchall:.*}'</span>,
-</span><span id="247" class="l"><a href="#247">247: </a>            <span class="php-keyword1">function</span> (
-</span><span id="248" class="l"><a href="#248">248: </a>                RequestInterface <span class="php-var">$request</span>,
-</span><span id="249" class="l"><a href="#249">249: </a>                ResponseInterface <span class="php-var">$response</span>,
-</span><span id="250" class="l"><a href="#250">250: </a>                <span class="php-keyword1">array</span> <span class="php-var">$args</span>
-</span><span id="251" class="l"><a href="#251">251: </a>            ) <span class="php-keyword1">use</span> (<span class="php-var">$app</span>) {
-</span><span id="252" class="l"><a href="#252">252: </a>                <span class="php-var">$config</span> = <span class="php-var">$app</span>-&gt;config();
-</span><span id="253" class="l"><a href="#253">253: </a>                <span class="php-var">$routables</span> = <span class="php-var">$config</span>[<span class="php-quote">'routables'</span>];
-</span><span id="254" class="l"><a href="#254">254: </a>                <span class="php-keyword1">if</span> (<span class="php-var">$routables</span> === <span class="php-keyword1">null</span> || <span class="php-keyword2">count</span>(<span class="php-var">$routables</span>) === <span class="php-num">0</span>) {
-</span><span id="255" class="l"><a href="#255">255: </a>                    <span class="php-keyword1">return</span> <span class="php-var">$this</span>[<span class="php-quote">'notFoundHandler'</span>](<span class="php-var">$request</span>, <span class="php-var">$response</span>);
-</span><span id="256" class="l"><a href="#256">256: </a>                }
-</span><span id="257" class="l"><a href="#257">257: </a>                <span class="php-var">$routeFactory</span> = <span class="php-var">$this</span>[<span class="php-quote">'route/factory'</span>];
-</span><span id="258" class="l"><a href="#258">258: </a>                <span class="php-keyword1">foreach</span> (<span class="php-var">$routables</span> <span class="php-keyword1">as</span> <span class="php-var">$routableType</span> =&gt; <span class="php-var">$routableOptions</span>) {
-</span><span id="259" class="l"><a href="#259">259: </a>                    <span class="php-var">$route</span> = <span class="php-var">$routeFactory</span>-&gt;create(<span class="php-var">$routableType</span>, [
-</span><span id="260" class="l"><a href="#260">260: </a>                        <span class="php-quote">'path'</span> =&gt; <span class="php-var">$args</span>[<span class="php-quote">'catchall'</span>],
-</span><span id="261" class="l"><a href="#261">261: </a>                        <span class="php-quote">'config'</span> =&gt; <span class="php-var">$routableOptions</span>
-</span><span id="262" class="l"><a href="#262">262: </a>                    ]);
-</span><span id="263" class="l"><a href="#263">263: </a>                    <span class="php-keyword1">if</span> (<span class="php-var">$route</span>-&gt;pathResolvable(<span class="php-var">$this</span>)) {
-</span><span id="264" class="l"><a href="#264">264: </a>                        <span class="php-var">$this</span>[<span class="php-quote">'logger'</span>]-&gt;debug(
-</span><span id="265" class="l"><a href="#265">265: </a>                            <span class="php-keyword2">sprintf</span>(<span class="php-quote">'Loaded routable &quot;%s&quot; for path %s'</span>, <span class="php-var">$routableType</span>, <span class="php-var">$args</span>[<span class="php-quote">'catchall'</span>])
-</span><span id="266" class="l"><a href="#266">266: </a>                        );
-</span><span id="267" class="l"><a href="#267">267: </a>                        <span class="php-keyword1">return</span> <span class="php-var">$route</span>(<span class="php-var">$this</span>, <span class="php-var">$request</span>, <span class="php-var">$response</span>);
-</span><span id="268" class="l"><a href="#268">268: </a>                    }
-</span><span id="269" class="l"><a href="#269">269: </a>                }
-</span><span id="270" class="l"><a href="#270">270: </a>
-</span><span id="271" class="l"><a href="#271">271: </a>                <span class="php-comment">// If this point is reached, no routable has provided a callback. 404.</span>
-</span><span id="272" class="l"><a href="#272">272: </a>                <span class="php-keyword1">return</span> <span class="php-var">$this</span>[<span class="php-quote">'notFoundHandler'</span>](<span class="php-var">$request</span>, <span class="php-var">$response</span>);
-</span><span id="273" class="l"><a href="#273">273: </a>            }
-</span><span id="274" class="l"><a href="#274">274: </a>        );
-</span><span id="275" class="l"><a href="#275">275: </a>    }
-</span><span id="276" class="l"><a href="#276">276: </a>}
-</span><span id="277" class="l"><a href="#277">277: </a></span></code></pre>
+</span><span id="229" class="l"><a href="#229">229: </a>    <span class="php-comment">/**
+</span></span><span id="230" class="l"><a href="#230">230: </a><span class="php-comment">     * Setup the application's &quot;global&quot; routables.
+</span></span><span id="231" class="l"><a href="#231">231: </a><span class="php-comment">     *
+</span></span><span id="232" class="l"><a href="#232">232: </a><span class="php-comment">     * Routables can only be defined globally (app-level) for now.
+</span></span><span id="233" class="l"><a href="#233">233: </a><span class="php-comment">     *
+</span></span><span id="234" class="l"><a href="#234">234: </a><span class="php-comment">     * @return void
+</span></span><span id="235" class="l"><a href="#235">235: </a><span class="php-comment">     */</span>
+</span><span id="236" class="l"><a href="#236">236: </a>    <span class="php-keyword1">protected</span> <span class="php-keyword1">function</span> setupRoutables()
+</span><span id="237" class="l"><a href="#237">237: </a>    {
+</span><span id="238" class="l"><a href="#238">238: </a>        <span class="php-var">$app</span> = <span class="php-var">$this</span>;
+</span><span id="239" class="l"><a href="#239">239: </a>        <span class="php-comment">// For now, need to rely on a catch-all...</span>
+</span><span id="240" class="l"><a href="#240">240: </a>        <span class="php-var">$this</span>-&gt;get(
+</span><span id="241" class="l"><a href="#241">241: </a>            <span class="php-quote">'{catchall:.*}'</span>,
+</span><span id="242" class="l"><a href="#242">242: </a>            <span class="php-keyword1">function</span> (
+</span><span id="243" class="l"><a href="#243">243: </a>                RequestInterface <span class="php-var">$request</span>,
+</span><span id="244" class="l"><a href="#244">244: </a>                ResponseInterface <span class="php-var">$response</span>,
+</span><span id="245" class="l"><a href="#245">245: </a>                <span class="php-keyword1">array</span> <span class="php-var">$args</span>
+</span><span id="246" class="l"><a href="#246">246: </a>            ) <span class="php-keyword1">use</span> (<span class="php-var">$app</span>) {
+</span><span id="247" class="l"><a href="#247">247: </a>                <span class="php-var">$config</span> = <span class="php-var">$app</span>-&gt;config();
+</span><span id="248" class="l"><a href="#248">248: </a>                <span class="php-var">$routables</span> = <span class="php-var">$config</span>[<span class="php-quote">'routables'</span>];
+</span><span id="249" class="l"><a href="#249">249: </a>                <span class="php-keyword1">if</span> (<span class="php-var">$routables</span> === <span class="php-keyword1">null</span> || <span class="php-keyword2">count</span>(<span class="php-var">$routables</span>) === <span class="php-num">0</span>) {
+</span><span id="250" class="l"><a href="#250">250: </a>                    <span class="php-keyword1">return</span> <span class="php-var">$this</span>[<span class="php-quote">'notFoundHandler'</span>](<span class="php-var">$request</span>, <span class="php-var">$response</span>);
+</span><span id="251" class="l"><a href="#251">251: </a>                }
+</span><span id="252" class="l"><a href="#252">252: </a>                <span class="php-var">$routeFactory</span> = <span class="php-var">$this</span>[<span class="php-quote">'route/factory'</span>];
+</span><span id="253" class="l"><a href="#253">253: </a>                <span class="php-keyword1">foreach</span> (<span class="php-var">$routables</span> <span class="php-keyword1">as</span> <span class="php-var">$routableType</span> =&gt; <span class="php-var">$routableOptions</span>) {
+</span><span id="254" class="l"><a href="#254">254: </a>                    <span class="php-var">$route</span> = <span class="php-var">$routeFactory</span>-&gt;create(<span class="php-var">$routableType</span>, [
+</span><span id="255" class="l"><a href="#255">255: </a>                        <span class="php-quote">'path'</span> =&gt; <span class="php-var">$args</span>[<span class="php-quote">'catchall'</span>],
+</span><span id="256" class="l"><a href="#256">256: </a>                        <span class="php-quote">'config'</span> =&gt; <span class="php-var">$routableOptions</span>
+</span><span id="257" class="l"><a href="#257">257: </a>                    ]);
+</span><span id="258" class="l"><a href="#258">258: </a>                    <span class="php-keyword1">if</span> (<span class="php-var">$route</span>-&gt;pathResolvable(<span class="php-var">$this</span>)) {
+</span><span id="259" class="l"><a href="#259">259: </a>                        <span class="php-var">$this</span>[<span class="php-quote">'logger'</span>]-&gt;debug(
+</span><span id="260" class="l"><a href="#260">260: </a>                            <span class="php-keyword2">sprintf</span>(<span class="php-quote">'Loaded routable &quot;%s&quot; for path %s'</span>, <span class="php-var">$routableType</span>, <span class="php-var">$args</span>[<span class="php-quote">'catchall'</span>])
+</span><span id="261" class="l"><a href="#261">261: </a>                        );
+</span><span id="262" class="l"><a href="#262">262: </a>                        <span class="php-keyword1">return</span> <span class="php-var">$route</span>(<span class="php-var">$this</span>, <span class="php-var">$request</span>, <span class="php-var">$response</span>);
+</span><span id="263" class="l"><a href="#263">263: </a>                    }
+</span><span id="264" class="l"><a href="#264">264: </a>                }
+</span><span id="265" class="l"><a href="#265">265: </a>
+</span><span id="266" class="l"><a href="#266">266: </a>                <span class="php-comment">// If this point is reached, no routable has provided a callback. 404.</span>
+</span><span id="267" class="l"><a href="#267">267: </a>                <span class="php-keyword1">return</span> <span class="php-var">$this</span>[<span class="php-quote">'notFoundHandler'</span>](<span class="php-var">$request</span>, <span class="php-var">$response</span>);
+</span><span id="268" class="l"><a href="#268">268: </a>            }
+</span><span id="269" class="l"><a href="#269">269: </a>        );
+</span><span id="270" class="l"><a href="#270">270: </a>    }
+</span><span id="271" class="l"><a href="#271">271: </a>}
+</span><span id="272" class="l"><a href="#272">272: </a></span></code></pre>
 
 	<div id="footer">
 		 API documentation generated by <a href="http://apigen.org">ApiGen</a>
@@ -461,6 +462,6 @@
 </div>
 </div>
 <script src="resources/combined.js?174ed0656881a1883d2390d4abd6a0405884e257"></script>
-<script src="elementlist.js?0022e2d9b047e7a95eade55de12e78fea83bee63"></script>
+<script src="elementlist.js?2db54c11105848bb14b42c18315067575c8e97a2"></script>
 </body>
 </html>

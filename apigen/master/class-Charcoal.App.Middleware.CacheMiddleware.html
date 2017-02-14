@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 
-	<title>Trait Charcoal\App\AppAwareTrait</title>
+	<title>Class Charcoal\App\Middleware\CacheMiddleware</title>
 
 	<link rel="stylesheet" href="resources/style.css?e99947befd7bf673c6b43ff75e9e0f170c88a60e">
 
@@ -45,7 +45,7 @@
 						Handler					</a>
 
 						</li>
-				<li>
+				<li class="active">
 					<a href="namespace-Charcoal.App.Middleware.html">
 						Middleware					</a>
 
@@ -85,21 +85,10 @@
 		<div id="elements">
 			<h3>Classes</h3>
 			<ul>
-				<li><a href="class-Charcoal.App.App.html">App</a></li>
-				<li><a href="class-Charcoal.App.AppConfig.html">AppConfig</a></li>
-				<li><a href="class-Charcoal.App.AppContainer.html">AppContainer</a></li>
+				<li class="active"><a href="class-Charcoal.App.Middleware.CacheMiddleware.html">CacheMiddleware</a></li>
 			</ul>
 
-			<h3>Interfaces</h3>
-			<ul>
-				<li><a href="class-Charcoal.App.AppAwareInterface.html">AppAwareInterface</a></li>
-			</ul>
 
-			<h3>Traits</h3>
-			<ul>
-				<li class="active"><a href="class-Charcoal.App.AppAwareTrait.html">AppAwareTrait</a></li>
-				<li><a href="class-Charcoal.App.CallableResolverAwareTrait.html">CallableResolverAwareTrait</a></li>
-			</ul>
 
 
 
@@ -123,7 +112,7 @@
 				<a href="index.html" title="Overview"><span>Overview</span></a>
 			</li>
 			<li>
-				<a href="namespace-Charcoal.App.html" title="Summary of Charcoal\App"><span>Namespace</span></a>
+				<a href="namespace-Charcoal.App.Middleware.html" title="Summary of Charcoal\App\Middleware"><span>Namespace</span></a>
 			</li>
 			<li class="active">
 <span>Class</span>			</li>
@@ -135,11 +124,22 @@
 	</div>
 
 <div id="content" class="class">
-	<h1>Trait AppAwareTrait</h1>
+	<h1>Class CacheMiddleware</h1>
 
 
 	<div class="description">
-	<p>Implementation, as trait, of the <code>AppAwareInterface</code>.</p>
+	<p>The cache loader middleware attempts to load cache from the request's path (route).</p>
+
+<p>It should be run as the first middleware of the stack, in most cases.
+(With Slim, this means adding it last)</p>
+
+<p>There is absolutely no extra configuration or dependencies to this middleware.
+If the cache key exists, then it will be injected in the response body and returned.</p>
+
+<p>Note that if the cache is hit, the response is directly returned; meaning the rest
+of the middilewares in the stack will be ignored</p>
+
+<p>It is up to other means, such as the provided <code>CacheGeneratorMiddleware</code>, to set this cache entry.</p>
 	</div>
 
 
@@ -148,21 +148,15 @@
 
 
 
-	<div>
-		<h4>Direct Known Users</h4>
-			<a href="class-Charcoal.App.Module.AbstractModule.html">Charcoal\App\Module\AbstractModule</a>, 
-			<a href="class-Charcoal.App.Module.ModuleManager.html">Charcoal\App\Module\ModuleManager</a>, 
-			<a href="class-Charcoal.App.Route.RouteManager.html">Charcoal\App\Route\RouteManager</a>
-	</div>
 
 
 	<div class="info">
 		
 		
-		<b>Namespace:</b> <a href="namespace-Charcoal.html">Charcoal</a>\<a href="namespace-Charcoal.App.html">App</a><br>
+		<b>Namespace:</b> <a href="namespace-Charcoal.html">Charcoal</a>\<a href="namespace-Charcoal.App.html">App</a>\<a href="namespace-Charcoal.App.Middleware.html">Middleware</a><br>
 		
 
-			<b>Located at</b> <a href="source-class-Charcoal.App.AppAwareTrait.html#7-34" title="Go to source code">Charcoal/App/AppAwareTrait.php</a>
+			<b>Located at</b> <a href="source-class-Charcoal.App.Middleware.CacheMiddleware.html#12-270" title="Go to source code">Charcoal/App/Middleware/CacheMiddleware.php</a>
 		<br>
 	</div>
 
@@ -170,19 +164,19 @@
 
 	<table class="summary methods" id="methods">
 	<caption>Methods summary</caption>
-	<tr data-order="setApp" id="_setApp">
+	<tr data-order="__construct" id="___construct">
 
 		<td class="attributes"><code>
 			 public 
 
-			<code><a href="class-Charcoal.App.AppAwareInterface.html">Charcoal\App\AppAwareInterface</a></code>
+			
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#_setApp">#</a>
-		<code><a href="source-class-Charcoal.App.AppAwareTrait.html#17-25" title="Go to source code">setApp</a>( <span><code><a href="class-Charcoal.App.App.html">Charcoal\App\App</a></code> <var>$app</var></span> )</code>
+		<a class="anchor" href="#___construct">#</a>
+		<code><a href="source-class-Charcoal.App.Middleware.CacheMiddleware.html#74-107" title="Go to source code">__construct</a>( <span>array <var>$data</var></span> )</code>
 
 		<div class="description short">
 			
@@ -194,14 +188,10 @@
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
-					<dt><var>$app</var></dt>
-					<dd>The app instance this object depends on.</dd>
+					<dt><var>$data</var></dt>
+					<dd>Constructor dependencies and options.</dd>
 				</dl></div>
 
-				<h4>Returns</h4>
-				<div class="list">
-					<code><a href="class-Charcoal.App.AppAwareInterface.html">Charcoal\App\AppAwareInterface</a></code><br>Chainable
-				</div>
 
 
 
@@ -209,32 +199,48 @@
 		</div>
 		</div></td>
 	</tr>
-	<tr data-order="app" id="_app">
+	<tr data-order="__invoke" id="___invoke">
 
 		<td class="attributes"><code>
-			 protected 
+			 public 
 
-			<code><a href="class-Charcoal.App.App.html">Charcoal\App\App</a></code>
+			Psr\Http\Message\ResponseInterface
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#_app">#</a>
-		<code><a href="source-class-Charcoal.App.AppAwareTrait.html#27-33" title="Go to source code">app</a>( )</code>
+		<a class="anchor" href="#___invoke">#</a>
+		<code><a href="source-class-Charcoal.App.Middleware.CacheMiddleware.html#109-157" title="Go to source code">__invoke</a>( <span>Psr\Http\Message\RequestInterface <var>$request</var></span>, <span>Psr\Http\Message\ResponseInterface <var>$response</var></span>, <span>callable <var>$next</var></span> )</code>
 
 		<div class="description short">
-			
+			<p>Load a route content from path's cache.</p>
 		</div>
 
 		<div class="description detailed hidden">
-			
+			<p>Load a route content from path's cache.</p>
+
+<p>This method is as dumb / simple as possible.
+It does not rely on any sort of settings / configuration.
+Simply: if the cache for the route exists, it will be used to display the page.
+The <code>$next</code> callback will not be called, therefore stopping the middleware stack.</p>
+
+<p>To generate the cache used in this middleware, @see \Charcoal\App\Middleware\CacheGeneratorMiddleware.</p>
 
 
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$request</var></dt>
+					<dd>The PSR-7 HTTP request.</dd>
+					<dt><var>$response</var></dt>
+					<dd>The PSR-7 HTTP response.</dd>
+					<dt><var>$next</var></dt>
+					<dd>The next middleware callable in the stack.</dd>
+				</dl></div>
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code><a href="class-Charcoal.App.App.html">Charcoal\App\App</a></code>
+					Psr\Http\Message\ResponseInterface
 				</div>
 
 
