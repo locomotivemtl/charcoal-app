@@ -3,30 +3,30 @@
 namespace Charcoal\App;
 
 // PHP Dependencies
-use \Exception;
-use \LogicException;
+use Exception;
+use LogicException;
 
 // Dependency from 'Slim'
-use \Slim\App as SlimApp;
+use Slim\App as SlimApp;
 
 // Dependencies from 'PSR-3' (Logging)
-use \Psr\Log\LoggerAwareInterface;
-use \Psr\Log\LoggerAwareTrait;
+use Psr\Log\LoggerAwareInterface;
+use Psr\Log\LoggerAwareTrait;
 
 // Dependencies from 'PSR-7' (HTTP Messaging)
-use \Psr\Http\Message\RequestInterface;
-use \Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
 
 // Dependencies from 'charcoal-config'
-use \Charcoal\Config\ConfigurableInterface;
-use \Charcoal\Config\ConfigurableTrait;
+use Charcoal\Config\ConfigurableInterface;
+use Charcoal\Config\ConfigurableTrait;
 
 // Local namespace dependencies
-use \Charcoal\App\AppConfig;
-use \Charcoal\App\AppContainer;
-use \Charcoal\App\Module\ModuleManager;
-use \Charcoal\App\Route\RouteManager;
-use \Charcoal\App\Route\RouteFactory;
+use Charcoal\App\AppConfig;
+use Charcoal\App\AppContainer;
+use Charcoal\App\Module\ModuleManager;
+use Charcoal\App\Route\RouteManager;
+use Charcoal\App\Route\RouteFactory;
 
 /**
  * Charcoal App

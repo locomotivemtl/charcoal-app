@@ -39,7 +39,7 @@ class AppContainer extends Container
     private function registerProviderFactory()
     {
         if (!isset($this['provider/factory'])) {
-            $this['provider/factory'] = function (Container $container) {
+            $this['provider/factory'] = function () {
                 return new Factory([
                     'base_class'       => ServiceProviderInterface::class,
                     'resolver_options' => [

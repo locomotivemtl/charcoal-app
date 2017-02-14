@@ -3,24 +3,24 @@
 namespace Charcoal\App\ServiceProvider;
 
 // Dependencies from `pimple/pimple`
-use \Pimple\ServiceProviderInterface;
-use \Pimple\Container;
+use Pimple\ServiceProviderInterface;
+use Pimple\Container;
 
 // PSR-3 (log) dependencies
-use \Psr\Log\NullLogger;
+use Psr\Log\NullLogger;
 
 // Monolog Dependencies
-use \Monolog\Logger;
-use \Monolog\Processor\MemoryUsageProcessor;
-use \Monolog\Processor\UidProcessor;
-use \Monolog\Handler\BrowserConsoleHandler;
-use \Monolog\Handler\StreamHandler;
+use Monolog\Logger;
+use Monolog\Processor\MemoryUsageProcessor;
+use Monolog\Processor\UidProcessor;
+use Monolog\Handler\BrowserConsoleHandler;
+use Monolog\Handler\StreamHandler;
 
 // Module `charcoal-factory` dependencies
-use \Charcoal\Factory\GenericFactory;
+use Charcoal\Factory\GenericFactory;
 
 // Intra-Module `charcoal-app` dependencies
-use \Charcoal\App\Config\LoggerConfig;
+use Charcoal\App\Config\LoggerConfig;
 
 /**
  * Logger Service Provider

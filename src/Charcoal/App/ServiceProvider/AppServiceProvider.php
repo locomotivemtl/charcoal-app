@@ -3,34 +3,34 @@
 namespace Charcoal\App\ServiceProvider;
 
 // Dependencies from Pimple
-use \Pimple\ServiceProviderInterface;
-use \Pimple\Container;
+use Pimple\ServiceProviderInterface;
+use Pimple\Container;
 
 // Dependencies from Slim
-use \Slim\Http\Uri;
+use Slim\Http\Uri;
 
 // Dependencies from league/climate
-use \League\CLImate\CLImate;
+use League\CLImate\CLImate;
 
 // Dependencies from charcoal-factory
-use \Charcoal\Factory\GenericFactory as Factory;
+use Charcoal\Factory\GenericFactory as Factory;
 
 // Intra-module (`charcoal-app`) dependencies
-use \Charcoal\App\Action\ActionInterface;
-use \Charcoal\App\Script\ScriptInterface;
-use \Charcoal\App\Route\RouteInterface;
-use \Charcoal\App\Module\ModuleInterface;
+use Charcoal\App\Action\ActionInterface;
+use Charcoal\App\Script\ScriptInterface;
+use Charcoal\App\Route\RouteInterface;
+use Charcoal\App\Module\ModuleInterface;
 
-use \Charcoal\App\Handler\Error;
-use \Charcoal\App\Handler\PhpError;
-use \Charcoal\App\Handler\Shutdown;
-use \Charcoal\App\Handler\NotAllowed;
-use \Charcoal\App\Handler\NotFound;
+use Charcoal\App\Handler\Error;
+use Charcoal\App\Handler\PhpError;
+use Charcoal\App\Handler\Shutdown;
+use Charcoal\App\Handler\NotAllowed;
+use Charcoal\App\Handler\NotFound;
 
-use \Charcoal\App\Template\TemplateInterface;
-use \Charcoal\App\Template\TemplateBuilder;
-use \Charcoal\App\Template\WidgetInterface;
-use \Charcoal\App\Template\WidgetBuilder;
+use Charcoal\App\Template\TemplateInterface;
+use Charcoal\App\Template\TemplateBuilder;
+use Charcoal\App\Template\WidgetInterface;
+use Charcoal\App\Template\WidgetBuilder;
 
 /**
  * Application Service Provider
@@ -401,7 +401,7 @@ class AppServiceProvider implements ServiceProviderInterface
          * @param Container $container A container instance.
          * @return CLImate
          */
-        $container['climate'] = function (Container $container) {
+        $container['climate'] = function () {
             $climate = new CLImate();
             return $climate;
         };

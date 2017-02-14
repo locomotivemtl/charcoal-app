@@ -2,7 +2,7 @@
 
 namespace Charcoal\App;
 
-use \Charcoal\App\App;
+use Charcoal\App\App;
 
 /**
 * Implementation, as trait, of the `AppAwareInterface`.

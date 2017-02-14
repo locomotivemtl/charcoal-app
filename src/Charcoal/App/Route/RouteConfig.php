@@ -2,17 +2,17 @@
 
 namespace Charcoal\App\Route;
 
-use \InvalidArgumentException;
+use InvalidArgumentException;
 
 // Dependency from 'charcoal-app'
-use \Charcoal\App\App;
+use Charcoal\App\App;
 
 // Dependency from 'charcoal-config'
-use \Charcoal\Config\AbstractConfig;
+use Charcoal\Config\AbstractConfig;
 
 // Dependencies from 'charcoal-translation'
-use \Charcoal\Polyglot\UnilingualAwareInterface;
-use \Charcoal\Polyglot\UnilingualAwareTrait;
+use Charcoal\Polyglot\UnilingualAwareInterface;
+use Charcoal\Polyglot\UnilingualAwareTrait;
 
 /**
  * Base "Route" configuration.

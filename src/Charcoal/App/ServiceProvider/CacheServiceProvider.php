@@ -136,7 +136,7 @@ class CacheServiceProvider implements ServiceProviderInterface
              * @param Container $container A container instance.
              * @return \Stash\Driver\Ephemeral
              */
-            $drivers['memory'] = function (Container $container) use ($parentContainer) {
+            $drivers['memory'] = function () use ($parentContainer) {
                 $drivers = $parentContainer['cache/available-drivers'];
                 return new $drivers['Ephemeral']();
             };
@@ -145,7 +145,7 @@ class CacheServiceProvider implements ServiceProviderInterface
              * @param Container $container A container instance.
              * @return \Stash\Driver\BlackHole
              */
-            $drivers['noop'] = function (Container $container) use ($parentContainer) {
+            $drivers['noop'] = function () use ($parentContainer) {
                 $drivers = $parentContainer['cache/available-drivers'];
                 return new $drivers['BlackHole']();
             };
@@ -154,7 +154,7 @@ class CacheServiceProvider implements ServiceProviderInterface
              * @param Container $container A container instance.
              * @return \Stash\Driver\Redis
              */
-            $drivers['redis'] = function (Container $container) use ($parentContainer) {
+            $drivers['redis'] = function () use ($parentContainer) {
                 $drivers = $parentContainer['cache/available-drivers'];
                 if (!isset($drivers['Redis'])) {
                     // Redis is not available on system
