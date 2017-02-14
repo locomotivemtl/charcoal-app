@@ -2,16 +2,16 @@
 
 namespace Charcoal\App\Route;
 
-use \InvalidArgumentException;
+use InvalidArgumentException;
 
 // Dependency from 'charcoal-app'
-use \Charcoal\App\App;
+use Charcoal\App\App;
 
 // Dependencies from 'charcoal-translation'
-use \Charcoal\Translation\TranslationString;
+use Charcoal\Translation\TranslationString;
 
 // Local namespace dependencies
-use \Charcoal\App\Route\RouteConfig;
+use Charcoal\App\Route\RouteConfig;
 
 /**
  *

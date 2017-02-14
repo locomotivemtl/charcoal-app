@@ -21,54 +21,54 @@
     <script src="../js/jquery.smooth-scroll.js"></script>
     <script src="../js/prism.min.js"></script>
     <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
-        <script type="text/javascript">
-        function loadExternalCodeSnippets() {
-            Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
-                var src = pre.getAttribute('data-src');
-                var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
-                var language = 'php';
+    <script type="text/javascript">
+    function loadExternalCodeSnippets() {
+        Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
+            var src = pre.getAttribute('data-src');
+            var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
+            var language = 'php';
 
-                var code = document.createElement('code');
-                code.className = 'language-' + language;
+            var code = document.createElement('code');
+            code.className = 'language-' + language;
 
-                pre.textContent = '';
+            pre.textContent = '';
 
-                code.textContent = 'Loading…';
+            code.textContent = 'Loading…';
 
-                pre.appendChild(code);
+            pre.appendChild(code);
 
-                var xhr = new XMLHttpRequest();
+            var xhr = new XMLHttpRequest();
 
-                xhr.open('GET', src, true);
+            xhr.open('GET', src, true);
 
-                xhr.onreadystatechange = function () {
-                    if (xhr.readyState == 4) {
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
 
-                        if (xhr.status < 400 && xhr.responseText) {
-                            code.textContent = xhr.responseText;
+                    if (xhr.status < 400 && xhr.responseText) {
+                        code.textContent = xhr.responseText;
 
-                            Prism.highlightElement(code);
-                        }
-                        else if (xhr.status >= 400) {
-                            code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
-                        }
-                        else {
-                            code.textContent = '✖ Error: File does not exist or is empty';
-                        }
+                        Prism.highlightElement(code);
                     }
-                };
+                    else if (xhr.status >= 400) {
+                        code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                    }
+                    else {
+                        code.textContent = '✖ Error: File does not exist or is empty';
+                    }
+                }
+            };
 
-                xhr.send(null);
-            });
-        }
-
-        $(document).ready(function(){
-            loadExternalCodeSnippets();
+            xhr.send(null);
         });
-        $('#source-view').on('shown', function () {
-            loadExternalCodeSnippets();
-        })
-    </script>
+    }
+
+    $(document).ready(function(){
+        loadExternalCodeSnippets();
+    });
+    $('#source-view').on('shown', function () {
+        loadExternalCodeSnippets();
+    })
+</script>
 
     <link rel="shortcut icon" href="../images/favicon.ico"/>
     <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
@@ -144,37 +144,37 @@
                                 <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1034924523"></a>
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1700271783"></a>
                                 <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
             </div>
-            <div id="namespace-1034924523" class="accordion-body collapse in">
+            <div id="namespace-1700271783" class="accordion-body collapse in">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-936080183"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1646042414"></a>
                                 <a href="../namespaces/Charcoal.html" style="margin-left: 30px; padding-left: 0">Charcoal</a>
             </div>
-            <div id="namespace-936080183" class="accordion-body collapse ">
+            <div id="namespace-1646042414" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-743747670"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1512396643"></a>
                                 <a href="../namespaces/Charcoal.App.html" style="margin-left: 30px; padding-left: 0">App</a>
             </div>
-            <div id="namespace-743747670" class="accordion-body collapse ">
+            <div id="namespace-1512396643" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1194610995"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-241058755"></a>
                                 <a href="../namespaces/Charcoal.App.Action.html" style="margin-left: 30px; padding-left: 0">Action</a>
             </div>
-            <div id="namespace-1194610995" class="accordion-body collapse ">
+            <div id="namespace-241058755" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -190,10 +190,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-913799177"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1974089915"></a>
                                 <a href="../namespaces/Charcoal.App.Config.html" style="margin-left: 30px; padding-left: 0">Config</a>
             </div>
-            <div id="namespace-913799177" class="accordion-body collapse ">
+            <div id="namespace-1974089915" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -214,10 +214,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2010716840"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1250998742"></a>
                                 <a href="../namespaces/Charcoal.App.Handler.html" style="margin-left: 30px; padding-left: 0">Handler</a>
             </div>
-            <div id="namespace-2010716840" class="accordion-body collapse ">
+            <div id="namespace-1250998742" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -239,10 +239,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-696695302"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1789580675"></a>
                                 <a href="../namespaces/Charcoal.App.Middleware.html" style="margin-left: 30px; padding-left: 0">Middleware</a>
             </div>
-            <div id="namespace-696695302" class="accordion-body collapse ">
+            <div id="namespace-1789580675" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -257,10 +257,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1836272661"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1922919892"></a>
                                 <a href="../namespaces/Charcoal.App.Module.html" style="margin-left: 30px; padding-left: 0">Module</a>
             </div>
-            <div id="namespace-1836272661" class="accordion-body collapse ">
+            <div id="namespace-1922919892" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -278,10 +278,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-3126057"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-310285438"></a>
                                 <a href="../namespaces/Charcoal.App.Route.html" style="margin-left: 30px; padding-left: 0">Route</a>
             </div>
-            <div id="namespace-3126057" class="accordion-body collapse ">
+            <div id="namespace-310285438" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -304,10 +304,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1572718819"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2007880161"></a>
                                 <a href="../namespaces/Charcoal.App.Script.html" style="margin-left: 30px; padding-left: 0">Script</a>
             </div>
-            <div id="namespace-1572718819" class="accordion-body collapse ">
+            <div id="namespace-2007880161" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -327,10 +327,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-375022407"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1838203991"></a>
                                 <a href="../namespaces/Charcoal.App.ServiceProvider.html" style="margin-left: 30px; padding-left: 0">ServiceProvider</a>
             </div>
-            <div id="namespace-375022407" class="accordion-body collapse ">
+            <div id="namespace-1838203991" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -351,10 +351,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-545091056"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1838969578"></a>
                                 <a href="../namespaces/Charcoal.App.Template.html" style="margin-left: 30px; padding-left: 0">Template</a>
             </div>
-            <div id="namespace-545091056" class="accordion-body collapse ">
+            <div id="namespace-1838969578" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -407,63 +407,102 @@
             <div class="row-fluid">
                 <div class="span8 content class">
                     <nav>
-                                                <a href="../namespaces/Charcoal.App.Script.html">\Charcoal\App\Script</a>
+                                                <a href="../namespaces/Charcoal.App.Middleware.html">\Charcoal\App\Middleware</a> <i class="icon-level-up"></i>
                                             </nav>
                     <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
 
-                    <h1><small>\Charcoal\App\Script</small>CronScriptInterface</h1>
-                    <p><em></em></p>
+                    <h1><small>\Charcoal\App\Middleware</small>CacheMiddleware</h1>
+                    <p><em>The cache loader middleware attempts to load cache from the request&#039;s path (route).</em></p>
+                    <p>It should be run as the first middleware of the stack, in most cases.
+(With Slim, this means adding it last)</p>
+<p>There is absolutely no extra configuration or dependencies to this middleware.
+If the cache key exists, then it will be injected in the response body and returned.</p>
+<p>Note that if the cache is hit, the response is directly returned; meaning the rest
+of the middilewares in the stack will be ignored</p>
+<p>It is up to other means, such as the provided <code>CacheGeneratorMiddleware</code>, to set this cache entry.</p>
                     
-
+                                        
                     <section id="summary">
                         <h2>Summary</h2>
                         <section class="row-fluid heading">
-                            <section class="span6">
+                            <section class="span4">
                                 <a href="#methods">Methods</a>
                             </section>
-                            <section class="span6">
+                            <section class="span4">
+                                <a href="#properties">Properties</a>
+                            </section>
+                            <section class="span4">
                                 <a href="#constants">Constants</a>
                             </section>
                         </section>
                         <section class="row-fluid public">
-                            <section class="span6">
-                                                                    <a href="../classes/Charcoal.App.Script.CronScriptInterface.html#method_setUseLock">setUseLock()</a><br />
-                                                                    <a href="../classes/Charcoal.App.Script.CronScriptInterface.html#method_useLock">useLock()</a><br />
-                                                                    <a href="../classes/Charcoal.App.Script.CronScriptInterface.html#method_startLock">startLock()</a><br />
-                                                                    <a href="../classes/Charcoal.App.Script.CronScriptInterface.html#method_stopLock">stopLock()</a><br />
+                            <section class="span4">
+                                                                    <a href="../classes/Charcoal.App.Middleware.CacheMiddleware.html#method___construct" class="">__construct()</a><br />
+                                                                    <a href="../classes/Charcoal.App.Middleware.CacheMiddleware.html#method___invoke" class="">__invoke()</a><br />
                                                             </section>
-                            <section class="span6">
+                            <section class="span4">
+                                                                    <em>No public properties found</em>
+                                                            </section>
+                            <section class="span4">
                                                                     <em>No constants found</em>
                                                             </section>
                         </section>
                         <section class="row-fluid protected">
-                            <section class="span6">
+                            <section class="span4">
                                                                     <em>No protected methods found</em>
                                                             </section>
-                            <section class="span6">
+                            <section class="span4">
+                                                                    <em>No protected properties found</em>
+                                                            </section>
+                            <section class="span4">
                                 <em>N/A</em>
                             </section>
                         </section>
                         <section class="row-fluid private">
-                            <section class="span6">
-                                                                    <em>No private methods found</em>
+                            <section class="span4">
+                                                                    <a href="../classes/Charcoal.App.Middleware.CacheMiddleware.html#method_cacheKey" class="">cacheKey()</a><br />
+                                                                    <a href="../classes/Charcoal.App.Middleware.CacheMiddleware.html#method_isActive" class="">isActive()</a><br />
+                                                                    <a href="../classes/Charcoal.App.Middleware.CacheMiddleware.html#method_isPathIncluded" class="">isPathIncluded()</a><br />
+                                                                    <a href="../classes/Charcoal.App.Middleware.CacheMiddleware.html#method_isPathExcluded" class="">isPathExcluded()</a><br />
+                                                                    <a href="../classes/Charcoal.App.Middleware.CacheMiddleware.html#method_isQueryIncluded" class="">isQueryIncluded()</a><br />
+                                                                    <a href="../classes/Charcoal.App.Middleware.CacheMiddleware.html#method_isQueryExcluded" class="">isQueryExcluded()</a><br />
+                                                                    <a href="../classes/Charcoal.App.Middleware.CacheMiddleware.html#method_parseIgnoredParams" class="">parseIgnoredParams()</a><br />
                                                             </section>
-                            <section class="span6">
+                            <section class="span4">
+                                                                    <a href="../classes/Charcoal.App.Middleware.CacheMiddleware.html#property_cachePool" class="">$cachePool</a><br />
+                                                                    <a href="../classes/Charcoal.App.Middleware.CacheMiddleware.html#property_cacheTtl" class="">$cacheTtl</a><br />
+                                                                    <a href="../classes/Charcoal.App.Middleware.CacheMiddleware.html#property_includedPath" class="">$includedPath</a><br />
+                                                                    <a href="../classes/Charcoal.App.Middleware.CacheMiddleware.html#property_excludedPath" class="">$excludedPath</a><br />
+                                                                    <a href="../classes/Charcoal.App.Middleware.CacheMiddleware.html#property_methods" class="">$methods</a><br />
+                                                                    <a href="../classes/Charcoal.App.Middleware.CacheMiddleware.html#property_statusCode" class="">$statusCode</a><br />
+                                                                    <a href="../classes/Charcoal.App.Middleware.CacheMiddleware.html#property_includedQquery" class="">$includedQquery</a><br />
+                                                                    <a href="../classes/Charcoal.App.Middleware.CacheMiddleware.html#property_excludedQuery" class="">$excludedQuery</a><br />
+                                                                    <a href="../classes/Charcoal.App.Middleware.CacheMiddleware.html#property_ignoredQuery" class="">$ignoredQuery</a><br />
+                                                            </section>
+                            <section class="span4">
                                 <em>N/A</em>
                             </section>
                         </section>
                     </section>
                 </div>
                 <aside class="span4 detailsbar">
-                                        <dl>
+                                        
+                    
+                    <dl>
                         <dt>File</dt>
-                            <dd>
-                                <a href="../files/Script.CronScriptInterface.html"><div class="path-wrapper">Script/CronScriptInterface.php</div></a>
-                            </dd>
+                            <dd><a href="../files/Middleware.CacheMiddleware.html"><div class="path-wrapper">Middleware/CacheMiddleware.php</div></a></dd>
                                                 <dt>Package</dt>
-                            <dd><div class="namespace-wrapper">\Default</div></dd>
-                                                
-                                            </dl>
+                            <dd><div class="namespace-wrapper">Default</div></dd>
+                                                <dt>Class hierarchy</dt>
+                            <dd class="hierarchy">
+                                                                                                                                                                    <div class="namespace-wrapper">\Charcoal\App\Middleware\CacheMiddleware</div>
+                            </dd>
+
+                        
+                        
+                        
+                        
+                                                                        </dl>
                     <h2>Tags</h2>
                     <table class="table table-condensed">
                                             <tr><td colspan="2"><em>None found</em></td></tr>
@@ -471,117 +510,256 @@
                 </aside>
             </div>
 
-            
-                        <div class="row-fluid">
+                        
+                                    <a id="properties" name="properties"></a>
+            <div class="row-fluid">
                 <div class="span8 content class">
-                    <h2>Methods</h2>
+                    <h2>Properties</h2>
                 </div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_cachePool" name="property_cachePool" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$cachePool</h3>
+                <pre class="signature">$cachePool : \Charcoal\App\Middleware\CacheItemPool</pre>
+                <p><em>PSR-6 cache item pool.</em></p>
+                
+
+                                <h4>Type</h4>
+                \Charcoal\App\Middleware\CacheItemPool
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_cacheTtl" name="property_cacheTtl" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$cacheTtl</h3>
+                <pre class="signature">$cacheTtl : integer</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                integer
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_includedPath" name="property_includedPath" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$includedPath</h3>
+                <pre class="signature">$includedPath : string</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_excludedPath" name="property_excludedPath" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$excludedPath</h3>
+                <pre class="signature">$excludedPath : string</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_methods" name="property_methods" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$methods</h3>
+                <pre class="signature">$methods : array&lt;mixed,string&gt;</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                array&lt;mixed,string&gt;
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_statusCode" name="property_statusCode" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$statusCode</h3>
+                <pre class="signature">$statusCode : array&lt;mixed,integer&gt;</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                array&lt;mixed,integer&gt;
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_includedQquery" name="property_includedQquery" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$includedQquery</h3>
+                <pre class="signature">$includedQquery : array|string|null</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                array|string|null
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_excludedQuery" name="property_excludedQuery" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$excludedQuery</h3>
+                <pre class="signature">$excludedQuery : array|string|null</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                array|string|null
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_ignoredQuery" name="property_ignoredQuery" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$ignoredQuery</h3>
+                <pre class="signature">$ignoredQuery : array|string|null</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                array|string|null
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                            
+                                    <a id="methods" name="methods"></a>
+            <div class="row-fluid">
+                <div class="span8 content class"><h2>Methods</h2></div>
                 <aside class="span4 detailsbar"></aside>
             </div>
 
                                     <div class="row-fluid">
         <div class="span8 content class">
-            <a id="method_setUseLock" name="method_setUseLock" class="anchor"></a>
+            <a id="method___construct" name="method___construct" class="anchor"></a>
             <article class="method">
-                <h3 class="public ">setUseLock()</h3>
+                <h3 class="public ">__construct()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">setUseLock(boolean  <span class="argument">$useLock</span>) : \Charcoal\App\Script\CronScriptInterface</pre>
+                <pre class="signature" style="margin-right: 54px;">__construct(array  <span class="argument">$data</span>) </pre>
                 <p><em></em></p>
                 
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
                                                     <tr>
-                                <td>boolean</td>
-                                <td>$useLock </td>
-                                <td><p>The boolean flag if a lock should be used.</p></td>
+                                <td>array</td>
+                                <td>$data </td>
+                                <td><p>Constructor dependencies and options.</p></td>
                             </tr>
                                             </table>
-                
-                
-                                    <h4>Returns</h4>
-                    <a href="../classes/Charcoal.App.Script.CronScriptInterface.html">\Charcoal\App\Script\CronScriptInterface</a>
-                                            &mdash; <p>Chainable</p>
-                                    				
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_useLock" name="method_useLock" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">useLock()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">useLock() : boolean</pre>
-                <p><em></em></p>
-                
-
-                
-                
-                                    <h4>Returns</h4>
-                    boolean
-                                    				
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_startLock" name="method_startLock" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">startLock()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">startLock() : boolean</pre>
-                <p><em></em></p>
-                
-
-                
-                
-                                    <h4>Returns</h4>
-                    boolean
-                                    				
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_stopLock" name="method_stopLock" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">stopLock()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">stopLock() : void</pre>
-                <p><em></em></p>
-                
-
                 
                 
                 				
@@ -598,16 +776,328 @@
         </aside>
     </div>
 
-                                                                    </div>
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method___invoke" name="method___invoke" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">__invoke()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">__invoke(\Psr\Http\Message\RequestInterface  <span class="argument">$request</span>, \Psr\Http\Message\ResponseInterface  <span class="argument">$response</span>, callable  <span class="argument">$next</span>) : \Psr\Http\Message\ResponseInterface</pre>
+                <p><em>Load a route content from path&#039;s cache.</em></p>
+                <p>This method is as dumb / simple as possible.
+It does not rely on any sort of settings / configuration.
+Simply: if the cache for the route exists, it will be used to display the page.
+The <code>$next</code> callback will not be called, therefore stopping the middleware stack.</p>
+<p>To generate the cache used in this middleware, @see \Charcoal\App\Middleware\CacheGeneratorMiddleware.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\Psr\Http\Message\RequestInterface</td>
+                                <td>$request </td>
+                                <td><p>The PSR-7 HTTP request.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>\Psr\Http\Message\ResponseInterface</td>
+                                <td>$response </td>
+                                <td><p>The PSR-7 HTTP response.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>callable</td>
+                                <td>$next </td>
+                                <td><p>The next middleware callable in the stack.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    \Psr\Http\Message\ResponseInterface
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_cacheKey" name="method_cacheKey" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">cacheKey()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">cacheKey(string  <span class="argument">$path</span>, array  <span class="argument">$queryParams</span>) : string</pre>
+                <p><em></em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$path </td>
+                                <td><p>The query path (route).</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$queryParams </td>
+                                <td><p>The query parameters.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_isActive" name="method_isActive" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">isActive()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">isActive(\Psr\Http\Message\RequestInterface  <span class="argument">$request</span>, \Psr\Http\Message\ResponseInterface  <span class="argument">$response</span>) : boolean</pre>
+                <p><em></em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\Psr\Http\Message\RequestInterface</td>
+                                <td>$request </td>
+                                <td><p>The PSR-7 HTTP request.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>\Psr\Http\Message\ResponseInterface</td>
+                                <td>$response </td>
+                                <td><p>The PSR-7 HTTP response.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    boolean
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_isPathIncluded" name="method_isPathIncluded" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">isPathIncluded()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">isPathIncluded(string  <span class="argument">$path</span>) : boolean</pre>
+                <p><em></em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$path </td>
+                                <td><p>The request path (route) to verify.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    boolean
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_isPathExcluded" name="method_isPathExcluded" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">isPathExcluded()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">isPathExcluded(string  <span class="argument">$path</span>) : boolean</pre>
+                <p><em></em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$path </td>
+                                <td><p>The request path (route) to verify.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    boolean
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_isQueryIncluded" name="method_isQueryIncluded" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">isQueryIncluded()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">isQueryIncluded(array  <span class="argument">$queryParams</span>) : boolean</pre>
+                <p><em></em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$queryParams </td>
+                                <td><p>The query parameters.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    boolean
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_isQueryExcluded" name="method_isQueryExcluded" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">isQueryExcluded()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">isQueryExcluded(array  <span class="argument">$queryParams</span>) : boolean</pre>
+                <p><em></em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$queryParams </td>
+                                <td><p>The query parameters.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    boolean
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_parseIgnoredParams" name="method_parseIgnoredParams" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">parseIgnoredParams()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">parseIgnoredParams(array  <span class="argument">$queryParams</span>) : array</pre>
+                <p><em></em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$queryParams </td>
+                                <td><p>The query parameters.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    </div>
     </section>
 
     <div id="source-view" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="source-view-label" aria-hidden="true">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-            <h3 id="source-view-label">CronScriptInterface.php</h3>
+            <h3 id="source-view-label">CacheMiddleware.php</h3>
         </div>
         <div class="modal-body">
-            <pre data-src="../files/Script/CronScriptInterface.php.txt" class="language-php"></pre>
+            <pre data-src="../files/Middleware/CacheMiddleware.php.txt" class="language-php line-numbers"></pre>
         </div>
     </div>
 

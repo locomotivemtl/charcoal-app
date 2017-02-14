@@ -3,15 +3,16 @@
 namespace Charcoal\App\ServiceProvider;
 
 // Dependencies from `pimple/pimple`
-use \Pimple\ServiceProviderInterface;
-use \Pimple\Container;
+use Pimple\ServiceProviderInterface;
+use Pimple\Container;
 
 // Dependencies from `tedivm/stash`
-use \Stash\DriverList;
-use \Stash\Pool;
+use Stash\DriverList;
+use Stash\Pool;
 
 // Intra-Module `charcoal-app` dependencies
-use \Charcoal\App\Config\CacheConfig;
+use Charcoal\App\Config\CacheConfig;
+use Charcoal\App\Middleware\CacheMiddleware;
 
 /**
  * Cache Service Provider
@@ -135,7 +136,7 @@ class CacheServiceProvider implements ServiceProviderInterface
              * @param Container $container A container instance.
              * @return \Stash\Driver\Ephemeral
              */
-            $drivers['memory'] = function (Container $container) use ($parentContainer) {
+            $drivers['memory'] = function () use ($parentContainer) {
                 $drivers = $parentContainer['cache/available-drivers'];
                 return new $drivers['Ephemeral']();
             };
@@ -144,7 +145,7 @@ class CacheServiceProvider implements ServiceProviderInterface
              * @param Container $container A container instance.
              * @return \Stash\Driver\BlackHole
              */
-            $drivers['noop'] = function (Container $container) use ($parentContainer) {
+            $drivers['noop'] = function () use ($parentContainer) {
                 $drivers = $parentContainer['cache/available-drivers'];
                 return new $drivers['BlackHole']();
             };
@@ -153,7 +154,7 @@ class CacheServiceProvider implements ServiceProviderInterface
              * @param Container $container A container instance.
              * @return \Stash\Driver\Redis
              */
-            $drivers['redis'] = function (Container $container) use ($parentContainer) {
+            $drivers['redis'] = function () use ($parentContainer) {
                 $drivers = $parentContainer['cache/available-drivers'];
                 if (!isset($drivers['Redis'])) {
                     // Redis is not available on system
@@ -203,6 +204,28 @@ class CacheServiceProvider implements ServiceProviderInterface
             $pool->setNamespace($namespace);
 
             return $pool;
+        };
+
+        /**
+         * The request path (route) cache loader middleware.
+         *
+         * @param Container $container A Container instance.
+         * @return CacheLoaderMidleware
+         */
+        $container['cache/middleware'] = function (Container $container) {
+            $cacheConfig = $container['cache/config'];
+            $middlewareConfig = $cacheConfig['middleware'];
+            return new CacheMiddleware([
+                'cache' => $container['cache'],
+                'included_path'  => $middlewareConfig['included_path'],
+                'excluded_path'  => $middlewareConfig['excluded_path'],
+                'methods'        => $middlewareConfig['methods'],
+                'status_codes'   => $middlewareConfig['status_codes'],
+                'ttl'            => $middlewareConfig['ttl'],
+                'included_query' => $middlewareConfig['included_query'],
+                'excluded_query' => $middlewareConfig['excluded_query'],
+                'ignored_query'  => $middlewareConfig['ignored_query']
+            ]);
         };
     }
 }

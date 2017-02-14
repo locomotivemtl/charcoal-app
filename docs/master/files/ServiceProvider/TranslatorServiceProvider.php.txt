@@ -34,7 +34,6 @@ use \Charcoal\App\Config\TranslatorConfig;
  * ## Requirements / Dependencies
  * - `config` A `ConfigInterface` must have been previously registered on the container.
  *
- * @todo This Service Provider should be moved to the `charcoal-translation` module.
  */
 class TranslatorServiceProvider implements ServiceProviderInterface
 {

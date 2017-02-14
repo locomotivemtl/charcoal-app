@@ -3,7 +3,7 @@
 namespace Charcoal\App\Route;
 
 // Local namespace dependencies
-use \Charcoal\App\Route\RouteConfig;
+use Charcoal\App\Route\RouteConfig;
 
 /**
  *

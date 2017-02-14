@@ -3,10 +3,10 @@
 namespace Charcoal\App\Config;
 
 // Dependencies from `PHP`
-use \InvalidArgumentException;
+use InvalidArgumentException;
 
 // Module `charcoal-config` dependencies
-use \Charcoal\Config\AbstractConfig;
+use Charcoal\Config\AbstractConfig;
 
 /**
  * Cache Configuration
@@ -14,7 +14,7 @@ use \Charcoal\Config\AbstractConfig;
 class CacheConfig extends AbstractConfig
 {
     /**
-     * @var array $types
+     * @var array
      */
     private $types = ['memory'];
 
@@ -29,6 +29,11 @@ class CacheConfig extends AbstractConfig
     private $prefix = 'charcoal';
 
     /**
+     * @var array
+     */
+    public $middleware;
+
+    /**
      * @return array
      */
     public function defaults()
@@ -36,7 +41,29 @@ class CacheConfig extends AbstractConfig
         return [
             'types'        => ['memory'],
             'default_ttl' => 0,
-            'prefix'      => 'charcoal'
+            'prefix'      => 'charcoal',
+            'middleware'    => $this->middlewareDefaults()
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    private function middlewareDefaults()
+    {
+        return [
+            'included_path'  => '',
+            'excluded_path'  => '*',
+            'methods'        => [
+                'GET'
+            ],
+            'status_codes'   => [
+                200
+            ],
+            'ttl'            => 0,
+            'included_query' => null,
+            'excluded_query' => '*',
+            'ignored_query'  => null
         ];
     }
 
@@ -145,6 +172,25 @@ class CacheConfig extends AbstractConfig
     public function prefix()
     {
         return $this->prefix;
+    }
+
+    /**
+     * @param array $middleware The cache middleware configuration.
+     * @return CacheConfig Chainable
+     */
+    public function setMiddleware(array $middleware)
+    {
+        $middleware = array_merge($this->middlewareDefaults(), $middleware);
+        $this->middleware = $middleware;
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function middleware()
+    {
+        return $this->middleware;
     }
 }
 

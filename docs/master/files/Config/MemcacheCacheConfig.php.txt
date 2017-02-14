@@ -43,9 +43,6 @@ class MemcacheCacheConfig extends AbstractConfig
             'persistent' => true,
             'weight'     => 1
         ];
-
-        $defaultData = array_merge(parent::defaults(), $default);
-        return $defaultData;
     }
 
     /**

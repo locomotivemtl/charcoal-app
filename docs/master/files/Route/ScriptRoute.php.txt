@@ -3,23 +3,23 @@
 namespace Charcoal\App\Route;
 
 // Dependencies from `PHP`
-use \InvalidArgumentException;
+use InvalidArgumentException;
 
 // PSR-7 (http messaging) dependencies
-use \Psr\Http\Message\RequestInterface;
-use \Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
 
 // Dependencies from `pimple`
-use \Pimple\Container;
+use Pimple\Container;
 
 // From `charcoal-config`
-use \Charcoal\Config\ConfigurableInterface;
-use \Charcoal\Config\ConfigurableTrait;
+use Charcoal\Config\ConfigurableInterface;
+use Charcoal\Config\ConfigurableTrait;
 
 // Intra-module (`charcoal-app`) dependencies
-use \Charcoal\App\Route\RouteInterface;
-use \Charcoal\App\Route\ScriptRouteConfig;
-use \Charcoal\App\Script\ScriptInterface;
+use Charcoal\App\Route\RouteInterface;
+use Charcoal\App\Route\ScriptRouteConfig;
+use Charcoal\App\Script\ScriptInterface;
 
 /**
  * Script Route Handler.

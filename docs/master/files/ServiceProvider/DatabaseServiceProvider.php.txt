@@ -3,15 +3,15 @@
 namespace Charcoal\App\ServiceProvider;
 
 // PHP dependencies
-use \Exception;
-use \PDO;
+use Exception;
+use PDO;
 
 // Dependencies from `pimple/pimple`
-use \Pimple\ServiceProviderInterface;
-use \Pimple\Container;
+use Pimple\ServiceProviderInterface;
+use Pimple\Container;
 
 // Intra-module (`charcoal-app`) dependencies
-use \Charcoal\App\Config\DatabaseConfig;
+use Charcoal\App\Config\DatabaseConfig;
 
 /**
  * Database Service Provider. Configures and provides a PDO service to a container.
@@ -69,7 +69,7 @@ class DatabaseServiceProvider implements ServiceProviderInterface
                 * @param Container $container A container instance.
                 * @return PDO
                 */
-                $dbs[$dbIdent] = function (Container $container) use ($dbIdent, $origContainer) {
+                $dbs[$dbIdent] = function () use ($dbIdent, $origContainer) {
                     $dbConfigs = $origContainer['databases/config'];
                     $dbConfig = $dbConfigs[$dbIdent];
 

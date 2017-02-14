@@ -63,7 +63,7 @@ class FilesystemServiceProvider implements ServiceProviderInterface
          * @param Container $container Pimple DI Container.
          * @return MountManager
          */
-        $container['filesystem/manager'] = function (Container $container) {
+        $container['filesystem/manager'] = function () {
             return new MountManager();
         };
 
@@ -292,19 +292,17 @@ class FilesystemServiceProvider implements ServiceProviderInterface
     }
 
     /**
-     * @param array $config The driver (adapter) configuration.
      * @return MemoryAdapter
      */
-    private function createMemoryAdapter(array $config)
+    private function createMemoryAdapter()
     {
         return new MemoryAdapter();
     }
 
     /**
-     * @param array $config The driver (adapter) configuration.
      * @return NullAdapter
      */
-    private function createNullAdapter(array $config)
+    private function createNullAdapter()
     {
         return new NullAdapter();
     }
