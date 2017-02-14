@@ -235,7 +235,13 @@ abstract class AbstractHandler implements
         $templateData       = $config['template_data'];
 
         $templateFactory = $container['template/factory'];
-        $templateFactory->setDefaultClass($config['default_controller']);
+        if (isset($config['default_controller'])) {
+            $templateFactory->setDefaultClass($config['default_controller']);
+        }
+
+        if (!$templateController) {
+            return '';
+        }
 
         $template = $templateFactory->create($templateController);
 

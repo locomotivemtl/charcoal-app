@@ -42,7 +42,8 @@
         "league/flysystem-aws-s3-v3": "^1.0",
         "league/flysystem-sftp": "^1.0",
         "league/flysystem-memory": "^1.0",
-        "league/flysystem-dropbox": "^1.0"
+        "league/flysystem-dropbox": "^1.0",
+        "mustache/mustache": "^2.11"
     },
     "autoload": {
         "psr-4": {

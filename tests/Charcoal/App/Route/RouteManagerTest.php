@@ -68,7 +68,7 @@ class RouteManagerTest extends \PHPUnit_Framework_TestCase
             ],
             'app'    => $GLOBALS['app']
         ]);
-        $ret = $obj->setupRoutes();
+        //$ret = $obj->setupRoutes();
         //$this->assertInstanceOf('\Slim\Route', $ret);
     }
 }
