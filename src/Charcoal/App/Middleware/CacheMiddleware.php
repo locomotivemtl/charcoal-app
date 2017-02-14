@@ -72,23 +72,29 @@ class CacheMiddleware
     private $ignoredQuery;
 
     /**
+     * @var boolean
+     */
+    private $headers;
+
+    /**
      * @param array $data Constructor dependencies and options.
      */
     public function __construct(array $data)
     {
         $defaults = [
-            'included_path'  => '',
-            'excluded_path'  => '*',
+            'included_path'  => null,
+            'excluded_path'  => null,
             'methods'        => [
                 'GET'
             ],
             'status_codes'   => [
                 200
             ],
-            'ttl'            => 0,
+            'ttl'            => 864000,
             'included_query' => null,
-            'excluded_query' => '*',
-            'ignored_query'  => null
+            'excluded_query' => null,
+            'ignored_query'  => null,
+            'headers'        => true
         ];
         $data = array_merge($defaults, $data);
 
@@ -104,6 +110,8 @@ class CacheMiddleware
         $this->includedQuery = $data['included_query'];
         $this->excludedQuery = $data['excluded_query'];
         $this->ignoredQuery = $data['ignored_query'];
+
+        $this->headers = $data['headers'];
     }
 
     /**
@@ -133,6 +141,7 @@ class CacheMiddleware
             $response->getBody()->write($cached);
             return $response;
         } else {
+            $included = $this->isQueryIncluded($queryParams);
             $reponse = $next($request, $response);
 
             if ($this->isActive($request, $response) === false) {
@@ -145,7 +154,14 @@ class CacheMiddleware
                 return $response;
             }
 
-            if (!empty($queryParams)) {
+            if ($this->isQueryIncluded($queryParams) === false) {
+                $keyParams = $this->parseIgnoredParams($queryParams);
+                if (!empty($keyParams)) {
+                    return $response;
+                }
+            }
+
+            if ($this->isQueryExcluded($queryParams) === true) {
                 return $response;
             }
 
@@ -163,7 +179,7 @@ class CacheMiddleware
      */
     private function cacheKey($path, array $queryParams)
     {
-        $cacheKey  = str_replace('/', '.', 'request.'.$path);
+        $cacheKey  = 'request/'.str_replace('/', '.', $path);
         if (!empty($queryParams)) {
             $keyParams = $this->parseIgnoredParams($queryParams);
             $cacheKey .= '.'.md5(json_encode($keyParams));
@@ -195,12 +211,22 @@ class CacheMiddleware
     private function isPathIncluded($path)
     {
         if ($this->includedPath == '*') {
-            return !$this->isPathExcluded($path);
+            return true;
         }
-        if (!$this->includedPath) {
+        if (!$this->includedPath || empty($this->includedPath)) {
             return false;
         }
-        return (preg_match('@'.$this->includedPath.'@', $path) === false);
+        if (is_string($this->includedPath)) {
+            return !!(preg_match('@'.$this->includedPath.'@', $path));
+        }
+        if (is_array($this->includedPath)) {
+            foreach ($this->includedPath as $included) {
+                if (preg_match('@'.$included.'@', $path)) {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 
     /**
@@ -209,10 +235,23 @@ class CacheMiddleware
      */
     private function isPathExcluded($path)
     {
-        if (!$this->excludedPath) {
+        if ($this->excludedPath == '*') {
+            return true;
+        }
+        if (!$this->excludedPath || empty($this->excludedPath)) {
             return false;
         }
-        return (preg_match('@'.$this->excludedPath.'@', $path) === false);
+        if (is_string($this->excludedPath)) {
+            return !!(preg_match('@'.$this->excludedPath.'@', $path));
+        }
+        if (is_array($this->excludedPath)) {
+            foreach ($this->excludedPath as $excluded) {
+                if (preg_match('@'.$excluded.'@', $path)) {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 
     /**
@@ -221,10 +260,13 @@ class CacheMiddleware
      */
     private function isQueryIncluded(array $queryParams)
     {
+        if (empty($queryParams)) {
+            return true;
+        }
         if ($this->includedQuery == '*') {
             return true;
         }
-        if (!is_array($this->includedQuery)) {
+        if (!is_array($this->includedQuery) || empty($this->includedQuery)) {
             return false;
         }
         return (count(array_intersect_key($queryParams, $this->includedQuery)) > 0);
@@ -242,7 +284,7 @@ class CacheMiddleware
         if (!is_array($this->excludedQuery) || empty($this->excludedQuery)) {
             return false;
         }
-        if (count(array_intersect_key($queryParams, $this->excludedQuery)) > 0) {
+        if (count(array_intersect_key($queryParams, array_flip($this->excludedQuery))) > 0) {
             return true;
         }
     }
@@ -254,7 +296,15 @@ class CacheMiddleware
     private function parseIgnoredParams(array $queryParams)
     {
         if ($this->ignoredQuery == '*') {
-            return [];
+            $ret = [];
+            if (is_array($this->includedQuery)) {
+                foreach ($queryParams as $k => $v) {
+                    if (in_array($k, $this->includedQuery)) {
+                        $ret[$k] = $v;
+                    }
+                }
+            }
+            return $ret;
         }
         if (!is_array($this->ignoredQuery) || empty($this->ignoredQuery)) {
             return $queryParams;

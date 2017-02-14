@@ -19,7 +19,7 @@ class CacheConfigTest extends \PHPUnit_Framework_TestCase
     public function testDefaults()
     {
         $this->assertEquals(['memory'], $this->obj->types());
-        $this->assertEquals(0, $this->obj->defaultTtl());
+        $this->assertEquals(864000, $this->obj->defaultTtl());
         $this->assertEquals('charcoal', $this->obj->prefix());
     }
 

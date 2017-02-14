@@ -19,9 +19,12 @@ class CacheConfig extends AbstractConfig
     private $types = ['memory'];
 
     /**
+     * The default TTL, in seconds.
+     * 10 days by default.
+     *
      * @var integer $defaultTtl
      */
-    private $defaultTtl = 0;
+    private $defaultTtl = 864000;
 
     /**
      * @var string $prefix
@@ -39,9 +42,9 @@ class CacheConfig extends AbstractConfig
     public function defaults()
     {
         return [
-            'types'        => ['memory'],
-            'default_ttl' => 0,
-            'prefix'      => 'charcoal',
+            'types'         => ['memory'],
+            'default_ttl'   => 864000,
+            'prefix'        => 'charcoal',
             'middleware'    => $this->middlewareDefaults()
         ];
     }
@@ -52,8 +55,8 @@ class CacheConfig extends AbstractConfig
     private function middlewareDefaults()
     {
         return [
-            'included_path'  => '',
-            'excluded_path'  => '*',
+            'included_path'  => null,
+            'excluded_path'  => null,
             'methods'        => [
                 'GET'
             ],
@@ -62,7 +65,7 @@ class CacheConfig extends AbstractConfig
             ],
             'ttl'            => 0,
             'included_query' => null,
-            'excluded_query' => '*',
+            'excluded_query' => null,
             'ignored_query'  => null
         ];
     }
