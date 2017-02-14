@@ -3,13 +3,25 @@
 namespace Charcoal\App;
 
 // Dependency from Slim
-use \Slim\Container;
+use Slim\Container;
 
 // Dependency from Pimple
-use \Pimple\ServiceProviderInterface;
+use Pimple\ServiceProviderInterface;
 
 // Depedencies from `charcoal-factory`
-use \Charcoal\Factory\GenericFactory as Factory;
+use Charcoal\Factory\GenericFactory as Factory;
+
+// Service Providers
+use Charcoal\App\AppConfig;
+use Charcoal\App\ServiceProvider\AppServiceProvider;
+use Charcoal\App\ServiceProvider\CacheServiceProvider;
+use Charcoal\App\ServiceProvider\DatabaseServiceProvider;
+use Charcoal\App\ServiceProvider\FilesystemServiceProvider;
+use Charcoal\App\ServiceProvider\LoggerServiceProvider;
+use Charcoal\App\ServiceProvider\TranslatorServiceProvider as LegacyTranslatorProvider;
+
+use Charcoal\Translator\ServiceProvider\TranslatorServiceProvider;
+use Charcoal\View\ViewServiceProvider;
 
 /**
  * Charcoal App Container
@@ -27,7 +39,16 @@ class AppContainer extends Container
         parent::__construct($values);
 
         // Ensure "config" is set
-        $this['config'] = (isset($values['config']) ? $values['config'] : []);
+        $this['config'] = (isset($values['config']) ? $values['config'] : new AppConfig());
+
+        $this->register(new AppServiceProvider());
+        $this->register(new CacheServiceProvider());
+        $this->register(new DatabaseServiceProvider());
+        $this->register(new FilesystemServiceProvider());
+        $this->register(new LoggerServiceProvider());
+        $this->register(new LegacyTranslatorProvider());
+        $this->register(new TranslatorServiceProvider());
+        $this->register(new ViewServiceProvider());
 
         $this->registerProviderFactory();
         $this->registerConfigProviders();
@@ -38,6 +59,9 @@ class AppContainer extends Container
      */
     private function registerProviderFactory()
     {
+        /**
+        * @return Factory
+        */
         if (!isset($this['provider/factory'])) {
             $this['provider/factory'] = function () {
                 return new Factory([
@@ -55,22 +79,11 @@ class AppContainer extends Container
      */
     private function registerConfigProviders()
     {
-        $defaultProviders = [
-            'charcoal/app/service-provider/app'        => [],
-            'charcoal/app/service-provider/cache'      => [],
-            'charcoal/app/service-provider/database'   => [],
-            'charcoal/app/service-provider/filesystem' => [],
-            'charcoal/app/service-provider/logger'     => [],
-            'charcoal/app/service-provider/translator' => [],
-            'charcoal/translator/service-provider/translator' => [],
-            'charcoal/view/view'                       => [],
-        ];
-
-        if (!empty($this['config']['service_providers'])) {
-            $providers = array_replace($defaultProviders, $this['config']['service_providers']);
-        } else {
-            $providers = $defaultProviders;
+        if (empty($this['config']['service_providers'])) {
+            return;
         }
+
+        $providers = $this['config']['service_providers'];
 
         foreach ($providers as $provider => $values) {
             if (false === $values) {
@@ -81,7 +94,7 @@ class AppContainer extends Container
                 $values = [];
             }
 
-            $provider = $this['provider/factory']->get($provider);
+            $provider = $this['provider/factory']->create($provider);
 
             $this->register($provider, $values);
         }
