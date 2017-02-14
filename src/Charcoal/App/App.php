@@ -211,13 +211,7 @@ class App extends SlimApp implements
         $config = $this->config();
         date_default_timezone_set($config['timezone']);
 
-        $container = $this->getContainer();
-
-        // Cache generator; added first, so it will be executed last
-        //$this->add($container['cache/generator-middleware']);
-
         // Setup routes
-//        $this->add($this->routeManager());
         $this->routeManager()->setupRoutes();
 
         // Setup modules
@@ -226,8 +220,9 @@ class App extends SlimApp implements
         // Setup routable
         $this->setupRoutables();
 
-        // Cache loader; added last, so it will be executed first
-        //$this->add($container['cache/loader-middleware']);
+        // Cache generator; added last, so it will be executed first
+        $container = $this->getContainer();
+        $this->add($container['cache/middleware']);
     }
 
 
