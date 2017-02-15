@@ -5,8 +5,19 @@ namespace Charcoal\App;
 use Exception;
 use InvalidArgumentException;
 
+// From PSR-7
+use Psr\Http\Message\UriInterface;
+
+// From Slim
+use Slim\Http\Uri;
+
+// From 'charcoal-config'
 use Charcoal\Config\AbstractConfig;
 
+// From 'charcoal-view'
+use Charcoal\View\ViewConfig;
+
+// From 'charcoal-app'
 use Charcoal\App\Config\CacheConfig;
 use Charcoal\App\Config\FilesystemConfig;
 use Charcoal\App\Config\LoggerConfig;
@@ -17,97 +28,123 @@ use Charcoal\App\Config\LoggerConfig;
 class AppConfig extends AbstractConfig
 {
     /**
-     * @var string $timezone
+     * The application's timezone.
+     *
+     * @var string|null
      */
     private $timezone;
 
     /**
      * The application's name.
      *
-     * @var string $projectName
+     * For internal usage.
+     *
+     * @var string|null
      */
     private $projectName;
 
     /**
      * The base path for the Charcoal installation.
      *
-     * @var string $basePath
+     * @var string|null
      */
     private $basePath;
 
     /**
      * The base URL (public) for the Charcoal installation.
      *
-     * @var string $baseUrl
+     * @var UriInterface|null
      */
     private $baseUrl;
 
     /**
      * The path to the public / web directory.
      *
-     * @var string $publicPath
+     * @var string|null
      */
     private $publicPath;
 
     /**
      * The path to the storage directory.
      *
-     * @var string $storagePath
+     * @var string|null
      */
     private $storagePath;
 
     /**
-     * @var boolean $devMode
+     * Whether the debug mode is enabled (TRUE) or not (FALSE).
+     *
+     * @var boolean
      */
     private $devMode = false;
 
     /**
-     * @var array $routes
+     * The application's routes.
+     *
+     * @var array
      */
     private $routes = [];
 
     /**
-     * @var array $routables
+     * The application's dynamic routes.
+     *
+     * @var array
      */
     private $routables = [];
 
     /**
-     * @var array $handlers
+     * The application's handlers.
+     *
+     * @var array
      */
     private $handlers = [];
 
     /**
-     * @var array $modules
+     * The application's modules.
+     *
+     * @var array
      */
     private $modules = [];
 
     /**
-     * @var CacheConfig $cache
+     * The application's caching configset.
+     *
+     * @var CacheConfig
      */
     private $cache;
 
     /**
-     * @var LoggerConfig $logger
+     * The application's logging configset.
+     *
+     * @var LoggerConfig
      */
     private $logger;
 
     /**
-     * @var \Charcoal\View\ViewConfig $view
+     * The application's view/rendering configset.
+     *
+     * @var ViewConfig
      */
     protected $view;
 
     /**
-     * @var array $databases
+     * The application's database configsets.
+     *
+     * @var array
      */
     private $databases = [];
 
     /**
-     * @var string $defaultDatabase
+     * The application's default database configset.
+     *
+     * @var string
      */
     private $defaultDatabase;
 
     /**
-     * @var array $filesystem
+     * The application's filesystem configset.
+     *
+     * @var FilesystemConfig
      */
     private $filesystem;
 
@@ -324,12 +361,12 @@ class AppConfig extends AbstractConfig
     /**
      * Set the application's fully qualified base URL to the public web directory.
      *
-     * @param  string|\Psr\Http\Message\UriInterface $uri The base URI to the application's web directory.
+     * @param  UriInterface|string $uri The base URI to the application's web directory.
      * @return AppConfig Chainable
      */
     public function setBaseUrl($uri)
     {
-        $this->baseUrl = \Slim\Http\Uri::createFromString($uri);
+        $this->baseUrl = Uri::createFromString($uri);
 
         return $this;
     }
@@ -337,7 +374,7 @@ class AppConfig extends AbstractConfig
     /**
      * Retrieve the application's fully qualified base URL to the public web directory.
      *
-     * @return string|\Psr\Http\Message\UriInterface The base URI to the application's web directory.
+     * @return UriInterface|null The base URI to the application's web directory.
      */
     public function baseUrl()
     {
@@ -401,12 +438,15 @@ class AppConfig extends AbstractConfig
     }
 
     /**
-     * @return string
+     * @return string|null
      */
     public function projectName()
     {
         if ($this->projectName === null) {
-            return $this->baseUrl();
+            $baseUrl = $this->baseUrl();
+            if ($baseUrl) {
+                return $baseUrl->getHost();
+            }
         }
         return $this->projectName;
     }
