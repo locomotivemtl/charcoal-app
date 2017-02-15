@@ -33,17 +33,18 @@ class LoggerConfig extends AbstractConfig
         return [
             'active' => true,
             'namespace' => 'Charcoal',
+            'level'     => 'debug',
             'handlers' => [
                 'stream' => [
                     'type'      => 'stream',
-                    'stream'    => 'charcoal.app.log',
-                    'level'     => 'debug',
+                    'stream'    => '../charcoal.app.log',
+                    'level'     => null,
                     'bubble'    => true,
                     'active'    => true
                 ],
                 'console' => [
                     'type'      => 'browser-console',
-                    'level'     => 'debug',
+                    'level'     => null,
                     'active'    => false
                 ]
             ],
