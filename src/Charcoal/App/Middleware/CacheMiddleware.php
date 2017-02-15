@@ -59,7 +59,7 @@ class CacheMiddleware
     /**
      * @var array|string|null
      */
-    private $includedQquery;
+    private $includedQuery;
 
     /**
      * @var array|string|null
