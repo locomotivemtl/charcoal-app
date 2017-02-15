@@ -55,6 +55,7 @@ class CacheConfig extends AbstractConfig
     private function middlewareDefaults()
     {
         return [
+            'active'         => true,
             'included_path'  => null,
             'excluded_path'  => null,
             'methods'        => [
