@@ -222,7 +222,9 @@ class App extends SlimApp implements
 
         // Cache generator; added last, so it will be executed first
         $container = $this->getContainer();
-        $this->add($container['cache/middleware']);
+        if ($container['cache/config']['middleware']['active']) {
+            $this->add($container['cache/middleware']);
+        }
     }
 
 

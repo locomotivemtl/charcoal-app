@@ -63,8 +63,8 @@ class LoggerServiceProvider implements ServiceProviderInterface
         $container['logger/processor/factory'] = function () {
             return new GenericFactory([
                 'map' => [
-                    'memory-usage'  => '\Monolog\Processor\MemoryUsageProcessor',
-                    'uid'           => '\Monolog\Processor\UidProcessor'
+                    'memory-usage'  => MemoryUsageProcessor::class,
+                    'uid'           => UidProcessor::class
                 ]
             ]);
         };
@@ -79,7 +79,8 @@ class LoggerServiceProvider implements ServiceProviderInterface
                 return null;
             }
 
-            return new StreamHandler($handlerConfig['stream'], $handlerConfig['level']);
+            $level = $handlerConfig['level'] ?: $loggerConfig['level'];
+            return new StreamHandler($handlerConfig['stream'], $level);
         };
 
         /**
@@ -91,8 +92,8 @@ class LoggerServiceProvider implements ServiceProviderInterface
             if ($handlerConfig['active'] !== true) {
                 return null;
             }
-
-            return new BrowserConsoleHandler($handlerConfig['level']);
+            $level = $handlerConfig['level'] ?: $loggerConfig['level'];
+            return new BrowserConsoleHandler($level);
         };
 
         /**

@@ -89,53 +89,65 @@ class RouteManager implements
      */
     private function setupTemplate($routeIdent, $templateConfig)
     {
-        if (!isset($templateConfig['ident'])) {
-            $templateConfig['ident'] = ltrim($routeIdent, '/');
-        }
-        if (!isset($templateConfig['route'])) {
-            $templateConfig['route'] = '/'.$templateConfig['ident'];
-        }
-        if (!isset($templateConfig['methods'])) {
-            $templateConfig['methods'] = ['GET'];
-        }
+        $routePattern = isset($templateConfig['route'])
+            ? $templateConfig['route']
+            : '/'.ltrim($routeIdent, '/');
 
-        $routeCallback = function (
-            RequestInterface $request,
-            ResponseInterface $response,
-            array $args = []
-        ) use (
-            $templateConfig
-        ) {
-            if (!isset($templateConfig['template_data'])) {
-                $templateConfig['template_data'] = [];
-            }
+        $templateConfig['route'] = $routePattern;
 
-            if (count($args)) {
-                $templateConfig['template_data'] = array_merge(
-                    $templateConfig['template_data'],
-                    $args
-                );
-            }
-
-            $routeFactory = $this['route/factory'];
-            $defaultRoute = TemplateRoute::class;
-            $routeController = isset($templateConfig['route_controller'])
-                ? $templateConfig['route_controller']
-                : $defaultRoute;
-
-            $route = $routeFactory->create($routeController, [
-                'config' => $templateConfig,
-                'logger' => $this['logger']
-            ]);
-
-            return $route($this, $request, $response);
-        };
+        $methods = isset($templateConfig['methods'])
+            ? $templateConfig['methods']
+            : [ 'GET' ];
 
         $routeHandler = $this->app()->map(
-            $templateConfig['methods'],
-            $templateConfig['route'],
-            $routeCallback
-        )->setName($templateConfig['ident']);
+            $methods,
+            $routePattern,
+            function (
+                RequestInterface $request,
+                ResponseInterface $response,
+                array $args = []
+            ) use (
+                $routeIdent,
+                $templateConfig
+            ) {
+                if (!isset($templateConfig['ident'])) {
+                    $templateConfig['ident'] = ltrim($routeIdent, '/');
+                }
+
+                $this['logger']->debug(
+                    sprintf('Loaded template route: %s', $templateConfig['ident']),
+                    $templateConfig
+                );
+
+                if (!isset($templateConfig['template_data'])) {
+                    $templateConfig['template_data'] = [];
+                }
+
+                if (count($args)) {
+                    $templateConfig['template_data'] = array_merge(
+                        $templateConfig['template_data'],
+                        $args
+                    );
+                }
+
+                $routeFactory = $this['route/factory'];
+                $defaultRoute = TemplateRoute::class;
+                $routeController = isset($templateConfig['route_controller'])
+                    ? $templateConfig['route_controller']
+                    : $defaultRoute;
+
+                $route = $routeFactory->create($routeController, [
+                    'config' => $templateConfig,
+                    'logger' => $this['logger']
+                ]);
+
+                return $route($this, $request, $response);
+            }
+        );
+
+        if (isset($templateConfig['ident'])) {
+            $routeHandler->setName($templateConfig['ident']);
+        }
 
         return $routeHandler;
     }
@@ -151,54 +163,65 @@ class RouteManager implements
      */
     private function setupAction($routeIdent, $actionConfig)
     {
-        if (!isset($actionConfig['ident'])) {
-            $actionConfig['ident'] = ltrim($routeIdent, '/');
-        }
-        if (!isset($actionConfig['route'])) {
-            $actionConfig['route'] = '/'.$actionConfig['ident'];
-        }
-        if (!isset($actionConfig['methods'])) {
-            $actionConfig['methods'] = ['POST'];
-        }
+        $routePattern = isset($actionConfig['route'])
+            ? $actionConfig['route']
+            : '/'.ltrim($routeIdent, '/');
 
-        $routeCallback = function (
-            RequestInterface $request,
-            ResponseInterface $response,
-            array $args = []
-        ) use (
-            $routeIdent,
-            $actionConfig
-        ) {
-            if (!isset($actionConfig['action_data'])) {
-                $actionConfig['action_data'] = [];
-            }
+        $actionConfig['route'] = $routePattern;
 
-            if (count($args)) {
-                $actionConfig['action_data'] = array_merge(
-                    $actionConfig['action_data'],
-                    $args
-                );
-            }
-
-            $routeFactory = $this['route/factory'];
-            $defaultRoute = ActionRoute::class;
-            $routeController = isset($actionConfig['route_controller'])
-                ? $actionConfig['route_controller']
-                : $defaultRoute;
-
-            $route = $routeFactory->create($routeController, [
-                'config' => $actionConfig,
-                'logger' => $this['logger']
-            ]);
-
-            return $route($this, $request, $response);
-        };
+        $methods = isset($actionConfig['methods'])
+            ? $actionConfig['methods']
+            : [ 'POST' ];
 
         $routeHandler = $this->app()->map(
-            $actionConfig['methods'],
-            $actionConfig['route'],
-            $routeCallback
-        )->setName($actionConfig['ident']);
+            $methods,
+            $routePattern,
+            function (
+                RequestInterface $request,
+                ResponseInterface $response,
+                array $args = []
+            ) use (
+                $routeIdent,
+                $actionConfig
+            ) {
+                if (!isset($actionConfig['ident'])) {
+                    $actionConfig['ident'] = ltrim($routeIdent, '/');
+                }
+
+                $this['logger']->debug(
+                    sprintf('Loaded action route: %s', $actionConfig['ident']),
+                    $actionConfig
+                );
+
+                if (!isset($actionConfig['action_data'])) {
+                    $actionConfig['action_data'] = [];
+                }
+
+                if (count($args)) {
+                    $actionConfig['action_data'] = array_merge(
+                        $actionConfig['action_data'],
+                        $args
+                    );
+                }
+
+                $routeFactory = $this['route/factory'];
+                $defaultRoute = ActionRoute::class;
+                $routeController = isset($actionConfig['route_controller'])
+                    ? $actionConfig['route_controller']
+                    : $defaultRoute;
+
+                $route = $routeFactory->create($routeController, [
+                    'config' => $actionConfig,
+                    'logger' => $this['logger']
+                ]);
+
+                return $route($this, $request, $response);
+            }
+        );
+
+        if (isset($actionConfig['ident'])) {
+            $routeHandler->setName($actionConfig['ident']);
+        }
 
         return $routeHandler;
     }
@@ -214,56 +237,65 @@ class RouteManager implements
      */
     private function setupScript($routeIdent, $scriptConfig)
     {
-        if (!isset($scriptConfig['ident'])) {
-            $scriptConfig['ident'] = ltrim($routeIdent, '/');
-        }
-        if (!isset($scriptConfig['route'])) {
-            $scriptConfig['route'] = '/'.$scriptConfig['ident'];
-        }
-        if (!isset($scriptConfig['methods'])) {
-            $scriptConfig['methods'] = ['GET'];
-        }
+        $routePattern = isset($scriptConfig['route'])
+            ? $scriptConfig['route']
+            : '/'.ltrim($routeIdent, '/');
 
-        $routeCallback = function (
-            RequestInterface $request,
-            ResponseInterface $response,
-            array $args = []
-        ) use (
-            $routeIdent,
-            $scriptConfig
-        ) {
-            if (!isset($scriptConfig['script_data'])) {
-                $scriptConfig['script_data'] = [];
-            }
+        $scriptConfig['route'] = $routePattern;
 
-            if (count($args)) {
-                $scriptConfig['script_data'] = array_merge(
-                    $scriptConfig['script_data'],
-                    $args
-                );
-            }
-
-            $routeFactory = $this['route/factory'];
-            $defaultRoute = ScriptRoute::class;
-            $routeController = isset($scriptConfig['route_controller'])
-                ? $scriptConfig['route_controller']
-                : $defaultRoute;
-
-            $route = $routeFactory->create($routeController, [
-                'config' => $scriptConfig,
-                'logger' => $this['logger']
-            ]);
-
-            return $route($this, $request, $response);
-        };
-
-        $routeName = isset($scriptConfig['ident']) ? $scriptConfig['ident'] : $templateConfig['route'];
+        $methods = isset($scriptConfig['methods'])
+            ? $scriptConfig['methods']
+            : [ 'GET' ];
 
         $routeHandler = $this->app()->map(
-            $scriptConfig['methods'],
-            $scriptConfig['route'],
-            $routeCallback
-        )->setName($scriptConfig['ident']);
+            $methods,
+            $routePattern,
+            function (
+                RequestInterface $request,
+                ResponseInterface $response,
+                array $args = []
+            ) use (
+                $routeIdent,
+                $scriptConfig
+            ) {
+                if (!isset($scriptConfig['ident'])) {
+                    $scriptConfig['ident'] = ltrim($routeIdent, '/');
+                }
+
+                $this['logger']->debug(
+                    sprintf('Loaded script route: %s', $scriptConfig['ident']),
+                    $scriptConfig
+                );
+
+                if (!isset($scriptConfig['script_data'])) {
+                    $scriptConfig['script_data'] = [];
+                }
+
+                if (count($args)) {
+                    $scriptConfig['script_data'] = array_merge(
+                        $scriptConfig['script_data'],
+                        $args
+                    );
+                }
+
+                $routeFactory = $this['route/factory'];
+                $defaultRoute = ScriptRoute::class;
+                $routeController = isset($scriptConfig['route_controller'])
+                    ? $scriptConfig['route_controller']
+                    : $defaultRoute;
+
+                $route = $routeFactory->create($routeController, [
+                    'config' => $scriptConfig,
+                    'logger' => $this['logger']
+                ]);
+
+                return $route($this, $request, $response);
+            }
+        );
+
+        if (isset($scriptConfig['ident'])) {
+            $routeHandler->setName($scriptConfig['ident']);
+        }
 
         return $routeHandler;
     }
