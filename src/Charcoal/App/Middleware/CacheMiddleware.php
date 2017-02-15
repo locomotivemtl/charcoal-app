@@ -166,7 +166,8 @@ class CacheMiddleware
             }
 
             $cacheItem = $this->cachePool->getItem($cacheKey);
-            $this->cachePool->save($cacheItem->set((string)$response->getBody(), $this->cacheTtl));
+            $cacheItem->expiresAfter($this->cacheTtl);
+            $this->cachePool->save($cacheItem->set((string)$response->getBody()));
 
             return $response;
         }
