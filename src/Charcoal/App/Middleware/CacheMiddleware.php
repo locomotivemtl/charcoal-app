@@ -142,7 +142,7 @@ class CacheMiddleware
             return $response;
         } else {
             $included = $this->isQueryIncluded($queryParams);
-            $reponse = $next($request, $response);
+            $response = $next($request, $response);
 
             if ($this->isActive($request, $response) === false) {
                 return $response;
