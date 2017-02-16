@@ -2,29 +2,29 @@
 
 namespace Charcoal\App\Route;
 
-use \InvalidArgumentException;
+use InvalidArgumentException;
 
 // Dependencies from PSR-7 (HTTP Messaging)
-use \Psr\Http\Message\RequestInterface;
-use \Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
 
 // Dependency from Pimple
-use \Pimple\Container;
+use Pimple\Container;
 
 // Dependency from Slim
-use \Slim\Http\Uri;
+use Slim\Http\Uri;
 
 // Dependency from 'charcoal-config'
-use \Charcoal\Config\ConfigurableInterface;
-use \Charcoal\Config\ConfigurableTrait;
+use Charcoal\Config\ConfigurableInterface;
+use Charcoal\Config\ConfigurableTrait;
 
 // Intra-module ('charcoal-app') dependencies
-use \Charcoal\App\AppInterface;
-use \Charcoal\App\Template\TemplateInterface;
+use Charcoal\App\AppInterface;
+use Charcoal\App\Template\TemplateInterface;
 
 // Local namespace dependencies
-use \Charcoal\App\Route\RouteInterface;
-use \Charcoal\App\Route\TemplateRouteConfig;
+use Charcoal\App\Route\RouteInterface;
+use Charcoal\App\Route\TemplateRouteConfig;
 
 /**
  * Template Route Handler.

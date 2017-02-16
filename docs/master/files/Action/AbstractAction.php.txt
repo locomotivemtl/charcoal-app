@@ -3,24 +3,24 @@
 namespace Charcoal\App\Action;
 
 // Dependencies from `PHP`
-use \InvalidArgumentException;
-
-// PSR-3 (logger) dependencies
-use \Psr\Log\LoggerAwareInterface;
-use \Psr\Log\LoggerAwareTrait;
-
-// Dependencies from `Pimple`
-use \Pimple\Container;
+use InvalidArgumentException;
 
 // PSR-7 (http messaging) dependencies
-use \Psr\Http\Message\RequestInterface;
-use \Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
+
+// PSR-3 (logger) dependencies
+use Psr\Log\LoggerAwareInterface;
+use Psr\Log\LoggerAwareTrait;
+
+// Dependencies from `Pimple`
+use Pimple\Container;
 
 // Module `charcoal-config` dependencies
-use \Charcoal\Config\AbstractEntity;
+use Charcoal\Config\AbstractEntity;
 
 // Intra-module (`charcoal-app`) dependencies
-use \Charcoal\App\Action\ActionInterface;
+use Charcoal\App\Action\ActionInterface;
 
 /**
  * Default implementation, as abstract class, of  the `ActionInterface`.
@@ -120,15 +120,13 @@ abstract class AbstractAction extends AbstractEntity implements
 
         switch ($this->mode()) {
             case self::MODE_JSON:
-                $response = $response
-                    ->withHeader('Content-Type', 'application/json')
-                    ->getBody()->write(json_encode($this->results()));
+                $response->getBody()->write(json_encode($this->results()))
+                $response = $response->withHeader('Content-Type', 'application/json');
                 break;
 
             case self::MODE_XML:
-                $response = $response
-                    ->withHeader('Content-Type', 'text/xml')
-                    ->getBody()->write($this->results());
+                $response->getBody()->write($this->results());
+                $response = $response->withHeader('Content-Type', 'text/xml')
                 break;
 
             case self::MODE_REDIRECT:
