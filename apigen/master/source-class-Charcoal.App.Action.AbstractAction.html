@@ -307,13 +307,13 @@
 </span><span id="122" class="l"><a href="#122">122: </a>            <span class="php-keyword1">case</span> self::MODE_JSON:
 </span><span id="123" class="l"><a href="#123">123: </a>                <span class="php-var">$response</span> = <span class="php-var">$response</span>
 </span><span id="124" class="l"><a href="#124">124: </a>                    -&gt;withHeader(<span class="php-quote">'Content-Type'</span>, <span class="php-quote">'application/json'</span>)
-</span><span id="125" class="l"><a href="#125">125: </a>                    -&gt;write(<span class="php-keyword2">json_encode</span>(<span class="php-var">$this</span>-&gt;results()));
+</span><span id="125" class="l"><a href="#125">125: </a>                    -&gt;getBody()-&gt;write(<span class="php-keyword2">json_encode</span>(<span class="php-var">$this</span>-&gt;results()));
 </span><span id="126" class="l"><a href="#126">126: </a>                <span class="php-keyword1">break</span>;
 </span><span id="127" class="l"><a href="#127">127: </a>
 </span><span id="128" class="l"><a href="#128">128: </a>            <span class="php-keyword1">case</span> self::MODE_XML:
 </span><span id="129" class="l"><a href="#129">129: </a>                <span class="php-var">$response</span> = <span class="php-var">$response</span>
 </span><span id="130" class="l"><a href="#130">130: </a>                    -&gt;withHeader(<span class="php-quote">'Content-Type'</span>, <span class="php-quote">'text/xml'</span>)
-</span><span id="131" class="l"><a href="#131">131: </a>                    -&gt;write(<span class="php-var">$this</span>-&gt;results());
+</span><span id="131" class="l"><a href="#131">131: </a>                    -&gt;getBody()-&gt;write(<span class="php-var">$this</span>-&gt;results());
 </span><span id="132" class="l"><a href="#132">132: </a>                <span class="php-keyword1">break</span>;
 </span><span id="133" class="l"><a href="#133">133: </a>
 </span><span id="134" class="l"><a href="#134">134: </a>            <span class="php-keyword1">case</span> self::MODE_REDIRECT:
