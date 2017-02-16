@@ -157,6 +157,8 @@ JSON, XML, or HTML based on the Accept header.</p>
 			
 				<a href="class-Charcoal.App.Handler.HandlerInterface.html"><span>Charcoal\App\Handler\HandlerInterface</span></a>, 
 			
+<span>Psr\Log\LoggerAwareInterface</span>, 
+			
 <span>Charcoal\View\ViewableInterface</span>
 			
 			 uses 
@@ -164,6 +166,9 @@ JSON, XML, or HTML based on the Accept header.</p>
 
 			
 					Charcoal\Config\ConfigurableTrait (not available)
+
+			
+					Psr\Log\LoggerAwareTrait (not available)
 
 			
 					Charcoal\View\ViewableTrait (not available)
@@ -191,7 +196,7 @@ JSON, XML, or HTML based on the Accept header.</p>
 		<b>Namespace:</b> <a href="namespace-Charcoal.html">Charcoal</a>\<a href="namespace-Charcoal.App.html">App</a>\<a href="namespace-Charcoal.App.Handler.html">Handler</a><br>
 		
 
-			<b>Located at</b> <a href="source-class-Charcoal.App.Handler.PhpError.html#23-380" title="Go to source code">Charcoal/App/Handler/PhpError.php</a>
+			<b>Located at</b> <a href="source-class-Charcoal.App.Handler.PhpError.html#23-382" title="Go to source code">Charcoal/App/Handler/PhpError.php</a>
 		<br>
 	</div>
 
@@ -258,7 +263,7 @@ JSON, XML, or HTML based on the Accept header.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#___invoke">#</a>
-		<code><a href="source-class-Charcoal.App.Handler.PhpError.html#67-105" title="Go to source code">__invoke</a>( <span>Psr\Http\Message\ServerRequestInterface <var>$request</var></span>, <span>Psr\Http\Message\ResponseInterface <var>$response</var></span>, <span>Throwable <var>$error</var></span> )</code>
+		<code><a href="source-class-Charcoal.App.Handler.PhpError.html#67-107" title="Go to source code">__invoke</a>( <span>Psr\Http\Message\ServerRequestInterface <var>$request</var></span>, <span>Psr\Http\Message\ResponseInterface <var>$response</var></span>, <span>Throwable <var>$error</var></span> )</code>
 
 		<div class="description short">
 			<p>Invoke Error Handler</p>
@@ -301,7 +306,7 @@ JSON, XML, or HTML based on the Accept header.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setDisplayErrorDetails">#</a>
-		<code><a href="source-class-Charcoal.App.Handler.PhpError.html#107-118" title="Go to source code">setDisplayErrorDetails</a>( <span>boolean <var>$state</var></span> )</code>
+		<code><a href="source-class-Charcoal.App.Handler.PhpError.html#109-120" title="Go to source code">setDisplayErrorDetails</a>( <span>boolean <var>$state</var></span> )</code>
 
 		<div class="description short">
 			<p>Set whether to display details of the error or a generic message.</p>
@@ -340,7 +345,7 @@ JSON, XML, or HTML based on the Accept header.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_displayErrorDetails">#</a>
-		<code><a href="source-class-Charcoal.App.Handler.PhpError.html#120-128" title="Go to source code">displayErrorDetails</a>( )</code>
+		<code><a href="source-class-Charcoal.App.Handler.PhpError.html#122-130" title="Go to source code">displayErrorDetails</a>( )</code>
 
 		<div class="description short">
 			<p>Retrieves wether the the details of the error message should be displayed.</p>
@@ -374,7 +379,7 @@ JSON, XML, or HTML based on the Accept header.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setError">#</a>
-		<code><a href="source-class-Charcoal.App.Handler.PhpError.html#130-141" title="Go to source code">setError</a>( <span>Throwable <var>$error</var></span> )</code>
+		<code><a href="source-class-Charcoal.App.Handler.PhpError.html#132-143" title="Go to source code">setError</a>( <span>Throwable <var>$error</var></span> )</code>
 
 		<div class="description short">
 			<p>Set the caught error.</p>
@@ -413,7 +418,7 @@ JSON, XML, or HTML based on the Accept header.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_error">#</a>
-		<code><a href="source-class-Charcoal.App.Handler.PhpError.html#143-151" title="Go to source code">error</a>( )</code>
+		<code><a href="source-class-Charcoal.App.Handler.PhpError.html#145-153" title="Go to source code">error</a>( )</code>
 
 		<div class="description short">
 			<p>Retrieves the caught error.</p>
@@ -447,7 +452,7 @@ JSON, XML, or HTML based on the Accept header.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_writeToErrorLog">#</a>
-		<code><a href="source-class-Charcoal.App.Handler.PhpError.html#153-176" title="Go to source code">writeToErrorLog</a>( )</code>
+		<code><a href="source-class-Charcoal.App.Handler.PhpError.html#155-178" title="Go to source code">writeToErrorLog</a>( )</code>
 
 		<div class="description short">
 			<p>Write to the error log if displayErrorDetails is false</p>
@@ -477,7 +482,7 @@ JSON, XML, or HTML based on the Accept header.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_renderTextError">#</a>
-		<code><a href="source-class-Charcoal.App.Handler.PhpError.html#178-215" title="Go to source code">renderTextError</a>( <span>Throwable <var>$error</var></span> )</code>
+		<code><a href="source-class-Charcoal.App.Handler.PhpError.html#180-217" title="Go to source code">renderTextError</a>( <span>Throwable <var>$error</var></span> )</code>
 
 		<div class="description short">
 			<p>Render error as Text.</p>
@@ -516,7 +521,7 @@ JSON, XML, or HTML based on the Accept header.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_renderJsonOutput">#</a>
-		<code><a href="source-class-Charcoal.App.Handler.PhpError.html#217-245" title="Go to source code">renderJsonOutput</a>( )</code>
+		<code><a href="source-class-Charcoal.App.Handler.PhpError.html#219-247" title="Go to source code">renderJsonOutput</a>( )</code>
 
 		<div class="description short">
 			<p>Render JSON Error</p>
@@ -550,7 +555,7 @@ JSON, XML, or HTML based on the Accept header.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_renderXmlOutput">#</a>
-		<code><a href="source-class-Charcoal.App.Handler.PhpError.html#247-273" title="Go to source code">renderXmlOutput</a>( )</code>
+		<code><a href="source-class-Charcoal.App.Handler.PhpError.html#249-275" title="Go to source code">renderXmlOutput</a>( )</code>
 
 		<div class="description short">
 			<p>Render XML Error</p>
@@ -584,7 +589,7 @@ JSON, XML, or HTML based on the Accept header.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_renderHtmlError">#</a>
-		<code><a href="source-class-Charcoal.App.Handler.PhpError.html#286-324" title="Go to source code">renderHtmlError</a>( <span>Throwable <var>$error</var></span> )</code>
+		<code><a href="source-class-Charcoal.App.Handler.PhpError.html#288-326" title="Go to source code">renderHtmlError</a>( <span>Throwable <var>$error</var></span> )</code>
 
 		<div class="description short">
 			<p>Render error as HTML.</p>
@@ -623,7 +628,7 @@ JSON, XML, or HTML based on the Accept header.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_renderHtmlMessage">#</a>
-		<code><a href="source-class-Charcoal.App.Handler.PhpError.html#326-352" title="Go to source code">renderHtmlMessage</a>( )</code>
+		<code><a href="source-class-Charcoal.App.Handler.PhpError.html#328-354" title="Go to source code">renderHtmlMessage</a>( )</code>
 
 		<div class="description short">
 			<p>Render body of HTML error</p>
@@ -657,7 +662,7 @@ JSON, XML, or HTML based on the Accept header.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setCatalog">#</a>
-		<code><a href="source-class-Charcoal.App.Handler.PhpError.html#354-379" title="Go to source code">setCatalog</a>( <span>Charcoal\Translation\Catalog\CatalogInterface <var>$catalog</var></span> )</code>
+		<code><a href="source-class-Charcoal.App.Handler.PhpError.html#356-381" title="Go to source code">setCatalog</a>( <span>Charcoal\Translation\Catalog\CatalogInterface <var>$catalog</var></span> )</code>
 
 		<div class="description short">
 			<p>Sets a translation catalog instance on the object.</p>
