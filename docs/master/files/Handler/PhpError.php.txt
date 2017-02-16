@@ -75,6 +75,8 @@ class PhpError extends AbstractHandler
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, Throwable $error)
     {
         $this->setError($error);
+        $this->logger->error($error->getMessage());
+        $this->logger->error($error->getFile().':'.$error->getLine());
 
         $contentType = $this->determineContentType($request);
         switch ($contentType) {

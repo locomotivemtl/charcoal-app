@@ -2,6 +2,10 @@
 
 namespace Charcoal\App\Handler;
 
+// Dependencies from PSR-3 (logger)
+use \Psr\Log\LoggerAwareInterface;
+use \Psr\Log\LoggerAwareTrait;
+
 // Dependencies from PSR-7 (HTTP Messaging)
 use \Psr\Http\Message\ResponseInterface;
 use \Psr\Http\Message\ServerRequestInterface;
@@ -44,10 +48,12 @@ abstract class AbstractHandler implements
     CatalogAwareInterface,
     ConfigurableInterface,
     HandlerInterface,
+    LoggerAwareInterface,
     ViewableInterface
 {
     use CatalogAwareTrait;
     use ConfigurableTrait;
+    use LoggerAwareTrait;
     use ViewableTrait;
 
     /**
@@ -111,6 +117,7 @@ abstract class AbstractHandler implements
      */
     public function setDependencies(Container $container)
     {
+        $this->setLogger($container['logger']);
         $this->setContainer($container);
         $this->setBaseUrl($container['base-url']);
         $this->setView($container['view']);
