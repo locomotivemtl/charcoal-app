@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>Trait Charcoal\App\CallableResolverAwareTrait</title>
+
+	<link rel="stylesheet" href="resources/style.css?e99947befd7bf673c6b43ff75e9e0f170c88a60e">
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+				<h3>Namespaces</h3>
+			<ul>
+				<li class="active">
+					<a href="namespace-Charcoal.html">
+						Charcoal<span></span>
+					</a>
+
+						<ul>
+				<li class="active">
+					<a href="namespace-Charcoal.App.html">
+						App<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Charcoal.App.Action.html">
+						Action					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Charcoal.App.Config.html">
+						Config					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Charcoal.App.Handler.html">
+						Handler					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Charcoal.App.Middleware.html">
+						Middleware					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Charcoal.App.Module.html">
+						Module					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Charcoal.App.Route.html">
+						Route					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Charcoal.App.Script.html">
+						Script					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Charcoal.App.ServiceProvider.html">
+						ServiceProvider					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Charcoal.App.Template.html">
+						Template					</a>
+
+						</li>
+							</ul></li></ul></li>
+			</ul>
+		</div>
+
+		<hr>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-Charcoal.App.App.html">App</a></li>
+				<li><a href="class-Charcoal.App.AppConfig.html">AppConfig</a></li>
+				<li><a href="class-Charcoal.App.AppContainer.html">AppContainer</a></li>
+			</ul>
+
+			<h3>Interfaces</h3>
+			<ul>
+				<li><a href="class-Charcoal.App.AppAwareInterface.html">AppAwareInterface</a></li>
+			</ul>
+
+			<h3>Traits</h3>
+			<ul>
+				<li><a href="class-Charcoal.App.AppAwareTrait.html">AppAwareTrait</a></li>
+				<li class="active"><a href="class-Charcoal.App.CallableResolverAwareTrait.html">CallableResolverAwareTrait</a></li>
+			</ul>
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="">
+		<input type="hidden" name="ie" value="UTF-8">
+		<input type="text" name="q" class="text" placeholder="Search">
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-Charcoal.App.html" title="Summary of Charcoal\App"><span>Namespace</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Trait CallableResolverAwareTrait</h1>
+
+
+	<div class="description">
+	<p>Resolve Callable</p>
+
+<p>This trait enables the resolution of 'class:method' strings into a closure.
+This class is based on \Slim\CallableResolverAwareTrait Slim's trait.</p>
+
+<p>The resolver will attempt checks on the current class, an optional alternate
+object, the DI container.</p>
+
+<p>Can resolve the following string formats:</p>
+
+<ul>
+<li>'class:method'</li>
+<li>'parent:method'</li>
+<li>'static:method'</li>
+<li>'self:method' or ':method'</li>
+</ul>
+	</div>
+
+
+
+
+
+
+
+
+
+	<div class="info">
+		
+		
+		<b>Namespace:</b> <a href="namespace-Charcoal.html">Charcoal</a>\<a href="namespace-Charcoal.App.html">App</a><br>
+		
+
+			<b>Located at</b> <a href="source-class-Charcoal.App.CallableResolverAwareTrait.html#8-118" title="Go to source code">Charcoal/App/CallableResolverAwareTrait.php</a>
+		<br>
+	</div>
+
+
+
+	<table class="summary methods" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="setCallableResolver" id="_setCallableResolver">
+
+		<td class="attributes"><code>
+			 protected 
+
+			<code><a href="class-Charcoal.App.CallableResolverAwareTrait.html">Charcoal\App\CallableResolverAwareTrait</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setCallableResolver">#</a>
+		<code><a href="source-class-Charcoal.App.CallableResolverAwareTrait.html#47-58" title="Go to source code">setCallableResolver</a>( <span>Slim\Interfaces\CallableResolverInterface <var>$resolver</var></span> )</code>
+
+		<div class="description short">
+			<p>Set a callable resolver.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Set a callable resolver.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$resolver</var></dt>
+					<dd>A callable resolver.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-Charcoal.App.CallableResolverAwareTrait.html">Charcoal\App\CallableResolverAwareTrait</a></code>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="resolveCallable" id="_resolveCallable">
+
+		<td class="attributes"><code>
+			 protected 
+
+			Closure
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_resolveCallable">#</a>
+		<code><a href="source-class-Charcoal.App.CallableResolverAwareTrait.html#60-117" title="Go to source code">resolveCallable</a>( <span>callable|string <var>$callable</var></span>, <span>object|null <var>$context</var> = <span class="php-keyword1">null</span></span> )</code>
+
+		<div class="description short">
+			<p>Resolve a string of the format 'class:method' into a closure that the
+router can dispatch.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Resolve a string of the format 'class:method' into a closure that the
+router can dispatch.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$callable</var></dt>
+					<dd>A callable function or method, either as a reference or string.</dd>
+					<dt><var>$context</var></dt>
+					<dd>Optional. An additional context under to test $callable as a method.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					Closure
+				</div>
+
+				<h4>Throws</h4>
+				<div class="list">
+					RuntimeException<br><p>If the string cannot be resolved as a callable
+    or the resolver was not previously set.</p>
+				</div>
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+
+
+
+
+	<table class="summary properties" id="properties">
+	<caption>Properties summary</caption>
+	<tr data-order="resolvedCallableCache" id="$resolvedCallableCache">
+		<td class="attributes"><code>
+			protected static 
+			array
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Charcoal.App.CallableResolverAwareTrait.html#26-31" title="Go to source code"><var>$resolvedCallableCache</var></a>
+
+			<div class="description short">
+				<p>The cache of string-based callables.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>The cache of string-based callables.</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$resolvedCallableCache" class="anchor">#</a>
+				<code>[]</code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="callablePattern" id="$callablePattern">
+		<td class="attributes"><code>
+			protected  
+			string
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Charcoal.App.CallableResolverAwareTrait.html#33-38" title="Go to source code"><var>$callablePattern</var></a>
+
+			<div class="description short">
+				<p>A regular expression for matching 'class:method' callable strings.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>A regular expression for matching 'class:method' callable strings.</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$callablePattern" class="anchor">#</a>
+				<code><span class="php-quote">'!^([^\:]+)?\:([a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*)$!'</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="callableResolver" id="$callableResolver">
+		<td class="attributes"><code>
+			protected  
+			Slim\Interfaces\CallableResolverInterface
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Charcoal.App.CallableResolverAwareTrait.html#40-45" title="Go to source code"><var>$callableResolver</var></a>
+
+			<div class="description short">
+				<p>Store the callable resolver.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Store the callable resolver.</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$callableResolver" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	</table>
+
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		 API documentation generated by <a href="http://apigen.org">ApiGen</a>
+	</div>
+</div>
+</div>
+<script src="resources/combined.js"></script>
+<script src="elementlist.js"></script>
+</body>
+</html>
