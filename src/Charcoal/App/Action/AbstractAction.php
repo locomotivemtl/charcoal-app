@@ -122,13 +122,13 @@ abstract class AbstractAction extends AbstractEntity implements
             case self::MODE_JSON:
                 $response = $response
                     ->withHeader('Content-Type', 'application/json')
-                    ->write(json_encode($this->results()));
+                    ->getBody()->write(json_encode($this->results()));
                 break;
 
             case self::MODE_XML:
                 $response = $response
                     ->withHeader('Content-Type', 'text/xml')
-                    ->write($this->results());
+                    ->getBody()->write($this->results());
                 break;
 
             case self::MODE_REDIRECT:

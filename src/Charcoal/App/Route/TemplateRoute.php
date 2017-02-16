@@ -101,7 +101,7 @@ class TemplateRoute implements
 
         $templateContent = $this->templateContent($container, $request);
 
-        $response->write($templateContent);
+        $response->getBody()->write($templateContent);
 
         return $response;
     }
