@@ -151,8 +151,6 @@ or HTML based on the Accept header.</p>
 			<a href="class-Charcoal.App.Handler.AbstractHandler.html"><span>Charcoal\App\Handler\AbstractHandler</span></a>
 			
 			 implements 
-<span>Charcoal\Translation\Catalog\CatalogAwareInterface</span>, 
-			
 <span>Charcoal\Config\ConfigurableInterface</span>, 
 			
 				<a href="class-Charcoal.App.Handler.HandlerInterface.html"><span>Charcoal\App\Handler\HandlerInterface</span></a>, 
@@ -162,13 +160,13 @@ or HTML based on the Accept header.</p>
 <span>Charcoal\View\ViewableInterface</span>
 			
 			 uses 
-					Charcoal\Translation\Catalog\CatalogAwareTrait (not available)
-
-			
 					Charcoal\Config\ConfigurableTrait (not available)
 
 			
 					Psr\Log\LoggerAwareTrait (not available)
+
+			
+					Charcoal\Translator\TranslatorAwareTrait (not available)
 
 			
 					Charcoal\View\ViewableTrait (not available)
@@ -196,7 +194,7 @@ or HTML based on the Accept header.</p>
 		<b>Namespace:</b> <a href="namespace-Charcoal.html">Charcoal</a>\<a href="namespace-Charcoal.App.html">App</a>\<a href="namespace-Charcoal.App.Handler.html">Handler</a><br>
 		
 
-			<b>Located at</b> <a href="source-class-Charcoal.App.Handler.NotAllowed.html#18-202" title="Go to source code">Charcoal/App/Handler/NotAllowed.php</a>
+			<b>Located at</b> <a href="source-class-Charcoal.App.Handler.NotAllowed.html#12-157" title="Go to source code">Charcoal/App/Handler/NotAllowed.php</a>
 		<br>
 	</div>
 
@@ -216,7 +214,7 @@ or HTML based on the Accept header.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#___invoke">#</a>
-		<code><a href="source-class-Charcoal.App.Handler.NotAllowed.html#35-80" title="Go to source code">__invoke</a>( <span>Psr\Http\Message\ServerRequestInterface <var>$request</var></span>, <span>Psr\Http\Message\ResponseInterface <var>$response</var></span>, <span>array <var>$methods</var></span> )</code>
+		<code><a href="source-class-Charcoal.App.Handler.NotAllowed.html#29-72" title="Go to source code">__invoke</a>( <span>Psr\Http\Message\ServerRequestInterface <var>$request</var></span>, <span>Psr\Http\Message\ResponseInterface <var>$response</var></span>, <span>array <var>$methods</var></span> )</code>
 
 		<div class="description short">
 			<p>Invoke "Not Allowed" Handler</p>
@@ -259,7 +257,7 @@ or HTML based on the Accept header.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setMethods">#</a>
-		<code><a href="source-class-Charcoal.App.Handler.NotAllowed.html#82-93" title="Go to source code">setMethods</a>( <span>array <var>$methods</var></span> )</code>
+		<code><a href="source-class-Charcoal.App.Handler.NotAllowed.html#74-85" title="Go to source code">setMethods</a>( <span>array <var>$methods</var></span> )</code>
 
 		<div class="description short">
 			<p>Set the HTTP methods allowed by the current request.</p>
@@ -298,7 +296,7 @@ or HTML based on the Accept header.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_methods">#</a>
-		<code><a href="source-class-Charcoal.App.Handler.NotAllowed.html#95-103" title="Go to source code">methods</a>( )</code>
+		<code><a href="source-class-Charcoal.App.Handler.NotAllowed.html#87-95" title="Go to source code">methods</a>( )</code>
 
 		<div class="description short">
 			<p>Retrieves the HTTP methods allowed by the current request.</p>
@@ -332,7 +330,7 @@ or HTML based on the Accept header.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_renderPlainOutput">#</a>
-		<code><a href="source-class-Charcoal.App.Handler.NotAllowed.html#105-115" title="Go to source code">renderPlainOutput</a>( )</code>
+		<code><a href="source-class-Charcoal.App.Handler.NotAllowed.html#97-107" title="Go to source code">renderPlainOutput</a>( )</code>
 
 		<div class="description short">
 			<p>Render Plain/Text Error</p>
@@ -366,7 +364,7 @@ or HTML based on the Accept header.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_renderJsonOutput">#</a>
-		<code><a href="source-class-Charcoal.App.Handler.NotAllowed.html#117-127" title="Go to source code">renderJsonOutput</a>( )</code>
+		<code><a href="source-class-Charcoal.App.Handler.NotAllowed.html#109-119" title="Go to source code">renderJsonOutput</a>( )</code>
 
 		<div class="description short">
 			<p>Render JSON Error</p>
@@ -400,7 +398,7 @@ or HTML based on the Accept header.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_renderXmlOutput">#</a>
-		<code><a href="source-class-Charcoal.App.Handler.NotAllowed.html#129-139" title="Go to source code">renderXmlOutput</a>( )</code>
+		<code><a href="source-class-Charcoal.App.Handler.NotAllowed.html#121-131" title="Go to source code">renderXmlOutput</a>( )</code>
 
 		<div class="description short">
 			<p>Render XML Error</p>
@@ -434,7 +432,7 @@ or HTML based on the Accept header.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_messageTitle">#</a>
-		<code><a href="source-class-Charcoal.App.Handler.NotAllowed.html#141-149" title="Go to source code">messageTitle</a>( )</code>
+		<code><a href="source-class-Charcoal.App.Handler.NotAllowed.html#133-141" title="Go to source code">messageTitle</a>( )</code>
 
 		<div class="description short">
 			<p>Render title of error</p>
@@ -470,7 +468,7 @@ or HTML based on the Accept header.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_renderHtmlMessage">#</a>
-		<code><a href="source-class-Charcoal.App.Handler.NotAllowed.html#151-164" title="Go to source code">renderHtmlMessage</a>( )</code>
+		<code><a href="source-class-Charcoal.App.Handler.NotAllowed.html#143-156" title="Go to source code">renderHtmlMessage</a>( )</code>
 
 		<div class="description short">
 			<p>Render body of HTML error</p>
@@ -488,47 +486,6 @@ or HTML based on the Accept header.</p>
 
 
 
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="setCatalog" id="_setCatalog">
-
-		<td class="attributes"><code>
-			 public 
-
-			<code><a href="class-Charcoal.App.Handler.NotAllowed.html">Charcoal\App\Handler\NotAllowed</a></code>
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_setCatalog">#</a>
-		<code><a href="source-class-Charcoal.App.Handler.NotAllowed.html#166-201" title="Go to source code">setCatalog</a>( <span>Charcoal\Translation\Catalog\CatalogInterface <var>$catalog</var></span> )</code>
-
-		<div class="description short">
-			<p>Sets a translation catalog instance on the object.</p>
-		</div>
-
-		<div class="description detailed hidden">
-			<p>Sets a translation catalog instance on the object.</p>
-
-
-				<h4>Parameters</h4>
-				<div class="list"><dl>
-					<dt><var>$catalog</var></dt>
-					<dd>A translation catalog object.</dd>
-				</dl></div>
-
-				<h4>Returns</h4>
-				<div class="list">
-					<code><a href="class-Charcoal.App.Handler.NotAllowed.html">Charcoal\App\Handler\NotAllowed</a></code><br>Chainable
-				</div>
-
-
-
-				<h4>Overrides</h4>
-				<div class="list"><code><a href="class-Charcoal.App.Handler.AbstractHandler.html#_setCatalog">Charcoal\App\Handler\AbstractHandler::setCatalog()</a></code></div>
 
 		</div>
 		</div></td>
@@ -572,7 +529,7 @@ or HTML based on the Accept header.</p>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Charcoal.App.Handler.NotAllowed.html#28-33" title="Go to source code"><var>$methods</var></a>
+				<a href="source-class-Charcoal.App.Handler.NotAllowed.html#22-27" title="Go to source code"><var>$methods</var></a>
 
 			<div class="description short">
 				<p>HTTP methods allowed by the current request.</p>

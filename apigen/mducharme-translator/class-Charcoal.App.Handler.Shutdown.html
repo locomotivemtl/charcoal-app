@@ -152,8 +152,6 @@ or maintenance.</p>
 			<a href="class-Charcoal.App.Handler.AbstractHandler.html"><span>Charcoal\App\Handler\AbstractHandler</span></a>
 			
 			 implements 
-<span>Charcoal\Translation\Catalog\CatalogAwareInterface</span>, 
-			
 <span>Charcoal\Config\ConfigurableInterface</span>, 
 			
 				<a href="class-Charcoal.App.Handler.HandlerInterface.html"><span>Charcoal\App\Handler\HandlerInterface</span></a>, 
@@ -163,13 +161,13 @@ or maintenance.</p>
 <span>Charcoal\View\ViewableInterface</span>
 			
 			 uses 
-					Charcoal\Translation\Catalog\CatalogAwareTrait (not available)
-
-			
 					Charcoal\Config\ConfigurableTrait (not available)
 
 			
 					Psr\Log\LoggerAwareTrait (not available)
+
+			
+					Charcoal\Translator\TranslatorAwareTrait (not available)
 
 			
 					Charcoal\View\ViewableTrait (not available)
@@ -197,7 +195,7 @@ or maintenance.</p>
 		<b>Namespace:</b> <a href="namespace-Charcoal.html">Charcoal</a>\<a href="namespace-Charcoal.App.html">App</a>\<a href="namespace-Charcoal.App.Handler.html">Handler</a><br>
 		
 
-			<b>Located at</b> <a href="source-class-Charcoal.App.Handler.Shutdown.html#18-193" title="Go to source code">Charcoal/App/Handler/Shutdown.php</a>
+			<b>Located at</b> <a href="source-class-Charcoal.App.Handler.Shutdown.html#12-153" title="Go to source code">Charcoal/App/Handler/Shutdown.php</a>
 		<br>
 	</div>
 
@@ -217,7 +215,7 @@ or maintenance.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#___invoke">#</a>
-		<code><a href="source-class-Charcoal.App.Handler.Shutdown.html#36-77" title="Go to source code">__invoke</a>( <span>Psr\Http\Message\ServerRequestInterface <var>$request</var></span>, <span>Psr\Http\Message\ResponseInterface <var>$response</var></span>, <span>array <var>$methods</var></span> )</code>
+		<code><a href="source-class-Charcoal.App.Handler.Shutdown.html#30-69" title="Go to source code">__invoke</a>( <span>Psr\Http\Message\ServerRequestInterface <var>$request</var></span>, <span>Psr\Http\Message\ResponseInterface <var>$response</var></span>, <span>array <var>$methods</var></span> )</code>
 
 		<div class="description short">
 			<p>Invoke "Maintenance" Handler</p>
@@ -260,7 +258,7 @@ or maintenance.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setMethods">#</a>
-		<code><a href="source-class-Charcoal.App.Handler.Shutdown.html#79-90" title="Go to source code">setMethods</a>( <span>array <var>$methods</var></span> )</code>
+		<code><a href="source-class-Charcoal.App.Handler.Shutdown.html#71-82" title="Go to source code">setMethods</a>( <span>array <var>$methods</var></span> )</code>
 
 		<div class="description short">
 			<p>Set the HTTP methods allowed by the current request.</p>
@@ -299,7 +297,7 @@ or maintenance.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_methods">#</a>
-		<code><a href="source-class-Charcoal.App.Handler.Shutdown.html#92-100" title="Go to source code">methods</a>( )</code>
+		<code><a href="source-class-Charcoal.App.Handler.Shutdown.html#84-92" title="Go to source code">methods</a>( )</code>
 
 		<div class="description short">
 			<p>Retrieves the HTTP methods allowed by the current request.</p>
@@ -333,7 +331,7 @@ or maintenance.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_renderPlainOutput">#</a>
-		<code><a href="source-class-Charcoal.App.Handler.Shutdown.html#102-112" title="Go to source code">renderPlainOutput</a>( )</code>
+		<code><a href="source-class-Charcoal.App.Handler.Shutdown.html#94-104" title="Go to source code">renderPlainOutput</a>( )</code>
 
 		<div class="description short">
 			<p>Render Plain/Text Error</p>
@@ -367,7 +365,7 @@ or maintenance.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_renderJsonOutput">#</a>
-		<code><a href="source-class-Charcoal.App.Handler.Shutdown.html#114-124" title="Go to source code">renderJsonOutput</a>( )</code>
+		<code><a href="source-class-Charcoal.App.Handler.Shutdown.html#106-116" title="Go to source code">renderJsonOutput</a>( )</code>
 
 		<div class="description short">
 			<p>Render JSON Error</p>
@@ -401,7 +399,7 @@ or maintenance.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_renderXmlOutput">#</a>
-		<code><a href="source-class-Charcoal.App.Handler.Shutdown.html#126-136" title="Go to source code">renderXmlOutput</a>( )</code>
+		<code><a href="source-class-Charcoal.App.Handler.Shutdown.html#118-128" title="Go to source code">renderXmlOutput</a>( )</code>
 
 		<div class="description short">
 			<p>Render XML Error</p>
@@ -435,7 +433,7 @@ or maintenance.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_messageTitle">#</a>
-		<code><a href="source-class-Charcoal.App.Handler.Shutdown.html#138-146" title="Go to source code">messageTitle</a>( )</code>
+		<code><a href="source-class-Charcoal.App.Handler.Shutdown.html#130-138" title="Go to source code">messageTitle</a>( )</code>
 
 		<div class="description short">
 			<p>Render title of error</p>
@@ -471,7 +469,7 @@ or maintenance.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_renderHtmlMessage">#</a>
-		<code><a href="source-class-Charcoal.App.Handler.Shutdown.html#148-160" title="Go to source code">renderHtmlMessage</a>( )</code>
+		<code><a href="source-class-Charcoal.App.Handler.Shutdown.html#140-152" title="Go to source code">renderHtmlMessage</a>( )</code>
 
 		<div class="description short">
 			<p>Render body of HTML error</p>
@@ -489,47 +487,6 @@ or maintenance.</p>
 
 
 
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="setCatalog" id="_setCatalog">
-
-		<td class="attributes"><code>
-			 public 
-
-			<code><a href="class-Charcoal.App.Handler.Shutdown.html">Charcoal\App\Handler\Shutdown</a></code>
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_setCatalog">#</a>
-		<code><a href="source-class-Charcoal.App.Handler.Shutdown.html#162-192" title="Go to source code">setCatalog</a>( <span>Charcoal\Translation\Catalog\CatalogInterface <var>$catalog</var></span> )</code>
-
-		<div class="description short">
-			<p>Sets a translation catalog instance on the object.</p>
-		</div>
-
-		<div class="description detailed hidden">
-			<p>Sets a translation catalog instance on the object.</p>
-
-
-				<h4>Parameters</h4>
-				<div class="list"><dl>
-					<dt><var>$catalog</var></dt>
-					<dd>A translation catalog object.</dd>
-				</dl></div>
-
-				<h4>Returns</h4>
-				<div class="list">
-					<code><a href="class-Charcoal.App.Handler.Shutdown.html">Charcoal\App\Handler\Shutdown</a></code><br>Chainable
-				</div>
-
-
-
-				<h4>Overrides</h4>
-				<div class="list"><code><a href="class-Charcoal.App.Handler.AbstractHandler.html#_setCatalog">Charcoal\App\Handler\AbstractHandler::setCatalog()</a></code></div>
 
 		</div>
 		</div></td>
@@ -573,7 +530,7 @@ or maintenance.</p>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Charcoal.App.Handler.Shutdown.html#29-34" title="Go to source code"><var>$methods</var></a>
+				<a href="source-class-Charcoal.App.Handler.Shutdown.html#23-28" title="Go to source code"><var>$methods</var></a>
 
 			<div class="description short">
 				<p>HTTP methods allowed by the current request.</p>
