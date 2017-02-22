@@ -3,17 +3,11 @@
 namespace Charcoal\App\Handler;
 
 // Dependencies from PSR-7 (HTTP Messaging)
-use \Psr\Http\Message\ServerRequestInterface;
-use \Psr\Http\Message\ResponseInterface;
-
-// Dependency from Slim
-use \Slim\Http\Body;
-
-// Dependency from 'charcoal-translation'
-use \Charcoal\Translation\Catalog\CatalogInterface;
+use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Message\ResponseInterface;
 
 // Local Dependencies
-use \Charcoal\App\Handler\AbstractHandler;
+use Charcoal\App\Handler\AbstractHandler;
 
 /**
  * Not Allowed Handler
@@ -68,15 +62,13 @@ class NotAllowed extends AbstractHandler
             }
         }
 
-        $body = new Body(fopen('php://temp', 'r+'));
-        $body->write($output);
+        $response->getBody()->write($output);
         $allow = implode(', ', $methods);
 
         return $response
                 ->withStatus($status)
                 ->withHeader('Content-type', $contentType)
-                ->withHeader('Allow', $allow)
-                ->withBody($body);
+                ->withHeader('Allow', $allow);
     }
 
     /**
@@ -109,7 +101,7 @@ class NotAllowed extends AbstractHandler
      */
     protected function renderPlainOutput()
     {
-        $message = $this->catalog()->translate('allowed-methods-1').' '.$this->methods();
+        $message = $this->translator()->translate('Allowed methods:').' '.$this->methods();
 
         return $this->render($message);
     }
@@ -121,7 +113,7 @@ class NotAllowed extends AbstractHandler
      */
     protected function renderJsonOutput()
     {
-        $message = $this->catalog()->translate('allowed-methods-2').' '.$this->methods();
+        $message = $this->translator()->translate('Method not allowed. Must be one of:').' '.$this->methods();
 
         return $this->render('{"message":"'.$message.'"}');
     }
@@ -133,7 +125,7 @@ class NotAllowed extends AbstractHandler
      */
     protected function renderXmlOutput()
     {
-        $message = $this->catalog()->translate('allowed-methods-2').' '.$this->methods();
+        $message = $this->translator()->translate('Method not allowed. Must be one of:').' '.$this->methods();
 
         return $this->render('<root><message>'.$message.'</message></root>');
     }
@@ -145,7 +137,7 @@ class NotAllowed extends AbstractHandler
      */
     public function messageTitle()
     {
-        return $this->catalog()->entry('method-not-allowed');
+        return $this->translator()->translate('Method not allowed.');
     }
 
     /**
@@ -156,48 +148,11 @@ class NotAllowed extends AbstractHandler
     public function renderHtmlMessage()
     {
         $title   = $this->messageTitle();
-        $notice  = $this->catalog()->entry('allowed-methods-2');
+        $notice  = $this->translator()->entry('Method not allowed. Must be one of:');
         $methods = $this->methods();
         $message = '<h1>'.$title."</h1>\n\t\t<p>".$notice.' <strong>'.$methods."</strong></p>\n";
 
         return $message;
-    }
-
-    /**
-     * Sets a translation catalog instance on the object.
-     *
-     * @param  CatalogInterface $catalog A translation catalog object.
-     * @return NotAllowed Chainable
-     */
-    public function setCatalog(CatalogInterface $catalog)
-    {
-        parent::setCatalog($catalog);
-
-        $messages = [
-            'method-not-allowed' => [
-                'en' => 'Method not allowed.',
-                'fr' => 'Méthode non autorisée.',
-                'es' => 'Método no permitido.'
-            ],
-            'allowed-methods-1' => [
-                'en' => 'Allowed methods:',
-                'fr' => 'Méthodes permises:',
-                'es' => 'Métodos permitidos:'
-            ],
-            'allowed-methods-2' => [
-                'en' => 'Method not allowed. Must be one of:',
-                'fr' => 'Méthode non autorisée. Doit être:',
-                'es' => 'Método no permitido. Debe ser uno de:'
-            ]
-        ];
-
-        foreach ($messages as $key => $entry) {
-            if (!$this->catalog()->hasEntry($key)) {
-                $this->catalog()->addEntry($key, $entry);
-            }
-        }
-
-        return $this;
     }
 }
 

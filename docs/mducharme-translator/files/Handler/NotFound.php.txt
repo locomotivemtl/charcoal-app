@@ -3,17 +3,11 @@
 namespace Charcoal\App\Handler;
 
 // Dependencies from PSR-7 (HTTP Messaging)
-use \Psr\Http\Message\ServerRequestInterface;
-use \Psr\Http\Message\ResponseInterface;
-
-// Dependency from Slim
-use \Slim\Http\Body;
-
-// Dependency from 'charcoal-translation'
-use \Charcoal\Translation\Catalog\CatalogInterface;
+use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Message\ResponseInterface;
 
 // Local Dependencies
-use \Charcoal\App\Handler\AbstractHandler;
+use Charcoal\App\Handler\AbstractHandler;
 
 /**
  * Not Found Handler
@@ -50,12 +44,10 @@ class NotFound extends AbstractHandler
                 $output = $this->renderHtmlOutput();
         }
 
-        $body = new Body(fopen('php://temp', 'r+'));
-        $body->write($output);
+        $response->getBody()->write($output);
 
         return $response->withStatus(404)
-                        ->withHeader('Content-Type', $contentType)
-                        ->withBody($body);
+                        ->withHeader('Content-Type', $contentType);
     }
 
     /**
@@ -65,7 +57,7 @@ class NotFound extends AbstractHandler
      */
     protected function renderPlainOutput()
     {
-        $message = $this->catalog()->translate('not-found');
+        $message = $this->translator()->translate('Not Found');
 
         return $this->render($message);
     }
@@ -77,7 +69,7 @@ class NotFound extends AbstractHandler
      */
     protected function renderJsonOutput()
     {
-        $message = $this->catalog()->translate('not-found');
+        $message = $this->translator()->translate('Not Found');
 
         return $this->render('{"message":"'.$message.'"}');
     }
@@ -89,7 +81,7 @@ class NotFound extends AbstractHandler
      */
     protected function renderXmlOutput()
     {
-        $message = $this->catalog()->translate('not-found');
+        $message = $this->translator()->translate('Not Found');
 
         return $this->render('<root><message>'.$message.'</message></root>');
     }
@@ -101,7 +93,7 @@ class NotFound extends AbstractHandler
      */
     public function messageTitle()
     {
-        return $this->catalog()->entry('page-not-found');
+        return $this->translator()->translate('Page Not Found');
     }
 
     /**
@@ -115,60 +107,12 @@ class NotFound extends AbstractHandler
         $link  = sprintf(
             '<a href="%1$s">%2$s</a>',
             $this->baseUrl(),
-            $this->catalog()->entry('visit-home-page')
+            $this->translator()->translate('Visit the Home Page')
         );
-        $notice  = $this->catalog()->entry('page-not-found-description');
+        $notice  = $this->translator()->translate('The page you are looking for could not be found. Check the address bar to ensure your URL is spelled correctly. If all else fails, you can visit our home page at the link below.');
         $message = '<h1>'.$title."</h1>\n\t\t<p>".$notice."</p>\n\t\t<p>".$link."</p>\n";
 
         return $message;
-    }
-
-    /**
-     * Sets a translation catalog instance on the object.
-     *
-     * @param  CatalogInterface $catalog A translation catalog object.
-     * @return NotFound Chainable
-     */
-    public function setCatalog(CatalogInterface $catalog)
-    {
-        parent::setCatalog($catalog);
-
-        $messages = [
-            'page-not-found' => [
-                'en' => 'Page Not Found',
-                'fr' => 'Page Introuvable',
-                'es' => 'Página No Encontrada'
-            ],
-            'not-found' => [
-                'en' => 'Not Found',
-                'fr' => 'Introuvable',
-                'es' => 'No Encontrado'
-            ],
-            'visit-home-page' => [
-                'en' => 'Visit the Home Page',
-                'fr' => 'Visitez la page d’accueil',
-                'es' => 'Visita la página de inicio'
-            ],
-            'page-not-found-description' => [
-                'en' => 'The page you are looking for could not be found. '
-                       .'Check the address bar to ensure your URL is spelled correctly. '
-                       .'If all else fails, you can visit our home page at the link below.',
-                'fr' => 'La page que vous recherchez n’a pu être trouvée. '
-                       .'Vérifiez la barre d’adresse pour assurer que votre URL est correctement orthographié. '
-                       .'Si rien ne fonctionne, vous pouvez visiter notre page d’accueil au lien ci-dessous.',
-                'es' => 'La página que estás buscando no se pudo encontrar. '
-                       .'Compruebe la barra de direcciones para asegurarse de que su URL está escrito correctamente. '
-                       .'Si todo lo demás falla, se puede visitar la página de inicio en el siguiente enlace.'
-            ]
-        ];
-
-        foreach ($messages as $key => $entry) {
-            if (!$this->catalog()->hasEntry($key)) {
-                $this->catalog()->addEntry($key, $entry);
-            }
-        }
-
-        return $this;
     }
 }
 
