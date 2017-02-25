@@ -2,23 +2,20 @@
 
 namespace Charcoal\App\Handler;
 
-use \Throwable;
+use Throwable;
 
 // Dependencies from PSR-7 (HTTP Messaging)
-use \Psr\Http\Message\ServerRequestInterface;
-use \Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Message\ResponseInterface;
 
 // Dependency from Slim
-use \Slim\Http\Body;
+use Slim\Http\Body;
 
 // Dependency from Pimple
-use \Pimple\Container;
-
-// Dependency from 'charcoal-translation'
-use \Charcoal\Translation\Catalog\CatalogInterface;
+use Pimple\Container;
 
 // Local Dependencies
-use \Charcoal\App\Handler\AbstractHandler;
+use Charcoal\App\Handler\AbstractHandler;
 
 /**
  * Error Handler for PHP 7+ Throwables
@@ -165,7 +162,7 @@ class PhpError extends AbstractHandler
 
         $error = $this->error();
 
-        $message  = $this->catalog()->entry('application-error').':'.PHP_EOL;
+        $message  = $this->translator()->translate('Application Error').':'.PHP_EOL;
         $message .= $this->renderTextError($error);
         while ($error = $error->getPrevious()) {
             $message .= PHP_EOL.'Previous error:'.PHP_EOL;
@@ -225,7 +222,7 @@ class PhpError extends AbstractHandler
     {
         $error = $this->error();
         $json  = [
-            'message' => $this->catalog()->entry('application-error'),
+            'message' => $this->translator()->translate('Application Error'),
         ];
 
         if ($this->displayErrorDetails()) {
@@ -344,39 +341,12 @@ class PhpError extends AbstractHandler
                 $html .= $this->renderHtmlError($error);
             }
         } else {
-            $html = '<p>'.$this->catalog()->entry('generic-error').'</p>';
+            $html = '<p>'.$this->translator()->translate('A website error has occurred. Sorry for the temporary inconvenience.').'</p>';
         }
 
         $title   = $this->messageTitle();
         $message = '<h1>'.$title."</h1>\n".$html."\n";
 
         return $message;
-    }
-
-    /**
-     * Sets a translation catalog instance on the object.
-     *
-     * @param  CatalogInterface $catalog A translation catalog object.
-     * @return PhpError Chainable
-     */
-    public function setCatalog(CatalogInterface $catalog)
-    {
-        parent::setCatalog($catalog);
-
-        $messages = [
-            'generic-error' => [
-                'en' => 'A website error has occurred. Sorry for the temporary inconvenience.',
-                'fr' => 'Une erreur de site a eu lieu. Désolé pour le désagrément temporaire.',
-                'es' => 'Se ha producido un error de página web. Disculpa las molestias temporales.'
-            ]
-        ];
-
-        foreach ($messages as $key => $entry) {
-            if (!$this->catalog()->hasEntry($key)) {
-                $this->catalog()->addEntry($key, $entry);
-            }
-        }
-
-        return $this;
     }
 }

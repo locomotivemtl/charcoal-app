@@ -1,19 +1,8 @@
 <?php
 
-use \Charcoal\App\App;
-use \Charcoal\App\AppConfig;
-use \Charcoal\App\AppContainer;
+session_start();
+mb_internal_encoding('UTF-8');
+date_default_timezone_set('UTC');
 
+/** @var \Composer\Autoload\ClassLoader $autoloader */
 $autoloader = require __DIR__.'/../vendor/autoload.php';
-$autoloader->add('Charcoal\\', __DIR__.'/src/');
-$autoloader->add('Charcoal\\Tests\\', __DIR__);
-
-$config = new AppConfig([
-    'base_path' => (dirname(__DIR__).'/')
-]);
-$GLOBALS['container'] = new AppContainer([
-    'config' => $config
-]);
-
-// Charcoal / Slim is the main app
-$GLOBALS['app'] = new App($GLOBALS['container']);

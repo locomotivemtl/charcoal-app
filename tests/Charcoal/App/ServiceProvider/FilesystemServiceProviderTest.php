@@ -2,8 +2,6 @@
 
 namespace Charcoal\Tests\App\ServiceProvider;
 
-use PHPUnit_Framework_TestCase;
-
 use Pimple\Container;
 
 // Dependencies from `league/flysystem`
@@ -28,7 +26,7 @@ use Charcoal\App\ServiceProvider\FilesystemServiceProvider;
 /**
  *
  */
-class FilesystemServiceProviderTest extends PHPUnit_Framework_TestCase
+class FilesystemServiceProviderTest extends \PHPUnit_Framework_TestCase
 {
     private $obj;
 

@@ -2,8 +2,6 @@
 
 namespace Charcoal\Tests\App\Route;
 
-use \Charcoal\Translation\TranslationString;
-
 use \Charcoal\App\Route\TemplateRouteConfig;
 
 class TemplateRouteConfigTest extends \PHPUnit_Framework_TestCase
@@ -47,8 +45,7 @@ class TemplateRouteConfigTest extends \PHPUnit_Framework_TestCase
         $ret = $this->obj->setRedirect('foobar');
         $this->assertSame($ret, $this->obj);
 
-        $exp = new TranslationString('foobar');
-        $this->assertEquals($exp, $this->obj->redirect());
+        $this->assertEquals('foobar', $this->obj->redirect());
     }
 
     public function testSetRedirectMode()

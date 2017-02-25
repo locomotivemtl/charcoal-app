@@ -2,23 +2,44 @@
 
 namespace Charcoal\Tests\App\Route;
 
+// From 'charcoal-app'
+use \Charcoal\App\App;
 use \Charcoal\App\Route\RouteManager;
 
+/**
+ *
+ */
 class RouteManagerTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * Tested Class.
+     *
+     * @var RouteManager
+     */
     public $obj;
 
+    /**
+     * Charcoal Application.
+     *
+     * @var App
+     */
+    public $app;
+
+    /**
+     * Set up the test.
+     */
     public function setUp()
     {
+        $this->app = App::instance();
         $this->obj = new RouteManager([
             'config' => [],
-            'app'    => $GLOBALS['app']
+            'app'    => $this->app
         ]);
     }
 
     public function testConstructor()
     {
-        $this->assertInstanceOf('\Charcoal\App\Route\RouteManager', $this->obj);
+        $this->assertInstanceOf(RouteManager::class, $this->obj);
     }
 
     public function testSetupTemplate()
@@ -27,12 +48,12 @@ class RouteManagerTest extends \PHPUnit_Framework_TestCase
             'config' => [
                 'templates' => [
                     'foo', [
-                        'ident' => 'test',
+                        'ident'  => 'test',
                         'method' => ['GET', 'POST']
                     ]
                 ]
             ],
-            'app'    => $GLOBALS['app']
+            'app' => $this->app
         ]);
         $ret = $obj->setupRoutes();
         //$this->assertInstanceOf('\Slim\Route', $ret);
@@ -44,12 +65,12 @@ class RouteManagerTest extends \PHPUnit_Framework_TestCase
             'config' => [
                 'actions' => [
                     'foo', [
-                        'ident' => 'test',
+                        'ident'  => 'test',
                         'method' => ['GET', 'POST']
                     ]
                 ]
             ],
-            'app'    => $GLOBALS['app']
+            'app' => $this->app
         ]);
         $ret = $obj->setupRoutes();
         //$this->assertInstanceOf('\Slim\Route', $ret);
@@ -61,12 +82,12 @@ class RouteManagerTest extends \PHPUnit_Framework_TestCase
             'config' => [
                 'scripts' => [
                     'foo', [
-                        'ident' => 'test',
+                        'ident'  => 'test',
                         'method' => ['GET', 'POST']
                     ]
                 ]
             ],
-            'app'    => $GLOBALS['app']
+            'app' => $this->app
         ]);
         //$ret = $obj->setupRoutes();
         //$this->assertInstanceOf('\Slim\Route', $ret);

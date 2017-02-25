@@ -15,8 +15,8 @@ class ActionRouteConfigTest extends \PHPUnit_Framework_TestCase
 
     public function testSetActionData()
     {
-        $ret = $this->obj->setActionData(['foo'=>'bar']);
+        $ret = $this->obj->setActionData([ 'foo' => 'bar' ]);
         $this->assertSame($ret, $this->obj);
-        $this->assertEquals(['foo'=>'bar'], $this->obj->actionData());
+        $this->assertEquals([ 'foo' => 'bar' ], $this->obj->actionData());
     }
 }

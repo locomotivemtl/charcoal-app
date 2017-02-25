@@ -2,31 +2,47 @@
 
 namespace Charcoal\Tests\App\Action;
 
-use \PHPUnit_Framework_TestCase;
-
-use \Psr\Log\NullLogger;
-
+// From PSR-7
 use \Psr\Http\Message\RequestInterface;
 
+// From Slim
 use \Slim\Http\Response;
 
+// From Pimple
 use \Pimple\Container;
 
+// From 'charcoal-app'
 use \Charcoal\App\Action\AbstractAction;
+use \Charcoal\Tests\App\ContainerProvider;
 
 /**
  *
  */
-class AbstractActionTest extends PHPUnit_Framework_TestCase
+class AbstractActionTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * Tested Class.
+     *
+     * @var AbstractAction
+     */
+    private $obj;
 
-    public $obj;
+    /**
+     * Store the service container.
+     *
+     * @var Container
+     */
+    private $container;
 
+    /**
+     * Set up the test.
+     */
     public function setUp()
     {
-        $container = new Container();
+        $container = $this->container();
+
         $this->obj = $this->getMockForAbstractClass(AbstractAction::class, [[
-            'logger'    => new NullLogger(),
+            'logger'    => $container['logger'],
             'container' => $container
         ]]);
     }
@@ -34,8 +50,8 @@ class AbstractActionTest extends PHPUnit_Framework_TestCase
     public function testSetData()
     {
         $ret = $this->obj->setData([
-            'mode' => 'redirect',
-            'success' => true,
+            'mode'        => 'redirect',
+            'success'     => true,
             'success_url' => 'win',
             'failure_url' => 'fail'
         ]);
@@ -206,8 +222,27 @@ class AbstractActionTest extends PHPUnit_Framework_TestCase
 
     public function testSetDependencies()
     {
-        $container = new Container();
+        $container = $this->container();
+
         $res = $this->obj->setDependencies($container);
         $this->assertNull($res);
+    }
+
+    /**
+     * Set up the service container.
+     *
+     * @return Container
+     */
+    private function container()
+    {
+        if ($this->container === null) {
+            $container = new Container();
+            $containerProvider = new ContainerProvider();
+            $containerProvider->registerLogger($container);
+
+            $this->container = $container;
+        }
+
+        return $this->container;
     }
 }

@@ -2,8 +2,6 @@
 
 namespace Charcoal\Tests\App\ServiceProvider;
 
-use \PHPUnit_Framework_TestCase;
-
 use \Pimple\Container;
 
 use \Charcoal\App\ServiceProvider\AppServiceProvider;
@@ -11,7 +9,7 @@ use \Charcoal\App\ServiceProvider\AppServiceProvider;
 /**
  *
  */
-class AppServiceProviderTest extends PHPUnit_Framework_TestCase
+class AppServiceProviderTest extends \PHPUnit_Framework_TestCase
 {
     public function testProvider()
     {

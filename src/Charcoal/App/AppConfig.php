@@ -168,7 +168,6 @@ class AppConfig extends AbstractConfig
             'routables'        => [],
             'handlers'         => [],
             'modules'          => [],
-            'translator'       => [],
             'cache'            => [],
             'logger'           => [],
             'view'             => [],
@@ -176,66 +175,6 @@ class AppConfig extends AbstractConfig
             'default_database' => 'default',
             'dev_mode'         => false
         ];
-    }
-
-    /**
-     * Set the application's absolute root path.
-     *
-     * Resolves symlinks with realpath() and ensure trailing slash.
-     *
-     * @deprecated In favor of {self::setBasePath()}
-     * @param  string $path The absolute path to the application's root directory.
-     * @return AppConfig Chainable
-     */
-    public function setROOT($path)
-    {
-        trigger_error('setROOT() is deprecated. Use setBasePath() instead.', E_USER_DEPRECATED);
-
-        $this->setBasePath($path);
-
-        return $this;
-    }
-
-    /**
-     * Retrieve the application's absolute root path.
-     *
-     * @deprecated In favor of {self::basePath()}
-     * @return string The absolute path to the application's root directory.
-     */
-    public function ROOT()
-    {
-        trigger_error('ROOT() is deprecated. Use basePath() instead.', E_USER_DEPRECATED);
-
-        return $this->basePath();
-    }
-
-    /**
-     * Set the application's fully qualified base URL to the public web directory.
-     *
-     * @deprecated In favor of {self::setBaseUrl()}
-     * @param  string $uri The base URI to the application's web directory.
-     * @return AppConfig Chainable
-     */
-    public function setURL($uri)
-    {
-        trigger_error('setURL() is deprecated. Use setBaseUrl() instead.', E_USER_DEPRECATED);
-
-        $this->setBaseUrl($uri);
-
-        return $this;
-    }
-
-    /**
-     * Retrieve the application's fully qualified base URL to the public web directory.
-     *
-     * @deprecated In favor of {self::baseUrl()}
-     * @return string The base URI to the application's web directory.
-     */
-    public function URL()
-    {
-        trigger_error('URL() is deprecated. Use baseUrl() instead.', E_USER_DEPRECATED);
-
-        return $this->baseUrl();
     }
 
     /**
@@ -467,28 +406,6 @@ class AppConfig extends AbstractConfig
     public function devMode()
     {
         return !!$this->devMode;
-    }
-
-    /**
-     * @param array $translator The translator configuration structure to set.
-     * @return AppConfig Chainable
-     */
-    public function setTranslator(array $translator)
-    {
-        if (!isset($this->translator)) {
-            $this->translator = [];
-        }
-
-        $toIterate = [ 'locales', 'translations' ];
-        foreach ($translator as $key => $val) {
-            if (in_array($key, $toIterate) && isset($this->translator[$key])) {
-                $this->translator[$key] = array_merge($this->translator[$key], $val);
-            } else {
-                $this->translator[$key] = $val;
-            }
-        }
-
-        return $this;
     }
 
     /**

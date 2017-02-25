@@ -1,10 +1,9 @@
 Charcoal App
 ============
 
-Charcoal App is a framework to create and manage _Charcoal_ application with **Slim 3**.
-An _app is a collection of _modules_, _routes_ (`templates`, `actions` and `scripts`), _handlers_ and _services_ tied together with a `Charcoal` _config_ and a `Pimple` _container_.
+Charcoal App is a framework to create and manage _Charcoal_ applications with **Slim 3**. An app is a collection of _modules_, _routes_ (`templates`, `actions` and `scripts`), _handlers_, and _services_ tied together with a _configs_ and a _service container_.
 
-Provided services (through `Pimple`'s _Service Providers_) are a psr-3 _logger_, a psr-6 _cache_ system, a _view_ / renderer, Flysystem _filesystems_, a PDO _database_ source and a _translator_.
+Provided services (through `Pimple`'s _Service Providers_) are a PSR-3 _logger_, a PSR-6 _cache_ system, a _view_ / renderer, Flysystem _filesystems_, a PDO _database_ source, and a _translator_.
 
 # Table of contents
 
@@ -242,12 +241,12 @@ By default, what this route handler does is instanciate an _Action_ object (the 
 
 Actions are basic _Charcoal Entities_ (they extend the `\Charcoal\Config\AbstractEntity` class). Actions are meant to be subclassed in custom projects. But it provides the following default options:
 
-| Key        | Type     | Default        | Description     |
-| ---------- | -------- | -------------- | --------------- |
-| **mode**   | `string` | ``json'`       | The mode can be "json" or "redirect". `json` returns json data; redirect sends a 30X redirect. |
-| **success** | `boolean` | `false`      | Wether the action was successful or not. Typically changed in the `run` method. |
-| **success_url** | `string` | `null` |
-| **failure_url** | `string` | `null` |
+| Key             | Type      | Default        | Description     |
+| --------------- | --------- | -------------- | --------------- |
+| **mode**        | `string`  | ``json'`       | The mode can be "json" or "redirect". `json` returns json data; redirect sends a 30X redirect.
+| **success**     | `boolean` | `false`        | Wether the action was successful or not. Typically changed in the `run` method.
+| **success_url** | `string`  | `null`         |
+| **failure_url** | `string`  | `null`         |
 
 When writing an action, there are only 2 abstract methods that must be added to the _Action_ class:
 
@@ -337,13 +336,13 @@ By default, what this route handler does is instanciate a _Script_ object (the t
 
 > The CLI helper (arguments parser, input and output handlers) is provided by [climate](https://github.com/thephpleague/climate).
 
-####Script API
+#### Script API
 
 | Key           | Type     | Default        | Description     |
 | ------------- | -------- | -------------- | --------------- |
 | **arguments** | `array`  | _help, quiet and verbose_ | The script arguments. |
 
-#### Custom scripts
+#### Custom Scripts
 
 Creating custom scripts is exactly like creating custom actions:
 
@@ -559,7 +558,7 @@ Here is an example of route definitions. Some things to note:
 }
 ```
 
-## Routable objects
+## Routable Objects
 
 Routes are great to match URL path to template controller or action controller, but needs to **all** be defined in the (main) `AppConfig` configuration.
 
@@ -643,29 +642,33 @@ Dependencies are handled with a `Pimple` dependency Container.
 Basic "App" services are:
 
 -   `cache`
-  -   A `\Stash\Pool` instance.
-  -   Configured by `config['cache']`
+    -   A `\Stash\Pool` instance.
+    -   Configured by `config['cache']`
 -   `config`
-  -   A `\Charcoal\App\AppConfig` instance.
+    -   A `\Charcoal\App\AppConfig` instance.
 -   `database`
-  -   The default _PDO_ database.
-  -   From a pool of database, available through `databases`.
-  -   Configured by `config['databases']` and `config['default_database']`.
+    -   The default _PDO_ database.
+    -   From a pool of database, available through `databases`.
+    -   Configured by `config['databases']` and `config['default_database']`.
 -   `filesystems`
     - A (pimple) container of `\League\Flysystem\Filesystem`
     - Configured by `config['filesystem]`
     - Also provide a `\League\Flysystem\MountManager` as `filesystem/manager`. 
 -   `logger`
-  -   A `\Psr\Log\Logger` instance.
-  -   Provided by _Monolog_.
-  -   Configured by `config['logger']`
+    -   A `\Psr\Log\Logger` instance.
+    -   Provided by _Monolog_.
+    -   Configured by `config['logger']`
 -   `translator`
-  -   To do.
+    -   A `Charcoal\Translator\Translation` object for multilingual strings.
+    -   A `Charcoal\Translator\Translator` service based on [Symfony's Translator](https://github.com/symfony/translation).
+    -   A `Charcoal\Translator\LocalesManager` for managing available languages.
+    -   Configured by `config['translator']` and `config['locales']`
+    -   Provided by [`charcoal-translator`](https://github.com/locomotivemtl/charcoal-translator)
 -   `view`
     -   A `Charcoal\View\ViewInterface` instance
     -   Typically a `\Charcoal\View\GenericView` object.
     -   Configured by `config['view']`
-    -   Actually provided by [`charcoal-view`](https://github.com/locomotivemtl/charcoal-view)
+    -   Provided by [`charcoal-view`](https://github.com/locomotivemtl/charcoal-view)
 
 
 ## App Service Provider
@@ -858,45 +861,76 @@ Possible **processors** are `memory-usage` and `uid`.
 
 ## Translator Service Provider
 
-The `TranslatorServiceProvider`, or `charcoal/app/service-provider/translator` provides the following services:
+The `TranslatorServiceProvider`, or `charcoal/translator/service-provider/translator` provides the following services:
 
 -   `translator`
-    -   Todo
 
 Also available are the following helpers:
 
--   `translator/config`
+-   `locales/config`
 
 ### Translator config
 
 | Key               | Type     | Default       | Description |
 | ----------------- | -------- | ------------- | ----------- |
-| **active**        | `bool`   | `true`
-| **types**         | `array`  |
 | **locales**       | `array`  |
-| **translations**  | `array`  |
+| **translator**    | `array`  |
 
 Or, in JSON format:
 
 ```json
-{
-    "translator": {
-        "active": true,
-        "types": [],
-        "locales": {
-            "repositories": [],
-            "languages": {
-                "en": {},
-                "fr": {}
-            },
-            "default_language": "",
-            "fallback_languages": ["en"]
+"locales": {
+    "languages": {
+        "de": {},
+        "en": {},
+        "es": {
+            "active": false
         },
-        "translations": {
-            "paths": [],
-            "messages": []
+        "fr": {}
+    },
+    "default_language": "fr",
+    "fallback_languages": [
+        "en", 
+        "fr"
+    ],
+    "auto_detect": true
+},
+"translator": {
+    "loaders": [
+        "xliff",
+        "json",
+        "php"
+    ],
+    "paths": [
+        "translations/",
+        "vendor/locomotivemtl/charcoal-app/translations/"
+    ],
+    "debug": false,
+    "cache_dir": "cache/translator",
+    "translations": {
+        "messages": {
+            "de": {
+                "hello": "Hallo {{ name }}",
+                "goodbye": "Auf Wiedersehen!"
+            },
+            "en": {
+                "hello": "Hello {{ name }}",
+                "goodbye": "Goodbye!"
+            },
+            "es": {
+                "hello": "Hallo {{ name }}",
+                "goodbye": "Adios!"
+            },
+            "fr": {
+                "hello": "Bonjour {{ name }}",
+                "goodbye": "Au revoir!"
+            }
+        },
+        "admin": {
+            "fr": {
+                "Save": "Enregistrer"
+            }
         }
-
     }
 }
 ```

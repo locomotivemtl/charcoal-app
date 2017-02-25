@@ -16,10 +16,10 @@
         }
     ],
     "minimum-stability": "dev",
-    "prefer-stable":true,
+    "prefer-stable": true,
     "extra": {
         "branch-alias": {
-            "dev-master": "0.2.x-dev"
+            "dev-master": "0.4.x-dev"
         }
     },
     "require": {
@@ -34,10 +34,11 @@
         "locomotivemtl/charcoal-config": "~0.7",
         "locomotivemtl/charcoal-factory": "~0.4",
         "locomotivemtl/charcoal-view": "~0.2",
-        "locomotivemtl/charcoal-translation": "~0.1"
+        "locomotivemtl/charcoal-translator": "~0.1"
     },
     "require-dev": {
         "phpunit/phpunit": "^4.8",
+        "mockery/mockery": "^0.9.6",
         "squizlabs/php_codesniffer": "^2.4",
         "satooshi/php-coveralls": "~1.0.1",
         "league/flysystem-aws-s3-v3": "^1.0",
@@ -49,6 +50,11 @@
     "autoload": {
         "psr-4": {
             "Charcoal\\": "src/Charcoal/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Charcoal\\Tests\\": "tests/Charcoal"
         }
     },
     "bin": [ "bin/charcoal" ],

@@ -3,38 +3,34 @@
 namespace Charcoal\App\Handler;
 
 // Dependencies from PSR-3 (logger)
-use \Psr\Log\LoggerAwareInterface;
-use \Psr\Log\LoggerAwareTrait;
+use Psr\Log\LoggerAwareInterface;
+use Psr\Log\LoggerAwareTrait;
 
 // Dependencies from PSR-7 (HTTP Messaging)
-use \Psr\Http\Message\ResponseInterface;
-use \Psr\Http\Message\ServerRequestInterface;
-use \Psr\Http\Message\UriInterface;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Message\UriInterface;
 
 // Dependency from Pimple
-use \Pimple\Container;
+use Pimple\Container;
 
 // Dependency from 'charcoal-config'
-use \Charcoal\Config\ConfigurableInterface;
-use \Charcoal\Config\ConfigurableTrait;
-
-// Dependency from 'charcoal-translation'
-use \Charcoal\Translation\Catalog\CatalogInterface;
-use \Charcoal\Translation\Catalog\CatalogAwareInterface;
-use \Charcoal\Translation\Catalog\CatalogAwareTrait;
+use Charcoal\Config\ConfigurableInterface;
+use Charcoal\Config\ConfigurableTrait;
 
 // Dependencies from 'charcoal-view'
-use \Charcoal\View\ViewInterface;
-use \Charcoal\View\ViewableInterface;
-use \Charcoal\View\ViewableTrait;
+use Charcoal\View\ViewInterface;
+use Charcoal\View\ViewableInterface;
+use Charcoal\View\ViewableTrait;
+
+// Dependencies from 'charcoal-translator'
+use Charcoal\Translator\TranslatorAwareTrait;
 
 // Intra-module (`charcoal-app`) dependencies
-use \Charcoal\App\AppConfig;
-use \Charcoal\App\Template\TemplateInterface;
-
-// Local Dependencies
-use \Charcoal\App\Handler\HandlerInterface;
-use \Charcoal\App\Handler\HandlerConfig;
+use Charcoal\App\AppConfig;
+use Charcoal\App\Template\TemplateInterface;
+use Charcoal\App\Handler\HandlerInterface;
+use Charcoal\App\Handler\HandlerConfig;
 
 /**
  * Base Error Handler
@@ -45,15 +41,14 @@ use \Charcoal\App\Handler\HandlerConfig;
  * based on the Accept header.
  */
 abstract class AbstractHandler implements
-    CatalogAwareInterface,
     ConfigurableInterface,
     HandlerInterface,
     LoggerAwareInterface,
     ViewableInterface
 {
-    use CatalogAwareTrait;
     use ConfigurableTrait;
     use LoggerAwareTrait;
+    use TranslatorAwareTrait;
     use ViewableTrait;
 
     /**
@@ -110,7 +105,6 @@ abstract class AbstractHandler implements
      * - `AppConfig $appConfig` — The application's configuration.
      * - `UriInterface $baseUri` — A base URI.
      * - `ViewInterface $view` — A view instance.
-     * - `CatalogInterface $catalog` — A translation catalog.
      *
      * @param  Container $container A dependencies container instance.
      * @return AbstractHandler Chainable
@@ -121,7 +115,7 @@ abstract class AbstractHandler implements
         $this->setContainer($container);
         $this->setBaseUrl($container['base-url']);
         $this->setView($container['view']);
-        $this->setCatalog($container['translator/catalog']);
+        $this->setTranslator($container['translator']);
 
         if (isset($container['config']['handlers.defaults'])) {
             $this->setConfig($container['config']['handlers.defaults']);
@@ -217,7 +211,7 @@ abstract class AbstractHandler implements
      */
     public function messageTitle()
     {
-        return $this->catalog()->entry('application-error');
+        return $this->translator()->translate('Application Error');
     }
 
     /**
@@ -289,37 +283,5 @@ abstract class AbstractHandler implements
     public function baseUrl()
     {
         return $this->baseUrl;
-    }
-
-    /**
-     * Sets a translation catalog instance on the object.
-     *
-     * @param  CatalogInterface $catalog A translation catalog object.
-     * @return AbstractHandler Chainable
-     */
-    public function setCatalog(CatalogInterface $catalog)
-    {
-        $this->catalog = $catalog;
-
-        $messages = [
-            'error' => [
-                'en' => 'Error',
-                'fr' => 'Erreur',
-                'es' => 'Error'
-            ],
-            'application-error' => [
-                'en' => 'Application Error',
-                'fr' => 'Erreur de l’application',
-                'es' => 'Error Aplicación'
-            ]
-        ];
-
-        foreach ($messages as $key => $entry) {
-            if (!$this->catalog()->hasEntry($key)) {
-                $this->catalog()->addEntry($key, $entry);
-            }
-        }
-
-        return $this;
     }
 }

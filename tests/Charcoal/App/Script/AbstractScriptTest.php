@@ -2,29 +2,55 @@
 
 namespace Charcoal\Tests\App\Script;
 
-// From 'league/climate'
-use \League\CLImate\CLImate;
+// From PSR-7
+use \Psr\Http\Message\RequestInterface;
+use \Psr\Http\Message\ResponseInterface;
 
-use \Charcoal\App\App;
+// From Pimple
+use \Pimple\Container;
 
+// From 'charcoal-app'
+use \Charcoal\App\Script\AbstractScript;
+use \Charcoal\Tests\App\ContainerProvider;
+
+/**
+ *
+ */
 class AbstractScriptTest extends \PHPUnit_Framework_TestCase
 {
-    public $obj;
+    /**
+     * Tested Class.
+     *
+     * @var AbstractScript
+     */
+    private $obj;
 
+    /**
+     * Store the service container.
+     *
+     * @var Container
+     */
+    private $container;
+
+    /**
+     * Set up the test.
+     */
     public function setUp()
     {
-        $this->obj = $this->getMockForAbstractClass('\Charcoal\App\Script\AbstractScript', [[
-                'app'=>$GLOBALS['app'],
-                'logger'=>new \Psr\Log\NullLogger(),
-                'climate' => new CLImate()
-            ]]);
+        $container = $this->container();
+
+        $this->obj = $this->getMockForAbstractClass(AbstractScript::class, [[
+            'climate'   => $container['climate'],
+            'logger'    => $container['logger'],
+            'container' => $container
+        ]]);
     }
 
     public function testInvoke()
     {
-        $request = $this->getMock('\Psr\Http\Message\RequestInterface');
-        $response = $this->getMock('\Psr\Http\Message\ResponseInterface');
-        $invoke = call_user_func([$this->obj, '__invoke'], $request, $response);
+        $request  = $this->getMock(RequestInterface::class);
+        $response = $this->getMock(ResponseInterface::class);
+        $invoke   = call_user_func([$this->obj, '__invoke'], $request, $response);
     }
 
     public function testSetIdent()
@@ -66,5 +92,24 @@ class AbstractScriptTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($ret, $this->obj);
         $this->assertArrayHasKey('foo', $this->obj->arguments());
         $this->assertEquals([], $this->obj->argument('foo'));
+    }
+
+    /**
+     * Set up the service container.
+     *
+     * @return Container
+     */
+    private function container()
+    {
+        if ($this->container === null) {
+            $container = new Container();
+            $containerProvider = new ContainerProvider();
+            $containerProvider->registerLogger($container);
+            $containerProvider->registerClimate($container);
+
+            $this->container = $container;
+        }
+
+        return $this->container;
     }
 }

@@ -2,27 +2,62 @@
 
 namespace Charcoal\Tests\App\Route;
 
-use \Charcoal\App\App;
+// From Pimple
+use \Pimple\Container;
+
+// From 'charcoal-app'
+use \Charcoal\App\Route\ActionRoute;
+use \Charcoal\Tests\App\ContainerProvider;
 
 class ActionRouteTest extends \PHPUnit_Framework_TestCase
 {
-    public $app;
-    public $obj;
+    /**
+     * Tested Class.
+     *
+     * @var ActionRoute
+     */
+    private $obj;
 
+    /**
+     * Store the service container.
+     *
+     * @var Container
+     */
+    private $container;
+
+    /**
+     * Set up the test.
+     */
     public function setUp()
     {
-        $route_config = [];
-        $this->app = $GLOBALS['app'];
-        $container = $this->app->getContainer();
-        $this->obj = new \Charcoal\App\Route\ActionRoute([
-            'app'       => $this->app,
-            'logger'    => $container['logger'],
-            'config'    => $route_config
+        $container = $this->container();
+
+        $this->obj = new ActionRoute([
+            'logger' => $container['logger'],
+            'config' => []
         ]);
     }
 
     public function testConstructor()
     {
-        $this->assertInstanceOf('\Charcoal\App\Route\ActionRoute', $this->obj);
+        $this->assertInstanceOf(ActionRoute::class, $this->obj);
+    }
+
+    /**
+     * Set up the service container.
+     *
+     * @return Container
+     */
+    private function container()
+    {
+        if ($this->container === null) {
+            $container = new Container();
+            $containerProvider = new ContainerProvider();
+            $containerProvider->registerLogger($container);
+
+            $this->container = $container;
+        }
+
+        return $this->container;
     }
 }
