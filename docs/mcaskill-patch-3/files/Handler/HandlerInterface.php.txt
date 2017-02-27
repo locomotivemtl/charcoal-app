@@ -3,7 +3,7 @@
 namespace Charcoal\App\Handler;
 
 // Dependency from Pimple
-use \Pimple\Container;
+use Pimple\Container;
 
 /**
  * Request Handler

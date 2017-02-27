@@ -3,14 +3,11 @@
 namespace Charcoal\App\Handler;
 
 // Dependencies from PSR-7 (HTTP Messaging)
-use \Psr\Http\Message\ServerRequestInterface;
-use \Psr\Http\Message\ResponseInterface;
-
-// Dependency from Slim
-use \Slim\Http\Body;
+use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Message\ResponseInterface;
 
 // Local Dependencies
-use \Charcoal\App\Handler\AbstractHandler;
+use Charcoal\App\Handler\AbstractHandler;
 
 /**
  * Not Allowed Handler
@@ -65,15 +62,13 @@ class NotAllowed extends AbstractHandler
             }
         }
 
-        $body = new Body(fopen('php://temp', 'r+'));
-        $body->write($output);
+        $response->getBody()->write($output);
         $allow = implode(', ', $methods);
 
         return $response
                 ->withStatus($status)
                 ->withHeader('Content-type', $contentType)
-                ->withHeader('Allow', $allow)
-                ->withBody($body);
+                ->withHeader('Allow', $allow);
     }
 
     /**
@@ -106,7 +101,7 @@ class NotAllowed extends AbstractHandler
      */
     protected function renderPlainOutput()
     {
-        $message = $this->catalog()->translate('allowed-methods-1').' '.$this->methods();
+        $message = $this->translator()->translate('Allowed methods:').' '.$this->methods();
 
         return $this->render($message);
     }
@@ -118,7 +113,7 @@ class NotAllowed extends AbstractHandler
      */
     protected function renderJsonOutput()
     {
-        $message = $this->catalog()->translate('allowed-methods-2').' '.$this->methods();
+        $message = $this->translator()->translate('Method not allowed. Must be one of:').' '.$this->methods();
 
         return $this->render('{"message":"'.$message.'"}');
     }
@@ -130,7 +125,7 @@ class NotAllowed extends AbstractHandler
      */
     protected function renderXmlOutput()
     {
-        $message = $this->catalog()->translate('allowed-methods-2').' '.$this->methods();
+        $message = $this->translator()->translate('Method not allowed. Must be one of:').' '.$this->methods();
 
         return $this->render('<root><message>'.$message.'</message></root>');
     }
@@ -142,7 +137,7 @@ class NotAllowed extends AbstractHandler
      */
     public function messageTitle()
     {
-        return $this->translator()->translation('method-not-allowed');
+        return $this->translator()->translate('Method not allowed.');
     }
 
     /**
@@ -153,43 +148,11 @@ class NotAllowed extends AbstractHandler
     public function renderHtmlMessage()
     {
         $title   = $this->messageTitle();
-        $notice  = $this->translator()->translation('allowed-methods-2');
+        $notice  = $this->translator()->entry('Method not allowed. Must be one of:');
         $methods = $this->methods();
         $message = '<h1>'.$title."</h1>\n\t\t<p>".$notice.' <strong>'.$methods."</strong></p>\n";
 
         return $message;
-    }
-
-    /**
-     * Set the extra translations.
-     *
-     * @return void
-     */
-    protected function setTranslations()
-    {
-        parent::setTranslations();
-
-        $data = [
-            'en' => [
-                'method-not-allowed' => 'Method not allowed.',
-                'allowed-methods-1'  => 'Allowed methods:',
-                'allowed-methods-2'  => 'Method not allowed. Must be one of:',
-            ],
-            'fr' => [
-                'method-not-allowed' => 'Méthode non autorisée.',
-                'allowed-methods-1'  => 'Méthodes permises:',
-                'allowed-methods-2'  => 'Méthode non autorisée. Doit être:',
-            ],
-            'es' => [
-                'method-not-allowed' => 'Método no permitido.',
-                'allowed-methods-1'  => 'Métodos permitidos:',
-                'allowed-methods-2'  => 'Método no permitido. Debe ser uno de:',
-            ]
-        ];
-
-        foreach ($data as $locale => $messages) {
-            $this->translator()->addResource('array', $messages, $locale/*, 'app' */);
-        }
     }
 }
 

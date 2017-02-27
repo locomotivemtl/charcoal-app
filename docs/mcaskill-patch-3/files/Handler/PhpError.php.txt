@@ -2,20 +2,17 @@
 
 namespace Charcoal\App\Handler;
 
-use \Throwable;
+use Throwable;
 
 // Dependencies from PSR-7 (HTTP Messaging)
-use \Psr\Http\Message\ServerRequestInterface;
-use \Psr\Http\Message\ResponseInterface;
-
-// Dependency from Slim
-use \Slim\Http\Body;
+use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Message\ResponseInterface;
 
 // Dependency from Pimple
-use \Pimple\Container;
+use Pimple\Container;
 
 // Local Dependencies
-use \Charcoal\App\Handler\AbstractHandler;
+use Charcoal\App\Handler\AbstractHandler;
 
 /**
  * Error Handler for PHP 7+ Throwables
@@ -94,13 +91,11 @@ class PhpError extends AbstractHandler
 
         $this->writeToErrorLog();
 
-        $body = new Body(fopen('php://temp', 'r+'));
-        $body->write($output);
+        $response->getBody()->write($output);
 
         return $response
                 ->withStatus(500)
-                ->withHeader('Content-type', $contentType)
-                ->withBody($body);
+                ->withHeader('Content-type', $contentType);
     }
 
     /**
@@ -162,7 +157,7 @@ class PhpError extends AbstractHandler
 
         $error = $this->error();
 
-        $message  = $this->translator()->translation('application-error').':'.PHP_EOL;
+        $message  = $this->translator()->translate('Application Error').':'.PHP_EOL;
         $message .= $this->renderTextError($error);
         while ($error = $error->getPrevious()) {
             $message .= PHP_EOL.'Previous error:'.PHP_EOL;
@@ -222,7 +217,7 @@ class PhpError extends AbstractHandler
     {
         $error = $this->error();
         $json  = [
-            'message' => $this->translator()->translation('application-error'),
+            'message' => $this->translator()->translate('Application Error'),
         ];
 
         if ($this->displayErrorDetails()) {
@@ -341,39 +336,13 @@ class PhpError extends AbstractHandler
                 $html .= $this->renderHtmlError($error);
             }
         } else {
-            $html = '<p>'.$this->translator()->translation('generic-error').'</p>';
+            $html = '<p>'.$this->translator()->translate('A website error has occurred. Sorry for the temporary inconvenience.').'</p>';
         }
 
         $title   = $this->messageTitle();
         $message = '<h1>'.$title."</h1>\n".$html."\n";
 
         return $message;
-    }
-
-    /**
-     * Set the extra translations.
-     *
-     * @return void
-     */
-    protected function setTranslations()
-    {
-        parent::setTranslations();
-
-        $data = [
-            'en' => [
-                'generic-error' => 'A website error has occurred. Sorry for the temporary inconvenience.',
-            ],
-            'fr' => [
-                'generic-error' => 'Une erreur de site a eu lieu. Désolé pour le désagrément temporaire.',
-            ],
-            'es' => [
-                'generic-error' => 'Se ha producido un error de página web. Disculpa las molestias temporales.',
-            ]
-        ];
-
-        foreach ($data as $locale => $messages) {
-            $this->translator()->addResource('array', $messages, $locale/*, 'app' */);
-        }
     }
 }
 
