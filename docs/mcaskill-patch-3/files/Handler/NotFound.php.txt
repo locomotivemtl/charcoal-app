@@ -6,6 +6,9 @@ namespace Charcoal\App\Handler;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
+// Dependency from Slim
+use Slim\Http\Body;
+
 // Local Dependencies
 use Charcoal\App\Handler\AbstractHandler;
 
