@@ -61,11 +61,13 @@ class Shutdown extends AbstractHandler
             }
         }
 
-        $response->getBody()->write($output);
+        $body = new Body(fopen('php://temp', 'r+'));
+        $body->write($output);
 
         return $response
                 ->withStatus(503)
-                ->withHeader('Content-type', $contentType);
+                ->withHeader('Content-type', $contentType)
+                ->withBody($body);
     }
 
     /**

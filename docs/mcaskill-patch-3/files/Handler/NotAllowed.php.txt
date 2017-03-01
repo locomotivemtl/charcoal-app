@@ -62,13 +62,15 @@ class NotAllowed extends AbstractHandler
             }
         }
 
-        $response->getBody()->write($output);
+        $body = new Body(fopen('php://temp', 'r+'));
+        $body->write($output);
         $allow = implode(', ', $methods);
 
         return $response
                 ->withStatus($status)
                 ->withHeader('Content-type', $contentType)
-                ->withHeader('Allow', $allow);
+                ->withHeader('Allow', $allow)
+                ->withBody($body);
     }
 
     /**

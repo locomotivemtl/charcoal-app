@@ -44,10 +44,12 @@ class NotFound extends AbstractHandler
                 $output = $this->renderHtmlOutput();
         }
 
-        $response->getBody()->write($output);
+        $body = new Body(fopen('php://temp', 'r+'));
+        $body->write($output);
 
         return $response->withStatus(404)
-                        ->withHeader('Content-Type', $contentType);
+                        ->withHeader('Content-Type', $contentType)
+                        ->withBody($body);
     }
 
     /**

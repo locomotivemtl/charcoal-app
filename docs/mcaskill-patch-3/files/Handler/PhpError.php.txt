@@ -91,11 +91,13 @@ class PhpError extends AbstractHandler
 
         $this->writeToErrorLog();
 
-        $response->getBody()->write($output);
+        $body = new Body(fopen('php://temp', 'r+'));
+        $body->write($output);
 
         return $response
                 ->withStatus(500)
-                ->withHeader('Content-type', $contentType);
+                ->withHeader('Content-type', $contentType)
+                ->withBody($body);
     }
 
     /**
