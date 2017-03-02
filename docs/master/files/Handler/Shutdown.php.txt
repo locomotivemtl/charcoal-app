@@ -3,17 +3,14 @@
 namespace Charcoal\App\Handler;
 
 // Dependencies from PSR-7 (HTTP Messaging)
-use \Psr\Http\Message\ServerRequestInterface;
-use \Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Message\ResponseInterface;
 
 // Dependency from Slim
-use \Slim\Http\Body;
-
-// Dependency from 'charcoal-translation'
-use \Charcoal\Translation\Catalog\CatalogInterface;
+use Slim\Http\Body;
 
 // Local Dependencies
-use \Charcoal\App\Handler\AbstractHandler;
+use Charcoal\App\Handler\AbstractHandler;
 
 /**
  * Shutdown Handler
@@ -106,7 +103,7 @@ class Shutdown extends AbstractHandler
      */
     protected function renderPlainOutput()
     {
-        $message = $this->catalog()->translate('down-for-maintenance');
+        $message = $this->translator()->translate('Down for maintenance!');
 
         return $this->render($message);
     }
@@ -118,7 +115,7 @@ class Shutdown extends AbstractHandler
      */
     protected function renderJsonOutput()
     {
-        $message = $this->catalog()->translate('currently-unavailable');
+        $message = $this->translator()->translate('We are currently unavailable. Check back in 15 minutes.');
 
         return $this->render('{"message":"'.$message.'"}');
     }
@@ -130,7 +127,7 @@ class Shutdown extends AbstractHandler
      */
     protected function renderXmlOutput()
     {
-        $message = $this->catalog()->translate('currently-unavailable');
+        $message = $this->translator()->translate('We are currently unavailable. Check back in 15 minutes.');
 
         return $this->render('<root><message>'.$message.'</message></root>');
     }
@@ -142,7 +139,7 @@ class Shutdown extends AbstractHandler
      */
     public function messageTitle()
     {
-        return $this->catalog()->entry('down-for-maintenance');
+        return $this->translator()->translate('Down for maintenance!');
     }
 
     /**
@@ -153,42 +150,10 @@ class Shutdown extends AbstractHandler
     public function renderHtmlMessage()
     {
         $title   = $this->messageTitle();
-        $notice  = $this->catalog()->entry('currently-unavailable');
+        $notice  = $this->translator()->translate('currently-unavailable');
         $message = '<h1>'.$title."</h1>\n\t\t<p>".$notice."</p>\n";
 
         return $message;
-    }
-
-    /**
-     * Sets a translation catalog instance on the object.
-     *
-     * @param  CatalogInterface $catalog A translation catalog object.
-     * @return Shutdown Chainable
-     */
-    public function setCatalog(CatalogInterface $catalog)
-    {
-        parent::setCatalog($catalog);
-
-        $messages = [
-            'down-for-maintenance' => [
-                'en' => 'Down for maintenance!',
-                'fr' => 'En maintenance!',
-                'es' => '¡Fuera de servicio por mantenimiento!'
-            ],
-            'currently-unavailable' => [
-                'en' => 'We are currently unavailable. Check back in 15 minutes.',
-                'fr' => 'Nous sommes actuellement indisponible. Revenez en 15 minutes.',
-                'es' => 'Estamos actualmente fuera de servicio. Vuelve en 15 minutos.'
-            ]
-        ];
-
-        foreach ($messages as $key => $entry) {
-            if (!$this->catalog()->hasEntry($key)) {
-                $this->catalog()->addEntry($key, $entry);
-            }
-        }
-
-        return $this;
     }
 }
 

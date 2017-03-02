@@ -10,17 +10,11 @@ use Charcoal\App\App;
 // Dependency from 'charcoal-config'
 use Charcoal\Config\AbstractConfig;
 
-// Dependencies from 'charcoal-translation'
-use Charcoal\Polyglot\UnilingualAwareInterface;
-use Charcoal\Polyglot\UnilingualAwareTrait;
-
 /**
  * Base "Route" configuration.
  */
-class RouteConfig extends AbstractConfig implements UnilingualAwareInterface
+class RouteConfig extends AbstractConfig
 {
-    use UnilingualAwareTrait;
-
     /**
      * Route identifier/name
      *
@@ -239,7 +233,7 @@ class RouteConfig extends AbstractConfig implements UnilingualAwareInterface
         // According to RFC, methods are defined in uppercase (See RFC 7231)
         $method = strtoupper($method);
 
-        $valid_http_methods = [
+        $validHttpMethods = [
             'CONNECT',
             'DELETE',
             'GET',
@@ -251,14 +245,12 @@ class RouteConfig extends AbstractConfig implements UnilingualAwareInterface
             'TRACE',
         ];
 
-        if (!in_array($method, $valid_http_methods)) {
-            throw new InvalidArgumentException(
-                sprintf(
-                    'Invalid method "%s". Must be a valid HTTP method (%s).',
-                    $method,
-                    implode(',', $valid_http_methods)
-                )
-            );
+        if (!in_array($method, $validHttpMethods)) {
+            throw new InvalidArgumentException(sprintf(
+                'Unsupported HTTP method; must be one of "%s", received "%s"',
+                implode('","', $validHttpMethods),
+                $method
+            ));
         }
 
         $this->methods[] = $method;

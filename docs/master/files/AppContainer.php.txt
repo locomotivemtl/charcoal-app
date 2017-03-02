@@ -2,26 +2,28 @@
 
 namespace Charcoal\App;
 
-// Dependency from Slim
+// From Slim
 use Slim\Container;
 
-// Dependency from Pimple
+// From Pimple
 use Pimple\ServiceProviderInterface;
 
-// Depedencies from `charcoal-factory`
+// From 'charcoal-factory'
 use Charcoal\Factory\GenericFactory as Factory;
 
-// Service Providers
+// From 'charcoal-translator'
+use Charcoal\Translator\ServiceProvider\TranslatorServiceProvider;
+
+// From 'charcoal-view'
+use Charcoal\View\ViewServiceProvider;
+
+// From 'charcoal-app'
 use Charcoal\App\AppConfig;
 use Charcoal\App\ServiceProvider\AppServiceProvider;
 use Charcoal\App\ServiceProvider\CacheServiceProvider;
 use Charcoal\App\ServiceProvider\DatabaseServiceProvider;
 use Charcoal\App\ServiceProvider\FilesystemServiceProvider;
 use Charcoal\App\ServiceProvider\LoggerServiceProvider;
-use Charcoal\App\ServiceProvider\TranslatorServiceProvider as LegacyTranslatorProvider;
-
-use Charcoal\Translator\ServiceProvider\TranslatorServiceProvider;
-use Charcoal\View\ViewServiceProvider;
 
 /**
  * Charcoal App Container
@@ -46,7 +48,6 @@ class AppContainer extends Container
         $this->register(new DatabaseServiceProvider());
         $this->register(new FilesystemServiceProvider());
         $this->register(new LoggerServiceProvider());
-        $this->register(new LegacyTranslatorProvider());
         $this->register(new TranslatorServiceProvider());
         $this->register(new ViewServiceProvider());
 

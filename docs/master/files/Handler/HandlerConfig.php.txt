@@ -2,24 +2,19 @@
 
 namespace Charcoal\App\Handler;
 
-use \InvalidArgumentException;
+use InvalidArgumentException;
 
 // Dependency from 'charcoal-app'
-use \Charcoal\App\App;
+use Charcoal\App\App;
 
 // Dependency from 'charcoal-config'
-use \Charcoal\Config\AbstractConfig;
-
-// Dependencies from 'charcoal-translation'
-use \Charcoal\Polyglot\UnilingualAwareInterface;
-use \Charcoal\Polyglot\UnilingualAwareTrait;
+use Charcoal\Config\AbstractConfig;
 
 /**
  *
  */
-class HandlerConfig extends AbstractConfig implements UnilingualAwareInterface
+class HandlerConfig extends AbstractConfig
 {
-    use UnilingualAwareTrait;
 
     /**
      * The template ident (to load).
@@ -120,7 +115,7 @@ class HandlerConfig extends AbstractConfig implements UnilingualAwareInterface
     public function controller()
     {
         if (!isset($this->controller)) {
-            return '';
+            return $this->defaultController();
         }
 
         return $this->controller;

@@ -92,7 +92,8 @@ class TemplateRoute implements
 
         // Handle explicit redirects
         if (!empty($config['redirect'])) {
-            $uri = $this->parseRedirect($config['redirect'], $request);
+            $redirect = $container['translator']->translation($config['redirect']);
+            $uri = $this->parseRedirect((string)$redirect, $request);
 
             if ($uri) {
                 return $response->withRedirect($uri, $config['redirect_mode']);
