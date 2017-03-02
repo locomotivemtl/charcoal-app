@@ -150,8 +150,6 @@ based on the Accept header.</p>
 		<dd style="padding-left:0px">
 <b><span>Charcoal\App\Handler\AbstractHandler</span></b>			
 			 implements 
-<span>Charcoal\Translation\Catalog\CatalogAwareInterface</span>, 
-			
 <span>Charcoal\Config\ConfigurableInterface</span>, 
 			
 				<a href="class-Charcoal.App.Handler.HandlerInterface.html"><span>Charcoal\App\Handler\HandlerInterface</span></a>, 
@@ -161,13 +159,13 @@ based on the Accept header.</p>
 <span>Charcoal\View\ViewableInterface</span>
 			
 			 uses 
-					Charcoal\Translation\Catalog\CatalogAwareTrait (not available)
-
-			
 					Charcoal\Config\ConfigurableTrait (not available)
 
 			
 					Psr\Log\LoggerAwareTrait (not available)
+
+			
+					Charcoal\Translator\TranslatorAwareTrait (not available)
 
 			
 					Charcoal\View\ViewableTrait (not available)
@@ -197,7 +195,7 @@ based on the Accept header.</p>
 		<b>Namespace:</b> <a href="namespace-Charcoal.html">Charcoal</a>\<a href="namespace-Charcoal.App.html">App</a>\<a href="namespace-Charcoal.App.Handler.html">Handler</a><br>
 		
 
-			<b>Located at</b> <a href="source-class-Charcoal.App.Handler.AbstractHandler.html#39-325" title="Go to source code">Charcoal/App/Handler/AbstractHandler.php</a>
+			<b>Located at</b> <a href="source-class-Charcoal.App.Handler.AbstractHandler.html#35-287" title="Go to source code">Charcoal/App/Handler/AbstractHandler.php</a>
 		<br>
 	</div>
 
@@ -217,7 +215,7 @@ based on the Accept header.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#___construct">#</a>
-		<code><a href="source-class-Charcoal.App.Handler.AbstractHandler.html#85-93" title="Go to source code">__construct</a>( <span>Pimple\Container <var>$container</var></span> )</code>
+		<code><a href="source-class-Charcoal.App.Handler.AbstractHandler.html#80-88" title="Go to source code">__construct</a>( <span>Pimple\Container <var>$container</var></span> )</code>
 
 		<div class="description short">
 			<p>Return a new AbstractHandler object.</p>
@@ -254,7 +252,7 @@ based on the Accept header.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_init">#</a>
-		<code><a href="source-class-Charcoal.App.Handler.AbstractHandler.html#95-103" title="Go to source code">init</a>( )</code>
+		<code><a href="source-class-Charcoal.App.Handler.AbstractHandler.html#90-98" title="Go to source code">init</a>( )</code>
 
 		<div class="description short">
 			<p>Initialize the AbstractHandler object.</p>
@@ -290,7 +288,7 @@ based on the Accept header.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setDependencies">#</a>
-		<code><a href="source-class-Charcoal.App.Handler.AbstractHandler.html#105-131" title="Go to source code">setDependencies</a>( <span>Pimple\Container <var>$container</var></span> )</code>
+		<code><a href="source-class-Charcoal.App.Handler.AbstractHandler.html#100-125" title="Go to source code">setDependencies</a>( <span>Pimple\Container <var>$container</var></span> )</code>
 
 		<div class="description short">
 			<p>Inject dependencies from a Pimple Container.</p>
@@ -305,7 +303,6 @@ based on the Accept header.</p>
 <li><code>AppConfig $appConfig</code> — The application's configuration.</li>
 <li><code>UriInterface $baseUri</code> — A base URI.</li>
 <li><code>ViewInterface $view</code> — A view instance.</li>
-<li><code>CatalogInterface $catalog</code> — A translation catalog.</li>
 </ul>
 
 
@@ -338,7 +335,7 @@ based on the Accept header.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setContainer">#</a>
-		<code><a href="source-class-Charcoal.App.Handler.AbstractHandler.html#133-143" title="Go to source code">setContainer</a>( <span>Pimple\Container <var>$container</var></span> )</code>
+		<code><a href="source-class-Charcoal.App.Handler.AbstractHandler.html#127-137" title="Go to source code">setContainer</a>( <span>Pimple\Container <var>$container</var></span> )</code>
 
 		<div class="description short">
 			<p>Set container for use with the template controller</p>
@@ -377,7 +374,7 @@ based on the Accept header.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_createConfig">#</a>
-		<code><a href="source-class-Charcoal.App.Handler.AbstractHandler.html#145-155" title="Go to source code">createConfig</a>( <span>mixed|null <var>$data</var> = <span class="php-keyword1">null</span></span> )</code>
+		<code><a href="source-class-Charcoal.App.Handler.AbstractHandler.html#139-149" title="Go to source code">createConfig</a>( <span>mixed|null <var>$data</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			<p>ConfigurableTrait > createConfig()</p>
@@ -420,7 +417,7 @@ based on the Accept header.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_determineContentType">#</a>
-		<code><a href="source-class-Charcoal.App.Handler.AbstractHandler.html#157-181" title="Go to source code">determineContentType</a>( <span>Psr\Http\Message\ServerRequestInterface <var>$request</var></span> )</code>
+		<code><a href="source-class-Charcoal.App.Handler.AbstractHandler.html#151-175" title="Go to source code">determineContentType</a>( <span>Psr\Http\Message\ServerRequestInterface <var>$request</var></span> )</code>
 
 		<div class="description short">
 			<p>Determine which content type we know about is wanted using "Accept" header</p>
@@ -459,7 +456,7 @@ based on the Accept header.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_renderHtmlOutput">#</a>
-		<code><a href="source-class-Charcoal.App.Handler.AbstractHandler.html#183-211" title="Go to source code">renderHtmlOutput</a>( )</code>
+		<code><a href="source-class-Charcoal.App.Handler.AbstractHandler.html#177-205" title="Go to source code">renderHtmlOutput</a>( )</code>
 
 		<div class="description short">
 			<p>Render HTML Error Page</p>
@@ -493,7 +490,7 @@ based on the Accept header.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_messageTitle">#</a>
-		<code><a href="source-class-Charcoal.App.Handler.AbstractHandler.html#213-221" title="Go to source code">messageTitle</a>( )</code>
+		<code><a href="source-class-Charcoal.App.Handler.AbstractHandler.html#207-215" title="Go to source code">messageTitle</a>( )</code>
 
 		<div class="description short">
 			<p>Render title of error</p>
@@ -527,7 +524,7 @@ based on the Accept header.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_renderHtmlMessage">#</a>
-		<code><a href="source-class-Charcoal.App.Handler.AbstractHandler.html#223-228" title="Go to source code">renderHtmlMessage</a>( )</code>
+		<code><a href="source-class-Charcoal.App.Handler.AbstractHandler.html#217-222" title="Go to source code">renderHtmlMessage</a>( )</code>
 
 		<div class="description short">
 			<p>Render body of HTML error</p>
@@ -561,7 +558,7 @@ based on the Accept header.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_renderHtmlTemplate">#</a>
-		<code><a href="source-class-Charcoal.App.Handler.AbstractHandler.html#230-265" title="Go to source code">renderHtmlTemplate</a>( )</code>
+		<code><a href="source-class-Charcoal.App.Handler.AbstractHandler.html#224-259" title="Go to source code">renderHtmlTemplate</a>( )</code>
 
 		<div class="description short">
 			<p>Render HTML Error Page</p>
@@ -595,7 +592,7 @@ based on the Accept header.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setBaseUrl">#</a>
-		<code><a href="source-class-Charcoal.App.Handler.AbstractHandler.html#267-282" title="Go to source code">setBaseUrl</a>( <span>string|Psr\Http\Message\UriInterface <var>$url</var></span> )</code>
+		<code><a href="source-class-Charcoal.App.Handler.AbstractHandler.html#261-276" title="Go to source code">setBaseUrl</a>( <span>string|Psr\Http\Message\UriInterface <var>$url</var></span> )</code>
 
 		<div class="description short">
 			<p>Set the base URL (home page).</p>
@@ -634,7 +631,7 @@ based on the Accept header.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_baseUrl">#</a>
-		<code><a href="source-class-Charcoal.App.Handler.AbstractHandler.html#284-292" title="Go to source code">baseUrl</a>( )</code>
+		<code><a href="source-class-Charcoal.App.Handler.AbstractHandler.html#278-286" title="Go to source code">baseUrl</a>( )</code>
 
 		<div class="description short">
 			<p>Retrieves the URL for the home page.</p>
@@ -648,45 +645,6 @@ based on the Accept header.</p>
 				<h4>Returns</h4>
 				<div class="list">
 					string<br>A URL representing the home page.
-				</div>
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="setCatalog" id="_setCatalog">
-
-		<td class="attributes"><code>
-			 public 
-
-			<code><a href="class-Charcoal.App.Handler.AbstractHandler.html">Charcoal\App\Handler\AbstractHandler</a></code>
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_setCatalog">#</a>
-		<code><a href="source-class-Charcoal.App.Handler.AbstractHandler.html#294-324" title="Go to source code">setCatalog</a>( <span>Charcoal\Translation\Catalog\CatalogInterface <var>$catalog</var></span> )</code>
-
-		<div class="description short">
-			<p>Sets a translation catalog instance on the object.</p>
-		</div>
-
-		<div class="description detailed hidden">
-			<p>Sets a translation catalog instance on the object.</p>
-
-
-				<h4>Parameters</h4>
-				<div class="list"><dl>
-					<dt><var>$catalog</var></dt>
-					<dd>A translation catalog object.</dd>
-				</dl></div>
-
-				<h4>Returns</h4>
-				<div class="list">
-					<code><a href="class-Charcoal.App.Handler.AbstractHandler.html">Charcoal\App\Handler\AbstractHandler</a></code><br>Chainable
 				</div>
 
 
@@ -717,7 +675,7 @@ based on the Accept header.</p>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Charcoal.App.Handler.AbstractHandler.html#59-64" title="Go to source code"><var>$container</var></a>
+				<a href="source-class-Charcoal.App.Handler.AbstractHandler.html#54-59" title="Go to source code"><var>$container</var></a>
 
 			<div class="description short">
 				<p>Container</p>
@@ -742,7 +700,7 @@ based on the Accept header.</p>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Charcoal.App.Handler.AbstractHandler.html#66-71" title="Go to source code"><var>$baseUrl</var></a>
+				<a href="source-class-Charcoal.App.Handler.AbstractHandler.html#61-66" title="Go to source code"><var>$baseUrl</var></a>
 
 			<div class="description short">
 				<p>URL for the home page</p>
@@ -767,7 +725,7 @@ based on the Accept header.</p>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Charcoal.App.Handler.AbstractHandler.html#73-83" title="Go to source code"><var>$knownContentTypes</var></a>
+				<a href="source-class-Charcoal.App.Handler.AbstractHandler.html#68-78" title="Go to source code"><var>$knownContentTypes</var></a>
 
 			<div class="description short">
 				<p>Known handled content types</p>

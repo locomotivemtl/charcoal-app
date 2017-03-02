@@ -149,12 +149,7 @@ Charcoal\Config\AbstractConfig
 			<img src="resources/inherit.png" alt="Extended by">
 			<a href="class-Charcoal.App.Route.RouteConfig.html"><span>Charcoal\App\Route\RouteConfig</span></a>
 			
-			 implements 
-<span>Charcoal\Polyglot\UnilingualAwareInterface</span>
 			
-			 uses 
-					Charcoal\Polyglot\UnilingualAwareTrait (not available)
-
 			
 		</dd>
 		<dd style="padding-left:60px">
@@ -178,7 +173,7 @@ Charcoal\Config\AbstractConfig
 		<b>Namespace:</b> <a href="namespace-Charcoal.html">Charcoal</a>\<a href="namespace-Charcoal.App.html">App</a>\<a href="namespace-Charcoal.App.Route.html">Route</a><br>
 		
 
-			<b>Located at</b> <a href="source-class-Charcoal.App.Route.TemplateRouteConfig.html#16-261" title="Go to source code">Charcoal/App/Route/TemplateRouteConfig.php</a>
+			<b>Located at</b> <a href="source-class-Charcoal.App.Route.TemplateRouteConfig.html#16-263" title="Go to source code">Charcoal/App/Route/TemplateRouteConfig.php</a>
 		<br>
 	</div>
 
@@ -493,7 +488,7 @@ Charcoal\Config\AbstractConfig
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setRedirect">#</a>
-		<code><a href="source-class-Charcoal.App.Route.TemplateRouteConfig.html#179-188" title="Go to source code">setRedirect</a>( <span>string|string[] <var>$redirect</var></span> )</code>
+		<code><a href="source-class-Charcoal.App.Route.TemplateRouteConfig.html#179-188" title="Go to source code">setRedirect</a>( <span>string|string[] <var>$url</var></span> )</code>
 
 		<div class="description short">
 			
@@ -505,7 +500,7 @@ Charcoal\Config\AbstractConfig
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
-					<dt><var>$redirect</var></dt>
+					<dt><var>$url</var></dt>
 					<dd>Points to a route.</dd>
 				</dl></div>
 
@@ -525,27 +520,27 @@ Charcoal\Config\AbstractConfig
 		<td class="attributes"><code>
 			 public 
 
-			string|Charcoal\Translation\TranslationString
+			string|string[]
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_redirect">#</a>
-		<code><a href="source-class-Charcoal.App.Route.TemplateRouteConfig.html#190-196" title="Go to source code">redirect</a>( )</code>
+		<code><a href="source-class-Charcoal.App.Route.TemplateRouteConfig.html#190-198" title="Go to source code">redirect</a>( )</code>
 
 		<div class="description short">
-			
+			<p>Retrieve the redirection URL.</p>
 		</div>
 
 		<div class="description detailed hidden">
-			
+			<p>Retrieve the redirection URL.</p>
 
 
 
 				<h4>Returns</h4>
 				<div class="list">
-					string|Charcoal\Translation\TranslationString<br>Redirect route
+					string|string[]
 				</div>
 
 
@@ -566,7 +561,7 @@ Charcoal\Config\AbstractConfig
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setRedirectMode">#</a>
-		<code><a href="source-class-Charcoal.App.Route.TemplateRouteConfig.html#198-216" title="Go to source code">setRedirectMode</a>( <span>mixed <var>$redirectMode</var></span> )</code>
+		<code><a href="source-class-Charcoal.App.Route.TemplateRouteConfig.html#200-218" title="Go to source code">setRedirectMode</a>( <span>mixed <var>$redirectMode</var></span> )</code>
 
 		<div class="description short">
 			<p>Set the redirect HTTP status mode. (Must be 3xx)</p>
@@ -609,7 +604,7 @@ Charcoal\Config\AbstractConfig
 
 		<td class="name"><div>
 		<a class="anchor" href="#_redirectMode">#</a>
-		<code><a href="source-class-Charcoal.App.Route.TemplateRouteConfig.html#218-224" title="Go to source code">redirectMode</a>( )</code>
+		<code><a href="source-class-Charcoal.App.Route.TemplateRouteConfig.html#220-226" title="Go to source code">redirectMode</a>( )</code>
 
 		<div class="description short">
 			
@@ -643,7 +638,7 @@ Charcoal\Config\AbstractConfig
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setCache">#</a>
-		<code><a href="source-class-Charcoal.App.Route.TemplateRouteConfig.html#226-234" title="Go to source code">setCache</a>( <span>boolean <var>$cache</var></span> )</code>
+		<code><a href="source-class-Charcoal.App.Route.TemplateRouteConfig.html#228-236" title="Go to source code">setCache</a>( <span>boolean <var>$cache</var></span> )</code>
 
 		<div class="description short">
 			
@@ -682,7 +677,7 @@ Charcoal\Config\AbstractConfig
 
 		<td class="name"><div>
 		<a class="anchor" href="#_cache">#</a>
-		<code><a href="source-class-Charcoal.App.Route.TemplateRouteConfig.html#236-242" title="Go to source code">cache</a>( )</code>
+		<code><a href="source-class-Charcoal.App.Route.TemplateRouteConfig.html#238-244" title="Go to source code">cache</a>( )</code>
 
 		<div class="description short">
 			
@@ -716,7 +711,7 @@ Charcoal\Config\AbstractConfig
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setCacheTtl">#</a>
-		<code><a href="source-class-Charcoal.App.Route.TemplateRouteConfig.html#244-252" title="Go to source code">setCacheTtl</a>( <span>integer <var>$ttl</var></span> )</code>
+		<code><a href="source-class-Charcoal.App.Route.TemplateRouteConfig.html#246-254" title="Go to source code">setCacheTtl</a>( <span>integer <var>$ttl</var></span> )</code>
 
 		<div class="description short">
 			
@@ -755,7 +750,7 @@ Charcoal\Config\AbstractConfig
 
 		<td class="name"><div>
 		<a class="anchor" href="#_cacheTtl">#</a>
-		<code><a href="source-class-Charcoal.App.Route.TemplateRouteConfig.html#254-260" title="Go to source code">cacheTtl</a>( )</code>
+		<code><a href="source-class-Charcoal.App.Route.TemplateRouteConfig.html#256-262" title="Go to source code">cacheTtl</a>( )</code>
 
 		<div class="description short">
 			
