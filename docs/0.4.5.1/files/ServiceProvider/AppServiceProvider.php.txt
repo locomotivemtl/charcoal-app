@@ -420,6 +420,12 @@ class AppServiceProvider implements ServiceProviderInterface
      */
     protected function registerViewServices(Container $container)
     {
+        if (!isset($container['view/mustache/helpers'])) {
+            $container['view/mustache/helpers'] = function () {
+                return [];
+            };
+        }
+
         /**
          * Extend helpers for the Mustache Engine
          *
