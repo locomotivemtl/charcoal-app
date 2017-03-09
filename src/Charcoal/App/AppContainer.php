@@ -43,13 +43,13 @@ class AppContainer extends Container
         // Ensure "config" is set
         $this['config'] = (isset($values['config']) ? $values['config'] : new AppConfig());
 
+        $this->register(new ViewServiceProvider());
         $this->register(new AppServiceProvider());
         $this->register(new CacheServiceProvider());
         $this->register(new DatabaseServiceProvider());
         $this->register(new FilesystemServiceProvider());
         $this->register(new LoggerServiceProvider());
         $this->register(new TranslatorServiceProvider());
-        $this->register(new ViewServiceProvider());
 
         $this->registerProviderFactory();
         $this->registerConfigProviders();

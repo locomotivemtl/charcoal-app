@@ -6,11 +6,17 @@ namespace Charcoal\App\ServiceProvider;
 use Pimple\ServiceProviderInterface;
 use Pimple\Container;
 
+// From PSR-7
+use Psr\Http\Message\UriInterface;
+
 // Dependencies from Slim
 use Slim\Http\Uri;
 
 // Dependencies from league/climate
 use League\CLImate\CLImate;
+
+// Dependencies from Mustache
+use Mustache_LambdaHelper as LambdaHelper;
 
 // Dependencies from charcoal-factory
 use Charcoal\Factory\GenericFactory as Factory;
@@ -64,6 +70,7 @@ class AppServiceProvider implements ServiceProviderInterface
         $this->registerRequestControllerServices($container);
         $this->registerScriptServices($container);
         $this->registerModuleServices($container);
+        $this->registerViewServices($container);
     }
 
     /**
@@ -405,5 +412,78 @@ class AppServiceProvider implements ServiceProviderInterface
             $climate = new CLImate();
             return $climate;
         };
+    }
+
+    /**
+     * @param Container $container A container instance.
+     * @return void
+     */
+    protected function registerViewServices(Container $container)
+    {
+        if (!isset($container['view/mustache/helpers'])) {
+            $container['view/mustache/helpers'] = function () {
+                return [];
+            };
+        }
+
+        /**
+         * Extend helpers for the Mustache Engine
+         *
+         * @return array
+         */
+        $container->extend('view/mustache/helpers', function (array $helpers, Container $container) {
+            $urls = [
+                /**
+                 * Application debug mode.
+                 *
+                 * @return boolean
+                 */
+                'debug' => ($container['config']['debug'] || $container['config']['dev_mode']),
+                /**
+                 * Retrieve the base URI of the project.
+                 *
+                 * @return UriInterface|null
+                 */
+                'siteUrl' => $container['base-url'],
+                /**
+                 * Alias of "siteUrl"
+                 *
+                 * @return UriInterface|null
+                 */
+                'baseUrl' => $container['base-url'],
+                /**
+                 * Prepend the base URI to the given path.
+                 *
+                 * @param  string $uri A URI path to wrap.
+                 * @return UriInterface|null
+                 */
+                'withBaseUrl' => function ($uri, LambdaHelper $helper = null) use ($container) {
+                    if ($helper) {
+                        $uri = $helper->render($uri);
+                    }
+
+                    $uri = strval($uri);
+                    if ($uri) {
+                        $parts = parse_url($uri);
+                        if (!isset($parts['scheme'])) {
+                            if (!in_array($uri[0], [ '/', '#', '?' ])) {
+                                $path  = isset($parts['path']) ? $parts['path'] : '';
+                                $query = isset($parts['query']) ? $parts['query'] : '';
+                                $hash  = isset($parts['fragment']) ? $parts['fragment'] : '';
+
+                                return $this->baseUrl()
+                                            ->withPath($path)
+                                            ->withQuery($query)
+                                            ->withFragment($hash);
+                            }
+                        }
+                    }
+
+                    return $uri;
+                }
+            ];
+
+            return array_merge($helpers, $urls);
+        });
     }
 }
