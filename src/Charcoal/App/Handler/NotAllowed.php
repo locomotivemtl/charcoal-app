@@ -153,7 +153,7 @@ class NotAllowed extends AbstractHandler
     public function renderHtmlMessage()
     {
         $title   = $this->messageTitle();
-        $notice  = $this->translator()->entry('Method not allowed. Must be one of:');
+        $notice  = $this->translator()->translate('Method not allowed. Must be one of:');
         $methods = $this->methods();
         $message = '<h1>'.$title."</h1>\n\t\t<p>".$notice.' <strong>'.$methods."</strong></p>\n";
 
