@@ -603,68 +603,74 @@
 </span></span><span id="420" class="l"><a href="#420">420: </a><span class="php-comment">     */</span>
 </span><span id="421" class="l"><a href="#421">421: </a>    <span class="php-keyword1">protected</span> <span class="php-keyword1">function</span> registerViewServices(Container <span class="php-var">$container</span>)
 </span><span id="422" class="l"><a href="#422">422: </a>    {
-</span><span id="423" class="l"><a href="#423">423: </a>        <span class="php-comment">/**
-</span></span><span id="424" class="l"><a href="#424">424: </a><span class="php-comment">         * Extend helpers for the Mustache Engine
-</span></span><span id="425" class="l"><a href="#425">425: </a><span class="php-comment">         *
-</span></span><span id="426" class="l"><a href="#426">426: </a><span class="php-comment">         * @return array
-</span></span><span id="427" class="l"><a href="#427">427: </a><span class="php-comment">         */</span>
-</span><span id="428" class="l"><a href="#428">428: </a>        <span class="php-var">$container</span>-&gt;extend(<span class="php-quote">'view/mustache/helpers'</span>, <span class="php-keyword1">function</span> (<span class="php-keyword1">array</span> <span class="php-var">$helpers</span>, Container <span class="php-var">$container</span>) {
-</span><span id="429" class="l"><a href="#429">429: </a>            <span class="php-var">$urls</span> = [
-</span><span id="430" class="l"><a href="#430">430: </a>                <span class="php-comment">/**
-</span></span><span id="431" class="l"><a href="#431">431: </a><span class="php-comment">                 * Application debug mode.
-</span></span><span id="432" class="l"><a href="#432">432: </a><span class="php-comment">                 *
-</span></span><span id="433" class="l"><a href="#433">433: </a><span class="php-comment">                 * @return boolean
-</span></span><span id="434" class="l"><a href="#434">434: </a><span class="php-comment">                 */</span>
-</span><span id="435" class="l"><a href="#435">435: </a>                <span class="php-quote">'debug'</span> =&gt; (<span class="php-var">$container</span>[<span class="php-quote">'config'</span>][<span class="php-quote">'debug'</span>] || <span class="php-var">$container</span>[<span class="php-quote">'config'</span>][<span class="php-quote">'dev_mode'</span>]),
+</span><span id="423" class="l"><a href="#423">423: </a>        <span class="php-keyword1">if</span> (!<span class="php-keyword1">isset</span>(<span class="php-var">$container</span>[<span class="php-quote">'view/mustache/helpers'</span>])) {
+</span><span id="424" class="l"><a href="#424">424: </a>            <span class="php-var">$container</span>[<span class="php-quote">'view/mustache/helpers'</span>] = <span class="php-keyword1">function</span> () {
+</span><span id="425" class="l"><a href="#425">425: </a>                <span class="php-keyword1">return</span> [];
+</span><span id="426" class="l"><a href="#426">426: </a>            };
+</span><span id="427" class="l"><a href="#427">427: </a>        }
+</span><span id="428" class="l"><a href="#428">428: </a>
+</span><span id="429" class="l"><a href="#429">429: </a>        <span class="php-comment">/**
+</span></span><span id="430" class="l"><a href="#430">430: </a><span class="php-comment">         * Extend helpers for the Mustache Engine
+</span></span><span id="431" class="l"><a href="#431">431: </a><span class="php-comment">         *
+</span></span><span id="432" class="l"><a href="#432">432: </a><span class="php-comment">         * @return array
+</span></span><span id="433" class="l"><a href="#433">433: </a><span class="php-comment">         */</span>
+</span><span id="434" class="l"><a href="#434">434: </a>        <span class="php-var">$container</span>-&gt;extend(<span class="php-quote">'view/mustache/helpers'</span>, <span class="php-keyword1">function</span> (<span class="php-keyword1">array</span> <span class="php-var">$helpers</span>, Container <span class="php-var">$container</span>) {
+</span><span id="435" class="l"><a href="#435">435: </a>            <span class="php-var">$urls</span> = [
 </span><span id="436" class="l"><a href="#436">436: </a>                <span class="php-comment">/**
-</span></span><span id="437" class="l"><a href="#437">437: </a><span class="php-comment">                 * Retrieve the base URI of the project.
+</span></span><span id="437" class="l"><a href="#437">437: </a><span class="php-comment">                 * Application debug mode.
 </span></span><span id="438" class="l"><a href="#438">438: </a><span class="php-comment">                 *
-</span></span><span id="439" class="l"><a href="#439">439: </a><span class="php-comment">                 * @return UriInterface|null
+</span></span><span id="439" class="l"><a href="#439">439: </a><span class="php-comment">                 * @return boolean
 </span></span><span id="440" class="l"><a href="#440">440: </a><span class="php-comment">                 */</span>
-</span><span id="441" class="l"><a href="#441">441: </a>                <span class="php-quote">'siteUrl'</span> =&gt; <span class="php-var">$container</span>[<span class="php-quote">'base-url'</span>],
+</span><span id="441" class="l"><a href="#441">441: </a>                <span class="php-quote">'debug'</span> =&gt; (<span class="php-var">$container</span>[<span class="php-quote">'config'</span>][<span class="php-quote">'debug'</span>] || <span class="php-var">$container</span>[<span class="php-quote">'config'</span>][<span class="php-quote">'dev_mode'</span>]),
 </span><span id="442" class="l"><a href="#442">442: </a>                <span class="php-comment">/**
-</span></span><span id="443" class="l"><a href="#443">443: </a><span class="php-comment">                 * Alias of &quot;siteUrl&quot;
+</span></span><span id="443" class="l"><a href="#443">443: </a><span class="php-comment">                 * Retrieve the base URI of the project.
 </span></span><span id="444" class="l"><a href="#444">444: </a><span class="php-comment">                 *
 </span></span><span id="445" class="l"><a href="#445">445: </a><span class="php-comment">                 * @return UriInterface|null
 </span></span><span id="446" class="l"><a href="#446">446: </a><span class="php-comment">                 */</span>
-</span><span id="447" class="l"><a href="#447">447: </a>                <span class="php-quote">'baseUrl'</span> =&gt; <span class="php-var">$container</span>[<span class="php-quote">'base-url'</span>],
+</span><span id="447" class="l"><a href="#447">447: </a>                <span class="php-quote">'siteUrl'</span> =&gt; <span class="php-var">$container</span>[<span class="php-quote">'base-url'</span>],
 </span><span id="448" class="l"><a href="#448">448: </a>                <span class="php-comment">/**
-</span></span><span id="449" class="l"><a href="#449">449: </a><span class="php-comment">                 * Prepend the base URI to the given path.
+</span></span><span id="449" class="l"><a href="#449">449: </a><span class="php-comment">                 * Alias of &quot;siteUrl&quot;
 </span></span><span id="450" class="l"><a href="#450">450: </a><span class="php-comment">                 *
-</span></span><span id="451" class="l"><a href="#451">451: </a><span class="php-comment">                 * @param  string $uri A URI path to wrap.
-</span></span><span id="452" class="l"><a href="#452">452: </a><span class="php-comment">                 * @return UriInterface|null
-</span></span><span id="453" class="l"><a href="#453">453: </a><span class="php-comment">                 */</span>
-</span><span id="454" class="l"><a href="#454">454: </a>                <span class="php-quote">'withBaseUrl'</span> =&gt; <span class="php-keyword1">function</span> (<span class="php-var">$uri</span>, LambdaHelper <span class="php-var">$helper</span> = <span class="php-keyword1">null</span>) <span class="php-keyword1">use</span> (<span class="php-var">$container</span>) {
-</span><span id="455" class="l"><a href="#455">455: </a>                    <span class="php-keyword1">if</span> (<span class="php-var">$helper</span>) {
-</span><span id="456" class="l"><a href="#456">456: </a>                        <span class="php-var">$uri</span> = <span class="php-var">$helper</span>-&gt;render(<span class="php-var">$uri</span>);
-</span><span id="457" class="l"><a href="#457">457: </a>                    }
-</span><span id="458" class="l"><a href="#458">458: </a>
-</span><span id="459" class="l"><a href="#459">459: </a>                    <span class="php-var">$uri</span> = <span class="php-keyword2">strval</span>(<span class="php-var">$uri</span>);
-</span><span id="460" class="l"><a href="#460">460: </a>                    <span class="php-keyword1">if</span> (<span class="php-var">$uri</span>) {
-</span><span id="461" class="l"><a href="#461">461: </a>                        <span class="php-var">$parts</span> = <span class="php-keyword2">parse_url</span>(<span class="php-var">$uri</span>);
-</span><span id="462" class="l"><a href="#462">462: </a>                        <span class="php-keyword1">if</span> (!<span class="php-keyword1">isset</span>(<span class="php-var">$parts</span>[<span class="php-quote">'scheme'</span>])) {
-</span><span id="463" class="l"><a href="#463">463: </a>                            <span class="php-keyword1">if</span> (!<span class="php-keyword2">in_array</span>(<span class="php-var">$uri</span>[<span class="php-num">0</span>], [ <span class="php-quote">'/'</span>, <span class="php-quote">'#'</span>, <span class="php-quote">'?'</span> ])) {
-</span><span id="464" class="l"><a href="#464">464: </a>                                <span class="php-var">$path</span>  = <span class="php-keyword1">isset</span>(<span class="php-var">$parts</span>[<span class="php-quote">'path'</span>]) ? <span class="php-var">$parts</span>[<span class="php-quote">'path'</span>] : <span class="php-quote">''</span>;
-</span><span id="465" class="l"><a href="#465">465: </a>                                <span class="php-var">$query</span> = <span class="php-keyword1">isset</span>(<span class="php-var">$parts</span>[<span class="php-quote">'query'</span>]) ? <span class="php-var">$parts</span>[<span class="php-quote">'query'</span>] : <span class="php-quote">''</span>;
-</span><span id="466" class="l"><a href="#466">466: </a>                                <span class="php-var">$hash</span>  = <span class="php-keyword1">isset</span>(<span class="php-var">$parts</span>[<span class="php-quote">'fragment'</span>]) ? <span class="php-var">$parts</span>[<span class="php-quote">'fragment'</span>] : <span class="php-quote">''</span>;
-</span><span id="467" class="l"><a href="#467">467: </a>
-</span><span id="468" class="l"><a href="#468">468: </a>                                <span class="php-keyword1">return</span> <span class="php-var">$this</span>-&gt;baseUrl()
-</span><span id="469" class="l"><a href="#469">469: </a>                                            -&gt;withPath(<span class="php-var">$path</span>)
-</span><span id="470" class="l"><a href="#470">470: </a>                                            -&gt;withQuery(<span class="php-var">$query</span>)
-</span><span id="471" class="l"><a href="#471">471: </a>                                            -&gt;withFragment(<span class="php-var">$hash</span>);
-</span><span id="472" class="l"><a href="#472">472: </a>                            }
-</span><span id="473" class="l"><a href="#473">473: </a>                        }
-</span><span id="474" class="l"><a href="#474">474: </a>                    }
-</span><span id="475" class="l"><a href="#475">475: </a>
-</span><span id="476" class="l"><a href="#476">476: </a>                    <span class="php-keyword1">return</span> <span class="php-var">$uri</span>;
-</span><span id="477" class="l"><a href="#477">477: </a>                }
-</span><span id="478" class="l"><a href="#478">478: </a>            ];
-</span><span id="479" class="l"><a href="#479">479: </a>
-</span><span id="480" class="l"><a href="#480">480: </a>            <span class="php-keyword1">return</span> <span class="php-keyword2">array_merge</span>(<span class="php-var">$helpers</span>, <span class="php-var">$urls</span>);
-</span><span id="481" class="l"><a href="#481">481: </a>        });
-</span><span id="482" class="l"><a href="#482">482: </a>    }
-</span><span id="483" class="l"><a href="#483">483: </a>}
-</span><span id="484" class="l"><a href="#484">484: </a></span></code></pre>
+</span></span><span id="451" class="l"><a href="#451">451: </a><span class="php-comment">                 * @return UriInterface|null
+</span></span><span id="452" class="l"><a href="#452">452: </a><span class="php-comment">                 */</span>
+</span><span id="453" class="l"><a href="#453">453: </a>                <span class="php-quote">'baseUrl'</span> =&gt; <span class="php-var">$container</span>[<span class="php-quote">'base-url'</span>],
+</span><span id="454" class="l"><a href="#454">454: </a>                <span class="php-comment">/**
+</span></span><span id="455" class="l"><a href="#455">455: </a><span class="php-comment">                 * Prepend the base URI to the given path.
+</span></span><span id="456" class="l"><a href="#456">456: </a><span class="php-comment">                 *
+</span></span><span id="457" class="l"><a href="#457">457: </a><span class="php-comment">                 * @param  string $uri A URI path to wrap.
+</span></span><span id="458" class="l"><a href="#458">458: </a><span class="php-comment">                 * @return UriInterface|null
+</span></span><span id="459" class="l"><a href="#459">459: </a><span class="php-comment">                 */</span>
+</span><span id="460" class="l"><a href="#460">460: </a>                <span class="php-quote">'withBaseUrl'</span> =&gt; <span class="php-keyword1">function</span> (<span class="php-var">$uri</span>, LambdaHelper <span class="php-var">$helper</span> = <span class="php-keyword1">null</span>) <span class="php-keyword1">use</span> (<span class="php-var">$container</span>) {
+</span><span id="461" class="l"><a href="#461">461: </a>                    <span class="php-keyword1">if</span> (<span class="php-var">$helper</span>) {
+</span><span id="462" class="l"><a href="#462">462: </a>                        <span class="php-var">$uri</span> = <span class="php-var">$helper</span>-&gt;render(<span class="php-var">$uri</span>);
+</span><span id="463" class="l"><a href="#463">463: </a>                    }
+</span><span id="464" class="l"><a href="#464">464: </a>
+</span><span id="465" class="l"><a href="#465">465: </a>                    <span class="php-var">$uri</span> = <span class="php-keyword2">strval</span>(<span class="php-var">$uri</span>);
+</span><span id="466" class="l"><a href="#466">466: </a>                    <span class="php-keyword1">if</span> (<span class="php-var">$uri</span>) {
+</span><span id="467" class="l"><a href="#467">467: </a>                        <span class="php-var">$parts</span> = <span class="php-keyword2">parse_url</span>(<span class="php-var">$uri</span>);
+</span><span id="468" class="l"><a href="#468">468: </a>                        <span class="php-keyword1">if</span> (!<span class="php-keyword1">isset</span>(<span class="php-var">$parts</span>[<span class="php-quote">'scheme'</span>])) {
+</span><span id="469" class="l"><a href="#469">469: </a>                            <span class="php-keyword1">if</span> (!<span class="php-keyword2">in_array</span>(<span class="php-var">$uri</span>[<span class="php-num">0</span>], [ <span class="php-quote">'/'</span>, <span class="php-quote">'#'</span>, <span class="php-quote">'?'</span> ])) {
+</span><span id="470" class="l"><a href="#470">470: </a>                                <span class="php-var">$path</span>  = <span class="php-keyword1">isset</span>(<span class="php-var">$parts</span>[<span class="php-quote">'path'</span>]) ? <span class="php-var">$parts</span>[<span class="php-quote">'path'</span>] : <span class="php-quote">''</span>;
+</span><span id="471" class="l"><a href="#471">471: </a>                                <span class="php-var">$query</span> = <span class="php-keyword1">isset</span>(<span class="php-var">$parts</span>[<span class="php-quote">'query'</span>]) ? <span class="php-var">$parts</span>[<span class="php-quote">'query'</span>] : <span class="php-quote">''</span>;
+</span><span id="472" class="l"><a href="#472">472: </a>                                <span class="php-var">$hash</span>  = <span class="php-keyword1">isset</span>(<span class="php-var">$parts</span>[<span class="php-quote">'fragment'</span>]) ? <span class="php-var">$parts</span>[<span class="php-quote">'fragment'</span>] : <span class="php-quote">''</span>;
+</span><span id="473" class="l"><a href="#473">473: </a>
+</span><span id="474" class="l"><a href="#474">474: </a>                                <span class="php-keyword1">return</span> <span class="php-var">$this</span>-&gt;baseUrl()
+</span><span id="475" class="l"><a href="#475">475: </a>                                            -&gt;withPath(<span class="php-var">$path</span>)
+</span><span id="476" class="l"><a href="#476">476: </a>                                            -&gt;withQuery(<span class="php-var">$query</span>)
+</span><span id="477" class="l"><a href="#477">477: </a>                                            -&gt;withFragment(<span class="php-var">$hash</span>);
+</span><span id="478" class="l"><a href="#478">478: </a>                            }
+</span><span id="479" class="l"><a href="#479">479: </a>                        }
+</span><span id="480" class="l"><a href="#480">480: </a>                    }
+</span><span id="481" class="l"><a href="#481">481: </a>
+</span><span id="482" class="l"><a href="#482">482: </a>                    <span class="php-keyword1">return</span> <span class="php-var">$uri</span>;
+</span><span id="483" class="l"><a href="#483">483: </a>                }
+</span><span id="484" class="l"><a href="#484">484: </a>            ];
+</span><span id="485" class="l"><a href="#485">485: </a>
+</span><span id="486" class="l"><a href="#486">486: </a>            <span class="php-keyword1">return</span> <span class="php-keyword2">array_merge</span>(<span class="php-var">$helpers</span>, <span class="php-var">$urls</span>);
+</span><span id="487" class="l"><a href="#487">487: </a>        });
+</span><span id="488" class="l"><a href="#488">488: </a>    }
+</span><span id="489" class="l"><a href="#489">489: </a>}
+</span><span id="490" class="l"><a href="#490">490: </a></span></code></pre>
 
 	<div id="footer">
 		 API documentation generated by <a href="http://apigen.org">ApiGen</a>
