@@ -432,6 +432,7 @@ class AppServiceProvider implements ServiceProviderInterface
          * @return array
          */
         $container->extend('view/mustache/helpers', function (array $helpers, Container $container) {
+            $baseUrl = $container['base-url'];
             $urls = [
                 /**
                  * Application debug mode.
@@ -444,20 +445,20 @@ class AppServiceProvider implements ServiceProviderInterface
                  *
                  * @return UriInterface|null
                  */
-                'siteUrl' => $container['base-url'],
+                'siteUrl' => $baseUrl,
                 /**
                  * Alias of "siteUrl"
                  *
                  * @return UriInterface|null
                  */
-                'baseUrl' => $container['base-url'],
+                'baseUrl' => $baseUrl,
                 /**
                  * Prepend the base URI to the given path.
                  *
                  * @param  string $uri A URI path to wrap.
                  * @return UriInterface|null
                  */
-                'withBaseUrl' => function ($uri, LambdaHelper $helper = null) use ($container) {
+                'withBaseUrl' => function ($uri, LambdaHelper $helper = null) use ($baseUrl) {
                     if ($helper) {
                         $uri = $helper->render($uri);
                     }
@@ -471,10 +472,9 @@ class AppServiceProvider implements ServiceProviderInterface
                                 $query = isset($parts['query']) ? $parts['query'] : '';
                                 $hash  = isset($parts['fragment']) ? $parts['fragment'] : '';
 
-                                return $this->baseUrl()
-                                            ->withPath($path)
-                                            ->withQuery($query)
-                                            ->withFragment($hash);
+                                $uri = $baseUrl->withPath($path)
+                                               ->withQuery($query)
+                                               ->withFragment($hash);
                             }
                         }
                     }
