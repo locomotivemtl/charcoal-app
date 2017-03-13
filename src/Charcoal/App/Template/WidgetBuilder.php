@@ -43,10 +43,11 @@ class WidgetBuilder
         } elseif (isset($options['type'])) {
             $objType = $options['type'];
         } else {
-            $objType = self::DEFAULT_TYPE;
+            throw new \InvalidArgumentException('Undefined widget type');
         }
         $obj = $this->factory->create($objType);
         $obj->setData($options);
+
         return $obj;
     }
 }
