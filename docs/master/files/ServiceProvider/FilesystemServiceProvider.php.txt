@@ -67,7 +67,7 @@ class FilesystemServiceProvider implements ServiceProviderInterface
             return new MountManager();
         };
 
-        $container['filesystems'] = function(Container $container) {
+        $container['filesystems'] = function (Container $container) {
             $filesystemConfig = $container['filesystem/config'];
             $filesystems = new Container();
 
@@ -133,9 +133,9 @@ class FilesystemServiceProvider implements ServiceProviderInterface
             );
         }
         $defaults = [
-            'lock'          => null,
-            'links'         => null,
-            'permissions'   => []
+            'lock'        => null,
+            'links'       => null,
+            'permissions' => []
         ];
         $config = array_merge($defaults, $config);
 
@@ -167,9 +167,9 @@ class FilesystemServiceProvider implements ServiceProviderInterface
         }
 
         $defaults = [
-            'region'    => '',
-            'version'   => 'latest',
-            'prefix'    => null
+            'region'  => '',
+            'version' => 'latest',
+            'prefix'  => null
         ];
         $config = array_merge($defaults, $config);
 
@@ -178,8 +178,8 @@ class FilesystemServiceProvider implements ServiceProviderInterface
                 'key'    => $config['key'],
                 'secret' => $config['secret'],
             ],
-            'region' => $config['region'],
-            'version' => $config['version'],
+            'region'      => $config['region'],
+            'version'     => $config['version'],
         ]);
 
         if (isset($config['public']) && !$config['public']) {
@@ -245,11 +245,11 @@ class FilesystemServiceProvider implements ServiceProviderInterface
         }
 
         $defaults = [
-            'port'      => null,
-            'root'      => null,
-            'passive'   => null,
-            'ssl'       => null,
-            'timeout'   => null
+            'port'    => null,
+            'root'    => null,
+            'passive' => null,
+            'ssl'     => null,
+            'timeout' => null
         ];
         $config = array_merge($defaults, $config);
 
@@ -280,13 +280,12 @@ class FilesystemServiceProvider implements ServiceProviderInterface
         }
 
         $defaults = [
-            'port'          => null,
-            'privateKey'    => null,
-            'root'          => null,
-            'timeout'       => null
+            'port'       => null,
+            'privateKey' => null,
+            'root'       => null,
+            'timeout'    => null
         ];
         $config = array_merge($defaults, $config);
-        ;
 
         return new SftpAdapter($config);
     }
