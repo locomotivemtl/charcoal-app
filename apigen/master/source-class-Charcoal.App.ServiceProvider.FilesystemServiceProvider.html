@@ -250,7 +250,7 @@
 </span><span id="67" class="l"><a href="#67"> 67: </a>            <span class="php-keyword1">return</span> <span class="php-keyword1">new</span> MountManager();
 </span><span id="68" class="l"><a href="#68"> 68: </a>        };
 </span><span id="69" class="l"><a href="#69"> 69: </a>
-</span><span id="70" class="l"><a href="#70"> 70: </a>        <span class="php-var">$container</span>[<span class="php-quote">'filesystems'</span>] = <span class="php-keyword1">function</span>(Container <span class="php-var">$container</span>) {
+</span><span id="70" class="l"><a href="#70"> 70: </a>        <span class="php-var">$container</span>[<span class="php-quote">'filesystems'</span>] = <span class="php-keyword1">function</span> (Container <span class="php-var">$container</span>) {
 </span><span id="71" class="l"><a href="#71"> 71: </a>            <span class="php-var">$filesystemConfig</span> = <span class="php-var">$container</span>[<span class="php-quote">'filesystem/config'</span>];
 </span><span id="72" class="l"><a href="#72"> 72: </a>            <span class="php-var">$filesystems</span> = <span class="php-keyword1">new</span> Container();
 </span><span id="73" class="l"><a href="#73"> 73: </a>
@@ -316,9 +316,9 @@
 </span><span id="133" class="l"><a href="#133">133: </a>            );
 </span><span id="134" class="l"><a href="#134">134: </a>        }
 </span><span id="135" class="l"><a href="#135">135: </a>        <span class="php-var">$defaults</span> = [
-</span><span id="136" class="l"><a href="#136">136: </a>            <span class="php-quote">'lock'</span>          =&gt; <span class="php-keyword1">null</span>,
-</span><span id="137" class="l"><a href="#137">137: </a>            <span class="php-quote">'links'</span>         =&gt; <span class="php-keyword1">null</span>,
-</span><span id="138" class="l"><a href="#138">138: </a>            <span class="php-quote">'permissions'</span>   =&gt; []
+</span><span id="136" class="l"><a href="#136">136: </a>            <span class="php-quote">'lock'</span>        =&gt; <span class="php-keyword1">null</span>,
+</span><span id="137" class="l"><a href="#137">137: </a>            <span class="php-quote">'links'</span>       =&gt; <span class="php-keyword1">null</span>,
+</span><span id="138" class="l"><a href="#138">138: </a>            <span class="php-quote">'permissions'</span> =&gt; []
 </span><span id="139" class="l"><a href="#139">139: </a>        ];
 </span><span id="140" class="l"><a href="#140">140: </a>        <span class="php-var">$config</span> = <span class="php-keyword2">array_merge</span>(<span class="php-var">$defaults</span>, <span class="php-var">$config</span>);
 </span><span id="141" class="l"><a href="#141">141: </a>
@@ -350,9 +350,9 @@
 </span><span id="167" class="l"><a href="#167">167: </a>        }
 </span><span id="168" class="l"><a href="#168">168: </a>
 </span><span id="169" class="l"><a href="#169">169: </a>        <span class="php-var">$defaults</span> = [
-</span><span id="170" class="l"><a href="#170">170: </a>            <span class="php-quote">'region'</span>    =&gt; <span class="php-quote">''</span>,
-</span><span id="171" class="l"><a href="#171">171: </a>            <span class="php-quote">'version'</span>   =&gt; <span class="php-quote">'latest'</span>,
-</span><span id="172" class="l"><a href="#172">172: </a>            <span class="php-quote">'prefix'</span>    =&gt; <span class="php-keyword1">null</span>
+</span><span id="170" class="l"><a href="#170">170: </a>            <span class="php-quote">'region'</span>  =&gt; <span class="php-quote">''</span>,
+</span><span id="171" class="l"><a href="#171">171: </a>            <span class="php-quote">'version'</span> =&gt; <span class="php-quote">'latest'</span>,
+</span><span id="172" class="l"><a href="#172">172: </a>            <span class="php-quote">'prefix'</span>  =&gt; <span class="php-keyword1">null</span>
 </span><span id="173" class="l"><a href="#173">173: </a>        ];
 </span><span id="174" class="l"><a href="#174">174: </a>        <span class="php-var">$config</span> = <span class="php-keyword2">array_merge</span>(<span class="php-var">$defaults</span>, <span class="php-var">$config</span>);
 </span><span id="175" class="l"><a href="#175">175: </a>
@@ -361,8 +361,8 @@
 </span><span id="178" class="l"><a href="#178">178: </a>                <span class="php-quote">'key'</span>    =&gt; <span class="php-var">$config</span>[<span class="php-quote">'key'</span>],
 </span><span id="179" class="l"><a href="#179">179: </a>                <span class="php-quote">'secret'</span> =&gt; <span class="php-var">$config</span>[<span class="php-quote">'secret'</span>],
 </span><span id="180" class="l"><a href="#180">180: </a>            ],
-</span><span id="181" class="l"><a href="#181">181: </a>            <span class="php-quote">'region'</span> =&gt; <span class="php-var">$config</span>[<span class="php-quote">'region'</span>],
-</span><span id="182" class="l"><a href="#182">182: </a>            <span class="php-quote">'version'</span> =&gt; <span class="php-var">$config</span>[<span class="php-quote">'version'</span>],
+</span><span id="181" class="l"><a href="#181">181: </a>            <span class="php-quote">'region'</span>      =&gt; <span class="php-var">$config</span>[<span class="php-quote">'region'</span>],
+</span><span id="182" class="l"><a href="#182">182: </a>            <span class="php-quote">'version'</span>     =&gt; <span class="php-var">$config</span>[<span class="php-quote">'version'</span>],
 </span><span id="183" class="l"><a href="#183">183: </a>        ]);
 </span><span id="184" class="l"><a href="#184">184: </a>
 </span><span id="185" class="l"><a href="#185">185: </a>        <span class="php-keyword1">if</span> (<span class="php-keyword1">isset</span>(<span class="php-var">$config</span>[<span class="php-quote">'public'</span>]) &amp;&amp; !<span class="php-var">$config</span>[<span class="php-quote">'public'</span>]) {
@@ -428,11 +428,11 @@
 </span><span id="245" class="l"><a href="#245">245: </a>        }
 </span><span id="246" class="l"><a href="#246">246: </a>
 </span><span id="247" class="l"><a href="#247">247: </a>        <span class="php-var">$defaults</span> = [
-</span><span id="248" class="l"><a href="#248">248: </a>            <span class="php-quote">'port'</span>      =&gt; <span class="php-keyword1">null</span>,
-</span><span id="249" class="l"><a href="#249">249: </a>            <span class="php-quote">'root'</span>      =&gt; <span class="php-keyword1">null</span>,
-</span><span id="250" class="l"><a href="#250">250: </a>            <span class="php-quote">'passive'</span>   =&gt; <span class="php-keyword1">null</span>,
-</span><span id="251" class="l"><a href="#251">251: </a>            <span class="php-quote">'ssl'</span>       =&gt; <span class="php-keyword1">null</span>,
-</span><span id="252" class="l"><a href="#252">252: </a>            <span class="php-quote">'timeout'</span>   =&gt; <span class="php-keyword1">null</span>
+</span><span id="248" class="l"><a href="#248">248: </a>            <span class="php-quote">'port'</span>    =&gt; <span class="php-keyword1">null</span>,
+</span><span id="249" class="l"><a href="#249">249: </a>            <span class="php-quote">'root'</span>    =&gt; <span class="php-keyword1">null</span>,
+</span><span id="250" class="l"><a href="#250">250: </a>            <span class="php-quote">'passive'</span> =&gt; <span class="php-keyword1">null</span>,
+</span><span id="251" class="l"><a href="#251">251: </a>            <span class="php-quote">'ssl'</span>     =&gt; <span class="php-keyword1">null</span>,
+</span><span id="252" class="l"><a href="#252">252: </a>            <span class="php-quote">'timeout'</span> =&gt; <span class="php-keyword1">null</span>
 </span><span id="253" class="l"><a href="#253">253: </a>        ];
 </span><span id="254" class="l"><a href="#254">254: </a>        <span class="php-var">$config</span> = <span class="php-keyword2">array_merge</span>(<span class="php-var">$defaults</span>, <span class="php-var">$config</span>);
 </span><span id="255" class="l"><a href="#255">255: </a>
@@ -463,34 +463,33 @@
 </span><span id="280" class="l"><a href="#280">280: </a>        }
 </span><span id="281" class="l"><a href="#281">281: </a>
 </span><span id="282" class="l"><a href="#282">282: </a>        <span class="php-var">$defaults</span> = [
-</span><span id="283" class="l"><a href="#283">283: </a>            <span class="php-quote">'port'</span>          =&gt; <span class="php-keyword1">null</span>,
-</span><span id="284" class="l"><a href="#284">284: </a>            <span class="php-quote">'privateKey'</span>    =&gt; <span class="php-keyword1">null</span>,
-</span><span id="285" class="l"><a href="#285">285: </a>            <span class="php-quote">'root'</span>          =&gt; <span class="php-keyword1">null</span>,
-</span><span id="286" class="l"><a href="#286">286: </a>            <span class="php-quote">'timeout'</span>       =&gt; <span class="php-keyword1">null</span>
+</span><span id="283" class="l"><a href="#283">283: </a>            <span class="php-quote">'port'</span>       =&gt; <span class="php-keyword1">null</span>,
+</span><span id="284" class="l"><a href="#284">284: </a>            <span class="php-quote">'privateKey'</span> =&gt; <span class="php-keyword1">null</span>,
+</span><span id="285" class="l"><a href="#285">285: </a>            <span class="php-quote">'root'</span>       =&gt; <span class="php-keyword1">null</span>,
+</span><span id="286" class="l"><a href="#286">286: </a>            <span class="php-quote">'timeout'</span>    =&gt; <span class="php-keyword1">null</span>
 </span><span id="287" class="l"><a href="#287">287: </a>        ];
 </span><span id="288" class="l"><a href="#288">288: </a>        <span class="php-var">$config</span> = <span class="php-keyword2">array_merge</span>(<span class="php-var">$defaults</span>, <span class="php-var">$config</span>);
-</span><span id="289" class="l"><a href="#289">289: </a>        ;
-</span><span id="290" class="l"><a href="#290">290: </a>
-</span><span id="291" class="l"><a href="#291">291: </a>        <span class="php-keyword1">return</span> <span class="php-keyword1">new</span> SftpAdapter(<span class="php-var">$config</span>);
-</span><span id="292" class="l"><a href="#292">292: </a>    }
-</span><span id="293" class="l"><a href="#293">293: </a>
-</span><span id="294" class="l"><a href="#294">294: </a>    <span class="php-comment">/**
-</span></span><span id="295" class="l"><a href="#295">295: </a><span class="php-comment">     * @return MemoryAdapter
-</span></span><span id="296" class="l"><a href="#296">296: </a><span class="php-comment">     */</span>
-</span><span id="297" class="l"><a href="#297">297: </a>    <span class="php-keyword1">private</span> <span class="php-keyword1">function</span> createMemoryAdapter()
-</span><span id="298" class="l"><a href="#298">298: </a>    {
-</span><span id="299" class="l"><a href="#299">299: </a>        <span class="php-keyword1">return</span> <span class="php-keyword1">new</span> MemoryAdapter();
-</span><span id="300" class="l"><a href="#300">300: </a>    }
-</span><span id="301" class="l"><a href="#301">301: </a>
-</span><span id="302" class="l"><a href="#302">302: </a>    <span class="php-comment">/**
-</span></span><span id="303" class="l"><a href="#303">303: </a><span class="php-comment">     * @return NullAdapter
-</span></span><span id="304" class="l"><a href="#304">304: </a><span class="php-comment">     */</span>
-</span><span id="305" class="l"><a href="#305">305: </a>    <span class="php-keyword1">private</span> <span class="php-keyword1">function</span> createNullAdapter()
-</span><span id="306" class="l"><a href="#306">306: </a>    {
-</span><span id="307" class="l"><a href="#307">307: </a>        <span class="php-keyword1">return</span> <span class="php-keyword1">new</span> NullAdapter();
-</span><span id="308" class="l"><a href="#308">308: </a>    }
-</span><span id="309" class="l"><a href="#309">309: </a>}
-</span><span id="310" class="l"><a href="#310">310: </a></span></code></pre>
+</span><span id="289" class="l"><a href="#289">289: </a>
+</span><span id="290" class="l"><a href="#290">290: </a>        <span class="php-keyword1">return</span> <span class="php-keyword1">new</span> SftpAdapter(<span class="php-var">$config</span>);
+</span><span id="291" class="l"><a href="#291">291: </a>    }
+</span><span id="292" class="l"><a href="#292">292: </a>
+</span><span id="293" class="l"><a href="#293">293: </a>    <span class="php-comment">/**
+</span></span><span id="294" class="l"><a href="#294">294: </a><span class="php-comment">     * @return MemoryAdapter
+</span></span><span id="295" class="l"><a href="#295">295: </a><span class="php-comment">     */</span>
+</span><span id="296" class="l"><a href="#296">296: </a>    <span class="php-keyword1">private</span> <span class="php-keyword1">function</span> createMemoryAdapter()
+</span><span id="297" class="l"><a href="#297">297: </a>    {
+</span><span id="298" class="l"><a href="#298">298: </a>        <span class="php-keyword1">return</span> <span class="php-keyword1">new</span> MemoryAdapter();
+</span><span id="299" class="l"><a href="#299">299: </a>    }
+</span><span id="300" class="l"><a href="#300">300: </a>
+</span><span id="301" class="l"><a href="#301">301: </a>    <span class="php-comment">/**
+</span></span><span id="302" class="l"><a href="#302">302: </a><span class="php-comment">     * @return NullAdapter
+</span></span><span id="303" class="l"><a href="#303">303: </a><span class="php-comment">     */</span>
+</span><span id="304" class="l"><a href="#304">304: </a>    <span class="php-keyword1">private</span> <span class="php-keyword1">function</span> createNullAdapter()
+</span><span id="305" class="l"><a href="#305">305: </a>    {
+</span><span id="306" class="l"><a href="#306">306: </a>        <span class="php-keyword1">return</span> <span class="php-keyword1">new</span> NullAdapter();
+</span><span id="307" class="l"><a href="#307">307: </a>    }
+</span><span id="308" class="l"><a href="#308">308: </a>}
+</span><span id="309" class="l"><a href="#309">309: </a></span></code></pre>
 
 	<div id="footer">
 		 API documentation generated by <a href="http://apigen.org">ApiGen</a>
