@@ -40,9 +40,9 @@ class DatabaseServiceProvider implements ServiceProviderInterface
     public function register(Container $container)
     {
         /**
-        * @param Container $container A container instance.
-        * @return Container The Collection of DatabaseSourceConfig, in a Container.
-        */
+         * @param Container $container A container instance.
+         * @return Container The Collection of DatabaseSourceConfig, in a Container.
+         */
         $container['databases/config'] = function (Container $container) {
             $config = $container['config'];
             $databases = $config['databases'];
@@ -54,9 +54,9 @@ class DatabaseServiceProvider implements ServiceProviderInterface
         };
 
         /**
-        * @param Container $container A container instance.
-        * @return Container
-        */
+         * @param Container $container A container instance.
+         * @return Container
+         */
         $container['databases'] = function (Container $container) {
             $config = $container['config'];
             $databases = $config['databases'];
@@ -66,9 +66,9 @@ class DatabaseServiceProvider implements ServiceProviderInterface
                 unset($dbOptions);
 
                 /**
-                * @param Container $container A container instance.
-                * @return PDO
-                */
+                 * @param Container $container A container instance.
+                 * @return PDO
+                 */
                 $dbs[$dbIdent] = function () use ($dbIdent, $origContainer) {
                     $dbConfigs = $origContainer['databases/config'];
                     $dbConfig = $dbConfigs[$dbIdent];
@@ -86,7 +86,11 @@ class DatabaseServiceProvider implements ServiceProviderInterface
                         $extraOptions = [PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'];
                     }
 
-                    $dsn = $type.':host='.$host.';dbname='.$database;
+                    if ($type == 'sqlite') {
+                        $dsn = $type.':'.$database;
+                    } else {
+                        $dsn = $type . ':host=' . $host . ';dbname=' . $database;
+                    }
                     $db = new PDO($dsn, $username, $password, $extraOptions);
 
                     // Set PDO options
@@ -101,9 +105,9 @@ class DatabaseServiceProvider implements ServiceProviderInterface
         };
 
         /**
-        * @param Container $container A container instance.
-        * @return DatabaseSourceConfig
-        */
+         * @param Container $container A container instance.
+         * @return DatabaseSourceConfig
+         */
         $container['database/config'] = function (Container $container) {
             $config = $container['config'];
             $databaseIdent = $config['default_database'];
@@ -111,12 +115,12 @@ class DatabaseServiceProvider implements ServiceProviderInterface
         };
 
         /**
-        * The database service, as a PDO object.
-        *
-        * @param Container $container A container instance.
-        * @throws Exception If the database configuration is invalid.
-        * @return PDO
-        */
+         * The database service, as a PDO object.
+         *
+         * @param Container $container A container instance.
+         * @throws Exception If the database configuration is invalid.
+         * @return PDO
+         */
         $container['database'] = function (Container $container) {
             $config = $container['config'];
             $databaseIdent = $config['default_database'];
@@ -128,5 +132,10 @@ class DatabaseServiceProvider implements ServiceProviderInterface
             }
             return $databases[$databaseIdent];
         };
+    }
+
+    public static function __callStatic($name, $arguments)
+    {
+        // TODO: Implement __callStatic() method.
     }
 }
