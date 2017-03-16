@@ -133,9 +133,4 @@ class DatabaseServiceProvider implements ServiceProviderInterface
             return $databases[$databaseIdent];
         };
     }
-
-    public static function __callStatic($name, $arguments)
-    {
-        // TODO: Implement __callStatic() method.
-    }
 }
