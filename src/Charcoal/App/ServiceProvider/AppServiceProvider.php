@@ -118,6 +118,12 @@ class AppServiceProvider implements ServiceProviderInterface
 
                 $baseUrl = Uri::createFromString($baseUrl)->withUserInfo('');
 
+                /** Fix the base path */
+                $path = $baseUrl->getPath();
+                if ($path) {
+                    $baseUrl = $baseUrl->withBasePath($path)->withPath('');
+                }
+
                 return $baseUrl;
             };
         }
