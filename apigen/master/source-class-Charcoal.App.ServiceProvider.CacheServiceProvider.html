@@ -399,7 +399,7 @@
 </span><span id="216" class="l"><a href="#216">216: </a>            <span class="php-var">$cacheConfig</span> = <span class="php-var">$container</span>[<span class="php-quote">'cache/config'</span>];
 </span><span id="217" class="l"><a href="#217">217: </a>            <span class="php-var">$middlewareConfig</span> = <span class="php-var">$cacheConfig</span>[<span class="php-quote">'middleware'</span>];
 </span><span id="218" class="l"><a href="#218">218: </a>            <span class="php-keyword1">return</span> <span class="php-keyword1">new</span> CacheMiddleware([
-</span><span id="219" class="l"><a href="#219">219: </a>                <span class="php-quote">'cache'</span> =&gt; <span class="php-var">$container</span>[<span class="php-quote">'cache'</span>],
+</span><span id="219" class="l"><a href="#219">219: </a>                <span class="php-quote">'cache'</span>          =&gt; <span class="php-var">$container</span>[<span class="php-quote">'cache'</span>],
 </span><span id="220" class="l"><a href="#220">220: </a>                <span class="php-quote">'included_path'</span>  =&gt; <span class="php-var">$middlewareConfig</span>[<span class="php-quote">'included_path'</span>],
 </span><span id="221" class="l"><a href="#221">221: </a>                <span class="php-quote">'excluded_path'</span>  =&gt; <span class="php-var">$middlewareConfig</span>[<span class="php-quote">'excluded_path'</span>],
 </span><span id="222" class="l"><a href="#222">222: </a>                <span class="php-quote">'methods'</span>        =&gt; <span class="php-var">$middlewareConfig</span>[<span class="php-quote">'methods'</span>],
