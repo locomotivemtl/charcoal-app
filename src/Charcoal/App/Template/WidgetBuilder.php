@@ -2,15 +2,19 @@
 
 namespace Charcoal\App\Template;
 
-use \Charcoal\Factory\FactoryInterface;
-use \Pimple\Container;
+use InvalidArgumentException;
+
+// From Pimple
+use Pimple\Container;
+
+// From 'charcoal-factory'
+use Charcoal\Factory\FactoryInterface;
 
 /**
  * Build widgets from config, with a WidgetFactory
  */
 class WidgetBuilder
 {
-
     /**
      * @var FactoryInterface $factory
      */
@@ -33,7 +37,8 @@ class WidgetBuilder
     }
 
     /**
-     * @param array|\ArrayAccess $options The form group build options / config.
+     * @param  array|\ArrayAccess $options The form group build options / config.
+     * @throws InvalidArgumentException If the widget is invalid.
      * @return WidgetInterface The "built" widget object.
      */
     public function build($options)
@@ -43,8 +48,9 @@ class WidgetBuilder
         } elseif (isset($options['type'])) {
             $objType = $options['type'];
         } else {
-            throw new \InvalidArgumentException('Undefined widget type');
+            throw new InvalidArgumentException('Undefined widget type');
         }
+
         $obj = $this->factory->create($objType);
         $obj->setData($options);
 
