@@ -130,11 +130,13 @@ class RouteManager implements
                     );
                 }
 
-                $routeFactory = $this['route/factory'];
-                $defaultRoute = TemplateRoute::class;
-                $routeController = isset($templateConfig['route_controller'])
+                $defaultController = $this['route/controller/template/class'];
+                $routeController   = isset($templateConfig['route_controller'])
                     ? $templateConfig['route_controller']
-                    : $defaultRoute;
+                    : $defaultController;
+
+                $routeFactory = $this['route/factory'];
+                $routeFactory->setDefaultClass($defaultController);
 
                 $route = $routeFactory->create($routeController, [
                     'config' => $templateConfig,
@@ -204,11 +206,13 @@ class RouteManager implements
                     );
                 }
 
-                $routeFactory = $this['route/factory'];
-                $defaultRoute = ActionRoute::class;
-                $routeController = isset($actionConfig['route_controller'])
+                $defaultController = $this['route/controller/action/class'];
+                $routeController   = isset($actionConfig['route_controller'])
                     ? $actionConfig['route_controller']
-                    : $defaultRoute;
+                    : $defaultController;
+
+                $routeFactory = $this['route/factory'];
+                $routeFactory->setDefaultClass($defaultController);
 
                 $route = $routeFactory->create($routeController, [
                     'config' => $actionConfig,
@@ -278,11 +282,13 @@ class RouteManager implements
                     );
                 }
 
-                $routeFactory = $this['route/factory'];
-                $defaultRoute = ScriptRoute::class;
-                $routeController = isset($scriptConfig['route_controller'])
+                $defaultController = $this['route/controller/script/class'];
+                $routeController   = isset($scriptConfig['route_controller'])
                     ? $scriptConfig['route_controller']
-                    : $defaultRoute;
+                    : $defaultController;
+
+                $routeFactory = $this['route/factory'];
+                $routeFactory->setDefaultClass($defaultController);
 
                 $route = $routeFactory->create($routeController, [
                     'config' => $scriptConfig,

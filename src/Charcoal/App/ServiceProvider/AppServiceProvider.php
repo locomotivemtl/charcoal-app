@@ -24,8 +24,12 @@ use Charcoal\Factory\GenericFactory as Factory;
 // Intra-module (`charcoal-app`) dependencies
 use Charcoal\App\Action\ActionInterface;
 use Charcoal\App\Script\ScriptInterface;
-use Charcoal\App\Route\RouteInterface;
 use Charcoal\App\Module\ModuleInterface;
+
+use Charcoal\App\Route\ActionRoute;
+use Charcoal\App\Route\RouteInterface;
+use Charcoal\App\Route\ScriptRoute;
+use Charcoal\App\Route\TemplateRoute;
 
 use Charcoal\App\Handler\Error;
 use Charcoal\App\Handler\PhpError;
@@ -244,6 +248,15 @@ class AppServiceProvider implements ServiceProviderInterface
      */
     protected function registerRouteServices(Container $container)
     {
+        /** @var string The default route controller for actions. */
+        $container['route/controller/action/class'] = ActionRoute::class;
+
+        /** @var string The default route controller for scripts. */
+        $container['route/controller/script/class'] = ScriptRoute::class;
+
+        /** @var string The default route controller for templates. */
+        $container['route/controller/template/class'] = TemplateRoute::class;
+
         /**
          * The Route Factory service is used to instanciate new routes.
          *
