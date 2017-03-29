@@ -216,7 +216,7 @@ class CacheServiceProvider implements ServiceProviderInterface
             $cacheConfig = $container['cache/config'];
             $middlewareConfig = $cacheConfig['middleware'];
             return new CacheMiddleware([
-                'cache' => $container['cache'],
+                'cache'          => $container['cache'],
                 'included_path'  => $middlewareConfig['included_path'],
                 'excluded_path'  => $middlewareConfig['excluded_path'],
                 'methods'        => $middlewareConfig['methods'],

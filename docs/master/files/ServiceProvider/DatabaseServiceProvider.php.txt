@@ -89,7 +89,7 @@ class DatabaseServiceProvider implements ServiceProviderInterface
                     if ($type == 'sqlite') {
                         $dsn = $type.':'.$database;
                     } else {
-                        $dsn = $type . ':host=' . $host . ';dbname=' . $database;
+                        $dsn = $type.':host='.$host.';dbname='.$database;
                     }
                     $db = new PDO($dsn, $username, $password, $extraOptions);
 
