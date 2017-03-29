@@ -483,7 +483,9 @@ class AppServiceProvider implements ServiceProviderInterface
                     }
 
                     $uri = strval($uri);
-                    if ($uri) {
+                    if ($uri === '') {
+                        $uri = $baseUrl->withPath('');
+                    } else {
                         $parts = parse_url($uri);
                         if (!isset($parts['scheme'])) {
                             if (!in_array($uri[0], [ '/', '#', '?' ])) {
