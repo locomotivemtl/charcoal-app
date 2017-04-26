@@ -50,15 +50,15 @@ trait CronScriptTrait
         $lockFile = sys_get_temp_dir().'/'.$lockName;
         $this->lockFilePointer = fopen($lockFile, 'w');
         if (!$this->lockFilePointer) {
-             throw new Exception(
-                 sprintf('Can not run action. Lock file "%s" not available.', $lockFile)
-             );
+            throw new Exception(
+                sprintf('Can not run action. Lock file not available: "%s"', $lockFile)
+            );
         }
         if (flock($this->lockFilePointer, LOCK_EX)) {
             return true;
         } else {
             throw new Exception(
-                sprintf('Can not run action. Lock file "%s" not available.', $lockFile)
+                sprintf('Can not run action. Action locked: "%s".', $lockFile)
             );
         }
     }
