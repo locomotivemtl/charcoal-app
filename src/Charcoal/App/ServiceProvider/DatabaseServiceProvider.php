@@ -83,7 +83,7 @@ class DatabaseServiceProvider implements ServiceProviderInterface
                     // Set UTf-8 compatibility by default. Disable it if it is set as such in config
                     $extraOptions = null;
                     if (!isset($dbConfig['disable_utf8']) || !$dbConfig['disable_utf8']) {
-                        $extraOptions = [PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'];
+                        $extraOptions = [PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8mb4'];
                     }
 
                     if ($type == 'sqlite') {
