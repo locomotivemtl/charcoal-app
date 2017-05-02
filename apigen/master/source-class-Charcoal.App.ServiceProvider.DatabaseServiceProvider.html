@@ -266,7 +266,7 @@
 </span><span id="83" class="l"><a href="#83"> 83: </a>                    <span class="php-comment">// Set UTf-8 compatibility by default. Disable it if it is set as such in config</span>
 </span><span id="84" class="l"><a href="#84"> 84: </a>                    <span class="php-var">$extraOptions</span> = <span class="php-keyword1">null</span>;
 </span><span id="85" class="l"><a href="#85"> 85: </a>                    <span class="php-keyword1">if</span> (!<span class="php-keyword1">isset</span>(<span class="php-var">$dbConfig</span>[<span class="php-quote">'disable_utf8'</span>]) || !<span class="php-var">$dbConfig</span>[<span class="php-quote">'disable_utf8'</span>]) {
-</span><span id="86" class="l"><a href="#86"> 86: </a>                        <span class="php-var">$extraOptions</span> = [PDO::MYSQL_ATTR_INIT_COMMAND =&gt; <span class="php-quote">'SET NAMES utf8'</span>];
+</span><span id="86" class="l"><a href="#86"> 86: </a>                        <span class="php-var">$extraOptions</span> = [PDO::MYSQL_ATTR_INIT_COMMAND =&gt; <span class="php-quote">'SET NAMES utf8mb4'</span>];
 </span><span id="87" class="l"><a href="#87"> 87: </a>                    }
 </span><span id="88" class="l"><a href="#88"> 88: </a>
 </span><span id="89" class="l"><a href="#89"> 89: </a>                    <span class="php-keyword1">if</span> (<span class="php-var">$type</span> == <span class="php-quote">'sqlite'</span>) {
