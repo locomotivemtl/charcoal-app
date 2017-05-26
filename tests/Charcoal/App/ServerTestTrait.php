@@ -106,45 +106,80 @@ trait ServerTestTrait
 
     /**
      * @param array $request The request data (method, route, options).
-     * @return mixed|\Psr\Http\Message\ResponseInterface
+     * @return \Psr\Http\Message\ResponseInterface
      */
     protected function callRequest(array $request)
     {
         $route = str_replace('.', '', $request['route']);
         $client = new HttpClient();
-        $res = $client->request(
+        return $client->request(
             $request['method'],
             'http://'.static::serverURL().$route,
             $request['options']
         );
-        return $res;
     }
 
     /**
-     * @param ResponseInterface $response
      * @param array $expected
+     * @param ResponseInterface $response
      */
-    protected function assertResponseMatchesExpected(ResponseInterface $response, array $expected)
+    protected function assertResponseMatchesExpected(array $expected, ResponseInterface $response)
     {
         if (isset($expected['statusCode']) && $expected['statusCode']) {
-            $this->assertEquals($expected['statusCode'], $response->getStatusCode());
+            $this->assertResponseHasStatusCode($expected['statusCode'], $response);
         }
         if (isset($expected['json']) && $expected['json']) {
-            $results = json_decode((string)$response->getBody(), true);
-            foreach($expected['json'] as $k=>$v) {
-                if (is_array($v)) {
-                    $this->assertArraySubset($v, $results[$k]);
-                } else {
-                    $this->assertEquals($v, $results[$k]);
+            $this->assertResponseBodyMatchesJson($expected['json'], $response);
+        }
+        if (isset($expected['body']) && $expected['body']) {
+            if (is_string($expected['body'])) {
+                $this->assertResponseBodyRegExp($expected['body'], $response);
+            } else {
+                foreach ($expected['body'] as $regexp) {
+                    $this->assertResponseBodyRegExp($regexp, $response);
                 }
             }
         }
-        if (isset($expected['body']) && $expected['body']) {
-            $body = (string)$response->getBody();
-            foreach($expected['body'] as $regexp) {
-                $this->assertRegExp($regexp, $body);
+    }
+
+    /**
+     * @param int $expectedStatusCode
+     * @param ResponseInterface $response
+     */
+    protected function assertResponseHasStatusCode($expectedStatusCode, ResponseInterface $response)
+    {
+        $this->assertEquals($expectedStatusCode, $response->getStatusCode());
+    }
+
+    /**
+     * @param array|string $json
+     * @param ResponseInterface $response
+     */
+    protected function assertResponseBodyMatchesJson($json, ResponseInterface $response)
+    {
+        if(is_string($json)) {
+            $json = json_decode($json, true);
+        }
+
+        $results = json_decode((string)$response->getBody(), true);
+        foreach($json as $k=>$v) {
+            $this->assertArrayHasKey($k, $results);
+            if (is_array($v)) {
+                $this->assertArraySubset($v, $results[$k]);
+            } else {
+                $this->assertEquals($v, $results[$k]);
             }
         }
+
+    }
+
+    /**
+     * @param string $pattern
+     * @param ResponseInterface $response
+     */
+    protected function assertResponseBodyRegExp($pattern, ResponseInterface $response)
+    {
+        $this->assertRegExp($pattern, (string)$response->getBody());
     }
 
 }

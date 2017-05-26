@@ -21,6 +21,7 @@ Provided services (through `Pimple`'s _Service Providers_) are a PSR-3 _logger_,
         -   [Route API](#route-api)
         -   [Routable objects](#routable-objects)
     -   [Charcoal Binary](#charcoal-binary)
+    -   [PHPUnits Tests](#phpunit-tests)
 -   [Service Providers](#service-providers)
     -   [Basic Services](#basic-services)
     -   [App Service Provider](#app-service-provider)
@@ -135,6 +136,7 @@ The main components of charcoal-app are:
     -   [Route API](#route-api)
 -   [Routable objects](#routable-objects)
 -   [Charcoal Binary](#charcoal-binary)
+-   [PHPUnit Tests](#phpunit-tests)
 
 ## Config component
 
@@ -590,6 +592,48 @@ To view available commands:
 ```shell
 ★ ./vendor/bin/charcoal
 ```
+
+## PHPUnit Tests
+
+Also provided in this package is PSR-7 integration tests helpers, for `phpunit` testing.
+
+The `\Charcoal\Test\App\ServerTestTrait` can be used by any *TestCase* to quickly start the built-in PHP server, performs request and run tests on the result.
+
+```php
+use PHPUnit_Framework_TestCase;
+use Charcoal\Test\App\ServerTestTrait;
+
+class MyExampleTest extends PHPUnit_Framework_TestCase
+{
+    use ServerTestTrait;
+
+    public static function setUpBeforeClass()
+    {
+        static::$serverRoot =  dirname(__DIR__).DIRECTORY_SEPARATOR.'www';
+    }
+    
+    // ...
+    
+    public function testHomeURLis200()
+    {
+
+        $res = $this->callRequest([
+            'method'  => 'GET',
+            'route'   => '/en/home',
+            'options' => null
+        ]);
+        $this->assertResponseHasStatusCode(200, $res);
+    }
+}
+```
+
+Available methods are:
+
+- `callRequest(array $request)` to get a ResponseInterface object.
+- `assertResponseMatchesExpected(array $expected, ResponseInterface $response)`
+- `assertResponseHasStatusCode($expectedStatusCode, ResponseInterface $response)`
+- `assertResponseBodyMatchesJson($json, ResponseInterface $response)`
+- `assertResponseBodyRegExp($pattern, ResponseInterface $response)`
 
 ## Configuration examples
 
