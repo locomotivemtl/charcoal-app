@@ -2,8 +2,8 @@
 
 namespace Charcoal\App\Config;
 
-// Local parent namespace dependencies
-use \Charcoal\Config\AbstractConfig;
+// From 'charcoal-config'
+use Charcoal\Config\AbstractConfig;
 
 /**
  * Memcache Cache Server Config

@@ -2,26 +2,25 @@
 
 namespace Charcoal\App;
 
-// PHP Dependencies
 use Exception;
 use LogicException;
 
-// Dependency from 'Slim'
+// From Slim
 use Slim\App as SlimApp;
 
-// Dependencies from 'PSR-3' (Logging)
+// From PSR-3
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
 
-// Dependencies from 'PSR-7' (HTTP Messaging)
+// From PSR-7
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
-// Dependencies from 'charcoal-config'
+// From 'charcoal-config'
 use Charcoal\Config\ConfigurableInterface;
 use Charcoal\Config\ConfigurableTrait;
 
-// Local namespace dependencies
+// From 'charcoal-app'
 use Charcoal\App\AppConfig;
 use Charcoal\App\AppContainer;
 use Charcoal\App\Module\ModuleManager;

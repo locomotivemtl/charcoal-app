@@ -2,21 +2,21 @@
 
 namespace Charcoal\App\Template;
 
-// PSR-3 (logger) dependencies
-use \Psr\Log\LoggerAwareInterface;
-use \Psr\Log\LoggerAwareTrait;
+// From PSR-3
+use Psr\Log\LoggerAwareInterface;
+use Psr\Log\LoggerAwareTrait;
 
-// PSR-7 (HTTP Messaging) dependencies
-use \Psr\Http\Message\RequestInterface;
+// From PSR-7
+use Psr\Http\Message\RequestInterface;
 
-// Dependencies from `Pimple`
-use \Pimple\Container;
+// From Pimple
+use Pimple\Container;
 
-// Module `charcoal-config` dependencies
-use \Charcoal\Config\AbstractEntity;
+// From 'charcoal-config'
+use Charcoal\Config\AbstractEntity;
 
-// Intra-module (`charcoal-app`) dependencies
-use \Charcoal\App\Template\TemplateInterface;
+// From 'charcoal-app'
+use Charcoal\App\Template\TemplateInterface;
 
 /**
  * Template (View Controller) base class

@@ -2,7 +2,7 @@
 
 namespace Charcoal\App\Script;
 
-use \InvalidArgumentException;
+use InvalidArgumentException;
 
 /**
  * Path-handling utilities

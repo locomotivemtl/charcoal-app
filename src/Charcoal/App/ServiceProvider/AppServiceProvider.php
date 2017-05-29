@@ -2,26 +2,26 @@
 
 namespace Charcoal\App\ServiceProvider;
 
-// Dependencies from Pimple
+// From Pimple
 use Pimple\ServiceProviderInterface;
 use Pimple\Container;
 
 // From PSR-7
 use Psr\Http\Message\UriInterface;
 
-// Dependencies from Slim
+// From Slim
 use Slim\Http\Uri;
 
-// Dependencies from league/climate
+// From 'league/climate'
 use League\CLImate\CLImate;
 
-// Dependencies from Mustache
+// From Mustache
 use Mustache_LambdaHelper as LambdaHelper;
 
-// Dependencies from charcoal-factory
+// From 'charcoal-factory'
 use Charcoal\Factory\GenericFactory as Factory;
 
-// Intra-module (`charcoal-app`) dependencies
+// From 'charcoal-app'
 use Charcoal\App\Action\ActionInterface;
 use Charcoal\App\Script\ScriptInterface;
 use Charcoal\App\Module\ModuleInterface;

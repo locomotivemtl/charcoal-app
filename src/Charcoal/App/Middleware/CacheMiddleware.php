@@ -2,12 +2,12 @@
 
 namespace Charcoal\App\Middleware;
 
-// Dependencies from 'PSR-6' (Caching)
+// From PSR-6
 use Psr\Cache\CacheItemPoolInterface;
 
-// Dependencies from 'PSR-7' (HTTP Messaging)
-use \Psr\Http\Message\RequestInterface;
-use \Psr\Http\Message\ResponseInterface;
+// From PSR-7
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * The cache loader middleware attempts to load cache from the request's path (route).

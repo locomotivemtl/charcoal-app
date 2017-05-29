@@ -2,7 +2,8 @@
 
 namespace Charcoal\App;
 
-use \Charcoal\App\App;
+// From 'charcoal-app'
+use Charcoal\App\App;
 
 /**
  * Interface for objects that depend on an app.

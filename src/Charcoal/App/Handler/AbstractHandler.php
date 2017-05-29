@@ -2,31 +2,31 @@
 
 namespace Charcoal\App\Handler;
 
-// Dependencies from PSR-3 (logger)
+// From PSR-3
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
 
-// Dependencies from PSR-7 (HTTP Messaging)
+// From PSR-7
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\UriInterface;
 
-// Dependency from Pimple
+// From Pimple
 use Pimple\Container;
 
-// Dependency from 'charcoal-config'
+// From 'charcoal-config'
 use Charcoal\Config\ConfigurableInterface;
 use Charcoal\Config\ConfigurableTrait;
 
-// Dependencies from 'charcoal-view'
+// From 'charcoal-view'
 use Charcoal\View\ViewInterface;
 use Charcoal\View\ViewableInterface;
 use Charcoal\View\ViewableTrait;
 
-// Dependencies from 'charcoal-translator'
+// From 'charcoal-translator'
 use Charcoal\Translator\TranslatorAwareTrait;
 
-// Intra-module (`charcoal-app`) dependencies
+// From 'charcoal-app'
 use Charcoal\App\AppConfig;
 use Charcoal\App\Template\TemplateInterface;
 use Charcoal\App\Handler\HandlerInterface;

@@ -2,7 +2,7 @@
 
 namespace Charcoal\App\Handler;
 
-// Dependency from Pimple
+// From Pimple
 use Pimple\Container;
 
 /**

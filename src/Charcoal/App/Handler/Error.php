@@ -4,17 +4,17 @@ namespace Charcoal\App\Handler;
 
 use Exception;
 
-// Dependencies from PSR-7 (HTTP Messaging)
+// From PSR-7
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
-// Dependency from Slim
+// From Slim
 use Slim\Http\Body;
 
-// Dependency from Pimple
+// From Pimple
 use Pimple\Container;
 
-// Local Dependencies
+// From 'charcoal-app'
 use Charcoal\App\Handler\AbstractHandler;
 
 /**

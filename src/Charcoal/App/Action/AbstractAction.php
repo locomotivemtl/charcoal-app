@@ -2,24 +2,23 @@
 
 namespace Charcoal\App\Action;
 
-// Dependencies from `PHP`
 use InvalidArgumentException;
 
-// PSR-7 (http messaging) dependencies
+// From PSR-7
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
-// PSR-3 (logger) dependencies
+// From PSR-3
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
 
-// Dependencies from `Pimple`
+// From Pimple
 use Pimple\Container;
 
-// Module `charcoal-config` dependencies
+// From 'charcoal-config'
 use Charcoal\Config\AbstractEntity;
 
-// Intra-module (`charcoal-app`) dependencies
+// From 'charcoal-app'
 use Charcoal\App\Action\ActionInterface;
 
 /**

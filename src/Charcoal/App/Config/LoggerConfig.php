@@ -2,8 +2,8 @@
 
 namespace Charcoal\App\Config;
 
-// Module `charcoal-config` dependencies
-use \Charcoal\Config\AbstractConfig;
+// From 'charcoal-config'
+use Charcoal\Config\AbstractConfig;
 
 /**
  *

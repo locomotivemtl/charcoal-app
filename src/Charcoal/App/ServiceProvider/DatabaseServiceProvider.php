@@ -2,15 +2,14 @@
 
 namespace Charcoal\App\ServiceProvider;
 
-// PHP dependencies
 use Exception;
 use PDO;
 
-// Dependencies from `pimple/pimple`
+// From Pimple
 use Pimple\ServiceProviderInterface;
 use Pimple\Container;
 
-// Intra-module (`charcoal-app`) dependencies
+// From 'charcoal-app'
 use Charcoal\App\Config\DatabaseConfig;
 
 /**

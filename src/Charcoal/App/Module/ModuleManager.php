@@ -2,20 +2,20 @@
 
 namespace Charcoal\App\Module;
 
-// PSR-3 (logger) dependencies
-use \Psr\Log\LoggerAwareInterface;
-use \Psr\Log\LoggerAwareTrait;
+// From PSR-3
+use Psr\Log\LoggerAwareInterface;
+use Psr\Log\LoggerAwareTrait;
 
-// Module `charcoal-factory` dependencies
-use \Charcoal\Factory\FactoryInterface;
+// From 'charcoal-factory'
+use Charcoal\Factory\FactoryInterface;
 
-// Module `charcoal-config` dependencies
-use \Charcoal\Config\ConfigurableInterface;
-use \Charcoal\Config\ConfigurableTrait;
+// From 'charcoal-config'
+use Charcoal\Config\ConfigurableInterface;
+use Charcoal\Config\ConfigurableTrait;
 
-// Local namespace dependencies
-use \Charcoal\App\AppAwareInterface;
-use \Charcoal\App\AppAwareTrait;
+// From 'charcoal-app'
+use Charcoal\App\AppAwareInterface;
+use Charcoal\App\AppAwareTrait;
 
 /**
  * q

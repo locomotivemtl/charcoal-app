@@ -2,27 +2,27 @@
 
 namespace Charcoal\App\Module;
 
-use \InvalidArgumentException;
+use InvalidArgumentException;
 
-// Dependencies from PSR-7 (HTTP Messaging)
-use \Psr\Http\Message\RequestInterface;
-use \Psr\Http\Message\ResponseInterface;
+// From PSR-7
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
 
-// Dependencies from PSR-3 (Logger)
-use \Psr\Log\LoggerAwareInterface;
-use \Psr\Log\LoggerAwareTrait;
+// From PSR-3
+use Psr\Log\LoggerAwareInterface;
+use Psr\Log\LoggerAwareTrait;
 
-// Dependency from 'charcoal-config'
-use \Charcoal\Config\ConfigurableInterface;
+// From 'charcoal-config'
+use Charcoal\Config\ConfigurableInterface;
 
-// Intra-module ('charcoal-app') dependencies
-use \Charcoal\App\AppAwareInterface;
-use \Charcoal\App\AppAwareTrait;
-use \Charcoal\App\App;
-use \Charcoal\App\AppConfig;
-use \Charcoal\App\AppInterface;
-use \Charcoal\App\Module\ModuleManager;
-use \Charcoal\App\Route\RouteManager;
+// From 'charcoal-app'
+use Charcoal\App\AppAwareInterface;
+use Charcoal\App\AppAwareTrait;
+use Charcoal\App\App;
+use Charcoal\App\AppConfig;
+use Charcoal\App\AppInterface;
+use Charcoal\App\Module\ModuleManager;
+use Charcoal\App\Route\RouteManager;
 
 /**
  *

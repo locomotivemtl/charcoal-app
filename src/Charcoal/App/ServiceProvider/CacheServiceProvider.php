@@ -2,15 +2,15 @@
 
 namespace Charcoal\App\ServiceProvider;
 
-// Dependencies from `pimple/pimple`
+// From Pimple
 use Pimple\ServiceProviderInterface;
 use Pimple\Container;
 
-// Dependencies from `tedivm/stash`
+// From 'tedivm/stash'
 use Stash\DriverList;
 use Stash\Pool;
 
-// Intra-Module `charcoal-app` dependencies
+// From 'charcoal-app'
 use Charcoal\App\Config\CacheConfig;
 use Charcoal\App\Middleware\CacheMiddleware;
 

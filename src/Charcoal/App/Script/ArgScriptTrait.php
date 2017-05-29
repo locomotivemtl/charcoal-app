@@ -2,9 +2,9 @@
 
 namespace Charcoal\App\Script;
 
-use \Traversable;
-use \RuntimeException;
-use \InvalidArgumentException;
+use Traversable;
+use RuntimeException;
+use InvalidArgumentException;
 
 /**
  * Additional utilities for handling arguments and inputs.

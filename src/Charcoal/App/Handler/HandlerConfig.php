@@ -4,10 +4,10 @@ namespace Charcoal\App\Handler;
 
 use InvalidArgumentException;
 
-// Dependency from 'charcoal-app'
+// From 'charcoal-app'
 use Charcoal\App\App;
 
-// Dependency from 'charcoal-config'
+// From 'charcoal-config'
 use Charcoal\Config\AbstractConfig;
 
 /**

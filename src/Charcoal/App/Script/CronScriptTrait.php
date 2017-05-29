@@ -2,7 +2,7 @@
 
 namespace Charcoal\App\Script;
 
-use \Exception;
+use Exception;
 
 /**
  * Cron-job utilities
