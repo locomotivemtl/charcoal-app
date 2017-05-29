@@ -2,8 +2,8 @@
 
 namespace Charcoal\App\Handler;
 
-// From Pimple
-use Pimple\Container;
+// From PSR-11
+use Psr\Container\ContainerInterface;
 
 /**
  * Request Handler
@@ -13,9 +13,9 @@ interface HandlerInterface
     /**
      * Return a new HandlerInterface object.
      *
-     * @param Container $container A dependencies container instance.
+     * @param ContainerInterface $container A container instance.
      */
-    public function __construct(Container $container);
+    public function __construct(ContainerInterface $container);
 
     /**
      * Initialize the HandlerInterface object.

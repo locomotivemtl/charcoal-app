@@ -86,7 +86,7 @@ class App extends SlimApp implements
      * - `logger` — PSR-3 Logger
      *
      * @uses  SlimApp::__construct()
-     * @param ContainerInterface|array $container The application's settings.
+     * @param  ContainerInterface|array $container The application's settings.
      * @throws LogicException If trying to create a new instance of a singleton.
      */
     public function __construct($container = [])

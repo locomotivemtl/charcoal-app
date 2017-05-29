@@ -4,10 +4,12 @@ namespace Charcoal\App\ServiceProvider;
 
 // From Pimple
 use Pimple\ServiceProviderInterface;
-use Pimple\Container;
 
 // From PSR-7
 use Psr\Http\Message\UriInterface;
+
+// From PSR-11
+use Psr\Container\ContainerInterface;
 
 // From Slim
 use Slim\Http\Uri;
@@ -64,10 +66,10 @@ class AppServiceProvider implements ServiceProviderInterface
      * This method should only be used to configure services and parameters.
      * It should not get services.
      *
-     * @param Container $container A container instance.
+     * @param  ContainerInterface $container A container instance.
      * @return void
      */
-    public function register(Container $container)
+    public function register(ContainerInterface $container)
     {
         $this->registerHandlerServices($container);
         $this->registerRouteServices($container);
@@ -78,10 +80,10 @@ class AppServiceProvider implements ServiceProviderInterface
     }
 
     /**
-     * @param Container $container The DI container.
+     * @param  ContainerInterface $container A container instance.
      * @return void
      */
-    protected function registerHandlerServices(Container $container)
+    protected function registerHandlerServices(ContainerInterface $container)
     {
         $config = $container['config'];
 
@@ -89,10 +91,10 @@ class AppServiceProvider implements ServiceProviderInterface
             /**
              * Application Debug Mode
              *
-             * @param Container $container
+             * @param  ContainerInterface $container
              * @return boolean
              */
-            $container['debug'] = function (Container $container) {
+            $container['debug'] = function (ContainerInterface $container) {
                 if (isset($container['config']['debug'])) {
                     $debug = !!$container['config']['debug'];
                 } elseif (isset($container['config']['dev_mode'])) {
@@ -110,10 +112,10 @@ class AppServiceProvider implements ServiceProviderInterface
              * Base URL as a PSR-7 UriInterface object for the current request
              * or the Charcoal application.
              *
-             * @param Container $container
+             * @param  ContainerInterface $container
              * @return \Psr\Http\Message\UriInterface
              */
-            $container['base-url'] = function (Container $container) {
+            $container['base-url'] = function (ContainerInterface $container) {
                 if (isset($container['config']['base_url'])) {
                     $baseUrl = $container['config']['base_url'];
                 } else {
@@ -140,10 +142,10 @@ class AppServiceProvider implements ServiceProviderInterface
          * HTTP 404 (Not Found) handler.
          *
          * @param  object|HandlerInterface $handler   An error handler instance.
-         * @param  Container               $container A container instance.
+         * @param  ContainerInterface      $container A container instance.
          * @return HandlerInterface
          */
-        $container->extend('notFoundHandler', function ($handler, Container $container) use ($config) {
+        $container->extend('notFoundHandler', function ($handler, ContainerInterface $container) use ($config) {
             if ($handler instanceof \Slim\Handlers\NotFound) {
                 $handler = new NotFound($container);
 
@@ -161,10 +163,10 @@ class AppServiceProvider implements ServiceProviderInterface
          * HTTP 405 (Not Allowed) handler.
          *
          * @param  object|HandlerInterface $handler   An error handler instance.
-         * @param  Container               $container A container instance.
+         * @param  ContainerInterface      $container A container instance.
          * @return HandlerInterface
          */
-        $container->extend('notAllowedHandler', function ($handler, Container $container) use ($config) {
+        $container->extend('notAllowedHandler', function ($handler, ContainerInterface $container) use ($config) {
             if ($handler instanceof \Slim\Handlers\NotAllowed) {
                 $handler = new NotAllowed($container);
 
@@ -182,10 +184,10 @@ class AppServiceProvider implements ServiceProviderInterface
          * HTTP 500 (Error) handler for PHP 7+ Throwables.
          *
          * @param  object|HandlerInterface $handler   An error handler instance.
-         * @param  Container               $container A container instance.
+         * @param  ContainerInterface      $container A container instance.
          * @return HandlerInterface
          */
-        $container->extend('phpErrorHandler', function ($handler, Container $container) use ($config) {
+        $container->extend('phpErrorHandler', function ($handler, ContainerInterface $container) use ($config) {
             if ($handler instanceof \Slim\Handlers\PhpError) {
                 $handler = new PhpError($container);
 
@@ -203,10 +205,10 @@ class AppServiceProvider implements ServiceProviderInterface
          * HTTP 500 (Error) handler.
          *
          * @param  object|HandlerInterface $handler   An error handler instance.
-         * @param  Container               $container A container instance.
+         * @param  ContainerInterface      $container A container instance.
          * @return HandlerInterface
          */
-        $container->extend('errorHandler', function ($handler, Container $container) use ($config) {
+        $container->extend('errorHandler', function ($handler, ContainerInterface $container) use ($config) {
             if ($handler instanceof \Slim\Handlers\Error) {
                 $handler = new Error($container);
 
@@ -226,10 +228,10 @@ class AppServiceProvider implements ServiceProviderInterface
              *
              * This handler is not part of Slim.
              *
-             * @param  Container $container A container instance.
+             * @param  ContainerInterface $container A container instance.
              * @return HandlerInterface
              */
-            $container['shutdownHandler'] = function (Container $container) {
+            $container['shutdownHandler'] = function (ContainerInterface $container) {
                 $config  = $container['config'];
                 $handler = new Shutdown($container);
 
@@ -243,10 +245,10 @@ class AppServiceProvider implements ServiceProviderInterface
     }
 
     /**
-     * @param Container $container The DI container.
+     * @param  ContainerInterface $container A container instance.
      * @return void
      */
-    protected function registerRouteServices(Container $container)
+    protected function registerRouteServices(ContainerInterface $container)
     {
         /** @var string The default route controller for actions. */
         $container['route/controller/action/class'] = ActionRoute::class;
@@ -260,10 +262,10 @@ class AppServiceProvider implements ServiceProviderInterface
         /**
          * The Route Factory service is used to instanciate new routes.
          *
-         * @param Container $container A container instance.
+         * @param  ContainerInterface $container A container instance.
          * @return \Charcoal\Factory\FactoryInterface
          */
-        $container['route/factory'] = function (Container $container) {
+        $container['route/factory'] = function (ContainerInterface $container) {
             return new Factory([
                 'base_class'       => RouteInterface::class,
                 'resolver_options' => [
@@ -277,10 +279,10 @@ class AppServiceProvider implements ServiceProviderInterface
     }
 
     /**
-     * @param Container $container The DI container.
+     * @param  ContainerInterface $container A container instance.
      * @return void
      */
-    protected function registerRequestControllerServices(Container $container)
+    protected function registerRequestControllerServices(ContainerInterface $container)
     {
         /**
          * The Action Factory service is used to instanciate new actions.
@@ -288,10 +290,10 @@ class AppServiceProvider implements ServiceProviderInterface
          * - Actions are `ActionInterface` and must be suffixed with `Action`.
          * - The container is passed to the created action constructor, which will call `setDependencies()`.
          *
-         * @param Container $container A container instance.
+         * @param  ContainerInterface $container A container instance.
          * @return \Charcoal\Factory\FactoryInterface
          */
-        $container['action/factory'] = function (Container $container) {
+        $container['action/factory'] = function (ContainerInterface $container) {
             return new Factory([
                 'base_class'       => ActionInterface::class,
                 'resolver_options' => [
@@ -311,10 +313,10 @@ class AppServiceProvider implements ServiceProviderInterface
          * - Scripts are `ScriptInterface` and must be suffixed with `Script`.
          * - The container is passed to the created script constructor, which will call `setDependencies()`.
          *
-         * @param Container $container A container instance.
+         * @param  ContainerInterface $container A container instance.
          * @return \Charcoal\Factory\FactoryInterface
          */
-        $container['script/factory'] = function (Container $container) {
+        $container['script/factory'] = function (ContainerInterface $container) {
             return new Factory([
                 'base_class'       => ScriptInterface::class,
                 'resolver_options' => [
@@ -335,10 +337,10 @@ class AppServiceProvider implements ServiceProviderInterface
          * - Templates are `TemplateInterface` and must be suffixed with `Template`.
          * - The container is passed to the created template constructor, which will call `setDependencies()`.
          *
-         * @param Container $container A container instance.
+         * @param  ContainerInterface $container A container instance.
          * @return \Charcoal\Factory\FactoryInterface
          */
-        $container['template/factory'] = function (Container $container) {
+        $container['template/factory'] = function (ContainerInterface $container) {
             return new Factory([
                 'base_class'       => TemplateInterface::class,
                 'resolver_options' => [
@@ -357,10 +359,10 @@ class AppServiceProvider implements ServiceProviderInterface
          * - Widgets are `WidgetInterface` and must be suffixed with `Widget`.
          * - The container is passed to the created widget constructor, which will call `setDependencies()`.
          *
-         * @param Container $container A container instance.
+         * @param  ContainerInterface $container A container instance.
          * @return \Charcoal\Factory\FactoryInterface
          */
-        $container['widget/factory'] = function (Container $container) {
+        $container['widget/factory'] = function (ContainerInterface $container) {
             return new Factory([
                 'base_class'       => WidgetInterface::class,
                 'resolver_options' => [
@@ -373,29 +375,29 @@ class AppServiceProvider implements ServiceProviderInterface
             ]);
         };
         /**
-         * @param Container $container A container instance.
+         * @param  ContainerInterface $container A container instance.
          * @return TemplateBuilder
          */
-        $container['widget/builder'] = function (Container $container) {
+        $container['widget/builder'] = function (ContainerInterface $container) {
             return new WidgetBuilder($container['widget/factory'], $container);
         };
     }
 
     /**
-     * @param Container $container The DI container.
+     * @param  ContainerInterface $container A container instance.
      * @return void
      */
-    protected function registerModuleServices(Container $container)
+    protected function registerModuleServices(ContainerInterface $container)
     {
         /**
          * The Module Factory service is used to instanciate new modules.
          *
          * - Modules are `ModuleInterface` and must be suffixed with `Module`.
          *
-         * @param Container $container A container instance.
+         * @param  ContainerInterface $container A container instance.
          * @return \Charcoal\Factory\FactoryInterface
          */
-        $container['module/factory'] = function (Container $container) {
+        $container['module/factory'] = function (ContainerInterface $container) {
             return new Factory([
                 'base_class'       => ModuleInterface::class,
                 'resolver_options' => [
@@ -409,22 +411,22 @@ class AppServiceProvider implements ServiceProviderInterface
     }
 
     /**
-     * @param Container $container A container instance.
+     * @param  ContainerInterface $container A container instance.
      * @return void
      */
-    protected function registerScriptServices(Container $container)
+    protected function registerScriptServices(ContainerInterface $container)
     {
         /**
          * @todo   Needs implementation
-         * @param Container $container A container instance.
+         * @param  ContainerInterface $container A container instance.
          * @return null|\League\CLImate\Util\Reader\ReaderInterface
          */
-        $container['climate/reader'] = function (Container $container) {
+        $container['climate/reader'] = function (ContainerInterface $container) {
             return null;
         };
 
         /**
-         * @param Container $container A container instance.
+         * @param  ContainerInterface $container A container instance.
          * @return CLImate
          */
         $container['climate'] = function () {
@@ -434,10 +436,10 @@ class AppServiceProvider implements ServiceProviderInterface
     }
 
     /**
-     * @param Container $container A container instance.
+     * @param  ContainerInterface $container A container instance.
      * @return void
      */
-    protected function registerViewServices(Container $container)
+    protected function registerViewServices(ContainerInterface $container)
     {
         if (!isset($container['view/mustache/helpers'])) {
             $container['view/mustache/helpers'] = function () {
@@ -450,7 +452,7 @@ class AppServiceProvider implements ServiceProviderInterface
          *
          * @return array
          */
-        $container->extend('view/mustache/helpers', function (array $helpers, Container $container) {
+        $container->extend('view/mustache/helpers', function (array $helpers, ContainerInterface $container) {
             $baseUrl = $container['base-url'];
             $urls = [
                 /**

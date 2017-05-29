@@ -9,6 +9,9 @@ use Pimple\Container;
 // From PSR-3
 use Psr\Log\NullLogger;
 
+// From PSR-11
+use Psr\Container\ContainerInterface;
+
 // From Monolog
 use Monolog\Logger;
 use Monolog\Processor\MemoryUsageProcessor;
@@ -41,16 +44,16 @@ class LoggerServiceProvider implements ServiceProviderInterface
      * This method should only be used to configure services and parameters.
      * It should not get services.
      *
-     * @param Container $container A container instance.
+     * @param  ContainerInterface $container A container instance.
      * @return void
      */
-    public function register(Container $container)
+    public function register(ContainerInterface $container)
     {
         /**
-         * @param Container $container A container instance.
+         * @param  ContainerInterface $container A container instance.
          * @return LoggerConfig
          */
-        $container['logger/config'] = function (Container $container) {
+        $container['logger/config'] = function (ContainerInterface $container) {
             $config = $container['config'];
 
             $loggerConfig = new LoggerConfig($config['logger']);
@@ -72,7 +75,7 @@ class LoggerServiceProvider implements ServiceProviderInterface
         /**
          * @return StreamHandler|null
          */
-        $container['logger/handler/stream'] = function (Container $container) {
+        $container['logger/handler/stream'] = function (ContainerInterface $container) {
             $loggerConfig = $container['logger/config'];
             $handlerConfig = $loggerConfig['handlers.stream'];
             if ($handlerConfig['active'] !== true) {
@@ -86,7 +89,7 @@ class LoggerServiceProvider implements ServiceProviderInterface
         /**
          * @return FactoryInterface
          */
-        $container['logger/handler/browser-console'] = function (Container $container) {
+        $container['logger/handler/browser-console'] = function (ContainerInterface $container) {
             $loggerConfig = $container['logger/config'];
             $handlerConfig = $loggerConfig['handlers.console'];
             if ($handlerConfig['active'] !== true) {
@@ -99,7 +102,7 @@ class LoggerServiceProvider implements ServiceProviderInterface
         /**
          * @return Container
          */
-        $container['logger/handlers'] = function (Container $container) {
+        $container['logger/handlers'] = function (ContainerInterface $container) {
             $loggerConfig = $container['logger/config'];
 
             $handlersConfig = $loggerConfig['handlers'];
@@ -118,10 +121,10 @@ class LoggerServiceProvider implements ServiceProviderInterface
         /**
          * Fulfills the PSR-3 dependency with a Monolog logger.
          *
-         * @param Container $container A container instance.
+         * @param  ContainerInterface $container A container instance.
          * @return \Psr\Log\Logger
          */
-        $container['logger'] = function (Container $container) {
+        $container['logger'] = function (ContainerInterface $container) {
 
             $loggerConfig = $container['logger/config'];
 

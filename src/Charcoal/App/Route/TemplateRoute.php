@@ -8,8 +8,8 @@ use InvalidArgumentException;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
-// From Pimple
-use Pimple\Container;
+// From PSR-11
+use Psr\Container\ContainerInterface;
 
 // From Slim
 use Slim\Http\Uri;
@@ -30,7 +30,7 @@ use Charcoal\App\Route\TemplateRouteConfig;
  * Template Route Handler.
  *
  * A route handler is a simple `invokale` object with the signature:
- * `__invoke(Container $container, RequestInterface $request, ResponseInterface $response)`
+ * `__invoke(ContainerInterface $container, RequestInterface $request, ResponseInterface $response)`
  * It is only called (invoked) when a route is matched.
  *
  * This is the default "Slim Route Handler" for _template_ style routes.
@@ -78,13 +78,13 @@ class TemplateRoute implements
     }
 
     /**
-     * @param  Container         $container A DI (Pimple) container.
-     * @param  RequestInterface  $request   A PSR-7 compatible Request instance.
-     * @param  ResponseInterface $response  A PSR-7 compatible Response instance.
+     * @param  ContainerInterface $container A PSR-11 compatible Container instance.
+     * @param  RequestInterface   $request   A PSR-7 compatible Request instance.
+     * @param  ResponseInterface  $response  A PSR-7 compatible Response instance.
      * @return ResponseInterface
      */
     public function __invoke(
-        Container $container,
+        ContainerInterface $container,
         RequestInterface $request,
         ResponseInterface $response
     ) {
@@ -108,12 +108,12 @@ class TemplateRoute implements
     }
 
     /**
-     * @param  Container        $container A DI (Pimple) container.
-     * @param  RequestInterface $request   The request to intialize the template with.
+     * @param  ContainerInterface $container A PSR-11 compatible Container instance.
+     * @param  RequestInterface   $request   The request to intialize the template with.
      * @return string
      */
     protected function templateContent(
-        Container $container,
+        ContainerInterface $container,
         RequestInterface $request
     ) {
         $config = $this->config();
@@ -137,11 +137,11 @@ class TemplateRoute implements
     }
 
     /**
-     * @param  Container        $container A DI (Pimple) container.
-     * @param  RequestInterface $request   The request to intialize the template with.
+     * @param  ContainerInterface $container A PSR-11 compatible Container instance.
+     * @param  RequestInterface   $request   The request to intialize the template with.
      * @return string
      */
-    protected function renderTemplate(Container $container, RequestInterface $request)
+    protected function renderTemplate(ContainerInterface $container, RequestInterface $request)
     {
         $config   = $this->config();
         $template = $this->createTemplate($container, $request);
@@ -150,11 +150,11 @@ class TemplateRoute implements
     }
 
     /**
-     * @param  Container        $container A DI (Pimple) container.
-     * @param  RequestInterface $request   The request to intialize the template with.
+     * @param  ContainerInterface $container A PSR-11 compatible Container instance.
+     * @param  RequestInterface   $request   The request to intialize the template with.
      * @return string
      */
-    protected function createTemplate(Container $container, RequestInterface $request)
+    protected function createTemplate(ContainerInterface $container, RequestInterface $request)
     {
         $config = $this->config();
 

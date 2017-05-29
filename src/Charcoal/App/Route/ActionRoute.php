@@ -8,8 +8,8 @@ use InvalidArgumentException;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
-// From Pimple
-use Pimple\Container;
+// From PSR-11
+use Psr\Container\ContainerInterface;
 
 // From 'charcoal-config'
 use Charcoal\Config\ConfigurableInterface;
@@ -61,12 +61,12 @@ class ActionRoute implements
     }
 
     /**
-     * @param Container         $container A container instance.
-     * @param RequestInterface  $request   A PSR-7 compatible Request instance.
-     * @param ResponseInterface $response  A PSR-7 compatible Response instance.
+     * @param  ContainerInterface $container A PSR-11 compatible Container instance.
+     * @param  RequestInterface   $request   A PSR-7 compatible Request instance.
+     * @param  ResponseInterface  $response  A PSR-7 compatible Response instance.
      * @return ResponseInterface
      */
-    public function __invoke(Container $container, RequestInterface $request, ResponseInterface $response)
+    public function __invoke(ContainerInterface $container, RequestInterface $request, ResponseInterface $response)
     {
         $config = $this->config();
 

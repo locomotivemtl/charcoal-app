@@ -6,6 +6,9 @@ namespace Charcoal\App\ServiceProvider;
 use Pimple\ServiceProviderInterface;
 use Pimple\Container;
 
+// From PSR-11
+use Psr\Container\ContainerInterface;
+
 // From 'tedivm/stash'
 use Stash\DriverList;
 use Stash\Pool;
@@ -40,16 +43,16 @@ class CacheServiceProvider implements ServiceProviderInterface
      * This method should only be used to configure services and parameters.
      * It should not get services.
      *
-     * @param Container $container A container instance.
+     * @param  ContainerInterface $container A container instance.
      * @return void
      */
-    public function register(Container $container)
+    public function register(ContainerInterface $container)
     {
         /**
-         * @param Container $container A container instance.
+         * @param  ContainerInterface $container A container instance.
          * @return CacheConfig
          */
-        $container['cache/config'] = function (Container $container) {
+        $container['cache/config'] = function (ContainerInterface $container) {
             $appConfig = $container['config'];
 
             $cacheConfig =  new CacheConfig($appConfig['cache']);
@@ -59,16 +62,16 @@ class CacheServiceProvider implements ServiceProviderInterface
         $container['cache/available-drivers'] = DriverList::getAvailableDrivers();
 
         /**
-         * @param Container $container A container instance.
+         * @param  ContainerInterface $container A container instance.
          * @return Container The Collection of cache drivers, in a Container.
          */
-        $container['cache/drivers'] = function (Container $container) {
+        $container['cache/drivers'] = function (ContainerInterface $container) {
             $drivers = new Container();
 
             $parentContainer = $container;
 
             /**
-             * @param Container $container A container instance.
+             * @param  ContainerInterface $container A container instance.
              * @return \Stash\Driver\Apc
              */
             $drivers['apc'] = function () use ($parentContainer) {
@@ -81,7 +84,7 @@ class CacheServiceProvider implements ServiceProviderInterface
             };
 
             /**
-             * @param Container $container A container instance.
+             * @param  ContainerInterface $container A container instance.
              * @return \Stash\Driver\Sqlite
              */
             $drivers['db'] = function () use ($parentContainer) {
@@ -94,7 +97,7 @@ class CacheServiceProvider implements ServiceProviderInterface
             };
 
             /**
-             * @param Container $container A container instance.
+             * @param  ContainerInterface $container A container instance.
              * @return \Stash\Driver\FileSystem
              */
             $drivers['file'] = function () use ($parentContainer) {
@@ -103,7 +106,7 @@ class CacheServiceProvider implements ServiceProviderInterface
             };
 
             /**
-             * @param Container $container A container instance.
+             * @param  ContainerInterface $container A container instance.
              * @return \Stash\Driver\Memcache
              */
             $drivers['memcache'] = function () use ($parentContainer) {
@@ -133,7 +136,7 @@ class CacheServiceProvider implements ServiceProviderInterface
             };
 
             /**
-             * @param Container $container A container instance.
+             * @param  ContainerInterface $container A container instance.
              * @return \Stash\Driver\Ephemeral
              */
             $drivers['memory'] = function () use ($parentContainer) {
@@ -142,7 +145,7 @@ class CacheServiceProvider implements ServiceProviderInterface
             };
 
             /**
-             * @param Container $container A container instance.
+             * @param  ContainerInterface $container A container instance.
              * @return \Stash\Driver\BlackHole
              */
             $drivers['noop'] = function () use ($parentContainer) {
@@ -151,7 +154,7 @@ class CacheServiceProvider implements ServiceProviderInterface
             };
 
             /**
-             * @param Container $container A container instance.
+             * @param  ContainerInterface $container A container instance.
              * @return \Stash\Driver\Redis
              */
             $drivers['redis'] = function () use ($parentContainer) {
@@ -167,10 +170,10 @@ class CacheServiceProvider implements ServiceProviderInterface
         };
 
         /**
-         * @param Container $container A container instance.
+         * @param  ContainerInterface $container A container instance.
          * @return Container The Collection of DatabaseSourceConfig, in a Container.
          */
-        $container['cache/driver'] = function (Container $container) {
+        $container['cache/driver'] = function (ContainerInterface $container) {
 
             $cacheConfig = $container['cache/config'];
             $types = $cacheConfig['types'];
@@ -188,10 +191,10 @@ class CacheServiceProvider implements ServiceProviderInterface
         /**
          * The cache pool, using Stash.
          *
-         * @param Container $container A container instance.
+         * @param  ContainerInterface $container A container instance.
          * @return \Stash\Pool
          */
-        $container['cache'] = function (Container $container) {
+        $container['cache'] = function (ContainerInterface $container) {
 
             $cacheConfig = $container['cache/config'];
             $driver = $container['cache/driver'];
@@ -209,10 +212,10 @@ class CacheServiceProvider implements ServiceProviderInterface
         /**
          * The request path (route) cache loader middleware.
          *
-         * @param Container $container A Container instance.
+         * @param  ContainerInterface $container A Container instance.
          * @return CacheLoaderMidleware
          */
-        $container['cache/middleware'] = function (Container $container) {
+        $container['cache/middleware'] = function (ContainerInterface $container) {
             $cacheConfig = $container['cache/config'];
             $middlewareConfig = $cacheConfig['middleware'];
             return new CacheMiddleware([

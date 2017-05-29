@@ -11,8 +11,8 @@ use Psr\Http\Message\ResponseInterface;
 // From Slim
 use Slim\Http\Body;
 
-// From Pimple
-use Pimple\Container;
+// From PSR-11
+use Psr\Container\ContainerInterface;
 
 // From 'charcoal-app'
 use Charcoal\App\Handler\AbstractHandler;
@@ -42,23 +42,21 @@ class PhpError extends AbstractHandler
     protected $error;
 
     /**
-     * Inject dependencies from a Pimple Container.
+     * Set dependencies from the service locator.
      *
      * ## Dependencies
      *
      * - `array $settings` — Slim's settings.
      *
-     * @param  Container $container A dependencies container instance.
-     * @return PhpError Chainable
+     * @param  ContainerInterface $container A service locator.
+     * @return void
      */
-    public function setDependencies(Container $container)
+    public function setDependencies(ContainerInterface $container)
     {
         parent::setDependencies($container);
 
         $displayDetails = $container['settings']['displayErrorDetails'];
         $this->setDisplayErrorDetails($displayDetails);
-
-        return $this;
     }
 
     /**

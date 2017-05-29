@@ -11,8 +11,8 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\UriInterface;
 
-// From Pimple
-use Pimple\Container;
+// From PSR-11
+use Psr\Container\ContainerInterface;
 
 // From 'charcoal-config'
 use Charcoal\Config\ConfigurableInterface;
@@ -80,9 +80,9 @@ abstract class AbstractHandler implements
     /**
      * Return a new AbstractHandler object.
      *
-     * @param Container $container A dependencies container instance.
+     * @param ContainerInterface $container A container instance.
      */
-    public function __construct(Container $container)
+    public function __construct(ContainerInterface $container)
     {
         $this->setDependencies($container);
     }
@@ -98,7 +98,7 @@ abstract class AbstractHandler implements
     }
 
     /**
-     * Inject dependencies from a Pimple Container.
+     * Set dependencies from the service locator.
      *
      * ## Dependencies
      *
@@ -106,10 +106,10 @@ abstract class AbstractHandler implements
      * - `UriInterface $baseUri` — A base URI.
      * - `ViewInterface $view` — A view instance.
      *
-     * @param  Container $container A dependencies container instance.
+     * @param  ContainerInterface $container A service locator.
      * @return AbstractHandler Chainable
      */
-    public function setDependencies(Container $container)
+    public function setDependencies(ContainerInterface $container)
     {
         $this->setLogger($container['logger']);
         $this->setContainer($container);
@@ -127,10 +127,10 @@ abstract class AbstractHandler implements
     /**
      * Set container for use with the template controller
      *
-     * @param  Container $container A dependencies container instance.
+     * @param  ContainerInterface $container A container instance.
      * @return AbstractHandler Chainable
      */
-    public function setContainer(Container $container)
+    public function setContainer(ContainerInterface $container)
     {
         $this->container = $container;
         return $this;

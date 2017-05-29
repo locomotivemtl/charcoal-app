@@ -10,6 +10,9 @@ use UnexpectedValueException;
 use Pimple\ServiceProviderInterface;
 use Pimple\Container;
 
+// From PSR-11
+use Psr\Container\ContainerInterface;
+
 // From 'aws/aws-sdk-php'
 use Aws\S3\S3Client;
 
@@ -44,30 +47,33 @@ use Charcoal\App\Config\FilesystemConfig;
 class FilesystemServiceProvider implements ServiceProviderInterface
 {
     /**
-     * @param Container $container Pimple DI Container.
+     * @param  ContainerInterface $container A container instance.
      * @return void
      */
-    public function register(Container $container)
+    public function register(ContainerInterface $container)
     {
         /**
-         * @param Container $container Pimple DI Container.
+         * @param  ContainerInterface $container A container instance.
          * @return FlysystemConfig
          */
-        $container['filesystem/config'] = function (Container $container) {
+        $container['filesystem/config'] = function (ContainerInterface $container) {
             $appConfig = $container['config'];
 
             return new FilesystemConfig($appConfig['filesystem']);
         };
 
         /**
-         * @param Container $container Pimple DI Container.
+         * @param  ContainerInterface $container A container instance.
          * @return MountManager
          */
         $container['filesystem/manager'] = function () {
             return new MountManager();
         };
 
-        $container['filesystems'] = function (Container $container) {
+        /**
+         * @return Container
+         */
+        $container['filesystems'] = function (ContainerInterface $container) {
             $filesystemConfig = $container['filesystem/config'];
             $filesystems = new Container();
 
@@ -82,7 +88,7 @@ class FilesystemServiceProvider implements ServiceProviderInterface
     }
 
     /**
-     * @param array $config The driver (adapter) configuration.
+     * @param  array $config The driver (adapter) configuration.
      * @throws Exception If the filesystem type is not defined in config.
      * @throws UnexpectedValueException If the filesystem type is invalid / unsupported.
      * @return Filesystem
@@ -121,7 +127,7 @@ class FilesystemServiceProvider implements ServiceProviderInterface
     }
 
     /**
-     * @param array $config The driver (adapter) configuration.
+     * @param  array $config The driver (adapter) configuration.
      * @throws InvalidArgumentException If the path is not defined in config.
      * @return LocalAdapter
      */
@@ -143,7 +149,7 @@ class FilesystemServiceProvider implements ServiceProviderInterface
     }
 
     /**
-     * @param array $config The driver (adapter) configuration.
+     * @param  array $config The driver (adapter) configuration.
      * @throws InvalidArgumentException If the key, secret or bucket is not defined in config.
      * @return AwsS3Adapter
      */
@@ -194,7 +200,7 @@ class FilesystemServiceProvider implements ServiceProviderInterface
     }
 
     /**
-     * @param array $config The driver (adapter) configuration.
+     * @param  array $config The driver (adapter) configuration.
      * @throws InvalidArgumentException If the token or secret is not defined in config.
      * @return FtpAdapter
      */
@@ -222,7 +228,7 @@ class FilesystemServiceProvider implements ServiceProviderInterface
     }
 
     /**
-     * @param array $config The driver (adapter) configuration.
+     * @param  array $config The driver (adapter) configuration.
      * @throws InvalidArgumentException If the host, username or password is not defined in config.
      * @return FtpAdapter
      */
@@ -257,7 +263,7 @@ class FilesystemServiceProvider implements ServiceProviderInterface
     }
 
     /**
-     * @param array $config The driver (adapter) configuration.
+     * @param  array $config The driver (adapter) configuration.
      * @throws InvalidArgumentException If the host, username or password is not defined in config.
      * @return SftpAdapter
      */

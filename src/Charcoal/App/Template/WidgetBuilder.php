@@ -4,8 +4,8 @@ namespace Charcoal\App\Template;
 
 use InvalidArgumentException;
 
-// From Pimple
-use Pimple\Container;
+// From PSR-11
+use Psr\Container\ContainerInterface;
 
 // From 'charcoal-factory'
 use Charcoal\Factory\FactoryInterface;
@@ -21,16 +21,15 @@ class WidgetBuilder
     protected $factory;
 
     /**
-     * A Pimple dependency-injection container to fulfill the required services.
-     * @var Container $container
+     * @var ContainerInterface $container
      */
     protected $container;
 
     /**
-     * @param FactoryInterface $factory   An object factory.
-     * @param Container        $container The DI container.
+     * @param FactoryInterface   $factory   An object factory.
+     * @param ContainerInterface $container A service container.
      */
-    public function __construct(FactoryInterface $factory, Container $container)
+    public function __construct(FactoryInterface $factory, ContainerInterface $container)
     {
         $this->factory = $factory;
         $this->container = $container;

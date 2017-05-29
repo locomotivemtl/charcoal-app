@@ -6,8 +6,8 @@ namespace Charcoal\App\Script;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
-// From Pimple
-use Pimple\Container;
+// From PSR-11
+use Psr\Container\ContainerInterface;
 
 /**
  * Script are actions called from the CLI.
@@ -18,17 +18,12 @@ interface ScriptInterface
 {
 
     /**
-     * Give an opportunity to children classes to inject dependencies from a Pimple Container.
+     * Set dependencies from the service locator.
      *
-     * Does nothing by default, reimplement in children classes.
-     *
-     * The `$container` DI-container (from `Pimple`) should not be saved or passed around, only to be used to
-     * inject dependencies (typically via setters).
-     *
-     * @param Container $container A dependencies container instance.
+     * @param  ContainerInterface $container A service locator.
      * @return void
      */
-    public function setDependencies(Container $container);
+    public function setDependencies(ContainerInterface $container);
 
     /**
      * @param string $ident The script identifier string.

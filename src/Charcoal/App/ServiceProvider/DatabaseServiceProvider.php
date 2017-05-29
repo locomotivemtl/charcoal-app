@@ -9,6 +9,9 @@ use PDO;
 use Pimple\ServiceProviderInterface;
 use Pimple\Container;
 
+// From PSR-11
+use Psr\Container\ContainerInterface;
+
 // From 'charcoal-app'
 use Charcoal\App\Config\DatabaseConfig;
 
@@ -33,16 +36,16 @@ class DatabaseServiceProvider implements ServiceProviderInterface
      * This method should only be used to configure services and parameters.
      * It should not get services.
      *
-     * @param Container $container A container instance.
+     * @param  ContainerInterface $container A container instance.
      * @return void
      */
-    public function register(Container $container)
+    public function register(ContainerInterface $container)
     {
         /**
-         * @param Container $container A container instance.
-         * @return Container The Collection of DatabaseSourceConfig, in a Container.
+         * @param  ContainerInterface $container A container instance.
+         * @return Container The collection of DatabaseSourceConfig, in a Container.
          */
-        $container['databases/config'] = function (Container $container) {
+        $container['databases/config'] = function (ContainerInterface $container) {
             $config = $container['config'];
             $databases = $config['databases'];
             $configs = new Container();
@@ -53,10 +56,10 @@ class DatabaseServiceProvider implements ServiceProviderInterface
         };
 
         /**
-         * @param Container $container A container instance.
+         * @param  ContainerInterface $container A container instance.
          * @return Container
          */
-        $container['databases'] = function (Container $container) {
+        $container['databases'] = function (ContainerInterface $container) {
             $config = $container['config'];
             $databases = $config['databases'];
             $dbs = new Container();
@@ -65,7 +68,7 @@ class DatabaseServiceProvider implements ServiceProviderInterface
                 unset($dbOptions);
 
                 /**
-                 * @param Container $container A container instance.
+                 * @param  ContainerInterface $container A container instance.
                  * @return PDO
                  */
                 $dbs[$dbIdent] = function () use ($dbIdent, $origContainer) {
@@ -104,10 +107,10 @@ class DatabaseServiceProvider implements ServiceProviderInterface
         };
 
         /**
-         * @param Container $container A container instance.
+         * @param  ContainerInterface $container A container instance.
          * @return DatabaseSourceConfig
          */
-        $container['database/config'] = function (Container $container) {
+        $container['database/config'] = function (ContainerInterface $container) {
             $config = $container['config'];
             $databaseIdent = $config['default_database'];
             return $container['databases/config'][$databaseIdent];
@@ -116,11 +119,11 @@ class DatabaseServiceProvider implements ServiceProviderInterface
         /**
          * The database service, as a PDO object.
          *
-         * @param Container $container A container instance.
+         * @param  ContainerInterface $container A container instance.
          * @throws Exception If the database configuration is invalid.
          * @return PDO
          */
-        $container['database'] = function (Container $container) {
+        $container['database'] = function (ContainerInterface $container) {
             $config = $container['config'];
             $databaseIdent = $config['default_database'];
             $databases = $container['databases'];

@@ -2,8 +2,8 @@
 
 namespace Charcoal\App\Template;
 
-// From Pimple
-use Pimple\Container;
+// From PSR-11
+use Psr\Container\ContainerInterface;
 
 /**
  *
@@ -16,7 +16,7 @@ interface WidgetInterface
      * @param  ContainerInterface $container A service locator.
      * @return void
      */
-    public function setDependencies(Container $container);
+    public function setDependencies(ContainerInterface $container);
 
     /**
      * @param array $data The template data to set.
