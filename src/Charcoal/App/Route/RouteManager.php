@@ -28,13 +28,6 @@ class RouteManager implements
     use ConfigurableTrait;
 
     /**
-     * Additional route data.
-     *
-     * @var array
-     */
-    private $routeData = [];
-
-    /**
      * Manager constructor
      *
      * @param array $data The dependencies container.
