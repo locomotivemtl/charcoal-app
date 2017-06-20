@@ -59,7 +59,7 @@ trait ServerTestTrait
 
     /**
      * Retrieve wether the tests are run on windows or not.
-     * @return bool
+     * @return boolean
      */
     protected static function isWindows()
     {
@@ -72,12 +72,13 @@ trait ServerTestTrait
      */
     public static function bootUpBuiltInServer()
     {
-        $command = sprintf('php -S %s -t %s',
+        $command = sprintf(
+            'php -S %s -t %s',
             static::serverURL(),
             static::serverRoot()
         );
 
-        if(static::isWindows()) {
+        if (static::isWindows()) {
             $command = sprintf(
                 'set APPLICATION_ENV=%s; start /b %s',
                 static::$serverApplicationEnv,
@@ -86,8 +87,8 @@ trait ServerTestTrait
         } else {
             $command = sprintf(
                 'APPLICATION_ENV=%s %s',
-                    static::$serverApplicationEnv,
-                    $command
+                static::$serverApplicationEnv,
+                $command
             );
         }
         static::$serverProcess = popen($command, 'r');
@@ -120,7 +121,7 @@ trait ServerTestTrait
     }
 
     /**
-     * @param array $expected
+     * @param array             $expected
      * @param ResponseInterface $response
      */
     protected function assertResponseMatchesExpected(array $expected, ResponseInterface $response)
@@ -143,7 +144,7 @@ trait ServerTestTrait
     }
 
     /**
-     * @param int $expectedStatusCode
+     * @param integer           $expectedStatusCode
      * @param ResponseInterface $response
      */
     protected function assertResponseHasStatusCode($expectedStatusCode, ResponseInterface $response)
@@ -152,17 +153,17 @@ trait ServerTestTrait
     }
 
     /**
-     * @param array|string $json
+     * @param array|string      $json
      * @param ResponseInterface $response
      */
     protected function assertResponseBodyMatchesJson($json, ResponseInterface $response)
     {
-        if(is_string($json)) {
+        if (is_string($json)) {
             $json = json_decode($json, true);
         }
 
         $results = json_decode((string)$response->getBody(), true);
-        foreach($json as $k=>$v) {
+        foreach ($json as $k => $v) {
             $this->assertArrayHasKey($k, $results);
             if (is_array($v)) {
                 $this->assertArraySubset($v, $results[$k]);
@@ -170,16 +171,14 @@ trait ServerTestTrait
                 $this->assertEquals($v, $results[$k]);
             }
         }
-
     }
 
     /**
-     * @param string $pattern
+     * @param string            $pattern
      * @param ResponseInterface $response
      */
     protected function assertResponseBodyRegExp($pattern, ResponseInterface $response)
     {
         $this->assertRegExp($pattern, (string)$response->getBody());
     }
-
 }

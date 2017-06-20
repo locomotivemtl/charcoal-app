@@ -37,21 +37,25 @@ class CacheMiddleware
     private $cacheTtl;
 
     /**
-     * @var string
+     * If set, only queries matching this path
+     * @var null|string|array
      */
     private $includedPath;
 
     /**
-     * @var string
+     * Queries matching
+     * @var null|string|array
      */
     private $excludedPath;
 
     /**
+     * Only cache the request if it matches one of those methods.
      * @var string[]
      */
     private $methods;
 
     /**
+     * Only cache the request if it matches one of those status codes.
      * @var int[]
      */
     private $statusCode;
@@ -82,8 +86,10 @@ class CacheMiddleware
     public function __construct(array $data)
     {
         $defaults = [
-            'included_path'  => null,
-            'excluded_path'  => null,
+            'included_path'  => '*',
+            'excluded_path'  => [
+                '~^/admin\b~'
+            ],
             'methods'        => [
                 'GET'
             ],
@@ -91,12 +97,13 @@ class CacheMiddleware
                 200
             ],
             'ttl'            => 864000,
+// 24 hours
             'included_query' => null,
             'excluded_query' => null,
             'ignored_query'  => null,
             'headers'        => true
         ];
-        $data = array_merge($defaults, $data);
+        $data = array_replace($defaults, $data);
 
         $this->cachePool = $data['cache'];
         $this->cacheTtl = $data['ttl'];
@@ -138,10 +145,12 @@ class CacheMiddleware
         if ($this->cachePool->hasItem($cacheKey)) {
             $cacheItem = $this->cachePool->getItem($cacheKey);
             $cached = $cacheItem->get();
-            $response->getBody()->write($cached);
+            $response->getBody()->write($cached['body']);
+            foreach ($cached['headers'] as $name => $header) {
+                $response = $response->withHeader($name, $header);
+            }
             return $response;
         } else {
-            $included = $this->isQueryIncluded($queryParams);
             $response = $next($request, $response);
 
             if ($this->isActive($request, $response) === false) {
@@ -165,9 +174,15 @@ class CacheMiddleware
                 return $response;
             }
 
+
+            // Nothing has excluded the cache so far: add it to the pool.
             $cacheItem = $this->cachePool->getItem($cacheKey);
             $cacheItem->expiresAfter($this->cacheTtl);
-            $this->cachePool->save($cacheItem->set((string)$response->getBody()));
+            $cacheItem = $cacheItem->set([
+                'body'      => (string)$response->getBody(),
+                'headers'   => (array)$response->getHeaders()
+            ]);
+            $this->cachePool->save($cacheItem);
 
             return $response;
         }

@@ -5,6 +5,7 @@ namespace Charcoal\App;
 // PHP Dependencies
 use Exception;
 use LogicException;
+use RuntimeException;
 
 // Dependency from 'Slim'
 use Slim\App as SlimApp;
@@ -220,11 +221,8 @@ class App extends SlimApp implements
         // Setup routable
         $this->setupRoutables();
 
-        // Cache generator; added last, so it will be executed first
-        $container = $this->getContainer();
-        if ($container['cache/config']['middleware']['active']) {
-            $this->add($container['cache/middleware']);
-        }
+        // Setup middlewares
+        $this->setupMiddlewares();
     }
 
 
@@ -269,5 +267,28 @@ class App extends SlimApp implements
                 return $this['notFoundHandler']($request, $response);
             }
         );
+    }
+
+    /**
+     * @throws RuntimeException If the middleware was not set properly on the container.
+     * @return void
+     */
+    protected function setupMiddlewares()
+    {
+        $container = $this->getContainer();
+        $middlewaresConfig = $container['config']['middlewares'];
+        if (!$middlewaresConfig) {
+            return;
+        }
+        foreach ($middlewaresConfig as $id => $opts) {
+            if (isset($opts['active']) && $opts['active'] === true) {
+                if (!isset($container['middlewares/'.$id])) {
+                    throw new RuntimeException(
+                        sprintf('Middleware "%s" is not set on container.', $id)
+                    );
+                }
+                $this->add($container['middlewares/'.$id]);
+            }
+        }
     }
 }

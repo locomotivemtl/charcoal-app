@@ -205,27 +205,5 @@ class CacheServiceProvider implements ServiceProviderInterface
 
             return $pool;
         };
-
-        /**
-         * The request path (route) cache loader middleware.
-         *
-         * @param Container $container A Container instance.
-         * @return CacheLoaderMidleware
-         */
-        $container['cache/middleware'] = function (Container $container) {
-            $cacheConfig = $container['cache/config'];
-            $middlewareConfig = $cacheConfig['middleware'];
-            return new CacheMiddleware([
-                'cache'          => $container['cache'],
-                'included_path'  => $middlewareConfig['included_path'],
-                'excluded_path'  => $middlewareConfig['excluded_path'],
-                'methods'        => $middlewareConfig['methods'],
-                'status_codes'   => $middlewareConfig['status_codes'],
-                'ttl'            => $middlewareConfig['ttl'],
-                'included_query' => $middlewareConfig['included_query'],
-                'excluded_query' => $middlewareConfig['excluded_query'],
-                'ignored_query'  => $middlewareConfig['ignored_query']
-            ]);
-        };
     }
 }

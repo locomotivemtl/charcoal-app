@@ -90,7 +90,7 @@ abstract class AbstractHandler implements
     /**
      * Initialize the AbstractHandler object.
      *
-     * @return AbstractHandler Chainable
+     * @return HandlerInterface Chainable
      */
     public function init()
     {

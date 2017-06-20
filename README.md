@@ -1,9 +1,11 @@
 Charcoal App
 ============
 
-Charcoal App is a framework to create and manage _Charcoal_ applications with **Slim 3**. An app is a collection of _modules_, _routes_ (`templates`, `actions` and `scripts`), _handlers_, and _services_ tied together with a _configs_ and a _service container_.
+Charcoal App is a framework to create and manage _Charcoal_ applications with **Slim 3**. 
+An app is a collection of _modules_, _routes_ (`templates`, `actions` and `scripts`), _handlers_, and _services_ tied together with a _configs_ and a _service container_.
 
-Provided services (through `Pimple`'s _Service Providers_) are a PSR-3 _logger_, a PSR-6 _cache_ system, a _view_ / renderer, Flysystem _filesystems_, a PDO _database_ source, and a _translator_.
+Provided services (through `Pimple`'s _Service Providers_) are a PSR-3 _logger_, a PSR-6 _cache_ system, 
+a _view_ / renderer, Flysystem _filesystems_, a PDO _database_ source, and a _translator_.
 
 # Table of contents
 
@@ -20,6 +22,7 @@ Provided services (through `Pimple`'s _Service Providers_) are a PSR-3 _logger_,
         -   [Template Request Controller](#template-request-controller)
         -   [Route API](#route-api)
         -   [Routable objects](#routable-objects)
+    -   [Middlewares](#middlewares)
     -   [Charcoal Binary](#charcoal-binary)
     -   [PHPUnits Tests](#phpunit-tests)
 -   [Service Providers](#service-providers)
@@ -65,8 +68,8 @@ For a complete, ready-to-use project, start from the [`boilerplate`](https://git
 ## Dependencies
 
 -   [`PHP 5.6+`](http://php.net)
-    -   Older versions of PHP are deprecated, therefore not supported for charcoal-app. PHP 5.6 + is recommendend.
-    -   PHP 7 is also supported.
+    -   Older versions of PHP are deprecated, therefore not supported for charcoal-app.
+    -   PHP 7 is also supported, and recommended for performance and secuirty reasons.
 -   [`locomotivemtl/charcoal-config`](https://github.com/locomotivemtl/charcoal-config)
     -    The basic configuration system and config container.
     -    Also provides the base `AbstractEntity` data container.
@@ -81,25 +84,25 @@ For a complete, ready-to-use project, start from the [`boilerplate`](https://git
         -   or simple PHP templates.
 -   [`slim/slim`](https://github.com/slimphp/Slim)
     -   Slim is a PSR-7 compliant micro-framework.
-    -   It provides the main app, container and router.
+    -   It provides the main app, container and router. It is the core upon which Charcoal is built.
     -   Its dependencies are:
         -    [`nikic/fast-route`](https://github.com/nikic/FastRoute)
         -    `pimple/pimple`
         -    [`psr/http-message`]((http://www.php-fig.org/psr/psr-7/))
 -   [`pimple/pimple`](http://pimple.sensiolabs.org/)
-  -   Dependency injection container.
-  -   Actually provided by `slim/slim`.
+        -   Dependency injection container. Holds all the service (with `ServicerProvider`s).
+        -   Actually provided by `slim/slim`.
 -   [`monolog/monolog`](https://github.com/Seldaek/monolog)
-    -   Monolog is a PSR-3 compliant logger.
-    -   Monolog is used as main logger to fulfills PSR3 dependencies all-around.
+        -   Monolog is a PSR-3 compliant logger.
+        -   Monolog is used as main logger to fulfills PSR3 dependencies all-around.
 -   [`tedivm/stash`](https://github.com/tedious/Stash)
-  -   Stash is a PSR-6 compliant cache system.
-  -   Cache greatly speeds up an application. A driver must be configured:
-    -   Supported drivers are `memcache`, `redis`, `db` (sqlite), `file`, `memory` or `noop`
-    -   Recommended drivers are `memcache` and `redis`.
+        -   Stash is a PSR-6 compliant cache system.
+        -   Cache greatly speeds up an application. A driver must be configured:
+        -   Supported drivers are `memcache`, `redis`, `db` (sqlite), `file`, `memory` or `noop`
+        -   Recommended drivers are `memcache` and `redis`.
 -   [`league/flysystem`](https://github.com/thephpleague/flysystem)
-  -   Filesystem abstraction provided by Flysystem.
-      +   Supported types are `local`, `ftp`, `sftp`, `s3`, `dropbox`, `memory` or `noop`.
+        -   Filesystem abstraction provided by Flysystem.
+        -   Supported types are `local`, `ftp`, `sftp`, `s3`, `dropbox`, `memory` or `noop`.
 
 > 👉 Development dependencies, which are optional when using charcoal-app in a project, are described in the [Development](#development) section of this README file.
 
@@ -122,6 +125,14 @@ In addition to the above dependencies, here's a list of recommended modules that
     -   Especially made for Charcoal _models_ / _objects_.
     -   A good example of `charcoal-app` / mustache templates usage.
 
+> Using the `charcoal-project-boilerplate` is really the recommended way of making sure a "full" Charcoal application is set up.
+> To install:
+>
+> ```shell
+> ★ composer create-project locomotivemtl/charcoal-project-boilerplate
+> ```
+
+
 # Components
 
 The main components of charcoal-app are:
@@ -140,9 +151,10 @@ The main components of charcoal-app are:
 
 ## Config component
 
-At the core of a _Charcoal application_ is a highy customizable **Config** system, provided by [charcoal-config](https://github.com/locomotivemtl/charcoal-admin).
+At the core of a _Charcoal application_ is a highy customizable **Config** system, provided by [charcoal-config](https://github.com/locomotivemtl/charcoal-config).
 
-Typically, the configuration should load a file located in `config/config.php` in a `AppConfig` object. This file might load other, specialized, config file (PHP, json or ini files).
+Typically, the configuration should load a file located in `config/config.php` in a `AppConfig` object. 
+This file might load other, specialized, config file (PHP, json or ini files).
 
 In the front controller, ensure the configuration is loaded:
 
@@ -151,7 +163,10 @@ $config = new \Charcoal\App\AppConfig();
 $config->addFile(__DIR__.'/../config/config.php');
 ```
 
-> It is recommended to keep a separate _config_ file for all of your different app modules. Compartmentalized config sections are easier to maintain and understand.
+> It is recommended to keep a separate _config_ file for all of your different app modules. 
+> Compartmentalized config sections are easier to maintain and understand.
+>
+> The [boilerplate](https://github.com/locomotivemtl/charcoal-project-boilerplate) provides a good example of a configuration setup.
 
 ### Base App Configuration
 
@@ -191,7 +206,8 @@ $config->addFile(__DIR__.'/../config/config.php');
 
 ## App component
 
-The App component is based on [Slim](https://github.com/slimphp/Slim). It actually extends the `\Slim\App` class.
+The App component is based on [Slim](https://github.com/slimphp/Slim). 
+It actually extends the `\Slim\App` class.
 
 > **What is Slim?**
 >
@@ -216,6 +232,9 @@ $app = \Charcoal\App\App::instance($container);
 $app->run();
 ```
 
+> The [boilerplate](https://github.com/locomotivemtl/charcoal-project-boilerplate) provides a good example of a front controller.
+
+
 ## Routes and RequestController
 
 All routes are actually handled by the *Slim* app. Charcoal Routes are just *definition* of a route:
@@ -229,7 +248,9 @@ All routes are actually handled by the *Slim* app. Charcoal Routes are just *def
     -   The `route_controller` ident, which will identify the proper controller to create.
         -   Controllers are created from a _resolver_ factory. Their identifier may look like `foo/bar/controller-name`.
 
-Routes can be
+
+Routes can also be (and most likely are) defined by objects. For example: sections, news, events, etc. 
+Those objects should extends the 
 
 ### Action Request Controller
 
@@ -582,6 +603,23 @@ The returned callable signature should be:
 `function(RequestInterface $request, ResponseInterface $response)` and returns a `ResponseInterface`
 
 Routables are called last (only if no explicit routes match fisrt). If no routables return a callable, then a 404 will be sent. (Slim's `NotFoundHandler`).
+
+> The [`charcoal-cms`](https://github.com/locomotivemtl/charcoal-cms) module contains many good examples of _routable_ objects.
+
+## Middlewares
+
+Just like routes (or everything else "Charcoal", really...), _middlewares_ are set up through the app's _config_.
+
+To be enabled, middlewares must be "active" and they must be accessible from the app's `container`.
+
+For example
+
+There are 2 middlewares provided by default in the `app` module:
+
+- `\Charcoal\App\Middleware\CacheMiddleware`
+- `\Charcoal\App\Middleware\Cache\IpMiddleware`
+
+Other Charcoal modules may provide more middlewares (for example, language detection in `charcoal-translator`).
 
 ## Charcoal Binary
 
@@ -1110,17 +1148,3 @@ The Charcoal-App module follows the Charcoal coding-style:
 -   Chauncey McAskill <chauncey@locomotive.ca>
 -   Benjamin Roch <benjamin@locomotive.ca>
 
-## Changelog
-
-### 0.1.1
-
-_2016-05-02_
-
--   Fix binary; do not attempt to include files that probably dont exist
--   Logger is now optional for widget (a null logger will be created if none is provided)
-
-### 0.1
-
-_2016-03-30_
-
--   Initial release

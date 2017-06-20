@@ -26,6 +26,9 @@ use Charcoal\App\Action\ActionInterface;
 use Charcoal\App\Script\ScriptInterface;
 use Charcoal\App\Module\ModuleInterface;
 
+use Charcoal\App\Middleware\CacheMiddleware;
+use Charcoal\App\Middleware\IpMiddleware;
+
 use Charcoal\App\Route\ActionRoute;
 use Charcoal\App\Route\RouteInterface;
 use Charcoal\App\Route\ScriptRoute;
@@ -71,6 +74,7 @@ class AppServiceProvider implements ServiceProviderInterface
     {
         $this->registerHandlerServices($container);
         $this->registerRouteServices($container);
+        $this->registerMiddlewareServices($container);
         $this->registerRequestControllerServices($container);
         $this->registerScriptServices($container);
         $this->registerModuleServices($container);
@@ -139,9 +143,9 @@ class AppServiceProvider implements ServiceProviderInterface
         /**
          * HTTP 404 (Not Found) handler.
          *
-         * @param  object|HandlerInterface $handler   An error handler instance.
+         * @param  object|\Charcoal\App\Handler\HandlerInterface $handler   An error handler instance.
          * @param  Container               $container A container instance.
-         * @return HandlerInterface
+         * @return \Charcoal\App\Handler\HandlerInterface
          */
         $container->extend('notFoundHandler', function ($handler, Container $container) use ($config) {
             if ($handler instanceof \Slim\Handlers\NotFound) {
@@ -160,9 +164,9 @@ class AppServiceProvider implements ServiceProviderInterface
         /**
          * HTTP 405 (Not Allowed) handler.
          *
-         * @param  object|HandlerInterface $handler   An error handler instance.
+         * @param  object|\Charcoal\App\Handler\HandlerInterface $handler   An error handler instance.
          * @param  Container               $container A container instance.
-         * @return HandlerInterface
+         * @return \Charcoal\App\Handler\HandlerInterface
          */
         $container->extend('notAllowedHandler', function ($handler, Container $container) use ($config) {
             if ($handler instanceof \Slim\Handlers\NotAllowed) {
@@ -181,9 +185,9 @@ class AppServiceProvider implements ServiceProviderInterface
         /**
          * HTTP 500 (Error) handler for PHP 7+ Throwables.
          *
-         * @param  object|HandlerInterface $handler   An error handler instance.
+         * @param  object|\Charcoal\App\Handler\HandlerInterface $handler   An error handler instance.
          * @param  Container               $container A container instance.
-         * @return HandlerInterface
+         * @return \Charcoal\App\Handler\HandlerInterface
          */
         $container->extend('phpErrorHandler', function ($handler, Container $container) use ($config) {
             if ($handler instanceof \Slim\Handlers\PhpError) {
@@ -202,9 +206,9 @@ class AppServiceProvider implements ServiceProviderInterface
         /**
          * HTTP 500 (Error) handler.
          *
-         * @param  object|HandlerInterface $handler   An error handler instance.
+         * @param  object|\Charcoal\App\Handler\HandlerInterface $handler   An error handler instance.
          * @param  Container               $container A container instance.
-         * @return HandlerInterface
+         * @return \Charcoal\App\Handler\HandlerInterface
          */
         $container->extend('errorHandler', function ($handler, Container $container) use ($config) {
             if ($handler instanceof \Slim\Handlers\Error) {
@@ -226,8 +230,8 @@ class AppServiceProvider implements ServiceProviderInterface
              *
              * This handler is not part of Slim.
              *
-             * @param  Container $container A container instance.
-             * @return HandlerInterface
+             * @param  Container $container A Pimple DI container.
+             * @return \Charcoal\App\Handler\HandlerInterface
              */
             $container['shutdownHandler'] = function (Container $container) {
                 $config  = $container['config'];
@@ -243,7 +247,7 @@ class AppServiceProvider implements ServiceProviderInterface
     }
 
     /**
-     * @param Container $container The DI container.
+     * @param Container $container A Pimple DI container.
      * @return void
      */
     protected function registerRouteServices(Container $container)
@@ -273,6 +277,32 @@ class AppServiceProvider implements ServiceProviderInterface
                     'logger' => $container['logger']
                 ]]
             ]);
+        };
+    }
+
+    /**
+     * @param Container $container A Pimple DI Container.
+     * @return void
+     */
+    protected function registerMiddlewareServices(Container $container)
+    {
+        /**
+         * @param Container $container A Pimple DI Container.
+         * @return CacheMiddleware
+         */
+        $container['middlewares/charcoal/app/middleware/cache'] = function (Container $container) {
+            $cacheConfig = $container['config']['middlewares']['charcoal/app/middleware/cache'];
+            $middlewareConfig = array_replace($cacheConfig, ['cache'=>$container['cache']]);
+            return new CacheMiddleware($middlewareConfig);
+        };
+
+        /**
+         * @param Container $container A Pimple DI Container.
+         * @return IpMiddleware
+         */
+        $container['middlewares/charcoal/app/middleware/ip'] = function(container $container) {
+            $middlewareConfig = $container['config']['middlewares']['charcoal/app/middleware/ip'];
+            return new IpMiddleware($middlewareConfig);
         };
     }
 
@@ -374,7 +404,7 @@ class AppServiceProvider implements ServiceProviderInterface
         };
         /**
          * @param Container $container A container instance.
-         * @return TemplateBuilder
+         * @return WidgetBuilder
          */
         $container['widget/builder'] = function (Container $container) {
             return new WidgetBuilder($container['widget/factory'], $container);
