@@ -290,8 +290,8 @@ class AppServiceProvider implements ServiceProviderInterface
          * @param Container $container A Pimple DI Container.
          * @return CacheMiddleware
          */
-        $container['middlewares/charcoal/app/middleware/cache'] = function (Container $container) {
-            $cacheConfig = $container['config']['middlewares']['charcoal/app/middleware/cache'];
+        $container['charcoal/app/middleware/cache'] = function (Container $container) {
+            $cacheConfig = $container['config']['middleware']['charcoal/app/middleware/cache'];
             $middlewareConfig = array_replace($cacheConfig, ['cache'=>$container['cache']]);
             return new CacheMiddleware($middlewareConfig);
         };
@@ -300,8 +300,8 @@ class AppServiceProvider implements ServiceProviderInterface
          * @param Container $container A Pimple DI Container.
          * @return IpMiddleware
          */
-        $container['middlewares/charcoal/app/middleware/ip'] = function(container $container) {
-            $middlewareConfig = $container['config']['middlewares']['charcoal/app/middleware/ip'];
+        $container['charcoal/app/middleware/ip'] = function(container $container) {
+            $middlewareConfig = $container['config']['middleware']['charcoal/app/middleware/ip'];
             return new IpMiddleware($middlewareConfig);
         };
     }

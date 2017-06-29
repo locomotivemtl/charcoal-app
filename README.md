@@ -22,7 +22,7 @@ a _view_ / renderer, Flysystem _filesystems_, a PDO _database_ source, and a _tr
         -   [Template Request Controller](#template-request-controller)
         -   [Route API](#route-api)
         -   [Routable objects](#routable-objects)
-    -   [Middlewares](#middlewares)
+    -   [Middleware](#middleware)
     -   [Charcoal Binary](#charcoal-binary)
     -   [PHPUnits Tests](#phpunit-tests)
 -   [Service Providers](#service-providers)
@@ -606,20 +606,46 @@ Routables are called last (only if no explicit routes match fisrt). If no routab
 
 > The [`charcoal-cms`](https://github.com/locomotivemtl/charcoal-cms) module contains many good examples of _routable_ objects.
 
-## Middlewares
+## Middleware
 
-Just like routes (or everything else "Charcoal", really...), _middlewares_ are set up through the app's _config_.
+Just like routes (or everything else "Charcoal", really...), _middleware_ are set up through the app's _config_.
 
-To be enabled, middlewares must be "active" and they must be accessible from the app's `container`.
+To be enabled, middleware must be "active" and must be accessible from the application's service container.
 
-For example
+For example, the Charcoal App package provides two components:
 
-There are 2 middlewares provided by default in the `app` module:
+- PHP Class: `\Charcoal\App\Middleware\CacheMiddleware`
+  Service Key: `charcoal/app/middleware/cache`
+- PHP Class: `\Charcoal\App\Middleware\Cache\IpMiddleware`
+  Service Key: `charcoal/app/middleware/ip`
 
-- `\Charcoal\App\Middleware\CacheMiddleware`
-- `\Charcoal\App\Middleware\Cache\IpMiddleware`
+Which can be added like so in your application's configset:
 
-Other Charcoal modules may provide more middlewares (for example, language detection in `charcoal-translator`).
+```json
+{
+    "middleware": {
+        "charcoal/app/middleware/cache": {
+            "active": true,
+            "included_path": "*",
+            "excluded_path": [
+                "~^/admin\\b~"
+            ],
+            "ignored_query": "*",
+            "ttl": 3600
+        },
+        "charcoal/app/middleware/ip": {
+            "active": false,
+            "blacklist": [],
+            "whitelist": [],
+            "blacklisted_redirect": null,
+            "not_whitelisted_redirect": null,
+            "fail_on_invalid_ip": false
+        }
+    }
+}
+```
+
+Other Charcoal modules may provide additional middleware (for example, language detection in `charcoal-translator`).
 
 ## Charcoal Binary
 
@@ -698,7 +724,7 @@ Example of a module configuration:
     "service_providers": [
         "foo/bar/service-provider/test"
     ],
-    "middlewares": {}
+    "middleware": {}
 }
 ```
 
