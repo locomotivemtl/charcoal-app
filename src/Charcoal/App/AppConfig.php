@@ -107,6 +107,13 @@ class AppConfig extends AbstractConfig
     private $modules = [];
 
     /**
+     * The application's API credentials and service configsets.
+     *
+     * @var array
+     */
+    private $apis = [];
+
+    /**
      * The application's caching configset.
      *
      * @var CacheConfig
@@ -421,6 +428,31 @@ class AppConfig extends AbstractConfig
         $this->view = array_merge($this->view, $view);
 
         return $this;
+    }
+
+    /**
+     * Parse the application's API configuration.
+     *
+     * @param  array $apis The API configuration structure to set.
+     * @return AppConfig Chainable
+     */
+    public function setApis(array $apis)
+    {
+        if (!isset($this->apis)) {
+            $this->apis = [];
+        }
+
+        $this->apis = array_replace_recursive($this->apis, $apis);
+
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function apis()
+    {
+        return $this->apis;
     }
 
     /**
