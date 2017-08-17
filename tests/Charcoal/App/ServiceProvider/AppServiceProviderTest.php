@@ -13,10 +13,8 @@ class AppServiceProviderTest extends \PHPUnit_Framework_TestCase
 {
     public function testProvider()
     {
-        $container = new Container([
-            'config' => []
-        ]);
-        $provider = new AppServiceProvider();
+        $container = new Container();
+        $provider  = new AppServiceProvider();
         $provider->register($container);
 
         $this->assertTrue(isset($container['base-url']));

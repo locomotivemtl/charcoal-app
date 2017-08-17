@@ -22,6 +22,8 @@ use Mustache_LambdaHelper as LambdaHelper;
 use Charcoal\Factory\GenericFactory as Factory;
 
 // Intra-module (`charcoal-app`) dependencies
+use Charcoal\App\AppConfig;
+
 use Charcoal\App\Action\ActionInterface;
 use Charcoal\App\Script\ScriptInterface;
 use Charcoal\App\Module\ModuleInterface;
@@ -87,7 +89,9 @@ class AppServiceProvider implements ServiceProviderInterface
      */
     protected function registerHandlerServices(Container $container)
     {
-        $config = $container['config'];
+        if (!isset($container['config'])) {
+            $container['config'] = new AppConfig();
+        }
 
         if (!isset($container['debug'])) {
             /**
