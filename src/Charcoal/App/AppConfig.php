@@ -21,6 +21,7 @@ use Charcoal\View\ViewConfig;
 use Charcoal\App\Config\CacheConfig;
 use Charcoal\App\Config\FilesystemConfig;
 use Charcoal\App\Config\LoggerConfig;
+use Charcoal\App\Route\RouteConfig;
 
 /**
  * Charcoal App configuration
@@ -468,7 +469,7 @@ class AppConfig extends AbstractConfig
             $this->routes = [];
         }
 
-        $toIterate = [ 'templates', 'actions', 'scripts' ];
+        $toIterate = RouteConfig::defaultRouteTypes();
         foreach ($routes as $key => $val) {
             if (in_array($key, $toIterate) && isset($this->routes[$key])) {
                 $this->routes[$key] = array_merge($this->routes[$key], $val);

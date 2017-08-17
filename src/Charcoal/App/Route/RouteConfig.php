@@ -53,6 +53,20 @@ class RouteConfig extends AbstractConfig
     private $groups = [];
 
     /**
+     * Retrieve the default route types.
+     *
+     * @return array
+     */
+    public static function defaultRouteTypes()
+    {
+        return [
+            'templates',
+            'actions',
+            'scripts'
+        ];
+    }
+
+    /**
      * Set route identifier
      *
      * @param string $ident Route identifier.
