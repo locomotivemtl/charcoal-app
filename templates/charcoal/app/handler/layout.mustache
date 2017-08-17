@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>{{ error_title }}</title>
+        <title>Charcoal</title>
         <style>
             body{
                 margin:0;
@@ -13,9 +13,13 @@
                 font-weight:normal;
                 line-height:48px;
             }
+            strong{
+                display:inline-block;
+                width:65px;
+            }
         </style>
     </head>
     <body>
-        {{& error_message }}
+        {{> $handlerMessage }}
     </body>
 </html>

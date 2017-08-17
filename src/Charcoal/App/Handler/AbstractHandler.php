@@ -2,68 +2,77 @@
 
 namespace Charcoal\App\Handler;
 
-// Dependencies from PSR-3 (logger)
-use Psr\Log\LoggerAwareInterface;
+use RuntimeException;
+
+// From PSR-3
 use Psr\Log\LoggerAwareTrait;
 
-// Dependencies from PSR-7 (HTTP Messaging)
+// From PSR-7
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\UriInterface;
 
-// Dependency from Pimple
+// From Slim
+use Slim\Http\Body;
+
+// From Pimple
 use Pimple\Container;
 
-// Dependency from 'charcoal-config'
-use Charcoal\Config\ConfigurableInterface;
+// From 'charcoal-config'
 use Charcoal\Config\ConfigurableTrait;
 
-// Dependencies from 'charcoal-view'
+// From 'charcoal-factory'
+use Charcoal\Factory\FactoryInterface;
+
+// From 'charcoal-view'
 use Charcoal\View\ViewInterface;
-use Charcoal\View\ViewableInterface;
 use Charcoal\View\ViewableTrait;
 
-// Dependencies from 'charcoal-translator'
+// From 'charcoal-translator'
 use Charcoal\Translator\TranslatorAwareTrait;
 
-// Intra-module (`charcoal-app`) dependencies
-use Charcoal\App\AppConfig;
-use Charcoal\App\Template\TemplateInterface;
-use Charcoal\App\Handler\HandlerInterface;
+// From 'charcoal-app'
 use Charcoal\App\Handler\HandlerConfig;
+use Charcoal\App\Handler\HandlerInterface;
+use Charcoal\App\Handler\TemplateableHandlerTrait;
 
 /**
- * Base Error Handler
+ * Abstract Charcoal Application Handler
  *
- * Enhanced version Slim's error handlers.
+ * Enhanced version Slim's application handler.
  *
  * It outputs messages in either JSON, XML or HTML
  * based on the Accept header.
  */
 abstract class AbstractHandler implements
-    ConfigurableInterface,
-    HandlerInterface,
-    LoggerAwareInterface,
-    ViewableInterface
+    HandlerInterface
 {
     use ConfigurableTrait;
     use LoggerAwareTrait;
+    use TemplateableHandlerTrait;
     use TranslatorAwareTrait;
     use ViewableTrait;
 
     /**
-     * Container
+     * Store the factory instance.
+     *
+     * @var FactoryInterface
+     */
+    protected $templateFactory;
+
+    /**
+     * Store the HTTP request object.
+     *
+     * @var ServerRequestInterface
+     */
+    protected $httpRequest;
+
+    /**
+     * The service locator.
      *
      * @var Container
      */
     protected $container;
-
-    /**
-     * URL for the home page
-     *
-     * @var string
-     */
-    protected $baseUrl;
 
     /**
      * Known handled content types
@@ -75,75 +84,149 @@ abstract class AbstractHandler implements
         'application/xml',
         'text/xml',
         'text/html',
+        'text/plain',
     ];
 
     /**
      * Return a new AbstractHandler object.
      *
      * @param Container $container A dependencies container instance.
+     * @param mixed     $config    A handler configset.
      */
-    public function __construct(Container $container)
+    public function __construct(Container $container, $config = null)
     {
+        $this->setContainer($container);
         $this->setDependencies($container);
+
+        if ($config !== null) {
+            $this->config()->merge($config);
+        }
+    }
+
+    /**
+     * String representation of the handler.
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getSummary();
     }
 
     /**
      * Initialize the AbstractHandler object.
      *
-     * @return HandlerInterface Chainable
+     * @return self
      */
     public function init()
     {
+        $this->resolveTemplatePartial();
+
         return $this;
     }
 
     /**
-     * Inject dependencies from a Pimple Container.
+     * Set dependencies from the service locator.
      *
-     * ## Dependencies
-     *
-     * - `AppConfig $appConfig` — The application's configuration.
-     * - `UriInterface $baseUri` — A base URI.
-     * - `ViewInterface $view` — A view instance.
-     *
-     * @param  Container $container A dependencies container instance.
-     * @return AbstractHandler Chainable
+     * @todo   Maybe add \Psr\Log\LoggerInterface?
+     * @param  Container $container A service locator.
+     * @return self
      */
     public function setDependencies(Container $container)
     {
-        $this->setLogger($container['logger']);
-        $this->setContainer($container);
-        $this->setBaseUrl($container['base-url']);
-        $this->setView($container['view']);
         $this->setTranslator($container['translator']);
-
-        if (isset($container['config']['handlers.defaults'])) {
-            $this->setConfig($container['config']['handlers.defaults']);
-        }
+        $this->setView($container['view']);
+        $this->setTemplateFactory($container['template/factory']);
+        $this->setConfig($container['config']['handlers.defaults']);
 
         return $this;
+    }
+
+    /**
+     * Set an template factory.
+     *
+     * @param  FactoryInterface $factory The factory to create templates.
+     * @return self
+     */
+    final protected function setTemplateFactory(FactoryInterface $factory)
+    {
+        $this->templateFactory = $factory;
+
+        return $this;
+    }
+
+    /**
+     * Retrieve the template factory.
+     *
+     * @throws RuntimeException If the template factory is missing.
+     * @return FactoryInterface
+     */
+    final protected function templateFactory()
+    {
+        if ($this->templateFactory === null) {
+            throw new RuntimeException(sprintf(
+                'Template Factory is not defined for [%s]',
+                get_class($this)
+            ));
+        }
+
+        return $this->templateFactory;
+    }
+
+    /**
+     * Set an HTTP request object.
+     *
+     * @param  ServerRequestInterface $request The most recent Request object.
+     * @return self
+     */
+    final protected function setHttpRequest(ServerRequestInterface $request)
+    {
+        $this->httpRequest = $request;
+
+        return $this;
+    }
+
+    /**
+     * Retrieve the HTTP request.
+     *
+     * @used-by \Charcoal\App\Template\TemplateInterface::init()
+     *     Via {@see TemplateableHandlerTrait::renderHtmlTemplateContent()}
+     * @throws  RuntimeException If the HTTP request was not previously set.
+     * @return  ServerRequestInterface
+     */
+    final protected function httpRequest()
+    {
+        if ($this->httpRequest === null) {
+            throw new RuntimeException(sprintf(
+                'HTTP Request is not defined for "%s"',
+                get_class($this)
+            ));
+        }
+
+        return $this->httpRequest;
     }
 
     /**
      * Set container for use with the template controller
      *
      * @param  Container $container A dependencies container instance.
-     * @return AbstractHandler Chainable
+     * @return self
      */
-    public function setContainer(Container $container)
+    final protected function setContainer(Container $container)
     {
         $this->container = $container;
+
         return $this;
     }
 
     /**
-     * ConfigurableTrait > createConfig()
+     * Create a configset.
      *
      * @see    ConfigurableTrait::createConfig()
      * @param  mixed|null $data Optional config data.
      * @return ConfigInterface
      */
-    public function createConfig($data = null)
+    final public function createConfig($data = null)
     {
         return new HandlerConfig($data);
     }
@@ -151,16 +234,21 @@ abstract class AbstractHandler implements
     /**
      * Determine which content type we know about is wanted using "Accept" header
      *
+     * @see    \Slim\Handlers::determineContentType()
      * @param  ServerRequestInterface $request The most recent Request object.
      * @return string
      */
     protected function determineContentType(ServerRequestInterface $request)
     {
+        if (PHP_SAPI === 'cli') {
+            return 'text/plain';
+        }
+
         $acceptHeader = $request->getHeaderLine('Accept');
         $selectedContentTypes = array_intersect(explode(',', $acceptHeader), $this->knownContentTypes);
 
         if (count($selectedContentTypes)) {
-            return reset($selectedContentTypes);
+            return current($selectedContentTypes);
         }
 
         // handle +json and +xml specially
@@ -175,113 +263,43 @@ abstract class AbstractHandler implements
     }
 
     /**
-     * Render HTML Error Page
+     * Mutate the given response.
+     *
+     * @param  ResponseInterface $response    The most recent Response object.
+     * @param  string            $contentType The content type of the output.
+     * @param  string            $output      The text output.
+     * @return ResponseInterface
+     */
+    protected function respondWith(ResponseInterface $response, $contentType, $output)
+    {
+        $body = new Body(fopen('php://temp', 'r+'));
+        $body->write($output);
+
+        return $response->withHeader('Content-Type', $contentType)
+                        ->withBody($body);
+    }
+
+    /**
+     * Retrieve the handler's code.
+     *
+     * @return string|integer
+     */
+    public function getCode()
+    {
+        return 0;
+    }
+
+    /**
+     * Retrieve the handler's summary.
      *
      * @return string
      */
-    protected function renderHtmlOutput()
-    {
-        $config    = $this->config();
-        $container = $this->container;
-
-        $templateIdent = $config['template'];
-
-        if ($config['cache']) {
-            $cachePool = $container['cache'];
-            $cacheKey  = str_replace('/', '.', 'template/'.$templateIdent);
-            $cacheItem = $cachePool->getItem($cacheKey);
-
-            $output = $cacheItem->get();
-            if ($cacheItem->isMiss()) {
-                $output = $this->renderHtmlTemplate();
-
-                $cacheItem->set($output, $config['cache_ttl']);
-            }
-        } else {
-            $output = $this->renderHtmlTemplate();
-        }
-
-        return $output;
-    }
+    abstract public function getSummary();
 
     /**
-     * Render title of error
+     * Retrieve the handler's message.
      *
      * @return string
      */
-    public function messageTitle()
-    {
-        return $this->translator()->translate('Application Error');
-    }
-
-    /**
-     * Render body of HTML error
-     *
-     * @return string
-     */
-    abstract public function renderHtmlMessage();
-
-    /**
-     * Render HTML Error Page
-     *
-     * @return string
-     */
-    protected function renderHtmlTemplate()
-    {
-        $config    = $this->config();
-        $container = $this->container;
-
-        $templateIdent      = $config['template'];
-        $templateController = $config['controller'];
-        $templateData       = $config['template_data'];
-
-        $templateFactory = $container['template/factory'];
-        if (isset($config['default_controller'])) {
-            $templateFactory->setDefaultClass($config['default_controller']);
-        }
-
-        if (!$templateController) {
-            return '';
-        }
-
-        $template = $templateFactory->create($templateController);
-
-        if (!isset($templateData['error_title'])) {
-            $templateData['error_title'] = $this->messageTitle();
-        }
-
-        if (!isset($templateData['error_message'])) {
-            $templateData['error_message'] = $this->renderHtmlMessage();
-        }
-
-        $template->setData($templateData);
-        return $container['view']->render($templateIdent, $template);
-    }
-
-    /**
-     * Set the base URL (home page).
-     *
-     * @param  string|UriInterface $url A URL to the base URL.
-     * @return AbstractHandler Chainable
-     */
-    public function setBaseUrl($url)
-    {
-        if ($url instanceof UriInterface) {
-            $url = $url->withPath('')->withQuery('')->withFragment('');
-        }
-
-        $this->baseUrl = $url;
-
-        return $this;
-    }
-
-    /**
-     * Retrieves the URL for the home page.
-     *
-     * @return string A URL representing the home page.
-     */
-    public function baseUrl()
-    {
-        return $this->baseUrl;
-    }
+    abstract public function getMessage();
 }

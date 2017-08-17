@@ -21,6 +21,7 @@ use Charcoal\View\ViewConfig;
 use Charcoal\App\Config\CacheConfig;
 use Charcoal\App\Config\FilesystemConfig;
 use Charcoal\App\Config\LoggerConfig;
+use Charcoal\App\Handler\HandlerConfig;
 use Charcoal\App\Route\RouteConfig;
 
 /**
@@ -510,19 +511,28 @@ class AppConfig extends AbstractConfig
     /**
      * Define custom response and error handlers.
      *
-     * Slim provides five standard handlers:
-     * - "foundHandler"
+     * Charcoal overrides four of Slim's standard handlers:
+     *
      * - "notFoundHandler"
      * - "notAllowedHandler"
      * - "errorHandler"
      * - "phpErrorHandler"
      *
-     * @param array $handlers The handlers configuration structure to set.
+     * @param  array $handlers The handlers configuration structure to set.
      * @return AppConfig Chainable
      */
     public function setHandlers(array $handlers)
     {
-        $this->handlers = $handlers;
+        $this->handlers = array_fill_keys(HandlerConfig::defaultHandlerTypes(), []);
+        $this->handlers['defaults'] = [];
+
+        foreach ($handlers as $handler => $data) {
+            $this->handlers[$handler] = array_replace(
+                $this->handlers[$handler],
+                $data
+            );
+        }
+
         return $this;
     }
 

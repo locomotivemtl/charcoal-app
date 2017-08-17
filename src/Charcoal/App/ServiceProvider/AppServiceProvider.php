@@ -38,7 +38,7 @@ use Charcoal\App\Route\TemplateRoute;
 
 use Charcoal\App\Handler\Error;
 use Charcoal\App\Handler\PhpError;
-use Charcoal\App\Handler\Shutdown;
+use Charcoal\App\Handler\Maintenance;
 use Charcoal\App\Handler\NotAllowed;
 use Charcoal\App\Handler\NotFound;
 
@@ -74,6 +74,7 @@ class AppServiceProvider implements ServiceProviderInterface
      */
     public function register(Container $container)
     {
+        $this->registerKernelServices($container);
         $this->registerHandlerServices($container);
         $this->registerRouteServices($container);
         $this->registerMiddlewareServices($container);
@@ -87,7 +88,7 @@ class AppServiceProvider implements ServiceProviderInterface
      * @param Container $container The DI container.
      * @return void
      */
-    protected function registerHandlerServices(Container $container)
+    protected function registerKernelServices(Container $container)
     {
         if (!isset($container['config'])) {
             $container['config'] = new AppConfig();
@@ -139,96 +140,89 @@ class AppServiceProvider implements ServiceProviderInterface
                 return $baseUrl;
             };
         }
+    }
 
-        if (!isset($config['handlers'])) {
-            return;
+    /**
+     * @param Container $container The DI container.
+     * @return void
+     */
+    protected function registerHandlerServices(Container $container)
+    {
+        $config = $container['config']['handlers'];
+
+        if (isset($container['notFoundHandler'])) {
+            /**
+             * HTTP 404 (Not Found) handler.
+             *
+             * @param  object|\Charcoal\App\Handler\HandlerInterface $handler   An error handler instance.
+             * @param  Container               $container A container instance.
+             * @return \Charcoal\App\Handler\HandlerInterface
+             */
+            $container->extend('notFoundHandler', function ($handler, Container $container) use ($config) {
+                if ($handler instanceof \Slim\Handlers\NotFound) {
+                    $handler = new NotFound($container, $config['notFound']);
+                    $handler->init();
+                }
+
+                return $handler;
+            });
         }
 
-        /**
-         * HTTP 404 (Not Found) handler.
-         *
-         * @param  object|\Charcoal\App\Handler\HandlerInterface $handler   An error handler instance.
-         * @param  Container               $container A container instance.
-         * @return \Charcoal\App\Handler\HandlerInterface
-         */
-        $container->extend('notFoundHandler', function ($handler, Container $container) use ($config) {
-            if ($handler instanceof \Slim\Handlers\NotFound) {
-                $handler = new NotFound($container);
-
-                if (isset($config['handlers']['notFound'])) {
-                    $handler->config()->merge($config['handlers']['notFound']);
+        if (isset($container['notAllowedHandler'])) {
+            /**
+             * HTTP 405 (Not Allowed) handler.
+             *
+             * @param  object|\Charcoal\App\Handler\HandlerInterface $handler   An error handler instance.
+             * @param  Container               $container A container instance.
+             * @return \Charcoal\App\Handler\HandlerInterface
+             */
+            $container->extend('notAllowedHandler', function ($handler, Container $container) use ($config) {
+                if ($handler instanceof \Slim\Handlers\NotAllowed) {
+                    $handler = new NotAllowed($container, $config['notAllowed']);
+                    $handler->init();
                 }
 
-                $handler->init();
-            }
+                return $handler;
+            });
+        }
 
-            return $handler;
-        });
-
-        /**
-         * HTTP 405 (Not Allowed) handler.
-         *
-         * @param  object|\Charcoal\App\Handler\HandlerInterface $handler   An error handler instance.
-         * @param  Container               $container A container instance.
-         * @return \Charcoal\App\Handler\HandlerInterface
-         */
-        $container->extend('notAllowedHandler', function ($handler, Container $container) use ($config) {
-            if ($handler instanceof \Slim\Handlers\NotAllowed) {
-                $handler = new NotAllowed($container);
-
-                if (isset($config['handlers']['notAllowed'])) {
-                    $handler->config()->merge($config['handlers']['notAllowed']);
+        if (isset($container['phpErrorHandler'])) {
+            /**
+             * HTTP 500 (Error) handler for PHP 7+ Throwables.
+             *
+             * @param  object|\Charcoal\App\Handler\HandlerInterface $handler   An error handler instance.
+             * @param  Container               $container A container instance.
+             * @return \Charcoal\App\Handler\HandlerInterface
+             */
+            $container->extend('phpErrorHandler', function ($handler, Container $container) use ($config) {
+                if ($handler instanceof \Slim\Handlers\PhpError) {
+                    $handler = new PhpError($container, $config['phpError']);
+                    $handler->init();
                 }
 
-                $handler->init();
-            }
+                return $handler;
+            });
+        }
 
-            return $handler;
-        });
-
-        /**
-         * HTTP 500 (Error) handler for PHP 7+ Throwables.
-         *
-         * @param  object|\Charcoal\App\Handler\HandlerInterface $handler   An error handler instance.
-         * @param  Container               $container A container instance.
-         * @return \Charcoal\App\Handler\HandlerInterface
-         */
-        $container->extend('phpErrorHandler', function ($handler, Container $container) use ($config) {
-            if ($handler instanceof \Slim\Handlers\PhpError) {
-                $handler = new PhpError($container);
-
-                if (isset($config['handlers']['phpError'])) {
-                    $handler->config()->merge($config['handlers']['phpError']);
+        if (isset($container['errorHandler'])) {
+            /**
+             * HTTP 500 (Error) handler.
+             *
+             * @param  object|\Charcoal\App\Handler\HandlerInterface $handler   An error handler instance.
+             * @param  Container               $container A container instance.
+             * @return \Charcoal\App\Handler\HandlerInterface
+             */
+            $container->extend('errorHandler', function ($handler, Container $container) use ($config) {
+                if ($handler instanceof \Slim\Handlers\Error) {
+                    $handler = new Error($container, $config['error']);
+                    $handler->init();
                 }
 
-                $handler->init();
-            }
+                return $handler;
+            });
+        }
 
-            return $handler;
-        });
-
-        /**
-         * HTTP 500 (Error) handler.
-         *
-         * @param  object|\Charcoal\App\Handler\HandlerInterface $handler   An error handler instance.
-         * @param  Container               $container A container instance.
-         * @return \Charcoal\App\Handler\HandlerInterface
-         */
-        $container->extend('errorHandler', function ($handler, Container $container) use ($config) {
-            if ($handler instanceof \Slim\Handlers\Error) {
-                $handler = new Error($container);
-
-                if (isset($config['handlers']['error'])) {
-                    $handler->config()->merge($config['handlers']['error']);
-                }
-
-                $handler->init();
-            }
-
-            return $handler;
-        });
-
-        if (!isset($container['shutdownHandler'])) {
+        if (!isset($container['maintenanceHandler'])) {
             /**
              * HTTP 503 (Service Unavailable) handler.
              *
@@ -237,13 +231,9 @@ class AppServiceProvider implements ServiceProviderInterface
              * @param  Container $container A Pimple DI container.
              * @return \Charcoal\App\Handler\HandlerInterface
              */
-            $container['shutdownHandler'] = function (Container $container) {
+            $container['maintenanceHandler'] = function (Container $container) use ($config) {
                 $config  = $container['config'];
-                $handler = new Shutdown($container);
-
-                if (isset($config['handlers']['shutdown'])) {
-                    $handler->config()->merge($config['handlers']['shutdown']);
-                }
+                $handler = new Maintenance($container, $config['maintenance']);
 
                 return $handler->init();
             };
