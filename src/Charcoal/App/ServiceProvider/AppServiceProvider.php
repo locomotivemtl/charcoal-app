@@ -285,9 +285,11 @@ class AppServiceProvider implements ServiceProviderInterface
          * @return CacheMiddleware
          */
         $container['middlewares/charcoal/app/middleware/cache'] = function (Container $container) {
-            $cacheConfig = $container['config']['middlewares']['charcoal/app/middleware/cache'];
-            $middlewareConfig = array_replace($cacheConfig, ['cache'=>$container['cache']]);
-            return new CacheMiddleware($middlewareConfig);
+            $wareConfig  = array_replace(
+                $container['config']['middlewares']['charcoal/app/middleware/cache'],
+                [ 'cache' => $container['cache'] ]
+            );
+            return new CacheMiddleware($wareConfig);
         };
 
         /**
@@ -295,8 +297,8 @@ class AppServiceProvider implements ServiceProviderInterface
          * @return IpMiddleware
          */
         $container['middlewares/charcoal/app/middleware/ip'] = function(container $container) {
-            $middlewareConfig = $container['config']['middlewares']['charcoal/app/middleware/ip'];
-            return new IpMiddleware($middlewareConfig);
+            $wareConfig = $container['config']['middlewares']['charcoal/app/middleware/ip'];
+            return new IpMiddleware($wareConfig);
         };
     }
 

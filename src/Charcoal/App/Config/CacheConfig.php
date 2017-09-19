@@ -2,10 +2,9 @@
 
 namespace Charcoal\App\Config;
 
-// Dependencies from `PHP`
 use InvalidArgumentException;
 
-// Module `charcoal-config` dependencies
+// From 'charcoal-config'
 use Charcoal\Config\AbstractConfig;
 
 /**
@@ -14,27 +13,32 @@ use Charcoal\Config\AbstractConfig;
 class CacheConfig extends AbstractConfig
 {
     /**
+     * Human-readable intervals in seconds.
+     */
+    const HOUR_IN_SECONDS = 3600;
+    const DAY_IN_SECONDS  = 86400;
+    const WEEK_IN_SECONDS = 604800;
+
+    /**
+     * Cache driver(s).
+     *
      * @var array
      */
-    private $types = ['memory'];
+    private $types = [ 'memory' ];
 
     /**
-     * The default TTL, in seconds.
-     * 10 days by default.
+     * Time-to-live in seconds.
      *
-     * @var integer $defaultTtl
+     * @var integer
      */
-    private $defaultTtl = 864000;
+    private $defaultTtl = self::WEEK_IN_SECONDS;
 
     /**
-     * @var string $prefix
+     * Cache namespace.
+     *
+     * @var string
      */
     private $prefix = 'charcoal';
-
-    /**
-     * @var array
-     */
-    public $middleware;
 
     /**
      * @return array
@@ -42,32 +46,9 @@ class CacheConfig extends AbstractConfig
     public function defaults()
     {
         return [
-            'types'         => ['memory'],
-            'default_ttl'   => 864000,
-            'prefix'        => 'charcoal',
-            'middleware'    => $this->middlewareDefaults()
-        ];
-    }
-
-    /**
-     * @return array
-     */
-    private function middlewareDefaults()
-    {
-        return [
-            'active'         => true,
-            'included_path'  => null,
-            'excluded_path'  => null,
-            'methods'        => [
-                'GET'
-            ],
-            'status_codes'   => [
-                200
-            ],
-            'ttl'            => 0,
-            'included_query' => null,
-            'excluded_query' => null,
-            'ignored_query'  => null
+            'types'       => [ 'memory' ],
+            'default_ttl' => self::WEEK_IN_SECONDS,
+            'prefix'      => 'charcoal'
         ];
     }
 
@@ -176,24 +157,5 @@ class CacheConfig extends AbstractConfig
     public function prefix()
     {
         return $this->prefix;
-    }
-
-    /**
-     * @param array $middleware The cache middleware configuration.
-     * @return CacheConfig Chainable
-     */
-    public function setMiddleware(array $middleware)
-    {
-        $middleware = array_merge($this->middlewareDefaults(), $middleware);
-        $this->middleware = $middleware;
-        return $this;
-    }
-
-    /**
-     * @return array
-     */
-    public function middleware()
-    {
-        return $this->middleware;
     }
 }

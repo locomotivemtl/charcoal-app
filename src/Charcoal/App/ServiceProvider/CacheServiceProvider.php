@@ -50,9 +50,8 @@ class CacheServiceProvider implements ServiceProviderInterface
          * @return CacheConfig
          */
         $container['cache/config'] = function (Container $container) {
-            $appConfig = $container['config'];
-
-            $cacheConfig =  new CacheConfig($appConfig['cache']);
+            $appConfig   = $container['config'];
+            $cacheConfig = new CacheConfig($appConfig['cache']);
             return $cacheConfig;
         };
 
