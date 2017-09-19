@@ -198,7 +198,7 @@ abstract class AbstractError extends AbstractHandler
      */
     protected function renderTextMessage($throwable)
     {
-        $message = $this->summary();
+        $message = $this->getSummary();
         if ($this->displayErrorDetails()) {
             $prev = $this->translator()->translate('Previous error:', [], 'charcoal');
 
@@ -221,7 +221,7 @@ abstract class AbstractError extends AbstractHandler
     protected function renderJsonMessage($throwable)
     {
         $json  = [
-            'message' => $this->summary(),
+            'message' => $this->getSummary(),
         ];
 
         if ($this->displayErrorDetails()) {
@@ -250,7 +250,7 @@ abstract class AbstractError extends AbstractHandler
      */
     protected function renderXmlMessage($throwable)
     {
-        $xml = "<error>\n  <message>".$this->summary()."</message>\n";
+        $xml = "<error>\n  <message>".$this->getSummary()."</message>\n";
         if ($this->displayErrorDetails()) {
             do {
                 $xml .= "  <exception>\n";
