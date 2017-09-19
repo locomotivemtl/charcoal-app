@@ -2,9 +2,9 @@
 
 namespace Charcoal\App\Middleware;
 
-// Dependencies from 'PSR-7' (HTTP Messaging)
-use \Psr\Http\Message\RequestInterface;
-use \Psr\Http\Message\ResponseInterface;
+// From PSR-7
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * The IP middleware can restrict access to certain routes to certain IP.
@@ -41,24 +41,33 @@ class IpMiddleware
      */
     public function __construct(array $data)
     {
-        $defaults = [
-            'blacklist' => null,
-            'whitelist' => null,
-
-            'blacklisted_redirect' => null,
-            'not_whitelisted_redirect' => null,
-
-            'fail_on_invalid_ip' => false
-        ];
-        $data = array_merge($defaults, $data);
+        $data = array_merge($this->defaults(), $data);
 
         $this->blacklist = $data['blacklist'];
         $this->whitelist = $data['whitelist'];
 
-        $this->blacklistedRedirect = $data['blacklisted_redirect'];
+        $this->blacklistedRedirect    = $data['blacklisted_redirect'];
         $this->notWhitelistedRedirect = $data['not_whitelisted_redirect'];
 
         $this->failOnInvalidIp = $data['fail_on_invalid_ip'];
+    }
+
+    /**
+     * Default middleware options.
+     *
+     * @return array
+     */
+    public function defaults()
+    {
+        return [
+            'blacklist' => null,
+            'whitelist' => null,
+
+            'blacklisted_redirect'     => null,
+            'not_whitelisted_redirect' => null,
+
+            'fail_on_invalid_ip' => false
+        ];
     }
 
     /**
