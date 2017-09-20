@@ -2,7 +2,7 @@
 
 namespace Charcoal\Tests\App\Config;
 
-use \Charcoal\App\Config\CacheConfig;
+use Charcoal\App\Config\CacheConfig;
 
 /**
  *
@@ -18,8 +18,12 @@ class CacheConfigTest extends \PHPUnit_Framework_TestCase
 
     public function testDefaults()
     {
-        $this->assertEquals(['memory'], $this->obj->types());
-        $this->assertEquals(864000, $this->obj->defaultTtl());
+        $this->assertEquals((60 * 60), CacheConfig::HOUR_IN_SECONDS);
+        $this->assertEquals((60 * 60 * 24), CacheConfig::DAY_IN_SECONDS);
+        $this->assertEquals((60 * 60 * 24 * 7), CacheConfig::WEEK_IN_SECONDS);
+
+        $this->assertEquals([ 'memory' ], $this->obj->types());
+        $this->assertEquals(CacheConfig::WEEK_IN_SECONDS, $this->obj->defaultTtl());
         $this->assertEquals('charcoal', $this->obj->prefix());
     }
 
@@ -30,15 +34,15 @@ class CacheConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(['memcache', 'noop'], $this->obj->types());
 
         $this->setExpectedException('\InvalidArgumentException');
-        $this->obj->setTypes([false]);
+        $this->obj->setTypes([ false ]);
     }
 
     public function testAddType()
     {
-        $this->assertEquals(['memory'], $this->obj->types());
+        $this->assertEquals([ 'memory' ], $this->obj->types());
         $ret = $this->obj->addType('memcache');
         $this->assertSame($ret, $this->obj);
-        $this->assertEquals(['memory', 'memcache'], $this->obj->types());
+        $this->assertEquals([ 'memory', 'memcache' ], $this->obj->types());
 
         $this->setExpectedException('\InvalidArgumentException');
         $this->obj->addType('foobar');

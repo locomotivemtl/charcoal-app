@@ -2,12 +2,15 @@
 
 namespace Charcoal\App\Middleware;
 
-// Dependencies from 'PSR-6' (Caching)
+// From PSR-6
 use Psr\Cache\CacheItemPoolInterface;
 
-// Dependencies from 'PSR-7' (HTTP Messaging)
-use \Psr\Http\Message\RequestInterface;
-use \Psr\Http\Message\ResponseInterface;
+// From PSR-7
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
+
+// From 'charcoal-app'
+use Charcoal\App\Config\CacheConfig;
 
 /**
  * The cache loader middleware attempts to load cache from the request's path (route).
@@ -27,11 +30,14 @@ class CacheMiddleware
 {
     /**
      * PSR-6 cache item pool.
+     *
      * @var CacheItemPool
      */
     private $cachePool;
 
     /**
+     * Time-to-live in seconds.
+     *
      * @var integer
      */
     private $cacheTtl;
@@ -85,40 +91,47 @@ class CacheMiddleware
      */
     public function __construct(array $data)
     {
-        $defaults = [
-            'included_path'  => '*',
-            'excluded_path'  => [
-                '^/admin\b'
-            ],
-            'methods'        => [
-                'GET'
-            ],
-            'status_codes'   => [
-                200
-            ],
-            'ttl'            => 864000,
+        $data = array_replace($this->defaults(), $data);
 
-            'included_query' => null,
-            'excluded_query' => null,
-            'ignored_query'  => null,
-            'headers'        => true
-        ];
-        $data = array_replace($defaults, $data);
 
         $this->cachePool = $data['cache'];
-        $this->cacheTtl = $data['ttl'];
+        $this->cacheTtl  = $data['ttl'];
 
         $this->includedPath = $data['included_path'];
         $this->excludedPath = $data['excluded_path'];
 
-        $this->methods = $data['methods'];
+        $this->methods     = $data['methods'];
         $this->statusCodes = $data['status_codes'];
 
         $this->includedQuery = $data['included_query'];
         $this->excludedQuery = $data['excluded_query'];
-        $this->ignoredQuery = $data['ignored_query'];
+        $this->ignoredQuery  = $data['ignored_query'];
 
         $this->headers = $data['headers'];
+    }
+
+    /**
+     * Default middleware options.
+     *
+     * @return array
+     */
+    public function defaults()
+    {
+        return [
+            'ttl'            => CacheConfig::DAY_IN_SECONDS,
+
+            'included_path'  => '*',
+            'excluded_path'  => [ '^/admin\b' ],
+
+            'methods'        => [ 'GET' ],
+            'status_codes'   => [ 200 ],
+
+            'included_query' => null,
+            'excluded_query' => null,
+            'ignored_query'  => null,
+
+            'headers'        => true
+        ];
     }
 
     /**
@@ -129,7 +142,8 @@ class CacheMiddleware
      * Simply: if the cache for the route exists, it will be used to display the page.
      * The `$next` callback will not be called, therefore stopping the middleware stack.
      *
-     * To generate the cache used in this middleware, @see \Charcoal\App\Middleware\CacheGeneratorMiddleware.
+     * To generate the cache used in this middleware,
+     * @see \Charcoal\App\Middleware\CacheGeneratorMiddleware.
      *
      * @param RequestInterface  $request  The PSR-7 HTTP request.
      * @param ResponseInterface $response The PSR-7 HTTP response.
@@ -149,6 +163,7 @@ class CacheMiddleware
             foreach ($cached['headers'] as $name => $header) {
                 $response = $response->withHeader($name, $header);
             }
+
             return $response;
         } else {
             $response = $next($request, $response);
@@ -156,9 +171,11 @@ class CacheMiddleware
             if ($this->isActive($request, $response) === false) {
                 return $response;
             }
+
             if ($this->isPathIncluded($path) === false) {
                 return $response;
             }
+
             if ($this->isPathExcluded($path) === true) {
                 return $response;
             }
@@ -174,13 +191,12 @@ class CacheMiddleware
                 return $response;
             }
 
-
             // Nothing has excluded the cache so far: add it to the pool.
             $cacheItem = $this->cachePool->getItem($cacheKey);
             $cacheItem->expiresAfter($this->cacheTtl);
             $cacheItem = $cacheItem->set([
-                'body'      => (string)$response->getBody(),
-                'headers'   => (array)$response->getHeaders()
+                'body'    => (string)$response->getBody(),
+                'headers' => (array)$response->getHeaders()
             ]);
             $this->cachePool->save($cacheItem);
 
@@ -201,9 +217,9 @@ class CacheMiddleware
             $keyParams = $this->parseIgnoredParams($queryParams);
             $cacheKey .= '.'.md5(json_encode($keyParams));
         }
+
         return $cacheKey;
     }
-
 
     /**
      * @param RequestInterface  $request  The PSR-7 HTTP request.
@@ -215,9 +231,11 @@ class CacheMiddleware
         if (!in_array($response->getStatusCode(), $this->statusCodes)) {
             return false;
         }
+
         if (!in_array($request->getMethod(), $this->methods)) {
             return false;
         }
+
         return true;
     }
 
@@ -227,15 +245,18 @@ class CacheMiddleware
      */
     private function isPathIncluded($path)
     {
-        if ($this->includedPath == '*') {
+        if ($this->includedPath === '*') {
             return true;
         }
+
         if (!$this->includedPath || empty($this->includedPath)) {
             return false;
         }
+
         if (is_string($this->includedPath)) {
             return !!(preg_match('@'.$this->includedPath.'@', $path));
         }
+
         if (is_array($this->includedPath)) {
             foreach ($this->includedPath as $included) {
                 if (preg_match('@'.$included.'@', $path)) {
@@ -252,15 +273,18 @@ class CacheMiddleware
      */
     private function isPathExcluded($path)
     {
-        if ($this->excludedPath == '*') {
+        if ($this->excludedPath === '*') {
             return true;
         }
+
         if (!$this->excludedPath || empty($this->excludedPath)) {
             return false;
         }
+
         if (is_string($this->excludedPath)) {
             return !!(preg_match('@'.$this->excludedPath.'@', $path));
         }
+
         if (is_array($this->excludedPath)) {
             foreach ($this->excludedPath as $excluded) {
                 if (preg_match('@'.$excluded.'@', $path)) {
@@ -280,12 +304,15 @@ class CacheMiddleware
         if (empty($queryParams)) {
             return true;
         }
-        if ($this->includedQuery == '*') {
+
+        if ($this->includedQuery === '*') {
             return true;
         }
+
         if (!is_array($this->includedQuery) || empty($this->includedQuery)) {
             return false;
         }
+
         return (count(array_intersect_key($queryParams, $this->includedQuery)) > 0);
     }
 
@@ -295,12 +322,14 @@ class CacheMiddleware
      */
     private function isQueryExcluded(array $queryParams)
     {
-        if ($this->excludedQuery == '*') {
+        if ($this->excludedQuery === '*') {
             return true;
         }
+
         if (!is_array($this->excludedQuery) || empty($this->excludedQuery)) {
             return false;
         }
+
         if (count(array_intersect_key($queryParams, array_flip($this->excludedQuery))) > 0) {
             return true;
         }
@@ -312,7 +341,7 @@ class CacheMiddleware
      */
     private function parseIgnoredParams(array $queryParams)
     {
-        if ($this->ignoredQuery == '*') {
+        if ($this->ignoredQuery === '*') {
             $ret = [];
             if (is_array($this->includedQuery)) {
                 foreach ($queryParams as $k => $v) {
@@ -323,15 +352,18 @@ class CacheMiddleware
             }
             return $ret;
         }
+
         if (!is_array($this->ignoredQuery) || empty($this->ignoredQuery)) {
             return $queryParams;
         }
+
         $ret = [];
         foreach ($queryParams as $k => $v) {
             if (!in_array($k, $this->ignoredQuery)) {
                 $ret[$k] = $v;
             }
         }
+
         return $queryParams;
     }
 }
