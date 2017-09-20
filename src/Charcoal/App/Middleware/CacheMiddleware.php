@@ -191,7 +191,7 @@ class CacheMiddleware
     /**
      * @param string $path        The query path (route).
      * @param array  $queryParams The query parameters.
-     * @param string $method      The request method
+     * @param string $method      The request method.
      * @return string
      */
     private function cacheKey($path, array $queryParams, $method)
