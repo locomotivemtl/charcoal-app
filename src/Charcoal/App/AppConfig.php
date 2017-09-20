@@ -95,6 +95,13 @@ class AppConfig extends AbstractConfig
     private $routables = [];
 
     /**
+     * The application's HTTP middleware.
+     *
+     * @var array
+     */
+    private $middlewares = [];
+
+    /**
      * The application's handlers.
      *
      * @var array
@@ -175,6 +182,7 @@ class AppConfig extends AbstractConfig
             'timezone'         => 'UTC',
             'routes'           => [],
             'routables'        => [],
+            'middlewares'      => [],
             'handlers'         => [],
             'modules'          => [],
             'cache'            => [],
@@ -506,6 +514,31 @@ class AppConfig extends AbstractConfig
     public function routables()
     {
         return $this->routables;
+    }
+
+    /**
+     * Parse the application's HTTP middleware.
+     *
+     * @param  array $middleware The middleware configuration structure to set.
+     * @return AppConfig Chainable
+     */
+    public function setMiddlewares(array $middleware)
+    {
+        if (!isset($this->middlewares)) {
+            $this->middlewares = [];
+        }
+
+        $this->middlewares = array_replace_recursive($this->middlewares, $middleware);
+
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function middlewares()
+    {
+        return $this->middlewares;
     }
 
     /**
