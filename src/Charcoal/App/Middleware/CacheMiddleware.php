@@ -93,6 +93,7 @@ class CacheMiddleware
     {
         $data = array_replace($this->defaults(), $data);
 
+
         $this->cachePool = $data['cache'];
         $this->cacheTtl  = $data['ttl'];
 
@@ -120,7 +121,7 @@ class CacheMiddleware
             'ttl'            => CacheConfig::DAY_IN_SECONDS,
 
             'included_path'  => '*',
-            'excluded_path'  => [ '~^/admin\b~' ],
+            'excluded_path'  => [ '^/admin\b' ],
 
             'methods'        => [ 'GET' ],
             'status_codes'   => [ 200 ],
@@ -153,7 +154,7 @@ class CacheMiddleware
     {
         $path = $request->getUri()->getPath();
         $queryParams = $request->getQueryParams();
-        $cacheKey  = $this->cacheKey($path, $queryParams);
+        $cacheKey  = $this->cacheKey($path, $queryParams, $request->getMethod());
 
         if ($this->cachePool->hasItem($cacheKey)) {
             $cacheItem = $this->cachePool->getItem($cacheKey);
@@ -206,11 +207,12 @@ class CacheMiddleware
     /**
      * @param string $path        The query path (route).
      * @param array  $queryParams The query parameters.
+     * @param string $method      The request method.
      * @return string
      */
-    private function cacheKey($path, array $queryParams)
+    private function cacheKey($path, array $queryParams, $method)
     {
-        $cacheKey  = 'request/'.str_replace('/', '.', $path);
+        $cacheKey  = 'request/'.$method.'-'.str_replace('/', '.', $path);
         if (!empty($queryParams)) {
             $keyParams = $this->parseIgnoredParams($queryParams);
             $cacheKey .= '.'.md5(json_encode($keyParams));
