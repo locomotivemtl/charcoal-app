@@ -9,6 +9,7 @@ use RuntimeException;
 
 // Dependency from 'Slim'
 use Slim\App as SlimApp;
+use Slim\Exception\ContainerValueNotFoundException;
 
 // Dependencies from 'PSR-3' (Logging)
 use Psr\Log\LoggerAwareInterface;
@@ -221,8 +222,8 @@ class App extends SlimApp implements
         // Setup routable
         $this->setupRoutables();
 
-        // Setup middlewares
-        $this->setupMiddlewares();
+        // Setup middleware
+        $this->setupMiddleware();
     }
 
 
@@ -270,24 +271,24 @@ class App extends SlimApp implements
     }
 
     /**
-     * @throws RuntimeException If the middleware was not set properly on the container.
+     * @throws ContainerValueNotFoundException No container entry was found for the middleware.
      * @return void
      */
-    protected function setupMiddlewares()
+    protected function setupMiddleware()
     {
         $container = $this->getContainer();
-        $middlewaresConfig = $container['config']['middlewares'];
-        if (!$middlewaresConfig) {
+        $middlewareConfig = $container['config']['middleware'];
+        if (!$middlewareConfig) {
             return;
         }
-        foreach ($middlewaresConfig as $id => $opts) {
+        foreach ($middlewareConfig as $key => $opts) {
             if (isset($opts['active']) && $opts['active'] === true) {
-                if (!isset($container['middlewares/'.$id])) {
-                    throw new RuntimeException(
-                        sprintf('Middleware "%s" is not set on container.', $id)
+                if (!isset($container[$key])) {
+                    throw new ContainerValueNotFoundException(
+                        sprintf('Middleware "%s" is not defined on the container.', $key)
                     );
                 }
-                $this->add($container['middlewares/'.$id]);
+                $this->add($container[$key]);
             }
         }
     }
