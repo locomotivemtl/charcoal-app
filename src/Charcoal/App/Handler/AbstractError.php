@@ -376,7 +376,7 @@ abstract class AbstractError extends AbstractHandler
      */
     public function getSummary()
     {
-        return $this->translator()->translate('Charcoal Application Error', [], 'charcoal');
+        return $this->translator()->translate('Application Error', [], 'charcoal');
     }
 
     /**

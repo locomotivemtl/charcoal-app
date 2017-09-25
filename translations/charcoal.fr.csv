@@ -6,5 +6,5 @@
 "Method not allowed. Must be one of:";"Méthode non autorisée. Doit être l'un des : {{ methods }}"
 "Service Unavailable";"Service non disponible"
 "The server is currently unavailable. We will be right back.";"Le serveur n'est pas disponible, actuellement. Nous serons très bientôt de retour."
-"Charcoal Application Error";"Erreur d'application Charcoal"
+"Application Error";"Erreur d'application"
 "The server encountered a problem. Sorry for the temporary inconvenience.";"Le serveur a rencontré un problème. Désolé pour l'inconvénient temporaire."
