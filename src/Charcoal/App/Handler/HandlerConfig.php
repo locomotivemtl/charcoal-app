@@ -169,11 +169,15 @@ class HandlerConfig extends AbstractConfig
     public function defaultController()
     {
         $config = App::instance()->config();
-        if (isset($config['view.default_controller'])) {
-            return $config['view.default_controller'];
-        } else {
-            return 'charcoal/app/template/generic';
+
+        if (isset($config['view'])) {
+            $viewConfig = $config['view'];
+            if (isset($viewConfig['default_controller'])) {
+                return $viewConfig['default_controller'];
+            }
         }
+
+        return 'charcoal/app/template/generic';
     }
 
     /**

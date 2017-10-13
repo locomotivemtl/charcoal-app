@@ -93,15 +93,20 @@ class TemplateRouteConfig extends RouteConfig
     }
 
     /**
-     * @return string
+     * @return string|null
      */
     public function defaultController()
     {
         $config = App::instance()->config();
 
-        if ($config->has('view.default_controller')) {
-            return $config->get('view.default_controller');
+        if (isset($config['view'])) {
+            $viewConfig = $config['view'];
+            if (isset($viewConfig['default_controller'])) {
+                return $viewConfig['default_controller'];
+            }
         }
+
+        return null;
     }
 
     /**
