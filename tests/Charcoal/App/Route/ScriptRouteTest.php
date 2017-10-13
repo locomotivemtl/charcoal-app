@@ -56,8 +56,8 @@ class ScriptRouteTest extends \PHPUnit_Framework_TestCase
             return new Factory();
         };
 
-        $request  = $this->getMock(RequestInterface::class);
-        $response = $this->getMock(ResponseInterface::class);
+        $request  = $this->createMock(RequestInterface::class);
+        $response = $this->createMock(ResponseInterface::class);
 
         // Invalid because "foo/bar" is not a valid script controller
         $this->setExpectedException('\Exception');

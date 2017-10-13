@@ -131,7 +131,7 @@ class AbstractActionTest extends \PHPUnit_Framework_TestCase
      */
     public function testInvokable()
     {
-        $request = $this->getMock(RequestInterface::class);
+        $request = $this->createMock(RequestInterface::class);
         $response = new Response();
 
         $this->obj->expects($this->any())
@@ -146,7 +146,7 @@ class AbstractActionTest extends \PHPUnit_Framework_TestCase
 
     public function testDefaultModeisJson()
     {
-        $request = $this->getMock(RequestInterface::class);
+        $request = $this->createMock(RequestInterface::class);
         $response = new Response();
 
         $this->obj->expects($this->any())
@@ -162,7 +162,7 @@ class AbstractActionTest extends \PHPUnit_Framework_TestCase
 
     public function testInvokeModeJson()
     {
-        $request = $this->getMock(RequestInterface::class);
+        $request = $this->createMock(RequestInterface::class);
         $response = new Response();
 
         $this->obj->expects($this->any())
@@ -179,7 +179,7 @@ class AbstractActionTest extends \PHPUnit_Framework_TestCase
 
     public function testInvokeModeXml()
     {
-        $request = $this->getMock(RequestInterface::class);
+        $request = $this->createMock(RequestInterface::class);
         $response = new Response();
 
         $this->obj->expects($this->any())
@@ -196,7 +196,7 @@ class AbstractActionTest extends \PHPUnit_Framework_TestCase
 
     public function testInvokeModeRedirect()
     {
-        $request = $this->getMock(RequestInterface::class);
+        $request = $this->createMock(RequestInterface::class);
         $response = new Response();
 
         $this->obj->expects($this->any())
@@ -216,7 +216,7 @@ class AbstractActionTest extends \PHPUnit_Framework_TestCase
 
     public function testInitIsTrue()
     {
-        $request = $this->getMock(RequestInterface::class);
+        $request = $this->createMock(RequestInterface::class);
         $this->assertTrue($this->obj->init($request));
     }
 
