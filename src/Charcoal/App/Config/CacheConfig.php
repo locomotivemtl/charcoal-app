@@ -12,6 +12,8 @@ use Charcoal\Config\AbstractConfig;
  */
 class CacheConfig extends AbstractConfig
 {
+    const DEFAULT_NAMESPACE = 'charcoal';
+
     /**
      * Human-readable intervals in seconds.
      */
@@ -20,7 +22,20 @@ class CacheConfig extends AbstractConfig
     const WEEK_IN_SECONDS = 604800;
 
     /**
-     * Cache driver(s).
+     * Whether to enable or disable the cache service.
+     *
+     * Note:
+     * - When TRUE, the {@see self::$types} are used.
+     * - When FALSE, the "memory" type is used.
+     *
+     * @var boolean
+     */
+    private $active = true;
+
+    /**
+     * Cache type(s) to use.
+     *
+     * Represents a cache driver.
      *
      * @var array
      */
@@ -38,41 +53,65 @@ class CacheConfig extends AbstractConfig
      *
      * @var string
      */
-    private $prefix = 'charcoal';
+    private $prefix = self::DEFAULT_NAMESPACE;
 
     /**
+     * Retrieve the default values.
+     *
      * @return array
      */
     public function defaults()
     {
         return [
+            'active'      => true,
             'types'       => [ 'memory' ],
             'default_ttl' => self::WEEK_IN_SECONDS,
-            'prefix'      => 'charcoal'
+            'prefix'      => self::DEFAULT_NAMESPACE
         ];
     }
 
     /**
-     * Set the types (drivers) of cache.
+     * Enable / Disable the cache service.
+     *
+     * @param  boolean $active The active flag;
+     *     TRUE to enable, FALSE to disable.
+     * @return CacheConfig Chainable
+     */
+    public function setActive($active)
+    {
+        $this->active = !!$active;
+        return $this;
+    }
+
+    /**
+     * Determine if the cache service is enabled.
+     *
+     * @return boolean TRUE if enabled, FALSE if disabled.
+     */
+    public function active()
+    {
+        return $this->active;
+    }
+
+    /**
+     * Set the cache type(s) to use.
      *
      * The first cache actually available on the system will be the one used for caching.
      *
-     * @param string[] $types The types of cache to try using, in order of priority.
+     * @param  string[] $types One or more types to try as cache driver until success.
      * @return CacheConfig Chainable
      */
     public function setTypes(array $types)
     {
         $this->types = [];
-        foreach ($types as $type) {
-            $this->addType($type);
-        }
+        $this->addTypes($types);
         return $this;
     }
 
     /**
-     * Get the valid types (drivers).
+     * Retrieve the available cache types.
      *
-     * @return array
+     * @return string[]
      */
     public function validTypes()
     {
@@ -88,8 +127,24 @@ class CacheConfig extends AbstractConfig
     }
 
     /**
-     * @param string $type The cache type.
-     * @throws InvalidArgumentException If the type is not a string.
+     * Add cache type(s) to use.
+     *
+     * @param  string[] $types One or more types to try as cache driver until success.
+     * @return CacheConfig Chainable
+     */
+    public function addTypes(array $types)
+    {
+        foreach ($types as $type) {
+            $this->addType($type);
+        }
+        return $this;
+    }
+
+    /**
+     * Add a cache type to use.
+     *
+     * @param  string $type The cache type.
+     * @throws InvalidArgumentException If the type is not a string or unsupported.
      * @return CacheConfig Chainable
      */
     public function addType($type)
@@ -99,11 +154,14 @@ class CacheConfig extends AbstractConfig
                 sprintf('Invalid cache type: "%s"', $type)
             );
         }
+
         $this->types[] = $type;
         return $this;
     }
 
     /**
+     * Retrieve the cache type(s) to use.
+     *
      * @return array
      */
     public function types()
@@ -112,8 +170,10 @@ class CacheConfig extends AbstractConfig
     }
 
     /**
-     * @param integer $ttl The time-to-live, in seconds.
-     * @throws InvalidArgumentException If the TTL argument is not numeric.
+     * Set the default time-to-live for cached items.
+     *
+     * @param  integer $ttl The time-to-live, in seconds.
+     * @throws InvalidArgumentException If the TTL is not numeric.
      * @return CacheConfig Chainable
      */
     public function setDefaultTtl($ttl)
@@ -123,11 +183,14 @@ class CacheConfig extends AbstractConfig
                 'TTL must be an integer (seconds).'
             );
         }
+
         $this->defaultTtl = (int)$ttl;
         return $this;
     }
 
     /**
+     * Retrieve the default time-to-live for cached items.
+     *
      * @return integer
      */
     public function defaultTtl()
@@ -136,7 +199,9 @@ class CacheConfig extends AbstractConfig
     }
 
     /**
-     * @param string $prefix The cache prefix (or namespace).
+     * Set the cache namespace.
+     *
+     * @param  string $prefix The cache prefix (or namespace).
      * @throws InvalidArgumentException If the prefix is not a string.
      * @return CacheConfig Chainable
      */
@@ -147,11 +212,14 @@ class CacheConfig extends AbstractConfig
                 'Prefix must be a string.'
             );
         }
+
         $this->prefix = $prefix;
         return $this;
     }
 
     /**
+     * Retrieve the cache namespace.
+     *
      * @return string
      */
     public function prefix()
