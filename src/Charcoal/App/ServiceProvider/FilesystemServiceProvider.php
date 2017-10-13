@@ -50,13 +50,13 @@ class FilesystemServiceProvider implements ServiceProviderInterface
     public function register(Container $container)
     {
         /**
-         * @param Container $container Pimple DI Container.
+         * @param  Container $container Pimple DI Container.
          * @return FlysystemConfig
          */
         $container['filesystem/config'] = function (Container $container) {
-            $appConfig = $container['config'];
-
-            return new FilesystemConfig($appConfig['filesystem']);
+            $appConfig = isset($container['config']) ? $container['config'] : [];
+            $fsConfig  = isset($appConfig['filesystem']) ? $appConfig['filesystem'] : null;
+            return new FilesystemConfig($fsConfig);
         };
 
         /**
