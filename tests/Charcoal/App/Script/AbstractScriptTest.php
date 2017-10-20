@@ -48,8 +48,8 @@ class AbstractScriptTest extends \PHPUnit_Framework_TestCase
 
     public function testInvoke()
     {
-        $request  = $this->getMock(RequestInterface::class);
-        $response = $this->getMock(ResponseInterface::class);
+        $request  = $this->createMock(RequestInterface::class);
+        $response = $this->createMock(ResponseInterface::class);
         $invoke   = call_user_func([$this->obj, '__invoke'], $request, $response);
     }
 

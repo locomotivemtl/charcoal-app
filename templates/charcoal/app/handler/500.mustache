@@ -1,0 +1,8 @@
+<h1>{{# _t }}Application Error{{/ _t }}</h1>
+{{# displayErrorDetails }}
+<p>{{# _t }}The application could not run because of the following error:{{/ _t }}</p>
+{{& htmlErrorDetails }}
+{{/ displayErrorDetails }}
+{{^ displayErrorDetails }}
+<p>{{# _t }}The server encountered a problem. Sorry for the temporary inconvenience.{{/ _t }}</p>
+{{/ displayErrorDetails }}

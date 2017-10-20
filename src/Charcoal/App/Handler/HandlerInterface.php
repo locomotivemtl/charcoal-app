@@ -2,25 +2,21 @@
 
 namespace Charcoal\App\Handler;
 
-// Dependency from Pimple
-use Pimple\Container;
+// From PSR-3
+use Psr\Log\LoggerAwareInterface;
+
+// From 'charcoal-config'
+use Charcoal\Config\ConfigurableInterface;
+
+// From 'charcoal-view'
+use Charcoal\View\ViewableInterface;
 
 /**
  * Request Handler
  */
-interface HandlerInterface
+interface HandlerInterface extends
+    ConfigurableInterface,
+    LoggerAwareInterface,
+    ViewableInterface
 {
-    /**
-     * Return a new HandlerInterface object.
-     *
-     * @param Container $container A dependencies container instance.
-     */
-    public function __construct(Container $container);
-
-    /**
-     * Initialize the HandlerInterface object.
-     *
-     * @return HandlerInterface Chainable
-     */
-    public function init();
 }

@@ -12,44 +12,34 @@ use Psr\Http\Message\ResponseInterface;
 use Charcoal\App\Handler\AbstractHandler;
 
 /**
- * "Not Allowed" Handler
+ * "Service Unavailable" Handler
  *
- * Enhanced version of {@see \Slim\Handlers\NotAllowed}.
+ * A maintenance mode check is included in the default middleware stack for your application.
+ * This is a practical feature to "disable" your application while performing an update
+ * or maintenance.
  */
-class NotAllowed extends AbstractHandler
+class Maintenance extends AbstractHandler
 {
-    const DEFAULT_PARTIAL = 'charcoal/app/handler/405';
+    const DEFAULT_PARTIAL = 'charcoal/app/handler/503';
 
     /**
-     * HTTP methods allowed by the current request.
-     *
-     * @var string $methods
-     */
-    protected $methods;
-
-    /**
-     * Invoke "Not Allowed" Handler
+     * Invoke "Maintenance" Handler
      *
      * @param  ServerRequestInterface $request  The most recent Request object.
      * @param  ResponseInterface      $response The most recent Response object.
-     * @param  string[]               $methods  Allowed HTTP methods.
      * @throws UnexpectedValueException If the content type could not be determined.
      * @return ResponseInterface
      */
     public function __invoke(
         ServerRequestInterface $request,
-        ResponseInterface $response,
-        array $methods
+        ResponseInterface $response
     ) {
         $this->setHttpRequest($request);
-        $this->setMethods($methods);
 
         if ($request->getMethod() === 'OPTIONS') {
-            $status = 200;
             $contentType = 'text/plain';
             $output = $this->renderPlainOutput();
         } else {
-            $status = 405;
             $contentType = $this->determineContentType($request);
             switch ($contentType) {
                 case 'application/json':
@@ -78,34 +68,10 @@ class NotAllowed extends AbstractHandler
         }
 
         return $this->respondWith(
-            $response->withStatus($status)
-                     ->withHeader('Allow', $this->getMethods()),
+            $response->withStatus(503),
             $contentType,
             $output
         );
-    }
-
-    /**
-     * Set the HTTP methods allowed by the current request.
-     *
-     * @param  array $methods Case-sensitive array of methods.
-     * @return self
-     */
-    protected function setMethods(array $methods)
-    {
-        $this->methods = implode(', ', $methods);
-
-        return $this;
-    }
-
-    /**
-     * Retrieves the HTTP methods allowed by the current request.
-     *
-     * @return string Returns the allowed request methods.
-     */
-    public function getMethods()
-    {
-        return $this->methods;
     }
 
     /**
@@ -115,9 +81,7 @@ class NotAllowed extends AbstractHandler
      */
     protected function renderPlainOutput()
     {
-        $message = $this->translator()->translate('Allowed methods: {{ methods }}', [
-            '{{ methods }}' => $this->getMethods()
-        ], 'charcoal');
+        $message = $this->translator()->translate('Service Unavailable', [], 'charcoal');
 
         return $this->renderTemplate($message);
     }
@@ -129,9 +93,11 @@ class NotAllowed extends AbstractHandler
      */
     protected function renderJsonOutput()
     {
-        $message = $this->translator()->translate('Method not allowed. Must be one of: {{ methods }}', [
-            '{{ methods }}' => $this->getMethods()
-        ], 'charcoal');
+        $message = $this->translator()->translate(
+            'The server is currently unavailable. We will be right back.',
+            [],
+            'charcoal'
+        );
         $message = htmlspecialchars($message, ENT_QUOTES, 'UTF-8');
 
         return $this->renderTemplate('{"message":"'.$message.'"}');
@@ -144,9 +110,11 @@ class NotAllowed extends AbstractHandler
      */
     protected function renderXmlOutput()
     {
-        $message = $this->translator()->translate('Method not allowed. Must be one of: {{ methods }}', [
-            '{{ methods }}' => $this->getMethods()
-        ], 'charcoal');
+        $message = $this->translator()->translate(
+            'The server is currently unavailable. We will be right back.',
+            [],
+            'charcoal'
+        );
 
         return $this->renderTemplate('<root><message>'.$message.'</message></root>');
     }
@@ -162,26 +130,13 @@ class NotAllowed extends AbstractHandler
     }
 
     /**
-     * Prepare the template data for rendering.
-     *
-     * @param  mixed $data Raw template data.
-     * @return array Expanded and processed template data.
-     */
-    protected function parseTemplateData($data = [])
-    {
-        $data['allowedMethods'] = $this->getMethods();
-
-        return parent::parseTemplateData($data);
-    }
-
-    /**
      * Retrieve the response's HTTP code.
      *
      * @return integer
      */
     public function getCode()
     {
-        return 405;
+        return 503;
     }
 
     /**
@@ -191,7 +146,7 @@ class NotAllowed extends AbstractHandler
      */
     public function getSummary()
     {
-        return $this->translator()->translate('Method not allowed.', [], 'charcoal');
+        return $this->translator()->translate('Service Unavailable', [], 'charcoal');
     }
 
     /**
@@ -201,6 +156,10 @@ class NotAllowed extends AbstractHandler
      */
     public function getMessage()
     {
-        return $this->renderPlainOutput();
+        return $this->translator()->translate(
+            'The server is currently unavailable. We will be right back.',
+            [],
+            'charcoal'
+        );
     }
 }

@@ -206,29 +206,32 @@ class TemplateRoute implements
     }
 
     /**
+     * Determine if the cache is enabled.
+     *
      * @return boolean
      */
     protected function cacheEnabled()
     {
-        $config = $this->config();
-        return $config['cache'];
+        return $this->config('cache');
     }
 
     /**
+     * Retrieve the time-to-live value for the cache.
+     *
      * @return integer
      */
     protected function cacheTtl()
     {
-        $config = $this->config();
-        return $config['cache_ttl'];
+        return $this->config('cache_ttl');
     }
 
     /**
+     * Retrieve the cache key.
+     *
      * @return string
      */
     protected function cacheIdent()
     {
-        $config = $this->config;
-        return $config['template'];
+        return $this->config('template');
     }
 }

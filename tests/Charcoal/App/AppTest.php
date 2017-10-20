@@ -55,7 +55,7 @@ class AppTest extends \PHPUnit_Framework_TestCase
 
     public function testRun()
     {
-        $res = $this->obj->run();
+        $res = $this->obj->run(true);
         $this->assertInstanceOf(ResponseInterface::class, $res);
     }
 }

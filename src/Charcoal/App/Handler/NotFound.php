@@ -2,35 +2,38 @@
 
 namespace Charcoal\App\Handler;
 
-// Dependencies from PSR-7 (HTTP Messaging)
+use UnexpectedValueException;
+
+// From PSR-7
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
-// Dependency from Slim
-use Slim\Http\Body;
-
-// Local Dependencies
+// From 'charcoal-app'
 use Charcoal\App\Handler\AbstractHandler;
 
 /**
- * Not Found Handler
+ * "Not Found" Handler
  *
- * Enhanced version of {@see \Slim\Handlers\NotAllowed}.
- *
- * It outputs a simple message in either JSON, XML,
- * or HTML based on the Accept header.
+ * Enhanced version of {@see \Slim\Handlers\NotFound}.
  */
 class NotFound extends AbstractHandler
 {
+    const DEFAULT_PARTIAL = 'charcoal/app/handler/404';
+
     /**
      * Invoke "Not Found" Handler
      *
      * @param  ServerRequestInterface $request  The most recent Request object.
      * @param  ResponseInterface      $response The most recent Response object.
+     * @throws UnexpectedValueException If the content type could not be determined.
      * @return ResponseInterface
      */
-    public function __invoke(ServerRequestInterface $request, ResponseInterface $response)
-    {
+    public function __invoke(
+        ServerRequestInterface $request,
+        ResponseInterface $response
+    ) {
+        $this->setHttpRequest($request);
+
         $contentType = $this->determineContentType($request);
         switch ($contentType) {
             case 'application/json':
@@ -43,28 +46,37 @@ class NotFound extends AbstractHandler
                 break;
 
             case 'text/html':
-            default:
                 $output = $this->renderHtmlOutput();
+                break;
+
+            case 'text/plain':
+                $output = $this->renderPlainOutput();
+                break;
+
+            default:
+                throw new UnexpectedValueException(sprintf(
+                    'Cannot render unknown content type: %s',
+                    $contentType
+                ));
         }
 
-        $body = new Body(fopen('php://temp', 'r+'));
-        $body->write($output);
-
-        return $response->withStatus(404)
-                        ->withHeader('Content-Type', $contentType)
-                        ->withBody($body);
+        return $this->respondWith(
+            $response->withStatus(404),
+            $contentType,
+            $output
+        );
     }
 
     /**
-     * Render Plain/Text Error
+     * Render Text Error
      *
      * @return string
      */
     protected function renderPlainOutput()
     {
-        $message = $this->translator()->translate('Not Found');
+        $message = $this->translator()->translate('Not Found', [], 'charcoal');
 
-        return $this->render($message);
+        return $this->renderTemplate($message);
     }
 
     /**
@@ -74,9 +86,10 @@ class NotFound extends AbstractHandler
      */
     protected function renderJsonOutput()
     {
-        $message = $this->translator()->translate('Not Found');
+        $message = $this->translator()->translate('Not Found', [], 'charcoal');
+        $message = htmlspecialchars($message, ENT_QUOTES, 'UTF-8');
 
-        return $this->render('{"message":"'.$message.'"}');
+        return $this->renderTemplate('{"message":"'.$message.'"}');
     }
 
     /**
@@ -86,37 +99,52 @@ class NotFound extends AbstractHandler
      */
     protected function renderXmlOutput()
     {
-        $message = $this->translator()->translate('Not Found');
+        $message = $this->translator()->translate('Not Found', [], 'charcoal');
 
-        return $this->render('<root><message>'.$message.'</message></root>');
+        return $this->renderTemplate('<root><message>'.$message.'</message></root>');
     }
 
     /**
-     * Render title of error
+     * Render HTML Error
      *
      * @return string
      */
-    public function messageTitle()
+    protected function renderHtmlOutput()
     {
-        return $this->translator()->translate('Page Not Found');
+        return $this->renderHtmlTemplate();
     }
 
     /**
-     * Render body of HTML error
+     * Retrieve the response's HTTP code.
+     *
+     * @return integer
+     */
+    public function getCode()
+    {
+        return 404;
+    }
+
+    /**
+     * Retrieve the handler's summary.
      *
      * @return string
      */
-    public function renderHtmlMessage()
+    public function getSummary()
     {
-        $title = $this->messageTitle();
-        $link  = sprintf(
-            '<a href="%1$s">%2$s</a>',
-            $this->baseUrl(),
-            $this->translator()->translate('Visit the Home Page')
+        return $this->translator()->translate('Page Not Found', [], 'charcoal');
+    }
+
+    /**
+     * Retrieve the handler's message.
+     *
+     * @return string
+     */
+    public function getMessage()
+    {
+        return $this->translator()->translate(
+            'The page you are looking for could not be found.',
+            [],
+            'charcoal'
         );
-        $notice  = $this->translator()->translate('The page you are looking for could not be found. Check the address bar to ensure your URL is spelled correctly. If all else fails, you can visit our home page at the link below.');
-        $message = '<h1>'.$title."</h1>\n\t\t<p>".$notice."</p>\n\t\t<p>".$link."</p>\n";
-
-        return $message;
     }
 }

@@ -49,7 +49,7 @@ class AbstractTemplateTest extends \PHPUnit_Framework_TestCase
 
     public function testInitIsTrue()
     {
-        $request = $this->getMock(RequestInterface::class);
+        $request = $this->createMock(RequestInterface::class);
         $this->assertTrue($this->obj->init($request));
     }
 

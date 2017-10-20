@@ -2,24 +2,26 @@
 
 namespace Charcoal\App\ServiceProvider;
 
-// Dependencies from `pimple/pimple`
+// From Pimple
 use Pimple\ServiceProviderInterface;
 use Pimple\Container;
 
-// PSR-3 (log) dependencies
+// From PSR-3
+use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 
-// Monolog Dependencies
+// From Monolog
 use Monolog\Logger;
 use Monolog\Processor\MemoryUsageProcessor;
 use Monolog\Processor\UidProcessor;
 use Monolog\Handler\BrowserConsoleHandler;
 use Monolog\Handler\StreamHandler;
 
-// Module `charcoal-factory` dependencies
-use Charcoal\Factory\GenericFactory;
+// From 'charcoal-factory'
+use Charcoal\Factory\GenericFactory as Factory;
+use Charcoal\Factory\FactoryInterface;
 
-// Intra-Module `charcoal-app` dependencies
+// From 'charcoal-app'
 use Charcoal\App\Config\LoggerConfig;
 
 /**
@@ -28,9 +30,11 @@ use Charcoal\App\Config\LoggerConfig;
  * Provides a Monolog service to a container.
  *
  * ## Services
+ *
  * - `logger` `\Psr\Log\Logger`
  *
  * ## Helpers
+ *
  * - `logger/config` `\Charcoal\App\Config\LoggerConfig`
  */
 class LoggerServiceProvider implements ServiceProviderInterface
@@ -47,34 +51,35 @@ class LoggerServiceProvider implements ServiceProviderInterface
     public function register(Container $container)
     {
         /**
-         * @param Container $container A container instance.
+         * @param  Container $container A container instance.
          * @return LoggerConfig
          */
         $container['logger/config'] = function (Container $container) {
-            $config = $container['config'];
-
-            $loggerConfig = new LoggerConfig($config['logger']);
-            return $loggerConfig;
+            $appConfig    = isset($container['config']) ? $container['config'] : [];
+            $loggerConfig = isset($appConfig['logger']) ? $appConfig['logger'] : null;
+            return new LoggerConfig($loggerConfig);
         };
 
         /**
-         * @return \Charcoal\Factory\FactoryInterface
+         * @return FactoryInterface
          */
         $container['logger/processor/factory'] = function () {
-            return new GenericFactory([
+            return new Factory([
                 'map' => [
-                    'memory-usage'  => MemoryUsageProcessor::class,
-                    'uid'           => UidProcessor::class
+                    'memory-usage' => MemoryUsageProcessor::class,
+                    'uid'          => UidProcessor::class
                 ]
             ]);
         };
 
         /**
+         * @param  Container $container A container instance.
          * @return StreamHandler|null
          */
         $container['logger/handler/stream'] = function (Container $container) {
-            $loggerConfig = $container['logger/config'];
+            $loggerConfig  = $container['logger/config'];
             $handlerConfig = $loggerConfig['handlers.stream'];
+
             if ($handlerConfig['active'] !== true) {
                 return null;
             }
@@ -84,52 +89,56 @@ class LoggerServiceProvider implements ServiceProviderInterface
         };
 
         /**
-         * @return FactoryInterface
+         * @param  Container $container A container instance.
+         * @return BrowserConsoleHandler|null
          */
         $container['logger/handler/browser-console'] = function (Container $container) {
-            $loggerConfig = $container['logger/config'];
+            $loggerConfig  = $container['logger/config'];
             $handlerConfig = $loggerConfig['handlers.console'];
+
             if ($handlerConfig['active'] !== true) {
                 return null;
             }
+
             $level = $handlerConfig['level'] ?: $loggerConfig['level'];
             return new BrowserConsoleHandler($level);
         };
 
         /**
-         * @return Container
+         * @param  Container $container A container instance.
+         * @return Container Collection of defined record handlers, in a service container.
          */
         $container['logger/handlers'] = function (Container $container) {
-            $loggerConfig = $container['logger/config'];
-
+            $loggerConfig   = $container['logger/config'];
             $handlersConfig = $loggerConfig['handlers'];
-            $handlers = new Container();
             $handlerFactory = $container['logger/handler/factory'];
-            foreach ($handlersConfig as $h) {
-                $handlers[$h['type']] = function () use ($h, $handlerFactory) {
-                    $type = $h['type'];
+
+            $handlers = new Container();
+            foreach ($handlersConfig as $handler) {
+                $handlers[$handler['type']] = function () use ($handler, $handlerFactory) {
+                    $type    = $handler['type'];
                     $handler = $handlerFactory->create($type);
                     return $handler;
                 };
             }
+
             return $handlers;
         };
 
         /**
          * Fulfills the PSR-3 dependency with a Monolog logger.
          *
-         * @param Container $container A container instance.
-         * @return \Psr\Log\Logger
+         * @param  Container $container A container instance.
+         * @return LoggerInterface
          */
         $container['logger'] = function (Container $container) {
-
             $loggerConfig = $container['logger/config'];
 
             if ($loggerConfig['active'] !== true) {
                 return new NullLogger();
             }
 
-            $logger = new Logger('Charcoal');
+            $logger = new Logger($loggerConfig['channel']);
 
             $memProcessor = new MemoryUsageProcessor();
             $logger->pushProcessor($memProcessor);
@@ -146,6 +155,7 @@ class LoggerServiceProvider implements ServiceProviderInterface
             if ($streamHandler) {
                 $logger->pushHandler($streamHandler);
             }
+
             return $logger;
         };
     }

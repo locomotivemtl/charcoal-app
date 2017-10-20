@@ -2,10 +2,9 @@
 
 namespace Charcoal\App\Config;
 
-// Dependencies from `PHP`
 use InvalidArgumentException;
 
-// Module `charcoal-config` dependencies
+// From 'charcoal-config'
 use Charcoal\Config\AbstractConfig;
 
 /**
@@ -13,85 +12,106 @@ use Charcoal\Config\AbstractConfig;
  */
 class CacheConfig extends AbstractConfig
 {
-    /**
-     * @var array
-     */
-    private $types = ['memory'];
+    const DEFAULT_NAMESPACE = 'charcoal';
 
     /**
-     * The default TTL, in seconds.
-     * 10 days by default.
+     * Human-readable intervals in seconds.
+     */
+    const HOUR_IN_SECONDS = 3600;
+    const DAY_IN_SECONDS  = 86400;
+    const WEEK_IN_SECONDS = 604800;
+
+    /**
+     * Whether to enable or disable the cache service.
      *
-     * @var integer $defaultTtl
+     * Note:
+     * - When TRUE, the {@see self::$types} are used.
+     * - When FALSE, the "memory" type is used.
+     *
+     * @var boolean
      */
-    private $defaultTtl = 864000;
+    private $active = true;
 
     /**
-     * @var string $prefix
-     */
-    private $prefix = 'charcoal';
-
-    /**
+     * Cache type(s) to use.
+     *
+     * Represents a cache driver.
+     *
      * @var array
      */
-    public $middleware;
+    private $types = [ 'memory' ];
 
     /**
+     * Time-to-live in seconds.
+     *
+     * @var integer
+     */
+    private $defaultTtl = self::WEEK_IN_SECONDS;
+
+    /**
+     * Cache namespace.
+     *
+     * @var string
+     */
+    private $prefix = self::DEFAULT_NAMESPACE;
+
+    /**
+     * Retrieve the default values.
+     *
      * @return array
      */
     public function defaults()
     {
         return [
-            'types'         => ['memory'],
-            'default_ttl'   => 864000,
-            'prefix'        => 'charcoal',
-            'middleware'    => $this->middlewareDefaults()
+            'active'      => true,
+            'types'       => [ 'memory' ],
+            'default_ttl' => self::WEEK_IN_SECONDS,
+            'prefix'      => self::DEFAULT_NAMESPACE
         ];
     }
 
     /**
-     * @return array
+     * Enable / Disable the cache service.
+     *
+     * @param  boolean $active The active flag;
+     *     TRUE to enable, FALSE to disable.
+     * @return CacheConfig Chainable
      */
-    private function middlewareDefaults()
+    public function setActive($active)
     {
-        return [
-            'active'         => true,
-            'included_path'  => null,
-            'excluded_path'  => null,
-            'methods'        => [
-                'GET'
-            ],
-            'status_codes'   => [
-                200
-            ],
-            'ttl'            => 0,
-            'included_query' => null,
-            'excluded_query' => null,
-            'ignored_query'  => null
-        ];
+        $this->active = !!$active;
+        return $this;
     }
 
     /**
-     * Set the types (drivers) of cache.
+     * Determine if the cache service is enabled.
+     *
+     * @return boolean TRUE if enabled, FALSE if disabled.
+     */
+    public function active()
+    {
+        return $this->active;
+    }
+
+    /**
+     * Set the cache type(s) to use.
      *
      * The first cache actually available on the system will be the one used for caching.
      *
-     * @param string[] $types The types of cache to try using, in order of priority.
+     * @param  string[] $types One or more types to try as cache driver until success.
      * @return CacheConfig Chainable
      */
     public function setTypes(array $types)
     {
         $this->types = [];
-        foreach ($types as $type) {
-            $this->addType($type);
-        }
+        $this->addTypes($types);
         return $this;
     }
 
     /**
-     * Get the valid types (drivers).
+     * Retrieve the available cache types.
      *
-     * @return array
+     * @return string[]
      */
     public function validTypes()
     {
@@ -107,8 +127,24 @@ class CacheConfig extends AbstractConfig
     }
 
     /**
-     * @param string $type The cache type.
-     * @throws InvalidArgumentException If the type is not a string.
+     * Add cache type(s) to use.
+     *
+     * @param  string[] $types One or more types to try as cache driver until success.
+     * @return CacheConfig Chainable
+     */
+    public function addTypes(array $types)
+    {
+        foreach ($types as $type) {
+            $this->addType($type);
+        }
+        return $this;
+    }
+
+    /**
+     * Add a cache type to use.
+     *
+     * @param  string $type The cache type.
+     * @throws InvalidArgumentException If the type is not a string or unsupported.
      * @return CacheConfig Chainable
      */
     public function addType($type)
@@ -118,11 +154,14 @@ class CacheConfig extends AbstractConfig
                 sprintf('Invalid cache type: "%s"', $type)
             );
         }
+
         $this->types[] = $type;
         return $this;
     }
 
     /**
+     * Retrieve the cache type(s) to use.
+     *
      * @return array
      */
     public function types()
@@ -131,8 +170,10 @@ class CacheConfig extends AbstractConfig
     }
 
     /**
-     * @param integer $ttl The time-to-live, in seconds.
-     * @throws InvalidArgumentException If the TTL argument is not numeric.
+     * Set the default time-to-live for cached items.
+     *
+     * @param  integer $ttl The time-to-live, in seconds.
+     * @throws InvalidArgumentException If the TTL is not numeric.
      * @return CacheConfig Chainable
      */
     public function setDefaultTtl($ttl)
@@ -142,11 +183,14 @@ class CacheConfig extends AbstractConfig
                 'TTL must be an integer (seconds).'
             );
         }
+
         $this->defaultTtl = (int)$ttl;
         return $this;
     }
 
     /**
+     * Retrieve the default time-to-live for cached items.
+     *
      * @return integer
      */
     public function defaultTtl()
@@ -155,7 +199,9 @@ class CacheConfig extends AbstractConfig
     }
 
     /**
-     * @param string $prefix The cache prefix (or namespace).
+     * Set the cache namespace.
+     *
+     * @param  string $prefix The cache prefix (or namespace).
      * @throws InvalidArgumentException If the prefix is not a string.
      * @return CacheConfig Chainable
      */
@@ -166,34 +212,18 @@ class CacheConfig extends AbstractConfig
                 'Prefix must be a string.'
             );
         }
+
         $this->prefix = $prefix;
         return $this;
     }
 
     /**
+     * Retrieve the cache namespace.
+     *
      * @return string
      */
     public function prefix()
     {
         return $this->prefix;
-    }
-
-    /**
-     * @param array $middleware The cache middleware configuration.
-     * @return CacheConfig Chainable
-     */
-    public function setMiddleware(array $middleware)
-    {
-        $middleware = array_merge($this->middlewareDefaults(), $middleware);
-        $this->middleware = $middleware;
-        return $this;
-    }
-
-    /**
-     * @return array
-     */
-    public function middleware()
-    {
-        return $this->middleware;
     }
 }
