@@ -48,7 +48,9 @@ class DatabaseServiceProvider implements ServiceProviderInterface
             $databases = $config['databases'];
             $configs = new Container();
             foreach ($databases as $dbIdent => $dbOptions) {
-                $configs[$dbIdent] = new DatabaseConfig($dbOptions);
+                $configs[$dbIdent] = function () use ($dbOptions) {
+                    return new DatabaseConfig($dbOptions);
+                };
             }
             return $configs;
         };
@@ -105,6 +107,8 @@ class DatabaseServiceProvider implements ServiceProviderInterface
         };
 
         /**
+         * The (default) database configuration.
+         *
          * @param Container $container A container instance.
          * @return DatabaseSourceConfig
          */
@@ -115,7 +119,7 @@ class DatabaseServiceProvider implements ServiceProviderInterface
         };
 
         /**
-         * The database service, as a PDO object.
+         * The (default) database service, as a PDO object.
          *
          * @param Container $container A container instance.
          * @throws Exception If the database configuration is invalid.
