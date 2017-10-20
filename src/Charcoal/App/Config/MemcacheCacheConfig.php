@@ -47,7 +47,7 @@ class MemcacheCacheConfig extends AbstractConfig
 
     /**
      * @param string $host The memcache server host.
-     * @return MemcacheCacheServerConfig Chainable.
+     * @return self
      */
     public function setHost($host)
     {
@@ -65,7 +65,7 @@ class MemcacheCacheConfig extends AbstractConfig
 
     /**
      * @param integer $port The memcache server port.
-     * @return MemcacheCacheServerConfig Chainable
+     * @return self
      */
     public function setPort($port)
     {
@@ -83,7 +83,7 @@ class MemcacheCacheConfig extends AbstractConfig
 
     /**
      * @param boolean $persistent The persistent flag.
-     * @return MemcacheCacheServerConfig Chainable
+     * @return self
      */
     public function setPersistent($persistent)
     {
@@ -101,7 +101,7 @@ class MemcacheCacheConfig extends AbstractConfig
 
     /**
      * @param integer $weight The weight of this server, relative to other's weight.
-     * @return MemcacheCacheServerConfig Chainable
+     * @return self
      */
     public function setWeight($weight)
     {

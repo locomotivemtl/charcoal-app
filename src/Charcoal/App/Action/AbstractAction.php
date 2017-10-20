@@ -59,12 +59,12 @@ abstract class AbstractAction extends AbstractEntity implements
     private $success = false;
 
     /**
-     * @var string $successUrl
+     * @var string|null $successUrl
      */
     private $successUrl;
 
     /**
-     * @var string $failureUrl
+     * @var string|null $failureUrl
      */
     private $failureUrl;
 
@@ -216,7 +216,7 @@ abstract class AbstractAction extends AbstractEntity implements
     /**
      * @param string|null $url The success URL.
      * @throws InvalidArgumentException If the URL parameter is not a string.
-     * @return ActionInterface Chainable
+     * @return self
      */
     public function setFailureUrl($url)
     {

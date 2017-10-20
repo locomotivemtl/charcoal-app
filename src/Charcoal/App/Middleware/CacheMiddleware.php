@@ -31,7 +31,7 @@ class CacheMiddleware
     /**
      * PSR-6 cache item pool.
      *
-     * @var CacheItemPool
+     * @var CacheItemPoolInterface
      */
     private $cachePool;
 
@@ -64,7 +64,7 @@ class CacheMiddleware
      * Only cache the request if it matches one of those status codes.
      * @var int[]
      */
-    private $statusCode;
+    private $statusCodes;
 
     /**
      * @var array|string|null

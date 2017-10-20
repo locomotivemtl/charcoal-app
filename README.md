@@ -2,10 +2,11 @@ Charcoal App
 ============
 
 Charcoal App is a framework to create and manage _Charcoal_ applications with **Slim 3**. 
-An app is a collection of _modules_, _routes_ (`templates`, `actions` and `scripts`), _handlers_, and _services_ tied together with a _configs_ and a _service container_.
 
-Provided services (through `Pimple`'s _Service Providers_) are a PSR-3 _logger_, a PSR-6 _cache_ system, 
-a _view_ / renderer, Flysystem _filesystems_, a PDO _database_ source, and a _translator_.
+An app is a collection of _modules_, _routes_ (`templates`, `actions` and `scripts`), _handlers_, and _services_ tied together with a _config_ and a _service container_.
+
+Provided services (through `Pimple`'s _Service Providers_) are a PSR-3 _logger_, a PSR-6 _cache_ system, a Charcoal App _config_,  
+a Charcoal _view_ / PSR-7 _renderer_, Flysystem _filesystems_ and a PDO _database_ source, and a Charcoal _translator_ (based on Symfony).
 
 # Table of contents
 
@@ -69,7 +70,7 @@ For a complete, ready-to-use project, start from the [`boilerplate`](https://git
 
 -   [`PHP 5.6+`](http://php.net)
     -   Older versions of PHP are deprecated, therefore not supported for charcoal-app.
-    -   PHP 7 is also supported, and recommended for performance and secuirty reasons.
+    -   PHP 7 is also supported, and recommended for performance and security reasons.
 -   [`locomotivemtl/charcoal-config`](https://github.com/locomotivemtl/charcoal-config)
     -    The basic configuration system and config container.
     -    Also provides the base `AbstractEntity` data container.
@@ -249,8 +250,8 @@ All routes are actually handled by the *Slim* app. Charcoal Routes are just *def
         -   Controllers are created from a _resolver_ factory. Their identifier may look like `foo/bar/controller-name`.
 
 
-Routes can also be (and most likely are) defined by objects. For example: sections, news, events, etc. 
-Those objects should extends the 
+Routes can also be (and most likely are in standard web scenario) defined by objects. For example: sections, news, events, etc. 
+See `charcoal-object` for the definition of routable objects, and `charcoal-cms` for examples of routable objects.
 
 ### Action Request Controller
 

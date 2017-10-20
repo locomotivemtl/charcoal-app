@@ -479,7 +479,7 @@ abstract class AbstractScript extends AbstractEntity implements
             case 'radio':
                 if (!isset($arg['options'])) {
                     throw new RuntimeException(
-                        sprintf('The [%s] argument has no options.', $key)
+                        sprintf('The [%s] argument has no options.', $name)
                     );
                 }
 

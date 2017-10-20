@@ -108,9 +108,9 @@ class FilesystemServiceProvider implements ServiceProviderInterface
         } elseif ($type == 'sftp') {
             $adapter = $this->createSftpAdapter($config);
         } elseif ($type == 'memory') {
-            $adapter = $this->createMemoryAdapter($config);
+            $adapter = $this->createMemoryAdapter();
         } elseif ($type == 'noop') {
-            $adapter = $this->createNullAdapter($config);
+            $adapter = $this->createNullAdapter();
         } else {
             throw new UnexpectedValueException(
                 sprintf('Invalid filesystem type "%s"', $type)
@@ -196,7 +196,7 @@ class FilesystemServiceProvider implements ServiceProviderInterface
     /**
      * @param array $config The driver (adapter) configuration.
      * @throws InvalidArgumentException If the token or secret is not defined in config.
-     * @return FtpAdapter
+     * @return DropboxAdapter
      */
     private function createDropboxAdapter(array $config)
     {

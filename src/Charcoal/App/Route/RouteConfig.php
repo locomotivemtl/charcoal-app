@@ -129,8 +129,8 @@ class RouteConfig extends AbstractConfig
     /**
      * Set parent route groups
      *
-     * @param string[]|RouteGroup[] $groups The parent route groups.
-     * @return RouteConfig Chainable
+     * @param string[] $groups The parent route groups.
+     * @return self
      */
     public function setGroups(array $groups)
     {
@@ -146,7 +146,7 @@ class RouteConfig extends AbstractConfig
     /**
      * Add parent route group
      *
-     * @param string|RouteGroup $group The parent route group.
+     * @param string $group The parent route group.
      * @throws InvalidArgumentException If the group is invalid.
      * @return RouteConfig Chainable
      */

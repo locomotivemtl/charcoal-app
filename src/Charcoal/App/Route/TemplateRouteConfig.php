@@ -20,14 +20,14 @@ class TemplateRouteConfig extends RouteConfig
 {
     /**
      * The template ident (to load).
-     * @var string $template
+     * @var string|null $template
      */
     private $template;
 
     /**
      * The view engine ident to use.
      * Ex: "mustache", ""
-     * @var string $engine
+     * @var string|null $engine
      */
     private $engine;
 
@@ -254,7 +254,7 @@ class TemplateRouteConfig extends RouteConfig
      */
     public function setCacheTtl($ttl)
     {
-        $this->cache_ttl = (int)$ttl;
+        $this->cache_ttl = intval($ttl);
         return $this;
     }
 

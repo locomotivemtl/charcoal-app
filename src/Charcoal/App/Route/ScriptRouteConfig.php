@@ -19,7 +19,7 @@ class ScriptRouteConfig extends RouteConfig
      * Set the action data.
      *
      * @param array $scriptData The route data.
-     * @return ActionRouteConfig Chainable
+     * @return self
      */
     public function setScriptData(array $scriptData)
     {
