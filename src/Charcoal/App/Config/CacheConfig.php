@@ -184,7 +184,7 @@ class CacheConfig extends AbstractConfig
             );
         }
 
-        $this->defaultTtl = (int)$ttl;
+        $this->defaultTtl = intval($ttl);
         return $this;
     }
 

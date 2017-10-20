@@ -59,7 +59,7 @@ class DatabaseConfig extends AbstractConfig
     /**
      * @param string $type The database type.
      * @throws InvalidArgumentException If parameter is not a string.
-     * @return SourceConfig Chainable
+     * @return self
      */
     public function setType($type)
     {
@@ -85,7 +85,7 @@ class DatabaseConfig extends AbstractConfig
      *
      * @param string $hostname The database server hostname.
      * @throws InvalidArgumentException If hostname is not a string.
-     * @return DatabaseConfig Chainable
+     * @return self
      */
     public function setHostname($hostname)
     {
@@ -113,7 +113,7 @@ class DatabaseConfig extends AbstractConfig
      *
      * @param string $username The database authentication user.
      * @throws InvalidArgumentException If username is not a string.
-     * @return DatabaseConfig Chainable
+     * @return self
      */
     public function setUsername($username)
     {
@@ -141,7 +141,7 @@ class DatabaseConfig extends AbstractConfig
      *
      * @param string $password The database authentication password.
      * @throws InvalidArgumentException If password is not a string.
-     * @return DatabaseConfig Chainable
+     * @return self
      */
     public function setPassword($password)
     {
@@ -169,7 +169,7 @@ class DatabaseConfig extends AbstractConfig
      *
      * @param string $database The database name.
      * @throws InvalidArgumentException If database is not a string.
-     * @return DatabaseConfig Chainable
+     * @return self
      */
     public function setDatabase($database)
     {
@@ -194,7 +194,7 @@ class DatabaseConfig extends AbstractConfig
 
     /**
      * @param boolean $disableUtf8 The "disable utf8" flag.
-     * @return DatabaseConfig Chainable
+     * @return self
      */
     public function setDisableUtf8($disableUtf8)
     {

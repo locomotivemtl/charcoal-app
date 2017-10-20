@@ -109,7 +109,7 @@ class LoggerConfig extends AbstractConfig
      * Set the record handler(s) to use.
      *
      * @param  array $handlers One or more (Monolog) record handlers; used as a stack.
-     * @return LoggerConfig Chainable
+     * @return self
      */
     public function setHandlers(array $handlers)
     {
@@ -122,7 +122,7 @@ class LoggerConfig extends AbstractConfig
      * Add record handler(s) to use.
      *
      * @param  string[] $handlers One or more (Monolog) handlers to stack.
-     * @return LoggerConfig Chainable
+     * @return self
      */
     public function addHandlers(array $handlers)
     {
@@ -138,7 +138,7 @@ class LoggerConfig extends AbstractConfig
      * @param  array       $handler The record handler structure.
      * @param  string|null $key     The handler's key.
      * @throws InvalidArgumentException If the handler is invalid.
-     * @return LoggerConfig Chainable
+     * @return self
      */
     public function addHandler(array $handler, $key = null)
     {
@@ -171,7 +171,7 @@ class LoggerConfig extends AbstractConfig
      * Set the record processor(s) to use.
      *
      * @param  array $processors One or more (Monolog) record processors; used as a stack.
-     * @return LoggerConfig Chainable
+     * @return self
      */
     public function setProcessors(array $processors)
     {
@@ -184,7 +184,7 @@ class LoggerConfig extends AbstractConfig
      * Add record processor(s) to use.
      *
      * @param  string[] $processors One or more (Monolog) processors to stack.
-     * @return LoggerConfig Chainable
+     * @return self
      */
     public function addProcessors(array $processors)
     {
@@ -200,7 +200,7 @@ class LoggerConfig extends AbstractConfig
      * @param  array       $processor The record processor structure.
      * @param  string|null $key       The processor's key.
      * @throws InvalidArgumentException If the processor is invalid.
-     * @return LoggerConfig Chainable
+     * @return self
      */
     public function addProcessor(array $processor, $key = null)
     {
@@ -234,7 +234,7 @@ class LoggerConfig extends AbstractConfig
      *
      * @param  string $name The channe name (namespace).
      * @throws InvalidArgumentException If the channel name is not a string.
-     * @return LoggerConfig Chainable
+     * @return self
      */
     public function setChannel($name)
     {

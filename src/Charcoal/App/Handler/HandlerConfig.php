@@ -19,7 +19,7 @@ class HandlerConfig extends AbstractConfig
     /**
      * The view (to load).
      *
-     * @var string
+     * @var string|null
      */
     private $template;
 
@@ -28,14 +28,14 @@ class HandlerConfig extends AbstractConfig
      *
      * For example: "mustache"
      *
-     * @var string
+     * @var string|null
      */
     private $engine;
 
     /**
      * The view controller.
      *
-     * @var string
+     * @var string|null
      */
     private $controller;
 
@@ -128,7 +128,7 @@ class HandlerConfig extends AbstractConfig
      *
      * @param  string|null $controller Handler controller name.
      * @throws InvalidArgumentException If the template controller is invalid.
-     * @return RouteConfig Chainable
+     * @return self
      */
     public function setController($controller)
     {
@@ -185,7 +185,7 @@ class HandlerConfig extends AbstractConfig
      *
      * @param  string|null $engine The view engine identifier.
      * @throws InvalidArgumentException If the engine is invalid.
-     * @return HandlerConfig Chainable
+     * @return self
      */
     public function setEngine($engine)
     {
@@ -237,7 +237,7 @@ class HandlerConfig extends AbstractConfig
      * Set the "handlerMessage" view ident.
      *
      * @param  string $templateIdent A template identifier.
-     * @return HandlerConfig Chainable
+     * @return self
      */
     public function setPartial($templateIdent)
     {
@@ -329,7 +329,7 @@ class HandlerConfig extends AbstractConfig
      */
     public function setCacheTtl($ttl)
     {
-        $this->cacheTtl = (integer)$ttl;
+        $this->cacheTtl = intval($ttl);
         return $this;
     }
 

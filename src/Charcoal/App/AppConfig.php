@@ -201,7 +201,7 @@ class AppConfig extends AbstractConfig
      *
      * @param  string $path The absolute path to the application's root directory.
      * @throws InvalidArgumentException If the argument is not a string.
-     * @return AppConfig Chainable
+     * @return self
      */
     public function setBasePath($path)
     {
@@ -237,7 +237,7 @@ class AppConfig extends AbstractConfig
      *
      * @param  string $path The path to the application's public directory.
      * @throws InvalidArgumentException If the argument is not a string.
-     * @return AppConfig Chainable
+     * @return self
      */
     public function setPublicPath($path)
     {
@@ -277,7 +277,7 @@ class AppConfig extends AbstractConfig
      *
      * @param  string|null $path The path to the application's storage directory.
      * @throws InvalidArgumentException If the argument is not a string.
-     * @return $this
+     * @return self
      */
     public function setStoragePath($path)
     {
@@ -318,7 +318,7 @@ class AppConfig extends AbstractConfig
      * Set the application's fully qualified base URL to the public web directory.
      *
      * @param  UriInterface|string $uri The base URI to the application's web directory.
-     * @return AppConfig Chainable
+     * @return self
      */
     public function setBaseUrl($uri)
     {
@@ -342,7 +342,7 @@ class AppConfig extends AbstractConfig
      *
      * @param  string $timezone The timezone string.
      * @throws InvalidArgumentException If the argument is not a string.
-     * @return AppConfig Chainable
+     * @return self
      */
     public function setTimezone($timezone)
     {
@@ -376,7 +376,7 @@ class AppConfig extends AbstractConfig
      *
      * @param string|null $projectName The project name.
      * @throws InvalidArgumentException If the project argument is not a string (or null).
-     * @return AppConfig Chainable
+     * @return self
      */
     public function setProjectName($projectName)
     {
@@ -409,7 +409,7 @@ class AppConfig extends AbstractConfig
 
     /**
      * @param boolean $devMode The "dev mode" flag.
-     * @return AppConfig Chainable
+     * @return self
      */
     public function setDevMode($devMode)
     {
@@ -430,7 +430,7 @@ class AppConfig extends AbstractConfig
      *
      * @param  array|ViewConfig $config The global configset for the application's view service.
      * @throws InvalidArgumentException If the argument is not a configset.
-     * @return AppConfig Chainable
+     * @return self
      */
     public function setView($config)
     {
@@ -463,7 +463,7 @@ class AppConfig extends AbstractConfig
      * Parse the application's API configuration.
      *
      * @param  array $apis The API configuration structure to set.
-     * @return AppConfig Chainable
+     * @return self
      */
     public function setApis(array $apis)
     {
@@ -489,7 +489,7 @@ class AppConfig extends AbstractConfig
      *
      * @see    \Charcoal\Admin\Config::setRoutes() For a similar implementation.
      * @param  array $routes The route configuration structure to set.
-     * @return AppConfig Chainable
+     * @return self
      */
     public function setRoutes(array $routes)
     {
@@ -519,7 +519,7 @@ class AppConfig extends AbstractConfig
 
     /**
      * @param array $routables The routable configuration structure to set.
-     * @return AppConfig Chainable
+     * @return self
      */
     public function setRoutables(array $routables)
     {
@@ -539,7 +539,7 @@ class AppConfig extends AbstractConfig
      * Parse the application's HTTP middleware.
      *
      * @param  array $middleware The middleware configuration structure to set.
-     * @return AppConfig Chainable
+     * @return self
      */
     public function setMiddlewares(array $middleware)
     {
@@ -571,7 +571,7 @@ class AppConfig extends AbstractConfig
      * - "phpErrorHandler"
      *
      * @param  array $handlers The handlers configuration structure to set.
-     * @return AppConfig Chainable
+     * @return self
      */
     public function setHandlers(array $handlers)
     {
@@ -602,7 +602,7 @@ class AppConfig extends AbstractConfig
      * The modules are defined in a `key`=>`\Charcoal\App\Module\ModuleConfig` structure.
      *
      * @param array $modules The module configuration structure to set.
-     * @return AppConfig Chainable
+     * @return self
      */
     public function setModules(array $modules)
     {
@@ -623,7 +623,7 @@ class AppConfig extends AbstractConfig
      *
      * @param  array|CacheConfig $config The global configset for the application's cache service.
      * @throws InvalidArgumentException If the argument is not a configset.
-     * @return AppConfig Chainable
+     * @return self
      */
     public function setCache($config)
     {
@@ -657,7 +657,7 @@ class AppConfig extends AbstractConfig
      *
      * @param  array|LoggerConfig $config The global configset for the application's logger service.
      * @throws InvalidArgumentException If the argument is not a configset.
-     * @return AppConfig Chainable
+     * @return self
      */
     public function setLogger($config)
     {
@@ -688,7 +688,7 @@ class AppConfig extends AbstractConfig
 
     /**
      * @param array $databases The avaiable databases config.
-     * @return Config Chainable
+     * @return self
      */
     public function setDatabases(array $databases)
     {
@@ -735,7 +735,7 @@ class AppConfig extends AbstractConfig
     /**
      * @param string $defaultDatabase The default database ident.
      * @throws InvalidArgumentException If the argument is not a string.
-     * @return AppConfig Chainable
+     * @return self
      */
     public function setDefaultDatabase($defaultDatabase)
     {
@@ -752,7 +752,7 @@ class AppConfig extends AbstractConfig
      * @param string $ident  The database ident.
      * @param array  $config The database options.
      * @throws InvalidArgumentException If the arguments are invalid.
-     * @return AppConfig Chainable
+     * @return self
      */
     public function addDatabase($ident, array $config)
     {
@@ -788,7 +788,7 @@ class AppConfig extends AbstractConfig
      *
      * @param  array|FilesystemConfig $config The global configset for the application's file system.
      * @throws InvalidArgumentException If the argument is not a configset.
-     * @return AppConfig Chainable
+     * @return self
      */
     public function setFilesystem($config)
     {

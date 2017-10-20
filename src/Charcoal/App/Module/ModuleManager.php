@@ -83,8 +83,8 @@ class ModuleManager implements
     }
 
     /**
-     * @param string                $moduleIdent  The module identifier.
-     * @param array|ConfigInterface $moduleConfig The module configuration data.
+     * @param string $moduleIdent  The module identifier.
+     * @param array  $moduleConfig The module configuration data.
      * @return ModuleManager Chainable
      */
     public function addModule($moduleIdent, array $moduleConfig)
