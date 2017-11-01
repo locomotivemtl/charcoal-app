@@ -48,7 +48,6 @@ a Charcoal _view_ / PSR-7 _renderer_, Flysystem _filesystems_ and a PDO _databas
     -   [Continuous Integration](#continuous-integration)
     -   [Coding Style](#coding-style)
     -   [Authors](#authors)
-    -   [Changelog](#changelog)
 
 # How to install
 
@@ -59,6 +58,8 @@ The preferred (and only supported) way of installing _charcoal-app_ is with **co
 ```
 
 ## From boilerplate
+
+This module is intended to be used as the base for a web aplication (such as a website).
 
 For a complete, ready-to-use project, start from the [`boilerplate`](https://github.com/locomotivemtl/charcoal-project-boilerplate):
 
