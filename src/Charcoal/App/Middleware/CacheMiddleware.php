@@ -152,9 +152,12 @@ class CacheMiddleware
      */
     public function __invoke(RequestInterface $request, ResponseInterface $response, callable $next)
     {
-        $path = $request->getUri()->getPath();
-        $queryParams = $request->getQueryParams();
-        $cacheKey  = $this->cacheKey($path, $queryParams, $request->getMethod());
+        $uri = $request->getUri();
+        $host = $uri->getHost();
+        $path = $uri->getPath();
+        $queryParams = [];
+        parse_str($uri->getQuery(), $queryParams);
+        $cacheKey  = $this->cacheKey($host.$path, $queryParams, $request->getMethod());
 
         if ($this->cachePool->hasItem($cacheKey)) {
             $cacheItem = $this->cachePool->getItem($cacheKey);
