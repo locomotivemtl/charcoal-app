@@ -230,17 +230,17 @@ class FilesystemServiceProvider implements ServiceProviderInterface
     {
         if (!$config['host']) {
             throw new InvalidArgumentException(
-                'No host configured for FTP filesystem filesystem adapter.'
+                'No host configured for FTP filesystem adapter.'
             );
         }
         if (!$config['username']) {
             throw new InvalidArgumentException(
-                'No username configured for FTP filesystem filesystem adapter.'
+                'No username configured for FTP filesystem adapter.'
             );
         }
         if (!$config['password']) {
             throw new InvalidArgumentException(
-                'No password configured for FTP filesystem filesystem adapter.'
+                'No password configured for FTP filesystem adapter.'
             );
         }
 
@@ -265,17 +265,17 @@ class FilesystemServiceProvider implements ServiceProviderInterface
     {
         if (!$config['host']) {
             throw new InvalidArgumentException(
-                'No host configured for SFTP filesystem filesystem adapter.'
+                'No host configured for SFTP filesystem adapter.'
             );
         }
         if (!$config['username']) {
             throw new InvalidArgumentException(
-                'No username configured for SFTP filesystem filesystem adapter.'
+                'No username configured for SFTP filesystem adapter.'
             );
         }
         if (!$config['password']) {
             throw new InvalidArgumentException(
-                'No password configured for SFTP filesystem filesystem adapter.'
+                'No password configured for SFTP filesystem adapter.'
             );
         }
 
