@@ -62,13 +62,6 @@ class AbstractWidgetTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($obj->active());
     }
 
-    public function testSetDependencies()
-    {
-        $container = new Container();
-        $res = $this->obj->setDependencies($container);
-        $this->assertNull($res);
-    }
-
     /**
      * Set up the service container.
      *
@@ -79,7 +72,9 @@ class AbstractWidgetTest extends \PHPUnit_Framework_TestCase
         if ($this->container === null) {
             $container = new Container();
             $containerProvider = new ContainerProvider();
+            $containerProvider->registerCache($container);
             $containerProvider->registerLogger($container);
+            $containerProvider->registerView($container);
 
             $this->container = $container;
         }
