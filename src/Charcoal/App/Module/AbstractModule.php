@@ -19,9 +19,7 @@ use \Charcoal\Config\ConfigurableInterface;
 use \Charcoal\App\AppAwareInterface;
 use \Charcoal\App\AppAwareTrait;
 use \Charcoal\App\App;
-use \Charcoal\App\AppConfig;
 use \Charcoal\App\AppInterface;
-use \Charcoal\App\Module\ModuleManager;
 use \Charcoal\App\Route\RouteManager;
 
 /**
@@ -37,7 +35,7 @@ abstract class AbstractModule implements
     use LoggerAwareTrait;
 
     /**
-     * @var ConfigInterface $config
+     * @var \Charcoal\Config\ConfigInterface $config
      */
     protected $config;
 

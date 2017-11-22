@@ -25,7 +25,6 @@ use Charcoal\Config\ConfigurableTrait;
 // Local namespace dependencies
 use Charcoal\App\AppConfig;
 use Charcoal\App\AppContainer;
-use Charcoal\App\Module\ModuleManager;
 use Charcoal\App\Route\RouteManager;
 use Charcoal\App\Route\RouteFactory;
 
@@ -46,11 +45,6 @@ class App extends SlimApp implements
      * @var App $instance
      */
     protected static $instance;
-
-    /**
-     * @var ModuleManager
-     */
-    private $moduleManager;
 
     /**
      * @var RouteManager
@@ -159,28 +153,6 @@ class App extends SlimApp implements
         );
     }
 
-    /**
-     * Retrieve the application's module manager.
-     *
-     * @return ModuleManager
-     */
-    protected function moduleManager()
-    {
-        if (!isset($this->moduleManager)) {
-            $config  = $this->config();
-            $modules = (isset($config['modules']) ? $config['modules'] : [] );
-
-            $container = $this->getContainer();
-            $this->moduleManager = new ModuleManager([
-                'config' => $modules,
-                'app'    => $this,
-                'logger' => $container['logger'],
-                'module_factory' => $container['module/factory']
-            ]);
-        }
-
-        return $this->moduleManager;
-    }
 
     /**
      * Retrieve the application's route manager.
@@ -191,10 +163,10 @@ class App extends SlimApp implements
     {
         if (!isset($this->routeManager)) {
             $config = $this->config();
-            $routes = (isset($config['routes']) ? $config['routes'] : [] );
+            $routesConfig = (isset($config['routes']) ? $config['routes'] : [] );
 
             $this->routeManager = new RouteManager([
-                'config' => $routes,
+                'config' => $routesConfig,
                 'app'    => $this
             ]);
         }
@@ -216,7 +188,7 @@ class App extends SlimApp implements
         $this->routeManager()->setupRoutes();
 
         // Setup modules
-        $this->moduleManager()->setupModules($this);
+        $this->setupModules();
 
         // Setup routable
         $this->setupRoutables();
@@ -225,6 +197,19 @@ class App extends SlimApp implements
         $this->setupMiddlewares();
     }
 
+    public function setupModules()
+    {
+        $container = $this->getContainer();
+        $modules = $container['config']['modules'];
+        foreach ($modules as $moduleIdent => $moduleConfig) {
+            if ($moduleConfig === false || (isset($moduleConfig['active']) && !$moduleConfig['active'])) {
+                continue;
+            }
+
+            $module = $container['module/factory']->create($moduleIdent);
+            $module->setup($moduleConfig);
+        }
+    }
 
     /**
      * Setup the application's "global" routables.

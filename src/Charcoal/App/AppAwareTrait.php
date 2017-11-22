@@ -16,7 +16,7 @@ trait AppAwareTrait
 
     /**
      * @param App $app The app instance this object depends on.
-     * @return AppAwareInterface Chainable
+     * @return self
      */
     public function setApp(App $app)
     {
