@@ -14,16 +14,6 @@ use Slim\Http\Uri;
 // From 'charcoal-config'
 use Charcoal\Config\AbstractConfig;
 
-// From 'charcoal-view'
-use Charcoal\View\ViewConfig;
-
-// From 'charcoal-app'
-use Charcoal\App\Config\CacheConfig;
-use Charcoal\App\Config\FilesystemConfig;
-use Charcoal\App\Config\LoggerConfig;
-use Charcoal\App\Handler\HandlerConfig;
-use Charcoal\App\Route\RouteConfig;
-
 /**
  * Charcoal App configuration
  */
@@ -125,21 +115,21 @@ class AppConfig extends AbstractConfig
     /**
      * The application's caching configset.
      *
-     * @var CacheConfig
+     * @var array
      */
     private $cache;
 
     /**
      * The application's logging configset.
      *
-     * @var LoggerConfig
+     * @var array
      */
     private $logger;
 
     /**
      * The application's view/rendering configset.
      *
-     * @var ViewConfig
+     * @var array
      */
     protected $view;
 
@@ -160,7 +150,7 @@ class AppConfig extends AbstractConfig
     /**
      * The application's filesystem configset.
      *
-     * @var FilesystemConfig
+     * @var array
      */
     private $filesystem;
 
@@ -428,23 +418,13 @@ class AppConfig extends AbstractConfig
     /**
      * Configure the application's global view service.
      *
-     * @param  array|ViewConfig $config The global configset for the application's view service.
+     * @param  array $config The global configset for the application's view service.
      * @throws InvalidArgumentException If the argument is not a configset.
      * @return self
      */
-    public function setView($config)
+    public function setView(array   $view)
     {
-        if ($this->view === null) {
-            $this->view = new ViewConfig(null, [ $this ]);
-        }
-
-        if (is_array($config) || ($config instanceof ViewConfig)) {
-            $this->view->merge($config);
-        } else {
-            throw new InvalidArgumentException(
-                'View must be an associative array or a ViewConfig object.'
-            );
-        }
+        $this->view = $view;
 
         return $this;
     }
@@ -452,7 +432,7 @@ class AppConfig extends AbstractConfig
     /**
      * Retrieve the configset for application's global view service.
      *
-     * @return ViewConfig
+     * @return array
      */
     public function view()
     {
@@ -467,12 +447,7 @@ class AppConfig extends AbstractConfig
      */
     public function setApis(array $apis)
     {
-        if (!isset($this->apis)) {
-            $this->apis = [];
-        }
-
-        $this->apis = array_replace_recursive($this->apis, $apis);
-
+        $this->apis = $apis;
         return $this;
     }
 
@@ -493,19 +468,7 @@ class AppConfig extends AbstractConfig
      */
     public function setRoutes(array $routes)
     {
-        if (!isset($this->routes)) {
-            $this->routes = [];
-        }
-
-        $toIterate = RouteConfig::defaultRouteTypes();
-        foreach ($routes as $key => $val) {
-            if (in_array($key, $toIterate) && isset($this->routes[$key])) {
-                $this->routes[$key] = array_merge($this->routes[$key], $val);
-            } else {
-                $this->routes[$key] = $val;
-            }
-        }
-
+        $this->routes = $routes;
         return $this;
     }
 
@@ -538,17 +501,12 @@ class AppConfig extends AbstractConfig
     /**
      * Parse the application's HTTP middleware.
      *
-     * @param  array $middleware The middleware configuration structure to set.
+     * @param  array $middlewares The middleware configuration structure to set.
      * @return self
      */
-    public function setMiddlewares(array $middleware)
+    public function setMiddlewares(array $middlewares)
     {
-        if (!isset($this->middlewares)) {
-            $this->middlewares = [];
-        }
-
-        $this->middlewares = array_replace_recursive($this->middlewares, $middleware);
-
+        $this->middlewares = $middlewares;
         return $this;
     }
 
@@ -575,16 +533,7 @@ class AppConfig extends AbstractConfig
      */
     public function setHandlers(array $handlers)
     {
-        $this->handlers = array_fill_keys(HandlerConfig::defaultHandlerTypes(), []);
-        $this->handlers['defaults'] = [];
-
-        foreach ($handlers as $handler => $data) {
-            $this->handlers[$handler] = array_replace(
-                $this->handlers[$handler],
-                $data
-            );
-        }
-
+        $this->handlers = $handlers;
         return $this;
     }
 
@@ -598,8 +547,6 @@ class AppConfig extends AbstractConfig
 
     /**
      * Set the configuration modules.
-     *
-     * The modules are defined in a `key`=>`\Charcoal\App\Module\ModuleConfig` structure.
      *
      * @param array $modules The module configuration structure to set.
      * @return self
@@ -621,31 +568,20 @@ class AppConfig extends AbstractConfig
     /**
      * Configure the application's global cache service.
      *
-     * @param  array|CacheConfig $config The global configset for the application's cache service.
+     * @param  array $config The global configset for the application's cache service.
      * @throws InvalidArgumentException If the argument is not a configset.
      * @return self
      */
-    public function setCache($config)
+    public function setCache(array $config)
     {
-        if ($this->cache === null) {
-            $this->cache = new CacheConfig(null, [ $this ]);
-        }
-
-        if (is_array($config) || ($config instanceof CacheConfig)) {
-            $this->cache->merge($config);
-        } else {
-            throw new InvalidArgumentException(
-                'Cache must be an associative array or a CacheConfig object.'
-            );
-        }
-
+        $this->cache = $config;
         return $this;
     }
 
     /**
      * Retrieve the configset for application's global cache service.
      *
-     * @return CacheConfig
+     * @return array
      */
     public function cache()
     {
@@ -655,31 +591,20 @@ class AppConfig extends AbstractConfig
     /**
      * Configure the application's global logger service.
      *
-     * @param  array|LoggerConfig $config The global configset for the application's logger service.
+     * @param  array $config The global configset for the application's logger service.
      * @throws InvalidArgumentException If the argument is not a configset.
      * @return self
      */
-    public function setLogger($config)
+    public function setLogger(array $config)
     {
-        if ($this->logger === null) {
-            $this->logger = new LoggerConfig(null, [ $this ]);
-        }
-
-        if (is_array($config) || ($config instanceof LoggerConfig)) {
-            $this->logger->merge($config);
-        } else {
-            throw new InvalidArgumentException(
-                'Logger must be an associative array or a LoggerConfig object.'
-            );
-        }
-
+        $this->logger = $config;
         return $this;
     }
 
     /**
      * Retrieve the configset for application's global logger service.
      *
-     * @return LoggerConfig
+     * @return array
      */
     public function logger()
     {
@@ -786,31 +711,20 @@ class AppConfig extends AbstractConfig
     /**
      * Configure the application's global file system.
      *
-     * @param  array|FilesystemConfig $config The global configset for the application's file system.
+     * @param  array $config The global configset for the application's file system.
      * @throws InvalidArgumentException If the argument is not a configset.
      * @return self
      */
-    public function setFilesystem($config)
+    public function setFilesystem(array $config)
     {
-        if ($this->filesystem === null) {
-            $this->filesystem = new FileSystemConfig(null, [ $this ]);
-        }
-
-        if (is_array($config) || ($config instanceof FileSystemConfig)) {
-            $this->filesystem->merge($config);
-        } else {
-            throw new InvalidArgumentException(
-                'File System must be an associative array or a FileSystemConfig object.'
-            );
-        }
-
+        $this->filesystem = $config;
         return $this;
     }
 
     /**
      * Retrieve the configset for application's global file system.
      *
-     * @return FilesystemConfig
+     * @return array
      */
     public function filesystem()
     {
