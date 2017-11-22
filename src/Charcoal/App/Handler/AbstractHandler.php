@@ -137,8 +137,9 @@ abstract class AbstractHandler implements
         $this->setTranslator($container['translator']);
         $this->setView($container['view']);
         $this->setTemplateFactory($container['template/factory']);
-        $this->setConfig($container['config']['handlers.defaults']);
-
+        if (isset($container['config']['handlers.defaults'])) {
+            $this->setConfig($container['config']['handlers.defaults']);
+        }
         return $this;
     }
 
