@@ -64,16 +64,6 @@ class LoggerConfigTest extends \PHPUnit_Framework_TestCase
         $this->obj->setHandlers([ [ 'foo' => 'baz' ] ]);
     }
 
-    public function testInvalidHandlers()
-    {
-        if (PHP_MAJOR_VERSION > 5) {
-            $this->setExpectedException(TypeError::class);
-        } else {
-            $this->setExpectedException(\PHPUnit_Framework_Error::class);
-        }
-        $this->obj->addHandlers([ false ]);
-    }
-
     public function testSetProcessors()
     {
         $ret = $this->obj->setProcessors([ 'web' => [ 'type' => 'web' ], [ 'type' => 'process-id' ] ]);
@@ -87,16 +77,6 @@ class LoggerConfigTest extends \PHPUnit_Framework_TestCase
 
         $this->setExpectedException(InvalidArgumentException::class);
         $this->obj->setProcessors([ [ 'foo' => 'baz' ] ]);
-    }
-
-    public function testInvalidProcessors()
-    {
-        if (PHP_MAJOR_VERSION > 5) {
-            $this->setExpectedException(TypeError::class);
-        } else {
-            $this->setExpectedException(\PHPUnit_Framework_Error::class);
-        }
-        $this->obj->addProcessors([ false ]);
     }
 
     public function testSetChannel()
