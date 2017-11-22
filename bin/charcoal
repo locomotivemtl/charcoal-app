@@ -50,7 +50,7 @@ $container['notFoundHandler'] = function ($container)
     {
         return $container['response']
             ->withStatus(404)
-            ->write('Script not found'."\n");
+            ->write(sprintf('Script "%s" not found', $container['request']->getUri()->getPath())."\n");
     };
 };
 
