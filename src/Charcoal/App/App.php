@@ -197,17 +197,16 @@ class App extends SlimApp implements
         $this->setupMiddlewares();
     }
 
+    /**
+     * @return void
+     */
     public function setupModules()
     {
         $container = $this->getContainer();
         $modules = $container['config']['modules'];
         foreach ($modules as $moduleIdent => $moduleConfig) {
-            if ($moduleConfig === false || (isset($moduleConfig['active']) && !$moduleConfig['active'])) {
-                continue;
-            }
-
             $module = $container['module/factory']->create($moduleIdent);
-            $module->setup($moduleConfig);
+            $module->setup();
         }
     }
 

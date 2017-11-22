@@ -418,7 +418,7 @@ class AppConfig extends AbstractConfig
     /**
      * Configure the application's global view service.
      *
-     * @param  array $config The global configset for the application's view service.
+     * @param  array $view The global configset for the application's view service.
      * @throws InvalidArgumentException If the argument is not a configset.
      * @return self
      */
@@ -568,13 +568,13 @@ class AppConfig extends AbstractConfig
     /**
      * Configure the application's global cache service.
      *
-     * @param  array $config The global configset for the application's cache service.
+     * @param  array $cache The global config for the application's cache service.
      * @throws InvalidArgumentException If the argument is not a configset.
      * @return self
      */
-    public function setCache(array $config)
+    public function setCache(array $cache)
     {
-        $this->cache = $config;
+        $this->cache = $cache;
         return $this;
     }
 
@@ -591,13 +591,13 @@ class AppConfig extends AbstractConfig
     /**
      * Configure the application's global logger service.
      *
-     * @param  array $config The global configset for the application's logger service.
+     * @param  array $logger The global config for the application's logger service.
      * @throws InvalidArgumentException If the argument is not a configset.
      * @return self
      */
-    public function setLogger(array $config)
+    public function setLogger(array $logger)
     {
-        $this->logger = $config;
+        $this->logger = $logger;
         return $this;
     }
 
@@ -711,13 +711,13 @@ class AppConfig extends AbstractConfig
     /**
      * Configure the application's global file system.
      *
-     * @param  array $config The global configset for the application's file system.
+     * @param  array $filesystem The global config for the application's file system.
      * @throws InvalidArgumentException If the argument is not a configset.
      * @return self
      */
-    public function setFilesystem(array $config)
+    public function setFilesystem(array $filesystem)
     {
-        $this->filesystem = $config;
+        $this->filesystem = $filesystem;
         return $this;
     }
 
