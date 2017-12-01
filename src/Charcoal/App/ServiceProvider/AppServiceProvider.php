@@ -402,6 +402,7 @@ class AppServiceProvider implements ServiceProviderInterface
                 ]]
             ]);
         };
+
         /**
          * @param Container $container A container instance.
          * @return WidgetBuilder

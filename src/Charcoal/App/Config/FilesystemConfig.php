@@ -10,7 +10,6 @@ use Charcoal\Config\AbstractConfig;
  */
 class FilesystemConfig extends AbstractConfig
 {
-
     /**
      * @var array
      */

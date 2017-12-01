@@ -63,7 +63,7 @@ class CacheServiceProvider implements ServiceProviderInterface
          * @return Container Collection of cache drivers, in a service container.
          */
         $container['cache/drivers'] = function (Container $container) {
-            $drivers   = new Container();
+            $drivers = new Container();
 
             /**
              * @param  Container $container The service container.
