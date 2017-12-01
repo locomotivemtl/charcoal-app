@@ -57,13 +57,6 @@ class AppConfig extends AbstractConfig
     private $publicPath;
 
     /**
-     * The path to the storage directory.
-     *
-     * @var string|null
-     */
-    private $storagePath;
-
-    /**
      * Whether the debug mode is enabled (TRUE) or not (FALSE).
      *
      * @var boolean
@@ -168,7 +161,6 @@ class AppConfig extends AbstractConfig
             'project_name'     => '',
             'base_path'        => $baseDir,
             'public_path'      => null,
-            'storage_path'     => null,
             'timezone'         => 'UTC',
             'routes'           => [],
             'routables'        => [],
@@ -208,7 +200,6 @@ class AppConfig extends AbstractConfig
         }
 
         $this->basePath = rtrim(realpath($path), '\\/').DIRECTORY_SEPARATOR;
-
         return $this;
     }
 
@@ -233,7 +224,6 @@ class AppConfig extends AbstractConfig
     {
         if ($path === null) {
             $this->publicPath = null;
-
             return $this;
         }
 
@@ -244,7 +234,6 @@ class AppConfig extends AbstractConfig
         }
 
         $this->publicPath = rtrim(realpath($path), '\\/').DIRECTORY_SEPARATOR;
-
         return $this;
     }
 
@@ -256,52 +245,10 @@ class AppConfig extends AbstractConfig
     public function publicPath()
     {
         if (!isset($this->publicPath)) {
-            return $this->basePath().'www'.DIRECTORY_SEPARATOR;
+            $this->publicPath = $this->basePath().'www'.DIRECTORY_SEPARATOR;
         }
 
         return $this->publicPath;
-    }
-
-    /**
-     * Set the application's absolute path to the storage directory.
-     *
-     * @param  string|null $path The path to the application's storage directory.
-     * @throws InvalidArgumentException If the argument is not a string.
-     * @return self
-     */
-    public function setStoragePath($path)
-    {
-        if ($path === null) {
-            $this->storagePath = null;
-
-            return $this;
-        }
-
-        if (!is_string($path)) {
-            throw new InvalidArgumentException(
-                'The storage path must be a string'
-            );
-        }
-
-        $this->storagePath = rtrim(realpath($path), '\\/').DIRECTORY_SEPARATOR;
-
-        return $this;
-    }
-
-    /**
-     * Get the path to the storage directory.
-     *
-     * Note that the storage space is outside of the public access.
-     *
-     * @return string
-     */
-    public function storagePath()
-    {
-        if (!isset($this->storagePath)) {
-            return $this->basePath().'uploads'.DIRECTORY_SEPARATOR;
-        }
-
-        return $this->storagePath;
     }
 
     /**
@@ -313,7 +260,6 @@ class AppConfig extends AbstractConfig
     public function setBaseUrl($uri)
     {
         $this->baseUrl = Uri::createFromString($uri);
-
         return $this;
     }
 
@@ -341,6 +287,7 @@ class AppConfig extends AbstractConfig
                 'Timezone must be a string.'
             );
         }
+
         $this->timezone = $timezone;
         return $this;
     }
@@ -379,6 +326,7 @@ class AppConfig extends AbstractConfig
                 'Project name must be a string'
             );
         }
+
         $this->projectName = $projectName;
         return $this;
     }
@@ -394,6 +342,7 @@ class AppConfig extends AbstractConfig
                 return $baseUrl->getHost();
             }
         }
+
         return $this->projectName;
     }
 
@@ -422,10 +371,9 @@ class AppConfig extends AbstractConfig
      * @throws InvalidArgumentException If the argument is not a configset.
      * @return self
      */
-    public function setView(array   $view)
+    public function setView(array $view)
     {
         $this->view = $view;
-
         return $this;
     }
 
