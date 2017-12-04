@@ -126,13 +126,51 @@ abstract class AbstractHandler implements
     }
 
     /**
+     * Create a configset.
+     *
+     * @see    ConfigurableTrait::createConfig()
+     * @param  mixed|null $data Optional config data.
+     * @return ConfigInterface
+     */
+    final public function createConfig($data = null)
+    {
+        return new HandlerConfig($data);
+    }
+
+
+
+    /**
+     * Retrieve the handler's code.
+     *
+     * @return string|integer
+     */
+    public function getCode()
+    {
+        return 0;
+    }
+
+    /**
+     * Retrieve the handler's summary.
+     *
+     * @return string
+     */
+    abstract public function getSummary();
+
+    /**
+     * Retrieve the handler's message.
+     *
+     * @return string
+     */
+    abstract public function getMessage();
+
+    /**
      * Set dependencies from the service locator.
      *
      * @todo   Maybe add \Psr\Log\LoggerInterface?
      * @param  Container $container A service locator.
      * @return self
      */
-    public function setDependencies(Container $container)
+    protected function setDependencies(Container $container)
     {
         $this->setTranslator($container['translator']);
         $this->setView($container['view']);
@@ -220,17 +258,6 @@ abstract class AbstractHandler implements
         return $this;
     }
 
-    /**
-     * Create a configset.
-     *
-     * @see    ConfigurableTrait::createConfig()
-     * @param  mixed|null $data Optional config data.
-     * @return ConfigInterface
-     */
-    final public function createConfig($data = null)
-    {
-        return new HandlerConfig($data);
-    }
 
     /**
      * Determine which content type we know about is wanted using "Accept" header
@@ -277,30 +304,6 @@ abstract class AbstractHandler implements
         $body->write($output);
 
         return $response->withHeader('Content-Type', $contentType)
-                        ->withBody($body);
+            ->withBody($body);
     }
-
-    /**
-     * Retrieve the handler's code.
-     *
-     * @return string|integer
-     */
-    public function getCode()
-    {
-        return 0;
-    }
-
-    /**
-     * Retrieve the handler's summary.
-     *
-     * @return string
-     */
-    abstract public function getSummary();
-
-    /**
-     * Retrieve the handler's message.
-     *
-     * @return string
-     */
-    abstract public function getMessage();
 }

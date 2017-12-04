@@ -36,12 +36,98 @@ abstract class AbstractError extends AbstractHandler
     private $thrown;
 
     /**
+     * Retrieves the HTTP methods allowed by the current request.
+     *
+     * @return boolean
+     */
+    public function displayErrorDetails()
+    {
+        return $this->displayErrorDetails;
+    }
+
+    /**
+     * Determine if the handler has a thrown object.
+     *
+     * @return boolean
+     */
+    public function hasThrown()
+    {
+        return !!$this->thrown;
+    }
+
+    /**
+     * Retrieves the thrown object.
+     *
+     * @return \Exception|\Throwable
+     */
+    public function getThrown()
+    {
+        return $this->thrown;
+    }
+
+    /**
+     * Render the HTML error details.
+     *
+     * @return string
+     */
+    public function renderHtmlErrorDetails()
+    {
+        $error = $this->getThrown();
+
+        $html = $this->renderHtmlError($error);
+        while ($error = $error->getPrevious()) {
+            $html .= '<h2>'.$this->translator()->translate('Previous error').'</h2>';
+            $html .= $this->renderHtmlError($error);
+        }
+
+        return $html;
+    }
+
+    /**
+     * Retrieve the response's HTTP code.
+     *
+     * @return integer
+     */
+    public function getCode()
+    {
+        return 500;
+    }
+
+    /**
+     * Retrieve the handler's summary.
+     *
+     * @return string
+     */
+    public function getSummary()
+    {
+        return $this->translator()->translate('Application Error', [], 'charcoal');
+    }
+
+    /**
+     * Retrieve the handler's message.
+     *
+     * @return string
+     */
+    public function getMessage()
+    {
+        if ($this->displayErrorDetails() && $this->hasThrown()) {
+            return $this->getThrown()->getMessage();
+        } else {
+            return $this->translator()->translate(
+                'The server encountered a problem. Sorry for the temporary inconvenience.',
+                [],
+                'charcoal'
+            );
+        }
+    }
+
+    /**
      * Set dependencies from the service locator.
      *
      * @param  Container $container A service locator.
      * @return self
      */
-    public function setDependencies(Container $container)
+    protected function setDependencies(Container $container)
     {
         parent::setDependencies($container);
 
@@ -64,15 +150,7 @@ abstract class AbstractError extends AbstractHandler
         return $this;
     }
 
-    /**
-     * Retrieves the HTTP methods allowed by the current request.
-     *
-     * @return boolean
-     */
-    public function displayErrorDetails()
-    {
-        return $this->displayErrorDetails;
-    }
+
 
     /**
      * Set the thrown object.
@@ -85,26 +163,6 @@ abstract class AbstractError extends AbstractHandler
         $this->thrown = $throwable;
 
         return $this;
-    }
-
-    /**
-     * Determine if the handler has a thrown object.
-     *
-     * @return boolean
-     */
-    public function hasThrown()
-    {
-        return !!$this->thrown;
-    }
-
-    /**
-     * Retrieves the thrown object.
-     *
-     * @return \Exception|\Throwable
-     */
-    public function getThrown()
-    {
-        return $this->thrown;
     }
 
     /**
@@ -320,24 +378,6 @@ abstract class AbstractError extends AbstractHandler
     }
 
     /**
-     * Render the HTML error details.
-     *
-     * @return string
-     */
-    public function renderHtmlErrorDetails()
-    {
-        $error = $this->getThrown();
-
-        $html = $this->renderHtmlError($error);
-        while ($error = $error->getPrevious()) {
-            $html .= '<h2>'.$this->translator()->translate('Previous error').'</h2>';
-            $html .= $this->renderHtmlError($error);
-        }
-
-        return $html;
-    }
-
-    /**
      * Prepare the template data for rendering.
      *
      * @param  mixed $data Raw template data.
@@ -357,43 +397,5 @@ abstract class AbstractError extends AbstractHandler
         $data['displayErrorDetails'] = $this->displayErrorDetails() && !empty($html);
 
         return parent::parseTemplateData($data);
-    }
-
-    /**
-     * Retrieve the response's HTTP code.
-     *
-     * @return integer
-     */
-    public function getCode()
-    {
-        return 500;
-    }
-
-    /**
-     * Retrieve the handler's summary.
-     *
-     * @return string
-     */
-    public function getSummary()
-    {
-        return $this->translator()->translate('Application Error', [], 'charcoal');
-    }
-
-    /**
-     * Retrieve the handler's message.
-     *
-     * @return string
-     */
-    public function getMessage()
-    {
-        if ($this->displayErrorDetails() && $this->hasThrown()) {
-            return $this->getThrown()->getMessage();
-        } else {
-            return $this->translator()->translate(
-                'The server encountered a problem. Sorry for the temporary inconvenience.',
-                [],
-                'charcoal'
-            );
-        }
     }
 }

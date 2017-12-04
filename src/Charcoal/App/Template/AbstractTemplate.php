@@ -62,7 +62,7 @@ abstract class AbstractTemplate extends AbstractEntity implements
      * @param Container $container A dependencies container instance.
      * @return void
      */
-    public function setDependencies(Container $container)
+    protected function setDependencies(Container $container)
     {
         // This method is a stub. Reimplement in children template classes.
     }

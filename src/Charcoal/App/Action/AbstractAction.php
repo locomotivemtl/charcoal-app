@@ -93,22 +93,6 @@ abstract class AbstractAction extends AbstractEntity implements
     }
 
     /**
-     * Give an opportunity to children classes to inject dependencies from a Pimple Container.
-     *
-     * Does nothing by default, reimplement in children classes.
-     *
-     * The `$container` DI-container (from `Pimple`) should not be saved or passed around, only to be used to
-     * inject dependencies (typically via setters).
-     *
-     * @param Container $container A dependencies container instance.
-     * @return void
-     */
-    public function setDependencies(Container $container)
-    {
-        // This method is a stub. Reimplement in children action classes.
-    }
-
-    /**
      * @param RequestInterface  $request  A PSR-7 compatible Request instance.
      * @param ResponseInterface $response A PSR-7 compatible Response instance.
      * @return ResponseInterface
@@ -277,4 +261,20 @@ abstract class AbstractAction extends AbstractEntity implements
      * @return ResponseInterface
      */
     abstract public function run(RequestInterface $request, ResponseInterface $response);
+
+    /**
+     * Give an opportunity to children classes to inject dependencies from a Pimple Container.
+     *
+     * Does nothing by default, reimplement in children classes.
+     *
+     * The `$container` DI-container (from `Pimple`) should not be saved or passed around, only to be used to
+     * inject dependencies (typically via setters).
+     *
+     * @param Container $container A dependencies container instance.
+     * @return void
+     */
+    protected function setDependencies(Container $container)
+    {
+        // This method is a stub. Reimplement in children action classes.
+    }
 }

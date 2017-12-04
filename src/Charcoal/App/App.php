@@ -126,55 +126,6 @@ class App extends SlimApp implements
     }
 
     /**
-     * @throws LogicException If trying to clone an instance of a singleton.
-     * @return void
-     */
-    final private function __clone()
-    {
-        throw new LogicException(
-            sprintf(
-                'Cloning "%s" is not allowed.',
-                get_called_class()
-            )
-        );
-    }
-
-    /**
-     * @throws LogicException If trying to unserialize an instance of a singleton.
-     * @return void
-     */
-    final private function __wakeup()
-    {
-        throw new LogicException(
-            sprintf(
-                'Unserializing "%s" is not allowed.',
-                get_called_class()
-            )
-        );
-    }
-
-
-    /**
-     * Retrieve the application's route manager.
-     *
-     * @return RouteManager
-     */
-    protected function routeManager()
-    {
-        if (!isset($this->routeManager)) {
-            $config = $this->config();
-            $routesConfig = (isset($config['routes']) ? $config['routes'] : [] );
-
-            $this->routeManager = new RouteManager([
-                'config' => $routesConfig,
-                'app'    => $this
-            ]);
-        }
-
-        return $this->routeManager;
-    }
-
-    /**
      * Registers the default services and features that Charcoal needs to work.
      *
      * @return void
@@ -198,9 +149,29 @@ class App extends SlimApp implements
     }
 
     /**
+     * Retrieve the application's route manager.
+     *
+     * @return RouteManager
+     */
+    private function routeManager()
+    {
+        if (!isset($this->routeManager)) {
+            $config = $this->config();
+            $routesConfig = (isset($config['routes']) ? $config['routes'] : [] );
+
+            $this->routeManager = new RouteManager([
+                'config' => $routesConfig,
+                'app'    => $this
+            ]);
+        }
+
+        return $this->routeManager;
+    }
+
+    /**
      * @return void
      */
-    public function setupModules()
+    private function setupModules()
     {
         $container = $this->getContainer();
         $modules = $container['config']['modules'];
@@ -217,7 +188,7 @@ class App extends SlimApp implements
      *
      * @return void
      */
-    protected function setupRoutables()
+    private function setupRoutables()
     {
         $app = $this;
         // For now, need to rely on a catch-all...
@@ -257,7 +228,7 @@ class App extends SlimApp implements
      * @throws RuntimeException If the middleware was not set properly on the container.
      * @return void
      */
-    protected function setupMiddlewares()
+    private function setupMiddlewares()
     {
         $container = $this->getContainer();
         $middlewaresConfig = $container['config']['middlewares'];
@@ -274,5 +245,33 @@ class App extends SlimApp implements
                 $this->add($container['middlewares/'.$id]);
             }
         }
+    }
+
+    /**
+     * @throws LogicException If trying to clone an instance of a singleton.
+     * @return void
+     */
+    final private function __clone()
+    {
+        throw new LogicException(
+            sprintf(
+                'Cloning "%s" is not allowed.',
+                get_called_class()
+            )
+        );
+    }
+
+    /**
+     * @throws LogicException If trying to unserialize an instance of a singleton.
+     * @return void
+     */
+    final private function __wakeup()
+    {
+        throw new LogicException(
+            sprintf(
+                'Unserializing "%s" is not allowed.',
+                get_called_class()
+            )
+        );
     }
 }

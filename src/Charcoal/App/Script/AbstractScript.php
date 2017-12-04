@@ -100,31 +100,6 @@ abstract class AbstractScript extends AbstractEntity implements
     }
 
     /**
-     * Give an opportunity to children classes to inject dependencies from a Pimple Container.
-     *
-     * Does nothing by default, reimplement in children classes.
-     *
-     * The `$container` DI-container (from `Pimple`) should not be saved or passed around, only to be used to
-     * inject dependencies (typically via setters).
-     *
-     * @param  Container $container A dependencies container instance.
-     * @return void
-     */
-    public function setDependencies(Container $container)
-    {
-        // This method is a stub. Reimplement in children template classes.
-    }
-
-    /**
-     * @return void
-     */
-    protected function init()
-    {
-        $arguments = $this->defaultArguments();
-        $this->setArguments($arguments);
-    }
-
-    /**
      * @param  RequestInterface  $request  A PSR-7 compatible Request instance.
      * @param  ResponseInterface $response A PSR-7 compatible Response instance.
      * @return ResponseInterface
@@ -165,46 +140,6 @@ abstract class AbstractScript extends AbstractEntity implements
         $arguments->parse();
 
         return $this->run($request, $response);
-    }
-
-    /**
-     * @param CLImate $climate A climate instance.
-     * @return void
-     */
-    private function setClimate(CLImate $climate)
-    {
-        $this->climate = $climate;
-    }
-
-    /**
-     * Safe climate getter.
-     * If the instance was not previously set, create it.
-     *
-     * > CLImate is "PHP's best friend for the terminal."
-     * > "CLImate allows you to easily output colored text, special formats, and more."
-     *
-     * @return CLImate
-     */
-    protected function climate()
-    {
-        return $this->climate;
-    }
-
-    /**
-     * @param ReaderInterface $climateReader A climate reader.
-     * @return void
-     */
-    private function setClimateReader(ReaderInterface $climateReader)
-    {
-        $this->climateReader = $climateReader;
-    }
-
-    /**
-     * @return ReaderInterface
-     */
-    protected function climateReader()
-    {
-        return $this->climateReader;
     }
 
     /**
@@ -421,6 +356,53 @@ abstract class AbstractScript extends AbstractEntity implements
     }
 
     /**
+     * Give an opportunity to children classes to inject dependencies from a Pimple Container.
+     *
+     * Does nothing by default, reimplement in children classes.
+     *
+     * The `$container` DI-container (from `Pimple`) should not be saved or passed around, only to be used to
+     * inject dependencies (typically via setters).
+     *
+     * @param  Container $container A dependencies container instance.
+     * @return void
+     */
+    protected function setDependencies(Container $container)
+    {
+        // This method is a stub. Reimplement in children template classes.
+    }
+
+    /**
+     * @return void
+     */
+    protected function init()
+    {
+        $arguments = $this->defaultArguments();
+        $this->setArguments($arguments);
+    }
+
+    /**
+     * Safe climate getter.
+     * If the instance was not previously set, create it.
+     *
+     * > CLImate is "PHP's best friend for the terminal."
+     * > "CLImate allows you to easily output colored text, special formats, and more."
+     *
+     * @return CLImate
+     */
+    protected function climate()
+    {
+        return $this->climate;
+    }
+
+    /**
+     * @return ReaderInterface
+     */
+    protected function climateReader()
+    {
+        return $this->climateReader;
+    }
+
+    /**
      * Retrieve an argument either from argument list (if set) or from user input.
      *
      * @param  string $argName An argument identifier.
@@ -516,5 +498,23 @@ abstract class AbstractScript extends AbstractEntity implements
         }
 
         return $input->{$prompt}();
+    }
+
+    /**
+     * @param CLImate $climate A climate instance.
+     * @return void
+     */
+    private function setClimate(CLImate $climate)
+    {
+        $this->climate = $climate;
+    }
+
+    /**
+     * @param ReaderInterface $climateReader A climate reader.
+     * @return void
+     */
+    private function setClimateReader(ReaderInterface $climateReader)
+    {
+        $this->climateReader = $climateReader;
     }
 }
