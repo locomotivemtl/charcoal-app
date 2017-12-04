@@ -52,14 +52,7 @@ class AbstractTemplateTest extends \PHPUnit_Framework_TestCase
         $request = $this->createMock(RequestInterface::class);
         $this->assertTrue($this->obj->init($request));
     }
-
-    public function testSetDependencies()
-    {
-        $container = new Container();
-        $res = $this->obj->setDependencies($container);
-        $this->assertNull($res);
-    }
-
+    
     /**
      * Set up the service container.
      *

@@ -220,14 +220,6 @@ class AbstractActionTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($this->obj->init($request));
     }
 
-    public function testSetDependencies()
-    {
-        $container = $this->container();
-
-        $res = $this->obj->setDependencies($container);
-        $this->assertNull($res);
-    }
-
     /**
      * Set up the service container.
      *
