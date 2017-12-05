@@ -3,6 +3,7 @@
 namespace Charcoal\App\ServiceProvider;
 
 use Exception;
+use LogicException;
 use InvalidArgumentException;
 use UnexpectedValueException;
 
@@ -122,7 +123,8 @@ class FilesystemServiceProvider implements ServiceProviderInterface
 
     /**
      * @param array $config The driver (adapter) configuration.
-     * @throws InvalidArgumentException If the path is not defined in config.
+     * @throws InvalidArgumentException If the path is not defined.
+     * @throws LogicException If the path is not accessible.
      * @return LocalAdapter
      */
     private function createLocalAdapter(array $config)
@@ -132,6 +134,14 @@ class FilesystemServiceProvider implements ServiceProviderInterface
                 'No "path" configured for local filesystem.'
             );
         }
+
+        $path = realpath($config['path']);
+        if ($path === false) {
+            throw new LogicException(
+                'Filesystem "path" does not exist.'
+            );
+        }
+
         $defaults = [
             'lock'        => null,
             'links'       => null,

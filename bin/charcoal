@@ -8,8 +8,8 @@ use \Charcoal\App\AppContainer;
 use \Slim\Http\Environment as SlimEnvironment;
 
 $autoloaderPath = [
-    __DIR__. '/../../../../vendor/autoload.php',
-    __DIR__. '/../vendor/autoload.php'
+    __DIR__.'/../../../../vendor/autoload.php',
+    __DIR__.'/../vendor/autoload.php'
 ];
 
 foreach ($autoloaderPath as $file) {
@@ -36,6 +36,9 @@ $path = '/'.ltrim($argv[1], '/');
 $config = new AppConfig();
 $config->addFile($baseDir.'/config/config.php');
 $config->set('base_path', $baseDir . '/');
+
+// Serve the application from the web directory.
+chdir($config['public_path']);
 
 // Create container and configure it (with charcoal-config)
 $container = new AppContainer([
