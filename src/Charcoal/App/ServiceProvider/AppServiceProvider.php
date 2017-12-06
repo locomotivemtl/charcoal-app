@@ -21,6 +21,12 @@ use Mustache_LambdaHelper as LambdaHelper;
 // Dependencies from charcoal-factory
 use Charcoal\Factory\GenericFactory as Factory;
 
+// From 'charcoal-translator'
+use Charcoal\Translator\ServiceProvider\TranslatorServiceProvider;
+
+// From 'charcoal-view'
+use Charcoal\View\ViewServiceProvider;
+
 // Intra-module (`charcoal-app`) dependencies
 use Charcoal\App\AppConfig;
 
@@ -46,6 +52,11 @@ use Charcoal\App\Template\TemplateInterface;
 use Charcoal\App\Template\TemplateBuilder;
 use Charcoal\App\Template\WidgetInterface;
 use Charcoal\App\Template\WidgetBuilder;
+
+use Charcoal\App\ServiceProvider\CacheServiceProvider;
+use Charcoal\App\ServiceProvider\DatabaseServiceProvider;
+use Charcoal\App\ServiceProvider\FilesystemServiceProvider;
+use Charcoal\App\ServiceProvider\LoggerServiceProvider;
 
 /**
  * Application Service Provider
@@ -74,6 +85,13 @@ class AppServiceProvider implements ServiceProviderInterface
      */
     public function register(Container $container)
     {
+        $container->register(new CacheServiceProvider());
+        $container->register(new DatabaseServiceProvider());
+        $container->register(new FilesystemServiceProvider());
+        $container->register(new LoggerServiceProvider());
+        $container->register(new TranslatorServiceProvider());
+        $container->register(new ViewServiceProvider());
+
         $this->registerKernelServices($container);
         $this->registerHandlerServices($container);
         $this->registerRouteServices($container);
@@ -465,6 +483,8 @@ class AppServiceProvider implements ServiceProviderInterface
     }
 
     /**
+     * Add helpers to the view services.
+     *
      * @param Container $container A container instance.
      * @return void
      */
