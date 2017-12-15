@@ -182,7 +182,7 @@ class ContainerProvider
         $container['view/loader'] = function (Container $container) {
             return new MustacheLoader([
                 'logger'    => $container['logger'],
-                'base_path' => realpath(__DIR__.'/../../../'),
+                'base_path' => $container['config']['base_path'],
                 'paths'     => [
                     'views'
                 ]
@@ -192,7 +192,7 @@ class ContainerProvider
         $container['view/engine'] = function (Container $container) {
             return new MustacheEngine([
                 'logger' => $container['logger'],
-                'cache'  => $container['cache'],
+                'cache'  => MustacheEngine::DEFAULT_CACHE_PATH,
                 'loader' => $container['view/loader']
             ]);
         };
@@ -276,7 +276,7 @@ class ContainerProvider
             return new MetadataLoader([
                 'logger'    => $container['logger'],
                 'cache'     => $container['cache'],
-                'base_path' => realpath(__DIR__.'/../../..'),
+                'base_path' => $container['config']['base_path'],
                 'paths'     => [
                     'metadata',
                     'vendor/locomotivemtl/charcoal-object/metadata',
