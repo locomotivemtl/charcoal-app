@@ -72,6 +72,7 @@ class AbstractWidgetTest extends \PHPUnit_Framework_TestCase
         if ($this->container === null) {
             $container = new Container();
             $containerProvider = new ContainerProvider();
+            $containerProvider->registerConfig($container);
             $containerProvider->registerCache($container);
             $containerProvider->registerLogger($container);
             $containerProvider->registerView($container);
