@@ -126,18 +126,16 @@ abstract class AbstractHandler implements
     }
 
     /**
-     * Create a configset.
+     * Create a configset for the handler.
      *
      * @see    ConfigurableTrait::createConfig()
      * @param  mixed|null $data Optional config data.
-     * @return ConfigInterface
+     * @return \Charcoal\Config\ConfigInterface
      */
     final public function createConfig($data = null)
     {
         return new HandlerConfig($data);
     }
-
-
 
     /**
      * Retrieve the handler's code.
@@ -166,7 +164,6 @@ abstract class AbstractHandler implements
     /**
      * Set dependencies from the service locator.
      *
-     * @todo   Maybe add \Psr\Log\LoggerInterface?
      * @param  Container $container A service locator.
      * @return self
      */
@@ -181,18 +178,6 @@ abstract class AbstractHandler implements
         return $this;
     }
 
-    /**
-     * Set an template factory.
-     *
-     * @param  FactoryInterface $factory The factory to create templates.
-     * @return self
-     */
-    final protected function setTemplateFactory(FactoryInterface $factory)
-    {
-        $this->templateFactory = $factory;
-
-        return $this;
-    }
 
     /**
      * Retrieve the template factory.
@@ -305,5 +290,16 @@ abstract class AbstractHandler implements
 
         return $response->withHeader('Content-Type', $contentType)
             ->withBody($body);
+    }
+
+    /**
+     * Set an template factory.
+     *
+     * @param  FactoryInterface $factory The factory to create templates.
+     * @return void
+     */
+    final private function setTemplateFactory(FactoryInterface $factory)
+    {
+        $this->templateFactory = $factory;
     }
 }

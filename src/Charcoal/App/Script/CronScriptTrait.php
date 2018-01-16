@@ -22,7 +22,7 @@ trait CronScriptTrait
 
     /**
      * @param boolean $useLock The boolean flag if a lock should be used.
-     * @return CronScriptInterface Chainable
+     * @return self
      */
     public function setUseLock($useLock)
     {

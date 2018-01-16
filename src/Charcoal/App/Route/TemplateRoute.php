@@ -116,8 +116,6 @@ class TemplateRoute implements
         Container $container,
         RequestInterface $request
     ) {
-        $config = $this->config();
-
         if ($this->cacheEnabled()) {
             $cachePool = $container['cache'];
             $cacheKey  = str_replace('/', '.', 'template.'.$this->cacheIdent());

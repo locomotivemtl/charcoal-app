@@ -22,14 +22,14 @@ class IpMiddleware
     private $whitelist;
 
     /**
-     * @var string|null
+     * @var string
      */
-    private $blacklistedRedirect;
+    private $blacklistedRedirect = '';
 
     /**
-     * @var string|null
+     * @var string
      */
-    private $notWhitelistedRedirect;
+    private $notWhitelistedRedirect = '';
 
     /**
      * @var boolean
@@ -63,8 +63,8 @@ class IpMiddleware
             'blacklist' => null,
             'whitelist' => null,
 
-            'blacklisted_redirect'     => null,
-            'not_whitelisted_redirect' => null,
+            'blacklisted_redirect'     => '',
+            'not_whitelisted_redirect' => '',
 
             'fail_on_invalid_ip' => false
         ];
@@ -98,7 +98,7 @@ class IpMiddleware
 
         // Check blacklist.
         if ($this->isIpBlacklisted($ip) === true) {
-            if ($this->blacklistedRedirect) {
+            if ($this->blacklistedRedirect !== '') {
                 return $response
                     ->withStatus(302)
                     ->withHeader('Location', $this->blacklistedRedirect);
@@ -110,10 +110,10 @@ class IpMiddleware
 
         // Check whitelist.
         if ($this->isIpWhitelisted($ip) === false) {
-            if ($this->notWhitelistedRedirect) {
+            if ($this->notWhitelistedRedirect !== '') {
                 return $response
                     ->withStatus(302)
-                    ->withHeader('Location', $this->blacklistedRedirect);
+                    ->withHeader('Location', $this->notWhitelistedRedirect);
             } else {
                 // IP not whistelisted: forbidden
                 return $response->withStatus(403);
@@ -189,6 +189,8 @@ class IpMiddleware
      */
     private function getClientIp(RequestInterface $request)
     {
+        unset($request);
+
         if (isset($_SERVER['REMOTE_ADDR'])) {
             return filter_var($_SERVER['REMOTE_ADDR'], FILTER_VALIDATE_IP);
         }

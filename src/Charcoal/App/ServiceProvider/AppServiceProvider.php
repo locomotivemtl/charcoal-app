@@ -89,6 +89,7 @@ class AppServiceProvider implements ServiceProviderInterface
         $container->register(new DatabaseServiceProvider());
         $container->register(new FilesystemServiceProvider());
         $container->register(new LoggerServiceProvider());
+
         $container->register(new TranslatorServiceProvider());
         $container->register(new ViewServiceProvider());
 
@@ -255,7 +256,7 @@ class AppServiceProvider implements ServiceProviderInterface
              */
             $container['maintenanceHandler'] = function (Container $container) use ($config) {
                 $maintenanceConfig = isset($config['maintenance']) ? $config['maintenance'] : [];
-                $handler = new Maintenance($container, $config['maintenance']);
+                $handler = new Maintenance($container, $maintenanceConfig);
 
                 return $handler->init();
             };
@@ -464,7 +465,6 @@ class AppServiceProvider implements ServiceProviderInterface
     protected function registerScriptServices(Container $container)
     {
         /**
-         * @todo   Needs implementation
          * @param Container $container A container instance.
          * @return null|\League\CLImate\Util\Reader\ReaderInterface
          */

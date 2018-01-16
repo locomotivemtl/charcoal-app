@@ -82,11 +82,6 @@ class CacheMiddleware
     private $ignoredQuery;
 
     /**
-     * @var boolean
-     */
-    private $headers;
-
-    /**
      * @param array $data Constructor dependencies and options.
      */
     public function __construct(array $data)
@@ -106,8 +101,6 @@ class CacheMiddleware
         $this->includedQuery = $data['included_query'];
         $this->excludedQuery = $data['excluded_query'];
         $this->ignoredQuery  = $data['ignored_query'];
-
-        $this->headers = $data['headers'];
     }
 
     /**
@@ -128,9 +121,7 @@ class CacheMiddleware
 
             'included_query' => null,
             'excluded_query' => null,
-            'ignored_query'  => null,
-
-            'headers'        => true
+            'ignored_query'  => null
         ];
     }
 

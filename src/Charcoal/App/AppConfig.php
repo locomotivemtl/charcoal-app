@@ -259,7 +259,11 @@ class AppConfig extends AbstractConfig
      */
     public function setBaseUrl($uri)
     {
-        $this->baseUrl = Uri::createFromString($uri);
+        if (is_string($uri)) {
+            $this->baseUrl = Uri::createFromString($uri);
+        } else {
+            $this->baseUrl = $uri;
+        }
         return $this;
     }
 
