@@ -30,7 +30,7 @@ trait TemplateableHandlerTrait
      */
     public function renderHtmlContent()
     {
-        return $this->render($this->templatePartial(), $this->getTemplateData());
+        return $this->view()->render($this->templatePartial(), $this->getTemplateData());
     }
 
     /**
@@ -77,7 +77,6 @@ trait TemplateableHandlerTrait
         $controller->init($this->httpRequest());
         $controller['app_handler'] = $this;
         $controller->setData($this->getTemplateData());
-
 
         foreach ($config['partials'] as $varName => $templateIdent) {
             $this->setDynamicTemplate($varName, $templateIdent);

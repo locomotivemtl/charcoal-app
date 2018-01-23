@@ -230,19 +230,6 @@ abstract class AbstractHandler implements
         return $this->httpRequest;
     }
 
-    /**
-     * Set container for use with the template controller
-     *
-     * @param  Container $container A dependencies container instance.
-     * @return self
-     */
-    final protected function setContainer(Container $container)
-    {
-        $this->container = $container;
-
-        return $this;
-    }
-
 
     /**
      * Determine which content type we know about is wanted using "Accept" header
@@ -298,8 +285,19 @@ abstract class AbstractHandler implements
      * @param  FactoryInterface $factory The factory to create templates.
      * @return void
      */
-    final private function setTemplateFactory(FactoryInterface $factory)
+    private function setTemplateFactory(FactoryInterface $factory)
     {
         $this->templateFactory = $factory;
+    }
+
+    /**
+     * Set container for use with the template controller
+     *
+     * @param  Container $container A dependencies container instance.
+     * @return void
+     */
+    private function setContainer(Container $container)
+    {
+        $this->container = $container;
     }
 }

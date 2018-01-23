@@ -16,12 +16,11 @@ trait AppAwareTrait
 
     /**
      * @param App $app The app instance this object depends on.
-     * @return self
+     * @return void
      */
-    public function setApp(App $app)
+    protected function setApp(App $app)
     {
         $this->app = $app;
-        return $this;
     }
 
     /**

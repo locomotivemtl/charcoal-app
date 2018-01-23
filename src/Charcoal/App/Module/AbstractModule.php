@@ -2,31 +2,26 @@
 
 namespace Charcoal\App\Module;
 
-use \InvalidArgumentException;
 
-// Dependencies from PSR-7 (HTTP Messaging)
-use \Psr\Http\Message\RequestInterface;
-use \Psr\Http\Message\ResponseInterface;
+use InvalidArgumentException;
+
 
 // Dependencies from PSR-3 (Logger)
-use \Psr\Log\LoggerAwareInterface;
-use \Psr\Log\LoggerAwareTrait;
+use Psr\Log\LoggerAwareInterface;
+use Psr\Log\LoggerAwareTrait;
 
 // Dependency from 'charcoal-config'
-use \Charcoal\Config\ConfigurableInterface;
+use Charcoal\Config\ConfigurableInterface;
 
 // Intra-module ('charcoal-app') dependencies
-use \Charcoal\App\AppAwareInterface;
-use \Charcoal\App\AppAwareTrait;
-use \Charcoal\App\App;
-use \Charcoal\App\AppInterface;
-use \Charcoal\App\Route\RouteManager;
+use Charcoal\App\App;
+use Charcoal\App\AppAwareTrait;
+use Charcoal\App\Route\RouteManager;
 
 /**
  *
  */
 abstract class AbstractModule implements
-    AppAwareInterface,
     ConfigurableInterface,
     LoggerAwareInterface,
     ModuleInterface
@@ -44,12 +39,13 @@ abstract class AbstractModule implements
      */
     protected $routeManager;
 
+
     /**
      * Return a new AbstractModule object.
      *
      * @param array $data Module dependencies.
      */
-    public function __construct(array $data)
+    final public function __construct(array $data)
     {
         $this->setLogger($data['logger']);
 

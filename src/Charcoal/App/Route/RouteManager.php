@@ -10,22 +10,19 @@ use Psr\Http\Message\ResponseInterface;
 use Charcoal\Config\ConfigurableInterface;
 use Charcoal\Config\ConfigurableTrait;
 
-// Local namespace dependencies
-use Charcoal\App\AppAwareInterface;
-use Charcoal\App\AppAwareTrait;
-use Charcoal\App\Route\ActionRoute;
-use Charcoal\App\Route\ScriptRoute;
-use Charcoal\App\Route\TemplateRoute;
 
 /**
  * The route manager takes care of dispatching each route from an app or a module config
  */
-class RouteManager implements
-    AppAwareInterface,
+final class RouteManager implements
     ConfigurableInterface
 {
-    use AppAwareTrait;
     use ConfigurableTrait;
+
+    /**
+     * @var \Charcoal\App\App
+     */
+    private $app;
 
     /**
      * Manager constructor
@@ -35,7 +32,7 @@ class RouteManager implements
     public function __construct(array $data)
     {
         $this->setConfig($data['config']);
-        $this->setApp($data['app']);
+        $this->app = $data['app'];
     }
 
     /**
@@ -78,7 +75,7 @@ class RouteManager implements
      *
      * @param  string             $routeIdent     The template's route identifier.
      * @param  array|\ArrayAccess $templateConfig The template's config for the route.
-     * @return \Slim\Route
+     * @return \Slim\Interfaces\RouteInterface
      */
     private function setupTemplate($routeIdent, $templateConfig)
     {
@@ -92,7 +89,7 @@ class RouteManager implements
             ? $templateConfig['methods']
             : [ 'GET' ];
 
-        $routeHandler = $this->app()->map(
+        $routeHandler = $this->app->map(
             $methods,
             $routePattern,
             function (
@@ -154,7 +151,7 @@ class RouteManager implements
      *
      * @param  string             $routeIdent   The action's route identifier.
      * @param  array|\ArrayAccess $actionConfig The action's config for the route.
-     * @return \Slim\Route
+     * @return \Slim\Interfaces\RouteInterface
      */
     private function setupAction($routeIdent, $actionConfig)
     {
@@ -168,7 +165,7 @@ class RouteManager implements
             ? $actionConfig['methods']
             : [ 'POST' ];
 
-        $routeHandler = $this->app()->map(
+        $routeHandler = $this->app->map(
             $methods,
             $routePattern,
             function (
@@ -230,7 +227,7 @@ class RouteManager implements
      *
      * @param  string             $routeIdent   The script's route identifier.
      * @param  array|\ArrayAccess $scriptConfig The script's config for the route.
-     * @return \Slim\Route
+     * @return \Slim\Interfaces\RouteInterface
      */
     private function setupScript($routeIdent, $scriptConfig)
     {
@@ -244,7 +241,7 @@ class RouteManager implements
             ? $scriptConfig['methods']
             : [ 'GET' ];
 
-        $routeHandler = $this->app()->map(
+        $routeHandler = $this->app->map(
             $methods,
             $routePattern,
             function (

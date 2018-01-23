@@ -11,9 +11,5 @@ use \Charcoal\App\App;
  */
 interface AppAwareInterface
 {
-    /**
-     * @param App $app The app instance this object depends on.
-     * @return AppAwareInterface Chainable
-     */
-    public function setApp(App $app);
+    // ...
 }

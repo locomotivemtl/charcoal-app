@@ -19,7 +19,6 @@ use Charcoal\Config\ConfigurableTrait;
 // Intra-module (`charcoal-app`) dependencies
 use Charcoal\App\Route\RouteInterface;
 use Charcoal\App\Route\ScriptRouteConfig;
-use Charcoal\App\Script\ScriptInterface;
 
 /**
  * Script Route Handler.
@@ -73,11 +72,12 @@ class ScriptRoute implements
 
         $scriptController = $config['controller'];
 
-        $scriptFactory = $container['script/factory'];
+        $script = $container['script/factory']->create($scriptController);
 
-        $script = $scriptFactory->create($scriptController);
-
-        $script->setData($config['script_data']);
+        $scriptData = $config['scriptData'];
+        if (empty($scriptData) === false) {
+            $script->setData($scriptData);
+        }
 
         // Run (invoke) script.
         return $script($request, $response);
