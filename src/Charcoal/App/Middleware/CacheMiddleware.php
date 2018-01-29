@@ -358,6 +358,6 @@ class CacheMiddleware
             }
         }
 
-        return $queryParams;
+        return $ret;
     }
 }
