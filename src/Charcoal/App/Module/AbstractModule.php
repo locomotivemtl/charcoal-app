@@ -2,7 +2,6 @@
 
 namespace Charcoal\App\Module;
 
-
 use InvalidArgumentException;
 
 

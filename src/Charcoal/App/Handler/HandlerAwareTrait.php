@@ -16,7 +16,7 @@ trait HandlerAwareTrait
     /**
      * The Handler object.
      *
-     * @var Handler
+     * @var HandlerInterface
      */
     private $appHandler;
 
@@ -41,7 +41,7 @@ trait HandlerAwareTrait
     {
         if ($this->appHandler === null) {
             throw new RuntimeException(
-                'Handler has not been set on this object.'
+                'App handler has not been set on this (handler aware) object.'
             );
         }
         return $this->appHandler;

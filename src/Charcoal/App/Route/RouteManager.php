@@ -10,7 +10,6 @@ use Psr\Http\Message\ResponseInterface;
 use Charcoal\Config\ConfigurableInterface;
 use Charcoal\Config\ConfigurableTrait;
 
-
 /**
  * The route manager takes care of dispatching each route from an app or a module config
  */
