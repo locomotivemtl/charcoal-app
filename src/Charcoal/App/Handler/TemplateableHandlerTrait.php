@@ -79,7 +79,7 @@ trait TemplateableHandlerTrait
         $controller->setData($this->getTemplateData());
 
         foreach ($config['partials'] as $varName => $templateIdent) {
-            $this->setDynamicTemplate($varName, $templateIdent);
+            $this->view()->setDynamicTemplate($varName, $templateIdent);
         }
 
         return $this->view()->render($config['template'], $controller);
