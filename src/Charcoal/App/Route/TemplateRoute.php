@@ -157,7 +157,9 @@ class TemplateRoute implements
         $config = $this->config();
 
         $templateFactory = $container['template/factory'];
-        $templateFactory->setDefaultClass($config['default_controller']);
+        if ($config['default_controller'] !== null) {
+            $templateFactory->setDefaultClass($config['default_controller']);
+        }
 
         $template = $templateFactory->create($config['controller']);
         $template->init($request);
