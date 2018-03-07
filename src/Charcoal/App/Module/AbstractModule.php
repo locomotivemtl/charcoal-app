@@ -14,7 +14,7 @@ use Charcoal\Config\ConfigurableInterface;
 
 // Intra-module ('charcoal-app') dependencies
 use Charcoal\App\App;
-use Charcoal\App\AppAwareTrait;
+use Charcoal\App\Support\AppAwareTrait;
 use Charcoal\App\Route\RouteManager;
 
 /**

@@ -96,7 +96,10 @@ class App extends SlimApp implements
             );
         }
 
-        // Ensure the DI container a proper Slim container. AppContainer is already pre-registered with many usefel services.
+        /**
+         * Ensure the DI container is a proper Charcoal container.
+         * Charcoal's container is already pre-registered with many usefel services.
+         */
         if (is_array($container)) {
             $container = new AppContainer($container);
         }
