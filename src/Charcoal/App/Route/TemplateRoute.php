@@ -118,7 +118,7 @@ class TemplateRoute implements
     ) {
         if ($this->cacheEnabled()) {
             $cachePool = $container['cache'];
-            $cacheKey  = str_replace('/', '.', 'template.'.$this->cacheIdent());
+            $cacheKey  = 'template/'.str_replace('/', '.', $this->cacheIdent());
             $cacheItem = $cachePool->getItem($cacheKey);
 
             $template = $cacheItem->get();

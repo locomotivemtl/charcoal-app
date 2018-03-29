@@ -43,7 +43,7 @@ trait TemplateableHandlerTrait
     {
         if ($this->cacheEnabled()) {
             $cachePool = $this->container['cache'];
-            $cacheKey  = str_replace('/', '.', 'template.'.$this->cacheIdent());
+            $cacheKey  = 'template/'.str_replace('/', '.', $this->cacheIdent());
             $cacheItem = $cachePool->getItem($cacheKey);
 
             $output = $cacheItem->get();
