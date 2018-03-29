@@ -143,15 +143,17 @@ class CacheMiddleware
      */
     public function __invoke(RequestInterface $request, ResponseInterface $response, callable $next)
     {
-        $uri = $request->getUri();
-        $host = $uri->getHost();
-        $path = $uri->getPath();
-        $queryParams = [];
-        parse_str($uri->getQuery(), $queryParams);
-        $cacheKey  = $this->cacheKey($host.$path, $queryParams, $request->getMethod());
+        $uri   = $request->getUri();
+        $host  = $uri->getHost();
+        $path  = $uri->getPath();
+        $query = [];
 
-        if ($this->cachePool->hasItem($cacheKey)) {
-            $cacheItem = $this->cachePool->getItem($cacheKey);
+        parse_str($uri->getQuery(), $query);
+
+        $cacheKey  = $this->cacheKey($host.$path, $query, $request->getMethod());
+        $cacheItem = $this->cachePool->getItem($cacheKey);
+
+        if ($cacheItem->isHit()) {
             $cached = $cacheItem->get();
             $response->getBody()->write($cached['body']);
             foreach ($cached['headers'] as $name => $header) {
@@ -174,21 +176,20 @@ class CacheMiddleware
                 return $response;
             }
 
-            if ($this->isQueryIncluded($queryParams) === false) {
-                $keyParams = $this->parseIgnoredParams($queryParams);
+            if ($this->isQueryIncluded($query) === false) {
+                $keyParams = $this->parseIgnoredParams($query);
                 if (!empty($keyParams)) {
                     return $response;
                 }
             }
 
-            if ($this->isQueryExcluded($queryParams) === true) {
+            if ($this->isQueryExcluded($query) === true) {
                 return $response;
             }
 
             // Nothing has excluded the cache so far: add it to the pool.
-            $cacheItem = $this->cachePool->getItem($cacheKey);
             $cacheItem->expiresAfter($this->cacheTtl);
-            $cacheItem = $cacheItem->set([
+            $cacheItem->set([
                 'body'    => (string)$response->getBody(),
                 'headers' => (array)$response->getHeaders()
             ]);

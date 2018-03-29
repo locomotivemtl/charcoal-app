@@ -50,7 +50,8 @@ trait TemplateableHandlerTrait
             if ($cacheItem->isMiss()) {
                 $output = $this->renderHtmlTemplateContent();
 
-                $cachePool->save($cacheItem->set($output, $this->cacheTtl()));
+                $cacheItem->set($output, $this->cacheTtl());
+                $cachePool->save($cacheItem);
             }
         } else {
             $output = $this->renderHtmlTemplateContent();

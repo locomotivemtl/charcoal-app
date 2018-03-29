@@ -76,8 +76,8 @@ class CacheServiceProvider implements ServiceProviderInterface
                     return null;
                 }
                 return new $drivers['Apc']([
-                    'ttl' => $container['cache/config']['default_ttl'],
-                    'namespace' => $container['cache/config']['prefix']
+                    'ttl'       => $container['cache/config']['default_ttl'],
+                    'namespace' => $container['cache/config']['prefix'],
                 ]);
             };
 

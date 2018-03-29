@@ -125,7 +125,8 @@ class TemplateRoute implements
             if ($cacheItem->isMiss()) {
                 $template = $this->renderTemplate($container, $request);
 
-                $cachePool->save($cacheItem->set($template, $this->cacheTtl()));
+                $cacheItem->set($template, $this->cacheTtl());
+                $cachePool->save($cacheItem);
             }
         } else {
             $template = $this->renderTemplate($container, $request);
