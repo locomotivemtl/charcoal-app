@@ -235,13 +235,26 @@ class App extends SlimApp implements
         if (!$middlewaresConfig) {
             return;
         }
+
         foreach ($middlewaresConfig as $id => $opts) {
             if (isset($opts['active']) && $opts['active'] === true) {
+                if ($id === 'charcoal/app/middleware/cache') {
+                    $id = 'charcoal/cache/middleware/cache';
+
+                    $container['logger']->warning(sprintf(
+                        'Middleware "%1$s" is deprecated since %3$s. Use "%2$s" instead.',
+                        'charcoal/app/middleware/cache',
+                        'charcoal/cache/middleware/cache',
+                        '0.8.0'
+                    ));
+                }
+
                 if (!isset($container['middlewares/'.$id])) {
                     throw new RuntimeException(
                         sprintf('Middleware "%s" is not set on container.', $id)
                     );
                 }
+
                 $this->add($container['middlewares/'.$id]);
             }
         }

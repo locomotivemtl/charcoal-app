@@ -30,7 +30,6 @@ a Charcoal _view_ / PSR-7 _renderer_, Flysystem _filesystems_ and a PDO _databas
     -   [Basic Services](#basic-services)
     -   [App Service Provider](#app-service-provider)
     -   [Cache Service Provider](#cache-service-provider)
-        +   [Cache config](#cache-config)
     -   [Database Service Provider](#database-service-provider)
         +   [Database config](#database-config)
     -   [Filesystem Service Provider](#filesystem-service-provider)
@@ -72,9 +71,13 @@ For a complete, ready-to-use project, start from the [`boilerplate`](https://git
 -   [`PHP 5.6+`](http://php.net)
     -   Older versions of PHP are deprecated, therefore not supported for charcoal-app.
     -   PHP 7 is also supported, and recommended for performance and security reasons.
+-   [`locomotivemtl/charcoal-cache`](https://github.com/locomotivemtl/charcoal-cache)
+    -   Service provider for the PSR-6 compliant cache system, [Stash](https://packagist.org/packages/tedivm/stash).
+    -   Caching greatly speeds up an application.
+    -   Stash provides support for APC, Memcache, Redis, SQLite, or file system and runtime memory.
 -   [`locomotivemtl/charcoal-config`](https://github.com/locomotivemtl/charcoal-config)
-    -    The basic configuration system and config container.
-    -    Also provides the base `AbstractEntity` data container.
+    -   The basic configuration system and config container.
+    -   Also provides the base `AbstractEntity` data container.
 -   [`locomotivemtl/charcoal-factory`](https://github.com/locomotivemtl/charcoal-factory)
     -   Dynamic object creation.
     -   Factories are provided for Action, Module, Routable, Route, Script, ServiceProvider, Template and Widget
@@ -92,19 +95,14 @@ For a complete, ready-to-use project, start from the [`boilerplate`](https://git
         -    `pimple/pimple`
         -    [`psr/http-message`]((http://www.php-fig.org/psr/psr-7/))
 -   [`pimple/pimple`](http://pimple.sensiolabs.org/)
-        -   Dependency injection container. Holds all the service (with `ServicerProvider`s).
-        -   Actually provided by `slim/slim`.
+    -   Dependency injection container. Holds all the service (with `ServicerProvider`s).
+    -   Actually provided by `slim/slim`.
 -   [`monolog/monolog`](https://github.com/Seldaek/monolog)
-        -   Monolog is a PSR-3 compliant logger.
-        -   Monolog is used as main logger to fulfills PSR3 dependencies all-around.
--   [`tedivm/stash`](https://github.com/tedious/Stash)
-        -   Stash is a PSR-6 compliant cache system.
-        -   Cache greatly speeds up an application. A driver must be configured:
-        -   Supported drivers are `memcache`, `redis`, `db` (sqlite), `file`, `memory` or `noop`
-        -   Recommended drivers are `memcache` and `redis`.
+    -   Monolog is a PSR-3 compliant logger.
+    -   Monolog is used as main logger to fulfills PSR3 dependencies all-around.
 -   [`league/flysystem`](https://github.com/thephpleague/flysystem)
-        -   Filesystem abstraction provided by Flysystem.
-        -   Supported types are `local`, `ftp`, `sftp`, `s3`, `dropbox`, `memory` or `noop`.
+    -   Filesystem abstraction provided by Flysystem.
+    -   Supported types are `local`, `ftp`, `sftp`, `s3`, `dropbox`, `memory` or `noop`.
 
 > 👉 Development dependencies, which are optional when using charcoal-app in a project, are described in the [Development](#development) section of this README file.
 
@@ -777,37 +775,45 @@ The `AppServiceProvider`, or `charcoal/app/service-provider/app` provides the fo
 
 ## Cache Service Provider
 
+> See the [`locomotivemtl/charcoal-cache`](https://github.com/locomotivemtl/charcoal-cache)
+for more information on using the cache service.
+
 The `CacheServiceProvider`, or `charcoal/app/service-provider/cache` provides the following servicers:
 
 | Service       | Type                | Description |
 | ------------- | ------------------- | ----------- |
-| **cache**     | `\Stash\Pool`       | PSR-6-compliant cache pool (stash). |
+| **cache**     | `\Stash\Pool`       | The default PSR-6 cache pool.
 
 
 Also available are the following helpers:
 
-| Helper Service    | Type                | Description |
-| :---------------- | ------------------- | ----------- |
-| **cache/config**  | `CacheConfig`<sup>1</sup> | Cache configuration.
-| **cache/available-drivers** | `array`   | Available drivers on the system.
-| **cache/drivers** | `\Pimple\Contianer` | Map of all the available `\Stash\Driver` instances. |
-| **cache/driver**  | `\Stash\Driver`     | The default `\Stash\Driver`. |
+| Helper Service              | Type                          | Description |
+|:--------------------------- | ----------------------------- | ----------- |
+| **cache/config**            | `CacheConfig`<sup>1</sup>     | Cache configuration.
+| **cache/builder**           | `CacheBuilder`<sup>2</sup>    | Cache pool builder.
+| **cache/available-drivers** | `array`<sup>3</sup>           | Available drivers on the system.
+| **cache/drivers**           | `\Pimple\Contianer`           | Map of all the available Stash driver instances.
+| **cache/driver**            | `DriverInterface`<sup>4</sup> | The Stash driver used by the default pool, `cache`.
 
+1. `\Charcoal\Cache\CacheConfig`
+2. `\Charcoal\Cache\CacheBuilder`
+3. `\Stash\DriverList`
+4. `\Stash\Interfaces\DriverInterface`
 
-### Cache config
+### Cache Config
 
-| Key               | Type     | Default       | Description |
-| ----------------- | -------- | ------------- | ----------- |
-| **types**         | `array`  | `['memory']`  | The cache types to attempt to use, in order. |
-| **default_ttl**    | `int`    | `0`           | Default _time-to-live_, in seconds. |
-| **prefix**        | `string` | `charcoal`         | The cache prefix, or namespace. |
+| Key               | Type     | Default         | Description |
+|:----------------- |:--------:|:---------------:| ----------- |
+| **types**         | `array`  | `[ 'memory' ]`  | The cache types to attempt to use, in order.
+| **default_ttl**   | `int`    | `0`             | Default _time-to-live_, in seconds.
+| **prefix**        | `string` | `charcoal`      | The cache prefix, or namespace.
 
 A full example, in JSON format:
 
 ```json
 {
     "cache": {
-        "types": ["memcache", "memory"],
+        "types": [ "memcache", "memory" ],
         "default_ttl": 0,
         "prefix": "charcoal"
     }

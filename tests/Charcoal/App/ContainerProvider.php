@@ -10,9 +10,6 @@ use Mockery;
 // From PSR-3
 use Psr\Log\NullLogger;
 
-// From 'cache/void-adapter' (PSR-6)
-use Cache\Adapter\Void\VoidCachePool;
-
 // From 'tedivm/stash' (PSR-6)
 use Stash\Pool;
 use Stash\Driver\Ephemeral;
@@ -36,9 +33,11 @@ use League\CLImate\Util\UtilFactory;
 // From 'charcoal-factory'
 use Charcoal\Factory\GenericFactory as Factory;
 
+// From 'charcoal-cache'
+use Charcoal\Cache\CacheConfig;
+
 // From 'charcoal-app'
 use Charcoal\App\AppConfig;
-use Charcoal\App\Config\CacheConfig;
 use Charcoal\App\Module\ModuleInterface;
 use Charcoal\App\Template\WidgetBuilder;
 

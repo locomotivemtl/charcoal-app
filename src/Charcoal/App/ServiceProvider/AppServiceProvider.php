@@ -2,24 +2,27 @@
 
 namespace Charcoal\App\ServiceProvider;
 
-// Dependencies from Pimple
-use Pimple\ServiceProviderInterface;
-use Pimple\Container;
-
 // From PSR-7
 use Psr\Http\Message\UriInterface;
 
-// Dependencies from Slim
+// From Pimple
+use Pimple\ServiceProviderInterface;
+use Pimple\Container;
+
+// From Slim
 use Slim\Http\Uri;
 
-// Dependencies from league/climate
+// From 'league/climate'
 use League\CLImate\CLImate;
 
-// Dependencies from Mustache
+// From Mustache
 use Mustache_LambdaHelper as LambdaHelper;
 
-// Dependencies from charcoal-factory
+// From 'charcoal-factory'
 use Charcoal\Factory\GenericFactory as Factory;
+
+// From 'charcoal-cache'
+use Charcoal\Cache\ServiceProvider\CacheServiceProvider;
 
 // From 'charcoal-translator'
 use Charcoal\Translator\ServiceProvider\TranslatorServiceProvider;
@@ -34,7 +37,6 @@ use Charcoal\App\Action\ActionInterface;
 use Charcoal\App\Script\ScriptInterface;
 use Charcoal\App\Module\ModuleInterface;
 
-use Charcoal\App\Middleware\CacheMiddleware;
 use Charcoal\App\Middleware\IpMiddleware;
 
 use Charcoal\App\Route\ActionRoute;
@@ -53,7 +55,6 @@ use Charcoal\App\Template\TemplateBuilder;
 use Charcoal\App\Template\WidgetInterface;
 use Charcoal\App\Template\WidgetBuilder;
 
-use Charcoal\App\ServiceProvider\CacheServiceProvider;
 use Charcoal\App\ServiceProvider\DatabaseServiceProvider;
 use Charcoal\App\ServiceProvider\FilesystemServiceProvider;
 use Charcoal\App\ServiceProvider\LoggerServiceProvider;
@@ -89,7 +90,6 @@ class AppServiceProvider implements ServiceProviderInterface
         $container->register(new DatabaseServiceProvider());
         $container->register(new FilesystemServiceProvider());
         $container->register(new LoggerServiceProvider());
-
         $container->register(new TranslatorServiceProvider());
         $container->register(new ViewServiceProvider());
 
@@ -304,19 +304,7 @@ class AppServiceProvider implements ServiceProviderInterface
     protected function registerMiddlewareServices(Container $container)
     {
         /**
-         * @param Container $container A Pimple DI Container.
-         * @return CacheMiddleware
-         */
-        $container['middlewares/charcoal/app/middleware/cache'] = function (Container $container) {
-            $wareConfig  = array_replace(
-                $container['config']['middlewares']['charcoal/app/middleware/cache'],
-                [ 'cache' => $container['cache'] ]
-            );
-            return new CacheMiddleware($wareConfig);
-        };
-
-        /**
-         * @param Container $container A Pimple DI Container.
+         * @param  Container $container A Pimple DI Container.
          * @return IpMiddleware
          */
         $container['middlewares/charcoal/app/middleware/ip'] = function(container $container) {
