@@ -2,9 +2,10 @@
 
 namespace Charcoal\Tests\App\Route;
 
-use \Charcoal\App\Route\TemplateRouteConfig;
+use Charcoal\App\Route\TemplateRouteConfig;
+use Charcoal\Tests\AbstractTestCase;
 
-class TemplateRouteConfigTest extends \PHPUnit_Framework_TestCase
+class TemplateRouteConfigTest extends AbstractTestCase
 {
     public $obj;
 
@@ -23,7 +24,7 @@ class TemplateRouteConfigTest extends \PHPUnit_Framework_TestCase
         $this->obj->setEngine(null);
         //$this->assertEquals('mustache', $this->obj->engine());
 
-        $this->setExpectedException('\InvalidArgumentException');
+        $this->expectException('\InvalidArgumentException');
         $this->obj->setEngine(false);
     }
 
@@ -35,7 +36,7 @@ class TemplateRouteConfigTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals('foobar', $this->obj->template());
 
-        $this->setExpectedException('\InvalidArgumentException');
+        $this->expectException('\InvalidArgumentException');
         $this->obj->setTemplate(false);
     }
 
@@ -55,7 +56,7 @@ class TemplateRouteConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($ret, $this->obj);
         $this->assertEquals(302, $this->obj->redirectMode());
 
-        $this->setExpectedException('\InvalidArgumentException');
+        $this->expectException('\InvalidArgumentException');
         $this->obj->setRedirectMode(666);
     }
 

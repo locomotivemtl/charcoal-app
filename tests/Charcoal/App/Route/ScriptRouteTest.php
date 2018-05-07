@@ -3,24 +3,25 @@
 namespace Charcoal\Tests\App\Route;
 
 // From PSR-7
-use \Psr\Http\Message\RequestInterface;
-use \Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
 
 // From Pimple
-use \Pimple\Container;
+use Pimple\Container;
 
 // From 'charcoal-factory'
-use \Charcoal\Factory\GenericFactory as Factory;
+use Charcoal\Factory\GenericFactory as Factory;
 
 // From 'charcoal-app'
-use \Charcoal\App\Route\ScriptRoute;
-use \Charcoal\App\Route\ScriptRouteConfig;
-use \Charcoal\Tests\App\ContainerProvider;
+use Charcoal\App\Route\ScriptRoute;
+use Charcoal\App\Route\ScriptRouteConfig;
+use Charcoal\Tests\AbstractTestCase;
+use Charcoal\Tests\App\ContainerProvider;
 
 /**
  *
  */
-class ScriptRouteTest extends \PHPUnit_Framework_TestCase
+class ScriptRouteTest extends AbstractTestCase
 {
     /**
      * Tested Class.
@@ -60,7 +61,7 @@ class ScriptRouteTest extends \PHPUnit_Framework_TestCase
         $response = $this->createMock(ResponseInterface::class);
 
         // Invalid because "foo/bar" is not a valid script controller
-        $this->setExpectedException('\Exception');
+        $this->expectException('\Exception');
         $ret = call_user_func([$this->obj, '__invoke'], $container, $request, $response);
     }
 

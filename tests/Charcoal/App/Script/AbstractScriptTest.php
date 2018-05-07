@@ -3,20 +3,21 @@
 namespace Charcoal\Tests\App\Script;
 
 // From PSR-7
-use \Psr\Http\Message\RequestInterface;
-use \Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
 
 // From Pimple
-use \Pimple\Container;
+use Pimple\Container;
 
 // From 'charcoal-app'
-use \Charcoal\App\Script\AbstractScript;
-use \Charcoal\Tests\App\ContainerProvider;
+use Charcoal\App\Script\AbstractScript;
+use Charcoal\Tests\AbstractTestCase;
+use Charcoal\Tests\App\ContainerProvider;
 
 /**
  *
  */
-class AbstractScriptTest extends \PHPUnit_Framework_TestCase
+class AbstractScriptTest extends AbstractTestCase
 {
     /**
      * Tested Class.

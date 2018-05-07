@@ -2,9 +2,10 @@
 
 namespace Charcoal\App\Config;
 
-use \InvalidArgumentException;
+use InvalidArgumentException;
 
-use \Charcoal\Config\AbstractConfig;
+// From 'charcoal-config'
+use Charcoal\Config\AbstractConfig;
 
 /**
  * Database Config

@@ -7,36 +7,36 @@ use LogicException;
 use InvalidArgumentException;
 use UnexpectedValueException;
 
-// Dependencies from `pimple/pimple`
+// From Pimple
 use Pimple\ServiceProviderInterface;
 use Pimple\Container;
 
-// Dependencies from AWS S3 SDK
+// From 'aws/aws-sdk-php'
 use Aws\S3\S3Client;
 
-// Dependencies from Dropbox
+// From 'dropbox/dropbox-sdk'
 use Dropbox\Client as DropboxClient;
 
-// Dependencies from `league/flysystem`
+// From 'league/flysystem'
 use League\Flysystem\MountManager;
 use League\Flysystem\Filesystem;
 use League\Flysystem\Adapter\Local as LocalAdapter;
 use League\Flysystem\Adapter\Ftp as FtpAdapter;
 use League\Flysystem\Adapter\NullAdapter;
 
-// Dependency from `league/flysystem-aws-s3-v3`
+// From 'league/flysystem-aws-s3-v3'
 use League\Flysystem\AwsS3v3\AwsS3Adapter;
 
-// Dependency from `league/flysystem-dropbox`
+// From 'league/flysystem-dropbox'
 use League\Flysystem\Dropbox\DropboxAdapter;
 
-// Dependency from `league/flysystem-sftp`
+// From 'league/flysystem-sftp'
 use League\Flysystem\Sftp\SftpAdapter;
 
-// Dependency from `league/flysystem-memory`
+// From 'league/flysystem-memory'
 use League\Flysystem\Memory\MemoryAdapter;
 
-// Local namespace depdency
+// From 'charcoal-app'
 use Charcoal\App\Config\FilesystemConfig;
 
 /**

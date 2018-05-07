@@ -3,22 +3,23 @@
 namespace Charcoal\Tests\App\Action;
 
 // From PSR-7
-use \Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\RequestInterface;
 
 // From Slim
-use \Slim\Http\Response;
+use Slim\Http\Response;
 
 // From Pimple
-use \Pimple\Container;
+use Pimple\Container;
 
 // From 'charcoal-app'
-use \Charcoal\App\Action\AbstractAction;
-use \Charcoal\Tests\App\ContainerProvider;
+use Charcoal\App\Action\AbstractAction;
+use Charcoal\Tests\App\ContainerProvider;
+use Charcoal\Tests\AbstractTestCase;
 
 /**
  *
  */
-class AbstractActionTest extends \PHPUnit_Framework_TestCase
+class AbstractActionTest extends AbstractTestCase
 {
     /**
      * Tested Class.
@@ -69,7 +70,7 @@ class AbstractActionTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($ret, $this->obj);
         $this->assertEquals('redirect', $this->obj->mode());
 
-        $this->setExpectedException('\InvalidArgumentException');
+        $this->expectException('\InvalidArgumentException');
         $this->obj->setMode(false);
     }
 
@@ -94,7 +95,7 @@ class AbstractActionTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals('', $this->obj->setSuccessUrl(null)->successUrl());
 
-        $this->setExpectedException('\InvalidArgumentException');
+        $this->expectException('\InvalidArgumentException');
         $this->obj->setSuccessUrl([]);
     }
 
@@ -107,7 +108,7 @@ class AbstractActionTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals('', $this->obj->setFailureUrl(null)->successUrl());
 
-        $this->setExpectedException('\InvalidArgumentException');
+        $this->expectException('\InvalidArgumentException');
         $this->obj->setFailureUrl([]);
     }
 

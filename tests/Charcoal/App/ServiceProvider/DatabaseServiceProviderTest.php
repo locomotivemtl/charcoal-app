@@ -2,14 +2,15 @@
 
 namespace Charcoal\Tests\App\ServiceProvider;
 
-use \Pimple\Container;
+use Pimple\Container;
 
-use \Charcoal\App\ServiceProvider\DatabaseServiceProvider;
+use Charcoal\App\ServiceProvider\DatabaseServiceProvider;
+use Charcoal\Tests\AbstractTestCase;
 
 /**
  *
  */
-class DatabaseServiceProviderTest extends \PHPUnit_Framework_TestCase
+class DatabaseServiceProviderTest extends AbstractTestCase
 {
     public function testProvider()
     {

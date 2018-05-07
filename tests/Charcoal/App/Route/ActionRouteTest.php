@@ -3,13 +3,14 @@
 namespace Charcoal\Tests\App\Route;
 
 // From Pimple
-use \Pimple\Container;
+use Pimple\Container;
 
 // From 'charcoal-app'
-use \Charcoal\App\Route\ActionRoute;
-use \Charcoal\Tests\App\ContainerProvider;
+use Charcoal\App\Route\ActionRoute;
+use Charcoal\Tests\App\ContainerProvider;
+use Charcoal\Tests\AbstractTestCase;
 
-class ActionRouteTest extends \PHPUnit_Framework_TestCase
+class ActionRouteTest extends AbstractTestCase
 {
     /**
      * Tested Class.

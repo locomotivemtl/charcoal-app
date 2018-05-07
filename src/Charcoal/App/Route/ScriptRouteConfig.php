@@ -2,7 +2,7 @@
 
 namespace Charcoal\App\Route;
 
-// Local namespace dependencies
+// From 'charcoal-app'
 use Charcoal\App\Route\RouteConfig;
 
 /**

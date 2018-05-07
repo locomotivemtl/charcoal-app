@@ -2,9 +2,10 @@
 
 namespace Charcoal\Tests\App\Route;
 
-use \Charcoal\App\Route\ActionRouteConfig;
+use Charcoal\App\Route\ActionRouteConfig;
+use Charcoal\Tests\AbstractTestCase;
 
-class ActionRouteConfigTest extends \PHPUnit_Framework_TestCase
+class ActionRouteConfigTest extends AbstractTestCase
 {
     public $obj;
 

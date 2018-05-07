@@ -4,11 +4,11 @@ namespace Charcoal\App\Route;
 
 use InvalidArgumentException;
 
-// Dependency from 'charcoal-app'
-use Charcoal\App\App;
-
-// Dependency from 'charcoal-config'
+// From 'charcoal-config'
 use Charcoal\Config\AbstractConfig;
+
+// From 'charcoal-app'
+use Charcoal\App\App;
 
 /**
  * Base "Route" configuration.

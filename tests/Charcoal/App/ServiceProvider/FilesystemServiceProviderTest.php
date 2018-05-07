@@ -22,11 +22,12 @@ use League\Flysystem\Sftp\SftpAdapter;
 
 use Charcoal\App\Config\FilesystemConfig;
 use Charcoal\App\ServiceProvider\FilesystemServiceProvider;
+use Charcoal\Tests\AbstractTestCase;
 
 /**
  *
  */
-class FilesystemServiceProviderTest extends \PHPUnit_Framework_TestCase
+class FilesystemServiceProviderTest extends AbstractTestCase
 {
     private $obj;
 
@@ -208,7 +209,7 @@ class FilesystemServiceProviderTest extends \PHPUnit_Framework_TestCase
 
     public function testConfigWithoutTypeThrowsException()
     {
-        $this->setExpectedException('\Exception');
+        $this->expectException('\Exception');
         $container = $this->getContainer([
             'config' => [
                 'filesystem' => [

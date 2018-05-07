@@ -2,22 +2,22 @@
 
 namespace Charcoal\App\Template;
 
-// PSR-3 (logger) dependencies
-use \Psr\Log\LoggerAwareInterface;
-use \Psr\Log\LoggerAwareTrait;
+// From PSR-3
+use Psr\Log\LoggerAwareInterface;
+use Psr\Log\LoggerAwareTrait;
 
-// Dependencies from `Pimple`
-use \Pimple\Container;
+// From Pimple
+use Pimple\Container;
 
-// Module `charcoal-config` dependencies
-use \Charcoal\Config\AbstractEntity;
+// From 'charcoal-config'
+use Charcoal\Config\AbstractEntity;
 
-// Module `charcoal-view` dependencies
-use \Charcoal\View\ViewableInterface;
-use \Charcoal\View\ViewableTrait;
+// From 'charcoal-view'
+use Charcoal\View\ViewableInterface;
+use Charcoal\View\ViewableTrait;
 
-// Local namespace dependencies
-use \Charcoal\App\Template\WidgetInterface;
+// From 'charcoal-app'
+use Charcoal\App\Template\WidgetInterface;
 
 /**
  *

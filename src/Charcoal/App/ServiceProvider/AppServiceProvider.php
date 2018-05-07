@@ -30,7 +30,7 @@ use Charcoal\Translator\ServiceProvider\TranslatorServiceProvider;
 // From 'charcoal-view'
 use Charcoal\View\ViewServiceProvider;
 
-// Intra-module (`charcoal-app`) dependencies
+// From 'charcoal-app'
 use Charcoal\App\AppConfig;
 
 use Charcoal\App\Action\ActionInterface;

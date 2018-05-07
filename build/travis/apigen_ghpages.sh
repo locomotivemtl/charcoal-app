@@ -1,4 +1,4 @@
-# From https://github.com/ApiGen/ApiGen/wiki/Generate-API-to-Github-pages-via-Travis
+# From https://github.com/ApiGen/ApiGen/wiki/Generate-API-to-GitHub-pages-via-Travis
 
 # echo "TRAVIS_REPO_SLUG: $TRAVIS_REPO_SLUG"
 # echo "TRAVIS_PHP_VERSION: $TRAVIS_PHP_VERSION"
@@ -8,7 +8,7 @@
 
 if [ "$TRAVIS_REPO_SLUG" == "locomotivemtl/charcoal-app" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_PHP_VERSION" == "7.1" ]; then
 
-    echo -e "Publishing ApiGen to Github Pages...\n";
+    echo -e "Publishing ApiGen to GitHub Pages...\n";
 
     pwd
 

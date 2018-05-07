@@ -1,7 +1,7 @@
 {
-    "name": "locomotivemtl/charcoal-app",
     "type": "library",
-    "description": "Charcoal App, based on Slim 3",
+    "name": "locomotivemtl/charcoal-app",
+    "description": "Charcoal application, based on Slim 3",
     "keywords": [ "charcoal", "framework", "slim", "cms" ],
     "homepage": "https://charcoal.locomotive.ca",
     "license": "MIT",
@@ -23,7 +23,7 @@
         }
     },
     "require": {
-        "php": ">=5.6.0",
+        "php": ">=5.6.0 || >=7.0",
         "psr/log": "^1.0",
         "psr/http-message": "^1.0",
         "slim/slim": "~3.7",
@@ -37,15 +37,15 @@
         "locomotivemtl/charcoal-translator": "~0.3"
     },
     "require-dev": {
-        "phpunit/phpunit": "^5.7",
-        "mockery/mockery": "^1.0",
-        "squizlabs/php_codesniffer": "^2.4",
-        "php-coveralls/php-coveralls": "^1.0",
         "league/flysystem-aws-s3-v3": "^1.0",
         "league/flysystem-sftp": "^1.0",
         "league/flysystem-memory": "^1.0",
         "league/flysystem-dropbox": "^1.0",
+        "mockery/mockery": "^1.0",
         "mustache/mustache": "^2.11",
+        "phpunit/phpunit": "^5.7 || ^6.5",
+        "squizlabs/php_codesniffer": "^3.0",
+        "php-coveralls/php-coveralls": "^2.0",
         "tedivm/stash": "~0.14"
     },
     "autoload": {
@@ -69,8 +69,8 @@
             "@phpunit"
         ],
         "phplint": "find {src,tests} -name '*.php' -print0 | xargs -0 -n1 -P8 php -l | grep -v '^No syntax errors detected'; test $? -eq 1",
-        "phpunit": "php vendor/bin/phpunit --configuration tests/phpunit.xml --coverage-text",
-        "phpcs": "php vendor/bin/phpcs --config-set ignore_warnings_on_exit 1;php vendor/bin/phpcs -ps --colors --standard=phpcs.xml src/",
-        "phpcbf": "php vendor/bin/phpcbf -ps --colors --standard=phpcs.xml src/ tests/"
+        "phpcs": "php vendor/bin/phpcs -ps --colors src/",
+        "phpcbf": "php vendor/bin/phpcbf -ps --colors src/",
+        "phpunit": "php vendor/bin/phpunit --coverage-text"
     }
 }

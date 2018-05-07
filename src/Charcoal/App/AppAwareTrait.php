@@ -2,6 +2,7 @@
 
 namespace Charcoal\App;
 
+// From 'charcoal-app'
 use Charcoal\App\App;
 
 /**

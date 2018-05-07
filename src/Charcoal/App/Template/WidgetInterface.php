@@ -2,8 +2,8 @@
 
 namespace Charcoal\App\Template;
 
-// Dependencies from `Pimple`
-use \Pimple\Container;
+// From Pimple
+use Pimple\Container;
 
 /**
  *

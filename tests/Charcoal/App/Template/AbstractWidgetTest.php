@@ -3,22 +3,23 @@
 namespace Charcoal\Tests\App\Template;
 
 // From PSR-7
-use \Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\RequestInterface;
 
 // From Slim
-use \Slim\Http\Response;
+use Slim\Http\Response;
 
 // From Pimple
-use \Pimple\Container;
+use Pimple\Container;
 
 // From 'charcoal-app'
-use \Charcoal\App\Template\AbstractWidget;
-use \Charcoal\Tests\App\ContainerProvider;
+use Charcoal\App\Template\AbstractWidget;
+use Charcoal\Tests\AbstractTestCase;
+use Charcoal\Tests\App\ContainerProvider;
 
 /**
  *
  */
-class AbstractWidgetTest extends \PHPUnit_Framework_TestCase
+class AbstractWidgetTest extends AbstractTestCase
 {
     /**
      * Tested Class.

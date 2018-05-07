@@ -2,12 +2,13 @@
 
 namespace Charcoal\Tests\App\Config;
 
-use \Charcoal\App\Config\FilesystemConfig;
+use Charcoal\App\Config\FilesystemConfig;
+use Charcoal\Tests\AbstractTestCase;
 
 /**
  *
  */
-class FilesystemConfigTest extends \PHPUnit_Framework_TestCase
+class FilesystemConfigTest extends AbstractTestCase
 {
     public $obj;
 

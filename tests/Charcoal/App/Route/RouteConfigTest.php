@@ -2,9 +2,10 @@
 
 namespace Charcoal\Tests\App\Route;
 
-use \Charcoal\App\Route\RouteConfig;
+use Charcoal\App\Route\RouteConfig;
+use Charcoal\Tests\AbstractTestCase;
 
-class RouteConfigTest extends \PHPUnit_Framework_TestCase
+class RouteConfigTest extends AbstractTestCase
 {
     public $obj;
 
@@ -21,7 +22,7 @@ class RouteConfigTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals('foobar', $this->obj->ident());
 
-        $this->setExpectedException('\InvalidArgumentException');
+        $this->expectException('\InvalidArgumentException');
         $this->obj->setIdent(false);
     }
 
@@ -33,7 +34,7 @@ class RouteConfigTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals('foobar', $this->obj->route());
 
-        $this->setExpectedException('\InvalidArgumentException');
+        $this->expectException('\InvalidArgumentException');
         $this->obj->setRoute(false);
     }
 
@@ -53,7 +54,7 @@ class RouteConfigTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(['foo', 'bar'], $this->obj->groups());
 
-        $this->setExpectedException('\InvalidArgumentException');
+        $this->expectException('\InvalidArgumentException');
         $this->obj->addGroup(false);
     }
 
@@ -65,7 +66,7 @@ class RouteConfigTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals('foobar', $this->obj->controller());
 
-        $this->setExpectedException('\InvalidArgumentException');
+        $this->expectException('\InvalidArgumentException');
         $this->obj->setController(false);
     }
 
@@ -86,13 +87,13 @@ class RouteConfigTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(['GET', 'POST'], $this->obj->methods());
 
-        $this->setExpectedException('\InvalidArgumentException');
+        $this->expectException('\InvalidArgumentException');
         $this->obj->addMethod([]);
     }
 
     public function testAddMethodInvalidMethodThrowsException()
     {
-        $this->setExpectedException('\InvalidArgumentException');
+        $this->expectException('\InvalidArgumentException');
         $this->obj->addMethod('invalid');
     }
 }

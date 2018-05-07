@@ -1,18 +1,16 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <ruleset name="Charcoal">
-<!-- PHP CodeSniffer ruleset -->
-
     <description>Charcoal Coding Standard</description>
+
     <arg name="encoding" value="utf-8" />
-    <arg name="tab-width" value="4" />
 
-<!-- Include the whole PSR-1 standard -->
+    <config name="show_progress" value="1" />
+    <config name="ignore_warnings_on_exit" value="1" />
 
-    <rule ref="PSR1"/>
+    <exclude-pattern>tests/bootstrap.php</exclude-pattern>
+    <exclude-pattern>tests/*/Fixture/*</exclude-pattern>
 
-<!-- Include the whole PSR-2 standard -->
-
-    <rule ref="PSR2"/>
+    <rule ref="PSR2" />
 
 <!-- Array Sniffs -->
 
@@ -78,6 +76,9 @@
     <!--<rule ref="Squiz.Commenting.BlockComment" />-->
     <!-- Class comment blocks -->
     <rule ref="Squiz.Commenting.ClassComment" />
+    <rule ref="Squiz.Commenting.ClassComment.TagNotAllowed">
+        <exclude-pattern>*/tests/Charcoal/*</exclude-pattern>
+    </rule>
     <!-- Tests that the stars in a doc comment align correctly. -->
     <rule ref="Squiz.Commenting.DocCommentAlignment" />
     <!-- Ensures CATCH clause must at least have a comment -->
@@ -114,7 +115,7 @@
     <!-- Verifies that there is a space between each condition of FOR loops -->
     <rule ref="Squiz.ControlStructures.ForLoopDeclaration" />
     <!-- Tests the spacing of shorthand IF statements -->
-    <!-- <rule ref="Squiz.ControlStructures.InlineIfDeclaration" />-->
+    <!-- <rule ref="Squiz.ControlStructures.InlineIfDeclaration" /> -->
     <!-- Ensures all control structure keywords are lowercase -->
     <rule ref="Squiz.ControlStructures.LowercaseDeclaration" />
     <!--<rule ref="Squiz.ControlStructures.SwitchDeclaration" />-->
@@ -266,11 +267,7 @@
     <rule ref="Squiz.PHP.DisallowObEndFlush" />
     <rule ref="Squiz.PHP.DisallowSizeFunctionsInLoops" />
     <!-- @todo Doc me -->
-    <rule ref="Squiz.PHP.DiscouragedFunctions">
-        <properties>
-            <property name="forbiddenFunctions" type="array" value="print_r=>null,var_dump=>null,var_export=>null" />
-        </properties>
-    </rule>
+    <rule ref="Squiz.PHP.DiscouragedFunctions" />
     <rule ref="Squiz.PHP.EmbeddedPhp" />
     <rule ref="Squiz.PHP.EmbeddedPhp.Indent">
         <severity>0</severity>

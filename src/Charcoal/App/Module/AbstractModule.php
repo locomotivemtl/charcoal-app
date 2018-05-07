@@ -4,15 +4,14 @@ namespace Charcoal\App\Module;
 
 use InvalidArgumentException;
 
-
-// Dependencies from PSR-3 (Logger)
+// From PSR-3
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
 
-// Dependency from 'charcoal-config'
+// From 'charcoal-config'
 use Charcoal\Config\ConfigurableInterface;
 
-// Intra-module ('charcoal-app') dependencies
+// From 'charcoal-app'
 use Charcoal\App\App;
 use Charcoal\App\AppAwareTrait;
 use Charcoal\App\Route\RouteManager;

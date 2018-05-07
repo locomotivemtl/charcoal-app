@@ -14,7 +14,7 @@ trait ServerTestTrait
     /**
      * @var mixed The process identifier of the built-in PHP server.
      */
-    static private $serverProcess    = null;
+    static private $serverProcess = null;
 
     /**
      * @var string The hostname for the built-in PHP server.

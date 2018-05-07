@@ -2,12 +2,13 @@
 
 namespace Charcoal\Tests\App\Config;
 
-use \Charcoal\App\Config\DatabaseConfig;
+use Charcoal\App\Config\DatabaseConfig;
+use Charcoal\Tests\AbstractTestCase;
 
 /**
  *
  */
-class DatabaseConfigTest extends \PHPUnit_Framework_TestCase
+class DatabaseConfigTest extends AbstractTestCase
 {
     public $obj;
 
@@ -31,7 +32,7 @@ class DatabaseConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($ret, $this->obj);
         $this->assertEquals('sqlite', $this->obj->type());
 
-        $this->setExpectedException('\InvalidArgumentException');
+        $this->expectException('\InvalidArgumentException');
         $this->obj->setType([]);
     }
 
@@ -41,7 +42,7 @@ class DatabaseConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($ret, $this->obj);
         $this->assertEquals('foo', $this->obj->hostname());
 
-        $this->setExpectedException('\InvalidArgumentException');
+        $this->expectException('\InvalidArgumentException');
         $this->obj->setHostname([]);
     }
 
@@ -51,7 +52,7 @@ class DatabaseConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($ret, $this->obj);
         $this->assertEquals('foobar', $this->obj->username());
 
-        $this->setExpectedException('\InvalidArgumentException');
+        $this->expectException('\InvalidArgumentException');
         $this->obj->setUsername([]);
     }
 
@@ -61,7 +62,7 @@ class DatabaseConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($ret, $this->obj);
         $this->assertEquals('baz', $this->obj->password());
 
-        $this->setExpectedException('\InvalidArgumentException');
+        $this->expectException('\InvalidArgumentException');
         $this->obj->setPassword([]);
     }
 
@@ -71,7 +72,7 @@ class DatabaseConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($ret, $this->obj);
         $this->assertEquals('barbaz', $this->obj->database());
 
-        $this->setExpectedException('\InvalidArgumentException');
+        $this->expectException('\InvalidArgumentException');
         $this->obj->setDatabase([]);
     }
 

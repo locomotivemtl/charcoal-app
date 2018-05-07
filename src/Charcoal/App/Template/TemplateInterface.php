@@ -2,11 +2,11 @@
 
 namespace Charcoal\App\Template;
 
-// PSR-7 (HTTP Messaging) dependencies
-use \Psr\Http\Message\RequestInterface;
+// From PSR-7
+use Psr\Http\Message\RequestInterface;
 
-// Dependencies from `Pimple`
-use \Pimple\Container;
+// From Pimple
+use Pimple\Container;
 
 /**
  *

@@ -3,13 +3,14 @@
 namespace Charcoal\Tests\App\Route;
 
 // From 'charcoal-app'
-use \Charcoal\App\App;
-use \Charcoal\App\Route\RouteManager;
+use Charcoal\App\App;
+use Charcoal\App\Route\RouteManager;
+use Charcoal\Tests\AbstractTestCase;
 
 /**
  *
  */
-class RouteManagerTest extends \PHPUnit_Framework_TestCase
+class RouteManagerTest extends AbstractTestCase
 {
     /**
      * Tested Class.

@@ -11,7 +11,6 @@ use Pimple\ServiceProviderInterface;
 // From 'charcoal-factory'
 use Charcoal\Factory\GenericFactory as Factory;
 
-
 // From 'charcoal-app'
 use Charcoal\App\AppConfig;
 use Charcoal\App\ServiceProvider\AppServiceProvider;

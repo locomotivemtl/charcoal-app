@@ -8,11 +8,12 @@ use InvalidArgumentException;
 
 // From 'charcoal-app'
 use Charcoal\App\Config\LoggerConfig;
+use Charcoal\Tests\AbstractTestCase;
 
 /**
  *
  */
-class LoggerConfigTest extends \PHPUnit_Framework_TestCase
+class LoggerConfigTest extends AbstractTestCase
 {
     public $obj;
 
@@ -60,7 +61,7 @@ class LoggerConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertArraySubset([ 'errlog' => [ 'type' => 'error-log' ] ], $handlers);
         $this->assertContains([ 'type' => 'mail' ], $handlers);
 
-        $this->setExpectedException(InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $this->obj->setHandlers([ [ 'foo' => 'baz' ] ]);
     }
 
@@ -75,7 +76,7 @@ class LoggerConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertArraySubset([ 'web' => [ 'type' => 'web' ] ], $processors);
         $this->assertContains([ 'type' => 'process-id' ], $processors);
 
-        $this->setExpectedException(InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $this->obj->setProcessors([ [ 'foo' => 'baz' ] ]);
     }
 
@@ -85,7 +86,7 @@ class LoggerConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($ret, $this->obj);
         $this->assertEquals('foo', $this->obj->channel());
 
-        $this->setExpectedException(InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $this->obj->setChannel(false);
     }
 }

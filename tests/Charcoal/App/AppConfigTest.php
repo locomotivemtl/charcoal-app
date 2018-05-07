@@ -2,9 +2,11 @@
 
 namespace Charcoal\Tests\App;
 
-use \Charcoal\App\AppConfig;
+// From 'charcoal-app'
+use Charcoal\App\AppConfig;
+use Charcoal\Tests\AbstractTestCase;
 
-class AppConfigTest extends \PHPUnit_Framework_TestCase
+class AppConfigTest extends AbstractTestCase
 {
     public $obj;
 

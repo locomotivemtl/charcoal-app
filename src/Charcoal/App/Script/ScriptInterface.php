@@ -2,12 +2,12 @@
 
 namespace Charcoal\App\Script;
 
-// PSR-7 (http messaging) dependencies
-use \Psr\Http\Message\RequestInterface;
-use \Psr\Http\Message\ResponseInterface;
+// From PSR-7
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
 
-// Dependencies from `Pimple`
-use \Pimple\Container;
+// From Pimple
+use Pimple\Container;
 
 /**
  * Script are actions called from the CLI.

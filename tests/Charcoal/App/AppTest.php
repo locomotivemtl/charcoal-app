@@ -9,11 +9,12 @@ use Psr\Http\Message\ResponseInterface;
 use Charcoal\App\App;
 use Charcoal\App\AppConfig;
 use Charcoal\App\AppContainer;
+use Charcoal\Tests\AbstractTestCase;
 
 /**
  *
  */
-class AppTest extends \PHPUnit_Framework_TestCase
+class AppTest extends AbstractTestCase
 {
     /**
      * Tested Class.
