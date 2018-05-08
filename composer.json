@@ -33,8 +33,8 @@
         "locomotivemtl/charcoal-cache": "~0.1",
         "locomotivemtl/charcoal-config": "~0.8",
         "locomotivemtl/charcoal-factory": "~0.4",
-        "locomotivemtl/charcoal-view": "~0.3",
-        "locomotivemtl/charcoal-translator": "~0.3"
+        "locomotivemtl/charcoal-translator": "~0.3",
+        "locomotivemtl/charcoal-view": "~0.3"
     },
     "require-dev": {
         "league/flysystem-aws-s3-v3": "^1.0",
