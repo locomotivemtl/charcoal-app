@@ -16,6 +16,10 @@ matrix:
     allow_failures:
         - php: nightly
 
+cache:
+    directories:
+        - $HOME/.composer/cache
+
 before_install:
     - composer self-update --quiet
 
