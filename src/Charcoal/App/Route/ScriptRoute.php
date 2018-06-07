@@ -33,13 +33,7 @@ class ScriptRoute implements
      *
      * ### Dependencies
      *
-     * **Required**
-     *
      * - `config` — ScriptRouteConfig
-     *
-     * **Optional**
-     *
-     * - `logger` — PSR-3 Logger
      *
      * @param array $data Dependencies.
      */
@@ -49,7 +43,7 @@ class ScriptRoute implements
     }
 
     /**
-     * ConfigurableTrait > create_config()
+     * ConfigurableTrait > createConfig()
      *
      * @param mixed|null $data Optional config data.
      * @return ScriptRouteConfig
@@ -61,24 +55,14 @@ class ScriptRoute implements
 
     /**
      * @param Container         $container A dependencies container.
-     * @param RequestInterface  $request   A PSR-7 compatible Request instance.
+     * @param RequestInterface   $request   A PSR-7 compatible Request instance.
      * @param ResponseInterface $response  A PSR-7 compatible Response instance.
      * @return ResponseInterface
      */
     public function __invoke(Container $container, RequestInterface $request, ResponseInterface $response)
     {
         $config = $this->config();
-
-        $scriptController = $config['controller'];
-
-        $script = $container['script/factory']->create($scriptController);
-
-        $scriptData = $config['scriptData'];
-        if (empty($scriptData) === false) {
-            $script->setData($scriptData);
-        }
-
-        // Run (invoke) script.
+        $script = $container['script/factory']->create($config['controller']);
         return $script($request, $response);
     }
 }
