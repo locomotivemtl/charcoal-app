@@ -1,11 +1,18 @@
 #!/usr/bin/env php
 <?php
 
-use \Charcoal\App\App;
-use \Charcoal\App\AppConfig;
-use \Charcoal\App\AppContainer;
+// From PSR-7
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
 
-use \Slim\Http\Environment as SlimEnvironment;
+
+use Charcoal\App\App;
+use Charcoal\App\AppConfig;
+use Charcoal\App\AppContainer;
+
+use Charcoal\App\Route\ScriptRoute;
+
+use Slim\Http\Environment as SlimEnvironment;
 
 $autoloaderPath = [
     __DIR__.'/../../../../vendor/autoload.php',
@@ -42,7 +49,6 @@ chdir($config['public_path']);
 
 // Create container and configure it (with charcoal-config)
 $container = new AppContainer([
-    'settings' => [],
     'config'   => $config
 ]);
 
@@ -78,7 +84,22 @@ $container['environment'] = function($container) use ($path) {
     ]);
 };
 
+
 // Charcoal / Slim is the main app
 $app = App::instance($container);
+
+$app->get(
+    '{catchall:.*}',
+    function (
+        RequestInterface $request,
+        ResponseInterface $response,
+        array $args
+    ) use ($app) {
+        $scriptController = explode(' ', $args['catchall']);
+        $scriptController = ltrim($scriptController[0], '/');
+        $script = $this['script/factory']->create($scriptController);
+        return $script($request, $response);
+    }
+);
 
 $app->run();
