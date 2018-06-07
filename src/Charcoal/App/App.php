@@ -2,16 +2,11 @@
 
 namespace Charcoal\App;
 
-use Exception;
 use LogicException;
 use RuntimeException;
 
 // From Slim
 use Slim\App as SlimApp;
-
-// From PSR-3
-use Psr\Log\LoggerAwareInterface;
-use Psr\Log\LoggerAwareTrait;
 
 // From PSR-7
 use Psr\Http\Message\RequestInterface;
@@ -141,15 +136,22 @@ class App extends SlimApp implements
         // Setup modules
         $this->setupModules();
 
-        // Setup routable
-        $this->setupRoutables();
+        if (PHP_SAPI !== 'cli') {
+
+            // Setup routable
+            $this->setupRoutables();
+
+
+        }
 
         // Setup middlewares
         $this->setupMiddlewares();
+
+
     }
 
     /**
-     * Retrieve the application's route manager.
+     * Retrieve (create, if necessary) the application's route manager.
      *
      * @return RouteManager
      */
