@@ -137,17 +137,12 @@ class App extends SlimApp implements
         $this->setupModules();
 
         if (PHP_SAPI !== 'cli') {
-
             // Setup routable
             $this->setupRoutables();
-
-
         }
 
         // Setup middlewares
         $this->setupMiddlewares();
-
-
     }
 
     /**

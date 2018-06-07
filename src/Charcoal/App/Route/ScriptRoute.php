@@ -55,7 +55,7 @@ class ScriptRoute implements
 
     /**
      * @param Container         $container A dependencies container.
-     * @param RequestInterface   $request   A PSR-7 compatible Request instance.
+     * @param RequestInterface  $request   A PSR-7 compatible Request instance.
      * @param ResponseInterface $response  A PSR-7 compatible Response instance.
      * @return ResponseInterface
      */
