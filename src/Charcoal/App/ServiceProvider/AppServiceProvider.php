@@ -3,6 +3,7 @@
 namespace Charcoal\App\ServiceProvider;
 
 // From PSR-7
+use Charcoal\Factory\GenericResolver;
 use Psr\Http\Message\UriInterface;
 
 // From Pimple
@@ -443,6 +444,33 @@ class AppServiceProvider implements ServiceProviderInterface
                     'logger' => $container['logger']
                 ]]
             ]);
+        };
+
+        /**
+         * The modules as PHP classes.
+         *
+         * @param Container $container A container instance.
+         * @return array
+         */
+        $container['module/classes'] = function (Container $container) {
+            $appConfig = $container['config'];
+
+            $modules = $appConfig['modules'];
+            $modules = array_keys($modules);
+
+            $moduleResolver = new GenericResolver([
+                'suffix' => 'Module'
+            ]);
+
+            $modules = array_map(function ($module) use ($moduleResolver) {
+                return $moduleResolver->resolve($module);
+            }, $modules);
+
+            array_filter($modules, function ($class) {
+                return class_exists($class);
+            });
+
+            return $modules;
         };
     }
 
