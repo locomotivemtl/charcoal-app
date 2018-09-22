@@ -88,18 +88,6 @@ $container['environment'] = function($container) use ($path) {
 // Charcoal / Slim is the main app
 $app = App::instance($container);
 
-$app->get(
-    '{catchall:.*}',
-    function (
-        RequestInterface $request,
-        ResponseInterface $response,
-        array $args
-    ) use ($app) {
-        $scriptController = explode(' ', $args['catchall']);
-        $scriptController = ltrim($scriptController[0], '/');
-        $script = $this['script/factory']->create($scriptController);
-        return $script($request, $response);
-    }
-);
+
 
 $app->run();

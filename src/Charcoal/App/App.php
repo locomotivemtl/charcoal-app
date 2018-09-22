@@ -139,6 +139,22 @@ class App extends SlimApp implements
         if (PHP_SAPI !== 'cli') {
             // Setup routable
             $this->setupRoutables();
+        } else {
+            // Setup script catchall.
+            $app = $this;
+            $this->get(
+                '{catchall:.*}',
+                function (
+                    RequestInterface $request,
+                    ResponseInterface $response,
+                    array $args
+                ) use ($app) {
+                    $scriptController = explode(' ', $args['catchall']);
+                    $scriptController = ltrim($scriptController[0], '/');
+                    $script = $this['script/factory']->create($scriptController);
+                    return $script($request, $response);
+                }
+            );
         }
 
         // Setup middlewares
