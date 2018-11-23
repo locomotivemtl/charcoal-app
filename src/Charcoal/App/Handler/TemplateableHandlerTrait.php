@@ -119,11 +119,7 @@ trait TemplateableHandlerTrait
     {
         $config = $this->config();
         if (empty($config['partial'])) {
-            if (defined('static::DEFAULT_PARTIAL')) {
-                $config['partial'] = static::DEFAULT_PARTIAL;
-            } else {
-                throw new RuntimeException('Missing template partial "handlerMessage" for %s', get_class($this));
-            }
+            $config['partial'] = static::DEFAULT_PARTIAL;
         }
     }
 

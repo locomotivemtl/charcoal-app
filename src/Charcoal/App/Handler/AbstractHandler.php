@@ -47,6 +47,8 @@ use Charcoal\App\Handler\TemplateableHandlerTrait;
 abstract class AbstractHandler implements
     HandlerInterface
 {
+    const DEFAULT_PARTIAL = null;
+
     use ConfigurableTrait;
     use LoggerAwareTrait;
     use TemplateableHandlerTrait;
