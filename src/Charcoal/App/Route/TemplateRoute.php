@@ -94,7 +94,9 @@ class TemplateRoute implements
             $uri = $this->parseRedirect((string)$redirect, $request);
 
             if ($uri) {
-                return $response->withRedirect($uri, $config['redirect_mode']);
+                return $response
+                    ->withHeader('Location', (string)$uri)
+                    ->withStatus($config['redirect_mode']);
             }
         }
 
