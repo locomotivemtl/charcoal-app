@@ -2,16 +2,11 @@
 
 namespace Charcoal\App;
 
-use Exception;
 use LogicException;
 use RuntimeException;
 
 // From Slim
 use Slim\App as SlimApp;
-
-// From PSR-3
-use Psr\Log\LoggerAwareInterface;
-use Psr\Log\LoggerAwareTrait;
 
 // From PSR-7
 use Psr\Http\Message\RequestInterface;
@@ -22,8 +17,6 @@ use Charcoal\Config\ConfigurableInterface;
 use Charcoal\Config\ConfigurableTrait;
 
 // From 'charcoal-app'
-use Charcoal\App\AppConfig;
-use Charcoal\App\AppContainer;
 use Charcoal\App\Route\RouteManager;
 use Charcoal\App\Route\RouteFactory;
 
@@ -53,7 +46,7 @@ class App extends SlimApp implements
     /**
      * Getter for creating/returning the unique instance of this class.
      *
-     * @param Container|array $container The application's settings.
+     * @param \Pimple\Container|\Slim\Container|array $container The application's settings.
      * @return self
      */
     public static function instance($container = [])
@@ -81,7 +74,7 @@ class App extends SlimApp implements
      * - `logger` — PSR-3 Logger
      *
      * @uses  SlimApp::__construct()
-     * @param ContainerInterface|array $container The application's settings.
+     * @param  \Pimple\Container|\Slim\Container|array $container The application's settings.
      * @throws LogicException If trying to create a new instance of a singleton.
      */
     public function __construct($container = [])
