@@ -80,7 +80,7 @@ class ActionRoute implements
 
         // Set headers if necessary.
         if (!empty($config['headers'])) {
-            foreach($config['headers'] as $name => $val) {
+            foreach ($config['headers'] as $name => $val) {
                 $response = $response->withHeader($name, $val);
             }
         }

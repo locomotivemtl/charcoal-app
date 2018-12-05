@@ -179,14 +179,14 @@ class RouteConfig extends AbstractConfig
 
     /**
      * Add custom headers
-     * 
+     *
      * @param array $headers The custom headers, in key=>val pairs.
      * @return self
      */
     public function setHeaders(array $headers)
     {
         $this->headers = [];
-        foreach($headers as $name => $val) {
+        foreach ($headers as $name => $val) {
             $this->addHeader($name, $val);
         }
         return $this;
@@ -194,7 +194,7 @@ class RouteConfig extends AbstractConfig
 
     /**
      * @param string $name The header name (ex: "Content-Type", "Cache-Control").
-     * @param string $val The header value.
+     * @param string $val  The header value.
      * @throws InvalidArgumentException If the header name or value is not a string.
      * @return $this
      */

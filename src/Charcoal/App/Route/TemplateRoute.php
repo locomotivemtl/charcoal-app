@@ -101,7 +101,7 @@ class TemplateRoute implements
         $response->getBody()->write($templateContent);
 
         if (!empty($config['headers'])) {
-            foreach($config['headers'] as $name => $val) {
+            foreach ($config['headers'] as $name => $val) {
                 $response = $response->withHeader($name, $val);
             }
         }
