@@ -2,6 +2,8 @@
 
 namespace Charcoal\Tests\App\Route;
 
+use InvalidArgumentException;
+
 use Charcoal\App\Route\RouteConfig;
 use Charcoal\Tests\AbstractTestCase;
 
@@ -22,7 +24,7 @@ class RouteConfigTest extends AbstractTestCase
 
         $this->assertEquals('foobar', $this->obj->ident());
 
-        $this->expectException('\InvalidArgumentException');
+        $this->expectException(InvalidArgumentException::class);
         $this->obj->setIdent(false);
     }
 
@@ -34,7 +36,7 @@ class RouteConfigTest extends AbstractTestCase
 
         $this->assertEquals('foobar', $this->obj->route());
 
-        $this->expectException('\InvalidArgumentException');
+        $this->expectException(InvalidArgumentException::class);
         $this->obj->setRoute(false);
     }
 
@@ -54,7 +56,7 @@ class RouteConfigTest extends AbstractTestCase
 
         $this->assertEquals(['foo', 'bar'], $this->obj->groups());
 
-        $this->expectException('\InvalidArgumentException');
+        $this->expectException(InvalidArgumentException::class);
         $this->obj->addGroup(false);
     }
 
@@ -66,7 +68,7 @@ class RouteConfigTest extends AbstractTestCase
 
         $this->assertEquals('foobar', $this->obj->controller());
 
-        $this->expectException('\InvalidArgumentException');
+        $this->expectException(InvalidArgumentException::class);
         $this->obj->setController(false);
     }
 
@@ -87,13 +89,43 @@ class RouteConfigTest extends AbstractTestCase
 
         $this->assertEquals(['GET', 'POST'], $this->obj->methods());
 
-        $this->expectException('\InvalidArgumentException');
+        $this->expectException(InvalidArgumentException::class);
         $this->obj->addMethod([]);
     }
 
     public function testAddMethodInvalidMethodThrowsException()
     {
-        $this->expectException('\InvalidArgumentException');
+        $this->expectException(InvalidArgumentException::class);
         $this->obj->addMethod('invalid');
+    }
+
+    public function testSetHeaders()
+    {
+        $this->assertEquals([], $this->obj->headers());
+        $ret =  $this->obj->setHeaders(['Foo'=>'Bar']);
+        $this->assertSame($ret, $this->obj);
+        $this->assertEquals(['Foo'=>'Bar'], $this->obj->headers());
+
+        $this->obj->setHeaders(['Bar'=>'Baz']);
+        $this->assertArrayNotHasKey('Foo', $this->obj->headers());
+    }
+
+    public function testAddHeader()
+    {
+        $this->assertEquals([], $this->obj->headers());
+        $ret = $this->obj->addHeader('Foo', 'Bar');
+
+        $this->assertSame($ret, $this->obj);
+        $this->assertEquals(['Foo'=>'Bar'], $this->obj->headers());
+
+        $this->obj->addHeader('Bar', 'Baz');
+        $this->assertEquals(['Foo'=>'Bar', 'Bar'=>'Baz'], $this->obj->headers());
+
+        $this->expectException(InvalidArgumentException::class);
+        $this->obj->addHeader(false, 'x');
+
+        $this->expectException(InvalidArgumentException::class);
+        $this->obj->addHeader('x', false);
+
     }
 }

@@ -7,9 +7,6 @@ use InvalidArgumentException;
 // From 'charcoal-config'
 use Charcoal\Config\AbstractConfig;
 
-// From 'charcoal-app'
-use Charcoal\App\App;
-
 /**
  * Base "Route" configuration.
  */
@@ -53,6 +50,13 @@ class RouteConfig extends AbstractConfig
     private $groups = [];
 
     /**
+     * Optional headers to set on response.
+     *
+     * @var array
+     */
+    private $headers = [];
+
+    /**
      * Retrieve the default route types.
      *
      * @return array
@@ -71,7 +75,7 @@ class RouteConfig extends AbstractConfig
      *
      * @param string $ident Route identifier.
      * @throws InvalidArgumentException If the identifier is not a string.
-     * @return RouteConfig Chainable
+     * @return self
      */
     public function setIdent($ident)
     {
@@ -101,7 +105,7 @@ class RouteConfig extends AbstractConfig
      *
      * @param string $pattern Route pattern.
      * @throws InvalidArgumentException If the pattern argument is not a string.
-     * @return RouteConfig Chainable
+     * @return self
      */
     public function setRoute($pattern)
     {
@@ -148,7 +152,7 @@ class RouteConfig extends AbstractConfig
      *
      * @param string $group The parent route group.
      * @throws InvalidArgumentException If the group is invalid.
-     * @return RouteConfig Chainable
+     * @return self
      */
     public function addGroup($group)
     {
@@ -174,11 +178,58 @@ class RouteConfig extends AbstractConfig
     }
 
     /**
+     * Add custom headers
+     * 
+     * @param array $headers The custom headers, in key=>val pairs.
+     * @return self
+     */
+    public function setHeaders(array $headers)
+    {
+        $this->headers = [];
+        foreach($headers as $name => $val) {
+            $this->addHeader($name, $val);
+        }
+        return $this;
+    }
+
+    /**
+     * @param string $name The header name (ex: "Content-Type", "Cache-Control").
+     * @param string $val The header value.
+     * @throws InvalidArgumentException If the header name or value is not a string.
+     * @return $this
+     */
+    public function addHeader($name, $val)
+    {
+        if (!is_string($name)) {
+            throw new InvalidArgumentException(
+                'Route header name must be a string.'
+            );
+        }
+        if (!is_string($val)) {
+            throw new InvalidArgumentException(
+                'Route header value must be a string.'
+            );
+        }
+        $this->headers[$name] = $val;
+        return $this;
+    }
+
+    /**
+     * Get custom route headers.
+     *
+     * @return array
+     */
+    public function headers()
+    {
+        return $this->headers;
+    }
+
+    /**
      * Set route view controller classname
      *
      * @param string $controller Route controller name.
      * @throws InvalidArgumentException If the route view controller is not a string.
-     * @return RouteConfig Chainable
+     * @return self
      */
     public function setController($controller)
     {
@@ -213,7 +264,7 @@ class RouteConfig extends AbstractConfig
      * Set route methods
      *
      * @param string[] $methods The route's supported HTTP methods.
-     * @return RouteConfig Chainable
+     * @return self
      */
     public function setMethods(array $methods)
     {
@@ -231,7 +282,7 @@ class RouteConfig extends AbstractConfig
      *
      * @param string $method The route's supported HTTP method.
      * @throws InvalidArgumentException If the HTTP method is invalid.
-     * @return RouteConfig Chainable
+     * @return self
      */
     public function addMethod($method)
     {

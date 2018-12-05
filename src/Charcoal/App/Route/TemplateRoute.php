@@ -2,8 +2,6 @@
 
 namespace Charcoal\App\Route;
 
-use InvalidArgumentException;
-
 // From PSR-7
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -19,10 +17,8 @@ use Charcoal\Config\ConfigurableInterface;
 use Charcoal\Config\ConfigurableTrait;
 
 // From 'charcoal-app'
-use Charcoal\App\AppInterface;
 use Charcoal\App\Route\RouteInterface;
 use Charcoal\App\Route\TemplateRouteConfig;
-use Charcoal\App\Template\TemplateInterface;
 
 /**
  * Template Route Handler.
@@ -103,6 +99,13 @@ class TemplateRoute implements
         $templateContent = $this->templateContent($container, $request);
 
         $response->getBody()->write($templateContent);
+
+        if (!empty($config['headers'])) {
+            foreach($config['headers'] as $name => $val) {
+                $response = $response->withHeader($name, $val);
+            }
+        }
+
 
         return $response;
     }

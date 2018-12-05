@@ -78,6 +78,13 @@ class ActionRoute implements
         // Set custom data from config.
         $action->setData($config['action_data']);
 
+        // Set headers if necessary.
+        if (!empty($config['headers'])) {
+            foreach($config['headers'] as $name => $val) {
+                $response = $response->withHeader($name, $val);
+            }
+        }
+
         // Run (invoke) action.
         return $action($request, $response);
     }
