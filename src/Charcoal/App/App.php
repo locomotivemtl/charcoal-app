@@ -134,15 +134,17 @@ class App extends SlimApp implements
         // Setup modules
         $this->setupModules();
 
-        // Setup routable
-        $this->setupRoutables();
+        // Setup routable (if not running CLI mode)
+        if (PHP_SAPI !== 'cli') {
+            $this->setupRoutables();
+        }
 
         // Setup middlewares
         $this->setupMiddlewares();
     }
 
     /**
-     * Retrieve the application's route manager.
+     * Retrieve (create, if necessary) the application's route manager.
      *
      * @return RouteManager
      */
