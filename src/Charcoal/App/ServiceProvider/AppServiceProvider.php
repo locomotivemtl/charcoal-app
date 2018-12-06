@@ -42,7 +42,6 @@ use Charcoal\App\Middleware\IpMiddleware;
 
 use Charcoal\App\Route\ActionRoute;
 use Charcoal\App\Route\RouteInterface;
-use Charcoal\App\Route\ScriptRoute;
 use Charcoal\App\Route\TemplateRoute;
 
 use Charcoal\App\Handler\Error;
@@ -58,6 +57,7 @@ use Charcoal\App\Template\WidgetBuilder;
 
 use Charcoal\App\ServiceProvider\DatabaseServiceProvider;
 use Charcoal\App\ServiceProvider\FilesystemServiceProvider;
+use Charcoal\App\ServiceProvider\ScriptServiceProvider;
 use Charcoal\App\ServiceProvider\LoggerServiceProvider;
 
 /**
@@ -91,6 +91,7 @@ class AppServiceProvider implements ServiceProviderInterface
         $container->register(new DatabaseServiceProvider());
         $container->register(new FilesystemServiceProvider());
         $container->register(new LoggerServiceProvider());
+        $container->register(new ScriptServiceProvider());
         $container->register(new TranslatorServiceProvider());
         $container->register(new ViewServiceProvider());
 
@@ -99,7 +100,6 @@ class AppServiceProvider implements ServiceProviderInterface
         $this->registerRouteServices($container);
         $this->registerMiddlewareServices($container);
         $this->registerRequestControllerServices($container);
-        $this->registerScriptServices($container);
         $this->registerModuleServices($container);
         $this->registerViewServices($container);
     }
@@ -273,9 +273,6 @@ class AppServiceProvider implements ServiceProviderInterface
         /** @var string The default route controller for actions. */
         $container['route/controller/action/class'] = ActionRoute::class;
 
-        /** @var string The default route controller for scripts. */
-        $container['route/controller/script/class'] = ScriptRoute::class;
-
         /** @var string The default route controller for templates. */
         $container['route/controller/template/class'] = TemplateRoute::class;
 
@@ -339,30 +336,6 @@ class AppServiceProvider implements ServiceProviderInterface
                     'container' => $container,
                     'logger'    => $container['logger'],
 
-                ]]
-            ]);
-        };
-
-        /**
-         * The Script Factory service is used to instanciate new scripts.
-         *
-         * - Scripts are `ScriptInterface` and must be suffixed with `Script`.
-         * - The container is passed to the created script constructor, which will call `setDependencies()`.
-         *
-         * @param Container $container A container instance.
-         * @return \Charcoal\Factory\FactoryInterface
-         */
-        $container['script/factory'] = function (Container $container) {
-            return new Factory([
-                'base_class'       => ScriptInterface::class,
-                'resolver_options' => [
-                    'suffix' => 'Script'
-                ],
-                'arguments' => [[
-                    'container'      => $container,
-                    'logger'         => $container['logger'],
-                    'climate'        => $container['climate'],
-                    'climate_reader' => $container['climate/reader']
                 ]]
             ]);
         };
@@ -471,30 +444,6 @@ class AppServiceProvider implements ServiceProviderInterface
             });
 
             return $modules;
-        };
-    }
-
-    /**
-     * @param Container $container A container instance.
-     * @return void
-     */
-    protected function registerScriptServices(Container $container)
-    {
-        /**
-         * @param Container $container A container instance.
-         * @return null|\League\CLImate\Util\Reader\ReaderInterface
-         */
-        $container['climate/reader'] = function (Container $container) {
-            return null;
-        };
-
-        /**
-         * @param Container $container A container instance.
-         * @return CLImate
-         */
-        $container['climate'] = function () {
-            $climate = new CLImate();
-            return $climate;
         };
     }
 
