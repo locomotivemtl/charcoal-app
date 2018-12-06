@@ -55,9 +55,9 @@ class TemplateRouteConfig extends RouteConfig
 
     /**
      * If using cache, the time-to-live, in seconds, of the cache. (0 = no limit).
-     * @var integer $cache_ttl
+     * @var integer $cacheTtl
      */
-    private $cache_ttl = 0;
+    private $cacheTtl = 0;
 
     /**
      * @param string|null $template The template identifier.
@@ -252,7 +252,7 @@ class TemplateRouteConfig extends RouteConfig
      */
     public function setCacheTtl($ttl)
     {
-        $this->cache_ttl = intval($ttl);
+        $this->cacheTtl = intval($ttl);
         return $this;
     }
 
@@ -261,6 +261,6 @@ class TemplateRouteConfig extends RouteConfig
      */
     public function cacheTtl()
     {
-        return $this->cache_ttl;
+        return $this->cacheTtl;
     }
 }
