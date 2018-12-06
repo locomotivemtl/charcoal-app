@@ -37,7 +37,6 @@ abstract class AbstractModule implements
      */
     protected $routeManager;
 
-
     /**
      * Return a new AbstractModule object.
      *
@@ -105,7 +104,7 @@ abstract class AbstractModule implements
     /**
      * Set up the module's routes, via a RouteManager
      *
-     * @return AbstractModule Chainable
+     * @return self
      */
     public function setupRoutes()
     {

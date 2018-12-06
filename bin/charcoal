@@ -1,11 +1,11 @@
 #!/usr/bin/env php
 <?php
 
-use \Charcoal\App\App;
-use \Charcoal\App\AppConfig;
-use \Charcoal\App\AppContainer;
+use Charcoal\App\App;
+use Charcoal\App\AppConfig;
+use Charcoal\App\AppContainer;
 
-use \Slim\Http\Environment as SlimEnvironment;
+use Slim\Http\Environment as SlimEnvironment;
 
 $autoloaderPath = [
     __DIR__.'/../../../../vendor/autoload.php',
@@ -42,7 +42,6 @@ chdir($config['public_path']);
 
 // Create container and configure it (with charcoal-config)
 $container = new AppContainer([
-    'settings' => [],
     'config'   => $config
 ]);
 
