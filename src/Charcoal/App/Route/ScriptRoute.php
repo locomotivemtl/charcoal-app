@@ -31,16 +31,6 @@ class ScriptRoute implements
     /**
      * Create new script route (CLI)
      *
-     * ### Dependencies
-     *
-     * **Required**
-     *
-     * - `config` — ScriptRouteConfig
-     *
-     * **Optional**
-     *
-     * - `logger` — PSR-3 Logger
-     *
      * @param array $data Dependencies.
      */
     public function __construct(array $data)
@@ -49,10 +39,9 @@ class ScriptRoute implements
     }
 
     /**
-     * ConfigurableTrait > create_config()
-     *
      * @param mixed|null $data Optional config data.
      * @return ScriptRouteConfig
+     * @see ConfigurableTrait::createConfig()
      */
     public function createConfig($data = null)
     {
@@ -68,17 +57,7 @@ class ScriptRoute implements
     public function __invoke(Container $container, RequestInterface $request, ResponseInterface $response)
     {
         $config = $this->config();
-
-        $scriptController = $config['controller'];
-
-        $script = $container['script/factory']->create($scriptController);
-
-        $scriptData = $config['scriptData'];
-        if (empty($scriptData) === false) {
-            $script->setData($scriptData);
-        }
-
-        // Run (invoke) script.
+        $script = $container['script/factory']->create($config['controller']);
         return $script($request, $response);
     }
 }
