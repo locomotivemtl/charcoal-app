@@ -2,6 +2,9 @@
 
 namespace Charcoal\Tests\App\Route;
 
+
+use Slim\Interfaces\RouteInterface;
+
 // From 'charcoal-app'
 use Charcoal\App\App;
 use Charcoal\App\Route\RouteManager;
@@ -36,6 +39,7 @@ class RouteManagerTest extends AbstractTestCase
             'config' => [],
             'app'    => $this->app
         ]);
+        $this->obj->setupRoutes();
     }
 
     public function testConstructor()
@@ -45,52 +49,73 @@ class RouteManagerTest extends AbstractTestCase
 
     public function testSetupTemplate()
     {
-        $obj = new RouteManager([
-            'config' => [
-                'templates' => [
-                    'foo', [
-                        'ident'  => 'test',
-                        'method' => ['GET', 'POST']
-                    ]
+        $config = [
+            'templates' => [
+                'foo' => [
+                    'ident'  => 'test',
+                    'method' => ['GET', 'POST']
                 ]
-            ],
+            ]
+        ];
+        $obj = new RouteManager([
+            'config' =>$config,
             'app' => $this->app
         ]);
-        $ret = $obj->setupRoutes();
-        //$this->assertInstanceOf('\Slim\Route', $ret);
+
+        $reflector = new \ReflectionObject($obj);
+        $method = $reflector->getMethod('setupTemplate');
+        $method->setAccessible(true);
+        foreach($config['templates'] as $routeIdent => $templateConfig) {
+            $ret = $method->invoke($obj, $routeIdent, $templateConfig);
+            $this->assertInstanceOf(RouteInterface::class, $ret);
+        }
     }
 
     public function testSetupAction()
     {
-        $obj = new RouteManager([
-            'config' => [
-                'actions' => [
-                    'foo', [
-                        'ident'  => 'test',
-                        'method' => ['GET', 'POST']
-                    ]
+        $config = [
+            'actions' => [
+                'foo' => [
+                    'ident'  => 'test',
+                    'method' => ['GET', 'POST']
                 ]
-            ],
+            ]
+        ];
+        $obj = new RouteManager([
+            'config' => $config,
             'app' => $this->app
         ]);
-        $ret = $obj->setupRoutes();
-        //$this->assertInstanceOf('\Slim\Route', $ret);
+
+        $reflector = new \ReflectionObject($obj);
+        $method = $reflector->getMethod('setupAction');
+        $method->setAccessible(true);
+        foreach($config['actions'] as $routeIdent => $actionConfig) {
+            $ret = $method->invoke($obj, $routeIdent, $actionConfig);
+            $this->assertInstanceOf(RouteInterface::class, $ret);
+        }
     }
 
     public function testSetupScript()
     {
-        $obj = new RouteManager([
-            'config' => [
-                'scripts' => [
-                    'foo', [
-                        'ident'  => 'test',
-                        'method' => ['GET', 'POST']
-                    ]
+        $config = [
+            'scripts' => [
+                'foo' => [
+                    'ident'  => 'test',
+                    'method' => ['GET', 'POST']
                 ]
-            ],
+            ]
+        ];
+        $obj = new RouteManager([
+            'config' => $config,
             'app' => $this->app
         ]);
-        //$ret = $obj->setupRoutes();
-        //$this->assertInstanceOf('\Slim\Route', $ret);
+
+        $reflector = new \ReflectionObject($obj);
+        $method = $reflector->getMethod('setupScript');
+        $method->setAccessible(true);
+        foreach($config['scripts'] as $routeIdent => $scriptConfig) {
+            $ret = $method->invoke($obj, $routeIdent, $scriptConfig);
+            $this->assertInstanceOf(RouteInterface::class, $ret);
+        }
     }
 }
