@@ -39,15 +39,12 @@ trait CronScriptTrait
     }
 
     /**
-     * @throws Exception If the lock file can not be opened.
+     * @throws Exception If the lock file can not be opened or the script is already locked.
      * @return boolean
      */
     public function startLock()
     {
-        $lockName = str_replace('\\', '-', get_class($this));
-        $lockName .= md5(__DIR__);
-        // Ensure uniqueness for project on server
-        $lockFile = sys_get_temp_dir().'/'.$lockName;
+        $lockFile = $this->getLockFileName();
         $this->lockFilePointer = fopen($lockFile, 'w');
         if (!$this->lockFilePointer) {
             throw new Exception(
@@ -72,5 +69,16 @@ trait CronScriptTrait
             flock($this->lockFilePointer, LOCK_UN);
             fclose($this->lockFilePointer);
         }
+    }
+
+    /**
+     * @return string
+     */
+    private function getLockFileName()
+    {
+        $lockName = str_replace('\\', '-', static::class);
+        $lockName .= md5(__DIR__);
+
+        return sys_get_temp_dir().DIRECTORY_SEPARATOR.$lockName;
     }
 }
