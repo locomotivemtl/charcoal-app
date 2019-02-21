@@ -2,6 +2,7 @@
 
 namespace Charcoal\App\Action;
 
+use Charcoal\App\Route\CallbackStream;
 use InvalidArgumentException;
 
 // From PSR-7
@@ -45,6 +46,7 @@ abstract class AbstractAction extends AbstractEntity implements
     const MODE_JSON = 'json';
     const MODE_XML = 'xml';
     const MODE_REDIRECT = 'redirect';
+    const MODE_EVENT_STREAM = 'event-stream';
     const DEFAULT_MODE = self::MODE_JSON;
 
     /**
@@ -117,6 +119,17 @@ abstract class AbstractAction extends AbstractEntity implements
                     ->withStatus(301)
                     ->withHeader('Location', $this->redirectUrl());
                 break;
+
+            case self::MODE_EVENT_STREAM:
+                $output = new CallbackStream(function () use ($request) {
+                    return $this->results();
+                });
+
+                $response = $response
+                    ->withHeader('Content-Type', 'text/event-stream')
+                    ->withHeader('Cache-Control', 'no-cache')
+                    ->withBody($output);
+                break;
         }
 
         return $response;
@@ -135,6 +148,7 @@ abstract class AbstractAction extends AbstractEntity implements
             );
         }
         $this->mode = $mode;
+
         return $this;
     }
 
@@ -154,6 +168,7 @@ abstract class AbstractAction extends AbstractEntity implements
     public function setSuccess($success)
     {
         $this->success = !!$success;
+
         return $this;
     }
 
@@ -174,6 +189,7 @@ abstract class AbstractAction extends AbstractEntity implements
     {
         if ($url === null) {
             $this->successUrl = null;
+
             return $this;
         }
         if (!is_string($url)) {
@@ -182,6 +198,7 @@ abstract class AbstractAction extends AbstractEntity implements
             );
         }
         $this->successUrl = $url;
+
         return $this;
     }
 
@@ -193,6 +210,7 @@ abstract class AbstractAction extends AbstractEntity implements
         if ($this->successUrl === null) {
             return '';
         }
+
         return $this->successUrl;
     }
 
@@ -205,6 +223,7 @@ abstract class AbstractAction extends AbstractEntity implements
     {
         if ($url === null) {
             $this->failureUrl = null;
+
             return $this;
         }
         if (!is_string($url)) {
@@ -213,6 +232,7 @@ abstract class AbstractAction extends AbstractEntity implements
             );
         }
         $this->failureUrl = $url;
+
         return $this;
     }
 
@@ -224,6 +244,7 @@ abstract class AbstractAction extends AbstractEntity implements
         if ($this->failureUrl === null) {
             return '';
         }
+
         return $this->failureUrl;
     }
 
@@ -246,7 +267,7 @@ abstract class AbstractAction extends AbstractEntity implements
      *
      * The raw array of results will be called from `__invoke()`.
      *
-     * @return array
+     * @return array|mixed
      */
     abstract public function results();
 
