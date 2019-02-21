@@ -2,7 +2,6 @@
 
 namespace Charcoal\App\Action;
 
-use Charcoal\App\Route\CallbackStream;
 use InvalidArgumentException;
 
 // From PSR-7
@@ -20,6 +19,7 @@ use Pimple\Container;
 use Charcoal\Config\AbstractEntity;
 
 // From 'charcoal-app'
+use Charcoal\App\Helper\CallbackStream;
 use Charcoal\App\Action\ActionInterface;
 
 /**
