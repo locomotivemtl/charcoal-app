@@ -517,6 +517,9 @@ class AppServiceProvider implements ServiceProviderInterface
                     }
 
                     return $uri;
+                },
+                'renderContext' => function ($text, LambdaHelper $helper = null) {
+                    return $helper->render('{{>'.$helper->render($text).'}}');
                 }
             ];
 
