@@ -98,8 +98,30 @@ class App extends SlimApp implements
         parent::__construct($container);
 
         if (isset($container['config'])) {
+            // $preConfig = $this->prepareConfig($container);
+            // $this->setConfig($preConfig);
+            // $this->config()->merge($container['config']);
             $this->setConfig($container['config']);
         }
+    }
+
+    /**
+     * @param $container
+     * @return \Charcoal\Config\ConfigInterface
+     */
+    private function prepareConfig($container)
+    {
+        $basePath = $container['config']['base_path'];
+        $preConfig = $this->createConfig();
+
+        foreach ($container['module/classes'] as $module) {
+            if (defined(sprintf('%s::APP_CONFIG', $module))) {
+                $moduleConfig = $module::APP_CONFIG;
+                $preConfig->addFile($basePath.$moduleConfig);
+            };
+        }
+
+        return $preConfig;
     }
 
     /**
