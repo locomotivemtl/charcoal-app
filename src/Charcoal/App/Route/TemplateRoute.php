@@ -51,7 +51,7 @@ class TemplateRoute implements
      *
      * **Required dependencies**
      *
-     * - `config` — ScriptRouteConfig
+     * - `config` — TemplateRouteConfig
      *
      * @param array $data Dependencies.
      */

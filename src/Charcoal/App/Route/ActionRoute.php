@@ -36,7 +36,7 @@ class ActionRoute implements
      *
      * **Required**
      *
-     * - `config` — ScriptRouteConfig
+     * - `config` — ActionRouteConfig
      *
      * **Optional**
      *
