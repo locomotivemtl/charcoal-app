@@ -46,7 +46,7 @@ class CallbackStream implements StreamInterface
      *
      * Execute the callback with output buffering.
      *
-     * @return null|string Null on second and subsequent calls.
+     * @return void
      */
     public function output()
     {
@@ -87,6 +87,7 @@ class CallbackStream implements StreamInterface
      */
     public function getSize()
     {
+        return null;
     }
 
     /**
@@ -119,7 +120,7 @@ class CallbackStream implements StreamInterface
     /**
      *
      * @link http://www.php.net/manual/en/function.fseek.php 1
-     * @param integer $offset Stream offset
+     * @param integer $offset Stream offset.
      * @param integer $whence Specifies how the cursor position will be calculated
      *                    based on the seek offset. Valid values are identical to the built-in
      *                    PHP $whence values for `fseek()`.  SEEK_SET: Set position equal to
