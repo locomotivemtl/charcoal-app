@@ -1,29 +1,36 @@
 #!/usr/bin/env php
 <?php
 
+use Slim\Http\Environment as SlimEnvironment;
+
 use Charcoal\App\App;
 use Charcoal\App\AppConfig;
 use Charcoal\App\AppContainer;
-
-use Slim\Http\Environment as SlimEnvironment;
-
-$autoloaderPath = [
-    __DIR__.'/../../../../vendor/autoload.php',
-    __DIR__.'/../vendor/autoload.php'
-];
-
-foreach ($autoloaderPath as $file) {
-    if (file_exists($file)) {
-        include $file;
-        break;
-    }
-}
-$baseDir = realpath(dirname(dirname($file)));
 
 // Ensure CLI mode
 if (PHP_SAPI !== 'cli') {
     die('This program can only be executed from a terminal / Command Line Interface'."\n");
 }
+
+$autoloaderPath = [
+    __DIR__.'/../../../../vendor/autoload.php',
+    __DIR__.'/../vendor/autoload.php',
+    __DIR__.'/../autoload.php'
+];
+
+$autoloaderFound = false;
+foreach ($autoloaderPath as $file) {
+    if (file_exists($file)) {
+        $autoloaderFound = true;
+        include $file;
+        break;
+    }
+}
+if (!$autoloaderFound) {
+    die('Composer autoloader not found.'."\n");
+}
+
+$baseDir = dirname(dirname(realpath($file)));
 
 global $argv;
 // Convert command line arguments into a URL (for Slim)
@@ -79,5 +86,4 @@ $container['environment'] = function($container) use ($path) {
 
 // Charcoal / Slim is the main app
 $app = App::instance($container);
-
 $app->run();
