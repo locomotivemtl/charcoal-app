@@ -168,7 +168,22 @@ class AppServiceProvider implements ServiceProviderInterface
      */
     protected function registerHandlerServices(Container $container)
     {
-        $config = $container['config']['handlers'];
+        /** @var string The default Throwable handler. */
+        $container['phpErrorHandler/class']    = PhpError::class;
+
+        /** @var string The default Exception handler. */
+        $container['errorHandler/class']       = Error::class;
+
+        /** @var string The default "Not Found" handler. */
+        $container['notFoundHandler/class']    = NotFound::class;
+
+        /** @var string The default "Not Allowed" handler. */
+        $container['notAllowedHandler/class']  = NotAllowed::class;
+
+        /** @var string The default "Service Unavailable" handler. */
+        $container['maintenanceHandler/class'] = Maintenance::class;
+
+        $handlersConfig = $container['config']['handlers'];
 
         if (isset($container['notFoundHandler'])) {
             /**
@@ -178,10 +193,11 @@ class AppServiceProvider implements ServiceProviderInterface
              * @param  Container               $container A container instance.
              * @return \Charcoal\App\Handler\HandlerInterface
              */
-            $container->extend('notFoundHandler', function ($handler, Container $container) use ($config) {
+            $container->extend('notFoundHandler', function ($handler, Container $container) use ($handlersConfig) {
                 if ($handler instanceof \Slim\Handlers\NotFound) {
-                    $notFoundConfig = isset($config['notFound']) ? $config['notFound'] : [];
-                    $handler = new NotFound($container, $notFoundConfig);
+                    $config  = isset($handlersConfig['notFound']) ? $handlersConfig['notFound'] : [];
+                    $class   = $container['notFoundHandler/class'];
+                    $handler = new $class($container, $config);
                     $handler->init();
                 }
 
@@ -197,10 +213,11 @@ class AppServiceProvider implements ServiceProviderInterface
              * @param  Container               $container A container instance.
              * @return \Charcoal\App\Handler\HandlerInterface
              */
-            $container->extend('notAllowedHandler', function ($handler, Container $container) use ($config) {
+            $container->extend('notAllowedHandler', function ($handler, Container $container) use ($handlersConfig) {
                 if ($handler instanceof \Slim\Handlers\NotAllowed) {
-                    $notAllowedConfig = isset($config['notAllowed']) ? $config['notAllowed'] : [];
-                    $handler = new NotAllowed($container, $notAllowedConfig);
+                    $config  = isset($handlersConfig['notAllowed']) ? $handlersConfig['notAllowed'] : [];
+                    $class   = $container['notAllowedHandler/class'];
+                    $handler = new $class($container, $config);
                     $handler->init();
                 }
 
@@ -216,10 +233,11 @@ class AppServiceProvider implements ServiceProviderInterface
              * @param  Container               $container A container instance.
              * @return \Charcoal\App\Handler\HandlerInterface
              */
-            $container->extend('phpErrorHandler', function ($handler, Container $container) use ($config) {
+            $container->extend('phpErrorHandler', function ($handler, Container $container) use ($handlersConfig) {
                 if ($handler instanceof \Slim\Handlers\PhpError) {
-                    $phpErrorConfig = isset($config['phpError']) ? $config['phpError'] : [];
-                    $handler = new PhpError($container, $phpErrorConfig);
+                    $config  = isset($handlersConfig['phpError']) ? $handlersConfig['phpError'] : [];
+                    $class   = $container['notAllowephpErrorHandlerdHandler/class'];
+                    $handler = new $class($container, $config);
                     $handler->init();
                 }
 
@@ -235,10 +253,11 @@ class AppServiceProvider implements ServiceProviderInterface
              * @param  Container               $container A container instance.
              * @return \Charcoal\App\Handler\HandlerInterface
              */
-            $container->extend('errorHandler', function ($handler, Container $container) use ($config) {
+            $container->extend('errorHandler', function ($handler, Container $container) use ($handlersConfig) {
                 if ($handler instanceof \Slim\Handlers\Error) {
-                    $errorConfig = isset($config['error']) ? $config['error'] : [];
-                    $handler = new Error($container, $errorConfig);
+                    $config  = isset($handlersConfig['error']) ? $handlersConfig['error'] : [];
+                    $class   = $container['errorHandler/class'];
+                    $handler = new $class($container, $config);
                     $handler->init();
                 }
 
@@ -255,9 +274,10 @@ class AppServiceProvider implements ServiceProviderInterface
              * @param  Container $container A Pimple DI container.
              * @return \Charcoal\App\Handler\HandlerInterface
              */
-            $container['maintenanceHandler'] = function (Container $container) use ($config) {
-                $maintenanceConfig = isset($config['maintenance']) ? $config['maintenance'] : [];
-                $handler = new Maintenance($container, $maintenanceConfig);
+            $container['maintenanceHandler'] = function (Container $container) use ($handlersConfig) {
+                $config  = isset($handlersConfig['maintenance']) ? $handlersConfig['maintenance'] : [];
+                $class   = $container['maintenanceHandler/class'];
+                $handler = new $class($container, $config);
 
                 return $handler->init();
             };
