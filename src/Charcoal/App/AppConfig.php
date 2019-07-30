@@ -73,7 +73,7 @@ class AppConfig extends AbstractConfig
     /**
      * The application's dynamic routes.
      *
-     * @var array
+     * @var array|boolean
      */
     private $routables = [];
 
@@ -433,17 +433,23 @@ class AppConfig extends AbstractConfig
     }
 
     /**
-     * @param array $routables The routable configuration structure to set.
+     * @param  array|boolean $routables The routable configuration structure to set or FALSE to disable dynamic routing.
      * @return self
      */
-    public function setRoutables(array $routables)
+    public function setRoutables($routables)
     {
+        if ($routables !== false) {
+            if (!is_array($routables) || empty($routables)) {
+                $routables = [];
+            }
+        }
+
         $this->routables = $routables;
         return $this;
     }
 
     /**
-     * @return array
+     * @return array|boolean
      */
     public function routables()
     {

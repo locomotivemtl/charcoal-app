@@ -134,8 +134,8 @@ class App extends SlimApp implements
         // Setup modules
         $this->setupModules();
 
-        // Setup routable (if not running CLI mode)
-        if (PHP_SAPI !== 'cli') {
+        // Setup routable (if enabled or not running CLI mode)
+        if (PHP_SAPI !== 'cli' && $config['routables'] !== false) {
             $this->setupRoutables();
         }
 
@@ -186,6 +186,7 @@ class App extends SlimApp implements
     private function setupRoutables()
     {
         $app = $this;
+
         // For now, need to rely on a catch-all...
         $this->get(
             '{catchall:.*}',
@@ -194,22 +195,22 @@ class App extends SlimApp implements
                 ResponseInterface $response,
                 array $args
             ) use ($app) {
-                $config = $app->config();
+                $config    = $app->config();
                 $routables = $config['routables'];
-                if ($routables === null || count($routables) === 0) {
-                    return $this['notFoundHandler']($request, $response);
-                }
-                $routeFactory = $this['route/factory'];
-                foreach ($routables as $routableType => $routableOptions) {
-                    $route = $routeFactory->create($routableType, [
-                        'path' => $args['catchall'],
-                        'config' => $routableOptions
-                    ]);
-                    if ($route->pathResolvable($this)) {
-                        $this['logger']->debug(
-                            sprintf('Loaded routable "%s" for path %s', $routableType, $args['catchall'])
-                        );
-                        return $route($this, $request, $response);
+
+                if (is_array($routables) && !empty($routables)) {
+                    $routeFactory = $this['route/factory'];
+                    foreach ($routables as $routableType => $routableOptions) {
+                        $route = $routeFactory->create($routableType, [
+                            'path'   => $args['catchall'],
+                            'config' => $routableOptions,
+                        ]);
+                        if ($route->pathResolvable($this)) {
+                            $this['logger']->debug(
+                                sprintf('Loaded routable "%s" for path %s', $routableType, $args['catchall'])
+                            );
+                            return $route($this, $request, $response);
+                        }
                     }
                 }
 
