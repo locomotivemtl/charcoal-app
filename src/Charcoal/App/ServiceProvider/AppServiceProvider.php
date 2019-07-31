@@ -236,7 +236,7 @@ class AppServiceProvider implements ServiceProviderInterface
             $container->extend('phpErrorHandler', function ($handler, Container $container) use ($handlersConfig) {
                 if ($handler instanceof \Slim\Handlers\PhpError) {
                     $config  = isset($handlersConfig['phpError']) ? $handlersConfig['phpError'] : [];
-                    $class   = $container['notAllowephpErrorHandlerdHandler/class'];
+                    $class   = $container['phpErrorHandler/class'];
                     $handler = new $class($container, $config);
                     $handler->init();
                 }
