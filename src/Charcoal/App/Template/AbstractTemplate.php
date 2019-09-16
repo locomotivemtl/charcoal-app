@@ -2,14 +2,14 @@
 
 namespace Charcoal\App\Template;
 
-// From PSR-3
+// From 'psr/log'
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
 
-// From PSR-7
+// From 'psr/http-message'
 use Psr\Http\Message\RequestInterface;
 
-// From Pimple
+// From 'pimple/pimple'
 use Pimple\Container;
 
 // From 'charcoal-config'
@@ -28,6 +28,13 @@ abstract class AbstractTemplate extends AbstractEntity implements
     use LoggerAwareTrait;
 
     /**
+     * The cache of parsed template names.
+     *
+     * @var array
+     */
+    protected static $templateNameCache = [];
+
+    /**
      * @param array|\ArrayAccess $data The dependencies (app and logger).
      */
     public function __construct($data = null)
@@ -37,6 +44,35 @@ abstract class AbstractTemplate extends AbstractEntity implements
         if (isset($data['container'])) {
             $this->setDependencies($data['container']);
         }
+    }
+
+    /**
+     * Retrieve the template's identifier.
+     *
+     * @return string
+     */
+    public function templateName()
+    {
+        $key = substr(strrchr('\\' . get_class($this), '\\'), 1);
+
+        if (!isset(static::$templateNameCache[$key])) {
+            $value = $key;
+
+            if (!ctype_lower($value)) {
+                $value = preg_replace('/\s+/u', '', $value);
+                $value = mb_strtolower(preg_replace('/(.)(?=[A-Z])/u', '$1-', $value), 'UTF-8');
+            }
+
+            $value = str_replace(
+                [ 'abstract', 'trait', 'interface', 'template', '\\' ],
+                '',
+                $value
+            );
+
+            static::$templateNameCache[$key] = trim($value, '-');
+        }
+
+        return static::$templateNameCache[$key];
     }
 
     /**
