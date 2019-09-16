@@ -183,6 +183,7 @@ class CallbackStream implements StreamInterface
      */
     public function read($length)
     {
+        unset($length);
         return $this->output();
     }
 

@@ -53,7 +53,7 @@ abstract class AbstractTemplate extends AbstractEntity implements
      */
     public function templateName()
     {
-        $key = substr(strrchr('\\' . get_class($this), '\\'), 1);
+        $key = substr(strrchr('\\'.get_class($this), '\\'), 1);
 
         if (!isset(static::$templateNameCache[$key])) {
             $value = $key;
