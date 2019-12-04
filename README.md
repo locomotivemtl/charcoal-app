@@ -10,7 +10,7 @@ Charcoal App
 
 Charcoal App is a PHP framework to create web applications and APIs using Charcoal components.
 
-The framework is built on top of [Slim 3][gh-slim] and [Pimple][gh-pimple].
+The framework is built on top of [Slim 4][gh-slim] and [Pimple][gh-pimple].
 
 ---
 
