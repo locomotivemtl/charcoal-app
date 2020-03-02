@@ -12,10 +12,6 @@ use Psr\Log\NullLogger;
 
 // From 'tedivm/stash' (PSR-6)
 use Stash\Pool;
-use Stash\Driver\Ephemeral;
-
-// From 'zendframework/zend-permissions-acl'
-use Zend\Permissions\Acl\Acl;
 
 // From Slim
 use Slim\Http\Uri;
@@ -253,7 +249,7 @@ class ContainerProvider
         };
 
         $container['cache'] = function ($container) {
-            return new Pool(new Ephemeral());
+            return new Pool();
         };
     }
 
