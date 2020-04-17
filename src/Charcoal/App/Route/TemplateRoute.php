@@ -166,10 +166,10 @@ class TemplateRoute implements
         }
 
         $template = $templateFactory->create($config['controller']);
-        $template->init($request);
-
         // Set custom data from config.
         $template->setData($config['template_data']);
+
+        $template->init($request);
 
         return $template;
     }
