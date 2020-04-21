@@ -108,26 +108,6 @@ class FilesystemServiceProviderTest extends AbstractTestCase
         $this->assertInstanceOf(Filesystem::class, $container['filesystems']['s3']);
     }
 
-    public function testProviderDropboxAdapter()
-    {
-        $container = $this->getContainer([
-            'config' => [
-                'filesystem' => [
-                    'connections' => [
-                        'dropbox' => [
-                            'type' => 'dropbox',
-                            'token'   => 'token',
-                            'secret' => 'secret'
-                        ]
-                    ]
-                ]
-            ]
-        ]);
-
-        $this->assertTrue(isset($container['filesystems']['dropbox']));
-        $this->assertInstanceOf(Filesystem::class, $container['filesystems']['dropbox']);
-    }
-
     public function testProviderFtpAdapter()
     {
         $container = $this->getContainer([
