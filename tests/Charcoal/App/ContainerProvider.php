@@ -2,6 +2,7 @@
 
 namespace Charcoal\Tests\App;
 
+use Charcoal\Config\GenericConfig;
 use PDO;
 
 // From Mockery
@@ -33,8 +34,6 @@ use Charcoal\Factory\GenericFactory as Factory;
 use Charcoal\Cache\CacheConfig;
 
 // From 'charcoal-app'
-use Charcoal\App\AppConfig;
-use Charcoal\App\Module\ModuleInterface;
 use Charcoal\App\Template\WidgetBuilder;
 
 // From 'charcoal-core'
@@ -92,7 +91,7 @@ class ContainerProvider
     public function registerConfig(Container $container)
     {
         $container['config'] = function (Container $container) {
-            return new AppConfig([
+            return new GenericConfig([
                 'base_path' => realpath(__DIR__.'/../../..'),
             ]);
         };
@@ -355,23 +354,6 @@ class ContainerProvider
         };
     }
 
-    public function registerModuleFactory(Container $container)
-    {
-        $this->registerLogger($container);
-        $this->registerDatabase($container);
-
-        $container['module/factory'] = function (Container $container) {
-            return new Factory([
-                'base_class'       => ModuleInterface::class,
-                'resolver_options' => [
-                    'suffix' => 'Module'
-                ],
-                'arguments'  => [[
-                    'logger' => $container['logger']
-                ]]
-            ]);
-        };
-    }
 
     public function registerAppDependencies(Container $container)
     {
@@ -380,7 +362,6 @@ class ContainerProvider
         $this->registerLogger($container);
         $this->registerCache($container);
         $this->registerTranslator($container);
-        $this->registerModuleFactory($container);
     }
 
     public function registerActionDependencies(Container $container)

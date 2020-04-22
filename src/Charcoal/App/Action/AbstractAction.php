@@ -110,7 +110,7 @@ abstract class AbstractAction extends AbstractEntity implements
                 break;
 
             case self::MODE_XML:
-                $response->getBody()->write($this->results());
+                $response->getBody()->write($this->results() ?: '');
                 $response = $response->withHeader('Content-Type', 'text/xml');
                 break;
 

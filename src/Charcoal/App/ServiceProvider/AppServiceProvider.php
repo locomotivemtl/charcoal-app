@@ -3,6 +3,7 @@
 namespace Charcoal\App\ServiceProvider;
 
 // From PSR-7
+use Charcoal\Config\GenericConfig;
 use Charcoal\Factory\GenericResolver;
 use Psr\Http\Message\UriInterface;
 
@@ -31,12 +32,8 @@ use Charcoal\Translator\ServiceProvider\TranslatorServiceProvider;
 // From 'charcoal-view'
 use Charcoal\View\ViewServiceProvider;
 
-// From 'charcoal-app'
-use Charcoal\App\AppConfig;
-
 use Charcoal\App\Action\ActionInterface;
 use Charcoal\App\Script\ScriptInterface;
-use Charcoal\App\Module\ModuleInterface;
 
 use Charcoal\App\Middleware\IpMiddleware;
 
@@ -100,7 +97,6 @@ class AppServiceProvider implements ServiceProviderInterface
         $this->registerRouteServices($container);
         $this->registerMiddlewareServices($container);
         $this->registerRequestControllerServices($container);
-        $this->registerModuleServices($container);
         $this->registerViewServices($container);
     }
 
@@ -111,7 +107,7 @@ class AppServiceProvider implements ServiceProviderInterface
     protected function registerKernelServices(Container $container)
     {
         if (!isset($container['config'])) {
-            $container['config'] = new AppConfig();
+            $container['config'] = new GenericConfig();
         }
 
         if (!isset($container['debug'])) {
@@ -410,60 +406,6 @@ class AppServiceProvider implements ServiceProviderInterface
          */
         $container['widget/builder'] = function (Container $container) {
             return new WidgetBuilder($container['widget/factory'], $container);
-        };
-    }
-
-    /**
-     * @param Container $container The DI container.
-     * @return void
-     */
-    protected function registerModuleServices(Container $container)
-    {
-        /**
-         * The Module Factory service is used to instanciate new modules.
-         *
-         * - Modules are `ModuleInterface` and must be suffixed with `Module`.
-         *
-         * @param Container $container A container instance.
-         * @return \Charcoal\Factory\FactoryInterface
-         */
-        $container['module/factory'] = function (Container $container) {
-            return new Factory([
-                'base_class'       => ModuleInterface::class,
-                'resolver_options' => [
-                    'suffix' => 'Module'
-                ],
-                'arguments'  => [[
-                    'logger' => $container['logger']
-                ]]
-            ]);
-        };
-
-        /**
-         * The modules as PHP classes.
-         *
-         * @param Container $container A container instance.
-         * @return array
-         */
-        $container['module/classes'] = function (Container $container) {
-            $appConfig = $container['config'];
-
-            $modules = $appConfig['modules'];
-            $modules = array_keys($modules);
-
-            $moduleResolver = new GenericResolver([
-                'suffix' => 'Module'
-            ]);
-
-            $modules = array_map(function ($module) use ($moduleResolver) {
-                return $moduleResolver->resolve($module);
-            }, $modules);
-
-            array_filter($modules, function ($class) {
-                return class_exists($class);
-            });
-
-            return $modules;
         };
     }
 

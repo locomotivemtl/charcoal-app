@@ -6,7 +6,7 @@ namespace Charcoal\Tests\App\Action;
 use Psr\Http\Message\RequestInterface;
 
 // From Slim
-use Slim\Http\Response;
+use Slim\Psr7\Response;
 
 // From Pimple
 use Pimple\Container;

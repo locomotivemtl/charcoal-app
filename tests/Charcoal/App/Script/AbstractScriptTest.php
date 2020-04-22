@@ -52,6 +52,7 @@ class AbstractScriptTest extends AbstractTestCase
         $request  = $this->createMock(RequestInterface::class);
         $response = $this->createMock(ResponseInterface::class);
         $invoke   = call_user_func([$this->obj, '__invoke'], $request, $response);
+        $this->assertNotFalse($invoke);
     }
 
     public function testSetIdent()
