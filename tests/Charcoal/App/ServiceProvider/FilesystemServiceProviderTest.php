@@ -14,9 +14,6 @@ use League\Flysystem\Adapter\NullAdapter;
 // Dependency from `league/flysystem-aws-s3-v3`
 use League\Flysystem\AwsS3v3\AwsS3Adapter;
 
-// Dependency from `league/flysystem-dropbox`
-use League\Flysystem\Dropbox\DropboxAdapter;
-
 // Dependency from `league/flysystem-sftp`
 use League\Flysystem\Sftp\SftpAdapter;
 

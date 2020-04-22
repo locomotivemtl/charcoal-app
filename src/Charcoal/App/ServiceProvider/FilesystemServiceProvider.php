@@ -14,9 +14,6 @@ use Pimple\Container;
 // From 'aws/aws-sdk-php'
 use Aws\S3\S3Client;
 
-// From 'dropbox/dropbox-sdk'
-use Dropbox\Client as DropboxClient;
-
 // From 'league/flysystem'
 use League\Flysystem\MountManager;
 use League\Flysystem\Filesystem;
@@ -27,8 +24,6 @@ use League\Flysystem\Adapter\NullAdapter;
 // From 'league/flysystem-aws-s3-v3'
 use League\Flysystem\AwsS3v3\AwsS3Adapter;
 
-// From 'league/flysystem-dropbox'
-use League\Flysystem\Dropbox\DropboxAdapter;
 
 // From 'league/flysystem-sftp'
 use League\Flysystem\Sftp\SftpAdapter;
@@ -102,8 +97,6 @@ class FilesystemServiceProvider implements ServiceProviderInterface
             $adapter = $this->createLocalAdapter($config);
         } elseif ($type == 's3') {
             $adapter = $this->createS3Adapter($config);
-        } elseif ($type == 'dropbox') {
-            $adapter = $this->createDropboxAdapter($config);
         } elseif ($type == 'ftp') {
             $adapter = $this->createFtpAdapter($config);
         } elseif ($type == 'sftp') {
@@ -203,33 +196,6 @@ class FilesystemServiceProvider implements ServiceProviderInterface
         return new AwsS3Adapter($client, $config['bucket'], $config['prefix'], $permissions);
     }
 
-    /**
-     * @param array $config The driver (adapter) configuration.
-     * @throws InvalidArgumentException If the token or secret is not defined in config.
-     * @return DropboxAdapter
-     */
-    private function createDropboxAdapter(array $config)
-    {
-        if (!isset($config['token']) || !$config['token']) {
-            throw new InvalidArgumentException(
-                'No access "token" configured for dropbox filesystem adapter.'
-            );
-        }
-
-        if (!isset($config['secret']) || !$config['secret']) {
-            throw new InvalidArgumentException(
-                'No app "secret" configured for dropbox filesystem adapter.'
-            );
-        }
-
-        $defaults = [
-            'prefix' => ''
-        ];
-        $config = array_merge($defaults, $config);
-
-        $client = new DropboxClient($config['token'], $config['secret']);
-        return new DropboxAdapter($client, $config['prefix']);
-    }
 
     /**
      * @param array $config The driver (adapter) configuration.
