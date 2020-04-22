@@ -8,7 +8,7 @@
          convertWarningsToExceptions="true"
          processIsolation="false"
          stopOnFailure="false"
-         verbose="true">
+         verbose="true"
 >
     <testsuites>
         <testsuite name="Charcoal Test Suite">
@@ -27,6 +27,7 @@
     </php>
 
     <logging>
-        <log type="coverage-html" target="build/report/" charset="UTF-8" highlight="true" lowUpperBound="40" highLowerBound="80" />
+        <log type="coverage-html" target="build/report/"  lowUpperBound="40" highLowerBound="80" />
+        <log type="coverage-clover" target="build/logs/clover.xml" lowUpperBound="40" highLowerBound="80" />
     </logging>
 </phpunit>
