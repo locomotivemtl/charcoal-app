@@ -18,3 +18,5 @@ composer.lock
 /build/docs/
 /build/logs/
 /build/report/
+
+.idea
