@@ -12,7 +12,7 @@ use Pimple\ServiceProviderInterface;
 use Pimple\Container;
 
 // From Slim
-use Slim\Http\Uri;
+use Slim\Psr7\Uri;
 
 // From 'league/climate'
 use League\CLImate\CLImate;
