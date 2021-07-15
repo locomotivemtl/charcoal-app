@@ -98,24 +98,39 @@ class FilesystemServiceProvider implements ServiceProviderInterface
 
         $type = $config['type'];
 
-        if ($type == 'local') {
-            $adapter = $this->createLocalAdapter($config);
-        } elseif ($type == 's3') {
-            $adapter = $this->createS3Adapter($config);
-        } elseif ($type == 'dropbox') {
-            $adapter = $this->createDropboxAdapter($config);
-        } elseif ($type == 'ftp') {
-            $adapter = $this->createFtpAdapter($config);
-        } elseif ($type == 'sftp') {
-            $adapter = $this->createSftpAdapter($config);
-        } elseif ($type == 'memory') {
-            $adapter = $this->createMemoryAdapter();
-        } elseif ($type == 'noop') {
-            $adapter = $this->createNullAdapter();
-        } else {
-            throw new UnexpectedValueException(
-                sprintf('Invalid filesystem type "%s"', $type)
-            );
+        switch ($type) {
+            case 'local':
+                $adapter = $this->createLocalAdapter($config);
+                break;
+
+            case 's3':
+                $adapter = $this->createS3Adapter($config);
+                break;
+
+            case 'dropbox':
+                $adapter = $this->createDropboxAdapter($config);
+                break;
+
+            case 'ftp':
+                $adapter = $this->createFtpAdapter($config);
+                break;
+
+            case 'sftp':
+                $adapter = $this->createSftpAdapter($config);
+                break;
+
+            case 'memory':
+                $adapter = $this->createMemoryAdapter();
+                break;
+
+            case 'noop':
+                $adapter = $this->createNullAdapter();
+                break;
+
+            default:
+                throw new UnexpectedValueException(
+                    sprintf('Invalid filesystem type "%s"', $type)
+                );
         }
 
         return new Filesystem($adapter);
