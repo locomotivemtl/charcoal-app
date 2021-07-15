@@ -260,7 +260,7 @@ class App extends SlimApp implements
      * @throws LogicException If trying to clone an instance of a singleton.
      * @return void
      */
-    final private function __clone()
+    final public function __clone()
     {
         throw new LogicException(
             sprintf(
@@ -274,7 +274,7 @@ class App extends SlimApp implements
      * @throws LogicException If trying to unserialize an instance of a singleton.
      * @return void
      */
-    final private function __wakeup()
+    final public function __wakeup()
     {
         throw new LogicException(
             sprintf(
