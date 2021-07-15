@@ -18,7 +18,6 @@ class CallbackStream implements StreamInterface
     private $callback;
 
     /**
-     *
      * Whether or not the callback has been previously invoked.
      * @var boolean
      */
@@ -34,7 +33,6 @@ class CallbackStream implements StreamInterface
     }
 
     /**
-     *
      * @return string
      */
     public function __toString()
@@ -43,7 +41,6 @@ class CallbackStream implements StreamInterface
     }
 
     /**
-     *
      * Execute the callback with output buffering.
      *
      * @return void
@@ -57,12 +54,9 @@ class CallbackStream implements StreamInterface
         $this->called = true;
 
         call_user_func($this->callback);
-
-        return;
     }
 
     /**
-     *
      * @return void
      */
     public function close()
@@ -70,7 +64,6 @@ class CallbackStream implements StreamInterface
     }
 
     /**
-     *
      * @return null|callable
      */
     public function detach()
@@ -82,7 +75,6 @@ class CallbackStream implements StreamInterface
     }
 
     /**
-     *
      * @return integer|null Returns the size in bytes if known, or null if unknown.
      */
     public function getSize()
@@ -91,7 +83,6 @@ class CallbackStream implements StreamInterface
     }
 
     /**
-     *
      * @return integer|boolean Position of the file pointer or false on error.
      */
     public function tell()
@@ -100,7 +91,6 @@ class CallbackStream implements StreamInterface
     }
 
     /**
-     *
      * @return boolean
      */
     public function eof()
@@ -109,7 +99,6 @@ class CallbackStream implements StreamInterface
     }
 
     /**
-     *
      * @return boolean
      */
     public function isSeekable()
@@ -118,7 +107,6 @@ class CallbackStream implements StreamInterface
     }
 
     /**
-     *
      * @link http://www.php.net/manual/en/function.fseek.php 1
      * @param integer $offset Stream offset.
      * @param integer $whence Specifies how the cursor position will be calculated
@@ -134,7 +122,6 @@ class CallbackStream implements StreamInterface
     }
 
     /**
-     *
      * @see  seek()
      * @link http://www.php.net/manual/en/function.fseek.php 1
      * @return boolean Returns TRUE on success or FALSE on failure.
@@ -145,7 +132,6 @@ class CallbackStream implements StreamInterface
     }
 
     /**
-     *
      * @return boolean
      */
     public function isWritable()
@@ -154,7 +140,6 @@ class CallbackStream implements StreamInterface
     }
 
     /**
-     *
      * @param string $string The string that is to be written.
      * @return integer|boolean Returns the number of bytes written to the stream on
      *                       success or FALSE on failure.
@@ -165,7 +150,6 @@ class CallbackStream implements StreamInterface
     }
 
     /**
-     *
      * @return boolean
      */
     public function isReadable()
@@ -174,7 +158,6 @@ class CallbackStream implements StreamInterface
     }
 
     /**
-     *
      * @param integer $length Read up to $length bytes from the object and return
      *                    them. Fewer than $length bytes may be returned if underlying stream
      *                    call returns fewer bytes.
@@ -188,7 +171,6 @@ class CallbackStream implements StreamInterface
     }
 
     /**
-     *
      * @return string
      */
     public function getContents()
@@ -197,7 +179,6 @@ class CallbackStream implements StreamInterface
     }
 
     /**
-     *
      * @link http://php.net/manual/en/function.stream-get-meta-data.php 2
      * @param string $key Specific metadata to retrieve.
      * @return array|mixed|null Returns an associative array if no key is

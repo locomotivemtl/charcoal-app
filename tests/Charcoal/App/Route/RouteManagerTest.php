@@ -32,7 +32,7 @@ class RouteManagerTest extends AbstractTestCase
     /**
      * Set up the test.
      */
-    public function setUp()
+    public function setUp(): void
     {
         $this->app = App::instance();
         $this->obj = new RouteManager([

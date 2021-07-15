@@ -33,7 +33,7 @@ class AppTest extends AbstractTestCase
     /**
      * Set up the test.
      */
-    public function setUp()
+    public function setUp(): void
     {
         $config    = new AppConfig();
         $container = new AppContainer([

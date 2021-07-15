@@ -12,7 +12,7 @@ class FilesystemConfigTest extends AbstractTestCase
 {
     public $obj;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->obj = new FilesystemConfig();
     }

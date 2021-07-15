@@ -36,7 +36,7 @@ class AbstractScriptTest extends AbstractTestCase
     /**
      * Set up the test.
      */
-    public function setUp()
+    public function setUp(): void
     {
         $container = $this->container();
 

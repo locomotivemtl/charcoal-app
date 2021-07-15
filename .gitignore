@@ -12,6 +12,7 @@ composer.lock
 # Caching
 
 /cache/
+/.phpunit.result.cache
 
 # Codebase
 

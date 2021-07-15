@@ -16,8 +16,8 @@ trait ArgScriptTrait
      *
      * If the given value is a string, it will be split.
      *
-     * @param  mixed  $var       An argument to split.
-     * @param  string $delimiter The boundary string.
+     * @param  array|string $var       An argument to split.
+     * @param  string       $delimiter The boundary string.
      * @throws InvalidArgumentException If the value cannot be parsed into an array.
      * @return array|Traversable
      */

@@ -37,6 +37,18 @@ trait ServerTestTrait
     static protected $serverApplicationEnv = 'phpunit';
 
     /**
+     * Asserts that an array has a specified subset.
+     *
+     * @param  array|ArrayAccess|mixed[] $subset                 The expected subset.
+     * @param  array|ArrayAccess|mixed[] $array                  The actual haystack.
+     * @param  boolean                   $checkForObjectIdentity Unused.
+     * @param  string                    $message                The error to report.
+     * @throws InvalidArgumentException
+     * @return void
+     */
+    abstract public function assertArraySubset($subset, $array, $checkForObjectIdentity = false, $message = ''): void;
+
+    /**
      * Retrieve the built-in PHP server URL.
      * @return string
      */

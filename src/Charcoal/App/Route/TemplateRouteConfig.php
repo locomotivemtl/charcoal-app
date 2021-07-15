@@ -203,7 +203,7 @@ class TemplateRouteConfig extends RouteConfig
     /**
      * Set the redirect HTTP status mode. (Must be 3xx)
      *
-     * @param mixed $redirectMode The HTTP status code.
+     * @param  integer|string $redirectMode The HTTP status code.
      * @throws InvalidArgumentException If the redirect mode is not 3xx.
      * @return TemplateRouteConfig Chainable
      */

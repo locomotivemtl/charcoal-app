@@ -9,15 +9,18 @@ use InvalidArgumentException;
 // From 'charcoal-app'
 use Charcoal\App\Config\LoggerConfig;
 use Charcoal\Tests\AbstractTestCase;
+use Charcoal\Tests\AssertionsTrait;
 
 /**
  *
  */
 class LoggerConfigTest extends AbstractTestCase
 {
+    use AssertionsTrait;
+
     public $obj;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->obj = new LoggerConfig();
     }

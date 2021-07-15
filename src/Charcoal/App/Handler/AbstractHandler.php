@@ -92,8 +92,8 @@ abstract class AbstractHandler implements
     /**
      * Return a new AbstractHandler object.
      *
-     * @param Container $container A dependencies container instance.
-     * @param mixed     $config    A handler configset.
+     * @param Container         $container A dependencies container instance.
+     * @param array|Traversable $config    A handler configset.
      */
     public function __construct(Container $container, $config = null)
     {

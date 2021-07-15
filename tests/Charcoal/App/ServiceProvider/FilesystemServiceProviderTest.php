@@ -31,7 +31,7 @@ class FilesystemServiceProviderTest extends AbstractTestCase
 {
     private $obj;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->obj = new FilesystemServiceProvider();
     }
@@ -94,14 +94,15 @@ class FilesystemServiceProviderTest extends AbstractTestCase
                 'filesystem' => [
                     'connections' => [
                         's3' => [
-                            'type' => 's3',
-                            'key'   => 'key',
+                            'type'   => 's3',
+                            'key'    => 'key',
                             'secret' => 'secret',
-                            'bucket' => 'bucket'
-                        ]
-                    ]
-                ]
-            ]
+                            'bucket' => 'bucket',
+                            'region' => 'region',
+                        ],
+                    ],
+                ],
+            ],
         ]);
 
         $this->assertTrue(isset($container['filesystems']['s3']));

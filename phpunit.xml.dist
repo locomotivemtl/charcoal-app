@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit backupGlobals="false"
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd"
+         backupGlobals="false"
          backupStaticAttributes="false"
          bootstrap="vendor/autoload.php"
          colors="true"
@@ -8,26 +10,23 @@
          convertWarningsToExceptions="true"
          processIsolation="false"
          stopOnFailure="false"
-         verbose="true"
->
+         verbose="true">
     <testsuites>
         <testsuite name="Charcoal Test Suite">
             <directory>./tests/Charcoal</directory>
         </testsuite>
     </testsuites>
 
-    <filter>
-        <whitelist>
+    <coverage>
+        <include>
             <directory suffix=".php">./src/Charcoal</directory>
-        </whitelist>
-    </filter>
+        </include>
+        <report>
+            <html outputDirectory="build/report/" lowUpperBound="40" highLowerBound="80"/>
+        </report>
+    </coverage>
 
     <php>
-        <env name="APPLICATION_ENV" value="testing" />
+        <env name="APPLICATION_ENV" value="testing"/>
     </php>
-
-    <logging>
-        <log type="coverage-html" target="build/report/"  lowUpperBound="40" highLowerBound="80" />
-        <log type="coverage-clover" target="build/logs/clover.xml" lowUpperBound="40" highLowerBound="80" />
-    </logging>
 </phpunit>
