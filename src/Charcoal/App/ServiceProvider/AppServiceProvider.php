@@ -306,11 +306,13 @@ class AppServiceProvider implements ServiceProviderInterface
             return new Factory([
                 'base_class'       => RouteInterface::class,
                 'resolver_options' => [
-                    'suffix' => 'Route'
+                    'suffix' => 'Route',
                 ],
-                'arguments'  => [[
-                    'logger' => $container['logger']
-                ]]
+                'arguments'  => [
+                    [
+                        'logger' => $container['logger'],
+                    ],
+                ],
             ]);
         };
     }
@@ -350,13 +352,14 @@ class AppServiceProvider implements ServiceProviderInterface
             return new Factory([
                 'base_class'       => ActionInterface::class,
                 'resolver_options' => [
-                    'suffix' => 'Action'
+                    'suffix' => 'Action',
                 ],
-                'arguments' => [[
-                    'container' => $container,
-                    'logger'    => $container['logger'],
-
-                ]]
+                'arguments' => [
+                    [
+                        'container' => $container,
+                        'logger'    => $container['logger'],
+                    ],
+                ],
             ]);
         };
 
@@ -373,12 +376,14 @@ class AppServiceProvider implements ServiceProviderInterface
             return new Factory([
                 'base_class'       => TemplateInterface::class,
                 'resolver_options' => [
-                    'suffix' => 'Template'
+                    'suffix' => 'Template',
                 ],
-                'arguments' => [[
-                    'container' => $container,
-                    'logger'    => $container['logger']
-                ]]
+                'arguments' => [
+                    [
+                        'container' => $container,
+                        'logger'    => $container['logger'],
+                    ],
+                ],
             ]);
         };
 
@@ -395,12 +400,14 @@ class AppServiceProvider implements ServiceProviderInterface
             return new Factory([
                 'base_class'       => WidgetInterface::class,
                 'resolver_options' => [
-                    'suffix' => 'Widget'
+                    'suffix' => 'Widget',
                 ],
-                'arguments' => [[
-                    'container' => $container,
-                    'logger'    => $container['logger']
-                ]]
+                'arguments' => [
+                    [
+                        'container' => $container,
+                        'logger'    => $container['logger'],
+                    ],
+                ],
             ]);
         };
 
@@ -431,11 +438,13 @@ class AppServiceProvider implements ServiceProviderInterface
             return new Factory([
                 'base_class'       => ModuleInterface::class,
                 'resolver_options' => [
-                    'suffix' => 'Module'
+                    'suffix' => 'Module',
                 ],
-                'arguments'  => [[
-                    'logger' => $container['logger']
-                ]]
+                'arguments'  => [
+                    [
+                        'logger' => $container['logger'],
+                    ],
+                ],
             ]);
         };
 
@@ -452,7 +461,7 @@ class AppServiceProvider implements ServiceProviderInterface
             $modules = array_keys($modules);
 
             $moduleResolver = new GenericResolver([
-                'suffix' => 'Module'
+                'suffix' => 'Module',
             ]);
 
             $modules = array_map(function ($module) use ($moduleResolver) {
@@ -540,7 +549,7 @@ class AppServiceProvider implements ServiceProviderInterface
                 },
                 'renderContext' => function ($text, LambdaHelper $helper = null) {
                     return $helper->render('{{>'.$helper->render($text).'}}');
-                }
+                },
             ];
 
             return array_merge($helpers, $urls);

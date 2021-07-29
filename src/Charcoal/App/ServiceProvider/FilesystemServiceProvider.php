@@ -160,7 +160,7 @@ class FilesystemServiceProvider implements ServiceProviderInterface
         $defaults = [
             'lock'        => null,
             'links'       => null,
-            'permissions' => []
+            'permissions' => [],
         ];
         $config = array_merge($defaults, $config);
 
@@ -194,14 +194,14 @@ class FilesystemServiceProvider implements ServiceProviderInterface
         $defaults = [
             'region'  => '',
             'version' => 'latest',
-            'prefix'  => null
+            'prefix'  => null,
         ];
         $config = array_merge($defaults, $config);
 
         $client = S3Client::factory([
             'credentials' => [
-                'key'    => $config['key'],
-                'secret' => $config['secret'],
+                'key'     => $config['key'],
+                'secret'  => $config['secret'],
             ],
             'region'      => $config['region'],
             'version'     => $config['version'],
@@ -211,7 +211,7 @@ class FilesystemServiceProvider implements ServiceProviderInterface
             $permissions = null;
         } else {
             $permissions = [
-                'ACL' => 'public-read'
+                'ACL' => 'public-read',
             ];
         }
 
@@ -238,7 +238,7 @@ class FilesystemServiceProvider implements ServiceProviderInterface
         }
 
         $defaults = [
-            'prefix' => ''
+            'prefix' => '',
         ];
         $config = array_merge($defaults, $config);
 
@@ -274,7 +274,7 @@ class FilesystemServiceProvider implements ServiceProviderInterface
             'root'    => null,
             'passive' => null,
             'ssl'     => null,
-            'timeout' => null
+            'timeout' => null,
         ];
         $config = array_merge($defaults, $config);
 
@@ -308,7 +308,7 @@ class FilesystemServiceProvider implements ServiceProviderInterface
             'port'       => null,
             'privateKey' => null,
             'root'       => null,
-            'timeout'    => null
+            'timeout'    => null,
         ];
         $config = array_merge($defaults, $config);
 

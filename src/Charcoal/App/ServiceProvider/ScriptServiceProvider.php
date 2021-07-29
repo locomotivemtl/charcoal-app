@@ -57,14 +57,16 @@ class ScriptServiceProvider implements ServiceProviderInterface
             return new Factory([
                 'base_class'       => ScriptInterface::class,
                 'resolver_options' => [
-                    'suffix' => 'Script'
+                    'suffix' => 'Script',
                 ],
-                'arguments' => [[
-                    'container'      => $container,
-                    'logger'         => $container['logger'],
-                    'climate'        => $container['script/climate'],
-                    'climate_reader' => $container['script/climate/reader']
-                ]]
+                'arguments' => [
+                    [
+                        'container'      => $container,
+                        'logger'         => $container['logger'],
+                        'climate'        => $container['script/climate'],
+                        'climate_reader' => $container['script/climate/reader'],
+                    ],
+                ],
             ]);
         };
     }

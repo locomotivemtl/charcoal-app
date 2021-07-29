@@ -63,22 +63,22 @@ class LoggerConfig extends AbstractConfig
                     'stream' => '../logs/charcoal.app.log',
                     'level'  => null,
                     'bubble' => true,
-                    'active' => true
+                    'active' => true,
                 ],
                 'console' => [
                     'type'   => 'browser-console',
                     'level'  => null,
-                    'active' => false
+                    'active' => false,
                 ]
             ],
             'processors' => [
                 [
-                    'type' => 'memory-usage'
+                    'type' => 'memory-usage',
                 ],
                 [
-                    'type' => 'uid'
-                ]
-            ]
+                    'type' => 'uid',
+                ],
+            ],
         ];
     }
 

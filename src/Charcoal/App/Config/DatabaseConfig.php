@@ -53,7 +53,7 @@ class DatabaseConfig extends AbstractConfig
             'username'          => '',
             'password'          => '',
             'database'          => '',
-            'disable_utf8'      => false
+            'disable_utf8'      => false,
         ];
     }
 
