@@ -61,18 +61,6 @@ class LoggerServiceProvider implements ServiceProviderInterface
         };
 
         /**
-         * @return FactoryInterface
-         */
-        $container['logger/processor/factory'] = function () {
-            return new Factory([
-                'map' => [
-                    'memory-usage' => MemoryUsageProcessor::class,
-                    'uid'          => UidProcessor::class
-                ]
-            ]);
-        };
-
-        /**
          * @param  Container $container A container instance.
          * @return StreamHandler|null
          */
@@ -102,27 +90,6 @@ class LoggerServiceProvider implements ServiceProviderInterface
 
             $level = $handlerConfig['level'] ?: $loggerConfig['level'];
             return new BrowserConsoleHandler($level);
-        };
-
-        /**
-         * @param  Container $container A container instance.
-         * @return Container Collection of defined record handlers, in a service container.
-         */
-        $container['logger/handlers'] = function (Container $container) {
-            $loggerConfig   = $container['logger/config'];
-            $handlersConfig = $loggerConfig['handlers'];
-            $handlerFactory = $container['logger/handler/factory'];
-
-            $handlers = new Container();
-            foreach ($handlersConfig as $handler) {
-                $handlers[$handler['type']] = function () use ($handler, $handlerFactory) {
-                    $type    = $handler['type'];
-                    $handler = $handlerFactory->create($type);
-                    return $handler;
-                };
-            }
-
-            return $handlers;
         };
 
         /**
