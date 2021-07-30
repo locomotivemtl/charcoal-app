@@ -4,6 +4,7 @@ namespace Charcoal\App;
 
 use Exception;
 use InvalidArgumentException;
+use UnexpectedValueException;
 
 // From PSR-7
 use Psr\Http\Message\UriInterface;
@@ -188,6 +189,51 @@ class AppConfig extends AbstractConfig
             'default_database' => 'default',
             'dev_mode'         => false
         ];
+    }
+
+    /**
+     * Replaces placeholders (%app.key%) by their values in the config.
+     *
+     * @param  mixed $value A value to resolve.
+     * @throws UnexpectedValueException If the resolved value is not a string or number.
+     * @return mixed
+     */
+    public function resolveValue($value)
+    {
+        $tags = [
+            'app.base_path'   => $this->basePath(),
+            'app.public_path' => $this->publicPath(),
+            'app.cache_path'  => $this->cachePath(),
+            'app.logs_path'   => $this->logsPath(),
+        ];
+
+        if (is_string($value)) {
+            return preg_replace_callback('/%%|%([^%\s]+)%/', function ($match) use ($tags, $value) {
+                // skip escaped %%
+                if (!isset($match[1])) {
+                    return '%%';
+                }
+
+                $tag = $match[1];
+
+                $resolved = ($tags[$tag] ?? null);
+
+                if (!is_string($resolved) && !is_numeric($resolved)) {
+                    $resolvedType = (is_object($resolved) ? get_class($resolved) : gettype($resolved));
+
+                    throw new UnexpectedValueException(sprintf(
+                        'Invalid config parameter "%s" inside string value "%s"; must be a string or number, received %s',
+                        $key,
+                        $value,
+                        $resolvedType
+                    ));
+                }
+
+                return $resolved;
+            }, $value);
+        }
+
+        return $value;
     }
 
     /**
