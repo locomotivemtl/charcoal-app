@@ -36,13 +36,6 @@ class AppConfig extends AbstractConfig
     private $projectName;
 
     /**
-     * The base path for the Charcoal installation.
-     *
-     * @var string|null
-     */
-    private $basePath;
-
-    /**
      * The base URL (public) for the Charcoal installation.
      *
      * @var UriInterface|null
@@ -50,11 +43,32 @@ class AppConfig extends AbstractConfig
     private $baseUrl;
 
     /**
+     * The base path for the Charcoal installation.
+     *
+     * @var string|null
+     */
+    private $basePath;
+
+    /**
      * The path to the public / web directory.
      *
      * @var string|null
      */
     private $publicPath;
+
+    /**
+     * The path to the cache directory.
+     *
+     * @var string|null
+     */
+    private $cachePath;
+
+    /**
+     * The path to the logs directory.
+     *
+     * @var string|null
+     */
+    private $logsPath;
 
     /**
      * Whether the debug mode is enabled (TRUE) or not (FALSE).
@@ -249,6 +263,82 @@ class AppConfig extends AbstractConfig
         }
 
         return $this->publicPath;
+    }
+
+    /**
+     * Set the application's absolute path to the cache directory.
+     *
+     * @param  string $path The path to the application's cache directory.
+     * @throws InvalidArgumentException If the argument is not a string.
+     * @return self
+     */
+    public function setCachePath($path)
+    {
+        if ($path === null) {
+            $this->cachePath = null;
+            return $this;
+        }
+
+        if (!is_string($path)) {
+            throw new InvalidArgumentException(
+                'The cache path must be a string'
+            );
+        }
+
+        $this->cachePath = rtrim(realpath($path), '\\/');
+        return $this;
+    }
+
+    /**
+     * Retrieve the application's absolute path to the cache directory.
+     *
+     * @return string The absolute path to the application's cache directory.
+     */
+    public function cachePath()
+    {
+        if ($this->cachePath === null) {
+            $this->cachePath = $this->basePath().DIRECTORY_SEPARATOR.'var'.DIRECTORY_SEPARATOR.'cache';
+        }
+
+        return $this->cachePath;
+    }
+
+    /**
+     * Set the application's absolute path to the logs directory.
+     *
+     * @param  string $path The path to the application's logs directory.
+     * @throws InvalidArgumentException If the argument is not a string.
+     * @return self
+     */
+    public function setLogsPath($path)
+    {
+        if ($path === null) {
+            $this->logsPath = null;
+            return $this;
+        }
+
+        if (!is_string($path)) {
+            throw new InvalidArgumentException(
+                'The logs path must be a string'
+            );
+        }
+
+        $this->logsPath = rtrim(realpath($path), '\\/');
+        return $this;
+    }
+
+    /**
+     * Retrieve the application's absolute path to the logs directory.
+     *
+     * @return string The absolute path to the application's logs directory.
+     */
+    public function logsPath()
+    {
+        if ($this->logsPath === null) {
+            $this->logsPath = $this->basePath().DIRECTORY_SEPARATOR.'var'.DIRECTORY_SEPARATOR.'logs';
+        }
+
+        return $this->logsPath;
     }
 
     /**
