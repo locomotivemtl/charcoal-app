@@ -60,7 +60,7 @@ class LoggerConfig extends AbstractConfig
             'handlers'  => [
                 'stream' => [
                     'type'   => 'stream',
-                    'stream' => '../logs/charcoal.app.log',
+                    'stream' => '%app.logs_path%/charcoal.app.log',
                     'level'  => null,
                     'bubble' => true,
                     'active' => true,
