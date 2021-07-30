@@ -82,7 +82,7 @@ class AppServiceProvider implements ServiceProviderInterface
      * This method should only be used to configure services and parameters.
      * It should not get services.
      *
-     * @param Container $container A container instance.
+     * @param  Container $container A service container.
      * @return void
      */
     public function register(Container $container)
@@ -105,7 +105,7 @@ class AppServiceProvider implements ServiceProviderInterface
     }
 
     /**
-     * @param Container $container The DI container.
+     * @param  Container $container A service container.
      * @return void
      */
     protected function registerKernelServices(Container $container)
@@ -118,7 +118,7 @@ class AppServiceProvider implements ServiceProviderInterface
             /**
              * Application Debug Mode
              *
-             * @param  Container $container The service container.
+             * @param  Container $container A service container.
              * @return boolean
              */
             $container['debug'] = function (Container $container) {
@@ -139,7 +139,7 @@ class AppServiceProvider implements ServiceProviderInterface
              * Base URL as a PSR-7 UriInterface object for the current request
              * or the Charcoal application.
              *
-             * @param  Container $container The service container.
+             * @param  Container $container A service container.
              * @return \Psr\Http\Message\UriInterface
              */
             $container['base-url'] = function (Container $container) {
@@ -163,22 +163,22 @@ class AppServiceProvider implements ServiceProviderInterface
     }
 
     /**
-     * @param Container $container The DI container.
+     * @param  Container $container A service container.
      * @return void
      */
     protected function registerHandlerServices(Container $container)
     {
         /** @var string The default Throwable handler. */
-        $container['phpErrorHandler/class']    = PhpError::class;
+        $container['phpErrorHandler/class'] = PhpError::class;
 
         /** @var string The default Exception handler. */
-        $container['errorHandler/class']       = Error::class;
+        $container['errorHandler/class'] = Error::class;
 
         /** @var string The default "Not Found" handler. */
-        $container['notFoundHandler/class']    = NotFound::class;
+        $container['notFoundHandler/class'] = NotFound::class;
 
         /** @var string The default "Not Allowed" handler. */
-        $container['notAllowedHandler/class']  = NotAllowed::class;
+        $container['notAllowedHandler/class'] = NotAllowed::class;
 
         /** @var string The default "Service Unavailable" handler. */
         $container['maintenanceHandler/class'] = Maintenance::class;
@@ -190,7 +190,7 @@ class AppServiceProvider implements ServiceProviderInterface
              * HTTP 404 (Not Found) handler.
              *
              * @param  object|\Charcoal\App\Handler\HandlerInterface $handler   An error handler instance.
-             * @param  Container               $container A container instance.
+             * @param  Container                                     $container A container instance.
              * @return \Charcoal\App\Handler\HandlerInterface
              */
             $container->extend('notFoundHandler', function ($handler, Container $container) use ($handlersConfig) {
@@ -210,7 +210,7 @@ class AppServiceProvider implements ServiceProviderInterface
              * HTTP 405 (Not Allowed) handler.
              *
              * @param  object|\Charcoal\App\Handler\HandlerInterface $handler   An error handler instance.
-             * @param  Container               $container A container instance.
+             * @param  Container                                     $container A container instance.
              * @return \Charcoal\App\Handler\HandlerInterface
              */
             $container->extend('notAllowedHandler', function ($handler, Container $container) use ($handlersConfig) {
@@ -230,7 +230,7 @@ class AppServiceProvider implements ServiceProviderInterface
              * HTTP 500 (Error) handler for PHP 7+ Throwables.
              *
              * @param  object|\Charcoal\App\Handler\HandlerInterface $handler   An error handler instance.
-             * @param  Container               $container A container instance.
+             * @param  Container                                     $container A container instance.
              * @return \Charcoal\App\Handler\HandlerInterface
              */
             $container->extend('phpErrorHandler', function ($handler, Container $container) use ($handlersConfig) {
@@ -250,7 +250,7 @@ class AppServiceProvider implements ServiceProviderInterface
              * HTTP 500 (Error) handler.
              *
              * @param  object|\Charcoal\App\Handler\HandlerInterface $handler   An error handler instance.
-             * @param  Container               $container A container instance.
+             * @param  Container                                     $container A container instance.
              * @return \Charcoal\App\Handler\HandlerInterface
              */
             $container->extend('errorHandler', function ($handler, Container $container) use ($handlersConfig) {
@@ -271,7 +271,7 @@ class AppServiceProvider implements ServiceProviderInterface
              *
              * This handler is not part of Slim.
              *
-             * @param  Container $container A Pimple DI container.
+             * @param  Container $container A service container.
              * @return \Charcoal\App\Handler\HandlerInterface
              */
             $container['maintenanceHandler'] = function (Container $container) use ($handlersConfig) {
@@ -285,7 +285,7 @@ class AppServiceProvider implements ServiceProviderInterface
     }
 
     /**
-     * @param Container $container A Pimple DI container.
+     * @param  Container $container A service container.
      * @return void
      */
     protected function registerRouteServices(Container $container)
@@ -299,7 +299,7 @@ class AppServiceProvider implements ServiceProviderInterface
         /**
          * The Route Factory service is used to instanciate new routes.
          *
-         * @param Container $container A container instance.
+         * @param  Container $container A service container.
          * @return \Charcoal\Factory\FactoryInterface
          */
         $container['route/factory'] = function (Container $container) {
@@ -318,13 +318,13 @@ class AppServiceProvider implements ServiceProviderInterface
     }
 
     /**
-     * @param Container $container A Pimple DI Container.
+     * @param  Container $container A service container.
      * @return void
      */
     protected function registerMiddlewareServices(Container $container)
     {
         /**
-         * @param  Container $container A Pimple DI Container.
+         * @param  Container $container A service container.
          * @return IpMiddleware
          */
         $container['middlewares/charcoal/app/middleware/ip'] = function(container $container) {
@@ -334,7 +334,7 @@ class AppServiceProvider implements ServiceProviderInterface
     }
 
     /**
-     * @param Container $container The DI container.
+     * @param  Container $container A service container.
      * @return void
      */
     protected function registerRequestControllerServices(Container $container)
@@ -345,7 +345,7 @@ class AppServiceProvider implements ServiceProviderInterface
          * - Actions are `ActionInterface` and must be suffixed with `Action`.
          * - The container is passed to the created action constructor, which will call `setDependencies()`.
          *
-         * @param Container $container A container instance.
+         * @param  Container $container A service container.
          * @return \Charcoal\Factory\FactoryInterface
          */
         $container['action/factory'] = function (Container $container) {
@@ -369,7 +369,7 @@ class AppServiceProvider implements ServiceProviderInterface
          * - Templates are `TemplateInterface` and must be suffixed with `Template`.
          * - The container is passed to the created template constructor, which will call `setDependencies()`.
          *
-         * @param Container $container A container instance.
+         * @param  Container $container A service container.
          * @return \Charcoal\Factory\FactoryInterface
          */
         $container['template/factory'] = function (Container $container) {
@@ -393,7 +393,7 @@ class AppServiceProvider implements ServiceProviderInterface
          * - Widgets are `WidgetInterface` and must be suffixed with `Widget`.
          * - The container is passed to the created widget constructor, which will call `setDependencies()`.
          *
-         * @param Container $container A container instance.
+         * @param  Container $container A service container.
          * @return \Charcoal\Factory\FactoryInterface
          */
         $container['widget/factory'] = function (Container $container) {
@@ -412,7 +412,7 @@ class AppServiceProvider implements ServiceProviderInterface
         };
 
         /**
-         * @param Container $container A container instance.
+         * @param  Container $container A service container.
          * @return WidgetBuilder
          */
         $container['widget/builder'] = function (Container $container) {
@@ -421,7 +421,7 @@ class AppServiceProvider implements ServiceProviderInterface
     }
 
     /**
-     * @param Container $container The DI container.
+     * @param  Container $container A service container.
      * @return void
      */
     protected function registerModuleServices(Container $container)
@@ -431,7 +431,7 @@ class AppServiceProvider implements ServiceProviderInterface
          *
          * - Modules are `ModuleInterface` and must be suffixed with `Module`.
          *
-         * @param Container $container A container instance.
+         * @param  Container $container A service container.
          * @return \Charcoal\Factory\FactoryInterface
          */
         $container['module/factory'] = function (Container $container) {
@@ -451,7 +451,7 @@ class AppServiceProvider implements ServiceProviderInterface
         /**
          * The modules as PHP classes.
          *
-         * @param Container $container A container instance.
+         * @param  Container $container A service container.
          * @return array
          */
         $container['module/classes'] = function (Container $container) {
@@ -479,7 +479,7 @@ class AppServiceProvider implements ServiceProviderInterface
     /**
      * Add helpers to the view services.
      *
-     * @param Container $container A container instance.
+     * @param  Container $container A service container.
      * @return void
      */
     protected function registerViewServices(Container $container)

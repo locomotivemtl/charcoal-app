@@ -26,7 +26,7 @@ class ScriptServiceProvider implements ServiceProviderInterface
      * This method should only be used to configure services and parameters.
      * It should not get services.
      *
-     * @param Container $container A container instance.
+     * @param  Container $container A service container.
      * @return void
      */
     public function register(Container $container)
@@ -39,7 +39,7 @@ class ScriptServiceProvider implements ServiceProviderInterface
     }
 
     /**
-     * @param Container $container The DI container.
+     * @param  Container $container A service container.
      * @return void
      */
     private function registerScriptFactory(Container $container)
@@ -50,7 +50,7 @@ class ScriptServiceProvider implements ServiceProviderInterface
          * - Scripts are `ScriptInterface` and must be suffixed with `Script`.
          * - The container is passed to the created script constructor, which will call `setDependencies()`.
          *
-         * @param Container $container A container instance.
+         * @param  Container $container A service container.
          * @return \Charcoal\Factory\FactoryInterface
          */
         $container['script/factory'] = function (Container $container) {
@@ -72,21 +72,21 @@ class ScriptServiceProvider implements ServiceProviderInterface
     }
 
     /**
-     * @param Container $container A container instance.
+     * @param  Container $container A service container.
      * @return void
      */
     private function registerClimate(Container $container)
     {
         /**
-         * @param Container $container A container instance.
-         * @return null|\League\CLImate\Util\Reader\ReaderInterface
+         * @param  Container $container A service container.
+         * @return \League\CLImate\Util\Reader\ReaderInterface|null
          */
         $container['script/climate/reader'] = function () {
             return null;
         };
 
         /**
-         * @param Container $container A container instance.
+         * @param  Container $container A service container.
          * @return CLImate
          */
         $container['script/climate'] = function () {

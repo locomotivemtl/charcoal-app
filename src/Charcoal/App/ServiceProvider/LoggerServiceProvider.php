@@ -45,13 +45,13 @@ class LoggerServiceProvider implements ServiceProviderInterface
      * This method should only be used to configure services and parameters.
      * It should not get services.
      *
-     * @param Container $container A container instance.
+     * @param Container $container A service container.
      * @return void
      */
     public function register(Container $container)
     {
         /**
-         * @param  Container $container A container instance.
+         * @param  Container $container A service container.
          * @return LoggerConfig
          */
         $container['logger/config'] = function (Container $container) {
@@ -61,7 +61,7 @@ class LoggerServiceProvider implements ServiceProviderInterface
         };
 
         /**
-         * @param  Container $container A container instance.
+         * @param  Container $container A service container.
          * @return StreamHandler|null
          */
         $container['logger/handler/stream'] = function (Container $container) {
@@ -77,7 +77,7 @@ class LoggerServiceProvider implements ServiceProviderInterface
         };
 
         /**
-         * @param  Container $container A container instance.
+         * @param  Container $container A service container.
          * @return BrowserConsoleHandler|null
          */
         $container['logger/handler/browser-console'] = function (Container $container) {
@@ -95,7 +95,7 @@ class LoggerServiceProvider implements ServiceProviderInterface
         /**
          * Fulfills the PSR-3 dependency with a Monolog logger.
          *
-         * @param  Container $container A container instance.
+         * @param  Container $container A service container.
          * @return LoggerInterface
          */
         $container['logger'] = function (Container $container) {

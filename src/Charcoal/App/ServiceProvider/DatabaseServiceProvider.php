@@ -33,30 +33,34 @@ class DatabaseServiceProvider implements ServiceProviderInterface
      * This method should only be used to configure services and parameters.
      * It should not get services.
      *
-     * @param Container $container A container instance.
+     * @param  Container $container A service container.
      * @return void
      */
     public function register(Container $container)
     {
         /**
-         * @param Container $container A container instance.
-         * @return Container The Collection of DatabaseSourceConfig, in a Container.
+         * @param  Container $container A service container.
+         * @return array<string, DatabaseConfig>|Container The collection of DatabaseSourceConfig, in a Container.
          */
         $container['databases/config'] = function (Container $container) {
             $config = $container['config'];
             $databases = $config['databases'];
             $configs = new Container();
             foreach ($databases as $dbIdent => $dbOptions) {
+                /**
+                 * @return DatabaseConfig
+                 */
                 $configs[$dbIdent] = function () use ($dbOptions) {
                     return new DatabaseConfig($dbOptions);
                 };
             }
+
             return $configs;
         };
 
         /**
-         * @param Container $container A container instance.
-         * @return Container
+         * @param  Container $container A service container.
+         * @return array<string, PDO>|Container
          */
         $container['databases'] = function (Container $container) {
             $config = $container['config'];
@@ -67,7 +71,6 @@ class DatabaseServiceProvider implements ServiceProviderInterface
                 unset($dbOptions);
 
                 /**
-                 * @param Container $container A container instance.
                  * @return PDO
                  */
                 $dbs[$dbIdent] = function () use ($dbIdent, $origContainer) {
@@ -94,6 +97,7 @@ class DatabaseServiceProvider implements ServiceProviderInterface
                     } else {
                         $dsn = $type.':host='.$host.';dbname='.$database;
                     }
+
                     $db = new PDO($dsn, $username, $password, $extraOptions);
 
                     // Set PDO options
@@ -101,16 +105,18 @@ class DatabaseServiceProvider implements ServiceProviderInterface
                     if ($type == 'mysql') {
                         $db->setAttribute(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, true);
                     }
+
                     return $db;
                 };
             }
+
             return $dbs;
         };
 
         /**
          * The (default) database configuration.
          *
-         * @param Container $container A container instance.
+         * @param  Container $container A service container.
          * @return DatabaseSourceConfig
          */
         $container['database/config'] = function (Container $container) {
@@ -122,7 +128,7 @@ class DatabaseServiceProvider implements ServiceProviderInterface
         /**
          * The (default) database service, as a PDO object.
          *
-         * @param Container $container A container instance.
+         * @param  Container $container A service container.
          * @throws Exception If the database configuration is invalid.
          * @return PDO
          */

@@ -45,14 +45,14 @@ use Charcoal\App\Config\FilesystemConfig;
 class FilesystemServiceProvider implements ServiceProviderInterface
 {
     /**
-     * @param Container $container Pimple DI Container.
+     * @param  Container $container A service container.
      * @return void
      */
     public function register(Container $container)
     {
         /**
-         * @param  Container $container Pimple DI Container.
-         * @return FlysystemConfig
+         * @param  Container $container A service container.
+         * @return FilesystemConfig
          */
         $container['filesystem/config'] = function (Container $container) {
             $appConfig = isset($container['config']) ? $container['config'] : [];
@@ -61,13 +61,17 @@ class FilesystemServiceProvider implements ServiceProviderInterface
         };
 
         /**
-         * @param Container $container Pimple DI Container.
+         * @param  Container $container A service container.
          * @return MountManager
          */
         $container['filesystem/manager'] = function () {
             return new MountManager();
         };
 
+        /**
+         * @param  Container $container A service container.
+         * @return array<string, Filesystem>
+         */
         $container['filesystems'] = function (Container $container) {
             $filesystemConfig = $container['filesystem/config'];
             $filesystems = new Container();
@@ -83,7 +87,7 @@ class FilesystemServiceProvider implements ServiceProviderInterface
     }
 
     /**
-     * @param array $config The driver (adapter) configuration.
+     * @param  array $config The driver (adapter) configuration.
      * @throws Exception If the filesystem type is not defined in config.
      * @throws UnexpectedValueException If the filesystem type is invalid / unsupported.
      * @return Filesystem
@@ -137,7 +141,7 @@ class FilesystemServiceProvider implements ServiceProviderInterface
     }
 
     /**
-     * @param array $config The driver (adapter) configuration.
+     * @param  array $config The driver (adapter) configuration.
      * @throws InvalidArgumentException If the path is not defined.
      * @throws LogicException If the path is not accessible.
      * @return LocalAdapter
@@ -168,7 +172,7 @@ class FilesystemServiceProvider implements ServiceProviderInterface
     }
 
     /**
-     * @param array $config The driver (adapter) configuration.
+     * @param  array $config The driver (adapter) configuration.
      * @throws InvalidArgumentException If the key, secret or bucket is not defined in config.
      * @return AwsS3Adapter
      */
@@ -179,6 +183,7 @@ class FilesystemServiceProvider implements ServiceProviderInterface
                 'No "key" configured for S3 filesystem.'
             );
         }
+
         if (!isset($config['secret']) || !$config['secret']) {
             throw new InvalidArgumentException(
                 'No "secret" configured for S3 filesystem.'
@@ -219,7 +224,7 @@ class FilesystemServiceProvider implements ServiceProviderInterface
     }
 
     /**
-     * @param array $config The driver (adapter) configuration.
+     * @param  array $config The driver (adapter) configuration.
      * @throws InvalidArgumentException If the token or secret is not defined in config.
      * @return DropboxAdapter
      */
@@ -247,7 +252,7 @@ class FilesystemServiceProvider implements ServiceProviderInterface
     }
 
     /**
-     * @param array $config The driver (adapter) configuration.
+     * @param  array $config The driver (adapter) configuration.
      * @throws InvalidArgumentException If the host, username or password is not defined in config.
      * @return FtpAdapter
      */
@@ -258,11 +263,13 @@ class FilesystemServiceProvider implements ServiceProviderInterface
                 'No host configured for FTP filesystem adapter.'
             );
         }
+
         if (!$config['username']) {
             throw new InvalidArgumentException(
                 'No username configured for FTP filesystem adapter.'
             );
         }
+
         if (!$config['password']) {
             throw new InvalidArgumentException(
                 'No password configured for FTP filesystem adapter.'
@@ -282,7 +289,7 @@ class FilesystemServiceProvider implements ServiceProviderInterface
     }
 
     /**
-     * @param array $config The driver (adapter) configuration.
+     * @param  array $config The driver (adapter) configuration.
      * @throws InvalidArgumentException If the host, username or password is not defined in config.
      * @return SftpAdapter
      */
@@ -293,11 +300,13 @@ class FilesystemServiceProvider implements ServiceProviderInterface
                 'No host configured for SFTP filesystem adapter.'
             );
         }
+
         if (!$config['username']) {
             throw new InvalidArgumentException(
                 'No username configured for SFTP filesystem adapter.'
             );
         }
+
         if (!$config['password']) {
             throw new InvalidArgumentException(
                 'No password configured for SFTP filesystem adapter.'
