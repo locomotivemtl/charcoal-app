@@ -199,7 +199,7 @@ class AppConfig extends AbstractConfig
             );
         }
 
-        $this->basePath = rtrim(realpath($path), '\\/').DIRECTORY_SEPARATOR;
+        $this->basePath = rtrim(realpath($path), '\\/');
         return $this;
     }
 
@@ -233,7 +233,7 @@ class AppConfig extends AbstractConfig
             );
         }
 
-        $this->publicPath = rtrim(realpath($path), '\\/').DIRECTORY_SEPARATOR;
+        $this->publicPath = rtrim(realpath($path), '\\/');
         return $this;
     }
 
@@ -244,8 +244,8 @@ class AppConfig extends AbstractConfig
      */
     public function publicPath()
     {
-        if (!isset($this->publicPath)) {
-            $this->publicPath = $this->basePath().'www'.DIRECTORY_SEPARATOR;
+        if ($this->publicPath === null) {
+            $this->publicPath = $this->basePath().DIRECTORY_SEPARATOR.'www';
         }
 
         return $this->publicPath;
