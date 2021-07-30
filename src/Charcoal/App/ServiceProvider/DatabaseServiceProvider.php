@@ -43,8 +43,8 @@ class DatabaseServiceProvider implements ServiceProviderInterface
          * @return array<string, DatabaseConfig>|Container The collection of DatabaseSourceConfig, in a Container.
          */
         $container['databases/config'] = function (Container $container) {
-            $config = $container['config'];
-            $databases = $config['databases'];
+            $databases = ($container['config']['databases'] ?? []);
+
             $configs = new Container();
             foreach ($databases as $dbIdent => $dbOptions) {
                 /**
@@ -63,19 +63,15 @@ class DatabaseServiceProvider implements ServiceProviderInterface
          * @return array<string, PDO>|Container
          */
         $container['databases'] = function (Container $container) {
-            $config = $container['config'];
-            $databases = $config['databases'];
-            $dbs = new Container();
-            $origContainer = $container;
-            foreach ($databases as $dbIdent => $dbOptions) {
-                unset($dbOptions);
+            $databases = ($container['config']['databases'] ?? []);
 
+            $dbs = new Container();
+            foreach (array_keys($databases) as $dbIdent) {
                 /**
                  * @return PDO
                  */
-                $dbs[$dbIdent] = function () use ($dbIdent, $origContainer) {
-                    $dbConfigs = $origContainer['databases/config'];
-                    $dbConfig = $dbConfigs[$dbIdent];
+                $dbs[$dbIdent] = function () use ($dbIdent, $container) {
+                    $dbConfig = $container['databases/config'][$dbIdent];
 
                     $type = $dbConfig['type'];
                     $host = $dbConfig['hostname'];
@@ -92,7 +88,7 @@ class DatabaseServiceProvider implements ServiceProviderInterface
                         ];
                     }
 
-                    if ($type == 'sqlite') {
+                    if ($type === 'sqlite') {
                         $dsn = $type.':'.$database;
                     } else {
                         $dsn = $type.':host='.$host.';dbname='.$database;
@@ -100,9 +96,8 @@ class DatabaseServiceProvider implements ServiceProviderInterface
 
                     $db = new PDO($dsn, $username, $password, $extraOptions);
 
-                    // Set PDO options
                     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                    if ($type == 'mysql') {
+                    if ($type === 'mysql') {
                         $db->setAttribute(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, true);
                     }
 
@@ -117,12 +112,20 @@ class DatabaseServiceProvider implements ServiceProviderInterface
          * The (default) database configuration.
          *
          * @param  Container $container A service container.
+         * @throws Exception If the database configuration is invalid.
          * @return DatabaseSourceConfig
          */
         $container['database/config'] = function (Container $container) {
-            $config = $container['config'];
-            $databaseIdent = $config['default_database'];
-            return $container['databases/config'][$databaseIdent];
+            $dbIdent   = $container['config']['default_database'] ?? 'default';
+            $dbConfigs = $container['databases/config'];
+
+            if (!isset($dbConfigs[$dbIdent])) {
+                throw new Exception(
+                    sprintf('The database config "%s" is not defined in the "databases" configuration.', $dbIdent)
+                );
+            }
+
+            return $dbConfigs[$dbIdent];
         };
 
         /**
@@ -133,15 +136,16 @@ class DatabaseServiceProvider implements ServiceProviderInterface
          * @return PDO
          */
         $container['database'] = function (Container $container) {
-            $config = $container['config'];
-            $databaseIdent = $config['default_database'];
+            $dbIdent   = $container['config']['default_database'] ?? 'default';
             $databases = $container['databases'];
-            if (!isset($databases[$databaseIdent])) {
+
+            if (!isset($databases[$dbIdent])) {
                 throw new Exception(
-                    sprintf('The database "%s" is not defined in the "databases" configuration.', $databaseIdent)
+                    sprintf('The database "%s" is not defined in the "databases" configuration.', $dbIdent)
                 );
             }
-            return $databases[$databaseIdent];
+
+            return $databases[$dbIdent];
         };
     }
 }

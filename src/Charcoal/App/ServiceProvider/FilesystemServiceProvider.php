@@ -55,8 +55,7 @@ class FilesystemServiceProvider implements ServiceProviderInterface
          * @return FilesystemConfig
          */
         $container['filesystem/config'] = function (Container $container) {
-            $appConfig = isset($container['config']) ? $container['config'] : [];
-            $fsConfig  = isset($appConfig['filesystem']) ? $appConfig['filesystem'] : null;
+            $fsConfig = ($container['config']['filesystem'] ?? null);
             return new FilesystemConfig($fsConfig);
         };
 

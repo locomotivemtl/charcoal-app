@@ -27,6 +27,7 @@ class FilesystemConfig extends AbstractConfig
     {
         return [
             'public' => [
+                'public'    => true,
                 'type'      => 'local',
                 'path'      => './',
                 'label'     => 'Public',

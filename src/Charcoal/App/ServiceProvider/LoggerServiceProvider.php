@@ -55,8 +55,7 @@ class LoggerServiceProvider implements ServiceProviderInterface
          * @return LoggerConfig
          */
         $container['logger/config'] = function (Container $container) {
-            $appConfig    = isset($container['config']) ? $container['config'] : [];
-            $loggerConfig = isset($appConfig['logger']) ? $appConfig['logger'] : null;
+            $loggerConfig = ($container['config']['logger'] ?? null);
             return new LoggerConfig($loggerConfig);
         };
 
