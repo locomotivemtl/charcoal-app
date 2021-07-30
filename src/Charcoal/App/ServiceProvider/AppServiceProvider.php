@@ -118,19 +118,19 @@ class AppServiceProvider implements ServiceProviderInterface
             /**
              * Application Debug Mode
              *
-             * @param Container $container
+             * @param  Container $container The service container.
              * @return boolean
              */
             $container['debug'] = function (Container $container) {
                 if (isset($container['config']['debug'])) {
-                    $debug = !!$container['config']['debug'];
-                } elseif (isset($container['config']['dev_mode'])) {
-                    $debug = !!$container['config']['dev_mode'];
-                } else {
-                    $debug = false;
+                    return !!$container['config']['debug'];
                 }
 
-                return $debug;
+                if (isset($container['config']['dev_mode'])) {
+                    return !!$container['config']['dev_mode'];
+                }
+
+                return false;
             };
         }
 
@@ -139,7 +139,7 @@ class AppServiceProvider implements ServiceProviderInterface
              * Base URL as a PSR-7 UriInterface object for the current request
              * or the Charcoal application.
              *
-             * @param Container $container
+             * @param  Container $container The service container.
              * @return \Psr\Http\Message\UriInterface
              */
             $container['base-url'] = function (Container $container) {
