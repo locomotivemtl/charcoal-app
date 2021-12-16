@@ -37,6 +37,14 @@ abstract class AbstractScript extends AbstractEntity implements
     use LoggerAwareTrait;
 
     /**
+     * Default behaviour of the controller.
+     */
+    const DEFAULT_ARG_QUIET       = false;
+    const DEFAULT_ARG_VERBOSE     = false;
+    const DEFAULT_ARG_INTERACTIVE = false;
+    const DEFAULT_ARG_DRYRUN      = false;
+
+    /**
      * @var string $ident
      */
     private $ident;
@@ -64,22 +72,22 @@ abstract class AbstractScript extends AbstractEntity implements
     /**
      * @var boolean $quiet
      */
-    private $quiet = false;
+    private $quiet = self::DEFAULT_ARG_QUIET;
 
     /**
      * @var boolean $verbose
      */
-    private $verbose = false;
+    private $verbose = self::DEFAULT_ARG_VERBOSE;
 
     /**
      * @var boolean $interactive
      */
-    private $interactive = false;
+    private $interactive = self::DEFAULT_ARG_INTERACTIVE;
 
     /**
      * @var boolean $dryRun
      */
-    private $dryRun = false;
+    private $dryRun = self::DEFAULT_ARG_DRYRUN;
 
     /**
      * Return a new CLI script.
