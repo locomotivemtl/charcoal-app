@@ -435,17 +435,23 @@ abstract class AbstractScript extends AbstractEntity implements
         $arg = $this->argument($name);
 
         if ($arg) {
-            $type = (isset($arg['inputType']) ? $arg['inputType'] : 'input');
-
-            if (isset($arg['prompt'])) {
-                $label = $arg['prompt'];
-            } elseif (isset($arg['description'])) {
-                $label = $arg['description'];
+            if (!empty($arg['inputType'])) {
+                $type = $arg['inputType'];
+            } elseif (!empty($arg['noValue'])) {
+                $type = 'confirm';
             } else {
-                $label = $name;
+                $type = 'input';
             }
 
-            if (isset($arg['choices'])) {
+            if (!empty($arg['prompt'])) {
+                $prompt = $arg['prompt'];
+            } elseif (!empty($arg['description'])) {
+                $prompt = $arg['description'];
+            } else {
+                $prompt = $name;
+            }
+
+            if (!empty($arg['choices'])) {
                 $arg['options'] = $arg['choices'];
                 $arg['acceptValue'] = $arg['choices'];
             }
@@ -453,11 +459,28 @@ abstract class AbstractScript extends AbstractEntity implements
             $accept = true;
         } else {
             $type   = 'input';
-            $label  = $name;
+            $prompt = $name;
             $accept = false;
         }
 
-        $prompt = 'prompt';
+        if (!in_array($type, [ 'confirm', 'checkboxes', 'radio' ])) {
+            if (isset($arg['defaultValue'])) {
+                $default = $arg['defaultValue'];
+
+                if (is_bool($default) || is_null($default)) {
+                    $default = var_export($default, true);
+                }
+
+                if ($default && is_string($default) || is_numeric($default)) {
+                    $pattern = '/[\(\[\<]'.preg_quote($default, '/').'[\)\]\>]/';
+                    if (!preg_match($pattern, $prompt)) {
+                        $prompt .= ' ('.$default.')';
+                    }
+                }
+            }
+        }
+
+        $ask = 'prompt';
         switch ($type) {
             case 'checkboxes':
             case 'radio':
@@ -468,26 +491,30 @@ abstract class AbstractScript extends AbstractEntity implements
                 }
 
                 $accept = false;
-                $input  = $cli->{$type}($label, $arg['options'], $this->climateReader);
+                $input  = $cli->{$type}($prompt, $arg['options'], $this->climateReader);
                 break;
 
             case 'confirm':
-                $prompt = 'confirmed';
-                $input  = $cli->confirm($label, $this->climateReader);
+                if (isset($arg['defaultValue'])) {
+                    $arg['defaultValue'] = ($arg['defaultValue'] ? 'y' : 'n');
+                }
+
+                $ask   = 'confirmed';
+                $input = $cli->confirm($prompt, $this->climateReader);
                 break;
 
             case 'password':
-                $input = $cli->password($label, $this->climateReader);
+                $input = $cli->password($prompt, $this->climateReader);
                 $input->multiLine();
                 break;
 
             case 'multiline':
-                $input = $cli->input($label, $this->climateReader);
+                $input = $cli->input($prompt, $this->climateReader);
                 $input->multiLine();
                 break;
 
             default:
-                $input = $cli->input($label, $this->climateReader);
+                $input = $cli->input($prompt, $this->climateReader);
                 break;
         }
 
@@ -499,7 +526,11 @@ abstract class AbstractScript extends AbstractEntity implements
             }
         }
 
-        return $input->{$prompt}();
+        if (isset($arg['defaultValue'])) {
+            $input->defaultTo($arg['defaultValue']);
+        }
+
+        return $input->{$ask}();
     }
 
     /**
