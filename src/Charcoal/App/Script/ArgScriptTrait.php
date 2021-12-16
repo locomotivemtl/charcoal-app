@@ -49,7 +49,7 @@ trait ArgScriptTrait
         $cli  = $this->climate();
         $args = $cli->arguments;
 
-        $ask    = $args->defined('interactive');
+        $ask    = $this->interactive();
         $params = $this->arguments();
         foreach ($params as $key => $param) {
             $setter = $this->setter($key);

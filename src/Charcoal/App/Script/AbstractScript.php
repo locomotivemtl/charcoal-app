@@ -41,7 +41,7 @@ abstract class AbstractScript extends AbstractEntity implements
      */
     const DEFAULT_ARG_QUIET       = false;
     const DEFAULT_ARG_VERBOSE     = false;
-    const DEFAULT_ARG_INTERACTIVE = false;
+    const DEFAULT_ARG_INTERACTIVE = true;
     const DEFAULT_ARG_DRYRUN      = false;
 
     /**
@@ -472,21 +472,23 @@ abstract class AbstractScript extends AbstractEntity implements
     }
 
     /**
-     * Retrieve an argument either from argument list (if set) or from user input.
+     * Retrieves the value of an argument either
+     * from the argument list (if defined) or
+     * from user input (if interactive).
      *
      * @param  string $argName An argument identifier.
      * @return mixed Returns the argument or prompt value.
      */
     protected function argOrInput($argName)
     {
-        $climate = $this->climate();
+        $cli  = $this->climate();
+        $args = $cli->arguments;
 
-        $value = $climate->arguments->get($argName);
-        if ($value) {
-            return $value;
+        if (!$args->defined($argName) && $this->interactive()) {
+            return $this->input($argName);
         }
 
-        return $this->input($argName);
+        return $args->get($argName);
     }
 
     /**
