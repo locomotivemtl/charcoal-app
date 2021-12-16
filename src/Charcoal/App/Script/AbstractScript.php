@@ -137,8 +137,17 @@ abstract class AbstractScript extends AbstractEntity implements
             $this->setVerbose(true);
         }
 
+        if ($arguments->defined('interactive') && $arguments->defined('non_interactive')) {
+            $climate->error('You must choose one of --interactive or --no-interaction');
+            return $response;
+        }
+
         if ($arguments->defined('interactive')) {
             $this->setInteractive(true);
+        }
+
+        if ($arguments->defined('non_interactive')) {
+            $this->setInteractive(false);
         }
 
         if ($arguments->defined('dry_run')) {
@@ -181,6 +190,12 @@ abstract class AbstractScript extends AbstractEntity implements
                 'longPrefix'   => 'interactive',
                 'noValue'      => true,
                 'description'  => 'Ask any interactive question.',
+            ],
+            'non_interactive' => [
+                'prefix'       => 'n',
+                'longPrefix'   => 'no-interaction',
+                'noValue'      => true,
+                'description'  => 'Do not ask any interactive question.',
             ],
             'dry_run' => [
                 'longPrefix'   => 'dry-run',
