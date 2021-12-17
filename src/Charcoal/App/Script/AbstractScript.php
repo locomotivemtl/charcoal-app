@@ -154,31 +154,31 @@ abstract class AbstractScript extends AbstractEntity implements
                 'prefix'       => 'h',
                 'longPrefix'   => 'help',
                 'noValue'      => true,
-                'description'  => 'Display help information.'
+                'description'  => 'Display help information.',
             ],
             'quiet' => [
                 'prefix'       => 'q',
                 'longPrefix'   => 'quiet',
                 'noValue'      => true,
-                'description'  => 'Only print error and warning messages.'
+                'description'  => 'Only print error and warning messages.',
             ],
             'verbose' => [
                 'prefix'        => 'v',
                 'longPrefix'    => 'verbose',
                 'noValue'       => true,
-                'description'   => 'Increase verbosity of messages.'
+                'description'   => 'Increase verbosity of messages.',
             ],
             'interactive' => [
                 'prefix'       => 'i',
                 'longPrefix'   => 'interactive',
                 'noValue'      => true,
-                'description'  => 'Ask any interactive question.'
+                'description'  => 'Ask any interactive question.',
             ],
             'dry_run' => [
                 'longPrefix'   => 'dry-run',
                 'noValue'      => true,
-                'description'  => 'This will simulate the script and show you what would happen.'
-            ]
+                'description'  => 'This will simulate the script and show you what would happen.',
+            ],
         ];
     }
 
@@ -331,7 +331,9 @@ abstract class AbstractScript extends AbstractEntity implements
             );
         }
         $this->arguments[$argumentIdent] = $argument;
-        $this->climate()->arguments->add([$argumentIdent=>$argument]);
+        $this->climate()->arguments->add([
+            $argumentIdent => $argument,
+        ]);
         return $this;
     }
 
