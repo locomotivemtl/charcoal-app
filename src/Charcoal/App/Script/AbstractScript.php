@@ -72,22 +72,22 @@ abstract class AbstractScript extends AbstractEntity implements
     /**
      * @var boolean $quiet
      */
-    private $quiet = self::DEFAULT_ARG_QUIET;
+    private $quiet;
 
     /**
      * @var boolean $verbose
      */
-    private $verbose = self::DEFAULT_ARG_VERBOSE;
+    private $verbose;
 
     /**
      * @var boolean $interactive
      */
-    private $interactive = self::DEFAULT_ARG_INTERACTIVE;
+    private $interactive;
 
     /**
      * @var boolean $dryRun
      */
-    private $dryRun = self::DEFAULT_ARG_DRYRUN;
+    private $dryRun;
 
     /**
      * Return a new CLI script.
@@ -98,6 +98,7 @@ abstract class AbstractScript extends AbstractEntity implements
     {
         $this->setLogger($data['logger']);
         $this->setClimate($data['climate']);
+
         if (isset($data['climate_reader'])) {
             $this->setClimateReader($data['climate_reader']);
         }
@@ -260,7 +261,11 @@ abstract class AbstractScript extends AbstractEntity implements
      */
     public function setQuiet($quiet)
     {
-        $this->quiet = !!$quiet;
+        if ($quiet !== null) {
+            $quiet = (bool)$quiet;
+        }
+
+        $this->quiet = $quiet;
         return $this;
     }
 
@@ -269,6 +274,10 @@ abstract class AbstractScript extends AbstractEntity implements
      */
     public function quiet()
     {
+        if ($this->quiet === null) {
+            return static::DEFAULT_ARG_QUIET;
+        }
+
         return $this->quiet;
     }
 
@@ -278,7 +287,11 @@ abstract class AbstractScript extends AbstractEntity implements
      */
     public function setVerbose($verbose)
     {
-        $this->verbose = !!$verbose;
+        if ($verbose !== null) {
+            $verbose = (bool)$verbose;
+        }
+
+        $this->verbose = $verbose;
         return $this;
     }
 
@@ -287,6 +300,10 @@ abstract class AbstractScript extends AbstractEntity implements
      */
     public function verbose()
     {
+        if ($this->verbose === null) {
+            return static::DEFAULT_ARG_VERBOSE;
+        }
+
         return $this->verbose;
     }
 
@@ -296,7 +313,11 @@ abstract class AbstractScript extends AbstractEntity implements
      */
     public function setInteractive($interactive)
     {
-        $this->interactive = !!$interactive;
+        if ($interactive !== null) {
+            $interactive = (bool)$interactive;
+        }
+
+        $this->interactive = $interactive;
         return $this;
     }
 
@@ -305,6 +326,10 @@ abstract class AbstractScript extends AbstractEntity implements
      */
     public function interactive()
     {
+        if ($this->interactive === null) {
+            return static::DEFAULT_ARG_INTERACTIVE;
+        }
+
         return $this->interactive;
     }
 
@@ -314,7 +339,11 @@ abstract class AbstractScript extends AbstractEntity implements
      */
     public function setDryRun($simulate)
     {
-        $this->dryRun = !!$simulate;
+        if ($simulate !== null) {
+            $simulate = (bool)$simulate;
+        }
+
+        $this->dryRun = $simulate;
         return $this;
     }
 
@@ -323,6 +352,10 @@ abstract class AbstractScript extends AbstractEntity implements
      */
     public function dryRun()
     {
+        if ($this->dryRun === null) {
+            return static::DEFAULT_ARG_DRYRUN;
+        }
+
         return $this->dryRun;
     }
 
