@@ -182,9 +182,43 @@ abstract class AbstractScript extends AbstractEntity implements
     }
 
     /**
-     * Retrieve the script's supported arguments.
+     * Filter the default arguments.
      *
+     * Filters:
+     * 1. Removes --quiet if script is quiet by default.
+     * 2. Removes --verbose if script is verbose by default.
+     * 3. Removes either --interactive or --no-interaction depending on
+     *   if script is interactive by default.
+     *
+     * @param  array $arguments A map of argument definitions.
      * @return array
+     */
+    public function filterDefaultArguments(array $arguments)
+    {
+        // [^1]
+        if (static::DEFAULT_ARG_QUIET) {
+            unset($arguments[self::ARG_QUIET]);
+        }
+
+        // [^2]
+        if (static::DEFAULT_ARG_VERBOSE) {
+            unset($arguments[self::ARG_VERBOSE]);
+        }
+
+        // [^3]
+        if (static::DEFAULT_ARG_INTERACTIVE) {
+            unset($arguments[self::ARG_INTERACTIVE]);
+        } else {
+            unset($arguments[self::ARG_NO_INTERACTION]);
+        }
+
+        return $arguments;
+    }
+
+    /**
+     * Retrieve the script's default arguments.
+     *
+     * @return array<string, array>
      */
     public function defaultArguments()
     {
@@ -466,7 +500,7 @@ abstract class AbstractScript extends AbstractEntity implements
      */
     protected function init()
     {
-        $arguments = $this->defaultArguments();
+        $arguments = $this->filterDefaultArguments($this->defaultArguments());
         $this->setArguments($arguments);
     }
 
