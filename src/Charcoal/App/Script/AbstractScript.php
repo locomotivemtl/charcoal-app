@@ -304,36 +304,47 @@ abstract class AbstractScript extends AbstractEntity implements
     }
 
     /**
-     * @param array $arguments The scripts argument array, as [key=>value].
+     * @param  array $arguments A map of argument definitions.
      * @return ScriptInterface Chainable
      */
     public function setArguments(array $arguments)
     {
         $this->arguments = [];
-        foreach ($arguments as $argumentIdent => $argument) {
-            $this->addArgument($argumentIdent, $argument);
+        $this->addArguments($arguments);
+
+        return $this;
+    }
+
+    /**
+     * @param  array $arguments A map of argument definitions.
+     * @return ScriptInterface Chainable
+     */
+    public function addArguments(array $arguments)
+    {
+        foreach ($arguments as $argName => $argOptions) {
+            $this->addArgument($argName, $argOptions);
         }
 
         return $this;
     }
 
     /**
-     * @param string $argumentIdent The argument identifier.
-     * @param array  $argument      The argument options.
-     * @throws InvalidArgumentException If the argument ident is not a string.
+     * @param  string $argName The argument name.
+     * @param  array  $options The argument definition.
+     * @throws InvalidArgumentException If the argument name is not a string.
      * @return ScriptInterface Chainable
      */
-    public function addArgument($argumentIdent, array $argument)
+    public function addArgument($argName, array $argOptions = [])
     {
-        if (!is_string($argumentIdent)) {
+        if (!is_string($argName)) {
             throw new InvalidArgumentException(
-                'Argument ident must be a string.'
+                'Argument name must be a string.'
             );
         }
-        $this->arguments[$argumentIdent] = $argument;
-        $this->climate()->arguments->add([
-            $argumentIdent => $argument,
-        ]);
+
+        $this->arguments[$argName] = $argOptions;
+        $this->climate()->arguments->add($argName, $argOptions);
+
         return $this;
     }
 
@@ -346,15 +357,15 @@ abstract class AbstractScript extends AbstractEntity implements
     }
 
     /**
-     * @param string $argumentIdent The argument identifier to retrieve options from.
+     * @param  string $argName The argument identifier to retrieve options from.
      * @return array|null The argument options, or null if it does not exist.
      */
-    public function argument($argumentIdent)
+    public function argument($argName)
     {
-        if (!isset($this->arguments[$argumentIdent])) {
+        if (!isset($this->arguments[$argName])) {
             return null;
         }
-        return $this->arguments[$argumentIdent];
+        return $this->arguments[$argName];
     }
 
     /**
