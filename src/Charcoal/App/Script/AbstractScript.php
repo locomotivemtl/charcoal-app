@@ -45,6 +45,16 @@ abstract class AbstractScript extends AbstractEntity implements
     const DEFAULT_ARG_DRYRUN      = false;
 
     /**
+     * Command-line argument names available with every command.
+     */
+    const ARG_HELP           = 'help';
+    const ARG_QUIET          = 'quiet';
+    const ARG_VERBOSE        = 'verbose';
+    const ARG_INTERACTIVE    = 'interactive';
+    const ARG_NO_INTERACTION = 'no-interaction';
+    const ARG_DRY_RUN        = 'dry-run';
+
+    /**
      * @var string $ident
      */
     private $ident;
@@ -120,38 +130,49 @@ abstract class AbstractScript extends AbstractEntity implements
         $climate   = $this->climate();
         $arguments = $climate->arguments;
 
-        if ($arguments->defined('help')) {
+        if ($arguments->defined(self::ARG_HELP)) {
             $climate->usage();
             return $response;
         }
 
-        if ($arguments->defined('quiet') && $arguments->defined('verbose')) {
-            $climate->error('You must choose one of --quiet or --verbose');
+        if ($arguments->defined(self::ARG_QUIET) && $arguments->defined(self::ARG_VERBOSE)) {
+            $climate->error(sprintf(
+                'You must choose one of --%s or --%s',
+                self::ARG_QUIET,
+                self::ARG_VERBOSE
+            ));
             return $response;
         }
 
-        if ($arguments->defined('quiet')) {
+        if ($arguments->defined(self::ARG_QUIET)) {
             $this->setQuiet(true);
         }
 
-        if ($arguments->defined('verbose')) {
+        if ($arguments->defined(self::ARG_VERBOSE)) {
             $this->setVerbose(true);
         }
 
-        if ($arguments->defined('interactive') && $arguments->defined('non_interactive')) {
-            $climate->error('You must choose one of --interactive or --no-interaction');
+        if (
+            $arguments->defined(self::ARG_INTERACTIVE) &&
+            $arguments->defined(self::ARG_NO_INTERACTION)
+        ) {
+            $climate->error(sprintf(
+                'You must choose one of --%s or --%s',
+                self::ARG_INTERACTIVE,
+                self::ARG_NO_INTERACTION
+            ));
             return $response;
         }
 
-        if ($arguments->defined('interactive')) {
+        if ($arguments->defined(self::ARG_INTERACTIVE)) {
             $this->setInteractive(true);
         }
 
-        if ($arguments->defined('non_interactive')) {
+        if ($arguments->defined(self::ARG_NO_INTERACTION)) {
             $this->setInteractive(false);
         }
 
-        if ($arguments->defined('dry_run')) {
+        if ($arguments->defined(self::ARG_DRY_RUN)) {
             $this->setDryRun(true);
         }
 
@@ -168,38 +189,38 @@ abstract class AbstractScript extends AbstractEntity implements
     public function defaultArguments()
     {
         return [
-            'help' => [
+            self::ARG_HELP => [
                 'prefix'       => 'h',
-                'longPrefix'   => 'help',
+                'longPrefix'   => self::ARG_HELP,
                 'noValue'      => true,
                 'description'  => 'Display help information.',
             ],
-            'quiet' => [
+            self::ARG_QUIET => [
                 'prefix'       => 'q',
-                'longPrefix'   => 'quiet',
+                'longPrefix'   => self::ARG_QUIET,
                 'noValue'      => true,
                 'description'  => 'Only print error and warning messages.',
             ],
-            'verbose' => [
+            self::ARG_VERBOSE => [
                 'prefix'        => 'v',
-                'longPrefix'    => 'verbose',
+                'longPrefix'    => self::ARG_VERBOSE,
                 'noValue'       => true,
                 'description'   => 'Increase verbosity of messages.',
             ],
-            'interactive' => [
+            self::ARG_INTERACTIVE => [
                 'prefix'       => 'i',
-                'longPrefix'   => 'interactive',
+                'longPrefix'   => self::ARG_INTERACTIVE,
                 'noValue'      => true,
                 'description'  => 'Ask any interactive question.',
             ],
-            'non_interactive' => [
+            self::ARG_NO_INTERACTION => [
                 'prefix'       => 'n',
-                'longPrefix'   => 'no-interaction',
+                'longPrefix'   => self::ARG_NO_INTERACTION,
                 'noValue'      => true,
                 'description'  => 'Do not ask any interactive question.',
             ],
-            'dry_run' => [
-                'longPrefix'   => 'dry-run',
+            self::ARG_DRY_RUN => [
+                'longPrefix'   => self::ARG_DRY_RUN,
                 'noValue'      => true,
                 'description'  => 'This will simulate the script and show you what would happen.',
             ],
