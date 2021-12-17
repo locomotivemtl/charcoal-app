@@ -48,17 +48,19 @@ class DatabaseConfig extends AbstractConfig
     public function defaults()
     {
         return [
-            'type'              => 'mysql',
-            'hostname'          => 'localhost',
-            'username'          => '',
-            'password'          => '',
-            'database'          => '',
-            'disable_utf8'      => false,
+            'type'         => 'mysql',
+            'hostname'     => 'localhost',
+            'username'     => '',
+            'password'     => '',
+            'database'     => '',
+            'disable_utf8' => false,
         ];
     }
 
     /**
-     * @param string $type The database type.
+     * Set the database type.
+     *
+     * @param  string $type The database type.
      * @throws InvalidArgumentException If parameter is not a string.
      * @return self
      */
@@ -74,6 +76,8 @@ class DatabaseConfig extends AbstractConfig
     }
 
     /**
+     * Get the database type.
+     *
      * @return string
      */
     public function type()
@@ -82,9 +86,9 @@ class DatabaseConfig extends AbstractConfig
     }
 
     /**
-     * Set database hostname
+     * Set the database hostname.
      *
-     * @param string $hostname The database server hostname.
+     * @param  string $hostname The database server hostname.
      * @throws InvalidArgumentException If hostname is not a string.
      * @return self
      */
@@ -100,7 +104,7 @@ class DatabaseConfig extends AbstractConfig
     }
 
     /**
-     * Get database hostname.
+     * Get the database hostname.
      *
      * @return string
      */
@@ -110,9 +114,9 @@ class DatabaseConfig extends AbstractConfig
     }
 
     /**
-     * Set database username
+     * Set the database authentication identifier.
      *
-     * @param string $username The database authentication user.
+     * @param  string $username The username.
      * @throws InvalidArgumentException If username is not a string.
      * @return self
      */
@@ -128,7 +132,7 @@ class DatabaseConfig extends AbstractConfig
     }
 
     /**
-     * Get username
+     * Get the database authentication identifier.
      *
      * @return string
      */
@@ -138,9 +142,9 @@ class DatabaseConfig extends AbstractConfig
     }
 
     /**
-     * Set password
+     * Set the database authentication password.
      *
-     * @param string $password The database authentication password.
+     * @param  string $password The password.
      * @throws InvalidArgumentException If password is not a string.
      * @return self
      */
@@ -156,7 +160,7 @@ class DatabaseConfig extends AbstractConfig
     }
 
     /**
-     * Get password
+     * Get the database authentication password.
      *
      * @return string
      */
@@ -166,7 +170,7 @@ class DatabaseConfig extends AbstractConfig
     }
 
     /**
-     * Set database
+     * Set the database name.
      *
      * @param string $database The database name.
      * @throws InvalidArgumentException If database is not a string.
@@ -184,7 +188,7 @@ class DatabaseConfig extends AbstractConfig
     }
 
     /**
-     * Get database
+     * Get the database name.
      *
      * @return string
      */
@@ -194,7 +198,9 @@ class DatabaseConfig extends AbstractConfig
     }
 
     /**
-     * @param boolean $disableUtf8 The "disable utf8" flag.
+     * Set whether to disable UTF-8 compatibility or not.
+     *
+     * @param  boolean $disableUtf8 The disable flag.
      * @return self
      */
     public function setDisableUtf8($disableUtf8)
@@ -204,6 +210,8 @@ class DatabaseConfig extends AbstractConfig
     }
 
     /**
+     * Get whether to disable UTF-8 compatibility or not.
+     *
      * @return boolean
      */
     public function disableUtf8()

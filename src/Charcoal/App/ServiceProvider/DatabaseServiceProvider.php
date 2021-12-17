@@ -40,7 +40,7 @@ class DatabaseServiceProvider implements ServiceProviderInterface
     {
         /**
          * @param  Container $container A service container.
-         * @return array<string, DatabaseConfig>|Container The collection of DatabaseSourceConfig, in a Container.
+         * @return Container<string, DatabaseConfig> A map of database configsets.
          */
         $container['databases/config'] = function (Container $container) {
             $databases = ($container['config']['databases'] ?? []);
@@ -60,7 +60,7 @@ class DatabaseServiceProvider implements ServiceProviderInterface
 
         /**
          * @param  Container $container A service container.
-         * @return array<string, PDO>|Container
+         * @return Container<string, PDO> A map of database handlers.
          */
         $container['databases'] = function (Container $container) {
             $databases = ($container['config']['databases'] ?? []);
@@ -109,11 +109,11 @@ class DatabaseServiceProvider implements ServiceProviderInterface
         };
 
         /**
-         * The (default) database configuration.
+         * The default database configuration.
          *
          * @param  Container $container A service container.
-         * @throws Exception If the database configuration is invalid.
-         * @return DatabaseSourceConfig
+         * @throws Exception If the database configset is invalid.
+         * @return DatabaseConfig
          */
         $container['database/config'] = function (Container $container) {
             $dbIdent   = $container['config']['default_database'] ?? 'default';
@@ -129,7 +129,7 @@ class DatabaseServiceProvider implements ServiceProviderInterface
         };
 
         /**
-         * The (default) database service, as a PDO object.
+         * The default database handler.
          *
          * @param  Container $container A service container.
          * @throws Exception If the database configuration is invalid.
