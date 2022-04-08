@@ -26,8 +26,7 @@ jobs:
           php-version: ${{ matrix.php-versions }}
           extensions: json, mbstring, pdo
           coverage: xdebug
-          tools: phpcs, phpstan, phpunit
-
+          tools: composer, phpcs, phpstan, phpunit
 
       - name: Validate composer.json and composer.lock
         run: composer validate --strict
@@ -45,7 +44,7 @@ jobs:
         run: composer install --prefer-dist --no-progress --optimize-autoloader
 
       - name: Run phpcs codestyle checker
-        run: phpcs -q -ps --report=checkstyle src/ | cs2pr
+        run: phpcs -q -ps --report=checkstyle src/
 
       - name: Run phpstan static code analyzer
         run: phpstan analyze -l1 src/
