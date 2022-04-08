@@ -329,8 +329,8 @@ abstract class AbstractScript extends AbstractEntity implements
     }
 
     /**
-     * @param  string $argName The argument name.
-     * @param  array  $options The argument definition.
+     * @param  string $argName    The argument name.
+     * @param  array  $argOptions The argument definition.
      * @throws InvalidArgumentException If the argument name is not a string.
      * @return ScriptInterface Chainable
      */

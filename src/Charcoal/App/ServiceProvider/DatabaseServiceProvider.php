@@ -116,7 +116,7 @@ class DatabaseServiceProvider implements ServiceProviderInterface
          * @return DatabaseConfig
          */
         $container['database/config'] = function (Container $container) {
-            $dbIdent   = $container['config']['default_database'] ?? 'default';
+            $dbIdent   = ($container['config']['default_database'] ?? 'default');
             $dbConfigs = $container['databases/config'];
 
             if (!isset($dbConfigs[$dbIdent])) {
@@ -136,7 +136,7 @@ class DatabaseServiceProvider implements ServiceProviderInterface
          * @return PDO
          */
         $container['database'] = function (Container $container) {
-            $dbIdent   = $container['config']['default_database'] ?? 'default';
+            $dbIdent   = ($container['config']['default_database'] ?? 'default');
             $databases = $container['databases'];
 
             if (!isset($databases[$dbIdent])) {

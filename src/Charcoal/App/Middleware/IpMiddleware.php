@@ -37,7 +37,7 @@ class IpMiddleware
     private $notAllowedRedirect;
 
     /**
-     * @var bool
+     * @var boolean
      */
     private $failOnInvalidIp ;
 
@@ -177,11 +177,11 @@ class IpMiddleware
         }
         return $this->isIpInRange($ip, $this->allowed);
     }
-    
+
     /**
      * @param string   $ip    The IP to check.
      * @param string[] $cidrs The array of IPs/CIDRs to validate against. "/32" netmask is assumed.
-     * @return bool
+     * @return boolean
      */
     private function isIpInRange(string $ip, array $cidrs) : bool
     {
@@ -201,7 +201,6 @@ class IpMiddleware
     }
 
     /**
-     * @param RequestInterface $request The PSR-7 HTTP request.
      * @return string
      */
     private function getClientIp() : string
