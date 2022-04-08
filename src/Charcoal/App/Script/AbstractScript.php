@@ -37,6 +37,24 @@ abstract class AbstractScript extends AbstractEntity implements
     use LoggerAwareTrait;
 
     /**
+     * Default behaviour of the controller.
+     */
+    const DEFAULT_ARG_QUIET       = false;
+    const DEFAULT_ARG_VERBOSE     = false;
+    const DEFAULT_ARG_INTERACTIVE = true;
+    const DEFAULT_ARG_DRYRUN      = false;
+
+    /**
+     * Command-line argument names available with every command.
+     */
+    const ARG_HELP           = 'help';
+    const ARG_QUIET          = 'quiet';
+    const ARG_VERBOSE        = 'verbose';
+    const ARG_INTERACTIVE    = 'interactive';
+    const ARG_NO_INTERACTION = 'no-interaction';
+    const ARG_DRY_RUN        = 'dry-run';
+
+    /**
      * @var string $ident
      */
     private $ident;
@@ -64,22 +82,22 @@ abstract class AbstractScript extends AbstractEntity implements
     /**
      * @var boolean $quiet
      */
-    private $quiet = false;
+    private $quiet;
 
     /**
      * @var boolean $verbose
      */
-    private $verbose = false;
+    private $verbose;
 
     /**
      * @var boolean $interactive
      */
-    private $interactive = false;
+    private $interactive;
 
     /**
      * @var boolean $dryRun
      */
-    private $dryRun = false;
+    private $dryRun;
 
     /**
      * Return a new CLI script.
@@ -90,6 +108,7 @@ abstract class AbstractScript extends AbstractEntity implements
     {
         $this->setLogger($data['logger']);
         $this->setClimate($data['climate']);
+
         if (isset($data['climate_reader'])) {
             $this->setClimateReader($data['climate_reader']);
         }
@@ -111,29 +130,49 @@ abstract class AbstractScript extends AbstractEntity implements
         $climate   = $this->climate();
         $arguments = $climate->arguments;
 
-        if ($arguments->defined('help')) {
+        if ($arguments->defined(self::ARG_HELP)) {
             $climate->usage();
             return $response;
         }
 
-        if ($arguments->defined('quiet') && $arguments->defined('verbose')) {
-            $climate->error('You must choose one of --quiet or --verbose');
+        if ($arguments->defined(self::ARG_QUIET) && $arguments->defined(self::ARG_VERBOSE)) {
+            $climate->error(sprintf(
+                'You must choose one of --%s or --%s',
+                self::ARG_QUIET,
+                self::ARG_VERBOSE
+            ));
             return $response;
         }
 
-        if ($arguments->defined('quiet')) {
+        if ($arguments->defined(self::ARG_QUIET)) {
             $this->setQuiet(true);
         }
 
-        if ($arguments->defined('verbose')) {
+        if ($arguments->defined(self::ARG_VERBOSE)) {
             $this->setVerbose(true);
         }
 
-        if ($arguments->defined('interactive')) {
+        if (
+            $arguments->defined(self::ARG_INTERACTIVE) &&
+            $arguments->defined(self::ARG_NO_INTERACTION)
+        ) {
+            $climate->error(sprintf(
+                'You must choose one of --%s or --%s',
+                self::ARG_INTERACTIVE,
+                self::ARG_NO_INTERACTION
+            ));
+            return $response;
+        }
+
+        if ($arguments->defined(self::ARG_INTERACTIVE)) {
             $this->setInteractive(true);
         }
 
-        if ($arguments->defined('dry_run')) {
+        if ($arguments->defined(self::ARG_NO_INTERACTION)) {
+            $this->setInteractive(false);
+        }
+
+        if ($arguments->defined(self::ARG_DRY_RUN)) {
             $this->setDryRun(true);
         }
 
@@ -143,39 +182,79 @@ abstract class AbstractScript extends AbstractEntity implements
     }
 
     /**
-     * Retrieve the script's supported arguments.
+     * Filter the default arguments.
      *
+     * Filters:
+     * 1. Removes --quiet if script is quiet by default.
+     * 2. Removes --verbose if script is verbose by default.
+     * 3. Removes either --interactive or --no-interaction depending on
+     *   if script is interactive by default.
+     *
+     * @param  array $arguments A map of argument definitions.
      * @return array
+     */
+    public function filterDefaultArguments(array $arguments)
+    {
+        // [^1]
+        if (static::DEFAULT_ARG_QUIET) {
+            unset($arguments[self::ARG_QUIET]);
+        }
+
+        // [^2]
+        if (static::DEFAULT_ARG_VERBOSE) {
+            unset($arguments[self::ARG_VERBOSE]);
+        }
+
+        // [^3]
+        if (static::DEFAULT_ARG_INTERACTIVE) {
+            unset($arguments[self::ARG_INTERACTIVE]);
+        } else {
+            unset($arguments[self::ARG_NO_INTERACTION]);
+        }
+
+        return $arguments;
+    }
+
+    /**
+     * Retrieve the script's default arguments.
+     *
+     * @return array<string, array>
      */
     public function defaultArguments()
     {
         return [
-            'help' => [
+            self::ARG_HELP => [
                 'prefix'       => 'h',
-                'longPrefix'   => 'help',
+                'longPrefix'   => self::ARG_HELP,
                 'noValue'      => true,
                 'description'  => 'Display help information.',
             ],
-            'quiet' => [
+            self::ARG_QUIET => [
                 'prefix'       => 'q',
-                'longPrefix'   => 'quiet',
+                'longPrefix'   => self::ARG_QUIET,
                 'noValue'      => true,
                 'description'  => 'Only print error and warning messages.',
             ],
-            'verbose' => [
+            self::ARG_VERBOSE => [
                 'prefix'        => 'v',
-                'longPrefix'    => 'verbose',
+                'longPrefix'    => self::ARG_VERBOSE,
                 'noValue'       => true,
                 'description'   => 'Increase verbosity of messages.',
             ],
-            'interactive' => [
+            self::ARG_INTERACTIVE => [
                 'prefix'       => 'i',
-                'longPrefix'   => 'interactive',
+                'longPrefix'   => self::ARG_INTERACTIVE,
                 'noValue'      => true,
                 'description'  => 'Ask any interactive question.',
             ],
-            'dry_run' => [
-                'longPrefix'   => 'dry-run',
+            self::ARG_NO_INTERACTION => [
+                'prefix'       => 'n',
+                'longPrefix'   => self::ARG_NO_INTERACTION,
+                'noValue'      => true,
+                'description'  => 'Do not ask any interactive question.',
+            ],
+            self::ARG_DRY_RUN => [
+                'longPrefix'   => self::ARG_DRY_RUN,
                 'noValue'      => true,
                 'description'  => 'This will simulate the script and show you what would happen.',
             ],
@@ -237,7 +316,11 @@ abstract class AbstractScript extends AbstractEntity implements
      */
     public function setQuiet($quiet)
     {
-        $this->quiet = !!$quiet;
+        if ($quiet !== null) {
+            $quiet = (bool)$quiet;
+        }
+
+        $this->quiet = $quiet;
         return $this;
     }
 
@@ -246,6 +329,10 @@ abstract class AbstractScript extends AbstractEntity implements
      */
     public function quiet()
     {
+        if ($this->quiet === null) {
+            return static::DEFAULT_ARG_QUIET;
+        }
+
         return $this->quiet;
     }
 
@@ -255,7 +342,11 @@ abstract class AbstractScript extends AbstractEntity implements
      */
     public function setVerbose($verbose)
     {
-        $this->verbose = !!$verbose;
+        if ($verbose !== null) {
+            $verbose = (bool)$verbose;
+        }
+
+        $this->verbose = $verbose;
         return $this;
     }
 
@@ -264,6 +355,10 @@ abstract class AbstractScript extends AbstractEntity implements
      */
     public function verbose()
     {
+        if ($this->verbose === null) {
+            return static::DEFAULT_ARG_VERBOSE;
+        }
+
         return $this->verbose;
     }
 
@@ -273,7 +368,11 @@ abstract class AbstractScript extends AbstractEntity implements
      */
     public function setInteractive($interactive)
     {
-        $this->interactive = !!$interactive;
+        if ($interactive !== null) {
+            $interactive = (bool)$interactive;
+        }
+
+        $this->interactive = $interactive;
         return $this;
     }
 
@@ -282,6 +381,10 @@ abstract class AbstractScript extends AbstractEntity implements
      */
     public function interactive()
     {
+        if ($this->interactive === null) {
+            return static::DEFAULT_ARG_INTERACTIVE;
+        }
+
         return $this->interactive;
     }
 
@@ -291,7 +394,11 @@ abstract class AbstractScript extends AbstractEntity implements
      */
     public function setDryRun($simulate)
     {
-        $this->dryRun = !!$simulate;
+        if ($simulate !== null) {
+            $simulate = (bool)$simulate;
+        }
+
+        $this->dryRun = $simulate;
         return $this;
     }
 
@@ -300,6 +407,10 @@ abstract class AbstractScript extends AbstractEntity implements
      */
     public function dryRun()
     {
+        if ($this->dryRun === null) {
+            return static::DEFAULT_ARG_DRYRUN;
+        }
+
         return $this->dryRun;
     }
 
@@ -389,7 +500,7 @@ abstract class AbstractScript extends AbstractEntity implements
      */
     protected function init()
     {
-        $arguments = $this->defaultArguments();
+        $arguments = $this->filterDefaultArguments($this->defaultArguments());
         $this->setArguments($arguments);
     }
 
@@ -416,21 +527,23 @@ abstract class AbstractScript extends AbstractEntity implements
     }
 
     /**
-     * Retrieve an argument either from argument list (if set) or from user input.
+     * Retrieves the value of an argument either
+     * from the argument list (if defined) or
+     * from user input (if interactive).
      *
      * @param  string $argName An argument identifier.
      * @return mixed Returns the argument or prompt value.
      */
     protected function argOrInput($argName)
     {
-        $climate = $this->climate();
+        $cli  = $this->climate();
+        $args = $cli->arguments;
 
-        $value = $climate->arguments->get($argName);
-        if ($value) {
-            return $value;
+        if (!$args->defined($argName) && $this->interactive()) {
+            return $this->input($argName);
         }
 
-        return $this->input($argName);
+        return $args->get($argName);
     }
 
     /**
