@@ -121,7 +121,7 @@ abstract class AbstractAction extends AbstractEntity implements
                 break;
 
             case self::MODE_EVENT_STREAM:
-                $output = new CallbackStream(function () use ($request) {
+                $output = new CallbackStream(function () {
                     return $this->results();
                 });
 

@@ -191,7 +191,7 @@ class IpMiddleware
             }
             // $range is in IP/CIDR format eg 127.0.0.1/24
             list($subnet, $netmask) = explode('/', $range, 2);
-            $netmask = ~(pow(2, (32 - $netmask)) - 1);
+            $netmask = ~(pow(2, (32 - (int)$netmask)) - 1);
             if ((ip2long($ip) & $netmask) == (ip2long($subnet) & $netmask)) {
                 return true;
             }

@@ -31,7 +31,6 @@ class ScriptServiceProvider implements ServiceProviderInterface
      */
     public function register(Container $container)
     {
-        /** @var string The default route controller for templates. */
         $container['route/controller/script/class'] = ScriptRoute::class;
 
         $this->registerScriptFactory($container);

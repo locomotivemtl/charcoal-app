@@ -164,8 +164,8 @@ class NotAllowed extends AbstractHandler
     /**
      * Prepare the template data for rendering.
      *
-     * @param  array|ArrayAccess $data Raw template data.
-     * @return array|ArrayAccess Expanded and processed template data.
+     * @param  array|\ArrayAccess $data Raw template data.
+     * @return array|\ArrayAccess Expanded and processed template data.
      */
     protected function parseTemplateData($data = [])
     {

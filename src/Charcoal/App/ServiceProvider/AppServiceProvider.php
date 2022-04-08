@@ -168,19 +168,10 @@ class AppServiceProvider implements ServiceProviderInterface
      */
     protected function registerHandlerServices(Container $container)
     {
-        /** @var string The default Throwable handler. */
         $container['phpErrorHandler/class'] = PhpError::class;
-
-        /** @var string The default Exception handler. */
         $container['errorHandler/class'] = Error::class;
-
-        /** @var string The default "Not Found" handler. */
         $container['notFoundHandler/class'] = NotFound::class;
-
-        /** @var string The default "Not Allowed" handler. */
         $container['notAllowedHandler/class'] = NotAllowed::class;
-
-        /** @var string The default "Service Unavailable" handler. */
         $container['maintenanceHandler/class'] = Maintenance::class;
 
         $handlersConfig = $container['config']['handlers'];
@@ -290,10 +281,7 @@ class AppServiceProvider implements ServiceProviderInterface
      */
     protected function registerRouteServices(Container $container)
     {
-        /** @var string The default route controller for actions. */
         $container['route/controller/action/class'] = ActionRoute::class;
-
-        /** @var string The default route controller for templates. */
         $container['route/controller/template/class'] = TemplateRoute::class;
 
         /**

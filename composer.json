@@ -47,6 +47,7 @@
         "mockery/mockery": "^1.0",
         "mustache/mustache": "^2.11",
         "php-coveralls/php-coveralls": "^2.0",
+        "phpstan/phpstan": "^1.5",
         "phpunit/phpunit": "^9.0",
         "squizlabs/php_codesniffer": "^3.0",
         "tedivm/stash": "~0.16"
@@ -69,11 +70,13 @@
         "tests": [
             "@phplint",
             "@phpcs",
+            "@phpstan",
             "@phpunit"
         ],
         "phplint": "find src tests -type f -name '*.php' -print0 | xargs -0 -n1 -P8 php -l | grep -v '^No syntax errors detected'; test $? -eq 1",
         "phpcs": "php vendor/bin/phpcs -ps --colors src/",
         "phpcbf": "php vendor/bin/phpcbf -ps --colors src/",
+        "phpstan": "php vendor/bin/phpstan analyze -l1 src/",
         "phpunit": "php vendor/bin/phpunit --coverage-text"
     }
 }

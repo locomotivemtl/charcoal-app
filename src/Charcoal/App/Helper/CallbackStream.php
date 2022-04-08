@@ -43,17 +43,17 @@ class CallbackStream implements StreamInterface
     /**
      * Execute the callback with output buffering.
      *
-     * @return void
+     * @return ?string
      */
     public function output()
     {
         if ($this->called) {
-            return;
+            return null;
         }
 
         $this->called = true;
 
-        call_user_func($this->callback);
+        return call_user_func($this->callback);
     }
 
     /**
