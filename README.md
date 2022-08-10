@@ -1,4 +1,4 @@
-Charcoal App
+Charcoal App 
 ============
 
 [![License][badge-license]][charcoal-app]
