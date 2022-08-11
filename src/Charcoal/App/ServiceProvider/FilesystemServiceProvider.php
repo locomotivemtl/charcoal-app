@@ -3,7 +3,6 @@
 namespace Charcoal\App\ServiceProvider;
 
 use Exception;
-use LogicException;
 use InvalidArgumentException;
 use UnexpectedValueException;
 
@@ -32,6 +31,7 @@ use League\Flysystem\Sftp\SftpAdapter;
 use League\Flysystem\Memory\MemoryAdapter;
 
 // From 'charcoal-app'
+use Charcoal\App\AppConfig;
 use Charcoal\App\Config\FilesystemConfig;
 
 /**
@@ -133,22 +133,21 @@ class FilesystemServiceProvider implements ServiceProviderInterface
     /**
      * @param  array $config The driver (adapter) configuration.
      * @throws InvalidArgumentException If the path is not defined.
-     * @throws LogicException If the path is not accessible.
      * @return LocalAdapter
      */
     private function createLocalAdapter(array $config)
     {
-        if (!isset($config['path']) || !$config['path']) {
+        if (empty($config['path'])) {
             throw new InvalidArgumentException(
                 'No "path" configured for local filesystem.'
             );
         }
 
-        $path = realpath($config['path']);
-        if ($path === false) {
-            throw new LogicException(
-                'Filesystem "path" does not exist.'
-            );
+        $path = $config['path'];
+        if (is_string($path)) {
+            if (isset($container['config']) && ($container['config'] instanceof AppConfig)) {
+                $path = $container['config']->resolveValue($path);
+            }
         }
 
         $defaults = [
@@ -158,7 +157,7 @@ class FilesystemServiceProvider implements ServiceProviderInterface
         ];
         $config = array_merge($defaults, $config);
 
-        return new LocalAdapter($config['path'], $config['lock'], $config['links'], $config['permissions']);
+        return new LocalAdapter($path, $config['lock'], $config['links'], $config['permissions']);
     }
 
     /**

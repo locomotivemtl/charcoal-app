@@ -29,13 +29,13 @@ class FilesystemConfig extends AbstractConfig
             'public' => [
                 'public'    => true,
                 'type'      => 'local',
-                'path'      => './',
+                'path'      => '%app.public_path%',
                 'label'     => 'Public',
             ],
             'private' => [
                 'public'    => false,
                 'type'      => 'local',
-                'path'      => '../',
+                'path'      => '%app.base_path%',
                 'label'     => 'Private',
             ],
         ];

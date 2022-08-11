@@ -2,6 +2,8 @@
 
 namespace Charcoal\App\ServiceProvider;
 
+use InvalidArgumentException;
+
 // From Pimple
 use Pimple\ServiceProviderInterface;
 use Pimple\Container;
@@ -22,6 +24,7 @@ use Charcoal\Factory\GenericFactory as Factory;
 use Charcoal\Factory\FactoryInterface;
 
 // From 'charcoal-app'
+use Charcoal\App\AppConfig;
 use Charcoal\App\Config\LoggerConfig;
 
 /**
@@ -61,6 +64,7 @@ class LoggerServiceProvider implements ServiceProviderInterface
 
         /**
          * @param  Container $container A service container.
+         * @throws InvalidArgumentException If the path is not defined or invalid.
          * @return StreamHandler|null
          */
         $container['logger/handler/stream'] = function (Container $container) {
@@ -71,8 +75,21 @@ class LoggerServiceProvider implements ServiceProviderInterface
                 return null;
             }
 
+            if (empty($handlerConfig['stream'])) {
+                throw new InvalidArgumentException(
+                    'No "stream" configured for logger stream handler.'
+                );
+            }
+
+            $stream = $handlerConfig['stream'];
+            if (is_string($stream)) {
+                if (isset($container['config']) && ($container['config'] instanceof AppConfig)) {
+                    $stream = $container['config']->resolveValue($stream);
+                }
+            }
+
             $level = $handlerConfig['level'] ?: $loggerConfig['level'];
-            return new StreamHandler($handlerConfig['stream'], $level);
+            return new StreamHandler($stream, $level);
         };
 
         /**
